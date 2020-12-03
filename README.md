@@ -1,4 +1,4 @@
-This repository is going to be populated in several weeks time. Please stay tuned.
+This repository is going to be populated very soon. Please stay tuned.
 
 ## Mandatory Disclaimer
 
