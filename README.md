@@ -3,7 +3,7 @@
 
 # Nisaba
 
-Named after Nisaba — the Sumerian scribe of gods (𒀭𒉀).
+Named after Nisaba — the Sumerian goddess of writing and scribe of the gods (𒀭𒉀).
 
 ![nisaba](etc/nisaba.png "Source: The Pergamon Museum, Berlin, Germany")
 
