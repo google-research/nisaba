@@ -13,7 +13,7 @@ Collection of finite-state transducer-based (FST) tools for visual
 normalization, well-formedness, transliteration and NFC normalization of various
 scripts from South Asia and beyond. Currently supported script families:
 
-*  Brahmic scripts ([documentation](brahmic/README.md)).
+*  Brahmic scripts ([documentation](nisaba/brahmic/README.md)).
 
 ## Building and testing
 
