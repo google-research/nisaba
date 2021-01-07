@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BAZEL: bazelisk-linux-amd64
-      LANG: en_US.utf8
-      LC_ALL: en_US.utf8
-      LC_CTYPE: en_US.utf8
-      PYTHONIOENCODING: utf-8
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      LC_CTYPE: C.UTF-8
+      PYTHONIOENCODING: UTF-8
 
     steps:
     - uses: actions/checkout@v2
