@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BAZEL: bazelisk-linux-amd64
+      LANG: en_US.utf8
+      LC_ALL: en_US.utf8
+      LC_CTYPE: en_US.utf8
+      PYTHONIOENCODING: utf-8
 
     steps:
     - uses: actions/checkout@v2
@@ -42,14 +46,10 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y python3-pip
-        sudo pip3 install "networkx>=2.5" "pandas>=1.0.5"
+        sudo pip3 install -r ./requirements.txt
 
     - name: Build
-      run: |
-        export PYTHONIOENCODING=utf-8
-        ./$BAZEL build -c opt //...
+      run: ./$BAZEL build -c opt //...
 
     - name: Test
-      run: |
-        export PYTHONIOENCODING=utf-8
-        ./$BAZEL test -c opt --test_output=errors //...
+      run: ./$BAZEL test -c opt --test_output=errors //...
