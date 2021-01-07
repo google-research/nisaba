@@ -1,0 +1,232 @@
+# Tests with legacy Chillu encoding, using Zero Width Joiner(ZWJ)
+MLYM	ആന്‍ഡ്	ആൻഡ്
+MLYM	ഹൈഫന്‍	ഹൈഫൻ
+
+# Tests with Zero Width Non-Joiner(ZWNJ)
+MLYM	കെജ്‌രിവാൾ	കെജ്‌രിവാൾ
+MLYM	സദ്‌വാരം	സദ്‌വാരം
+MLYM	‌സ്പു‌ട്നിക്‌	സ്പുട്നിക്
+MLYM	അറബ്‌ബസാർ	അറബ്‌ബസാർ
+
+# Tests with Zero Width Space(ZWS) and ZWNJ
+MLYM	​ആൻഡ്‌	ആൻഡ്
+
+SINH	ශ්‍රී​ලං‌කා‍	ශ්‍රීලංකා
+
+TAML	தமி​ழர்‌கள்‍	தமிழர்கள்
+
+DEVA	श्रीमान्‌को	श्रीमान्‌को
+DEVA	गोल्‍डबर्ग	गोल्डबर्ग
+
+# <VIRAMA, NUKTA> → <NUKTA, VIRAMA>
+DEVA	क़्लब	क़्लब
+
+# <LETTER E, VOWEL SIGN E> → <LETTER AI>
+DEVA	एेरावत	ऐरावत
+
+# <LETTER AA, VOWEL SIGN E> → <LETTER O>
+DEVA	संस्थाआें	संस्थाओं
+# <LETTER A, VOWEL SIGN AA, VOWEL SIGN E> → <LETTER O>
+DEVA	संस्थाअाें	संस्थाओं
+
+# <VOWEL SIGN AA, VOWEL SIGN E> → <VOWEL SIGN O>
+DEVA	बाेलने	बोलने
+
+# Eyelash reph
+DEVA	दर्‍या	दऱ्या
+
+## Examples from mr_in translit data ##
+
+# <VOWEL A, ZWJ?, VOWEL SIGN CANDRA E> → <VOWEL CANDRA A>
+DEVA	व्हॉट्सअॅपवर	व्हॉट्सॲपवर
+DEVA	व्हॉट्सअ‍ॅपवर	व्हॉट्सॲपवर
+
+# <LETTER A, VOWEL SIGN CANDRA E, SIGN ANUSVARA> → <LETTER A, SIGN CANDRABINDU>
+DEVA	अॅंडी	अँडी
+
+## <VOWEL SIGN CANDRA O, SIGN ANUSVARA> → <VOWEL SIGN AA, SIGN CANDRABINDU>
+DEVA	बॉंब	बाँब
+
+## <VOWEL SIGN CANDRA O, SIGN CANDRABINDU> → <VOWEL SIGN AA, SIGN CANDRABINDU>
+DEVA	कॉँग्रेसचे	काँग्रेसचे
+
+## Examples from hi_in translit data ##
+
+# <VOWEL A, VOWEL SIGN AA> → <VOWEL AA>
+# <VOWEL SIGN AA, VOWEL SIGN E> → <VOWEL SIGN O>
+DEVA	अायाेजन	आयोजन
+
+# <LETTER A, VOWEL SIGN CANDRA O> → <LETTER CANDRA O>
+DEVA	अॉनलाइन	ऑनलाइन
+
+# <LETTER A, VOWEL SIGN O> → <LETTER O>
+DEVA	शाअोमी	शाओमी
+
+# <LETTER A, VOWEL SIGN AU> → <LETTER AU>
+DEVA	अौर	और
+
+# <VOWEL SIGN AA, VOWEL SIGN CANDRA E> → <VOWEL SIGN CANDRA O>
+DEVA	पाॅजिटिव	पॉजिटिव
+
+# <VOWEL SIGN AA, VOWEL SIGN AI> → <VOWEL SIGN AU>
+DEVA	दाैरान	दौरान
+
+# <LETTER E, VOWEL SIGN CANDRA E> → <VOWEL SIGN CANDRA E>
+DEVA	एॅप	ऍप
+
+# <LETTER E, VOWEL SIGN E> → <LETTER AI>
+DEVA	एेश्वर्या	ऐश्वर्या
+
+# <LETTER AA, VOWEL SIGN CANDRA E> → <LETTER CANDRA O>
+DEVA	आॅटोमोबाइल	ऑटोमोबाइल
+
+# <LETTER AA, VOWEL SIGN E> → <LETTER O>
+# <LETTER R, VIRAMA, LETTER I> → <LETTER II>
+DEVA	आर्इआेएस	आईओएस
+
+# <LETTER AA, VOWEL SIGN AI> → <LETTER AU>
+DEVA	आैसत	औसत
+
+# <VOWEL SIGN CANDRA E, SIGN ANUSVARA> → <SIGN CANDRABINDU>
+DEVA	बॅंकेच्या	बँकेच्या
+
+# <VOWEL SIGN CANDRA O, SIGN ANUSVARA> → <VOWEL SIGN AA, SIGN CANDRABINDU>
+# TODO: Uncomment this when/if visual_norm_utf8 supports hyphens.
+# DEVA	सीमेंट-कॉंक्रीट	सीमेंट-काँक्रीट
+
+# <LETTER CANDRA O, SIGN ANUSVARA> → <LETTER AA, SIGN CANDRABINDU>
+DEVA	ऑंखें	आँखें
+DEVA	ऑंकोलॉजिस्ट	आँकोलॉजिस्ट
+
+# <VOWEL SIGN A, VOWEL SIGN CANDRA E, SIGN ANUSVARA> → <VOWEL SIGN AA, SIGN CANDRABINDU>
+DEVA	काॅंप्लेक्स	काँप्लेक्स
+
+# Ref: Unicode Standard Version 12.0: Chapter 12.1: Table 12-3
+DEVA	क्च्ा	क्च
+DEVA	क्च्‍ा	क्च
+DEVA	क्ष्ा	क्ष
+DEVA	क्ष्‍ा	क्ष
+DEVA	त्त्ा	त्त
+DEVA	त्त्‍ा	त्त
+DEVA	न्त्ा	न्त
+DEVA	न्त्‍ा	न्त
+
+BENG	অ্যাড	অ্যাড
+BENG	এ্যালজিও	এ্যালজিও
+
+# YA-phalaa/sign
+BENG	র‍্যাল	র‍্যাল
+KNDA	ರ‍್ಯಂಡ್	ರ‍್ಯಂಡ್
+
+# TODO: Drop ZWJ for YA-phalaa after KA.
+# BENG	ক‍্যাশ	ক্যাশ
+# KNDA	ಕ‍್ಯಾಂಡ್	ಕ್ಯಾಂಡ್
+
+# Reordering of Vowel signs equivalences in NFC
+BENG	কৰােতা	কৰোতা
+
+# De-duplicate overlapping signs
+DEVA	ुु	ु
+DEVA	ूू	ू
+DEVA	ृृ	ृ
+DEVA	ेे	े
+DEVA	ैै	ै
+DEVA	ंं	ं
+DEVA	ॉंं	ाँ
+DEVA	अ‍‍‍‍ॅ	ॲ
+# SIGN UU, SIGN UU --> SIGN UU
+DEVA	खूूब	खूब
+DEVA	खूूबसूरत	खूबसूरत
+DEVA	जम्मूू	जम्मू
+
+GUJR	઼઼	઼
+GUJR	ુુ	ુ
+GUJR	ૂૂ	ૂ
+GUJR	ૃૃ	ૃ
+GUJR	ૄૄ	ૄ
+GUJR	ૅૅ	ૅ
+GUJR	ેે	ે
+GUJR	ૈૈ	ૈ
+GUJR	્્	્
+
+# BENG
+BENG	ঁঁ	ঁ
+BENG	়়	়
+BENG	ুু	ু
+BENG	ূূ	ূ
+BENG	ৃৃ	ৃ
+BENG	্্	্
+
+KNDA	ೆೆ	ೆ
+
+TELU	బుు	ఋ
+
+# Soft de-duplication:
+
+# SIGN E, SIGN AI --> SIGN AI
+DEVA	जेैकी	जैकी
+# AI, SIGN E → AI
+DEVA	ऐेड	ऐड
+# AU, SIGN E → AU
+DEVA	औेर	और
+# AU, SIGN AI → AU
+DEVA	औैर	और
+# O, SIGN E → O
+# SIGN O, SIGN E → SIGN O
+# SIGN AU, SIGN AI → SIGN AU
+DEVA	चौैहान	चौहान
+# TODO: Support the following for NFC composed forms like QA.
+# NUKTA, NUKTA  → NUKTA
+DEVA	जुड़़े	जुड़े
+# AU, SIGN AI → AU
+# SIGN AU, SIGN AI → SIGN AU
+DEVA	औै	औ
+DEVA	ौै	ौ
+# O, SIGN E → O
+# SIGN O, SIGN E → SIGN O
+DEVA	ओे	ओ
+DEVA	ोे	ो
+# CANDRA O, SIGN CANDRA E → CANDRA O
+# SIGN CANDRA O, SIGN CANDRA E → SIGN CANDRA O
+DEVA	ऑॅ	ऑ
+DEVA	ॉॅ	ॉ
+# AI, SIGN E → AI
+DEVA	ऐे	ऐ
+# Exceptional overlapped nuktas:
+DEVA	आऩ़्दा	आऩ्दा
+DEVA	आऱ़्दा	आऱ्दा
+DEVA	आऴ़्दा	आऴ्दा
+DEVA	आऩ़्दा	आऩ्दा
+DEVA	आऱ़्दा	आऱ्दा
+DEVA	आऴ़्दा	आऴ्दा
+
+# Malformed Ra with vocalic liquids.
+DEVA	निर्ऋति	निरृति
+DEVA	नैर्ॠताः	नैरॄताः
+DEVA	र्ऌ	रॢ
+DEVA	र्ॡ	रॣ
+
+# Chillus/KHANDA TA with a preceding VIRAMA
+MLYM	കെയ്ൻ	കെയ്ൻ
+BENG	রাইনফেল্ৎ	রাইনফেল্ৎ
+
+# No ZWNJ with KHANDA TA with a preceding VIRAMA
+# TODO: Investigate if the usage of ZWJs valid in here.
+# That is, if <Consonant, VIRAMA, ZW(N)J, KHANDA TA> has a valid usage,
+# please change visual_norm to keep ZW(N)J for that specific usage.
+# Corresponding change is needed in wellformed acceptor as well.
+BENG	রাইনফেল্‌ৎ	রাইনফেল্ৎ
+
+# Assamese RA in conjuncts becomes Bengali RA; rest of the RA's are unaffected
+BN	রৰৰ্ক্ৰর্ক্র	রৰর্ক্রর্ক্র
+# <ASSAMESE RA, VIRAMA, ZWNJ> is preserved as RA is explicitly displayed.
+BN	ৰ্‌ক্‌ৰ	ৰ্‌ক্‌ৰ
+# No rewrite if <ASSAMESE RA, VIRAMA> is not followed by a consonant.
+BN	ৰৰ্	ৰৰ্
+
+# Bengali RA in conjuncts becomes Assamese RA; rest of the RA's are unaffected
+AS	রৰর্ক্রৰ্ক্ৰ	রৰৰ্ক্ৰৰ্ক্ৰ
+# <BENGALI RA, VIRAMA, ZWNJ> is preserved as RA is explicitly displayed.
+AS	র্‌ক্‌র	র্‌ক্‌র
+# No rewrite if <BENGALI RA, VIRAMA> is not followed by a consonant.
+AS	রর্	রর্

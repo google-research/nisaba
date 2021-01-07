@@ -1,0 +1,91 @@
+FROM_BENG	ব্রাহ্মীকে	brāhmīkē
+TO_BENG	brāhmīkē	ব্রাহ্মীকে
+
+FROM_DEVA	ब्राह्मिक	brāhmika
+TO_DEVA	brāhmika	ब्राह्मिक
+
+FROM_GUJR	બ્રાહ્મીક	brāhmīka
+TO_GUJR	brāhmīka	બ્રાહ્મીક
+
+FROM_GURU	ਬ੍ਰਾਹਮਿਕ	brāhamika
+TO_GURU	brāhamika	ਬ੍ਰਾਹਮਿਕ
+
+FROM_KNDA	ಬ್ರಾಹ್ಮಿಕ್	brāhmik
+TO_KNDA	brāhmik	ಬ್ರಾಹ್ಮಿಕ್
+
+FROM_MLYM	ബ്രാഹ്മിക്	brāhmik
+TO_MLYM	brāhmik	ബ്രാഹ്മിക്
+
+FROM_ORYA	ବ୍ରାହ୍ମୀସି	brāhmīsi
+TO_ORYA	brāhmīsi	ବ୍ରାହ୍ମୀସି
+
+FROM_SINH	බ්රාහ්මික්	brāhmik
+FROM_SINH	සිංහල	siṁhala
+TO_SINH	brāhmik	බ්රාහ්මික්
+
+FROM_TAML	பிராமிக்	pirāmik
+TO_TAML	pirāmik	பிராமிக்
+
+FROM_TELU	బ్రహ్మికి	brahmiki
+TO_TELU	brahmiki	బ్రహ్మికి
+
+FROM_BRAHMIC	ব্রাহ্মীকে	brāhmīkē
+FROM_BRAHMIC	ब्राह्मिक	brāhmika
+FROM_BRAHMIC	अधे़ड	adhēˑḍa
+FROM_BRAHMIC	ॲलन	ælana
+
+FROM_BRAHMIC	ാം	-āṁ
+FROM_BRAHMIC	മൂൺ	mūṇⸯ
+FROM_BRAHMIC	ൻ്റെ	nⸯ̆ṟe
+FROM_BRAHMIC	ത്തു്	ttŭ
+FROM_BRAHMIC	ഡൈ്വ	ḍaĭva
+FROM_BRAHMIC	അ്	ă
+FROM_BRAHMIC	ക	ka
+FROM_BRAHMIC	മ്അ	m.a
+FROM_BRAHMIC	ക്‌ക	k|ka
+FROM_BRAHMIC	കൌ	kau̯
+FROM_BRAHMIC	രംഗ	raṁga
+
+# Bengali foreign word transliteration
+FROM_BRAHMIC	র‍্যাল	rỹāla
+FROM_BRAHMIC	বৈচিত্র‍্যে	baicitrỹē
+FROM_BRAHMIC	অ্যাড	æḍa
+FROM_BRAHMIC	এ্যালজিও	êlaji.ō
+
+# Kannada foreign vowel transliteration
+FROM_BRAHMIC	ಆ್ಯಪ್	æp
+TO_KNDA	æp	ಆ್ಯಪ್
+
+# Reversible notation for adjoining vowels:
+FROM_BRAHMIC	आईईईई	ā.ī.ī.ī.ī
+FROM_BRAHMIC	आईडीबीआई	ā.īḍībī.ā.ī
+FROM_BRAHMIC	കഇഇഇ	ka.i.i.i
+FROM_BRAHMIC	ക്ഇഇഇ	k.i.i.i
+
+# Rewrite of aspirated consonants:
+FROM_BRAHMIC	घऔ	gha.au
+FROM_BRAHMIC	गहाउ	gahā.u
+TO_DEVA	gha.au	घऔ
+TO_DEVA	gahā.u	गहाउ
+
+TO_MLYM	-āṁ	ാം
+TO_MLYM	mūṇⸯ	മൂൺ
+TO_MLYM	nⸯ̆ṟe	ൻ്റെ
+TO_MLYM	ttŭ	ത്തു്
+TO_MLYM	ḍaĭva	ഡൈ്വ
+TO_MLYM	ă	അ്
+TO_MLYM	m.a	മ്അ
+TO_MLYM	ka	ക
+TO_MLYM	k|ka	ക്‌ക
+TO_MLYM	kau̯	കൌ
+
+# Rewrite only Brahmic characters if they are mixed with Latin.
+FROM_BRAHMIC	AघऔB	Agha.auB
+
+# Test Devanagari Eyelash Ra modern encoding and legacy encoding
+FROM_BRAHMIC	दऱ्या	dar̆yā
+FROM_BRAHMIC	दर्‍या	dar+yā
+
+# Chillus/Khanta TA with a preceding Virama
+FROM_MLYM	കെയ്ൻ	keynⸯ
+FROM_BENG	বেন্ডনর্ৎস	bēnḍanartⸯsa

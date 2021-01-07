@@ -1,0 +1,16 @@
+################################
+# Rewrites from Unicode standard
+# Unicode version 12.0: Chapter 12.7
+
+# Table 12-30: Telugu Vowel Letters
+
+ఒౕ	ఓ
+ఒౌ	ఔ
+ిౕ	ీ
+ెౕ	ే
+ొౕ	ో
+
+###########################################################
+# Additional rewrites for the usages found in web documents
+
+బుు	ఋ

@@ -1,0 +1,38 @@
+################################
+# Rewrites from Unicode standard
+# Unicode version 12.0: Chapter 12.9
+
+# Table 12-34: Malayalam Vowel Letters
+
+ഇൗ	ഈ
+ഉൗ	ഊ
+എെ	ഐ
+ഒാ	ഓ
+ഒൗ	ഔ
+
+# Table 12-42: Legacy Encoding of Malayalam Chillus
+
+ണ്‍	ൺ
+ന്‍	ൻ
+ര്‍	ർ
+ല്‍	ൽ
+ള്‍	ൾ
+
+###########################################################
+# Additional rewrites for the usages found in web documents
+
+# Additional Legacy Encoding of Chillu
+
+ക്‍	ൿ
+
+# Legacy encoding of 'nta' conjunct
+
+ന്റ	ൻ്റ
+ന്‍റ	ൻ്റ
+
+# Reordered vowel sign equivalences from NFC specs
+
+െെ	ൈ
+ാെ	ൊ
+ാേ	ോ
+ൗെ	ൌ

@@ -1,0 +1,23 @@
+################################
+# Rewrites from Unicode standard
+# Unicode version 12.0: Chapter 13.2
+
+# Table 13-2: Sinhala Vowel Letters
+
+අා	ආ
+අැ	ඇ
+අෑ	ඈ
+උෟ	ඌ
+ඍෘ	ඎ
+ඏෟ	ඐ
+එ්	ඒ
+එෙ	ඓ
+ඔෟ	ඖ
+
+###########################################################
+# Additional rewrites for the usages found in web documents
+
+# Reordered vowel sign equivalences from NFC specs
+
+ෙෙ	ෛ
+ෘෘ	ෲ

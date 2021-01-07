@@ -1,0 +1,129 @@
+## Reject tests
+
+DEVA	काु
+MLYM	്ന
+TAML	உௗதியக்குழு
+DEVA	ँ
+# TODO: Allow initial position of Khanda Ta & Chillus
+BENG	ৎ
+MLYM	ൻ
+
+# Reject: Consonant + (Virama + Vowel Sign | Vowel Sign + Virama)
+DEVA	क्ा
+DEVA	का्
+
+# Reject: Consonant + Virama, (|ZWS|ZWNJ|ZWJ) + Coda
+DEVA	क्ँ
+DEVA	क्​ँ
+DEVA	क्‌ँ
+DEVA	क्‍ँ
+
+# Reject: Consonant + <VIRAMA, (ZWS|ZWNJ|ZWJ)>
+DEVA	न्​
+DEVA	न्‌
+DEVA	न्‍
+
+## Accept tests
+
+# TODO: This currently passes but a standalone chillu does
+# not (See above). Choose one or the other.
+MLYM	ൻേ	ൻേ
+
+MLYM	ആൻഡ്	ആൻഡ്
+MLYM	ഹൈഫൻ	ഹൈഫൻ
+
+TAML	தமிழர்கள்	தமிழர்கள்
+TAML	ஊதியக்குழு	ஊதியக்குழு
+TAML	ஃபேக்டரி	ஃபேக்டரி
+TAML	ஃ	ஃ
+
+DEVA	क़्लब	क़्लब
+DEVA	ऐरावत	ऐरावत
+DEVA	संस्थाओं	संस्थाओं
+DEVA	संस्थाओं	संस्थाओं
+DEVA	बोलने	बोलने
+DEVA	व्हॉट्सॲपवर	व्हॉट्सॲपवर
+DEVA	अँडी	अँडी
+DEVA	बाँब	बाँब
+DEVA	काँग्रेसचे	काँग्रेसचे
+DEVA	आयोजन	आयोजन
+DEVA	ऑनलाइन	ऑनलाइन
+DEVA	शाओमी	शाओमी
+DEVA	और	और
+DEVA	पॉजिटिव	पॉजिटिव
+DEVA	दौरान	दौरान
+DEVA	ऍप	ऍप
+DEVA	ऐश्वर्या	ऐश्वर्या
+DEVA	ऑटोमोबाइल	ऑटोमोबाइल
+DEVA	आईओएस	आईओएस
+DEVA	औसत	औसत
+DEVA	बँकेच्या	बँकेच्या
+DEVA	आँखें	आँखें
+DEVA	आँकोलॉजिस्ट	आँकोलॉजिस्ट
+DEVA	काँप्लेक्स	काँप्लेक्स
+DEVA	क्च	क्च
+DEVA	क्ष	क्ष
+DEVA	त्त	त्त
+DEVA	न्त	न्त
+DEVA	आग़ा आग़ा
+DEVA	ख़ाँ  ख़ाँ
+# Accept Avagraha
+DEVA	ऽ	ऽ
+
+# Words with Zero-Width-Non-Joiner.
+MLYM	കെജ്‌രിവാൾ	കെജ്‌രിവാൾ
+MLYM	സദ്‌വാരം	സദ്‌വാരം
+MLYM	സ്പുട്നിക്	സ്പുട്നിക്
+MLYM	അറബ്‌ബസാർ	അറബ്‌ബസാർ
+
+SINH	ශ්‍රීලංකා	ශ්‍රීලංකා
+
+DEVA	श्रीमान्‌को	श्रीमान्‌को
+
+# Eyelash reph
+DEVA	दऱ्या	दऱ्या
+
+BENG	অ্যাড	অ্যাড
+BENG	এ্যালজিও	এ্যালজিও
+# Khanda Ta examples
+BENG	ভবিষ্যৎ	ভবিষ্যৎ
+BENG	তৎসম	তৎসম
+
+# Independent æ vowel built with YA-phalaa
+KNDA	ಆ್ಯಪ್	ಆ್ಯಪ್
+BENG	অ্যাপ্লিকেশন	অ্যাপ্লিকেশন
+BENG	এ্যাপ্লিকেশন	এ্যাপ্লিকেশন
+
+# YA-phalaa/sign
+BENG	র‍্যাল	র‍্যাল
+KNDA	ರ‍್ಯಂಡ್	ರ‍್ಯಂಡ್
+
+# TODO: ZWJ for YA-phalaa after KA should not be wellformed.
+# BENG	ক‍্যাশ
+# KNDA	ಕ‍್ಯಾಂಡ್
+
+# Accepts Chillus/KHANDA TA with a preceding VIRAMA
+MLYM	കെയ്ൻ	കെയ്ൻ
+MLYM	ബാദ്ർ	ബാദ്ർ
+MLYM	ഇറിറ്റബ്ൾ	ഇറിറ്റബ്ൾ
+BENG	বেন্ডনর্ৎস	বেন্ডনর্ৎস
+BENG	ল্ৎ	ল্ৎ
+
+# Rejects adjacent Chillus
+MLYM	കെയ്ൻൻ
+
+# Rejects VIRAMA+ZWNJ+KHANDA TA
+# TODO: Investigate if the usage of ZWJs valid in here.
+# That is, if <Consonant, VIRAMA, ZW(N)J, KHANDA TA> has a valid usage,
+# please change wellformed acceptor to allow that specific usage.
+# Corresponding change is needed in visual_norm as well.
+BENG	রাইনফেল্‌ৎ
+
+# Rejects KHANDA TA, VIRAMA
+BENG	ৎ্ল
+
+# Example: 7-ാം (meaning 'seventh')
+MLYM	ാം	ാം
+
+# Example: 2020-ൽ (meaning 'in 2020')
+MLYM	ൽ	ൽ

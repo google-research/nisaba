@@ -1,0 +1,22 @@
+################################
+# Rewrites from Unicode standard
+# Unicode version 12.0: Chapter 12.2
+
+# Table 12-11: Bangla Vowel Letters
+
+অা	আ
+ঋৃ	ৠ
+ঌৢ	ৡ
+
+
+# Chapter 12.2: Section Khanda Ta.
+# Prefer atomic Khanda Ta
+
+ত্‍	ৎ
+
+###########################################################
+# Additional rewrites for the usages found in web documents
+
+# Reordered vowel sign equivalences from NFC specs
+াে	ো
+ৗে	ৌ

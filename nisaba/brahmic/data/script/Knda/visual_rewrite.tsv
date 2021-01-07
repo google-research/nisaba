@@ -1,0 +1,43 @@
+################################
+# Rewrites from Unicode standard
+# Unicode version 12.0: Chapter 12.8
+
+# Table 12-32: Kannada Vowel Letters
+
+ಉಾ	ಊ
+ಒೌ	ಔ
+ಋಾ	ೠ
+
+###########################################################
+# Additional rewrites for the usages found in web documents
+
+# SIGN U on VA is taken as the right arc of MA
+
+ವಿು	ಮಿ
+ವೆು	ಮೆ
+ವೆುೕ	ಮೇ
+ವೆುೖ	ಮೈ
+
+# Reordering of Nukta: <VOWEL SIGN, NUKTA> → <NUKTA, VOWEL SIGN>
+
+ಾ಼	಼ಾ
+ಿ಼	಼ಿ
+ೀ಼	಼ೀ
+ು಼	಼ು
+ೂ಼	಼ೂ
+ೃ಼	಼ೃ
+ೄ಼	಼ೀ
+ೆ಼	಼ೀ
+ೇ಼	಼ೀ
+ೈ಼	಼ೀ
+ೊ಼	಼ೀ
+ೋ಼	಼ೀ
+ೌ಼	಼ೀ
+
+# Reordered vowel sign equivalences from NFC specs
+
+ೕಿ	ೀ
+ೕೆ	ೇ
+ೖೆ	ೈ
+ೕೊ	ೋ
+ೇೂ	ೋ

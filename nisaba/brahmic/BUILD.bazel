@@ -1,0 +1,508 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Build packages for the Brahmic script APIs.
+
+load("@nisaba_deps//:requirements.bzl", "requirement")
+
+load("@org_opengrm_thrax//:src/bazel/regression_test_build_defs.bzl", "grm_regression_test")
+load(
+    "@org_opengrm_pynini//pynini/export:grm_py_build_defs.bzl",
+    "compile_grm_py",
+    "compile_multi_grm_py",
+)
+
+package(default_visibility = ["//nisaba/brahmic:__subpackages__"])
+
+licenses(["notice"])
+
+# Script and language codes are used as per IANA registry:
+# https://www.iana.org/assignments/language-subtag-registry
+# Script codes are lower-cased for uniformity.
+SCRIPTS = [
+    "Beng",
+    "Deva",
+    "Gujr",
+    "Guru",
+    "Knda",
+    "Mlym",
+    "Orya",
+    "Sinh",
+    "Taml",
+    "Telu",
+]
+
+LANG_DIRS = [
+    "as",
+    "bn",
+]
+
+FIXED_RULE_SCRIPTS = ["Mlym"]
+
+exports_files(
+    glob(["**/*.tsv"]),
+    visibility = ["//visibility:public"],
+)
+
+# FST type for compile_grm_py and compile_multi_grm_py; depend on :fst_types
+# to read this.
+_FST_TYPE = "const"
+
+compile_grm_py(
+    name = "iso",
+    data = [
+        "//nisaba/brahmic/data:script/{}/{}.tsv".format(script, file_name)
+        for script in SCRIPTS
+        for file_name in [
+            "coda",
+            "consonant",
+            "standalone",
+            "virama",
+            "vowel",
+            "vowel_sign",
+        ]
+    ] + ["//nisaba/brahmic/data:common/symbol.tsv"],
+    fst_type = _FST_TYPE,
+    visibility = ["//visibility:public"],
+    deps = [
+        ":util",
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:pynutil",
+    ],
+)
+
+grm_regression_test(
+    name = "iso_test",
+    grammar = ":iso",
+    testdata_packaged = True,
+)
+
+compile_multi_grm_py(
+    name = "fixed",
+    outs = {
+        "byte": "fixed.far",
+        "utf8": "fixed_utf8.far",
+    },
+    data = [":sigma_utf8.far"] + [
+        "//nisaba/brahmic/data:script/{}/fixed.tsv".format(script)
+        for script in FIXED_RULE_SCRIPTS
+    ],
+    fst_type = _FST_TYPE,
+    visibility = ["//visibility:public"],
+    deps = [
+        ":char_util",
+        ":rule",
+        ":util",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+grm_regression_test(
+    name = "fixed_test",
+    grammar = ":fixed",
+    testdata_packaged = True,
+    token_type = "byte",
+)
+
+compile_multi_grm_py(
+    name = "nfc",
+    outs = {
+        "byte": "nfc.far",
+        "utf8": "nfc_utf8.far",
+    },
+    data = [
+        ":sigma_utf8.far",
+    ] + ["//nisaba/brahmic/data:script/{}/nfc.tsv".format(script) for script in SCRIPTS],
+    fst_type = _FST_TYPE,
+    visibility = ["//visibility:public"],
+    deps = [
+        ":rule",
+        ":util",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+grm_regression_test(
+    name = "nfc_test",
+    grammar = ":nfc",
+    testdata_packaged = True,
+    token_type = "byte",
+)
+
+grm_regression_test(
+    name = "nfc_utf8_test",
+    far_file_target = ":nfc_utf8.far",
+    grammar = ":nfc",
+    test_file = "testdata:nfc.tsv",
+    testdata_packaged = True,
+    token_type = "utf8",
+)
+
+py_library(
+    name = "util",
+    srcs = ["util.py"],
+    srcs_version = "PY3",
+    deps = [
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:byte",
+        "@rules_python//python/runfiles",
+        requirement("pandas"),
+    ],
+)
+
+py_test(
+    name = "util_test",
+    size = "small",
+    srcs = ["util_test.py"],
+    data = ["//nisaba/brahmic/data:script/Beng/dead_consonant.tsv"],
+    python_version = "PY3",
+    srcs_version = "PY3",
+    deps = [
+        ":util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "rule",
+    srcs = ["rule.py"],
+    srcs_version = "PY3",
+    deps = [
+        ":util",
+        "@org_opengrm_pynini//pynini",
+        requirement("networkx"),
+    ],
+)
+
+py_library(
+    name = "char_util",
+    srcs = ["char_util.py"],
+    data = [
+        "//nisaba/brahmic/data:script/{}/{}.tsv".format(script, file_name)
+        for script in SCRIPTS
+        for file_name in [
+            "accept",
+            "coda",
+            "consonant",
+            "nfc",
+            "standalone",
+            "virama",
+            "visual_rewrite",
+            "vowel",
+            "vowel_sign",
+        ]
+    ],
+    srcs_version = "PY3",
+    deps = [
+        ":util",
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:pynutil",
+    ],
+)
+
+compile_grm_py(
+    name = "sigma",
+    out = "sigma_utf8.far",
+    fst_type = _FST_TYPE,
+    deps = [
+        ":char_util",
+        ":util",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "fst_properties_test",
+    srcs = ["fst_properties_test.py"],
+    data = [
+        ":fixed.far",
+        ":fixed_utf8.far",
+        ":nfc.far",
+        ":nfc_utf8.far",
+        ":sigma_utf8.far",
+        ":visual_norm.far",
+        ":visual_norm_utf8.far",
+        ":wellformed.far",
+        ":wellformed_utf8.far",
+    ],
+    python_version = "PY3",
+    srcs_version = "PY3",
+    deps = [
+        ":test_util",
+        ":util",
+        "@io_abseil_py//absl/testing:absltest",
+        "@io_abseil_py//absl/testing:parameterized",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "fst_randgen_test",
+    size = "large",
+    srcs = ["fst_randgen_test.py"],
+    data = [
+        ":fixed.far",
+        ":fixed_utf8.far",
+        ":nfc.far",
+        ":nfc_utf8.far",
+        ":visual_norm.far",
+        ":visual_norm_utf8.far",
+    ],
+    python_version = "PY3",
+    # Currently set to be the number of parametrized tests.
+    shard_count = (len(SCRIPTS) + 1) * 2 + len(SCRIPTS) * 2 + len(FIXED_RULE_SCRIPTS) * 2,
+    srcs_version = "PY3",
+    deps = [
+        ":test_util",
+        ":util",
+        "@io_abseil_py//absl/testing:absltest",
+        "@io_abseil_py//absl/testing:parameterized",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+compile_multi_grm_py(
+    name = "visual_norm",
+    outs = {
+        "byte": "visual_norm.far",
+        "utf8": "visual_norm_utf8.far",
+    },
+    data = [
+        ":nfc.far",
+        ":nfc_utf8.far",
+        ":sigma_utf8.far",
+    ] + [
+        "//nisaba/brahmic/data:script/{}/{}.tsv".format(script, file_name)
+        for script in SCRIPTS
+        for file_name in [
+            "consonant",
+            "preserve",
+            "visual_rewrite",
+        ]
+    ] + [
+        "//nisaba/brahmic/data:lang/{}/{}.tsv".format(lang, file_name)
+        for lang in LANG_DIRS
+        for file_name in [
+            "after_consonant",
+            "before_consonant",
+        ]
+    ],
+    fst_type = _FST_TYPE,
+    visibility = ["//visibility:public"],
+    deps = [
+        ":char_util",
+        ":rule",
+        ":util",
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:pynutil",
+    ],
+)
+
+grm_regression_test(
+    name = "visual_norm_test",
+    grammar = ":visual_norm",
+    testdata_packaged = True,
+    token_type = "byte",
+)
+
+grm_regression_test(
+    name = "visual_norm_utf8_test",
+    far_file_target = ":visual_norm_utf8.far",
+    grammar = ":visual_norm",
+    test_file = "testdata:visual_norm.tsv",
+    testdata_packaged = True,
+    token_type = "utf8",
+)
+
+compile_multi_grm_py(
+    name = "wellformed",
+    outs = {
+        "byte": "wellformed.far",
+        "utf8": "wellformed_utf8.far",
+    },
+    data = [
+        "//nisaba/brahmic/data:script/{}/{}.tsv".format(script, file_name)
+        for script in SCRIPTS
+        for file_name in [
+            "accept",
+            "coda",
+            "consonant",
+            "preserve",
+            "standalone",
+            "virama",
+            "vowel",
+            "vowel_sign",
+        ]
+    ] + [
+        "//nisaba/brahmic/data:common/symbol.tsv",
+        "//nisaba/brahmic/data:script/Beng/dead_consonant.tsv",
+        "//nisaba/brahmic/data:script/Mlym/dead_consonant.tsv",
+    ],
+    fst_type = _FST_TYPE,
+    visibility = ["//visibility:public"],
+    deps = [
+        ":util",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+grm_regression_test(
+    name = "wellformed_test",
+    grammar = ":wellformed",
+    testdata_packaged = True,
+    token_type = "byte",
+)
+
+grm_regression_test(
+    name = "wellformed_utf8_test",
+    far_file_target = ":wellformed_utf8.far",
+    grammar = ":wellformed",
+    test_file = "testdata:wellformed.tsv",
+    testdata_packaged = True,
+    token_type = "utf8",
+)
+
+py_library(
+    name = "far",
+    srcs = ["far.py"],
+    srcs_version = "PY3",
+    deps = [
+        ":util",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "far_test",
+    size = "small",
+    srcs = ["far_test.py"],
+    data = [":iso.far"],
+    python_version = "PY3",
+    srcs_version = "PY3",
+    deps = [
+        ":far",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "test_util",
+    srcs = ["test_util.py"],
+    srcs_version = "PY3",
+    deps = [
+        "@io_abseil_py//absl/testing:absltest",
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:utf8",
+    ],
+)
+
+py_library(
+    name = "py",
+    srcs = ["__init__.py"],
+    data = [
+        ":iso.far",
+        ":nfc.far",
+        ":visual_norm.far",
+        ":wellformed.far",
+    ],
+    srcs_version = "PY3",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":far",
+        ":util",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "py_test",
+    size = "small",
+    srcs = ["brahmic_test.py"],
+    main = "brahmic_test.py",
+    python_version = "PY3",
+    srcs_version = "PY3",
+    deps = [
+        ":py",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+cc_library(
+    name = "far_cc",
+    srcs = ["far.cc"],
+    hdrs = ["far.h"],
+    data = [
+        ":iso.far",
+        ":nfc.far",
+        ":nfc_utf8.far",
+        ":visual_norm.far",
+        ":visual_norm_utf8.far",
+        ":wellformed.far",
+        ":wellformed_utf8.far",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/utils:util",
+        "@com_google_absl//absl/memory",
+        "@com_google_absl//absl/strings",
+        "@org_openfst//:fst",
+        "@org_opengrm_thrax//:thrax",
+    ],
+)
+
+cc_test(
+    name = "far_cc_test",
+    size = "small",
+    srcs = ["far_test.cc"],
+    deps = [
+        ":far_cc",
+        "@com_google_googletest//:gtest_main",
+        "@org_openfst//:fst",
+    ],
+)
+
+cc_library(
+    name = "cc",
+    srcs = ["grammar.cc"],
+    hdrs = ["grammar.h"],
+    data = [":far_files"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/utils:util",
+        "@com_google_absl//absl/memory",
+        "@com_google_absl//absl/strings",
+        "@org_opengrm_thrax//:thrax",
+    ],
+)
+
+cc_test(
+    name = "cc_test",
+    size = "small",
+    srcs = ["grammar_test.cc"],
+    deps = [
+        ":cc",
+        "@com_google_absl//absl/memory",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+filegroup(
+   name = "far_files",
+   srcs = [
+       ":iso.far",
+       ":nfc.far",
+       ":visual_norm.far",
+       ":wellformed.far",
+   ],
+)
