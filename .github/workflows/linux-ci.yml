@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BAZEL: bazelisk-linux-amd64
+      PYTHONIOENCODING: utf-8
 
     steps:
     - uses: actions/checkout@v2

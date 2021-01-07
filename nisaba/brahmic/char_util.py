@@ -41,7 +41,7 @@ def _read_string_file_chars_to_set(files: Iterable[os.PathLike],
   """
   chars = set()
   for fname in files:
-    with pathlib.Path(u.AsResourcePath(pathlib.Path(fname))).open('rt', encoding='utf8') as f:
+    with pathlib.Path(u.AsResourcePath(pathlib.Path(fname))).open('rt') as f:
       for line in f:
         if line.startswith('#'):
           continue
