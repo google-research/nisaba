@@ -48,9 +48,11 @@ jobs:
         sudo apt-get install -y python3-pip python3-dev python3-pip
         sudo pip3 install -r ./requirements.txt
 
+    - name: Locales
+      run: locale -a
+
     - name: Build
-      run: |
-        ./$BAZEL build -c opt //...
+      run: ./$BAZEL build -c opt //...
 
     - name: Test
       run: ./$BAZEL test -c opt --test_output=errors //...
