@@ -38,6 +38,12 @@ jobs:
         curl -LO "https://github.com/bazelbuild/bazelisk/releases/latest/download/$BAZEL"
         chmod +x $BAZEL
 
+    - name: Install requirements
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-pip
+        sudo pip3 install "networkx>=2.5" "pandas>=1.0.5"
+
     - name: Build
       run: ./$BAZEL build -c opt //...
 
