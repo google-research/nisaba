@@ -52,6 +52,8 @@ jobs:
       run: |
         echo "=== Available locales:"
         locale -a
+        echo "=== Locale charmap:"
+        locale charmap
         echo "=== Default locale:"
         python3 -c "import locale; print(locale.getdefaultlocale())"
         echo "=== Preferred locale:"
