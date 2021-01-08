@@ -56,6 +56,8 @@ jobs:
         python3 -c "import locale; print(locale.getdefaultlocale())"
         echo "=== Preferred locale:"
         python3 -c "import locale; print(locale.getpreferredencoding())"
+        echo "=== Default system encoding:"
+        python3 -c "import sys; print(sys.getdefaultencoding())"
 
     - name: Build
       run: ./$BAZEL build -c opt //...
