@@ -65,7 +65,7 @@ def StringFileSafe(filename: os.PathLike) -> pynini.Fst:
 
 def RulesFromStringFile(file: os.PathLike) -> Iterator[Rule]:
   """Yields string rules from a text file with unweighted string maps."""
-  with pathlib.Path(AsResourcePath(file)).open("rt") as f:
+  with pathlib.Path(AsResourcePath(file)).open("rt", encoding="utf8") as f:
     df = pd.read_csv(f, sep="\t", comment="#", escapechar="\\",
                      names=["lhs", "rhs"], na_filter=False)
     for row in df.itertuples(index=False, name="Rule"):
