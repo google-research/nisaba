@@ -41,12 +41,11 @@ def _read_string_file_chars_to_set(files: Iterable[os.PathLike],
   """
   chars = set()
   for fname in files:
-    with pathlib.Path(u.AsResourcePath(pathlib.Path(fname))).open(
-        'rt', encoding='utf8') as f:
+    with pathlib.Path(u.AsResourcePath(pathlib.Path(fname))).open("rt", encoding="utf8") as f:
       for line in f:
-        if line.startswith('#'):
+        if line.startswith("#"):
           continue
-        fields = line.strip().split('\t')[0:relevant_fields]
+        fields = line.strip().split("\t")[0:relevant_fields]
         for field in fields:
           chars.update(field)
   return chars
@@ -78,17 +77,17 @@ def script_chars(script: str) -> Set[str]:
   """Creates the set of characters in a script."""
   return derive_chars(
       input_side=[
-          u.SCRIPT_DIR / script / 'accept.tsv',
-          u.SCRIPT_DIR / script / 'coda.tsv',
-          u.SCRIPT_DIR / script / 'consonant.tsv',
-          u.SCRIPT_DIR / script / 'standalone.tsv',
-          u.SCRIPT_DIR / script / 'virama.tsv',
-          u.SCRIPT_DIR / script / 'vowel.tsv',
-          u.SCRIPT_DIR / script / 'vowel_sign.tsv',
+          u.SCRIPT_DIR / script / "accept.tsv",
+          u.SCRIPT_DIR / script / "coda.tsv",
+          u.SCRIPT_DIR / script / "consonant.tsv",
+          u.SCRIPT_DIR / script / "standalone.tsv",
+          u.SCRIPT_DIR / script / "virama.tsv",
+          u.SCRIPT_DIR / script / "vowel.tsv",
+          u.SCRIPT_DIR / script / "vowel_sign.tsv",
       ],
       both_sides=[
-          u.SCRIPT_DIR / script / 'nfc.tsv',
-          u.SCRIPT_DIR / script / 'visual_rewrite.tsv',
+          u.SCRIPT_DIR / script / "nfc.tsv",
+          u.SCRIPT_DIR / script / "visual_rewrite.tsv",
       ])
 
 
@@ -109,7 +108,7 @@ def derive_sigma(chars: Set[str]) -> pynini.Fst:
   """
 
   sigma = pynini.string_map(zip(chars))
-  sigma.project('output')  # Project in-place
+  sigma.project("output")  # Project in-place
   sigma.union(u.ZWNJ, u.ZWJ, u.ZWS)
   return sigma.optimize()
 
@@ -121,6 +120,6 @@ def dedup_marks_fst(script: str, sigma: pynini.Fst) -> pynini.Fst:
   marks = {u.ZWS, u.ZWNJ, u.ZWJ}
   # 'Mn' is the category value for Nonspacing Marks:
   # See: http://www.unicode.org/reports/tr44/#General_Category_Values
-  marks.update(c for c in chars if unicodedata.category(c) == 'Mn')
+  marks.update(c for c in chars if unicodedata.category(c) == "Mn")
 
   return _dedup_chars(marks, sigma)
