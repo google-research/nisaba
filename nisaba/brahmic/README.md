@@ -303,7 +303,7 @@ However, as _Om_ has a standard phonetic transcription, it is represented as
 Include directive:
 
 ```
-#include "third_party/nisaba/brahmic/grammar.h"
+#include "nisaba/brahmic/grammar.h"
 ```
 
 BUILD dependency:
@@ -383,7 +383,7 @@ Please see nisaba/brahmic/grammar_test.cc as well to learn the usage.
 Include directive:
 
 ```
-#include "third_party/nisaba/brahmic/far.h"
+#include "nisaba/brahmic/far.h"
 ```
 
 BUILD dependency:
