@@ -19,8 +19,8 @@ import itertools
 
 from absl.testing import absltest
 from absl.testing import parameterized
-from nisaba.brahmic import test_util
 from nisaba.brahmic import util as u
+from nisaba.utils import test_util
 
 
 class FstRandgenTest(parameterized.TestCase, test_util.FstRandgenTestCase):

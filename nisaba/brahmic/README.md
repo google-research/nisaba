@@ -463,8 +463,8 @@ If the script tag is not supported `brahmic.ScriptError` exception is thrown.
 Example for commandline access:
 
 ```
-bazel build nlp/grm/language/util/rewrite-tester \
-            third_party/nisaba/brahmic/visual_norm.far
+bazel build -c opt nlp/grm/language/util/rewrite-tester \
+  third_party/nisaba/brahmic/visual_norm.far
 
 cat deva-words.txt |
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \

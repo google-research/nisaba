@@ -20,8 +20,8 @@ import itertools
 import pynini
 from absl.testing import absltest
 from absl.testing import parameterized
-from nisaba.brahmic import test_util
 from nisaba.brahmic import util as u
+from nisaba.utils import test_util
 
 
 class FstPropertiesTest(parameterized.TestCase,

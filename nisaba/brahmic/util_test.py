@@ -16,14 +16,15 @@
 
 from absl.testing import absltest
 from nisaba.brahmic import util as u
+import nisaba.utils.file as uf
 
 
 class UtilTest(absltest.TestCase):
 
   def testFileExistence(self):
     filename = 'dead_consonant.tsv'
-    self.assertTrue(u.IsFileExist(u.SCRIPT_DIR / 'Beng' / filename))
-    self.assertFalse(u.IsFileExist(u.SCRIPT_DIR / 'Taml' / filename))
+    self.assertTrue(uf.IsFileExist(u.SCRIPT_DIR / 'Beng' / filename))
+    self.assertFalse(uf.IsFileExist(u.SCRIPT_DIR / 'Taml' / filename))
 
 
 if __name__ == '__main__':

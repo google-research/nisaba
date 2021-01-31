@@ -33,10 +33,11 @@ import os
 import pynini
 from pynini.export import multi_grm
 import nisaba.brahmic.util as u
+import nisaba.utils.file as uf
 
 
 def _input_string_file(filename: os.PathLike) -> pynini.Fst:
-  return pynini.project(u.StringFileSafe(filename), 'input').rmepsilon()
+  return pynini.project(uf.StringFileSafe(filename), 'input').rmepsilon()
 
 
 def accept_well_formed(consonant_file: os.PathLike,

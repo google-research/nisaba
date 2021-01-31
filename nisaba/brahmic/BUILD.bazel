@@ -77,6 +77,7 @@ compile_grm_py(
     visibility = ["//visibility:public"],
     deps = [
         ":util",
+        "//nisaba/utils:file",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:pynutil",
     ],
@@ -104,6 +105,7 @@ compile_multi_grm_py(
         ":char_util",
         ":rule",
         ":util",
+        "//nisaba/utils:file",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -154,6 +156,7 @@ py_library(
     srcs = ["util.py"],
     srcs_version = "PY3",
     deps = [
+        "//nisaba/utils:file",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:byte",
         "@rules_python//python/runfiles",
@@ -170,6 +173,7 @@ py_test(
     srcs_version = "PY3",
     deps = [
         ":util",
+        "//nisaba/utils:file",
         "@io_abseil_py//absl/testing:absltest",
     ],
 )
@@ -206,6 +210,7 @@ py_library(
     srcs_version = "PY3",
     deps = [
         ":util",
+        "//nisaba/utils:file",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:pynutil",
     ],
@@ -239,8 +244,8 @@ py_test(
     python_version = "PY3",
     srcs_version = "PY3",
     deps = [
-        ":test_util",
         ":util",
+        "//nisaba/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
         "@io_abseil_py//absl/testing:parameterized",
         "@org_opengrm_pynini//pynini",
@@ -264,8 +269,8 @@ py_test(
     shard_count = (len(SCRIPTS) + 1) * 2 + len(SCRIPTS) * 2 + len(FIXED_RULE_SCRIPTS) * 2,
     srcs_version = "PY3",
     deps = [
-        ":test_util",
         ":util",
+        "//nisaba/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
         "@io_abseil_py//absl/testing:parameterized",
         "@org_opengrm_pynini//pynini",
@@ -304,6 +309,7 @@ compile_multi_grm_py(
         ":char_util",
         ":rule",
         ":util",
+        "//nisaba/utils:file",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:pynutil",
     ],
@@ -353,6 +359,7 @@ compile_multi_grm_py(
     visibility = ["//visibility:public"],
     deps = [
         ":util",
+        "//nisaba/utils:file",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -378,7 +385,7 @@ py_library(
     srcs = ["far.py"],
     srcs_version = "PY3",
     deps = [
-        ":util",
+        "//nisaba/utils:file",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -393,17 +400,6 @@ py_test(
     deps = [
         ":far",
         "@io_abseil_py//absl/testing:absltest",
-    ],
-)
-
-py_library(
-    name = "test_util",
-    srcs = ["test_util.py"],
-    srcs_version = "PY3",
-    deps = [
-        "@io_abseil_py//absl/testing:absltest",
-        "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:utf8",
     ],
 )
 

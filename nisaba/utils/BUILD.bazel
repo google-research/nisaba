@@ -14,6 +14,8 @@
 
 # Utility packages.
 
+load("@nisaba_deps//:requirements.bzl", "requirement")
+
 package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
@@ -26,5 +28,28 @@ cc_library(
         "@bazel_tools//tools/cpp/runfiles",
         "@com_google_absl//absl/status:statusor",
         "@com_google_absl//absl/strings",
+    ],
+)
+
+py_library(
+    name = "test_util",
+    srcs = ["test_util.py"],
+    srcs_version = "PY3",
+    deps = [
+        "@io_abseil_py//absl/testing:absltest",
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:utf8",
+    ],
+)
+
+py_library(
+    name = "file",
+    srcs = ["file.py"],
+    srcs_version = "PY3",
+    deps = [
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:byte",
+        "@rules_python//python/runfiles",
+        requirement("pandas"),
     ],
 )

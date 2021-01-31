@@ -20,7 +20,7 @@ import warnings
 
 import pynini
 import functools
-from nisaba.brahmic import util as u
+import nisaba.utils.file as uf
 
 
 class Far:
@@ -78,7 +78,7 @@ class Far:
   # ().
   @functools.lru_cache(maxsize=None)
   def _LoadFar(self) -> pynini.Far:
-    return pynini.Far(u.AsResourcePath(self._path_to_far))
+    return pynini.Far(uf.AsResourcePath(self._path_to_far))
 
   @functools.lru_cache(maxsize=None)
   def Fst(self, rule_name: str) -> 'FstWrapper':

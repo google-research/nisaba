@@ -52,6 +52,7 @@ import pynini
 from pynini.export import grm
 from pynini.lib import pynutil
 import nisaba.brahmic.util as u
+import nisaba.utils.file as uf
 
 
 def brahmic_to_iso(consonant_file: os.PathLike, vowel_sign_file: os.PathLike,
@@ -78,13 +79,13 @@ def brahmic_to_iso(consonant_file: os.PathLike, vowel_sign_file: os.PathLike,
     Brahmic script to ISO FST.
   """
 
-  consonant = u.StringFile(consonant_file)
-  vowel_sign = u.StringFile(vowel_sign_file)
-  vowel = u.StringFile(vowel_file)
-  coda = u.StringFile(coda_file)
-  standalone = u.StringFile(standalone_file)
-  virama = u.StringFile(virama_file)
-  common_symbol = u.StringFile(u.DATA_DIR / 'common' / 'symbol.tsv')
+  consonant = uf.StringFile(consonant_file)
+  vowel_sign = uf.StringFile(vowel_sign_file)
+  vowel = uf.StringFile(vowel_file)
+  coda = uf.StringFile(coda_file)
+  standalone = uf.StringFile(standalone_file)
+  virama = uf.StringFile(virama_file)
+  common_symbol = uf.StringFile(u.DATA_DIR / 'common' / 'symbol.tsv')
 
   ins_a = pynutil.insert('a')
   ins_dash = pynutil.insert('-')

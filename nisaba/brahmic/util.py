@@ -15,7 +15,6 @@
 
 """Utility functions and definitions used in this package."""
 
-import errno
 import os
 import pathlib
 from typing import Iterable, Iterator, NamedTuple
@@ -24,8 +23,8 @@ import pandas as pd
 
 import pynini
 from pynini.lib import byte
-from rules_python.python.runfiles import runfiles
 import pathlib
+import nisaba.utils.file as uf
 
 Rule = NamedTuple("Rule", [("lhs", str), ("rhs", str)])
 
@@ -38,34 +37,9 @@ def Rewrite(rule: pynini.FstLike,
   return pynini.optimize(pynini.cdrewrite(rule, left, right, sigma.star))
 
 
-def AsResourcePath(filename: os.PathLike) -> os.PathLike:
-  filename = os.fspath(filename)
-  return runfiles.Create().Rlocation(filename)
-
-
-def IsFileExist(filename: os.PathLike) -> bool:
-  """Checks if a resource file exists."""
-  try:
-    filename = AsResourcePath(filename)
-    if os.path.isfile(filename):
-      return True
-  except IOError as ex:
-    if ex.errno != errno.ENOENT:
-      raise ex  # Reraise unknown error.
-  return False
-
-
-def StringFile(filename: os.PathLike) -> pynini.Fst:
-  return pynini.string_file(AsResourcePath(filename))
-
-
-def StringFileSafe(filename: os.PathLike) -> pynini.Fst:
-  return StringFile(filename) if IsFileExist(filename) else pynini.accep("")
-
-
 def RulesFromStringFile(file: os.PathLike) -> Iterator[Rule]:
   """Yields string rules from a text file with unweighted string maps."""
-  with pathlib.Path(AsResourcePath(file)).open("rt", encoding="utf8") as f:
+  with pathlib.Path(uf.AsResourcePath(file)).open("rt", encoding="utf8") as f:
     df = pd.read_csv(f, sep="\t", comment="#", escapechar="\\",
                      names=["lhs", "rhs"], na_filter=False)
     for row in df.itertuples(index=False, name="Rule"):
@@ -105,7 +79,7 @@ def OpenFstFromBrahmicFar(far_name: str, script: str, *,
                           token_type: str) -> pynini.Fst:
   tt_suffix = {"byte": "", "utf8": "_utf8"}[token_type]
   far_path = FAR_DIR / f"{far_name}{tt_suffix}.far"
-  with pynini.Far(AsResourcePath(far_path), "r") as far:
+  with pynini.Far(uf.AsResourcePath(far_path), "r") as far:
     return far[script.upper()]
 
 
