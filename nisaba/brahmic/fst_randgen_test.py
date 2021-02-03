@@ -34,7 +34,8 @@ class FstRandgenTest(parameterized.TestCase, test_util.FstRandgenTestCase):
   @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   def test_visual_norm(self, script: str, token_type: str):
     fst = u.OpenFstFromBrahmicFar('visual_norm', script, token_type=token_type)
-    self.assertFstProbablyFunctional(fst, token_type=token_type, samples=1e6)
+    self.assertFstProbablyFunctional(fst, token_type=token_type,
+                                     samples=test_util.NUM_TEST_SAMPLES)
 
   @parameterized.parameters(
       itertools.product(u.FIXED_RULE_SCRIPTS, ('byte', 'utf8')))

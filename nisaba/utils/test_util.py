@@ -21,6 +21,12 @@ import pynini
 from pynini.lib import utf8
 from absl.testing import absltest
 
+# Number of random test strings to generate for each FST type and token type.
+NUM_TEST_SAMPLES = 5
+
+# Maximum length of test string.
+_MAX_SAMPLE_LENGTH = 5
+
 
 def _olabels_iter(f: pynini.Fst) -> Iterator[List[int]]:
   it = f.paths()
@@ -82,7 +88,7 @@ class FstRandgenTestCase(absltest.TestCase):
       input_language = pynini.intersect(input_language,
                                         utf8.VALID_UTF8_CHAR.star)
     input_samples = pynini.randgen(
-        input_language, npath=samples, max_length=100)
+        input_language, npath=samples, max_length=_MAX_SAMPLE_LENGTH)
     with pynini.default_token_type(token_type):
       for olabels in _olabels_iter(input_samples):
         string_fsa = _label_list_to_string_fsa(olabels)

@@ -265,8 +265,6 @@ py_test(
         ":visual_norm_utf8.far",
     ],
     python_version = "PY3",
-    # Currently set to be the number of parametrized tests.
-    shard_count = (len(SCRIPTS) + 1) * 2 + len(SCRIPTS) * 2 + len(FIXED_RULE_SCRIPTS) * 2,
     srcs_version = "PY3",
     deps = [
         ":util",
