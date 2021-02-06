@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package nisaba;
+
+// Protocol buffer message representing character sequences for a particular
+// component of a given script, e.g. characters comprising a class of dependent
+// vowel signs in Telugu.
+//
+// Next available ID: 7
+message UnicodeStrings {
+  // Next available ID: 2
+  message UnicodeCharNames {
+    // List of Unicode character names, e.g. [`BRAHMI LETTER AI`,
+    // `BRAHMI LETTER JA`].
+    repeated string uname = 1;
+  }
+
+  // A data item can represent a single item in a list of Unicode strings
+  // (language) or an item in mapping (relation).
+  //
+  // TODO: Revisit this at a later stage. Following the discussion
+  // we may think about the following suggestion:
+  //   ...
+  //   item {
+  //     uname: ["LETTER CA", "VOWEL SIGN AI"] }
+  //     maps_to_raw: "cai"
+  //   }
+  //   ...
+  //
+  // Next available ID: 7
+  message Item {
+    // Items required for defining mappings (relation) on unicode strings.
+    // Fields `src` (1) to `dst_raw` (4).
+    oneof source {
+      // Source sequence of Unicode characters or sequences specified by their
+      // character names (e.g., `BENGALI VOWEL SIGN UU`) or name aliases (e.g.,
+      // `KANNADA LETTER LLLA`), or sequence names (e.g.,
+      // `TAMIL SYLLABLE NNNAI`).
+      UnicodeCharNames src = 1;
+
+      // Source represented as verbatim string in UTF-8 format used if `src`
+      // field is unset. Example: `ꯃꯁ`.
+      string src_raw = 2;
+    }
+
+    // We allow both destination values to be empty as well.
+    oneof destination {
+      // Destination sequence of Unicode characters or sequences specified by
+      // their character names (e.g., `BENGALI VOWEL SIGN UU`) or name aliases
+      // (e.g., `KANNADA LETTER LLLA`), or sequence names (e.g., `TAMIL SYLLABLE
+      // NNNAI`).
+      UnicodeCharNames dst = 3;
+
+      // Destination represented as verbatim string in UTF-8 format used if
+      // `dest` field is unset. Example: `ꯏꯑꯎ`.
+      string dst_raw = 4;
+    }
+
+    // Items required for defining Unicode string lists (languages). Note, we
+    // explicitly omit the `oneof` syntax for `uname` and `raw` to keep the
+    // textual representation of the message less verbose.
+
+    // Sequence of Unicode character names. Example: [`BRAHMI LETTER AI`,
+    // `BRAHMI LETTER JA`].
+    repeated string uname = 5;
+
+    // Raw Unicode string. Example: `𑀐𑀚`.
+    string raw = 6;
+  }
+
+  // Default name prefix of the Unicode characters in this file. This usually
+  // corresponds, but is not restricted, to the name of the script we're
+  // manipulating upon, e.g. "BENGALI", "GUJARATI". If this field is set,
+  // this prefix can be omitted from the names of the characters.
+  string uchar_name_prefix = 1;
+
+  // A sequence of data items.
+  repeated Item item = 2;
+}

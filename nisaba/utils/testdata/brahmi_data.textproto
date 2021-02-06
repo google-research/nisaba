@@ -1,0 +1,30 @@
+# proto-file: google3/third_party/nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uchar_name_prefix: "BRAHMI"
+
+item {
+  src { uname: ["LETTER CA", "VOWEL SIGN AI"] }
+  dst_raw: "cai"
+}
+item {
+  src_raw: "v" dst { uname: "LETTER VA" }
+}
+item {
+  src { uname: "NUMBER NINETY" } dst_raw: "90"
+}
+item {
+  uname: [ "LETTER AI", "LETTER JA" ]
+}
+item {
+  raw: "ꯃꯁ"
+}
+
+# Make sure can still match fully qualified names.
+item {
+  uname: [ "BRAHMI SIGN UPADHMANIYA" ]
+}
+# Try alien script.
+item {
+  uname: [ "KHAROSHTHI VOWEL SIGN VOCALIC R" ]
+}

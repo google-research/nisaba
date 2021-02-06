@@ -14,6 +14,7 @@
 
 # Utility packages.
 
+load("@com_google_protobuf//:protobuf.bzl", "py_proto_library")
 load("@nisaba_deps//:requirements.bzl", "requirement")
 
 package(default_visibility = ["//visibility:public"])
@@ -51,5 +52,38 @@ py_library(
         "@org_opengrm_pynini//pynini/lib:byte",
         "@rules_python//python/runfiles",
         requirement("pandas"),
+    ],
+)
+
+proto_library(
+    name = "unicode_strings_proto",
+    srcs = ["unicode_strings.proto"],
+)
+
+py_proto_library(
+    name = "unicode_strings_py_pb2",
+    # Bazel: This rule is not supported natively (yet). There is a custom
+    # Starlark macro supplied by the Bazel team (loaded from `protobuf.bzl` file
+    # above). See
+    #   https://thethoughtfulkoala.com/posts/2020/05/08/py-protobuf-bazel.html
+    srcs = ["unicode_strings.proto"],
+)
+
+py_binary(
+    name = "unicode_strings_to_tsv",
+    srcs = ["unicode_strings_to_tsv.py"],
+    python_version = "PY3",
+    srcs_version = "PY3",
+    # Bazel: There should be no `__init__.py` generated under the `google`
+    # directory of the protobuf library. This breaks the `google.protobuf`
+    # Python import. Please see
+    #   http://python-notes.curiousefficiency.org/en/latest/python_concepts/import_traps.html#the-init-py-trap
+    legacy_create_init = False,
+    deps = [
+        ":unicode_strings_py_pb2",
+        "@com_google_protobuf//:protobuf_python",
+        "@io_abseil_py//absl:app",
+        "@io_abseil_py//absl/flags",
+        "@io_abseil_py//absl/logging",
     ],
 )
