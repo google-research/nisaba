@@ -17,5 +17,5 @@ package(default_visibility = ["//nisaba/brahmic:__subpackages__"])
 licenses(["notice"])
 
 exports_files(
-    glob(["**/*.tsv"]),
+    glob(["*.tsv"]),
 )
