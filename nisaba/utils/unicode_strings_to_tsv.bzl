@@ -31,7 +31,7 @@ def _convert_script_data_component(script_data_name):
         outs = ["%s.tsv" % script_data_name],
         srcs = [input_proto_file],
         exec_tools = [converter_tool],
-        visibility = ["//visibility:private"],
+        visibility = ["//visibility:public"],
         cmd = "$(location %s) --input_text_proto $(location %s) --output_tsv $@" % (
             converter_tool,
             ":" + input_proto_file,
