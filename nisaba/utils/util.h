@@ -14,8 +14,8 @@
 
 // Miscellaneous helper utilities.
 
-#ifndef THIRD_PARTY_NISABA_UTILS_UTIL_H_
-#define THIRD_PARTY_NISABA_UTILS_UTIL_H_
+#ifndef NISABA_UTILS_UTIL_H_
+#define NISABA_UTILS_UTIL_H_
 
 #include <string>
 
@@ -34,4 +34,4 @@ std::string JoinPath(absl::string_view dirname, absl::string_view basename);
 }  // namespace utils
 }  // namespace nisaba
 
-#endif  // THIRD_PARTY_NISABA_UTILS_UTIL_H_
+#endif  // NISABA_UTILS_UTIL_H_

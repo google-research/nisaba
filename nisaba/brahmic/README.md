@@ -38,7 +38,7 @@ Brahmic text to its NFC form. Example:
 Use the NFC FSTs in Thrax using, for example:
 
 ```
-nfc_deva = LoadFstFromFar['third_party/nisaba/brahmic/nfc.far', 'DEVA'];
+nfc_deva = LoadFstFromFar['nisaba/brahmic/nfc.far', 'DEVA'];
 ```
 
 or in Pynini using, for example:
@@ -101,7 +101,7 @@ to apply NFC separately, on visual norm rewrite.
 Use the Visual Norm FSTs in Thrax using, for example:
 
 ```
-vn_deva = LoadFstFromFar['third_party/nisaba/brahmic/visual_norm.far', 'DEVA'];
+vn_deva = LoadFstFromFar['nisaba/brahmic/visual_norm.far', 'DEVA'];
 ```
 
 or in Pynini using, for example:
@@ -150,7 +150,7 @@ separately.
 Use the wellformedness FSTs in Thrax using, for example:
 
 ```
-wf_deva = LoadFstFromFar['third_party/nisaba/brahmic/wellformed.far', 'DEVA'];
+wf_deva = LoadFstFromFar['nisaba/brahmic/wellformed.far', 'DEVA'];
 ```
 
 or in Pynini using, for example:
@@ -198,7 +198,7 @@ For conversions in either direction, import the FSTs in Thrax using, for
 example:
 
 ```
-iso_from_deva = LoadFstFromFar['third_party/nisaba/brahmic/wellformed.far', 'FROM_DEVA'];
+iso_from_deva = LoadFstFromFar['nisaba/brahmic/wellformed.far', 'FROM_DEVA'];
 ```
 
 or in Pynini using, for example:
@@ -465,7 +465,7 @@ Example for commandline access:
 
 ```
 bazel build -c opt nlp/grm/language/util/rewrite-tester \
-  third_party/nisaba/brahmic/visual_norm.far
+  nisaba/brahmic/visual_norm.far
 
 cat deva-words.txt |
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \
@@ -475,10 +475,10 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 
 Available FARs are:
 
-1.  NFC: `third_party/nisaba/brahmic/nfc.far`
+1.  NFC: `nisaba/brahmic/nfc.far`
 
-1.  ISO: `third_party/nisaba/brahmic/iso.far`
+1.  ISO: `nisaba/brahmic/iso.far`
 
-1.  Visual Norm: `third_party/nisaba/brahmic/visual_norm.far`
+1.  Visual Norm: `nisaba/brahmic/visual_norm.far`
 
-1.  Well-Formed: `third_party/nisaba/brahmic/wellformed.far`
+1.  Well-Formed: `nisaba/brahmic/wellformed.far`

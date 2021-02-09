@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-package(default_visibility = ["//third_party/nisaba:__subpackages__"])
+package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
 
