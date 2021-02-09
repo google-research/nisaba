@@ -16,6 +16,7 @@ lowercase (e.g., `iso`).
 1.  Gurmukhi (`Guru`)
 1.  Kannada (`Knda`)
 1.  Malayalam (`Mlym`)
+1.  Meetei Mayek (`Mtei`)
 1.  Oriya (`Orya`)
 1.  Sinhala (`Sinh`)
 1.  Tamil (`Taml`)
