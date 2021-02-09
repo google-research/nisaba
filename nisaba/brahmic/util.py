@@ -108,6 +108,7 @@ SCRIPTS = [
     "Guru",
     "Knda",
     "Mlym",
+    "Mtei",
     "Orya",
     "Sinh",
     "Taml",

@@ -1,0 +1,13 @@
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "MEETEI MAYEK LETTER"
+
+item { uname: "KOK LONSUM" }
+item { uname: "LAI LONSUM" }
+item { uname: "MIT LONSUM" }
+item { uname: "PA LONSUM"  }
+item { uname: "NA LONSUM"  }
+item { uname: "TIL LONSUM" }
+item { uname: "NGOU LONSUM" }
+item { uname: "I LONSUM" }

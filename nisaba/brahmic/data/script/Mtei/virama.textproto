@@ -1,0 +1,4 @@
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+item { uname: "MEETEI MAYEK APUN IYEK" }  # virama

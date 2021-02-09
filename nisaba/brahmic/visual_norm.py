@@ -44,7 +44,7 @@ def visual_norm(rewrite_file: os.PathLike, preserve_file: os.PathLike,
   """Creates a visual normalization FST.
 
   Given a rewrite file, preserve file, and consonant file, returns an FST
-  that will perform the rewrites described in the StringFile rewritefile,
+  that will perform the rewrites described in the StringFile `rewrite_file`,
   additionally clearing out instances of ZWJ, ZWNJ, and ZWS except for those
   that match preserve_file when occurring between consonants (which are
   specified in the consonants file).

@@ -1,0 +1,17 @@
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+# From: https://arxiv.org/pdf/1207.3932.pdf:
+# Vowel diacritics (matras), aka Cheitap Eeyek. These can be found only in
+# association with Iyek Ipee characters (all standalone letters modulo Lonsum
+# characters).
+
+uname_prefix: "MEETEI MAYEK VOWEL SIGN"
+
+item { uname: "ONAP"    to_raw: "o"  }
+item { uname: "INAP"    to_raw: "i"  }
+item { uname: "ANAP"    to_raw: "ā"  }
+item { uname: "YENAP"   to_raw: "e"  }
+item { uname: "SOUNAP"  to_raw: "ou" }
+item { uname: "UNAP"    to_raw: "u"  }
+item { uname: "CHEINAP" to_raw: "ei" }

@@ -104,9 +104,9 @@ def brahmic_to_iso(consonant_file: os.PathLike, vowel_sign_file: os.PathLike,
       standalone,
 
       # Rare cases:
-      ins_dash + vowel_sign,  # Dangling vowel signs
-      virama_mark + low_priority_epsilon,  # Explicit virama elsewhere
-      common_symbol,  # Joiners
+      ins_dash + vowel_sign + low_priority_epsilon,  # Dangling vowel signs.
+      virama_mark + low_priority_epsilon,  # Explicit virama elsewhere.
+      common_symbol,  # Joiners.
 
       # Independent vowel not as the first letter:
       vowel + (ins_dot + vowel).plus + low_priority_epsilon,

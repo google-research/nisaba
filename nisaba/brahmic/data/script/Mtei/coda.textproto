@@ -1,0 +1,32 @@
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "MEETEI MAYEK LETTER"
+
+item { uname: "KOK LONSUM"  to_raw: "k'" }
+item { uname: "LAI LONSUM"  to_raw: "l'" }
+item { uname: "MIT LONSUM"  to_raw: "m'" }
+item { uname: "PA LONSUM"   to_raw: "p'" }
+item { uname: "NA LONSUM"   to_raw: "n'" }
+item { uname: "TIL LONSUM"  to_raw: "t'" }
+item { uname: "NGOU LONSUM" to_raw: "ṅ'" }
+item { uname: "I LONSUM"    to_raw: "i'" }
+
+item { uname: "MEETEI MAYEK VOWEL SIGN NUNG" to_raw: "ṁ" }  # anusvara.
+
+# In Unicode 13.0 the following character is referred to as "heavy tone mark".
+# In linguistic literature on Manipuri this usually refers to the falling tone
+# for the vowel it applies to. It is marked just after the syllable, which has
+# falling tone. Please note, the authors of "Challenges in Indian Language
+# Transliteration: a case of Devanagari, Bangla and Manipuri" (2nd Workshop on
+# Indian Language Data: Resources and Evaluation at LREC 2014) note that
+# (p. 80):
+#
+#   "... Though the letter ꯬ (Lum) represents the falling tone,
+#    it is not presently used. It is not found in the modern
+#    Manipuri language corpora."
+#
+# TODO: This does not play together with lonsums defined above. The
+# falling tone mark cannot precede a lonsum.
+# TODO: Double-check the lum iyek in the literature and in the data.
+item { uname: "MEETEI MAYEK LUM IYEK" to_raw: "^" }

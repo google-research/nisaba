@@ -127,3 +127,49 @@ MLYM	ാം	ാം
 
 # Example: 2020-ൽ (meaning 'in 2020')
 MLYM	ൽ	ൽ
+
+# -----------------------------------------------------------------------------
+# Meetei Mayek (Manipuri).
+# -----------------------------------------------------------------------------
+MTEI	ꯑꯩꯅ	ꯑꯩꯅ
+MTEI	ꯀꯣꯛ	ꯀꯣꯛ
+MTEI	ꯁꯝ	ꯁꯝ
+MTEI	ꯑꯇꯤꯌꯥ	ꯑꯇꯤꯌꯥ
+MTEI	ꯆꯤꯟ	ꯆꯤꯟ
+MTEI	ꯒ꯭ꯂꯥꯁ	ꯒ꯭ꯂꯥꯁ
+MTEI	ꯀꯐꯣꯢ	ꯀꯐꯣꯢ
+MTEI	ꯀꯨꯁꯨꯝꯂꯩ	ꯀꯨꯁꯨꯝꯂꯩ
+MTEI	ꯀꯦꯇꯨꯀꯤ	ꯀꯦꯇꯨꯀꯤ
+MTEI	ꯀꯦꯇꯦꯀꯤ	ꯀꯦꯇꯦꯀꯤ
+MTEI	ꯀꯣꯝꯂꯥ	ꯀꯣꯝꯂꯥ
+MTEI	ꯁꯤꯡ	ꯁꯤꯡ
+MTEI	ꯂꯩꯁꯥꯕꯤ	ꯂꯩꯁꯥꯕꯤ
+MTEI	ꯃꯌꯥꯡꯇꯣꯟ	ꯃꯌꯥꯡꯇꯣꯟ
+MTEI	ꯃꯦꯊꯤ	ꯃꯦꯊꯤ
+MTEI	ꯄꯨꯗꯤꯅꯥ	ꯄꯨꯗꯤꯅꯥ
+MTEI	ꯅꯨꯁꯤꯍꯤꯗꯥꯛ	ꯅꯨꯁꯤꯍꯤꯗꯥꯛ
+MTEI	ꯆꯝꯄ꯭ꯔꯥ	ꯆꯝꯄ꯭ꯔꯥ
+MTEI	ꯇꯨꯜꯁꯤꯄꯝꯕꯤ	ꯇꯨꯜꯁꯤꯄꯝꯕꯤ
+MTEI	ꯌꯥꯢꯉꯪ	ꯌꯥꯢꯉꯪ
+MTEI	ꯍꯩꯅꯧ	ꯍꯩꯅꯧ
+MTEI	ꯎꯁꯤꯡꯁꯥ	ꯎꯁꯤꯡꯁꯥ
+MTEI	ꯑꯗꯨꯔꯒꯨꯂꯥꯕ	ꯑꯗꯨꯔꯒꯨꯂꯥꯕ
+MTEI	ꯒꯨꯂꯥꯕ	ꯒꯨꯂꯥꯕ
+MTEI	ꯖꯥꯢꯐꯜ	ꯖꯥꯢꯐꯜ
+
+# Reject: Of all the independent vowels, matras can only be applied to LETTER
+# ATIYA.
+# Reject: <LETTER I, VOWEL SIGN ANAP>.
+MTEI	ꯏꯥ
+# Reject: <LETTER UN, VOWEL SIGN YENAP>
+MTEI	ꯎꯦ
+
+# Reject: Consonant + (Virama + Vowel Sign | Vowel Sign + Virama):
+# Reject: <LETTER KHOU, APUN IYEK, VOWEL SIGN UNAP>
+MTEI	ꯈ꯭ꯨ
+# Reject: <LETTER KHOU, VOWEL SIGN UNAP, APUN IYEK>
+MTEI	ꯈꯨ꯭
+
+# Reject: Lonsum can't start a word.
+MTEI	ꯟ
+MTEI	ꯢ

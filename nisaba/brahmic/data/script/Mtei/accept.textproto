@@ -1,0 +1,6 @@
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "MEETEI MAYEK"
+
+item { uname: "LUM IYEK" }  # Heavy tone mark.

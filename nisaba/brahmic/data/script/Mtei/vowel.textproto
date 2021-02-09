@@ -1,0 +1,21 @@
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "MEETEI MAYEK"
+
+# The Meetei script is unusual in that it only has three standalone vowel
+# letters as part of the main standalone letter inventory (Iyek Ipee).
+item { uname: "LETTER UN"    to_raw: "U" }
+item { uname: "LETTER I"     to_raw: "I" }
+item { uname: "LETTER ATIYA" to_raw: "A" }
+
+# Additional vowels are produced by the application of the
+# vowel signs/matras (Cheitap Iyek) to <ATIYA> letter.
+item { uname: ["LETTER ATIYA", "VOWEL SIGN ANAP"]    to_raw: "ā" }
+item { uname: ["LETTER ATIYA", "VOWEL SIGN INAP"]    to_raw: "i" }
+item { uname: ["LETTER ATIYA", "VOWEL SIGN ONAP"]    to_raw: "o" }
+item { uname: ["LETTER ATIYA", "VOWEL SIGN YENAP"]   to_raw: "e" }
+item { uname: ["LETTER ATIYA", "VOWEL SIGN UNAP"]    to_raw: "u" }
+item { uname: ["LETTER ATIYA", "VOWEL SIGN SOUNAP"]  to_raw: "ou" }
+item { uname: ["LETTER ATIYA", "VOWEL SIGN CHEINAP"] to_raw: "ei" }
+item { uname: ["LETTER ATIYA", "VOWEL SIGN NUNG"]    to_raw: "aṁ" }
