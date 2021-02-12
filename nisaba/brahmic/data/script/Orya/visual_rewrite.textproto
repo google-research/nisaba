@@ -12,26 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Script definitions for Oriya.
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
 
-load("//nisaba/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
+uname_prefix: "ORIYA"
 
-package(default_visibility = ["//nisaba/brahmic:__subpackages__"])
+################################
+# Rewrites from Unicode standard
+# Unicode version 12.0: Chapter 12.5
 
-licenses(["notice"])
+# Table 12-22: Oriya Vowel Letters
 
-setup_script_data(
-    name = "Orya",
-    script_data_components = [
-        "accept",
-        "coda",
-        "consonant",
-        "nfc",
-        "preserve",
-        "standalone",
-        "virama",
-        "visual_rewrite",
-        "vowel",
-        "vowel_sign",
-    ],
-)
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA"]  raw: "ଅା"
+  to_uname: "LETTER AA" to_raw: "ଆ"
+}
+item {
+  uname: ["LETTER E", "AU LENGTH MARK"] raw: "ଏୗ"
+  to_uname: "LETTER AI" to_raw: "ଐ"
+}
+item {
+  uname: ["LETTER O", "AU LENGTH MARK"] raw: "ଓୗ"
+  to_uname: "LETTER AU" to_raw: "ଔ"
+}

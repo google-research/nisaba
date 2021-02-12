@@ -32,7 +32,7 @@ Example:
 """
 
 import sys
-from typing import List, Sequence
+from typing import List, Sequence, Tuple, Union
 import unicodedata
 
 from absl import app
@@ -58,7 +58,7 @@ FLAGS = flags.FLAGS
 
 
 def _names_to_string(uname_prefix: str, item_index: int,
-                     names: List[str]) -> str:
+                     names: List[str]) -> Tuple[str, List[str]]:
   """Converts list of Unicode character names to the corresponding string.
 
   Args:
@@ -67,11 +67,13 @@ def _names_to_string(uname_prefix: str, item_index: int,
     names: List of Unicode character names.
 
   Returns:
-    String in UTF-8 encoding.
+    Returns a tuple that consists of a string in UTF-8 encoding and a list
+    of character names that fully resolve using `uname_prefix`.
   Raises:
     ValueError: If character cannot be converted.
   """
   u_chars: List[str] = []
+  resolved_names: List[str] = []
   for name in names:
     prefix_and_name = (uname_prefix + ' ' + name if uname_prefix and
                        not name.startswith(uname_prefix) else name)
@@ -79,21 +81,62 @@ def _names_to_string(uname_prefix: str, item_index: int,
       # As a first attempt at matching, try to match against a full character
       # name including the prefix `uname_prefix` (if set).
       u_char = unicodedata.lookup(prefix_and_name)
+      resolved_names.append(prefix_and_name)
     except KeyError as exc:
       if not uname_prefix:  # Nothing we can do. Pass the exception on.
-        raise
+        raise ValueError('Item %d: Lookup failed: \'%s\'' % (
+            item_index, prefix_and_name)) from exc
       # Attempt to match the second time, without a script name.
       try:
         u_char = unicodedata.lookup(name)
+        resolved_names.append(name)
       except KeyError as exc:
         raise ValueError('Item %d: Cannot convert \'%s\'' % (
             item_index, name)) from exc
     u_chars.append(u_char)
-  return ''.join(u_chars)
+  return ''.join(u_chars), resolved_names
 
 
-def _convert_item(uname_prefix: str, item_index: int,
-                  data_item: unicode_strings_pb2.UnicodeStrings.Item):
+def _proto_entries_to_string(uname_prefix: str, item_index: int,
+                             uname: List[str], raw: str) -> str:
+  """Computes string from either Unicode names or codepoint sequence.
+
+  Given unicode names and/or raw Unicode codepoint sequence specification
+  computes the final string.
+
+  Args:
+     uname_prefix: Character name prefix.
+     item_index: Index of the item in the proto (for debugging).
+     uname: List of Unicode character name strings, possibly empty.
+     raw: Raw string, possibly empty.
+
+  Raises:
+    ValueError: If parsing fails.
+  Returns:
+    Final raw string.
+  """
+  if raw and not uname:
+    return raw
+
+  test_str: str = None
+  if uname and raw:
+    # Use the raw string as a sanity check to compare with the values in uname.
+    test_str = raw
+
+  source_str, char_names = _names_to_string(uname_prefix, item_index, uname)
+  if test_str and source_str != test_str:
+    # Name lookup may throw ValueError as well.
+    test_names = [unicodedata.name(c) for c in test_str]
+    raise ValueError('Item %d: Names in `uname` (%s) mismatch the contents '
+                     'of the `raw` field (%s)' % (
+                         item_index, char_names, test_names))
+  return source_str
+
+
+def _convert_item(
+    uname_prefix: str, item_index: int,
+    data_item: unicode_strings_pb2.UnicodeStrings.Item) -> Tuple[
+        str, Union[str, None]]:
   """Converts individual item into source and destination strings.
 
   Args:
@@ -111,26 +154,15 @@ def _convert_item(uname_prefix: str, item_index: int,
   if not data_item.uname and not data_item.raw:
     raise ValueError('Item %d: Either \'raw\' or \'uname\' have to be defined' %
                      item_index)
-  if data_item.uname and data_item.raw:
-    raise ValueError('Item %d: Cannot have both \'raw\' and \'uname\' '
-                     'defined' % item_index)
-  if data_item.raw:
-    source_str = data_item.raw
-  else:
-    source_str = _names_to_string(uname_prefix, item_index,
-                                  list(data_item.uname))
 
+  source_str = _proto_entries_to_string(uname_prefix, item_index,
+                                        list(data_item.uname), data_item.raw)
   # Check if item defines a mapping.
   if not data_item.to_uname and not data_item.to_raw:
     return source_str, None
-  if data_item.to_uname and data_item.to_raw:
-    raise ValueError('Item %d: Cannot have both \'to_raw\' and \'to_uname\' '
-                     'defined' % item_index)
-  if data_item.to_raw:
-    dest_str = data_item.to_raw
-  elif data_item.to_uname:
-    dest_str = _names_to_string(uname_prefix, item_index,
-                                list(data_item.to_uname))
+  dest_str = _proto_entries_to_string(uname_prefix, item_index,
+                                      list(data_item.to_uname),
+                                      data_item.to_raw)
   return source_str, dest_str
 
 

@@ -87,3 +87,17 @@ py_binary(
         "@io_abseil_py//absl/logging",
     ],
 )
+
+py_test(
+    name = "unicode_strings_to_tsv_test",
+    srcs = ["unicode_strings_to_tsv_test.py"],
+    python_version = "PY3",
+    srcs_version = "PY3ONLY",
+    legacy_create_init = False,
+    deps = [
+        ":unicode_strings_py_pb2",
+        ":unicode_strings_to_tsv",
+        "@io_abseil_py//absl/flags",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)

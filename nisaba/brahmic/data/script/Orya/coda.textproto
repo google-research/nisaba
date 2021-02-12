@@ -12,26 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Script definitions for Oriya.
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
 
-load("//nisaba/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
+uname_prefix: "ORIYA SIGN"
 
-package(default_visibility = ["//nisaba/brahmic:__subpackages__"])
+item { uname: "ANUSVARA"    to_raw: "ṁ" }
+item { uname: "CANDRABINDU" to_raw: "m̐" }
+item { uname: "VISARGA"     to_raw: "ḥ" }
 
-licenses(["notice"])
+# The nuqta is neither a coda nor a pure standalone symbol.
+item { uname: "NUKTA" to_raw: "ˑ" }
 
-setup_script_data(
-    name = "Orya",
-    script_data_components = [
-        "accept",
-        "coda",
-        "consonant",
-        "nfc",
-        "preserve",
-        "standalone",
-        "virama",
-        "visual_rewrite",
-        "vowel",
-        "vowel_sign",
-    ],
-)
+# TODO: Consider treating non-Deva avagraha as a symbol.
+item { uname: "AVAGRAHA" to_raw: "’" }
