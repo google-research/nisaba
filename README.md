@@ -1,5 +1,6 @@
 [![GitHub license](https://img.shields.io/badge/license-Apache2-blue.svg)](https://github.com/google-research/nisaba/blob/main/LICENSE)
 [![Build Tests (Linux)](https://github.com/google-research/nisaba/workflows/linux/badge.svg)](https://github.com/google-research/nisaba/actions?query=workflow%3A%22linux%22)
+[![Build Tests (macOS)](https://github.com/google-research/nisaba/workflows/macos/badge.svg)](https://github.com/google-research/nisaba/actions?query=workflow%3A%22macos%22)
 
 # Nisaba
 
