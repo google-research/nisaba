@@ -353,6 +353,7 @@ compile_multi_grm_py(
         "//nisaba/brahmic/data/common:symbol.tsv",
         "//nisaba/brahmic/data/script/Beng:dead_consonant.tsv",
         "//nisaba/brahmic/data/script/Mlym:dead_consonant.tsv",
+        "//nisaba/brahmic/data/script/Mtei:dead_consonant.tsv",
     ],
     fst_type = _FST_TYPE,
     visibility = ["//visibility:public"],
