@@ -69,6 +69,26 @@ py_proto_library(
     srcs = ["unicode_strings.proto"],
 )
 
+py_library(
+    name = "unicode_strings_util",
+    srcs = ["unicode_strings_util.py"],
+    srcs_version = "PY3",
+    deps = [":unicode_strings_py_pb2"],
+)
+
+py_test(
+    name = "unicode_strings_util_test",
+    srcs = ["unicode_strings_util_test.py"],
+    python_version = "PY3",
+    srcs_version = "PY3ONLY",
+    legacy_create_init = False,
+    deps = [
+        ":unicode_strings_py_pb2",
+        ":unicode_strings_util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
 py_binary(
     name = "unicode_strings_to_tsv",
     srcs = ["unicode_strings_to_tsv.py"],
@@ -81,23 +101,10 @@ py_binary(
     legacy_create_init = False,
     deps = [
         ":unicode_strings_py_pb2",
+        ":unicode_strings_util",
         "@com_google_protobuf//:protobuf_python",
         "@io_abseil_py//absl:app",
         "@io_abseil_py//absl/flags",
         "@io_abseil_py//absl/logging",
-    ],
-)
-
-py_test(
-    name = "unicode_strings_to_tsv_test",
-    srcs = ["unicode_strings_to_tsv_test.py"],
-    python_version = "PY3",
-    srcs_version = "PY3ONLY",
-    legacy_create_init = False,
-    deps = [
-        ":unicode_strings_py_pb2",
-        ":unicode_strings_to_tsv",
-        "@io_abseil_py//absl/flags",
-        "@io_abseil_py//absl/testing:absltest",
     ],
 )

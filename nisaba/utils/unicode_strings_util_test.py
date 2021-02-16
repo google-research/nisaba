@@ -14,19 +14,15 @@
 
 """Tests for Unicode strings proto parser."""
 
-from absl import flags
 from nisaba.utils import unicode_strings_pb2
-from nisaba.utils import unicode_strings_to_tsv
+from nisaba.utils import unicode_strings_util as lib
 from absl.testing import absltest
 
-FLAGS = flags.FLAGS
 
-
-class UnicodeStringsToTsvTest(absltest.TestCase):
+class UnicodeStringsUtilTest(absltest.TestCase):
 
   def _proto_entries_to_string(self, uname_prefix=None, uname=None, raw=None):
-    return unicode_strings_to_tsv._proto_entries_to_string(
-        uname_prefix, 0, uname, raw)
+    return lib.proto_entries_to_string(uname_prefix, 0, uname, raw)
 
   def _convert_item(self, uname_prefix=None, uname=None, raw="",
                     to_uname=None, to_raw=""):
@@ -35,7 +31,7 @@ class UnicodeStringsToTsvTest(absltest.TestCase):
     item.raw = raw
     item.to_uname.extend(to_uname)
     item.to_raw = to_raw
-    return unicode_strings_to_tsv._convert_item(uname_prefix, 0, item)
+    return lib.convert_item(uname_prefix, 0, item)
 
   def testProtoEntriesToString(self):
     """Tests the internal API for parsing `uname` and `raw` fields."""
@@ -127,6 +123,4 @@ class UnicodeStringsToTsvTest(absltest.TestCase):
 
 
 if __name__ == "__main__":
-  FLAGS.input_text_proto = ""
-  FLAGS.output_tsv = ""
   absltest.main()
