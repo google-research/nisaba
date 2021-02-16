@@ -1,3 +1,6 @@
+# NOTE: Currently disabled. Due to symlinking errors (`link already exists`)
+# when building Cython during Pynini compilation.
+
 name: "macos"
 
 on:
