@@ -56,8 +56,8 @@ exports_files(
     visibility = ["//visibility:public"],
 )
 
-# FST type for compile_grm_py and compile_multi_grm_py; depend on :fst_types
-# to read this.
+# FST type for compile_grm_py and compile_multi_grm_py; depend on
+# //third_party/nisaba/utils:fst_types to read such FSTs.
 _FST_TYPE = "const"
 
 compile_grm_py(
