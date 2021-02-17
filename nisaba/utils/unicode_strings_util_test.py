@@ -21,16 +21,19 @@ from absl.testing import absltest
 
 class UnicodeStringsUtilTest(absltest.TestCase):
 
-  def _proto_entries_to_string(self, uname_prefix=None, uname=None, raw=None):
-    return lib.proto_entries_to_string(uname_prefix, 0, uname, raw)
+  def _proto_entries_to_string(self, uname_prefix="", uname=None, raw=""):
+    return lib.proto_entries_to_string(uname_prefix, 0,
+                                       uname if uname else [], raw)
 
-  def _convert_item(self, uname_prefix=None, uname=None, raw="",
+  def _convert_item(self, uname_prefix="", uname=None, raw="",
                     to_uname=None, to_raw=""):
     item = unicode_strings_pb2.UnicodeStrings.Item()
-    item.uname.extend(uname)
     item.raw = raw
-    item.to_uname.extend(to_uname)
     item.to_raw = to_raw
+    if uname:
+      item.uname.extend(uname)
+    if to_uname:
+      item.to_uname.extend(to_uname)
     return lib.convert_item(uname_prefix, 0, item)
 
   def testProtoEntriesToString(self):
