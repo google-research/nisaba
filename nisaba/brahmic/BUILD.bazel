@@ -16,11 +16,11 @@
 
 load("@nisaba_deps//:requirements.bzl", "requirement")
 
-load("@org_opengrm_thrax//:src/bazel/regression_test_build_defs.bzl", "grm_regression_test")
 load(
-    "@org_opengrm_pynini//pynini/export:grm_py_build_defs.bzl",
-    "compile_grm_py",
-    "compile_multi_grm_py",
+    "//nisaba/utils:grammars.bzl",
+    "nisaba_compile_grm_py",
+    "nisaba_compile_multi_grm_py",
+    "nisaba_grm_regression_test",
 )
 
 package(default_visibility = ["//nisaba/brahmic:__subpackages__"])
@@ -51,16 +51,7 @@ LANG_DIRS = [
 
 FIXED_RULE_SCRIPTS = ["Mlym"]
 
-exports_files(
-    glob(["**/*.tsv"]),
-    visibility = ["//visibility:public"],
-)
-
-# FST type for compile_grm_py and compile_multi_grm_py; depend on
-# //third_party/nisaba/utils:fst_types to read such FSTs.
-_FST_TYPE = "const"
-
-compile_grm_py(
+nisaba_compile_grm_py(
     name = "iso",
     data = [
         "//nisaba/brahmic/data/script/{}:{}.tsv".format(script, file_name)
@@ -74,7 +65,6 @@ compile_grm_py(
             "vowel_sign",
         ]
     ] + ["//nisaba/brahmic/data/common:symbol.tsv"],
-    fst_type = _FST_TYPE,
     visibility = ["//visibility:public"],
     deps = [
         ":util",
@@ -84,13 +74,12 @@ compile_grm_py(
     ],
 )
 
-grm_regression_test(
+nisaba_grm_regression_test(
     name = "iso_test",
     grammar = ":iso",
-    testdata_packaged = True,
 )
 
-compile_multi_grm_py(
+nisaba_compile_multi_grm_py(
     name = "fixed",
     outs = {
         "byte": "fixed.far",
@@ -100,7 +89,6 @@ compile_multi_grm_py(
         "//nisaba/brahmic/data/script/{}:fixed.tsv".format(script)
         for script in FIXED_RULE_SCRIPTS
     ],
-    fst_type = _FST_TYPE,
     visibility = ["//visibility:public"],
     deps = [
         ":char_util",
@@ -111,14 +99,13 @@ compile_multi_grm_py(
     ],
 )
 
-grm_regression_test(
+nisaba_grm_regression_test(
     name = "fixed_test",
     grammar = ":fixed",
-    testdata_packaged = True,
     token_type = "byte",
 )
 
-compile_multi_grm_py(
+nisaba_compile_multi_grm_py(
     name = "nfc",
     outs = {
         "byte": "nfc.far",
@@ -127,7 +114,6 @@ compile_multi_grm_py(
     data = [
         ":sigma_utf8.far",
     ] + ["//nisaba/brahmic/data/script/{}:nfc.tsv".format(script) for script in SCRIPTS],
-    fst_type = _FST_TYPE,
     visibility = ["//visibility:public"],
     deps = [
         ":rule",
@@ -136,19 +122,17 @@ compile_multi_grm_py(
     ],
 )
 
-grm_regression_test(
+nisaba_grm_regression_test(
     name = "nfc_test",
     grammar = ":nfc",
-    testdata_packaged = True,
     token_type = "byte",
 )
 
-grm_regression_test(
+nisaba_grm_regression_test(
     name = "nfc_utf8_test",
     far_file_target = ":nfc_utf8.far",
     grammar = ":nfc",
     test_file = "testdata:nfc.tsv",
-    testdata_packaged = True,
     token_type = "utf8",
 )
 
@@ -217,10 +201,9 @@ py_library(
     ],
 )
 
-compile_grm_py(
+nisaba_compile_grm_py(
     name = "sigma",
     out = "sigma_utf8.far",
-    fst_type = _FST_TYPE,
     deps = [
         ":char_util",
         ":util",
@@ -276,7 +259,7 @@ py_test(
     ],
 )
 
-compile_multi_grm_py(
+nisaba_compile_multi_grm_py(
     name = "visual_norm",
     outs = {
         "byte": "visual_norm.far",
@@ -302,7 +285,6 @@ compile_multi_grm_py(
             "before_consonant",
         ]
     ],
-    fst_type = _FST_TYPE,
     visibility = ["//visibility:public"],
     deps = [
         ":char_util",
@@ -314,23 +296,21 @@ compile_multi_grm_py(
     ],
 )
 
-grm_regression_test(
+nisaba_grm_regression_test(
     name = "visual_norm_test",
     grammar = ":visual_norm",
-    testdata_packaged = True,
     token_type = "byte",
 )
 
-grm_regression_test(
+nisaba_grm_regression_test(
     name = "visual_norm_utf8_test",
     far_file_target = ":visual_norm_utf8.far",
     grammar = ":visual_norm",
     test_file = "testdata:visual_norm.tsv",
-    testdata_packaged = True,
     token_type = "utf8",
 )
 
-compile_multi_grm_py(
+nisaba_compile_multi_grm_py(
     name = "wellformed",
     outs = {
         "byte": "wellformed.far",
@@ -355,7 +335,6 @@ compile_multi_grm_py(
         "//nisaba/brahmic/data/script/Mlym:dead_consonant.tsv",
         "//nisaba/brahmic/data/script/Mtei:dead_consonant.tsv",
     ],
-    fst_type = _FST_TYPE,
     visibility = ["//visibility:public"],
     deps = [
         ":util",
@@ -364,19 +343,17 @@ compile_multi_grm_py(
     ],
 )
 
-grm_regression_test(
+nisaba_grm_regression_test(
     name = "wellformed_test",
     grammar = ":wellformed",
-    testdata_packaged = True,
     token_type = "byte",
 )
 
-grm_regression_test(
+nisaba_grm_regression_test(
     name = "wellformed_utf8_test",
     far_file_target = ":wellformed_utf8.far",
     grammar = ":wellformed",
     test_file = "testdata:wellformed.tsv",
-    testdata_packaged = True,
     token_type = "utf8",
 )
 
