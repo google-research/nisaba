@@ -22,7 +22,7 @@ load(
 )
 
 # FST type for compile_grm_py and compile_multi_grm_py; depend on
-# //third_party/nisaba/utils:fst_types to read such FSTs.
+# //nisaba/utils:fst_types to read such FSTs.
 _FST_TYPE = "const"
 
 def nisaba_compile_grm_py(
