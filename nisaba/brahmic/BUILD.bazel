@@ -64,10 +64,6 @@ nisaba_grm_regression_test(
 
 nisaba_compile_multi_grm_py(
     name = "fixed",
-    outs = {
-        "byte": "fixed.far",
-        "utf8": "fixed_utf8.far",
-    },
     data = [":sigma_utf8.far"] + [
         "//nisaba/brahmic/data/script/{}:fixed.tsv".format(script)
         for script in FIXED_RULE_SCRIPTS
@@ -90,10 +86,6 @@ nisaba_grm_regression_test(
 
 nisaba_compile_multi_grm_py(
     name = "nfc",
-    outs = {
-        "byte": "nfc.far",
-        "utf8": "nfc_utf8.far",
-    },
     data = [
         ":sigma_utf8.far",
     ] + ["//nisaba/brahmic/data/script/{}:nfc.tsv".format(script) for script in SCRIPTS],
@@ -235,10 +227,6 @@ py_test(
 
 nisaba_compile_multi_grm_py(
     name = "visual_norm",
-    outs = {
-        "byte": "visual_norm.far",
-        "utf8": "visual_norm_utf8.far",
-    },
     data = [
         ":nfc.far",
         ":nfc_utf8.far",
@@ -288,10 +276,6 @@ nisaba_grm_regression_test(
 
 nisaba_compile_multi_grm_py(
     name = "wellformed",
-    outs = {
-        "byte": "wellformed.far",
-        "utf8": "wellformed_utf8.far",
-    },
     data = [
         "//nisaba/brahmic/data/script/{}:{}.tsv".format(script, file_name)
         for script in SCRIPTS
