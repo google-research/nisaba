@@ -3,9 +3,9 @@
 This package is a collection of [OpenGrm
 Thrax](http://www.openfst.org/twiki/bin/view/GRM/Thrax) and [OpenGrm
 Pynini](http://www.opengrm.org/twiki/bin/view/GRM/Pynini) grammars to work with
-the texts in major Brahmic scripts of South Asia. Respective C++ and Python
-access APIs are also provided.  The language scripts under consideration and
-their [BCP-47](https://tools.ietf.org/rfc/bcp/bcp47.txt) script tags are as
+the texts in Brahmic scripts of South and Southeast Asia. Respective C++ and
+Python access APIs are also provided.  The language scripts under consideration
+and their [BCP-47](https://tools.ietf.org/rfc/bcp/bcp47.txt) script tags are as
 below. When a script tag is used as a finite state transducer (FST) name, it
 will be all uppercase; example: `DEVA`. FST Archive (FAR) names are all
 lowercase (e.g., `iso`).
@@ -19,6 +19,7 @@ lowercase (e.g., `iso`).
 1.  Meetei Mayek (`Mtei`)
 1.  Oriya (`Orya`)
 1.  Sinhala (`Sinh`)
+1.  Tagalog (Baybayin) (`Tglg`)
 1.  Tamil (`Taml`)
 1.  Telugu (`Telu`)
 

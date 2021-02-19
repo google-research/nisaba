@@ -148,3 +148,26 @@ TO_MTEI	gulāba	ꯒꯨꯂꯥꯕ
 TO_MTEI	jāi'phal'	ꯖꯥꯢꯐꯜ
 TO_MTEI	leṅ'jum'	ꯂꯦꯡꯖꯨꯝ
 TO_MTEI	kā^ṅa	ꯀꯥ꯬ꯉ
+
+# ------------------------------------------------------------------------------
+# Baybayin (Tagalog).
+# ------------------------------------------------------------------------------
+FROM_TGLG	ᜀᜋ	ama
+FROM_TGLG	ᜋᜅ	manga
+FROM_TGLG	ᜁᜀᜇ᜔ᜌ	i.adya
+FROM_TGLG	ᜐᜓᜋᜐᜎᜅᜒᜆ᜔	sumasalangit
+FROM_TGLG	ᜃ	ka
+FROM_TGLG	ᜐᜋ᜔ᜊᜑᜒᜈ᜔	sambahin
+FROM_TGLG	ᜋᜉᜐᜀᜋᜒᜈ᜔	mapasa.amin
+FROM_TGLG	ᜉᜄ᜔ᜉᜉᜆᜏᜇ᜔	pagpapatawad
+FROM_TGLG	ᜋᜃᜃᜎᜒᜃᜐᜈ᜔	makakalikasan
+TO_TGLG	ama	ᜀᜋ
+TO_TGLG	manga	ᜋᜅ
+TO_TGLG	i.adya	ᜁᜀᜇ᜔ᜌ
+TO_TGLG	sumasalangit	ᜐᜓᜋᜐᜎᜅᜒᜆ᜔
+TO_TGLG	ka	ᜃ
+TO_TGLG	sambahin	ᜐᜋ᜔ᜊᜑᜒᜈ᜔
+TO_TGLG	mapasa.amin	ᜋᜉᜐᜀᜋᜒᜈ᜔
+TO_TGLG	pagpapatawad	ᜉᜄ᜔ᜉᜉᜆᜏᜇ᜔
+TO_TGLG	makakalikasan	ᜋᜃᜃᜎᜒᜃᜐᜈ᜔
+

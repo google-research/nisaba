@@ -44,4 +44,7 @@ def StringFile(filename: os.PathLike) -> pynini.Fst:
 
 
 def StringFileSafe(filename: os.PathLike) -> pynini.Fst:
-  return StringFile(filename) if IsFileExist(filename) else pynini.accep("")
+  """Returns non-empty transducer if file exists and is non-empty."""
+  fst = StringFile(filename) if IsFileExist(filename) else None
+  # TODO: Remove the empty FST check once  is fixed.
+  return fst if fst and str(fst) else pynini.accep("")

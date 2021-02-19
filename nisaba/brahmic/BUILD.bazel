@@ -42,6 +42,7 @@ SCRIPTS = [
     "Sinh",
     "Taml",
     "Telu",
+    "Tglg",
 ]
 
 LANG_DIRS = [

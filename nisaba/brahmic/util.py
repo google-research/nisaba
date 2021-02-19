@@ -113,6 +113,7 @@ SCRIPTS = [
     "Sinh",
     "Taml",
     "Telu",
+    "Tglg",
 ]
 
 LANG_SCRIPT_MAP = {
