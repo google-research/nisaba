@@ -16,6 +16,9 @@ jobs:
     runs-on: macos-latest
     env:
       BAZEL: bazelisk-darwin-amd64
+      CC: gcc-9
+      CXX: g++-9
+
     steps:
     - uses: actions/checkout@v2
 
@@ -40,6 +43,17 @@ jobs:
       run: |
         brew install --display-times python || true
         pip3 install -r ./requirements.txt
+
+    - name: Environment variables (debug dump)
+      run: |
+        echo "====== gcc version:"
+        gcc --version
+        echo "====== Requested gcc:"
+        ${CC} --version
+        echo "====== g++ version:"
+        g++ --version
+        echo "====== Requested g++:"
+        ${CXX} --version
 
     - name: Build
       run: ./$BAZEL build -c opt //...

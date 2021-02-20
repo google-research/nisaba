@@ -13,10 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BAZEL: bazelisk-linux-amd64
-      LANG: C.UTF-8
-      LC_ALL: C.UTF-8
-      LC_CTYPE: C.UTF-8
-      PYTHONIOENCODING: UTF-8
+      CC: gcc-9
+      CXX: g++-9
 
     steps:
     - uses: actions/checkout@v2
@@ -45,21 +43,19 @@ jobs:
     - name: Install requirements
       run: |
         sudo apt-get update
-        sudo apt-get install -y python3-pip python3-dev python3-pip
+        sudo apt-get install -y python3-pip python3-dev
         sudo pip3 install -r ./requirements.txt
 
-    - name: Locales
+    - name: Environment variables (debug dump)
       run: |
-        echo "=== Available locales:"
-        locale -a
-        echo "=== Locale charmap:"
-        locale charmap
-        echo "=== Default locale:"
-        python3 -c "import locale; print(locale.getdefaultlocale())"
-        echo "=== Preferred locale:"
-        python3 -c "import locale; print(locale.getpreferredencoding())"
-        echo "=== Default system encoding:"
-        python3 -c "import sys; print(sys.getdefaultencoding())"
+        echo "====== gcc version:"
+        gcc --version
+        echo "====== Requested gcc:"
+        ${CC} --version
+        echo "====== g++ version:"
+        g++ --version
+        echo "====== Requested g++:"
+        ${CXX} --version
 
     - name: Build
       run: ./$BAZEL build -c opt //...
