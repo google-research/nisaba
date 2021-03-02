@@ -118,6 +118,22 @@ NOTE: We don't accept pull requests (PRs) at the moment.
 Nisaba is licensed under the terms of the Apache license. See [LICENSE](LICENSE)
 for more information.
 
+## Citation
+
+If you use this software in a publication, please cite the accompanying paper:
+
+```bibtex
+@inproceedings{nisaba-eacl2021,
+    title = {Finite-state script normalization and processing utilities: The {N}isaba {B}rahmic library},
+    author = {Cibu Johny and Lawrence Wolf-Sonkin and Alexander Gutkin and Brian Roark},
+    booktitle = {16th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2021), Demonstrations Program},
+    address = {[Online], Kyiv, Ukraine},
+    month = apr,
+    year = {2021},
+    note = {To appear}
+}
+```
+
 ## Mandatory disclaimer
 
 This is not an official Google product.
