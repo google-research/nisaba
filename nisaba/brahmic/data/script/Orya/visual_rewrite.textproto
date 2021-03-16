@@ -35,23 +35,3 @@ item {
   uname: ["LETTER O", "AU LENGTH MARK"] raw: "ଓୗ"
   to_uname: "LETTER AU" to_raw: "ଔ"
 }
-
-###########################################################
-# Additional rewrites for the usages found in web documents
-# See https://www.unicode.org/L2/L2002/02425-oriya.pdf for context.
-
-# Mis-encoding of LETTER WA as <O, VIRAMA, BA>
-item {
-  uname: ["LETTER O", "SIGN VIRAMA", "LETTER BA"] raw: "ଓ୍ବ"
-  to_uname: "LETTER WA" to_raw: "ୱ"
-}
-# Mis-encoding of LETTER WA as <O, VIRAMA, WA>
-item {
-  uname: ["LETTER O", "SIGN VIRAMA", "LETTER WA"] raw: "ଓ୍ୱ"
-  to_uname: "LETTER WA" to_raw: "ୱ"
-}
-# Mis-encoding of BA/WA phollo as <VIRAMA, WA> rather than <VIRAMA, BA>
-item {
-  uname: ["SIGN VIRAMA", "LETTER WA"] raw: "୍ୱ"
-  to_uname: ["SIGN VIRAMA", "LETTER BA"] to_raw: "୍ବ"
-}
