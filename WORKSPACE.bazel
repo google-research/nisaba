@@ -84,16 +84,19 @@ pynini_repositories()
 # External Python packages.
 # -------------------------------------------------------------------------
 
-# Python external packages installation.
-load("@rules_python//python:pip.bzl", "pip3_import")
+http_archive(
+    name = "fresh_rules_python",
+    url = "https://github.com/bazelbuild/rules_python/releases/download/0.1.0/rules_python-0.1.0.tar.gz",
+    sha256 = "b6d46438523a3ec0f3cead544190ee13223a52f6a6765a29eae7b7cc24cc83a0",
+)
 
-pip3_import(
+# Python external packages installation.
+load("@fresh_rules_python//python:pip.bzl", "pip_install")
+
+pip_install(
     name = "nisaba_deps",
     requirements = "//:requirements.txt", # Top level requirements.
 )
-
-load("@nisaba_deps//:requirements.bzl", "pip_install")
-pip_install()
 
 # -------------------------------------------------------------------------
 # Protocol buffer dependencies.
