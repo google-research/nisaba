@@ -83,20 +83,6 @@ def OpenFstFromBrahmicFar(far_name: str, script: str, *,
     return far[script.upper()]
 
 
-def OpenFstFromBrahmicFarSafe(far_name: str, fst_name: str, token_type: str,
-                              default: pynini.Fst) -> pynini.Fst:
-  """Returns FST from a given FAR; returns default if FST is not found."""
-  tt_suffix = {"byte": "", "utf8": "_utf8"}[token_type]
-  far_path = FAR_DIR / f"{far_name}{tt_suffix}.far"
-  if not uf.IsFileExist(far_path):
-    return default
-  with pynini.Far(uf.AsResourcePath(far_path), "r") as far:
-    try:
-      return far[fst_name.upper()]
-    except KeyError:
-      return default
-
-
 def OpenSigma(script: str, *, token_type: str) -> pynini.Fst:
   # Returns the byte FSA if token_type is 'byte', otherwise opens the sigma FAR.
   if token_type == "byte":
