@@ -25,7 +25,20 @@ bool Grammar::Load() {
     LOG(ERROR) << far_path.status();
     return false;
   }
-  return grm_mgr_->LoadArchive(far_path.value());
+  if (!grm_mgr_->LoadArchive(far_path.value())) return false;
+
+  static const std::map<std::string, std::string>& lang_script_map =
+      {{"bn", "Beng"}, {"gu", "Gujr"}, {"hi", "Deva"}, {"kn", "Knda"},
+       {"ml", "Mlym"}, {"mr", "Deva"}, {"or", "Orya"}, {"pa", "Guru"},
+       {"si", "Sinh"}, {"ta", "Taml"}, {"te", "Telu"}};
+
+  if (!grm_mgr_->GetFstMap()->count(fst_name_)) {
+    const auto entry = lang_script_map.find(absl::AsciiStrToLower(fst_name_));
+    if (entry == lang_script_map.end()) return false;
+    fst_name_ = absl::AsciiStrToUpper(entry->second);
+    return grm_mgr_->GetFstMap()->count(fst_name_);
+  }
+  return true;
 }
 
 bool Grammar::Rewrite(const std::string& input, std::string *output) const {

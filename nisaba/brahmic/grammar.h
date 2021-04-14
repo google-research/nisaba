@@ -52,7 +52,7 @@ class Grammar {
 
  private:
   const std::string far_file_path_;
-  const std::string fst_name_;
+  std::string fst_name_;
   const std::unique_ptr<thrax::GrmManager> grm_mgr_;
 };
 
