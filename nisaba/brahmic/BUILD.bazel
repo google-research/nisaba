@@ -22,35 +22,16 @@ load(
     "nisaba_compile_multi_grm_py",
     "nisaba_grm_regression_test",
 )
+load(
+    "//nisaba/brahmic:constant.bzl",
+    "FIXED_RULE_SCRIPTS",
+    "LANG_DIRS",
+    "SCRIPTS",
+)
 
 package(default_visibility = ["//nisaba/brahmic:__subpackages__"])
 
 licenses(["notice"])
-
-# Script and language codes are used as per IANA registry:
-# https://www.iana.org/assignments/language-subtag-registry
-# Script codes are lower-cased for uniformity.
-SCRIPTS = [
-    "Beng",
-    "Deva",
-    "Gujr",
-    "Guru",
-    "Knda",
-    "Mlym",
-    "Mtei",
-    "Orya",
-    "Sinh",
-    "Taml",
-    "Telu",
-    "Tglg",
-]
-
-LANG_DIRS = [
-    "as",
-    "bn",
-]
-
-FIXED_RULE_SCRIPTS = ["Mlym"]
 
 nisaba_compile_grm_py(
     name = "iso",

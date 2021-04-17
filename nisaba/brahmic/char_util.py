@@ -52,9 +52,8 @@ def _read_string_file_chars_to_set(files: Iterable[os.PathLike],
   return chars
 
 
-def derive_chars(*,
-                 both_sides: Iterable[os.PathLike],
-                 input_side: Iterable[os.PathLike]) -> Set[str]:
+def derive_chars(both_sides: Iterable[os.PathLike] = (),
+                 input_side: Iterable[os.PathLike] = ()) -> Set[str]:
   """Create the set of characters in a script from StringFiles.
 
   Args:
@@ -92,6 +91,11 @@ def script_chars(script: str) -> Set[str]:
       ])
 
 
+def consonants(script: str) -> Set[str]:
+  """Returns the set of consonants in a script."""
+  return derive_chars(input_side=[u.SCRIPT_DIR / script / "consonant.tsv"])
+
+
 def _dedup_chars(chars: Iterable[str], sigma: pynini.Fst) -> pynini.Fst:
   """Creates an FST to de-dup the specified characters."""
   char_fsts = (u.Rewrite(pynutil.delete(c), left=c, sigma=sigma) for c in chars)
@@ -114,13 +118,18 @@ def derive_sigma(chars: Set[str]) -> pynini.Fst:
   return sigma.optimize()
 
 
-def dedup_marks_fst(script: str, sigma: pynini.Fst) -> pynini.Fst:
-  """Creates an FST to de-dup non-spacing marks of a script and joiners."""
+def mark_chars(script: str) -> Set[str]:
+  """Returns a set of non-spacing marks of a script and joiners."""
 
   chars = script_chars(script)
   marks = {u.ZWS, u.ZWNJ, u.ZWJ}
   # 'Mn' is the category value for Nonspacing Marks:
   # See: http://www.unicode.org/reports/tr44/#General_Category_Values
   marks.update(c for c in chars if unicodedata.category(c) == "Mn")
+  return marks
 
-  return _dedup_chars(marks, sigma)
+
+def dedup_marks_fst(script: str, sigma: pynini.Fst) -> pynini.Fst:
+  """Creates an FST to de-dup non-spacing marks of a script and joiners."""
+
+  return _dedup_chars(mark_chars(script), sigma)

@@ -38,8 +38,13 @@ def Rewrite(rule: pynini.FstLike,
 
 
 def RulesFromStringFile(file: os.PathLike) -> Iterator[Rule]:
+  """Yields string rules from a text resource with unweighted string maps."""
+  return RulesFromStringPath(uf.AsResourcePath(file))
+
+
+def RulesFromStringPath(file: os.PathLike) -> Iterator[Rule]:
   """Yields string rules from a text file with unweighted string maps."""
-  with pathlib.Path(uf.AsResourcePath(file)).open("rt", encoding="utf8") as f:
+  with pathlib.Path(file).open("rt", encoding="utf8") as f:
     df = pd.read_csv(f, sep="\t", comment="#", escapechar="\\",
                      names=["lhs", "rhs"], na_filter=False)
     for row in df.itertuples(index=False, name="Rule"):
@@ -114,7 +119,6 @@ ZWS = "\u200B"  # Zero Width Space
 # Scripts supported by the brahmic library.
 # Script and language codes are used as per IANA registry:
 # https://www.iana.org/assignments/language-subtag-registry
-# Script codes are lower-cased for uniformity.
 SCRIPTS = [
     "Beng",
     "Deva",
