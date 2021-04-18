@@ -120,13 +120,13 @@ for more information.
 
 ## Citation
 
-If you use this software in a publication, please cite the accompanying [paper](https://www.aclweb.org/anthology/2021.eacl-demos.3.pdf):
+If you use this software in a publication, please cite the accompanying [paper](https://www.aclweb.org/anthology/2021.eacl-demos.3.pdf) from [EACL 2021](https://2021.eacl.org/):
 
 ```bibtex
 @inproceedings{nisaba-eacl2021,
     title = {Finite-state script normalization and processing utilities: The {N}isaba {B}rahmic library},
     author = {Cibu Johny and Lawrence Wolf-Sonkin and Alexander Gutkin and Brian Roark},
-    booktitle = {16th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2021), Demonstrations Program},
+    booktitle = {16th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2021): System Demonstrations},
     address = {[Online], Kyiv, Ukraine},
     month = apr,
     year = {2021},
