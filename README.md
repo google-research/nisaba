@@ -120,7 +120,7 @@ for more information.
 
 ## Citation
 
-If you use this software in a publication, please cite the accompanying paper:
+If you use this software in a publication, please cite the accompanying [paper](https://www.aclweb.org/anthology/2021.eacl-demos.3.pdf):
 
 ```bibtex
 @inproceedings{nisaba-eacl2021,
@@ -130,8 +130,9 @@ If you use this software in a publication, please cite the accompanying paper:
     address = {[Online], Kyiv, Ukraine},
     month = apr,
     year = {2021},
+    pages = {14--23},
     publisher = {Association for Computational Linguistics},
-    note = {To appear}
+    url = {https://www.aclweb.org/anthology/2021.eacl-demos.3},
 }
 ```
 
