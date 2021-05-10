@@ -62,7 +62,7 @@ CDRewrites of the FSTs from each rule.
 
 import itertools as it
 import os
-from typing import Iterable
+from typing import Iterable, List
 import networkx as nx
 
 import pynini
@@ -76,7 +76,7 @@ def _match_lhs_in_lhs(rule_a: u.Rule, rule_b: u.Rule) -> bool:
   return rule_a.lhs in rule_b.lhs
 
 
-def partition_unordered(rules: RuleSet) -> Iterable[RuleSet]:
+def partition_unordered(rules: RuleSet) -> List[RuleSet]:
   """Ordered partition of unordered rules s.t. no substring relation in a set.
 
   Algorithm: Consider the digraph of rules s.t. two rules have a directed edge
