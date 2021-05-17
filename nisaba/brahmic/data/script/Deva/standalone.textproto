@@ -1,0 +1,39 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+# The following two are vedic marks that are supposed to immediately precede
+# the contents of an orthographic syllable.
+
+# TODO: If deemed necessary, drop vedic marks from brahmic.
+uname_prefix: "VEDIC"
+
+item {
+  uname: ["SIGN JIHVAMULIYA"] raw: "ᳵ"
+  to_uname: ["LATIN SMALL LETTER H WITH LINE BELOW"] to_raw: "ẖ"
+}
+item {
+  uname: ["SIGN UPADHMANIYA"] raw: "ᳶ"
+  to_uname: ["LATIN SMALL LETTER H WITH BREVE BELOW"] to_raw: "ḫ"
+}
+item {
+  uname: ["DEVANAGARI OM"] raw: "ॐ"
+  to_uname: ["LATIN SMALL LETTER O WITH MACRON", "LATIN SMALL LETTER M", "COMBINING CANDRABINDU"] to_raw: "ōm̐"
+}
+item {
+  uname: ["DEVANAGARI SIGN AVAGRAHA"] raw: "ऽ"
+  to_uname: ["RIGHT SINGLE QUOTATION MARK"] to_raw: "’"
+}
