@@ -12,26 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Script definitions for Gurmukhi.
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
 
-load("//nisaba/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
+uname_prefix: "KANNADA"
 
-package(default_visibility = ["//nisaba/brahmic:__subpackages__"])
+# The following two are vedic marks that are supposed to immediately precede
+# the contents of an orthographic syllable.
 
-licenses(["notice"])
+# TODO: If deemed necessary, drop vedic marks from brahmic.
 
-setup_script_data(
-    name = "Gurmukhi",
-    script_data_components = [
-        "accept",
-        "coda",
-        "consonant",
-        "nfc",
-        "preserve",
-        "standalone",
-        "virama",
-        "visual_rewrite",
-        "vowel",
-        "vowel_sign",
-    ],
-)
+item {
+  uname: ["SIGN JIHVAMULIYA"] raw: "ೱ"
+  to_uname: ["LATIN SMALL LETTER H WITH LINE BELOW"] to_raw: "ẖ"
+}
+item {
+  uname: ["SIGN UPADHMANIYA"] raw: "ೲ"
+  to_uname: ["LATIN SMALL LETTER H WITH BREVE BELOW"] to_raw: "ḫ"
+}

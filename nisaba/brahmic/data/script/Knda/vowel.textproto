@@ -1,0 +1,89 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "KANNADA"
+
+item {
+  uname: ["LETTER A"] raw: "ಅ"
+  to_uname: ["LATIN SMALL LETTER A"] to_raw: "a"
+}
+item {
+  uname: ["LETTER AA"] raw: "ಆ"
+  to_uname: ["LATIN SMALL LETTER A WITH MACRON"] to_raw: "ā"
+}
+
+# Centralizing vowel AA to transliterate foreign words like 'attitude' & 'app'
+item {
+  uname: ["LETTER AA", "SIGN VIRAMA", "LETTER YA"] raw: "ಆ್ಯ"
+  to_uname: ["LATIN SMALL LETTER AE"] to_raw: "æ"
+}
+item {
+  uname: ["LETTER I"] raw: "ಇ"
+  to_uname: ["LATIN SMALL LETTER I"] to_raw: "i"
+}
+item {
+  uname: ["LETTER II"] raw: "ಈ"
+  to_uname: ["LATIN SMALL LETTER I WITH MACRON"] to_raw: "ī"
+}
+item {
+  uname: ["LETTER U"] raw: "ಉ"
+  to_uname: ["LATIN SMALL LETTER U"] to_raw: "u"
+}
+item {
+  uname: ["LETTER UU"] raw: "ಊ"
+  to_uname: ["LATIN SMALL LETTER U WITH MACRON"] to_raw: "ū"
+}
+item {
+  uname: ["LETTER VOCALIC R"] raw: "ಋ"
+  to_uname: ["LATIN SMALL LETTER R", "COMBINING RING BELOW"] to_raw: "r̥"
+}
+item {
+  uname: ["LETTER VOCALIC RR"] raw: "ೠ"
+  to_uname: ["LATIN SMALL LETTER R", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "r̥̄"
+}
+item {
+  uname: ["LETTER VOCALIC L"] raw: "ಌ"
+  to_uname: ["LATIN SMALL LETTER L", "COMBINING RING BELOW"] to_raw: "l̥"
+}
+item {
+  uname: ["LETTER VOCALIC LL"] raw: "ೡ"
+  to_uname: ["LATIN SMALL LETTER L", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "l̥̄"
+}
+item {
+  uname: ["LETTER E"] raw: "ಎ"
+  to_uname: ["LATIN SMALL LETTER E"] to_raw: "e"
+}
+item {
+  uname: ["LETTER EE"] raw: "ಏ"
+  to_uname: ["LATIN SMALL LETTER E WITH MACRON"] to_raw: "ē"
+}
+item {
+  uname: ["LETTER AI"] raw: "ಐ"
+  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER I"] to_raw: "ai"
+}
+item {
+  uname: ["LETTER O"] raw: "ಒ"
+  to_uname: ["LATIN SMALL LETTER O"] to_raw: "o"
+}
+item {
+  uname: ["LETTER OO"] raw: "ಓ"
+  to_uname: ["LATIN SMALL LETTER O WITH MACRON"] to_raw: "ō"
+}
+item {
+  uname: ["LETTER AU"] raw: "ಔ"
+  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER U"] to_raw: "au"
+}

@@ -1,0 +1,122 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "GUJARATI"
+
+################################
+# Rewrites from Unicode standard
+# Unicode version 12.0: Chapter 12.4
+
+# Table 12-20: Gujarati Vowel Letters
+
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA"] raw: "અા"
+  to_uname: ["LETTER AA"] to_raw: "આ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN CANDRA E"] raw: "અૅ"
+  to_uname: ["VOWEL CANDRA E"] to_raw: "ઍ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN E"] raw: "અે"
+  to_uname: ["LETTER E"] to_raw: "એ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN AI"] raw: "અૈ"
+  to_uname: ["LETTER AI"] to_raw: "ઐ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN CANDRA O"] raw: "અૉ"
+  to_uname: ["VOWEL CANDRA O"] to_raw: "ઑ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN O"] raw: "અો"
+  to_uname: ["LETTER O"] to_raw: "ઓ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA", "VOWEL SIGN E"] raw: "અાે"
+  to_uname: ["LETTER O"] to_raw: "ઓ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN AU"] raw: "અૌ"
+  to_uname: ["LETTER AU"] to_raw: "ઔ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA", "VOWEL SIGN AI"] raw: "અાૈ"
+  to_uname: ["LETTER AU"] to_raw: "ઔ"
+}
+item {
+  uname: ["VOWEL SIGN CANDRA E", "VOWEL SIGN AA"] raw: "ૅા"
+  to_uname: ["VOWEL SIGN CANDRA O"] to_raw: "ૉ"
+}
+
+###########################################################
+# Additional rewrites for the usages found in web documents
+
+# Additional Gujarati Vowel Letters
+
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA", "VOWEL SIGN CANDRA E"] raw: "અાૅ"
+  to_uname: ["VOWEL CANDRA O"] to_raw: "ઑ"
+}
+
+# Overlapping signs
+
+item {
+  uname: ["VOWEL SIGN AI", "VOWEL SIGN E"] raw: "ૈે"
+  to_uname: ["VOWEL SIGN AI"] to_raw: "ૈ"
+}
+item {
+  uname: ["VOWEL SIGN CANDRA O", "VOWEL SIGN CANDRA E"] raw: "ૉૅ"
+  to_uname: ["VOWEL SIGN CANDRA O"] to_raw: "ૉ"
+}
+item {
+  uname: ["VOWEL SIGN O", "VOWEL SIGN E"] raw: "ોે"
+  to_uname: ["VOWEL SIGN O"] to_raw: "ો"
+}
+item {
+  uname: ["VOWEL SIGN AU", "VOWEL SIGN E"] raw: "ૌે"
+  to_uname: ["VOWEL SIGN AU"] to_raw: "ૌ"
+}
+item {
+  uname: ["VOWEL SIGN AU", "VOWEL SIGN AI"] raw: "ૌૈ"
+  to_uname: ["VOWEL SIGN AU"] to_raw: "ૌ"
+}
+item {
+  uname: ["VOWEL SIGN I", "VOWEL SIGN E"] raw: "િે"
+  to_uname: ["VOWEL SIGN I"] to_raw: "િ"
+}
+item {
+  uname: ["LETTER AI", "VOWEL SIGN E"] raw: "ઐે"
+  to_uname: ["LETTER AI"] to_raw: "ઐ"
+}
+item {
+  uname: ["LETTER O", "VOWEL SIGN E"] raw: "ઓે"
+  to_uname: ["LETTER O"] to_raw: "ઓ"
+}
+item {
+  uname: ["LETTER AU", "VOWEL SIGN E"] raw: "ઔે"
+  to_uname: ["LETTER AU"] to_raw: "ઔ"
+}
+item {
+  uname: ["LETTER AI", "VOWEL SIGN AI"] raw: "ઐૈ"
+  to_uname: ["LETTER AI"] to_raw: "ઐ"
+}
+item {
+  uname: ["LETTER AU", "VOWEL SIGN AI"] raw: "ઔૈ"
+  to_uname: ["LETTER AU"] to_raw: "ઔ"
+}
