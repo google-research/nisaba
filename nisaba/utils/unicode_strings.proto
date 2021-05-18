@@ -21,7 +21,7 @@ package nisaba;
 // vowel signs in Telugu, or mappings between characters, e.g. a mapping from
 // Bengali consonant letters to their respective romanization in Latin script.
 //
-// Next available ID: 3
+// Next available ID: 4
 message UnicodeStrings {
   // A data item can represent a single item in a list of Unicode strings or an
   // item in a mapping.
@@ -65,6 +65,14 @@ message UnicodeStrings {
   // manipulating upon, e.g. "BENGALI", "GUJARATI". If this field is set,
   // this prefix can be omitted from the names of the characters.
   string uname_prefix = 1;
+
+  // Default name prefix of the Unicode characters listed in the `to_uname`
+  // field in `Item` messages in this file. This usually corresponds, but is not
+  // restricted, to the name of the script for the text in `to_raw`,
+  // e.g. "BENGALI", "GUJARATI". If this field is set, this prefix can be
+  // omitted from the names of the characters. If it is not set, it defaults to
+  // `uname_prefix` field.
+  string to_uname_prefix = 3;
 
   // A sequence of data items.
   repeated Item item = 2;

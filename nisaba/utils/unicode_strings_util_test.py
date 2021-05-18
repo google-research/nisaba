@@ -25,8 +25,8 @@ class UnicodeStringsUtilTest(absltest.TestCase):
     return lib.proto_entries_to_string(uname_prefix, 0,
                                        uname if uname else [], raw)
 
-  def _convert_item(self, uname_prefix="", uname=None, raw="",
-                    to_uname=None, to_raw=""):
+  def _convert_item(self, uname_prefix="", to_uname_prefix="",
+                    uname=None, raw="", to_uname=None, to_raw=""):
     item = unicode_strings_pb2.UnicodeStrings.Item()
     item.raw = raw
     item.to_raw = to_raw
@@ -34,7 +34,7 @@ class UnicodeStringsUtilTest(absltest.TestCase):
       item.uname.extend(uname)
     if to_uname:
       item.to_uname.extend(to_uname)
-    return lib.convert_item(uname_prefix, 0, item)
+    return lib.convert_item(uname_prefix, to_uname_prefix, 0, item)
 
   def testProtoEntriesToString(self):
     """Tests the internal API for parsing `uname` and `raw` fields."""
@@ -116,6 +116,14 @@ class UnicodeStringsUtilTest(absltest.TestCase):
                                       to_raw="def", to_uname=["D", "E", "F"])
     self.assertEqual("abc", source)
     self.assertEqual("def", dest)
+
+    latin_capital_prefix = "Latin Capital Letter"
+    source, dest = self._convert_item(uname_prefix=latin_prefix,
+                                      to_uname_prefix=latin_capital_prefix,
+                                      raw="abc", uname=["A", "B", "C"],
+                                      to_raw="DEF", to_uname=["D", "E", "F"])
+    self.assertEqual("abc", source)
+    self.assertEqual("DEF", dest)
 
     # Check equivalence of raw and uname fields on either side.
     with self.assertRaisesRegex(ValueError, r"mismatch the contents"):

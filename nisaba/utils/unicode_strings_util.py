@@ -98,13 +98,16 @@ def proto_entries_to_string(uname_prefix: str, item_index: int,
 
 
 def convert_item(
-    uname_prefix: str, item_index: int,
+    uname_prefix: str,
+    to_uname_prefix: str,
+    item_index: int,
     data_item: unicode_strings_pb2.UnicodeStrings.Item) -> Tuple[
         str, Union[str, None]]:
   """Converts individual item into source and destination strings.
 
   Args:
      uname_prefix: Character name prefix.
+     to_uname_prefix: Character name prefix for those in `to_uname` field.
      item_index: Index of the item in the proto (for debugging).
      data_item: An item message in the data proto.
 
@@ -124,6 +127,8 @@ def convert_item(
   # Check if item defines a mapping.
   if not data_item.to_uname and not data_item.to_raw:
     return source_str, None
-  dest_str = proto_entries_to_string(uname_prefix, item_index,
+  if not to_uname_prefix:
+    to_uname_prefix = uname_prefix
+  dest_str = proto_entries_to_string(to_uname_prefix, item_index,
                                      list(data_item.to_uname), data_item.to_raw)
   return source_str, dest_str
