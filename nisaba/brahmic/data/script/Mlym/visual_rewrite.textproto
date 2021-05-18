@@ -1,0 +1,108 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "MALAYALAM"
+
+################################
+# Rewrites from Unicode standard
+# Unicode version 12.0: Chapter 12.9
+
+# Table 12-34: Malayalam Vowel Letters
+
+item {
+  uname: ["LETTER I", "AU LENGTH MARK"] raw: "ഇൗ"
+  to_uname: ["LETTER II"] to_raw: "ഈ"
+}
+item {
+  uname: ["LETTER U", "AU LENGTH MARK"] raw: "ഉൗ"
+  to_uname: ["LETTER UU"] to_raw: "ഊ"
+}
+item {
+  uname: ["LETTER E", "VOWEL SIGN E"] raw: "എെ"
+  to_uname: ["LETTER AI"] to_raw: "ഐ"
+}
+item {
+  uname: ["LETTER O", "VOWEL SIGN AA"] raw: "ഒാ"
+  to_uname: ["LETTER OO"] to_raw: "ഓ"
+}
+item {
+  uname: ["LETTER O", "AU LENGTH MARK"] raw: "ഒൗ"
+  to_uname: ["LETTER AU"] to_raw: "ഔ"
+}
+
+# Table 12-42: Legacy Encoding of Malayalam Chillus
+
+item {
+  uname: ["LETTER NNA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ണ്‍"
+  to_uname: ["LETTER CHILLU NN"] to_raw: "ൺ"
+}
+item {
+  uname: ["LETTER NA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ന്‍"
+  to_uname: ["LETTER CHILLU N"] to_raw: "ൻ"
+}
+item {
+  uname: ["LETTER RA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ര്‍"
+  to_uname: ["LETTER CHILLU RR"] to_raw: "ർ"
+}
+item {
+  uname: ["LETTER LA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ല്‍"
+  to_uname: ["LETTER CHILLU L"] to_raw: "ൽ"
+}
+item {
+  uname: ["LETTER LLA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ള്‍"
+  to_uname: ["LETTER CHILLU LL"] to_raw: "ൾ"
+}
+
+###########################################################
+# Additional rewrites for the usages found in web documents
+
+# Additional Legacy Encoding of Chillu
+
+item {
+  uname: ["LETTER KA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ക്‍"
+  to_uname: ["LETTER CHILLU K"] to_raw: "ൿ"
+}
+
+# Legacy encoding of 'nta' conjunct
+
+item {
+  uname: ["LETTER NA", "SIGN VIRAMA", "LETTER RRA"] raw: "ന്റ"
+  to_uname: ["LETTER CHILLU N", "SIGN VIRAMA", "LETTER RRA"] to_raw: "ൻ്റ"
+}
+item {
+  uname: ["LETTER NA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "LETTER RRA"] raw: "ന്‍റ"
+  to_uname: ["LETTER CHILLU N", "SIGN VIRAMA", "LETTER RRA"] to_raw: "ൻ്റ"
+}
+
+# Reordered vowel sign equivalences from NFC specs
+
+item {
+  uname: ["VOWEL SIGN E", "VOWEL SIGN E"] raw: "െെ"
+  to_uname: ["VOWEL SIGN AI"] to_raw: "ൈ"
+}
+item {
+  uname: ["VOWEL SIGN AA", "VOWEL SIGN E"] raw: "ാെ"
+  to_uname: ["VOWEL SIGN O"] to_raw: "ൊ"
+}
+item {
+  uname: ["VOWEL SIGN AA", "VOWEL SIGN EE"] raw: "ാേ"
+  to_uname: ["VOWEL SIGN OO"] to_raw: "ോ"
+}
+item {
+  uname: ["AU LENGTH MARK", "VOWEL SIGN E"] raw: "ൗെ"
+  to_uname: ["VOWEL SIGN AU"] to_raw: "ൌ"
+}
