@@ -12,15 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Common definitions for languages and scripts.
+# proto-file: nisaba/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
 
-load("//nisaba/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
+uname_prefix: "BENGALI"
 
-package(default_visibility = ["//nisaba/brahmic:__subpackages__"])
-
-licenses(["notice"])
-
-setup_script_data(
-    name = "common",
-    script_data_components = ["symbol"],
-)
+# ASSAMESE RA + VIRAMA -> BENGALI RA + VIRAMA
+item {
+  uname: ["LETTER RA WITH MIDDLE DIAGONAL", "SIGN VIRAMA"] raw: "ৰ্"
+  to_uname: ["LETTER RA", "SIGN VIRAMA"] to_raw: "র্"
+}
