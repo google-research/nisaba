@@ -37,9 +37,31 @@ py_library(
     srcs = ["test_util.py"],
     srcs_version = "PY3",
     deps = [
+        ":file",
         "@io_abseil_py//absl/testing:absltest",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:utf8",
+    ],
+)
+
+py_library(
+    name = "char",
+    srcs = ["char.py"],
+    srcs_version = "PY3",
+    deps = [
+        "//nisaba/utils:file",
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:pynutil",
+    ],
+)
+
+py_library(
+    name = "rewrite",
+    srcs = ["rewrite.py"],
+    srcs_version = "PY3",
+    deps = [
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:byte",
     ],
 )
 

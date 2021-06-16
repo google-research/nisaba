@@ -80,26 +80,15 @@ def RewriteAndComposeFsts(fsts: Iterable[pynini.Fst],
   return composed.optimize()
 
 
-def OpenFstFromBrahmicFar(far_name: str, script: str, *,
+def OpenFstFromBrahmicFar(far_name: str, fst_name: str, *,
                           token_type: str) -> pynini.Fst:
-  tt_suffix = {"byte": "", "utf8": "_utf8"}[token_type]
-  far_path = FAR_DIR / f"{far_name}{tt_suffix}.far"
-  with pynini.Far(uf.AsResourcePath(far_path), "r") as far:
-    return far[script.upper()]
+  return uf.OpenFstFromFar(FAR_DIR, far_name, token_type, fst_name)
 
 
 def OpenFstFromBrahmicFarSafe(far_name: str, fst_name: str, token_type: str,
                               default: pynini.Fst) -> pynini.Fst:
   """Returns FST from a given FAR; returns default if FST is not found."""
-  tt_suffix = {"byte": "", "utf8": "_utf8"}[token_type]
-  far_path = FAR_DIR / f"{far_name}{tt_suffix}.far"
-  if not uf.IsFileExist(far_path):
-    return default
-  with pynini.Far(uf.AsResourcePath(far_path), "r") as far:
-    try:
-      return far[fst_name.upper()]
-    except KeyError:
-      return default
+  return uf.OpenFstFromFarSafe(FAR_DIR, far_name, token_type, fst_name, default)
 
 
 def OpenSigma(script: str, *, token_type: str) -> pynini.Fst:
@@ -111,10 +100,6 @@ def OpenSigma(script: str, *, token_type: str) -> pynini.Fst:
   else:
     raise ValueError(f"Received invalid token_type: {token_type}")
 
-
-ZWNJ = "\u200C"  # Zero Width Non-Joiner
-ZWJ = "\u200D"  # Zero Width Joiner
-ZWS = "\u200B"  # Zero Width Space
 
 # Scripts supported by the brahmic library.
 # Script and language codes are used as per IANA registry:

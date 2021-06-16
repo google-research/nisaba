@@ -46,8 +46,8 @@ import string
 import pynini
 from pynini.export import multi_grm
 from nisaba.brahmic import rule
-import nisaba.brahmic.char_util as cu
 import nisaba.brahmic.util as u
+import nisaba.utils.char as uc
 import nisaba.utils.file as uf
 
 
@@ -55,10 +55,10 @@ def _fixed_rule_fst(script: str) -> pynini.Fst:
   """Creates an FST that transduces fixed rule romanization to ISO 15919."""
   path = u.SCRIPT_DIR / script / 'fixed.tsv'
   resource_file = uf.AsResourcePath(path)
-  chars = cu.derive_chars(both_sides=[path], input_side=[])
+  chars = uc.derive_chars(both_sides=[path], input_side=[])
   # ASCII printable characters are pass through.
   # Pynini's symbol generation characters ('[', ']') are avoided.
-  sigma = cu.derive_sigma(chars | set(string.printable) - set('[]'))
+  sigma = uc.derive_sigma(chars | set(string.printable) - set('[]'))
   return rule.fst_from_cascading_rule_file(resource_file, sigma)
 
 

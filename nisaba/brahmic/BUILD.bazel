@@ -73,9 +73,9 @@ nisaba_compile_multi_grm_py(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        ":char_util",
         ":rule",
         ":util",
+        "//nisaba/utils:char",
         "//nisaba/utils:file",
         "@org_opengrm_pynini//pynini",
     ],
@@ -177,6 +177,7 @@ py_library(
     srcs_version = "PY3",
     deps = [
         ":util",
+        "//nisaba/utils:char",
         "//nisaba/utils:file",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:pynutil",
@@ -189,6 +190,7 @@ nisaba_compile_grm_py(
     deps = [
         ":char_util",
         ":util",
+        "//nisaba/utils:char",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -272,6 +274,7 @@ nisaba_compile_multi_grm_py(
         ":char_util",
         ":rule",
         ":util",
+        "//nisaba/utils:char",
         "//nisaba/utils:file",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:pynutil",

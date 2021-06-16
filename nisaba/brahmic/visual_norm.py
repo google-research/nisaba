@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-r"""Grammar for Visual Norm of major Brahmic script texts.
+r"""Grammar for visual norm of major Brahmic script texts.
 
 To try each rule:
 
@@ -35,6 +35,7 @@ from pynini.lib import pynutil
 from nisaba.brahmic import rule
 import nisaba.brahmic.char_util as cu
 import nisaba.brahmic.util as u
+import nisaba.utils.char as uc
 import nisaba.utils.file as uf
 
 
@@ -74,7 +75,7 @@ def visual_norm(rewrite_file: os.PathLike, preserve_file: os.PathLike,
   mark_preserve = u.Rewrite(
       preserve, consonant, consonant, sigma=intermediate_sigma)
   clean_joiner = u.Rewrite(
-      pynutil.delete(pynini.union(u.ZWNJ, u.ZWJ, u.ZWS)),
+      pynutil.delete(pynini.union(uc.ZWNJ, uc.ZWJ, uc.ZWS)),
       sigma=intermediate_sigma)
   reinstate = u.Rewrite(pynini.invert(preserve), sigma=intermediate_sigma)
 

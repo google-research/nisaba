@@ -19,6 +19,7 @@ import pynini
 from pynini.export import grm
 import nisaba.brahmic.char_util as cu
 import nisaba.brahmic.util as u
+import nisaba.utils.char as uc
 
 
 def generator_main(exporter: grm.Exporter):
@@ -29,7 +30,7 @@ def generator_main(exporter: grm.Exporter):
   with pynini.default_token_type('utf8'):
     for script in u.SCRIPTS:
       chars = cu.script_chars(script)
-      exporter[script.upper()] = cu.derive_sigma(chars)
+      exporter[script.upper()] = uc.derive_sigma(chars)
 
 
 if __name__ == '__main__':
