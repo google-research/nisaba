@@ -51,6 +51,7 @@ nisaba_compile_grm_py(
     deps = [
         ":util",
         "//nisaba/utils:file",
+        "//nisaba/utils:rewrite",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:pynutil",
     ],
@@ -73,10 +74,10 @@ nisaba_compile_multi_grm_py(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        ":rule",
         ":util",
         "//nisaba/utils:char",
         "//nisaba/utils:file",
+        "//nisaba/utils:rule",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -98,8 +99,8 @@ nisaba_compile_multi_grm_py(
     ] + ["//nisaba/brahmic/data/script/{}:nfc.tsv".format(script) for script in SCRIPTS],
     visibility = ["//visibility:public"],
     deps = [
-        ":rule",
         ":util",
+        "//nisaba/utils:rule",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -146,17 +147,6 @@ py_test(
 )
 
 py_library(
-    name = "rule",
-    srcs = ["rule.py"],
-    srcs_version = "PY3",
-    deps = [
-        ":util",
-        "@org_opengrm_pynini//pynini",
-        requirement("networkx"),
-    ],
-)
-
-py_library(
     name = "char_util",
     srcs = ["char_util.py"],
     data = [
@@ -178,7 +168,7 @@ py_library(
     deps = [
         ":util",
         "//nisaba/utils:char",
-        "//nisaba/utils:file",
+        "//nisaba/utils:rewrite",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:pynutil",
     ],
@@ -272,10 +262,11 @@ nisaba_compile_multi_grm_py(
     visibility = ["//visibility:public"],
     deps = [
         ":char_util",
-        ":rule",
         ":util",
         "//nisaba/utils:char",
         "//nisaba/utils:file",
+        "//nisaba/utils:rewrite",
+        "//nisaba/utils:rule",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:pynutil",
     ],

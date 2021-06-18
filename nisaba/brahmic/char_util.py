@@ -23,6 +23,7 @@ import pynini
 from pynini.lib import pynutil
 import nisaba.brahmic.util as u
 import nisaba.utils.char as uc
+import nisaba.utils.rewrite as ur
 
 
 def script_chars(script: str) -> Set[str]:
@@ -50,8 +51,9 @@ def consonants(script: str) -> Set[str]:
 
 def _dedup_chars(chars: Iterable[str], sigma: pynini.Fst) -> pynini.Fst:
   """Creates an FST to de-dup the specified characters."""
-  char_fsts = (u.Rewrite(pynutil.delete(c), left=c, sigma=sigma) for c in chars)
-  return u.ComposeFsts(char_fsts).optimize()
+  char_fsts = (ur.Rewrite(pynutil.delete(c), left=c, sigma=sigma)
+               for c in chars)
+  return ur.ComposeFsts(char_fsts).optimize()
 
 
 def mark_chars(script: str) -> Set[str]:

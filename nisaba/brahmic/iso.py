@@ -53,6 +53,7 @@ from pynini.export import grm
 from pynini.lib import pynutil
 import nisaba.brahmic.util as u
 import nisaba.utils.file as uf
+import nisaba.utils.rewrite as ur
 
 
 def brahmic_to_iso(consonant_file: os.PathLike, vowel_sign_file: os.PathLike,
@@ -134,7 +135,7 @@ def generator_main(exporter: grm.Exporter):
   for script, from_script in script_to_iso_dict.items():
     exporter[f'FROM_{script.upper()}'] = from_script
     exporter[f'TO_{script.upper()}'] = pynini.invert(from_script)
-  exporter['FROM_BRAHMIC'] = u.Rewrite(
+  exporter['FROM_BRAHMIC'] = ur.Rewrite(
       pynini.union(*script_to_iso_dict.values()))
 
 

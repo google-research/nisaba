@@ -15,42 +15,11 @@
 
 """Utility functions and definitions used in this package."""
 
-import os
 import pathlib
-from typing import Iterable, Iterator, NamedTuple
-
-import pandas as pd
 
 import pynini
 from pynini.lib import byte
-import pathlib
 import nisaba.utils.file as uf
-
-Rule = NamedTuple("Rule", [("lhs", str), ("rhs", str)])
-
-
-def Rewrite(rule: pynini.FstLike,
-            left: pynini.FstLike = "",
-            right: pynini.FstLike = "",
-            *,
-            sigma: pynini.Fst = byte.BYTE) -> pynini.Fst:
-  return pynini.optimize(pynini.cdrewrite(rule, left, right, sigma.star))
-
-
-def RulesFromStringFile(file: os.PathLike) -> Iterator[Rule]:
-  """Yields string rules from a text resource with unweighted string maps."""
-  return RulesFromStringPath(uf.AsResourcePath(file))
-
-
-def RulesFromStringPath(file: os.PathLike) -> Iterator[Rule]:
-  """Yields string rules from a text file with unweighted string maps."""
-  with pathlib.Path(file).open("rt", encoding="utf8") as f:
-    df = pd.read_csv(f, sep="\t", comment="#", escapechar="\\",
-                     names=["lhs", "rhs"], na_filter=False)
-    for row in df.itertuples(index=False, name="Rule"):
-      if not row.lhs:
-        raise ValueError("Rule expects an LHS: {}".format(row))
-      yield row
 
 
 def BuildSigmaFstFromSymbolTable(syms: pynini.SymbolTableView) -> pynini.Fst:
@@ -63,21 +32,6 @@ def BuildSigmaFstFromSymbolTable(syms: pynini.SymbolTableView) -> pynini.Fst:
     f.add_arc(start_state,
               pynini.Arc(lbl, lbl, pynini.Weight.one("tropical"), final_state))
   return f
-
-
-def ComposeFsts(fsts: Iterable[pynini.Fst]) -> pynini.Fst:
-  composed, *rest = fsts
-  for fst in rest:
-    composed @= fst
-  return composed.optimize()
-
-
-def RewriteAndComposeFsts(fsts: Iterable[pynini.Fst],
-                          sigma: pynini.Fst) -> pynini.Fst:
-  composed = sigma.star
-  for fst in fsts:
-    composed @= Rewrite(fst, sigma=sigma)
-  return composed.optimize()
 
 
 def OpenFstFromBrahmicFar(far_name: str, fst_name: str, *,

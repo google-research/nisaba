@@ -32,11 +32,12 @@ import os
 import pynini
 from pynini.export import multi_grm
 from pynini.lib import pynutil
-from nisaba.brahmic import rule
 import nisaba.brahmic.char_util as cu
 import nisaba.brahmic.util as u
 import nisaba.utils.char as uc
 import nisaba.utils.file as uf
+import nisaba.utils.rewrite as ur
+import nisaba.utils.rule as rule
 
 
 def visual_norm(rewrite_file: os.PathLike, preserve_file: os.PathLike,
@@ -72,12 +73,12 @@ def visual_norm(rewrite_file: os.PathLike, preserve_file: os.PathLike,
   intermediate_sigma = u.BuildSigmaFstFromSymbolTable(
       pynini.generated_symbols()).union(sigma)
 
-  mark_preserve = u.Rewrite(
+  mark_preserve = ur.Rewrite(
       preserve, consonant, consonant, sigma=intermediate_sigma)
-  clean_joiner = u.Rewrite(
+  clean_joiner = ur.Rewrite(
       pynutil.delete(pynini.union(uc.ZWNJ, uc.ZWJ, uc.ZWS)),
       sigma=intermediate_sigma)
-  reinstate = u.Rewrite(pynini.invert(preserve), sigma=intermediate_sigma)
+  reinstate = ur.Rewrite(pynini.invert(preserve), sigma=intermediate_sigma)
 
   return pynini.optimize(
       rewrite_fst @ mark_preserve @ clean_joiner @ reinstate
@@ -116,9 +117,10 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
         consonant = pynini.project(consonant_map, 'input')
 
         before_cons = uf.StringFile(u.LANG_DIR / lang / 'before_consonant.tsv')
-        rewrite_before_cons = u.Rewrite(before_cons, '', consonant, sigma=sigma)
+        rewrite_before_cons = ur.Rewrite(before_cons, '', consonant,
+                                         sigma=sigma)
         after_cons = uf.StringFile(u.LANG_DIR / lang / 'after_consonant.tsv')
-        rewrite_after_cons = u.Rewrite(after_cons, '', consonant, sigma=sigma)
+        rewrite_after_cons = ur.Rewrite(after_cons, '', consonant, sigma=sigma)
         rewrite_map[lang] = (rewrite_map[script] @
                              rewrite_before_cons @
                              rewrite_after_cons).optimize()

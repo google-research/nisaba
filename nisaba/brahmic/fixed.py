@@ -45,10 +45,10 @@ import string
 
 import pynini
 from pynini.export import multi_grm
-from nisaba.brahmic import rule
 import nisaba.brahmic.util as u
 import nisaba.utils.char as uc
 import nisaba.utils.file as uf
+import nisaba.utils.rule as rule
 
 
 def _fixed_rule_fst(script: str) -> pynini.Fst:

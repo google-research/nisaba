@@ -62,17 +62,38 @@ CDRewrites of the FSTs from each rule.
 
 import itertools as it
 import os
-from typing import Iterable, List
+from typing import Iterable, Iterator, List, NamedTuple
+
 import networkx as nx
+import pandas as pd
 
 import pynini
-import nisaba.brahmic.util as u
+import nisaba.utils.file as uf
+import nisaba.utils.rewrite as ur
+import pathlib
+
+Rule = NamedTuple('Rule', [('lhs', str), ('rhs', str)])
+RuleSet = Iterable[Rule]
+RuleSets = List[RuleSet]
 
 
-RuleSet = Iterable[u.Rule]
+def rules_from_string_file(file: os.PathLike) -> Iterator[Rule]:
+  """Yields string rules from a text resource with unweighted string maps."""
+  return rules_from_string_path(uf.AsResourcePath(file))
 
 
-def _match_lhs_in_lhs(rule_a: u.Rule, rule_b: u.Rule) -> bool:
+def rules_from_string_path(file: os.PathLike) -> Iterator[Rule]:
+  """Yields string rules from a text file with unweighted string maps."""
+  with pathlib.Path(file).open('rt') as f:
+    df = pd.read_csv(f, sep='\t', comment='#', escapechar='\\',
+                     names=['lhs', 'rhs'], na_filter=False)
+    for row in df.itertuples(index=False, name='Rule'):
+      if not row.lhs:
+        raise ValueError('Rule expects an LHS: {}'.format(row))
+      yield row
+
+
+def _match_lhs_in_lhs(rule_a: Rule, rule_b: Rule) -> bool:
   return rule_a.lhs in rule_b.lhs
 
 
@@ -120,7 +141,7 @@ def fst_from_rules(rules: RuleSet, sigma: pynini.Fst) -> pynini.Fst:
 
   fsts = [pynini.optimize(pynini.string_map(rule_set))
           for rule_set in partition_unordered(rules)]
-  return u.RewriteAndComposeFsts(fsts, sigma)
+  return ur.RewriteAndComposeFsts(fsts, sigma)
 
 
 def fst_from_rule_file(rule_file: os.PathLike, sigma: pynini.Fst) -> pynini.Fst:
@@ -134,7 +155,7 @@ def fst_from_rule_file(rule_file: os.PathLike, sigma: pynini.Fst) -> pynini.Fst:
     The Rewrite FST for the specified rule file. If the rule file is missing
     then an FST accepting everything is returned.
   """
-  return fst_from_rules(list(u.RulesFromStringFile(rule_file)), sigma)
+  return fst_from_rules(list(rules_from_string_file(rule_file)), sigma)
 
 
 def _fst_from_cascading_rules(rules: RuleSet, sigma: pynini.Fst) -> pynini.Fst:
@@ -149,7 +170,7 @@ def _fst_from_cascading_rules(rules: RuleSet, sigma: pynini.Fst) -> pynini.Fst:
   """
 
   fsts = (pynini.cross(rule.lhs, rule.rhs) for rule in rules)
-  return u.RewriteAndComposeFsts(fsts, sigma)
+  return ur.RewriteAndComposeFsts(fsts, sigma)
 
 
 def fst_from_cascading_rule_file(rule_file: os.PathLike,
@@ -164,4 +185,4 @@ def fst_from_cascading_rule_file(rule_file: os.PathLike,
     The Rewrite FST for the specified rule file. If the rule file is missing
     then an exception is thrown.
   """
-  return _fst_from_cascading_rules(u.RulesFromStringFile(rule_file), sigma)
+  return _fst_from_cascading_rules(rules_from_string_file(rule_file), sigma)

@@ -15,6 +15,8 @@
 
 """CDRewrite related utility functions."""
 
+from typing import Iterable
+
 import pynini
 from pynini.lib import byte
 
@@ -24,3 +26,18 @@ def Rewrite(rule: pynini.FstLike,
             right: pynini.FstLike = "",
             sigma: pynini.Fst = byte.BYTE) -> pynini.Fst:
   return pynini.optimize(pynini.cdrewrite(rule, left, right, sigma.star))
+
+
+def ComposeFsts(fsts: Iterable[pynini.Fst]) -> pynini.Fst:
+  composed, *rest = fsts
+  for fst in rest:
+    composed @= fst
+  return composed.optimize()
+
+
+def RewriteAndComposeFsts(fsts: Iterable[pynini.Fst],
+                          sigma: pynini.Fst) -> pynini.Fst:
+  composed = sigma.star
+  for fst in fsts:
+    composed @= Rewrite(fst, sigma=sigma)
+  return composed.optimize()

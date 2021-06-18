@@ -56,6 +56,19 @@ py_library(
 )
 
 py_library(
+    name = "rule",
+    srcs = ["rule.py"],
+    srcs_version = "PY3",
+    deps = [
+        ":file",
+        ":rewrite",
+        "@org_opengrm_pynini//pynini",
+        requirement("networkx"),
+        requirement("pandas"),
+    ],
+)
+
+py_library(
     name = "rewrite",
     srcs = ["rewrite.py"],
     srcs_version = "PY3",

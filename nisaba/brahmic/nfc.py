@@ -30,8 +30,8 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 
 import pynini
 from pynini.export import multi_grm
-from nisaba.brahmic import rule
 import nisaba.brahmic.util as u
+import nisaba.utils.rule as r
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
@@ -46,14 +46,15 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       all_sigmas = []
       for script in u.SCRIPTS:
         sigma = u.OpenSigma(script, token_type=token_type)
-        rules = list(u.RulesFromStringFile(u.SCRIPT_DIR / script / 'nfc.tsv'))
-        fst = rule.fst_from_rules(rules, sigma)
+        rules = list(
+            r.rules_from_string_file(u.SCRIPT_DIR / script / 'nfc.tsv'))
+        fst = r.fst_from_rules(rules, sigma)
         exporter[script.upper()] = fst
         all_rules += rules
         all_sigmas += [sigma]
       # Exports the pan-brahmic NFC FST.
       brahmic_sigma = pynini.union(*all_sigmas)
-      brahmic_fst = rule.fst_from_rules(all_rules, brahmic_sigma)
+      brahmic_fst = r.fst_from_rules(all_rules, brahmic_sigma)
       exporter['BRAHMIC'] = brahmic_fst
 
 
