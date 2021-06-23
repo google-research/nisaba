@@ -21,6 +21,32 @@ package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
 
+py_library(
+    name = "far",
+    srcs = ["far.py"],
+    srcs_version = "PY3",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":file",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "far_test",
+    size = "small",
+    srcs = ["far_test.py"],
+    data = [
+        "//nisaba/brahmic:iso.far",
+    ],
+    python_version = "PY3",
+    srcs_version = "PY3",
+    deps = [
+        ":far",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
 cc_library(
     name = "util",
     srcs = ["util.cc"],

@@ -20,8 +20,8 @@ import re
 import string
 
 import pynini
-from nisaba.brahmic import far
 from nisaba.brahmic import util as u
+from nisaba.utils import far
 
 
 class _FarStore(object):

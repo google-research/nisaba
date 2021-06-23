@@ -18,18 +18,19 @@
 import pathlib
 
 from absl.testing import absltest
-from nisaba.brahmic import far
+from nisaba.utils import far
+
+_BRAHMIC_DIR = pathlib.Path('com_google_nisaba/nisaba/brahmic/')
 
 
 class FarTest(absltest.TestCase):
 
   def setUp(self):
     super().setUp()
-    brahmic_dir = pathlib.Path('com_google_nisaba/nisaba/brahmic/')
-    self._fst = far.Far(brahmic_dir / 'iso.far').Fst('FROM_BRAHMIC')
+    self._brahmic_fst = far.Far(_BRAHMIC_DIR / 'iso.far').Fst('FROM_BRAHMIC')
 
   def testApplyOnText(self):
-    self.assertEqual('kˑlaba', self._fst.ApplyOnText('क़्लब'))
+    self.assertEqual('kˑlaba', self._brahmic_fst.ApplyOnText('क़्लब'))
 
 
 if __name__ == '__main__':
