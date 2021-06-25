@@ -116,6 +116,21 @@ py_library(
     ],
 )
 
+py_library(
+    name = "func",
+    srcs = ["func.py"],
+)
+
+py_test(
+    name = "func_test",
+    srcs = ["func_test.py"],
+    python_version = "PY3",
+    deps = [
+        ":func",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
 proto_library(
     name = "unicode_strings_proto",
     srcs = ["unicode_strings.proto"],

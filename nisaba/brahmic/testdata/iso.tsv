@@ -34,6 +34,9 @@ FROM_BRAHMIC	ब्राह्मिक	brāhmika
 FROM_BRAHMIC	अधे़ड	adhēˑḍa
 FROM_BRAHMIC	ॲलन	ælana
 
+# Out of script characters are pass through
+FROM_BRAHMIC	Abæ ॲलन	Abæ ælana
+
 FROM_BRAHMIC	ാം	-āṁ
 FROM_BRAHMIC	മൂൺ	mūṇⸯ
 FROM_BRAHMIC	ൻ്റെ	nⸯ̆ṟe
