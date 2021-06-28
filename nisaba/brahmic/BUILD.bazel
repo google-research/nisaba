@@ -379,6 +379,7 @@ cc_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
+        "//nisaba/port:integral_types",
         "//nisaba/utils:util",
         "@com_google_absl//absl/memory",
         "@com_google_absl//absl/strings",

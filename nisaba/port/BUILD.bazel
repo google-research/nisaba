@@ -1,0 +1,46 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Core utility packages.
+
+package(default_visibility = ["//visibility:public"])
+
+licenses(["notice"])
+
+cc_library(
+    name = "integral_types",
+    hdrs = ["integral_types.h"],
+)
+
+cc_library(
+    name = "utf8_util",
+    srcs = ["utf8_util.cc"],
+    hdrs = ["utf8_util.h"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/port:integral_types",
+        "@com_github_utfcpp//:utfcpp",
+        "@com_google_absl//absl/strings",
+        "@org_openfst//:fst",
+    ],
+)
+
+cc_test(
+    name = "utf8_util_test",
+    srcs = ["utf8_util_test.cc"],
+    deps = [
+        ":utf8_util",
+        "@com_google_googletest//:gtest_main",
+    ],
+)

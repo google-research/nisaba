@@ -1,0 +1,36 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Master Bazel build file for utfcpp library.
+
+package(default_visibility = ["//visibility:public"])
+
+licenses(["notice"])
+
+cc_library(
+    name = "utfcpp",
+    includes = ["source"],
+    hdrs = [
+        "source/utf8.h",
+        "source/utf8/checked.h",
+        "source/utf8/unchecked.h",
+        "source/utf8/core.h",
+        "source/utf8/cpp11.h",
+        "source/utf8/cpp17.h",
+    ],
+)
+
+# Local Variables:
+# mode: bazel-build
+# End:

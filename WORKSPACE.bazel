@@ -81,6 +81,20 @@ load("@org_opengrm_pynini//bazel:workspace.bzl", "pynini_repositories")
 pynini_repositories()
 
 # -------------------------------------------------------------------------
+# utfcpp: See
+#   https://github.com/nemtrif/utfcpp
+# -------------------------------------------------------------------------
+utfcpp_version = "3.2"
+
+http_archive(
+    name = "com_github_utfcpp",
+    urls = ["https://github.com/nemtrif/utfcpp/archive/v%s.tar.gz" % utfcpp_version],
+    sha256 = "cd4f9a66d23dc385bd7ea11bc0abfda8ea1ad1dcf5cd6d3a27bc551e86436364",
+    build_file = "@//:bazel/utfcpp.BUILD.bazel",
+    strip_prefix = "utfcpp-%s" % utfcpp_version,
+)
+
+# -------------------------------------------------------------------------
 # External Python packages.
 # -------------------------------------------------------------------------
 
