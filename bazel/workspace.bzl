@@ -44,6 +44,6 @@ def nisaba_public_repositories(name = ""):
         name = "com_github_utfcpp",
         urls = ["https://github.com/nemtrif/utfcpp/archive/v%s.tar.gz" % utfcpp_version],
         sha256 = "8d6aa7d77ad0abb35bb6139cb9a33597ac4c5b33da6a004ae42429b8598c9605",
-        build_file = _clean_dep("@//:bazel/utfcpp.BUILD.bazel"),
+        build_file = _clean_dep("//bazel:utfcpp.BUILD.bazel"),
         strip_prefix = "utfcpp-%s" % utfcpp_version,
     )
