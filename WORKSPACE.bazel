@@ -81,20 +81,6 @@ load("@org_opengrm_pynini//bazel:workspace.bzl", "pynini_repositories")
 pynini_repositories()
 
 # -------------------------------------------------------------------------
-# utfcpp: See
-#   https://github.com/nemtrif/utfcpp
-# -------------------------------------------------------------------------
-utfcpp_version = "3.2.1"
-
-http_archive(
-    name = "com_github_utfcpp",
-    urls = ["https://github.com/nemtrif/utfcpp/archive/v%s.tar.gz" % utfcpp_version],
-    sha256 = "8d6aa7d77ad0abb35bb6139cb9a33597ac4c5b33da6a004ae42429b8598c9605",
-    build_file = "@//:bazel/utfcpp.BUILD.bazel",
-    strip_prefix = "utfcpp-%s" % utfcpp_version,
-)
-
-# -------------------------------------------------------------------------
 # External Python packages.
 # -------------------------------------------------------------------------
 
@@ -119,3 +105,10 @@ pip_install(
 # Import external protobuf dependencies into this workspace.
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 protobuf_deps()
+
+# -------------------------------------------------------------------------
+# Public dependencies that need to be exposed for the downstream projects.
+# -------------------------------------------------------------------------
+
+load("@//bazel:workspace.bzl", "nisaba_public_repositories")
+nisaba_public_repositories()
