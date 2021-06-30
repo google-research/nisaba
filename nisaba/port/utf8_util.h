@@ -22,6 +22,7 @@
 #include <vector>
 
 #include "nisaba/port/integral_types.h"
+#include "nisaba/port/utf8_delimiters.h"
 
 namespace nisaba {
 namespace utf8 {

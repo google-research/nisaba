@@ -14,8 +14,13 @@
 
 #include "nisaba/port/utf8_util.h"
 
+#include <string>
+#include <vector>
+
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
+#include "absl/strings/str_split.h"
+#include "absl/strings/string_view.h"
 
 using ::testing::ElementsAre;
 
@@ -77,6 +82,42 @@ TEST(Utf8UtilTest, CheckEncodeUnicodeChar) {
   EXPECT_EQ("༄", EncodeUnicodeChar(3844));
   // Cuneiform sign dag kisim5 times tak4 (U+1206B).
   EXPECT_EQ("𒁫", EncodeUnicodeChar(73835));
+}
+
+TEST(Utf8UtilTest, CheckPortableUtf8WhitespaceDelimiter) {
+  // Basic ASCII whitespace.
+  std::string input_text = " hello world again ";
+  std::vector<absl::string_view> toks = absl::StrSplit(
+      input_text, Utf8WhitespaceDelimiter(), absl::SkipEmpty());
+  ASSERT_EQ(3, toks.size());
+  EXPECT_EQ("hello", toks[0]);
+  EXPECT_EQ("world", toks[1]);
+  EXPECT_EQ("again", toks[2]);
+
+  // Mongolian script.
+  input_text = "ᠲ᠋ᠤᠷᠬᠥᠬᠡᠬᠣᠲᠠ";
+  toks = absl::StrSplit(
+      input_text, Utf8WhitespaceDelimiter(), absl::SkipEmpty());
+  ASSERT_EQ(1, toks.size());
+  EXPECT_EQ(input_text, toks[0]);
+  const std::string punctuation_space = " \xE2\x80\x88 ";
+  const std::string original_text = input_text;
+  input_text += punctuation_space + "ᢆ";
+  toks = absl::StrSplit(
+      input_text, Utf8WhitespaceDelimiter(), absl::SkipEmpty());
+  ASSERT_EQ(2, toks.size());
+  EXPECT_EQ(original_text, toks[0]);
+  EXPECT_EQ("ᢆ", toks[1]);
+
+  // Check that we don't break on non-breaking space.
+  const std::string zero_width_non_breaking_space = "\xEF\xBB\xBF";
+  const std::string final_part = zero_width_non_breaking_space + "ᠻᠦ᠋";
+  input_text += final_part;
+  toks = absl::StrSplit(
+      input_text, Utf8WhitespaceDelimiter(), absl::SkipEmpty());
+  ASSERT_EQ(2, toks.size());
+  EXPECT_EQ(original_text, toks[0]);
+  EXPECT_EQ("ᢆ" + final_part, toks[1]);
 }
 
 }  // namespace

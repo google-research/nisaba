@@ -24,15 +24,36 @@ cc_library(
 )
 
 cc_library(
+   name = "utf8_delimiters",
+   srcs = ["utf8_delimiters.cc"],
+   hdrs = ["utf8_delimiters.h"],
+   deps = [
+       "@com_google_absl//absl/container:flat_hash_set",
+       "@com_google_absl//absl/strings",
+       "@com_github_utfcpp//:utfcpp",
+   ],
+)
+
+cc_test(
+   name = "utf8_delimiters_test",
+   srcs = ["utf8_delimiters_test.cc"],
+   deps = [
+       ":utf8_delimiters",
+       "@com_google_googletest//:gtest_main",
+   ],
+)
+
+cc_library(
     name = "utf8_util",
     srcs = ["utf8_util.cc"],
     hdrs = ["utf8_util.h"],
     visibility = ["//visibility:public"],
     deps = [
+        ":utf8_delimiters",
+        "@org_openfst//:fst",
         "//nisaba/port:integral_types",
         "@com_github_utfcpp//:utfcpp",
         "@com_google_absl//absl/strings",
-        "@org_openfst//:fst",
     ],
 )
 
@@ -41,6 +62,7 @@ cc_test(
     srcs = ["utf8_util_test.cc"],
     deps = [
         ":utf8_util",
+        "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest_main",
     ],
 )
