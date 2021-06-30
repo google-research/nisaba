@@ -230,3 +230,8 @@ AS	রৰর্ক্রৰ্ক্ৰ	রৰৰ্ক্ৰৰ্ক্ৰ
 AS	র্‌ক্‌র	র্‌ক্‌র
 # No rewrite if <BENGALI RA, VIRAMA> is not followed by a consonant.
 AS	রর্	রর্
+
+# Oriya LETTER WA mis-encoded as <LETTER O, VIRAMA, LETTER BA>
+ORYA	ଓ୍ବେବ	ୱେବ
+# Oriya LETTER WA mis-encoded as <LETTER O, VIRAMA, LETTER WA>
+ORYA	ଓ୍ୱାଇଫାଇ	ୱାଇଫାଇ
