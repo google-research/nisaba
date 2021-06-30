@@ -14,49 +14,20 @@
 
 #include "nisaba/port/utf8_delimiters.h"
 
+#include "nisaba/port/unicode_properties.h"
 #include "utf8/checked.h"
 
 namespace nisaba {
 namespace utf8 {
 namespace {
 
-const absl::flat_hash_set<char32_t> kUnicodeWhitespace = {
-  U'\u0009',  // character tabulation
-  U'\u000A',  // line feed
-  U'\u000B',  // line tabulation
-  U'\u000C',  // form feed
-  U'\u000D',  // carriage return
-  U'\u0020',  // space
-  U'\u0085',  // next line
-  U'\u00A0',  // no-break space
-  U'\u1680',  // ogham space mark
-  U'\u180E',  // mongolian vowel separator
-  U'\u2000',  // en quad
-  U'\u2001',  // em quad
-  U'\u2002',  // en space
-  U'\u2003',  // em space
-  U'\u2004',  // three-per-em space
-  U'\u2005',  // four-per-em space
-  U'\u2006',  // six-per-em space
-  U'\u2007',  // figure space
-  U'\u2008',  // punctuation space
-  U'\u2009',  // thin space
-  U'\u200A',  // hair space
-  U'\u200B',  // zero width space
-  U'\u200C',  // zero width non-joiner
-  U'\u200D',  // zero width joiner
-  U'\u2028',  // line separator
-  U'\u2029',  // paragraph separator
-  U'\u202F',  // narrow no-break space
-  U'\u205F',  // medium mathematical space
-  U'\u2060',  // word joiner
-  U'\u3000',  // ideographic space
-};
+const absl::flat_hash_set<char32_t> kBreakingWhitespace =
+    GetBreakingWhitespaceChars();
 
 }  // namespace
 
 Utf8WhitespaceDelimiter::Utf8WhitespaceDelimiter() :
-    Utf8Delimiter(kUnicodeWhitespace) {}
+    Utf8Delimiter(kBreakingWhitespace) {}
 
 // TODO: We don't deal with malformed encodings yet.
 absl::string_view Utf8Delimiter::Find(absl::string_view text,

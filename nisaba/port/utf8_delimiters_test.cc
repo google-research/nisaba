@@ -39,10 +39,10 @@ TEST(Utf8DelimitersTest, WhitespaceBasicCheck) {
   EXPECT_EQ(" ", delim.Find("world ", 0));
 
   // Check Unicode whitespace:
-  //   - Mongolian vowel separator: U+180E => 0xE1 0xA0 0x8E.
-  //   - Ideographic space: U+3000 => 0xE3 0x80 0x80.
+  //   - [non-breaking] Mongolian vowel separator: U+180E => 0xE1 0xA0 0x8E.
+  //   - [breaking] Ideographic space: U+3000 => 0xE3 0x80 0x80.
   input_text = "hello\xE1\xA0\x8Eworld\xE3\x80\x80";
-  EXPECT_EQ("\xE1\xA0\x8E", delim.Find(input_text, 0));
+  EXPECT_EQ("\xE3\x80\x80", delim.Find(input_text, 0));
   EXPECT_EQ("\xE3\x80\x80", delim.Find(input_text, 8));
 }
 

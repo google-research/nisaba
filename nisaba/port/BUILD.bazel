@@ -24,10 +24,18 @@ cc_library(
 )
 
 cc_library(
+    name = "unicode_properties",
+    srcs = ["unicode_properties.cc"],
+    hdrs = ["unicode_properties.h"],
+    deps = ["@com_google_absl//absl/container:flat_hash_set"],
+)
+
+cc_library(
    name = "utf8_delimiters",
    srcs = ["utf8_delimiters.cc"],
    hdrs = ["utf8_delimiters.h"],
    deps = [
+       ":unicode_properties",
        "@com_google_absl//absl/container:flat_hash_set",
        "@com_google_absl//absl/strings",
        "@com_github_utfcpp//:utfcpp",
@@ -61,6 +69,7 @@ cc_test(
     name = "utf8_util_test",
     srcs = ["utf8_util_test.cc"],
     deps = [
+        ":unicode_properties",
         ":utf8_util",
         "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest_main",

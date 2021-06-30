@@ -21,6 +21,7 @@
 #include "gtest/gtest.h"
 #include "absl/strings/str_split.h"
 #include "absl/strings/string_view.h"
+#include "nisaba/port/unicode_properties.h"
 
 using ::testing::ElementsAre;
 
@@ -118,6 +119,31 @@ TEST(Utf8UtilTest, CheckPortableUtf8WhitespaceDelimiter) {
   ASSERT_EQ(2, toks.size());
   EXPECT_EQ(original_text, toks[0]);
   EXPECT_EQ("ᢆ" + final_part, toks[1]);
+}
+
+TEST(Utf8UtilTest, BreakingVsNonBreakingWhitespaceSplit) {
+  // Check that we don't break on non-breaking whitespace characters.
+  const auto &non_break_chars = GetNonBreakingWhitespaceChars();
+  for (auto u32_char : non_break_chars) {
+    const std::string &no_delim = EncodeUnicodeChar(u32_char);
+    const std::string input_text = "a" + no_delim + "b";
+    const std::vector<absl::string_view> toks = absl::StrSplit(
+        input_text, Utf8WhitespaceDelimiter(), absl::SkipEmpty());
+    ASSERT_EQ(1, toks.size()) << "Expected non-breaking char: " << u32_char;
+    EXPECT_EQ(toks[0], input_text);
+  }
+
+  // Check that the splitter works on breaking whitespace.
+  const auto &breaking_chars = GetBreakingWhitespaceChars();
+  for (auto u32_char : breaking_chars) {
+    const std::string &delim = EncodeUnicodeChar(u32_char);
+    const std::string input_text = "a" + delim + "b";
+    const std::vector<absl::string_view> toks = absl::StrSplit(
+        input_text, Utf8WhitespaceDelimiter(), absl::SkipEmpty());
+    ASSERT_EQ(2, toks.size()) << "Expected breaking char: " << u32_char;
+    EXPECT_EQ(toks[0], "a");
+    EXPECT_EQ(toks[1], "b");
+  }
 }
 
 }  // namespace
