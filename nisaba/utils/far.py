@@ -48,7 +48,9 @@ class Far:
       This operation involves pre-composing the input string with the FST and
       then finding the shortest path to output a resultant string.
       """
-      return pynini.shortestpath(text @ self._fst).string()
+      # Square brackets and backslash carry special meaning in Pynini.
+      # So they need to be escaped for unmanaged strings.
+      return pynini.shortestpath(pynini.escape(text) @ self._fst).string()
 
     def AcceptText(self, text: str) -> bool:
       """Accept or reject the given string using the FST.

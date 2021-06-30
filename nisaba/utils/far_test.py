@@ -31,6 +31,9 @@ class FarTest(absltest.TestCase):
 
   def testApplyOnText(self):
     self.assertEqual('kˑlaba', self._brahmic_fst.ApplyOnText('क़्लब'))
+    self.assertEqual('5-[(1-phenylcyclohexyl)amino]pentanoic acid',
+                     self._brahmic_fst.ApplyOnText(
+                         '5-[(1-phenylcyclohexyl)amino]pentanoic acid'))
 
 
 if __name__ == '__main__':
