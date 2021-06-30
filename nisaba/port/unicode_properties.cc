@@ -21,7 +21,7 @@ namespace nisaba {
 namespace utf8 {
 namespace {
 
-const absl::flat_hash_set<char32_t> kBreakingWhitespace = {
+constexpr char32_t kBreakingWhitespace[] = {
   U'\u0009',  // character tabulation
   U'\u000A',  // line feed
   U'\u000B',  // line tabulation
@@ -49,7 +49,7 @@ const absl::flat_hash_set<char32_t> kBreakingWhitespace = {
   U'\u3000',  // ideographic space
 };
 
-const absl::flat_hash_set<char32_t> kNonBreakingWhitespace = {
+constexpr char32_t kNonBreakingWhitespace[] = {
   U'\u180E',  // mongolian vowel separator
   U'\u200B',  // zero width space
   U'\u200C',  // zero width non-joiner
@@ -61,17 +61,20 @@ const absl::flat_hash_set<char32_t> kNonBreakingWhitespace = {
 }  // namespace
 
 absl::flat_hash_set<char32_t> GetBreakingWhitespaceChars() {
-  return kBreakingWhitespace;
+  return absl::flat_hash_set<char32_t>(std::begin(kBreakingWhitespace),
+                                       std::end(kBreakingWhitespace));
 }
 
 absl::flat_hash_set<char32_t> GetNonBreakingWhitespaceChars() {
-  return kNonBreakingWhitespace;
+  return absl::flat_hash_set<char32_t>(std::begin(kNonBreakingWhitespace),
+                                       std::end(kNonBreakingWhitespace));
 }
 
 absl::flat_hash_set<char32_t> GetAllWhitespaceChars() {
   absl::flat_hash_set<char32_t> all_chars;
-  std::set_union(kBreakingWhitespace.begin(), kBreakingWhitespace.end(),
-                 kNonBreakingWhitespace.begin(), kNonBreakingWhitespace.end(),
+  std::set_union(std::begin(kBreakingWhitespace), std::end(kBreakingWhitespace),
+                 std::begin(kNonBreakingWhitespace),
+                 std::end(kNonBreakingWhitespace),
                  std::inserter(all_chars, all_chars.begin()));
   return all_chars;
 }
