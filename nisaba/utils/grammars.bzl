@@ -55,7 +55,6 @@ def nisaba_compile_grm_py(
 
 def nisaba_compile_multi_grm_py(
         name,
-        outs,
         deps = None,
         data = None,
         **kwds):
@@ -63,11 +62,11 @@ def nisaba_compile_multi_grm_py(
 
     Turns a Pynini file into a FAR file with the specified FAR and FST types.
 
+    Assumes that there are exactly two output files, and that they are "byte"
+    and "utf8" mode versions of the created FSTs.
+
     Args:
       name: The BUILD rule name and the file prefix for the generated output.
-      outs: A dictionary mapping designators to files, where designator
-            is the designating name used in the Pynini file to refer to the
-            corresponding file. The designated files must have extension ".far".
       deps: A list of other compile_grm rules that we'll need for this grammar.
       data: Extra data dependencies used in the Pynini file.
       **kwds: Attributes common to all BUILD rules, e.g., testonly, visibility.
@@ -75,7 +74,7 @@ def nisaba_compile_multi_grm_py(
     compile_multi_grm_py(
         name = name,
         fst_type = _FST_TYPE,
-        outs = outs,
+        outs = {"byte": name + ".far", "utf8": name + "_utf8.far"},
         data = data,
         deps = deps + [
         ],
