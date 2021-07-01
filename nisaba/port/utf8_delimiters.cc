@@ -45,7 +45,8 @@ absl::string_view Utf8Delimiter::Find(absl::string_view text,
       return absl::string_view(tail.data() + u8_offset, delim_length);
     }
   }
-  return absl::string_view(tail.end(), 0);
+  // No delimiters found.
+  return absl::string_view(tail.data() + tail.size(), 0);
 }
 
 }  // namespace utf8
