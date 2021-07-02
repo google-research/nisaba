@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "nisaba/utils/util.h"
+#include "nisaba/port/file_util.h"
 
 #include <errno.h>
 #include <stdlib.h>
@@ -41,7 +41,7 @@ std::string GetProgramName() {
 }  // namespace
 
 namespace nisaba {
-namespace utils {
+namespace file {
 
 absl::StatusOr<std::string> GetRunfilesResourcePath(absl::string_view path) {
   std::string error;
@@ -54,15 +54,15 @@ absl::StatusOr<std::string> GetRunfilesResourcePath(absl::string_view path) {
 }
 
 std::string JoinPath(absl::string_view dirname, absl::string_view basename) {
- if ((!basename.empty() && basename[0] == PATH_SEPARATOR[0]) ||
-     dirname.empty()) {
-   return std::string(basename);
- } else if (dirname[dirname.size() - 1] == PATH_SEPARATOR[0]) {
-   return absl::StrCat(dirname, basename);
- } else {
-   return absl::StrCat(dirname, PATH_SEPARATOR, basename);
- }
+  if ((!basename.empty() && basename[0] == PATH_SEPARATOR[0]) ||
+      dirname.empty()) {
+    return std::string(basename);
+  } else if (dirname[dirname.size() - 1] == PATH_SEPARATOR[0]) {
+    return absl::StrCat(dirname, basename);
+  } else {
+    return absl::StrCat(dirname, PATH_SEPARATOR, basename);
+  }
 }
 
-}  // namespace utils
+}  // namespace file
 }  // namespace nisaba

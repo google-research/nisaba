@@ -15,22 +15,21 @@
 #include "nisaba/brahmic/far.h"
 
 #include "fst/compat.h"
-#include "nisaba/utils/util.h"
 #include "absl/strings/ascii.h"
-#include "nisaba/utils/util.h"
+#include "nisaba/port/file_util.h"
 
 namespace nisaba {
 namespace brahmic {
 
 bool Far::Load() {
   constexpr char kFarPath[] = "com_google_nisaba/nisaba/brahmic";
-  const auto far_dir = utils::GetRunfilesResourcePath(kFarPath);
+  const auto far_dir = file::GetRunfilesResourcePath(kFarPath);
   if (!far_dir.ok()) {
     LOG(ERROR) << far_dir.status();
     return false;
   }
   constexpr char kFarExtn[] = ".far";
-  const auto far_file_path = utils::JoinPath(
+  const auto far_file_path = file::JoinPath(
       far_dir.value(), absl::AsciiStrToLower(far_name_) + kFarExtn);
   return grm_mgr_->LoadArchive(far_file_path);
 }

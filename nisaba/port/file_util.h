@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Miscellaneous helper utilities.
+// Miscellaneous file I/O helper utilities.
 
-#ifndef NISABA_UTILS_UTIL_H_
-#define NISABA_UTILS_UTIL_H_
+#ifndef NISABA_PORT_FILE_UTIL_H_
+#define NISABA_PORT_FILE_UTIL_H_
 
 #include <string>
 
@@ -23,7 +23,7 @@
 #include "absl/strings/string_view.h"
 
 namespace nisaba {
-namespace utils {
+namespace file {
 
 // Returns full path of the resource that resides under runfiles directory.
 absl::StatusOr<std::string> GetRunfilesResourcePath(absl::string_view path);
@@ -31,7 +31,7 @@ absl::StatusOr<std::string> GetRunfilesResourcePath(absl::string_view path);
 // Portable path joiner.
 std::string JoinPath(absl::string_view dirname, absl::string_view basename);
 
-}  // namespace utils
+}  // namespace file
 }  // namespace nisaba
 
-#endif  // NISABA_UTILS_UTIL_H_
+#endif  // NISABA_PORT_FILE_UTIL_H_

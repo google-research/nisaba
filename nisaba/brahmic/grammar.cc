@@ -14,13 +14,13 @@
 
 #include "nisaba/brahmic/grammar.h"
 
-#include "nisaba/utils/util.h"
+#include "nisaba/port/file_util.h"
 
 namespace nisaba {
 namespace brahmic {
 
 bool Grammar::Load() {
-  const auto far_path = utils::GetRunfilesResourcePath(far_file_path_);
+  const auto far_path = file::GetRunfilesResourcePath(far_file_path_);
   if (!far_path.ok()) {
     LOG(ERROR) << far_path.status();
     return false;

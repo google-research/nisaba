@@ -20,7 +20,7 @@
 #include <memory>
 #include <string>
 
-#include "nisaba/utils/util.h"
+#include "nisaba/port/file_util.h"
 #include "thrax/grm-manager.h"
 #include "absl/strings/ascii.h"
 #include "absl/memory/memory.h"
@@ -37,7 +37,7 @@ class Grammar {
  public:
   Grammar(const std::string& far_path, const std::string& far_name,
           const std::string& fst_name)
-      : far_file_path_(utils::JoinPath(
+      : far_file_path_(file::JoinPath(
             far_path, absl::AsciiStrToLower(far_name) + kFarExtn)),
         fst_name_(absl::AsciiStrToUpper(fst_name)),
         grm_mgr_(absl::make_unique<thrax::GrmManager>()) {}

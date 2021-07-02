@@ -47,17 +47,6 @@ py_test(
     ],
 )
 
-cc_library(
-    name = "util",
-    srcs = ["util.cc"],
-    hdrs = ["util.h"],
-    deps = [
-        "@bazel_tools//tools/cpp/runfiles",
-        "@com_google_absl//absl/status:statusor",
-        "@com_google_absl//absl/strings",
-    ],
-)
-
 py_library(
     name = "test_util",
     srcs = ["test_util.py"],

@@ -379,8 +379,8 @@ cc_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
+        "//nisaba/port:file_util",
         "//nisaba/port:integral_types",
-        "//nisaba/utils:util",
         "@com_google_absl//absl/memory",
         "@com_google_absl//absl/strings",
         "@org_openfst//:fst",
@@ -406,7 +406,7 @@ cc_library(
     data = [":far_files"],
     visibility = ["//visibility:public"],
     deps = [
-        "//nisaba/utils:util",
+        "//nisaba/port:file_util",
         "@com_google_absl//absl/memory",
         "@com_google_absl//absl/strings",
         "@org_opengrm_thrax//:thrax",
