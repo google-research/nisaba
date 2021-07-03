@@ -18,6 +18,7 @@
 #define NISABA_PORT_FILE_UTIL_H_
 
 #include <string>
+#include <string_view>
 
 #include "absl/status/statusor.h"
 #include "absl/strings/string_view.h"
@@ -30,6 +31,17 @@ absl::StatusOr<std::string> GetRunfilesResourcePath(absl::string_view path);
 
 // Portable path joiner.
 std::string JoinPath(absl::string_view dirname, absl::string_view basename);
+
+// Returns a path to a temporary file given its filename.
+std::string TempFilePath(std::string_view filename);
+
+// Writes temporary text file given its filename and contents. Returns its
+// full path or error.
+absl::StatusOr<std::string> WriteTempTextFile(std::string_view filename,
+                                              std::string_view contents);
+
+// Reads binary file into a buffer or returns error.
+absl::StatusOr<std::string> ReadBinaryFile(std::string_view file_path);
 
 }  // namespace file
 }  // namespace nisaba

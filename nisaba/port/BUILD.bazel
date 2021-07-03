@@ -52,6 +52,28 @@ cc_test(
 )
 
 cc_library(
+   name = "status_macros",
+   hdrs = ["status_macros.h"],
+   visibility = ["//visibility:public"],
+   deps = [
+       "@com_google_absl//absl/base:core_headers",
+       "@com_google_absl//absl/status",
+   ],
+)
+
+cc_library(
+   name = "status-matchers",
+   hdrs = ["status-matchers.h"],
+   visibility = ["//visibility:public"],
+   deps = [
+       ":status_macros",
+       "@com_google_absl//absl/status",
+       "@com_google_absl//absl/status:statusor",
+       "@com_google_googletest//:gtest",
+   ],
+)
+
+cc_library(
     name = "utf8_util",
     srcs = ["utf8_util.cc"],
     hdrs = ["utf8_util.h"],
@@ -71,6 +93,7 @@ cc_test(
     deps = [
         ":unicode_properties",
         ":utf8_util",
+        "//nisaba/port:status-matchers",
         "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest_main",
     ],
@@ -85,5 +108,15 @@ cc_library(
         "@bazel_tools//tools/cpp/runfiles",
         "@com_google_absl//absl/status:statusor",
         "@com_google_absl//absl/strings",
+    ],
+)
+
+cc_test(
+    name = "file_util_test",
+    srcs = ["file_util_test.cc"],
+    deps = [
+        ":file_util",
+        "//nisaba/port:status-matchers",
+        "@com_google_googletest//:gtest_main",
     ],
 )

@@ -16,6 +16,8 @@
 
 #include <errno.h>
 #include <stdlib.h>
+#include <filesystem>
+#include <fstream>
 
 #include "absl/strings/str_cat.h"
 #include "tools/cpp/runfiles/runfiles.h"
@@ -62,6 +64,48 @@ std::string JoinPath(absl::string_view dirname, absl::string_view basename) {
   } else {
     return absl::StrCat(dirname, PATH_SEPARATOR, basename);
   }
+}
+
+std::string TempFilePath(std::string_view filename) {
+  const std::filesystem::path tmp_dir =
+      std::filesystem::temp_directory_path();
+  std::filesystem::path file_path = tmp_dir / filename;
+  return file_path.string();
+}
+
+absl::StatusOr<std::string> WriteTempTextFile(std::string_view filename,
+                                              std::string_view contents) {
+  const std::string &path = TempFilePath(filename);
+  std::ofstream out(path);
+  if (!out) {
+    return absl::PermissionDeniedError(absl::StrCat("Failed to open: ", path));
+  }
+  out << contents;
+  if (!out.good()) {
+    return absl::InternalError(absl::StrCat("Failed to write to", path));
+  }
+  return path;
+}
+
+absl::StatusOr<std::string> ReadBinaryFile(std::string_view file_path) {
+  std::ifstream input;
+  // Need to construct std::string explictly below. See:
+  //   https://cplusplus.github.io/LWG/issue3430
+  input.open(std::string(file_path), std::ifstream::in | std::ifstream::binary);
+  if (!input) {
+    return absl::NotFoundError(absl::StrCat("Failed to open: ", file_path));
+  }
+  std::string contents;
+  input.seekg(0, std::ios::end);
+  const std::streampos file_size = input.tellg();
+  if (file_size <= 0) {
+    return absl::InternalError("File empty or invalid");
+  }
+  contents.reserve(file_size);
+  input.seekg(0, std::ios::beg);
+  contents.assign(std::istreambuf_iterator<char>(input),
+                  std::istreambuf_iterator<char>());
+  return contents;
 }
 
 }  // namespace file
