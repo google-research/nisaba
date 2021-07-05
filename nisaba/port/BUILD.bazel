@@ -120,3 +120,24 @@ cc_test(
         "@com_google_googletest//:gtest_main",
     ],
 )
+
+cc_library(
+   name = "thread_pool",
+   hdrs = ["thread_pool.h"],
+   deps = [
+       "@com_google_absl//absl/base:core_headers",
+       "@com_google_absl//absl/synchronization",
+   ],
+)
+
+cc_test(
+   name = "thread_pool_test",
+   srcs = ["thread_pool_test.cc"],
+   visibility = ["//visibility:public"],
+   deps = [
+       ":thread_pool",
+       "@com_google_absl//absl/base:core_headers",
+       "@com_google_absl//absl/synchronization",
+       "@com_google_googletest//:gtest_main",
+   ],
+)
