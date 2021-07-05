@@ -33,11 +33,17 @@ using ::bazel::tools::cpp::runfiles::Runfiles;
 namespace {
 
 std::string GetProgramName() {
+#if !defined(WIN32) && !defined(_MSC_VER)
+// UNIX platforms.
 #ifdef __GLIBC__
   return program_invocation_name;
 #else // *BSD and OS X.
   return ::getprogname();
 #endif  // __GLIBC__
+#else
+  // TODO: Provide portable implementation for Windows platforms.
+  return "";
+#endif  // WIN32
 }
 
 }  // namespace
