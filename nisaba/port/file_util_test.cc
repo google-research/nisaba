@@ -15,6 +15,8 @@
 #include "nisaba/port/file_util.h"
 
 #include <filesystem>
+#include <string>
+#include <vector>
 
 #include "gmock/gmock.h"
 #include "nisaba/port/status-matchers.h"
@@ -48,6 +50,21 @@ TEST(File_UtilTest, CheckReadBinaryFile) {
   EXPECT_EQ("hello", contents);
   read_status = ReadBinaryFile("invalid file");
   EXPECT_FALSE(read_status.ok());
+}
+
+TEST(File_UtilTest, CheckReadLines) {
+  constexpr char kFileContents[] = R"(
+    Hello world.
+
+    Test.)";
+  const auto write_status = WriteTempTextFile(kFilename, kFileContents);
+  EXPECT_OK(write_status.status());
+  auto read_status = ReadLines(write_status.value());
+  EXPECT_OK(read_status.status());
+  const std::vector<std::string> lines = read_status.value();
+  ASSERT_EQ(2, lines.size());
+  EXPECT_EQ("    Hello world.", lines[0]);
+  EXPECT_EQ("    Test.", lines[1]);
 }
 
 }  // namespace

@@ -19,6 +19,7 @@
 
 #include <string>
 #include <string_view>
+#include <vector>
 
 #include "absl/status/statusor.h"
 #include "absl/strings/string_view.h"
@@ -42,6 +43,11 @@ absl::StatusOr<std::string> WriteTempTextFile(std::string_view filename,
 
 // Reads binary file into a buffer or returns error.
 absl::StatusOr<std::string> ReadBinaryFile(std::string_view file_path);
+
+// Reads lines from a text file removing the trailing carriage return and line
+// feed characters.
+absl::StatusOr<std::vector<std::string>> ReadLines(
+    absl::string_view input_file, int max_line_length = -1);
 
 }  // namespace file
 }  // namespace nisaba

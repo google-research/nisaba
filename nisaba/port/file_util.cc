@@ -50,6 +50,12 @@ std::string GetProgramName() {
 
 namespace nisaba {
 namespace file {
+namespace {
+
+// For reading lines with file::ReadLines().
+constexpr int kDefaultMaxLineLength = 32768;
+
+}  // namespace
 
 absl::StatusOr<std::string> GetRunfilesResourcePath(absl::string_view path) {
   std::string error;
@@ -112,6 +118,26 @@ absl::StatusOr<std::string> ReadBinaryFile(std::string_view file_path) {
   contents.assign(std::istreambuf_iterator<char>(input),
                   std::istreambuf_iterator<char>());
   return contents;
+}
+
+absl::StatusOr<std::vector<std::string>> ReadLines(
+    absl::string_view input_file, int max_line_length) {
+  std::string::size_type max_length = max_line_length;
+  if (max_line_length < 0) max_length = kDefaultMaxLineLength;
+  std::vector<std::string> input_lines;
+  std::ifstream ifs;
+  ifs.open(std::string(input_file));
+  if (!ifs) {
+    return absl::PermissionDeniedError(absl::StrCat("Failed to open: ",
+      input_file));
+  }
+  std::string line;
+  while (std::getline(ifs, line)) {
+    if (line.empty()) continue;
+    if (line.size() >= max_length) line[max_length - 1] = '\0';
+    input_lines.emplace_back(line);
+  }
+  return input_lines;
 }
 
 }  // namespace file
