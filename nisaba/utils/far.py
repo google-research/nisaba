@@ -45,12 +45,18 @@ class Far:
       Returns:
         Transduced string output.
 
+      Raises:
+        ValueError on Pynini string compilation exceptions.
+
       This operation involves pre-composing the input string with the FST and
       then finding the shortest path to output a resultant string.
       """
-      # Square brackets and backslash carry special meaning in Pynini.
-      # So they need to be escaped for unmanaged strings.
-      return pynini.shortestpath(pynini.escape(text) @ self._fst).string()
+      try:
+        # Square brackets and backslash carry special meaning in Pynini.
+        # So they need to be escaped for unmanaged strings.
+        return pynini.shortestpath(pynini.escape(text) @ self._fst).string()
+      except pynini.FstOpError as error:
+        raise ValueError(f'{error} on the string (between quotes): `{text}`')
 
     def AcceptText(self, text: str) -> bool:
       """Accept or reject the given string using the FST.
