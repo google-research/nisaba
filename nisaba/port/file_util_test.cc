@@ -67,6 +67,12 @@ TEST(File_UtilTest, CheckReadLines) {
   EXPECT_EQ("    Test.", lines[1]);
 }
 
+TEST(File_UtilTest, CheckWriteTextFile) {
+  const std::string contents("Hello world");
+  const std::string &path = TempFilePath(kFilename);
+  EXPECT_OK(WriteTextFile(path, contents));
+}
+
 }  // namespace
 }  // namespace file
 }  // namespace nisaba

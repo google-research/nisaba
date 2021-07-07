@@ -19,6 +19,7 @@
 
 #include "absl/base/optimization.h"
 #include "absl/status/status.h"
+#include "google/protobuf/stubs/logging.h"
 
 namespace mozolm {
 
@@ -58,6 +59,9 @@ namespace mozolm {
       return absl::InvalidArgumentError(absl::StrCat(#ptr, " is null")); \
     }                                                                    \
   } while (false)
+
+// We need dependency on logging to import the core CHECK macros.
+#define GOOGLE_CHECK_OK(value) GOOGLE_CHECK((value).ok())
 
 }  // namespace mozolm
 

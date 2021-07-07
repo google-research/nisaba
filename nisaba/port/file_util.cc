@@ -99,6 +99,22 @@ absl::StatusOr<std::string> WriteTempTextFile(std::string_view filename,
   return path;
 }
 
+absl::Status WriteTextFile(std::string_view file_path,
+                           std::string_view contents) {
+  std::ofstream output;
+  output.open(std::string(file_path));
+  if (!output) {
+    return absl::PermissionDeniedError(absl::StrCat("Failed to open: ",
+                                                    file_path));
+  }
+  output << contents;
+  if (!output) {
+    return absl::PermissionDeniedError(absl::StrCat(
+        "Failed to write: ", contents.size(), " bytes to ", file_path));
+  }
+  return absl::OkStatus();
+}
+
 absl::StatusOr<std::string> ReadBinaryFile(std::string_view file_path) {
   std::ifstream input;
   // Need to construct std::string explictly below. See:

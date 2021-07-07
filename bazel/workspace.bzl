@@ -47,3 +47,16 @@ def nisaba_public_repositories(name = ""):
         build_file = _clean_dep("//bazel:utfcpp.BUILD.bazel"),
         strip_prefix = "utfcpp-%s" % utfcpp_version,
     )
+
+    # -------------------------------------------------------------------------
+    # OpenGrm N-Gram: See
+    #   http://www.openfst.org/twiki/bin/view/GRM/NGramLibrary
+    # -------------------------------------------------------------------------
+    opengrm_ngram_version = "1.3.13-rc1"
+
+    http_archive(
+        name = "org_opengrm_ngram",
+        urls = ["https://github.com/agutkin/finite_state/raw/main/ngram-%s.tar.gz" % opengrm_ngram_version],
+        sha256 = "c027cee208090f35a1f725dc9cc22bc0d977adba346d765bf2e1f55990a4fa40",
+        strip_prefix = "ngram-%s" % opengrm_ngram_version,
+    )

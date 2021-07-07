@@ -26,8 +26,8 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # Google protocol buffers. See
 #    https://github.com/protocolbuffers/protobuf
 # -------------------------------------------------------------------------
-protobuf_version = "3.14.0"
-protobuf_sha256 = "d0f5f605d0d656007ce6c8b5a82df3037e1d8fe8b121ed42e536f569dec16113"
+protobuf_version = "3.17.3"
+protobuf_sha256 = "c6003e1d2e7fefa78a3039f19f383b4f3a61e81be8c19356f85b6461998ad3db"
 
 http_archive(
     name = "com_google_protobuf",
