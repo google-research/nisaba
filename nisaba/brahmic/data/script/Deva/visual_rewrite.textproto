@@ -23,7 +23,6 @@
 
 uname_prefix: "DEVANAGARI"
 
-# LINT.IfChange
 item {
   uname: ["LETTER A", "VOWEL SIGN SHORT E"] raw: "अॆ"
   to_uname: ["LETTER SHORT A"] to_raw: "ऄ"
@@ -895,4 +894,3 @@ item {
   uname: ["LETTER LLLA", "SIGN NUKTA"] raw: "ऴ़"
   to_uname: ["LETTER LLLA"] to_raw: "ऴ"
 }
-# LINT.ThenChange(//depot/google3/research/handwriting/segmentation/devanagari_normalization_rewriter.cc)
