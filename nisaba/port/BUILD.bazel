@@ -142,3 +142,19 @@ cc_test(
        "@com_google_googletest//:gtest_main",
    ],
 )
+
+cc_library(
+    name = "test_utils",
+    testonly = 1,
+    srcs = ["test_utils.cc"],
+    hdrs = ["test_utils.h"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":file_util",
+        "//nisaba/port:integral_types",
+        "//nisaba/port:status-matchers",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_googletest//:gtest",
+        "@org_openfst//:fst",
+    ],
+)
