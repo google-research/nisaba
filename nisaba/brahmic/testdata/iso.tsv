@@ -1,6 +1,10 @@
 FROM_BENG	ব্রাহ্মীকে	brāhmīkē
 TO_BENG	brāhmīkē	ব্রাহ্মীকে
 
+# sat-Beng specific <SIGN AA, NUKTA>
+FROM_BENG	গিদরা়	gidarạ̄
+TO_BENG	gidarạ̄	গিদরা়
+
 FROM_DEVA	ब्राह्मिक	brāhmika
 TO_DEVA	brāhmika	ब्राह्मिक
 
