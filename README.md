@@ -17,7 +17,7 @@ normalization, well-formedness, transliteration and NFC normalization of various
 scripts from South Asia and beyond. Nisaba provides these APIs in Python and
 C++. Currently supported script families:
 
-*   Brahmic scripts (detailed [documentation](scripts/nisaba/brahmic/README.md)).
+*   Brahmic scripts (detailed [documentation](nisaba/scripts/brahmic/README.md)).
 
 Nisaba primarily relies on [OpenGrm Pynini](http://pynini.opengrm.org/), which
 is a Python toolkit for finite-state grammar development. OpenGrm Pynini, like
@@ -56,15 +56,13 @@ pip (20.1.1).
 
 1.  Locally, make sure you are in some sort of a virtual environment (`venv`,
     `virtualenv`, `conda`, etc).
+
 2.  Clone the repository (please note, this example does not clone the fork of
-    the main repository, but a forked repo can be used as well) and install the
-    Python prerequisite packages listed in [requirements.txt](requirements.txt):
+    the main repository, but a forked repo can be used as well):
 
     ```shell
     git clone https://github.com/google-research/nisaba.git
     cd nisaba
-    pip3 install --upgrade pip
-    pip3 install -r requirements.txt
     ```
 
 3.  Build all the targets using Bazel (this example uses optimized mode):
@@ -77,6 +75,14 @@ pip (20.1.1).
     repository dependencies, including OpenFst, Pynin and Thrax, that are
     specified in the Bazel [WORKSPACE](WORKSPACE.bazel) file. The resulting
     artifacts are located in `bazel-bin/nisaba` directory.
+
+    If the above command fails due to missing Python prerequisites, please
+    install them using `pip` Python package manager and try again:
+
+    ```shell
+    pip3 install --upgrade pip
+    pip3 install -r requirements.txt
+    ```
 
 4.  Make sure the small unit tests are passing:
 
