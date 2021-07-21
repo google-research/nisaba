@@ -1,0 +1,192 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "BENGALI"
+to_uname_prefix: "LATIN SMALL LETTER"
+
+item {
+  uname: ["LETTER KA"] raw: "ক"
+  to_raw: "k"
+}
+item {
+  uname: ["LETTER KHA"] raw: "খ"
+  to_raw: "kh"
+}
+item {
+  uname: ["LETTER GA"] raw: "গ"
+  to_raw: "g"
+}
+item {
+  uname: ["LETTER GHA"] raw: "ঘ"
+  to_raw: "gh"
+}
+item {
+  uname: ["LETTER NGA"] raw: "ঙ"
+  to_uname: ["N WITH DOT ABOVE"] to_raw: "ṅ"
+}
+item {
+  uname: ["LETTER CA"] raw: "চ"
+  to_raw: "c"
+}
+item {
+  uname: ["LETTER CHA"] raw: "ছ"
+  to_raw: "ch"
+}
+item {
+  uname: ["LETTER JA"] raw: "জ"
+  to_raw: "j"
+}
+item {
+  uname: ["LETTER JHA"] raw: "ঝ"
+  to_raw: "jh"
+}
+item {
+  uname: ["LETTER NYA"] raw: "ঞ"
+  to_uname: ["N WITH TILDE"] to_raw: "ñ"
+}
+item {
+  uname: ["LETTER TTA"] raw: "ট"
+  to_uname: ["T WITH DOT BELOW"] to_raw: "ṭ"
+}
+item {
+  uname: ["LETTER TTHA"] raw: "ঠ"
+  to_uname: ["T WITH DOT BELOW", "H"] to_raw: "ṭh"
+}
+item {
+  uname: ["LETTER DDA"] raw: "ড"
+  to_uname: ["D WITH DOT BELOW"] to_raw: "ḍ"
+}
+item {
+  uname: ["LETTER DDA", "SIGN NUKTA"] raw: "ড়"
+  to_uname: ["R WITH DOT BELOW"] to_raw: "ṛ"
+}
+item {
+  uname: ["LETTER DDHA"] raw: "ঢ"
+  to_uname: ["D WITH DOT BELOW", "H"] to_raw: "ḍh"
+}
+item {
+  uname: ["LETTER DDHA", "SIGN NUKTA"] raw: "ঢ়"
+  to_uname: ["R WITH DOT BELOW", "H"] to_raw: "ṛh"
+}
+item {
+  uname: ["LETTER NNA"] raw: "ণ"
+  to_uname: ["N WITH DOT BELOW"] to_raw: "ṇ"
+}
+item {
+  uname: ["LETTER TA"] raw: "ত"
+  to_raw: "t"
+}
+item {
+  uname: ["LETTER THA"] raw: "থ"
+  to_raw: "th"
+}
+item {
+  uname: ["LETTER DA"] raw: "দ"
+  to_raw: "d"
+}
+item {
+  uname: ["LETTER DHA"] raw: "ধ"
+  to_raw: "dh"
+}
+item {
+  uname: ["LETTER NA"] raw: "ন"
+  to_raw: "n"
+}
+item {
+  uname: ["LETTER PA"] raw: "প"
+  to_raw: "p"
+}
+item {
+  uname: ["LETTER PHA"] raw: "ফ"
+  to_raw: "ph"
+}
+item {
+  uname: ["LETTER BA"] raw: "ব"
+  to_raw: "b"
+}
+item {
+  uname: ["LETTER BHA"] raw: "ভ"
+  to_raw: "bh"
+}
+item {
+  uname: ["LETTER MA"] raw: "ম"
+  to_raw: "m"
+}
+item {
+  uname: ["LETTER YA"] raw: "য"
+  to_raw: "y"
+}
+item {
+  uname: ["LETTER YA", "SIGN NUKTA"] raw: "য়"
+  to_uname: ["Y WITH DOT ABOVE"] to_raw: "ẏ"
+}
+item {
+  uname: ["LETTER RA"] raw: "র"
+  to_raw: "r"
+}
+item {
+  uname: ["LETTER RA WITH MIDDLE DIAGONAL"] raw: "ৰ"
+  to_uname: ["TURNED R"] to_raw: "ɹ"
+}
+item {
+  uname: ["LETTER LA"] raw: "ল"
+  to_raw: "l"
+}
+item {
+  uname: ["LETTER RA WITH LOWER DIAGONAL"] raw: "ৱ"
+  to_raw: "v"
+}
+item {
+  uname: ["LETTER SHA"] raw: "শ"
+  to_uname: ["S WITH ACUTE"] to_raw: "ś"
+}
+item {
+  uname: ["LETTER SSA"] raw: "ষ"
+  to_uname: ["S WITH DOT BELOW"] to_raw: "ṣ"
+}
+item {
+  uname: ["LETTER SA"] raw: "স"
+  to_raw: "s"
+}
+item {
+  uname: ["LETTER HA"] raw: "হ"
+  to_raw: "h"
+}
+item {
+  uname: ["LETTER KA", "SIGN NUKTA"] raw: "ক়"
+  to_raw: "q"
+}
+item {
+  uname: ["LETTER KHA", "SIGN NUKTA"] raw: "খ়"
+  to_raw: "x"
+}
+item {
+  uname: ["LETTER GA", "SIGN NUKTA"] raw: "গ়"
+  to_uname: ["G WITH DOT ABOVE"] to_raw: "ġ"
+}
+item {
+  uname: ["LETTER JA", "SIGN NUKTA"] raw: "জ়"
+  to_raw: "z"
+}
+item {
+  uname: ["LETTER PHA", "SIGN NUKTA"] raw: "ফ়"
+  to_raw: "f"
+}
+item {
+  uname: ["LETTER RA", "ZERO WIDTH JOINER", "SIGN VIRAMA", "LETTER YA"] raw: "র‍্য"
+  to_uname: ["R", "Y WITH TILDE"] to_raw: "rỹ"
+}

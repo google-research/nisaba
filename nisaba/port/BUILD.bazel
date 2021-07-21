@@ -158,3 +158,21 @@ cc_library(
         "@org_openfst//:fst",
     ],
 )
+
+cc_library(
+    name = "timer",
+    hdrs = ["timer.h"],
+    visibility = ["//visibility:public"],
+    deps = ["@com_google_absl//absl/time"],
+)
+
+cc_test(
+    name = "timer_test",
+    srcs = ["timer_test.cc"],
+    deps = [
+        ":timer",
+        "//nisaba/port:status-matchers",
+        "@com_google_absl//absl/time",
+        "@com_google_googletest//:gtest_main",
+    ],
+)

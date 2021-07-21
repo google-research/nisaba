@@ -1,0 +1,56 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+################################
+# Rewrites from Unicode standard
+# Unicode version 12.0: Chapter 12.2
+
+uname_prefix: "BENGALI"
+
+# Table 12-11: Bangla Vowel Letters
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA"] raw: "অা"
+  to_uname: ["LETTER AA"] to_raw: "আ"
+}
+item {
+  uname: ["LETTER VOCALIC R", "VOWEL SIGN VOCALIC R"] raw: "ঋৃ"
+  to_uname: ["LETTER VOCALIC RR"] to_raw: "ৠ"
+}
+item {
+  uname: ["LETTER VOCALIC L", "VOWEL SIGN VOCALIC L"] raw: "ঌৢ"
+  to_uname: ["LETTER VOCALIC LL"] to_raw: "ৡ"
+}
+
+# Chapter 12.2: Section Khanda Ta.
+# Prefer atomic Khanda Ta
+item {
+  uname: ["LETTER TA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ত্‍"
+  to_uname: ["LETTER KHANDA TA"] to_raw: "ৎ"
+}
+
+###########################################################
+# Additional rewrites for the usages found in web documents
+
+# Reordered vowel sign equivalences from NFC specs
+item {
+  uname: ["VOWEL SIGN AA", "VOWEL SIGN E"] raw: "াে"
+  to_uname: ["VOWEL SIGN O"] to_raw: "ো"
+}
+item {
+  uname: ["AU LENGTH MARK", "VOWEL SIGN E"] raw: "ৗে"
+  to_uname: ["VOWEL SIGN AU"] to_raw: "ৌ"
+}

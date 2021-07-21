@@ -1,0 +1,52 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "ORIYA"
+
+################################
+# Rewrites from Unicode standard
+# Unicode version 12.0: Chapter 12.5
+
+# Table 12-22: Oriya Vowel Letters
+
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA"]  raw: "ଅା"
+  to_uname: "LETTER AA" to_raw: "ଆ"
+}
+item {
+  uname: ["LETTER E", "AU LENGTH MARK"] raw: "ଏୗ"
+  to_uname: "LETTER AI" to_raw: "ଐ"
+}
+item {
+  uname: ["LETTER O", "AU LENGTH MARK"] raw: "ଓୗ"
+  to_uname: "LETTER AU" to_raw: "ଔ"
+}
+
+###########################################################
+# Additional rewrites for the usages found in web documents
+# See https://www.unicode.org/L2/L2002/02425-oriya.pdf for context.
+
+# Mis-encoding of LETTER WA as <O, VIRAMA, BA>
+item {
+  uname: ["LETTER O", "SIGN VIRAMA", "LETTER BA"] raw: "ଓ୍ବ"
+  to_uname: "LETTER WA" to_raw: "ୱ"
+}
+# Mis-encoding of LETTER WA as <O, VIRAMA, WA>
+item {
+  uname: ["LETTER O", "SIGN VIRAMA", "LETTER WA"] raw: "ଓ୍ୱ"
+  to_uname: "LETTER WA" to_raw: "ୱ"
+}
