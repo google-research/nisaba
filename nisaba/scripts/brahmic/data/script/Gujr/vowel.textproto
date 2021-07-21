@@ -1,0 +1,83 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "GUJARATI"
+
+item {
+  uname: ["LETTER A"] raw: "અ"
+  to_uname: ["LATIN SMALL LETTER A"] to_raw: "a"
+}
+item {
+  uname: ["LETTER AA"] raw: "આ"
+  to_uname: ["LATIN SMALL LETTER A WITH MACRON"] to_raw: "ā"
+}
+item {
+  uname: ["LETTER I"] raw: "ઇ"
+  to_uname: ["LATIN SMALL LETTER I"] to_raw: "i"
+}
+item {
+  uname: ["LETTER II"] raw: "ઈ"
+  to_uname: ["LATIN SMALL LETTER I WITH MACRON"] to_raw: "ī"
+}
+item {
+  uname: ["LETTER U"] raw: "ઉ"
+  to_uname: ["LATIN SMALL LETTER U"] to_raw: "u"
+}
+item {
+  uname: ["LETTER UU"] raw: "ઊ"
+  to_uname: ["LATIN SMALL LETTER U WITH MACRON"] to_raw: "ū"
+}
+item {
+  uname: ["LETTER VOCALIC R"] raw: "ઋ"
+  to_uname: ["LATIN SMALL LETTER R", "COMBINING RING BELOW"] to_raw: "r̥"
+}
+item {
+  uname: ["LETTER VOCALIC RR"] raw: "ૠ"
+  to_uname: ["LATIN SMALL LETTER R", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "r̥̄"
+}
+item {
+  uname: ["LETTER VOCALIC L"] raw: "ઌ"
+  to_uname: ["LATIN SMALL LETTER L", "COMBINING RING BELOW"] to_raw: "l̥"
+}
+item {
+  uname: ["LETTER VOCALIC LL"] raw: "ૡ"
+  to_uname: ["LATIN SMALL LETTER L", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "l̥̄"
+}
+item {
+  uname: ["LETTER E"] raw: "એ"
+  to_uname: ["LATIN SMALL LETTER E WITH MACRON"] to_raw: "ē"
+}
+item {
+  uname: ["VOWEL CANDRA E"] raw: "ઍ"
+  to_uname: ["LATIN SMALL LETTER E WITH CIRCUMFLEX"] to_raw: "ê"
+}
+item {
+  uname: ["LETTER AI"] raw: "ઐ"
+  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER I"] to_raw: "ai"
+}
+item {
+  uname: ["LETTER O"] raw: "ઓ"
+  to_uname: ["LATIN SMALL LETTER O WITH MACRON"] to_raw: "ō"
+}
+item {
+  uname: ["VOWEL CANDRA O"] raw: "ઑ"
+  to_uname: ["LATIN SMALL LETTER O WITH CIRCUMFLEX"] to_raw: "ô"
+}
+item {
+  uname: ["LETTER AU"] raw: "ઔ"
+  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER U"] to_raw: "au"
+}

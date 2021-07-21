@@ -5,7 +5,8 @@
 
 # Nisaba
 
-Named after Nisaba — the Sumerian goddess of writing and scribe of the gods (𒀭𒉀).
+Named after Nisaba — the Sumerian goddess of writing and scribe of the gods
+(𒀭𒉀).
 
 ![nisaba](etc/nisaba.png "Source: The Pergamon Museum, Berlin, Germany")
 
@@ -13,19 +14,19 @@ Named after Nisaba — the Sumerian goddess of writing and scribe of the gods (�
 
 Collection of finite-state transducer-based (FST) tools for visual
 normalization, well-formedness, transliteration and NFC normalization of various
-scripts from South Asia and beyond. Nisaba provides these APIs in Python and C++.
-Currently supported script families:
+scripts from South Asia and beyond. Nisaba provides these APIs in Python and
+C++. Currently supported script families:
 
-*  Brahmic scripts (detailed [documentation](nisaba/brahmic/README.md)).
+*   Brahmic scripts (detailed [documentation](scripts/nisaba/brahmic/README.md)).
 
 Nisaba primarily relies on [OpenGrm Pynini](http://pynini.opengrm.org/), which
 is a Python toolkit for finite-state grammar development. OpenGrm Pynini, like
 its C++ counterpart [Thrax](http://thrax.opengrm.org/), compiles grammars
 expressed as strings, regular expressions, and context-dependent rewrite rules
-into [weighted finite-state
-transducers](http://www.cs.nyu.edu/~mohri/pub/fla.pdf) (WFSTs).  It uses the
-[OpenFst](http://openfst.org) library and its Python extension to create, access
-and manipulate compiled grammars.
+into
+[weighted finite-state transducers](http://www.cs.nyu.edu/~mohri/pub/fla.pdf)
+(WFSTs). It uses the [OpenFst](http://openfst.org) library and its Python
+extension to create, access and manipulate compiled grammars.
 
 ## Building and testing
 
@@ -76,6 +77,7 @@ pip (20.1.1).
     repository dependencies, including OpenFst, Pynin and Thrax, that are
     specified in the Bazel [WORKSPACE](WORKSPACE.bazel) file. The resulting
     artifacts are located in `bazel-bin/nisaba` directory.
+
 4.  Make sure the small unit tests are passing:
 
     ```shell
@@ -86,20 +88,20 @@ pip (20.1.1).
 
     ```shell
       ...
-      //nisaba/brahmic:cc_test                                                 PASSED in 0.4s
-      //nisaba/brahmic:far_cc_test                                             PASSED in 0.2s
-      //nisaba/brahmic:far_test                                                PASSED in 2.0s
-      //nisaba/brahmic:fixed_test                                              PASSED in 0.2s
-      //nisaba/brahmic:fst_properties_test                                     PASSED in 2.3s
-      //nisaba/brahmic:iso_test                                                PASSED in 0.3s
-      //nisaba/brahmic:nfc_test                                                PASSED in 0.2s
-      //nisaba/brahmic:nfc_utf8_test                                           PASSED in 0.2s
-      //nisaba/brahmic:py_test                                                 PASSED in 2.1s
-      //nisaba/brahmic:util_test                                               PASSED in 1.9s
-      //nisaba/brahmic:visual_norm_test                                        PASSED in 0.3s
-      //nisaba/brahmic:visual_norm_utf8_test                                   PASSED in 0.3s
-      //nisaba/brahmic:wellformed_test                                         PASSED in 0.2s
-      //nisaba/brahmic:wellformed_utf8_test                                    PASSED in 0.2s
+      //nisaba/scripts/brahmic:cc_test                                                 PASSED in 0.4s
+      //nisaba/scripts/brahmic:far_cc_test                                             PASSED in 0.2s
+      //nisaba/scripts/brahmic:far_test                                                PASSED in 2.0s
+      //nisaba/scripts/brahmic:fixed_test                                              PASSED in 0.2s
+      //nisaba/scripts/brahmic:fst_properties_test                                     PASSED in 2.3s
+      //nisaba/scripts/brahmic:iso_test                                                PASSED in 0.3s
+      //nisaba/scripts/brahmic:nfc_test                                                PASSED in 0.2s
+      //nisaba/scripts/brahmic:nfc_utf8_test                                           PASSED in 0.2s
+      //nisaba/scripts/brahmic:py_test                                                 PASSED in 2.1s
+      //nisaba/scripts/brahmic:util_test                                               PASSED in 1.9s
+      //nisaba/scripts/brahmic:visual_norm_test                                        PASSED in 0.3s
+      //nisaba/scripts/brahmic:visual_norm_utf8_test                                   PASSED in 0.3s
+      //nisaba/scripts/brahmic:wellformed_test                                         PASSED in 0.2s
+      //nisaba/scripts/brahmic:wellformed_utf8_test                                    PASSED in 0.2s
       ...
     ```
 
@@ -121,7 +123,9 @@ for more information.
 
 ## Citation
 
-If you use this software in a publication, please cite the accompanying [paper](https://www.aclweb.org/anthology/2021.eacl-demos.3.pdf) from [EACL 2021](https://2021.eacl.org/):
+If you use this software in a publication, please cite the accompanying
+[paper](https://www.aclweb.org/anthology/2021.eacl-demos.3.pdf) from
+[EACL 2021](https://2021.eacl.org/):
 
 ```bibtex
 @inproceedings{nisaba-eacl2021,

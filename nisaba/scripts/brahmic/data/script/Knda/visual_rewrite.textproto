@@ -1,0 +1,137 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "KANNADA"
+
+################################
+# Rewrites from Unicode standard
+# Unicode version 12.0: Chapter 12.8
+
+# Table 12-32: Kannada Vowel Letters
+
+item {
+  uname: ["LETTER U", "VOWEL SIGN AA"] raw: "ಉಾ"
+  to_uname: ["LETTER UU"] to_raw: "ಊ"
+}
+item {
+  uname: ["LETTER O", "VOWEL SIGN AU"] raw: "ಒೌ"
+  to_uname: ["LETTER AU"] to_raw: "ಔ"
+}
+item {
+  uname: ["LETTER VOCALIC R", "VOWEL SIGN AA"] raw: "ಋಾ"
+  to_uname: ["LETTER VOCALIC RR"] to_raw: "ೠ"
+}
+
+###########################################################
+# Additional rewrites for the usages found in web documents
+
+# SIGN U on VA is taken as the right arc of MA
+
+item {
+  uname: ["LETTER VA", "VOWEL SIGN I", "VOWEL SIGN U"] raw: "ವಿು"
+  to_uname: ["LETTER MA", "VOWEL SIGN I"] to_raw: "ಮಿ"
+}
+item {
+  uname: ["LETTER VA", "VOWEL SIGN E", "VOWEL SIGN U"] raw: "ವೆು"
+  to_uname: ["LETTER MA", "VOWEL SIGN E"] to_raw: "ಮೆ"
+}
+item {
+  uname: ["LETTER VA", "VOWEL SIGN E", "VOWEL SIGN U", "LENGTH MARK"] raw: "ವೆುೕ"
+  to_uname: ["LETTER MA", "VOWEL SIGN EE"] to_raw: "ಮೇ"
+}
+item {
+  uname: ["LETTER VA", "VOWEL SIGN E", "VOWEL SIGN U", "AI LENGTH MARK"] raw: "ವೆುೖ"
+  to_uname: ["LETTER MA", "VOWEL SIGN AI"] to_raw: "ಮೈ"
+}
+
+# Reordering of Nukta: <VOWEL SIGN, NUKTA> → <NUKTA, VOWEL SIGN>
+
+item {
+  uname: ["VOWEL SIGN AA", "SIGN NUKTA"] raw: "ಾ಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN AA"] to_raw: "಼ಾ"
+}
+item {
+  uname: ["VOWEL SIGN I", "SIGN NUKTA"] raw: "ಿ಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN I"] to_raw: "಼ಿ"
+}
+item {
+  uname: ["VOWEL SIGN II", "SIGN NUKTA"] raw: "ೀ಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+}
+item {
+  uname: ["VOWEL SIGN U", "SIGN NUKTA"] raw: "ು಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN U"] to_raw: "಼ು"
+}
+item {
+  uname: ["VOWEL SIGN UU", "SIGN NUKTA"] raw: "ೂ಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN UU"] to_raw: "಼ೂ"
+}
+item {
+  uname: ["VOWEL SIGN VOCALIC R", "SIGN NUKTA"] raw: "ೃ಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN VOCALIC R"] to_raw: "಼ೃ"
+}
+item {
+  uname: ["VOWEL SIGN VOCALIC RR", "SIGN NUKTA"] raw: "ೄ಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+}
+item {
+  uname: ["VOWEL SIGN E", "SIGN NUKTA"] raw: "ೆ಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+}
+item {
+  uname: ["VOWEL SIGN EE", "SIGN NUKTA"] raw: "ೇ಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+}
+item {
+  uname: ["VOWEL SIGN AI", "SIGN NUKTA"] raw: "ೈ಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+}
+item {
+  uname: ["VOWEL SIGN O", "SIGN NUKTA"] raw: "ೊ಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+}
+item {
+  uname: ["VOWEL SIGN OO", "SIGN NUKTA"] raw: "ೋ಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+}
+item {
+  uname: ["VOWEL SIGN AU", "SIGN NUKTA"] raw: "ೌ಼"
+  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+}
+
+# Reordered vowel sign equivalences from NFC specs
+
+item {
+  uname: ["LENGTH MARK", "VOWEL SIGN I"] raw: "ೕಿ"
+  to_uname: ["VOWEL SIGN II"] to_raw: "ೀ"
+}
+item {
+  uname: ["LENGTH MARK", "VOWEL SIGN E"] raw: "ೕೆ"
+  to_uname: ["VOWEL SIGN EE"] to_raw: "ೇ"
+}
+item {
+  uname: ["AI LENGTH MARK", "VOWEL SIGN E"] raw: "ೖೆ"
+  to_uname: ["VOWEL SIGN AI"] to_raw: "ೈ"
+}
+item {
+  uname: ["LENGTH MARK", "VOWEL SIGN O"] raw: "ೕೊ"
+  to_uname: ["VOWEL SIGN OO"] to_raw: "ೋ"
+}
+item {
+  uname: ["VOWEL SIGN EE", "VOWEL SIGN UU"] raw: "ೇೂ"
+  to_uname: ["VOWEL SIGN OO"] to_raw: "ೋ"
+}
