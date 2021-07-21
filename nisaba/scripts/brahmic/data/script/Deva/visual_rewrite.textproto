@@ -1,0 +1,896 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+######################################
+# Rewrites from Unicode standards text
+
+# Devanagari Vowel Letters
+# Unicode Standard Version 12.0: Chapter 12.1: Table 12-1
+
+uname_prefix: "DEVANAGARI"
+
+item {
+  uname: ["LETTER A", "VOWEL SIGN SHORT E"] raw: "अॆ"
+  to_uname: ["LETTER SHORT A"] to_raw: "ऄ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA"] raw: "अा"
+  to_uname: ["LETTER AA"] to_raw: "आ"
+}
+item {
+  uname: ["LETTER RA", "SIGN VIRAMA", "LETTER I"] raw: "र्इ"
+  to_uname: ["LETTER II"] to_raw: "ई"
+}
+
+# TODO: I haven't seen any font at all that renders this example the
+# same, so maybe should be dropped, though it is listed in The Unicode Standard.
+item {
+  uname: ["LETTER U", "VOWEL SIGN U"] raw: "उु"
+  to_uname: ["LETTER UU"] to_raw: "ऊ"
+}
+
+item {
+  uname: ["LETTER E", "VOWEL SIGN CANDRA E"] raw: "एॅ"
+  to_uname: ["LETTER CANDRA E"] to_raw: "ऍ"
+}
+item {
+  uname: ["LETTER E", "VOWEL SIGN SHORT E"] raw: "एॆ"
+  to_uname: ["LETTER SHORT E"] to_raw: "ऎ"
+}
+item {
+  uname: ["LETTER E", "VOWEL SIGN E"] raw: "एे"
+  to_uname: ["LETTER AI"] to_raw: "ऐ"
+}
+
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA", "VOWEL SIGN CANDRA E"] raw: "अाॅ"
+  to_uname: ["LETTER CANDRA O"] to_raw: "ऑ"
+}
+item {
+  uname: ["LETTER AA", "VOWEL SIGN CANDRA E"] raw: "आॅ"
+  to_uname: ["LETTER CANDRA O"] to_raw: "ऑ"
+}
+
+item {
+  uname: ["LETTER A", "VOWEL SIGN SHORT O"] raw: "अॊ"
+  to_uname: ["LETTER SHORT O"] to_raw: "ऒ"
+}
+item {
+  uname: ["LETTER AA", "VOWEL SIGN SHORT E"] raw: "आॆ"
+  to_uname: ["LETTER SHORT O"] to_raw: "ऒ"
+}
+
+item {
+  uname: ["LETTER A", "VOWEL SIGN O"] raw: "अो"
+  to_uname: ["LETTER O"] to_raw: "ओ"
+}
+item {
+  uname: ["LETTER AA", "VOWEL SIGN E"] raw: "आे"
+  to_uname: ["LETTER O"] to_raw: "ओ"
+}
+
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA", "VOWEL SIGN AI"] raw: "अाै"
+  to_uname: ["LETTER AU"] to_raw: "औ"
+}
+item {
+  uname: ["LETTER AA", "VOWEL SIGN AI"] raw: "आै"
+  to_uname: ["LETTER AU"] to_raw: "औ"
+}
+
+item {
+  uname: ["LETTER A", "VOWEL SIGN CANDRA E"] raw: "अॅ"
+  to_uname: ["LETTER CANDRA A"] to_raw: "ॲ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN OE"] raw: "अऺ"
+  to_uname: ["LETTER OE"] to_raw: "ॳ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA", "VOWEL SIGN OE"] raw: "अाऺ"
+  to_uname: ["LETTER OOE"] to_raw: "ॴ"
+}
+item {
+  # TODO: unicodedata module cannot handle these characters.
+  # Use icu.Char.charName() to get the names.
+  raw: "ॵꣿ"
+  to_uname: ["LETTER AW"] to_raw: "ॵ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN UE"] raw: "अॖ"
+  to_uname: ["LETTER UE"] to_raw: "ॶ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN UUE"] raw: "अॗ"
+  to_uname: ["LETTER UUE"] to_raw: "ॷ"
+}
+
+# Devanagari Atomic Consonants
+# Unicode Standard Version 12.0: Chapter 12.1: Table 12-2
+
+item {
+  uname: ["LETTER KHA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ख्ा"
+  to_uname: ["LETTER KHA"] to_raw: "ख"
+}
+item {
+  uname: ["LETTER KHA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ख्‍ा"
+  to_uname: ["LETTER KHA"] to_raw: "ख"
+}
+item {
+  uname: ["LETTER GA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ग्ा"
+  to_uname: ["LETTER GA"] to_raw: "ग"
+}
+item {
+  uname: ["LETTER GA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ग्‍ा"
+  to_uname: ["LETTER GA"] to_raw: "ग"
+}
+item {
+  uname: ["LETTER GHA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "घ्ा"
+  to_uname: ["LETTER GHA"] to_raw: "घ"
+}
+item {
+  uname: ["LETTER GHA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "घ्‍ा"
+  to_uname: ["LETTER GHA"] to_raw: "घ"
+}
+item {
+  uname: ["LETTER CA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "च्ा"
+  to_uname: ["LETTER CA"] to_raw: "च"
+}
+item {
+  uname: ["LETTER CA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "च्‍ा"
+  to_uname: ["LETTER CA"] to_raw: "च"
+}
+item {
+  uname: ["LETTER JA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ज्ा"
+  to_uname: ["LETTER JA"] to_raw: "ज"
+}
+item {
+  uname: ["LETTER JA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ज्‍ा"
+  to_uname: ["LETTER JA"] to_raw: "ज"
+}
+item {
+  uname: ["LETTER JHA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "झ्ा"
+  to_uname: ["LETTER JHA"] to_raw: "झ"
+}
+item {
+  uname: ["LETTER JHA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "झ्‍ा"
+  to_uname: ["LETTER JHA"] to_raw: "झ"
+}
+item {
+  uname: ["LETTER NYA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ञ्ा"
+  to_uname: ["LETTER NYA"] to_raw: "ञ"
+}
+item {
+  uname: ["LETTER NYA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ञ्‍ा"
+  to_uname: ["LETTER NYA"] to_raw: "ञ"
+}
+item {
+  uname: ["LETTER NNA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ण्ा"
+  to_uname: ["LETTER NNA"] to_raw: "ण"
+}
+item {
+  uname: ["LETTER NNA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ण्‍ा"
+  to_uname: ["LETTER NNA"] to_raw: "ण"
+}
+item {
+  uname: ["LETTER TA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "त्ा"
+  to_uname: ["LETTER TA"] to_raw: "त"
+}
+item {
+  uname: ["LETTER TA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "त्‍ा"
+  to_uname: ["LETTER TA"] to_raw: "त"
+}
+item {
+  uname: ["LETTER THA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "थ्ा"
+  to_uname: ["LETTER THA"] to_raw: "थ"
+}
+item {
+  uname: ["LETTER THA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "थ्‍ा"
+  to_uname: ["LETTER THA"] to_raw: "थ"
+}
+item {
+  uname: ["LETTER DHA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ध्ा"
+  to_uname: ["LETTER DHA"] to_raw: "ध"
+}
+item {
+  uname: ["LETTER DHA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ध्‍ा"
+  to_uname: ["LETTER DHA"] to_raw: "ध"
+}
+item {
+  uname: ["LETTER NA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "न्ा"
+  to_uname: ["LETTER NA"] to_raw: "न"
+}
+item {
+  uname: ["LETTER NA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "न्‍ा"
+  to_uname: ["LETTER NA"] to_raw: "न"
+}
+item {
+  uname: ["LETTER NNNA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ऩ्ा"
+  to_uname: ["LETTER NNNA"] to_raw: "ऩ"
+}
+item {
+  uname: ["LETTER NNNA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ऩ्‍ा"
+  to_uname: ["LETTER NNNA"] to_raw: "ऩ"
+}
+item {
+  uname: ["LETTER NA", "SIGN NUKTA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ऩ्ा"
+  to_uname: ["LETTER NNNA"] to_raw: "ऩ"
+}
+item {
+  uname: ["LETTER NA", "SIGN NUKTA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ऩ्‍ा"
+  to_uname: ["LETTER NNNA"] to_raw: "ऩ"
+}
+item {
+  uname: ["LETTER PA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "प्ा"
+  to_uname: ["LETTER PA"] to_raw: "प"
+}
+item {
+  uname: ["LETTER PA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "प्‍ा"
+  to_uname: ["LETTER PA"] to_raw: "प"
+}
+item {
+  uname: ["LETTER BA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ब्ा"
+  to_uname: ["LETTER BA"] to_raw: "ब"
+}
+item {
+  uname: ["LETTER BA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ब्‍ा"
+  to_uname: ["LETTER BA"] to_raw: "ब"
+}
+item {
+  uname: ["LETTER BHA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "भ्ा"
+  to_uname: ["LETTER BHA"] to_raw: "भ"
+}
+item {
+  uname: ["LETTER BHA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "भ्‍ा"
+  to_uname: ["LETTER BHA"] to_raw: "भ"
+}
+item {
+  uname: ["LETTER MA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "म्ा"
+  to_uname: ["LETTER MA"] to_raw: "म"
+}
+item {
+  uname: ["LETTER MA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "म्‍ा"
+  to_uname: ["LETTER MA"] to_raw: "म"
+}
+item {
+  uname: ["LETTER YA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "य्ा"
+  to_uname: ["LETTER YA"] to_raw: "य"
+}
+item {
+  uname: ["LETTER YA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "य्‍ा"
+  to_uname: ["LETTER YA"] to_raw: "य"
+}
+item {
+  uname: ["LETTER LA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ल्ा"
+  to_uname: ["LETTER LA"] to_raw: "ल"
+}
+item {
+  uname: ["LETTER LA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ल्‍ा"
+  to_uname: ["LETTER LA"] to_raw: "ल"
+}
+item {
+  uname: ["LETTER VA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "व्ा"
+  to_uname: ["LETTER VA"] to_raw: "व"
+}
+item {
+  uname: ["LETTER VA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "व्‍ा"
+  to_uname: ["LETTER VA"] to_raw: "व"
+}
+item {
+  uname: ["LETTER SHA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "श्ा"
+  to_uname: ["LETTER SHA"] to_raw: "श"
+}
+item {
+  uname: ["LETTER SHA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "श्‍ा"
+  to_uname: ["LETTER SHA"] to_raw: "श"
+}
+item {
+  uname: ["LETTER SSA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ष्ा"
+  to_uname: ["LETTER SSA"] to_raw: "ष"
+}
+item {
+  uname: ["LETTER SSA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ष्‍ा"
+  to_uname: ["LETTER SSA"] to_raw: "ष"
+}
+item {
+  uname: ["LETTER SA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "स्ा"
+  to_uname: ["LETTER SA"] to_raw: "स"
+}
+item {
+  uname: ["LETTER SA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "स्‍ा"
+  to_uname: ["LETTER SA"] to_raw: "स"
+}
+item {
+  uname: ["LETTER KHHA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ख़्ा"
+  to_uname: ["LETTER KHHA"] to_raw: "ख़"
+}
+item {
+  uname: ["LETTER KHHA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ख़्‍ा"
+  to_uname: ["LETTER KHHA"] to_raw: "ख़"
+}
+item {
+  uname: ["LETTER KHA", "SIGN NUKTA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ख़्ा"
+  to_uname: ["LETTER KHHA"] to_raw: "ख़"
+}
+item {
+  uname: ["LETTER KHA", "SIGN NUKTA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ख़्‍ा"
+  to_uname: ["LETTER KHHA"] to_raw: "ख़"
+}
+item {
+  uname: ["LETTER GHHA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ग़्ा"
+  to_uname: ["LETTER GHHA"] to_raw: "ग़"
+}
+item {
+  uname: ["LETTER GHHA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ग़्‍ा"
+  to_uname: ["LETTER GHHA"] to_raw: "ग़"
+}
+item {
+  uname: ["LETTER GA", "SIGN NUKTA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ग़्ा"
+  to_uname: ["LETTER GHHA"] to_raw: "ग़"
+}
+item {
+  uname: ["LETTER GA", "SIGN NUKTA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ग़्‍ा"
+  to_uname: ["LETTER GHHA"] to_raw: "ग़"
+}
+item {
+  uname: ["LETTER ZA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ज़्ा"
+  to_uname: ["LETTER ZA"] to_raw: "ज़"
+}
+item {
+  uname: ["LETTER ZA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ज़्‍ा"
+  to_uname: ["LETTER ZA"] to_raw: "ज़"
+}
+item {
+  uname: ["LETTER JA", "SIGN NUKTA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ज़्ा"
+  to_uname: ["LETTER ZA"] to_raw: "ज़"
+}
+item {
+  uname: ["LETTER JA", "SIGN NUKTA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ज़्‍ा"
+  to_uname: ["LETTER ZA"] to_raw: "ज़"
+}
+item {
+  uname: ["LETTER YYA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "य़्ा"
+  to_uname: ["LETTER YYA"] to_raw: "य़"
+}
+item {
+  uname: ["LETTER YYA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "य़्‍ा"
+  to_uname: ["LETTER YYA"] to_raw: "य़"
+}
+item {
+  uname: ["LETTER YA", "SIGN NUKTA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "य़्ा"
+  to_uname: ["LETTER YYA"] to_raw: "य़"
+}
+item {
+  uname: ["LETTER YA", "SIGN NUKTA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "य़्‍ा"
+  to_uname: ["LETTER YYA"] to_raw: "य़"
+}
+item {
+  uname: ["LETTER ZHA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ॹ्ा"
+  to_uname: ["LETTER ZHA"] to_raw: "ॹ"
+}
+item {
+  uname: ["LETTER ZHA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ॹ्‍ा"
+  to_uname: ["LETTER ZHA"] to_raw: "ॹ"
+}
+item {
+  uname: ["LETTER HEAVY YA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ॺ्ा"
+  to_uname: ["LETTER HEAVY YA"] to_raw: "ॺ"
+}
+item {
+  uname: ["LETTER HEAVY YA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ॺ्‍ा"
+  to_uname: ["LETTER HEAVY YA"] to_raw: "ॺ"
+}
+item {
+  uname: ["LETTER GGA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ॻ्ा"
+  to_uname: ["LETTER GGA"] to_raw: "ॻ"
+}
+item {
+  uname: ["LETTER GGA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ॻ्‍ा"
+  to_uname: ["LETTER GGA"] to_raw: "ॻ"
+}
+item {
+  uname: ["LETTER JJA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ॼ्ा"
+  to_uname: ["LETTER JJA"] to_raw: "ॼ"
+}
+item {
+  uname: ["LETTER JJA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ॼ्‍ा"
+  to_uname: ["LETTER JJA"] to_raw: "ॼ"
+}
+item {
+  uname: ["LETTER DDDA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ॾ्ा"
+  to_uname: ["LETTER DDDA"] to_raw: "ॾ"
+}
+item {
+  uname: ["LETTER DDDA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ॾ्‍ा"
+  to_uname: ["LETTER DDDA"] to_raw: "ॾ"
+}
+item {
+  uname: ["LETTER BBA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "ॿ्ा"
+  to_uname: ["LETTER BBA"] to_raw: "ॿ"
+}
+item {
+  uname: ["LETTER BBA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "ॿ्‍ा"
+  to_uname: ["LETTER BBA"] to_raw: "ॿ"
+}
+
+# Devanagari Consonant Conjuncts
+# Unicode Standard Version 12.0: Chapter 12.1: Table 12-3
+
+item {
+  uname: ["LETTER KA", "SIGN VIRAMA", "LETTER CA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "क्च्ा"
+  to_uname: ["LETTER KA", "SIGN VIRAMA", "LETTER CA"] to_raw: "क्च"
+}
+item {
+  uname: ["LETTER KA", "SIGN VIRAMA", "LETTER CA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "क्च्‍ा"
+  to_uname: ["LETTER KA", "SIGN VIRAMA", "LETTER CA"] to_raw: "क्च"
+}
+
+item {
+  uname: ["LETTER KA", "SIGN VIRAMA", "LETTER SSA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "क्ष्ा"
+  to_uname: ["LETTER KA", "SIGN VIRAMA", "LETTER SSA"] to_raw: "क्ष"
+}
+item {
+  uname: ["LETTER KA", "SIGN VIRAMA", "LETTER SSA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "क्ष्‍ा"
+  to_uname: ["LETTER KA", "SIGN VIRAMA", "LETTER SSA"] to_raw: "क्ष"
+}
+
+item {
+  uname: ["LETTER TA", "SIGN VIRAMA", "LETTER TA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "त्त्ा"
+  to_uname: ["LETTER TA", "SIGN VIRAMA", "LETTER TA"] to_raw: "त्त"
+}
+item {
+  uname: ["LETTER TA", "SIGN VIRAMA", "LETTER TA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "त्त्‍ा"
+  to_uname: ["LETTER TA", "SIGN VIRAMA", "LETTER TA"] to_raw: "त्त"
+}
+
+item {
+  uname: ["LETTER NA", "SIGN VIRAMA", "LETTER TA", "SIGN VIRAMA", "VOWEL SIGN AA"] raw: "न्त्ा"
+  to_uname: ["LETTER NA", "SIGN VIRAMA", "LETTER TA"] to_raw: "न्त"
+}
+item {
+  uname: ["LETTER NA", "SIGN VIRAMA", "LETTER TA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "न्त्‍ा"
+  to_uname: ["LETTER NA", "SIGN VIRAMA", "LETTER TA"] to_raw: "न्त"
+}
+
+# RA + Vocalic Letter Ligature Forms
+# Unicode Standard Version 12.0: Chapter 12.1: Table 12-6
+# RA, VIRAMA, LETTER VOCALIC (R, RR, L, LL) → RA, SIGN VOCALIC (R, RR, L, LL)
+
+item {
+  uname: ["LETTER RA", "SIGN VIRAMA", "LETTER VOCALIC R"] raw: "र्ऋ"
+  to_uname: ["LETTER RA", "VOWEL SIGN VOCALIC R"] to_raw: "रृ"
+}
+item {
+  uname: ["LETTER RA", "SIGN VIRAMA", "LETTER VOCALIC RR"] raw: "र्ॠ"
+  to_uname: ["LETTER RA", "VOWEL SIGN VOCALIC RR"] to_raw: "रॄ"
+}
+item {
+  uname: ["LETTER RA", "SIGN VIRAMA", "LETTER VOCALIC L"] raw: "र्ऌ"
+  to_uname: ["LETTER RA", "VOWEL SIGN VOCALIC L"] to_raw: "रॢ"
+}
+item {
+  uname: ["LETTER RA", "SIGN VIRAMA", "LETTER VOCALIC LL"] raw: "र्ॡ"
+  to_uname: ["LETTER RA", "VOWEL SIGN VOCALIC LL"] to_raw: "रॣ"
+}
+
+# Eyelash reph: RA, VIRAMA, ZWJ → RRA, VIRAMA
+# Unicode Standard Version 12.0: Chapter 12.1: Dead Consonant Rule: R5, R5a
+
+item {
+  uname: ["LETTER RA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "र्‍"
+  to_uname: ["LETTER RRA", "SIGN VIRAMA"] to_raw: "ऱ्"
+}
+
+###############################################################
+# Additional Rewrites for the usages found in the web documents
+
+# Additional look alikes for the above
+item {
+  uname: ["LETTER A", "VOWEL SIGN E"] raw: "अे"
+  to_uname: ["LETTER SHORT A"] to_raw: "ऄ"
+}
+
+# Decompositions using ZWJ for the above
+item {
+  uname: ["LETTER A", "ZERO WIDTH JOINER", "VOWEL SIGN OE"] raw: "अ‍ऺ"
+  to_uname: ["LETTER OE"] to_raw: "ॳ"
+}
+item {
+  uname: ["LETTER A", "ZERO WIDTH JOINER", "VOWEL SIGN CANDRA E"] raw: "अ‍ॅ"
+  to_uname: ["LETTER CANDRA A"] to_raw: "ॲ"
+}
+item {
+  uname: ["LETTER A", "ZERO WIDTH JOINER", "VOWEL SIGN SHORT E"] raw: "अ‍ॆ"
+  to_uname: ["LETTER SHORT A"] to_raw: "ऄ"
+}
+item {
+  uname: ["LETTER A", "ZERO WIDTH JOINER", "VOWEL SIGN UE"] raw: "अ‍ॖ"
+  to_uname: ["LETTER UE"] to_raw: "ॶ"
+}
+item {
+  uname: ["LETTER A", "ZERO WIDTH JOINER", "VOWEL SIGN UUE"] raw: "अ‍ॗ"
+  to_uname: ["LETTER UUE"] to_raw: "ॷ"
+}
+item {
+  uname: ["LETTER A", "ZERO WIDTH JOINER", "VOWEL SIGN AA"] raw: "अ‍ा"
+  to_uname: ["LETTER AA"] to_raw: "आ"
+}
+
+# CANDRA A, SIGN (ANUSVARA|CANDRABINDU) → A, SIGN CANDRABINDU
+item {
+  uname: ["LETTER CANDRA A", "SIGN ANUSVARA"] raw: "ॲं"
+  to_uname: ["LETTER A", "SIGN CANDRABINDU"] to_raw: "अँ"
+}
+item {
+  uname: ["LETTER CANDRA A", "SIGN CANDRABINDU"] raw: "ॲँ"
+  to_uname: ["LETTER A", "SIGN CANDRABINDU"] to_raw: "अँ"
+}
+
+# A, SIGN CANDRA E, SIGN (ANUSVARA|CANDRABINDU) → A, SIGN CANDRABINDU
+item {
+  uname: ["LETTER A", "VOWEL SIGN CANDRA E", "SIGN ANUSVARA"] raw: "अॅं"
+  to_uname: ["LETTER A", "SIGN CANDRABINDU"] to_raw: "अँ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN CANDRA E", "SIGN CANDRABINDU"] raw: "अॅँ"
+  to_uname: ["LETTER A", "SIGN CANDRABINDU"] to_raw: "अँ"
+}
+
+# A, SIGN (AU|OOE|AW) → AU|OOE|AW
+item {
+  uname: ["LETTER A", "VOWEL SIGN AU"] raw: "अौ"
+  to_uname: ["LETTER AU"] to_raw: "औ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN OOE"] raw: "अऻ"
+  to_uname: ["LETTER OOE"] to_raw: "ॴ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN AW"] raw: "अॏ"
+  to_uname: ["LETTER AW"] to_raw: "ॵ"
+}
+
+# AA, SIGN (OE|AY) → OOE|AW
+item {
+  uname: ["LETTER AA", "VOWEL SIGN OE"] raw: "आऺ"
+  to_uname: ["LETTER OOE"] to_raw: "ॴ"
+}
+item {
+  # TODO: unicodedata module cannot handle these characters.
+  # Use icu.Char.charName() to get the names.
+  raw: "आꣿ"
+  to_uname: ["LETTER AW"] to_raw: "ॵ"
+}
+
+# A, SIGN AA, SIGN (Candra E|Short E|E|AY) → Candra O|Short O|O|AW
+item {
+  uname: ["LETTER A", "VOWEL SIGN CANDRA O"] raw: "अॉ"
+  to_uname: ["LETTER CANDRA O"] to_raw: "ऑ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA", "VOWEL SIGN SHORT E"] raw: "अाॆ"
+  to_uname: ["LETTER SHORT O"] to_raw: "ऒ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA", "VOWEL SIGN E"] raw: "अाे"
+  to_uname: ["LETTER O"] to_raw: "ओ"
+}
+item {
+  # TODO: unicodedata module cannot handle these characters.
+  # Use icu.Char.charName() to get the names.
+  raw: "अाꣿ"
+  to_uname: ["LETTER AW"] to_raw: "ॵ"
+}
+
+# CANDRA O, SIGN (ANUSVARA|CANDRABINDU) → AA, SIGN CANDRABINDU
+item {
+  uname: ["LETTER CANDRA O", "SIGN ANUSVARA"] raw: "ऑं"
+  to_uname: ["LETTER AA", "SIGN CANDRABINDU"] to_raw: "आँ"
+}
+item {
+  uname: ["LETTER CANDRA O", "SIGN CANDRABINDU"] raw: "ऑँ"
+  to_uname: ["LETTER AA", "SIGN CANDRABINDU"] to_raw: "आँ"
+}
+
+# A, SIGN CANDRA O, SIGN (ANUSVARA|CANDRABINDU) → AA, SIGN CANDRABINDU
+item {
+  uname: ["LETTER A", "VOWEL SIGN CANDRA O", "SIGN ANUSVARA"] raw: "अॉं"
+  to_uname: ["LETTER AA", "SIGN CANDRABINDU"] to_raw: "आँ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN CANDRA O", "SIGN CANDRABINDU"] raw: "अॉँ"
+  to_uname: ["LETTER AA", "SIGN CANDRABINDU"] to_raw: "आँ"
+}
+
+# AA, SIGN CANDRA E, SIGN (ANUSVARA|CANDRABINDU) → AA, SIGN CANDRABINDU
+item {
+  uname: ["LETTER AA", "VOWEL SIGN CANDRA E", "SIGN ANUSVARA"] raw: "आॅं"
+  to_uname: ["LETTER AA", "SIGN CANDRABINDU"] to_raw: "आँ"
+}
+item {
+  uname: ["LETTER AA", "VOWEL SIGN CANDRA E", "SIGN CANDRABINDU"] raw: "आॅँ"
+  to_uname: ["LETTER AA", "SIGN CANDRABINDU"] to_raw: "आँ"
+}
+
+# A, SIGN AA, SIGN CANDRA E, SIGN (ANUSVARA|CANDRABINDU) → AA, SIGN CANDRABINDU
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA", "VOWEL SIGN CANDRA E", "SIGN ANUSVARA"] raw: "अाॅं"
+  to_uname: ["LETTER AA", "SIGN CANDRABINDU"] to_raw: "आँ"
+}
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA", "VOWEL SIGN CANDRA E", "SIGN CANDRABINDU"] raw: "अाॅँ"
+  to_uname: ["LETTER AA", "SIGN CANDRABINDU"] to_raw: "आँ"
+}
+
+# E, SIGN AY → AY
+item {
+  # TODO: unicodedata module cannot handle these characters.
+  # Use icu.Char.charName() to get the names.
+  raw: "एꣿ"
+  # TODO: unicodedata module cannot handle these characters.
+  # Use icu.Char.charName() to get the names.
+  to_raw: "ꣾ"
+}
+
+# CANDRA E, SIGN (ANUSVARA|CANDRABINDU) → E, SIGN CANDRABINDU
+item {
+  uname: ["LETTER CANDRA E", "SIGN ANUSVARA"] raw: "ऍं"
+  to_uname: ["LETTER E", "SIGN CANDRABINDU"] to_raw: "एँ"
+}
+item {
+  uname: ["LETTER CANDRA E", "SIGN CANDRABINDU"] raw: "ऍँ"
+  to_uname: ["LETTER E", "SIGN CANDRABINDU"] to_raw: "एँ"
+}
+
+# E, SIGN CANDRA E, SIGN (ANUSVARA|CANDRABINDU) → E, SIGN CANDRABINDU
+item {
+  uname: ["LETTER E", "VOWEL SIGN CANDRA E", "SIGN ANUSVARA"] raw: "एॅं"
+  to_uname: ["LETTER E", "SIGN CANDRABINDU"] to_raw: "एँ"
+}
+item {
+  uname: ["LETTER E", "VOWEL SIGN CANDRA E", "SIGN CANDRABINDU"] raw: "एॅँ"
+  to_uname: ["LETTER E", "SIGN CANDRABINDU"] to_raw: "एँ"
+}
+
+# Sign Interaction Representation Visual Norm
+
+# COMBINING CANDRABINDU → SIGN CANDRABINDU
+item {
+  uname: ["COMBINING CANDRABINDU"] raw: "̐"
+  to_uname: ["SIGN CANDRABINDU"] to_raw: "ँ"
+}
+
+# SIGN CANDRA E, SIGN (ANUSVARA|CANDRABINDU) → SIGN CANDRABINDU
+item {
+  uname: ["VOWEL SIGN CANDRA E", "SIGN ANUSVARA"] raw: "ॅं"
+  to_uname: ["SIGN CANDRABINDU"] to_raw: "ँ"
+}
+item {
+  uname: ["VOWEL SIGN CANDRA E", "SIGN CANDRABINDU"] raw: "ॅँ"
+  to_uname: ["SIGN CANDRABINDU"] to_raw: "ँ"
+}
+
+# SIGN CANDRA O, SIGN (ANUSVARA|CANDRABINDU) → SIGN AA, SIGN CANDRABINDU
+item {
+  uname: ["VOWEL SIGN CANDRA O", "SIGN ANUSVARA"] raw: "ॉं"
+  to_uname: ["VOWEL SIGN AA", "SIGN CANDRABINDU"] to_raw: "ाँ"
+}
+item {
+  uname: ["VOWEL SIGN CANDRA O", "SIGN CANDRABINDU"] raw: "ॉँ"
+  to_uname: ["VOWEL SIGN AA", "SIGN CANDRABINDU"] to_raw: "ाँ"
+}
+
+# SIGN A, SIGN CANDRA E, SIGN (ANUSVARA|CANDRABINDU) → SIGN AA, SIGN CANDRABINDU
+item {
+  uname: ["VOWEL SIGN AA", "VOWEL SIGN CANDRA E", "SIGN ANUSVARA"] raw: "ाॅं"
+  to_uname: ["VOWEL SIGN AA", "SIGN CANDRABINDU"] to_raw: "ाँ"
+}
+item {
+  uname: ["VOWEL SIGN AA", "VOWEL SIGN CANDRA E", "SIGN CANDRABINDU"] raw: "ाॅँ"
+  to_uname: ["VOWEL SIGN AA", "SIGN CANDRABINDU"] to_raw: "ाँ"
+}
+
+# SIGN AA, SIGN (Candra E|Short E|E|AI|OE|AY) → SIGN (Candra O|Short O|O|AU|OOE|AW)
+item {
+  uname: ["VOWEL SIGN AA", "VOWEL SIGN CANDRA E"] raw: "ाॅ"
+  to_uname: ["VOWEL SIGN CANDRA O"] to_raw: "ॉ"
+}
+item {
+  uname: ["VOWEL SIGN AA", "VOWEL SIGN SHORT E"] raw: "ाॆ"
+  to_uname: ["VOWEL SIGN SHORT O"] to_raw: "ॊ"
+}
+item {
+  uname: ["VOWEL SIGN AA", "VOWEL SIGN E"] raw: "ाे"
+  to_uname: ["VOWEL SIGN O"] to_raw: "ो"
+}
+item {
+  uname: ["VOWEL SIGN AA", "VOWEL SIGN AI"] raw: "ाै"
+  to_uname: ["VOWEL SIGN AU"] to_raw: "ौ"
+}
+item {
+  uname: ["VOWEL SIGN AA", "VOWEL SIGN OE"] raw: "ाऺ"
+  to_uname: ["VOWEL SIGN OOE"] to_raw: "ऻ"
+}
+item {
+  # TODO: unicodedata module cannot handle these characters.
+  # Use icu.Char.charName() to get the names.
+  raw: "ाꣿ"
+  to_uname: ["VOWEL SIGN AW"] to_raw: "ॏ"
+}
+
+# Above sequences with order reversed
+# SIGN (Candra E|Short E|E|AI|OE|AY), SIGN AA → SIGN (Candra O|Short O|O|AU|OOE|AW)
+item {
+  uname: ["VOWEL SIGN CANDRA E", "VOWEL SIGN AA"] raw: "ॅा"
+  to_uname: ["VOWEL SIGN CANDRA O"] to_raw: "ॉ"
+}
+item {
+  uname: ["VOWEL SIGN SHORT E", "VOWEL SIGN AA"] raw: "ॆा"
+  to_uname: ["VOWEL SIGN SHORT O"] to_raw: "ॊ"
+}
+item {
+  uname: ["VOWEL SIGN E", "VOWEL SIGN AA"] raw: "ेा"
+  to_uname: ["VOWEL SIGN O"] to_raw: "ो"
+}
+item {
+  uname: ["VOWEL SIGN AI", "VOWEL SIGN AA"] raw: "ैा"
+  to_uname: ["VOWEL SIGN AU"] to_raw: "ौ"
+}
+item {
+  uname: ["VOWEL SIGN OE", "VOWEL SIGN AA"] raw: "ऺा"
+  to_uname: ["VOWEL SIGN OOE"] to_raw: "ऻ"
+}
+item {
+  # TODO: unicodedata module cannot handle these characters.
+  # Use icu.Char.charName() to get the names.
+  raw: "ꣿा"
+  to_uname: ["VOWEL SIGN AW"] to_raw: "ॏ"
+}
+
+# VIRAMA, NUKTA → NUKTA, VIRAMA
+item {
+  uname: ["SIGN VIRAMA", "SIGN NUKTA"] raw: "़्"
+  to_uname: ["SIGN NUKTA", "SIGN VIRAMA"] to_raw: "़्"
+}
+
+# (GA|JA|DA|BA), ANUDATTA → GGA|JJA|DDDA|BBA
+item {
+  uname: ["LETTER GA", "STRESS SIGN ANUDATTA"] raw: "ग॒"
+  to_uname: ["LETTER GGA"] to_raw: "ॻ"
+}
+item {
+  uname: ["LETTER JA", "STRESS SIGN ANUDATTA"] raw: "ज॒"
+  to_uname: ["LETTER JJA"] to_raw: "ॼ"
+}
+item {
+  uname: ["LETTER DDA", "STRESS SIGN ANUDATTA"] raw: "ड॒"
+  to_uname: ["LETTER DDDA"] to_raw: "ॾ"
+}
+item {
+  uname: ["LETTER BA", "STRESS SIGN ANUDATTA"] raw: "ब॒"
+  to_uname: ["LETTER BBA"] to_raw: "ॿ"
+}
+
+## Soft overlaps:
+# SIGN E overlapping over other signs
+item {
+  uname: ["VOWEL SIGN E", "VOWEL SIGN I"] raw: "ेि"
+  to_uname: ["VOWEL SIGN I"] to_raw: "ि"
+}
+item {
+  uname: ["VOWEL SIGN E", "VOWEL SIGN CANDRA E"] raw: "ेॅ"
+  to_uname: ["VOWEL SIGN CANDRA E"] to_raw: "ॅ"
+}
+item {
+  uname: ["VOWEL SIGN E", "VOWEL SIGN AI"] raw: "ेै"
+  to_uname: ["VOWEL SIGN AI"] to_raw: "ै"
+}
+
+# AU, SIGN E → AU
+item {
+  uname: ["LETTER AU", "VOWEL SIGN E"] raw: "औे"
+  to_uname: ["LETTER AU"] to_raw: "औ"
+}
+
+## Totally invisible repeats
+
+# (Candra E|Short E|AI|AY), SIGN (Candra E|Short E|E|AY) → Candra E|Short E|AI|AY
+item {
+  uname: ["LETTER CANDRA E", "VOWEL SIGN CANDRA E"] raw: "ऍॅ"
+  to_uname: ["LETTER CANDRA E"] to_raw: "ऍ"
+}
+item {
+  uname: ["LETTER SHORT E", "VOWEL SIGN SHORT E"] raw: "ऎॆ"
+  to_uname: ["LETTER SHORT E"] to_raw: "ऎ"
+}
+item {
+  uname: ["LETTER AI", "VOWEL SIGN E"] raw: "ऐे"
+  to_uname: ["LETTER AI"] to_raw: "ऐ"
+}
+item {
+  # TODO: unicodedata module cannot handle these characters.
+  # Use icu.Char.charName() to get the names.
+  raw: "ꣾꣿ"
+  # TODO: unicodedata module cannot handle these characters.
+  # Use icu.Char.charName() to get the names.
+  to_raw: "ꣾ"
+}
+
+# SIGN (Candra O|Short O|O|AU|OOE|AW), SIGN (Candra E|Short E|E|AI|OE|AY) → SIGN (Candra O|Short O|O|AU|OOE|AW)
+item {
+  uname: ["VOWEL SIGN CANDRA O", "VOWEL SIGN CANDRA E"] raw: "ॉॅ"
+  to_uname: ["VOWEL SIGN CANDRA O"] to_raw: "ॉ"
+}
+item {
+  uname: ["VOWEL SIGN SHORT O", "VOWEL SIGN SHORT E"] raw: "ॊॆ"
+  to_uname: ["VOWEL SIGN SHORT O"] to_raw: "ॊ"
+}
+item {
+  uname: ["VOWEL SIGN O", "VOWEL SIGN E"] raw: "ोे"
+  to_uname: ["VOWEL SIGN O"] to_raw: "ो"
+}
+item {
+  uname: ["VOWEL SIGN AU", "VOWEL SIGN AI"] raw: "ौै"
+  to_uname: ["VOWEL SIGN AU"] to_raw: "ौ"
+}
+item {
+  uname: ["VOWEL SIGN OOE", "VOWEL SIGN OE"] raw: "ऻऺ"
+  to_uname: ["VOWEL SIGN OOE"] to_raw: "ऻ"
+}
+item {
+  # TODO: unicodedata module cannot handle these characters.
+  # Use icu.Char.charName() to get the names.
+  raw: "ॏꣿ"
+  to_uname: ["VOWEL SIGN AW"] to_raw: "ॏ"
+}
+
+# (Candra O|Short O|O|AU|OOE|AW), SIGN (Candra E|Short E|E|AI|OE|AY) → Candra O|Short O|O|AU|OOE|AW
+item {
+  uname: ["LETTER CANDRA O", "VOWEL SIGN CANDRA E"] raw: "ऑॅ"
+  to_uname: ["LETTER CANDRA O"] to_raw: "ऑ"
+}
+item {
+  uname: ["LETTER SHORT O", "VOWEL SIGN SHORT E"] raw: "ऒॆ"
+  to_uname: ["LETTER SHORT O"] to_raw: "ऒ"
+}
+item {
+  uname: ["LETTER O", "VOWEL SIGN E"] raw: "ओे"
+  to_uname: ["LETTER O"] to_raw: "ओ"
+}
+item {
+  uname: ["LETTER AU", "VOWEL SIGN AI"] raw: "औै"
+  to_uname: ["LETTER AU"] to_raw: "औ"
+}
+item {
+  uname: ["LETTER OOE", "VOWEL SIGN OE"] raw: "ॴऺ"
+  to_uname: ["LETTER OOE"] to_raw: "ॴ"
+}
+
+# Exceptional NFC nukta-composed forms:
+# (NNA|RRA|LLA), NUKTA → NNA|RRA|LLA
+item {
+  uname: ["LETTER NNNA", "SIGN NUKTA"] raw: "ऩ़"
+  to_uname: ["LETTER NNNA"] to_raw: "ऩ"
+}
+item {
+  uname: ["LETTER RRA", "SIGN NUKTA"] raw: "ऱ़"
+  to_uname: ["LETTER RRA"] to_raw: "ऱ"
+}
+item {
+  uname: ["LETTER LLLA", "SIGN NUKTA"] raw: "ऴ़"
+  to_uname: ["LETTER LLLA"] to_raw: "ऴ"
+}

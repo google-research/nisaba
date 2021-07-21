@@ -1,0 +1,75 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "SINHALA"
+
+################################
+# Rewrites from Unicode standard
+# Unicode version 12.0: Chapter 13.2
+
+# Table 13-2: Sinhala Vowel Letters
+
+item {
+  uname: ["LETTER AYANNA", "VOWEL SIGN AELA-PILLA"] raw: "අා"
+  to_uname: ["LETTER AAYANNA"] to_raw: "ආ"
+}
+item {
+  uname: ["LETTER AYANNA", "VOWEL SIGN KETTI AEDA-PILLA"] raw: "අැ"
+  to_uname: ["LETTER AEYANNA"] to_raw: "ඇ"
+}
+item {
+  uname: ["LETTER AYANNA", "VOWEL SIGN DIGA AEDA-PILLA"] raw: "අෑ"
+  to_uname: ["LETTER AEEYANNA"] to_raw: "ඈ"
+}
+item {
+  uname: ["LETTER UYANNA", "VOWEL SIGN GAYANUKITTA"] raw: "උෟ"
+  to_uname: ["LETTER UUYANNA"] to_raw: "ඌ"
+}
+item {
+  uname: ["LETTER IRUYANNA", "VOWEL SIGN GAETTA-PILLA"] raw: "ඍෘ"
+  to_uname: ["LETTER IRUUYANNA"] to_raw: "ඎ"
+}
+item {
+  uname: ["LETTER ILUYANNA", "VOWEL SIGN GAYANUKITTA"] raw: "ඏෟ"
+  to_uname: ["LETTER ILUUYANNA"] to_raw: "ඐ"
+}
+item {
+  uname: ["LETTER EYANNA", "SIGN AL-LAKUNA"] raw: "එ්"
+  to_uname: ["LETTER EEYANNA"] to_raw: "ඒ"
+}
+item {
+  uname: ["LETTER EYANNA", "VOWEL SIGN KOMBUVA"] raw: "එෙ"
+  to_uname: ["LETTER AIYANNA"] to_raw: "ඓ"
+}
+item {
+  uname: ["LETTER OYANNA", "VOWEL SIGN GAYANUKITTA"] raw: "ඔෟ"
+  to_uname: ["LETTER AUYANNA"] to_raw: "ඖ"
+}
+
+###########################################################
+# Additional rewrites for the usages found in web documents
+
+# Reordered vowel sign equivalences from NFC specs
+
+item {
+  uname: ["VOWEL SIGN KOMBUVA", "VOWEL SIGN KOMBUVA"] raw: "ෙෙ"
+  to_uname: ["VOWEL SIGN KOMBU DEKA"] to_raw: "ෛ"
+}
+item {
+  uname: ["VOWEL SIGN GAETTA-PILLA", "VOWEL SIGN GAETTA-PILLA"] raw: "ෘෘ"
+  to_uname: ["VOWEL SIGN DIGA GAETTA-PILLA"] to_raw: "ෲ"
+}

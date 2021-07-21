@@ -1,0 +1,66 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "MALAYALAM"
+
+item {
+  uname: ["SIGN ANUSVARA"] raw: "ം"
+  to_uname: ["LATIN SMALL LETTER M WITH DOT ABOVE"] to_raw: "ṁ"
+}
+item {
+  uname: ["SIGN VISARGA"] raw: "ഃ"
+  to_uname: ["LATIN SMALL LETTER H WITH DOT BELOW"] to_raw: "ḥ"
+}
+
+# TODO: Consider treating non-Deva avagraha as a symbol.
+item {
+  uname: ["SIGN AVAGRAHA"] raw: "ഽ"
+  to_uname: ["RIGHT SINGLE QUOTATION MARK"] to_raw: "’"
+}
+
+# TODO: Consider allowing word initial Khanda Ta & Chillus.
+
+# TODO Consider listing chillu forms as consonants as they can
+# take vowel signs and viramas.
+item {
+  uname: ["LETTER CHILLU K"] raw: "ൿ"
+  to_uname: ["LATIN SMALL LETTER K", "VERTICAL TILDE"] to_raw: "kⸯ"
+}
+item {
+  uname: ["LETTER CHILLU NN"] raw: "ൺ"
+  to_uname: ["LATIN SMALL LETTER N WITH DOT BELOW", "VERTICAL TILDE"] to_raw: "ṇⸯ"
+}
+item {
+  uname: ["LETTER CHILLU N"] raw: "ൻ"
+  to_uname: ["LATIN SMALL LETTER N", "VERTICAL TILDE"] to_raw: "nⸯ"
+}
+item {
+  uname: ["LETTER CHILLU RR"] raw: "ർ"
+  to_uname: ["LATIN SMALL LETTER R WITH LINE BELOW", "VERTICAL TILDE"] to_raw: "ṟⸯ"
+}
+item {
+  uname: ["LETTER CHILLU L"] raw: "ൽ"
+  to_uname: ["LATIN SMALL LETTER L", "VERTICAL TILDE"] to_raw: "lⸯ"
+}
+item {
+  uname: ["LETTER CHILLU LL"] raw: "ൾ"
+  to_uname: ["LATIN SMALL LETTER L WITH DOT BELOW", "VERTICAL TILDE"] to_raw: "ḷⸯ"
+}
+item {
+  uname: ["LETTER DOT REPH"] raw: "ൎ"
+  to_uname: ["LATIN SMALL LETTER R", "VERTICAL TILDE"] to_raw: "rⸯ"
+}
