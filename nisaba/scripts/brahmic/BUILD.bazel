@@ -217,6 +217,7 @@ py_test(
     data = [
         ":fixed.far",
         ":fixed_utf8.far",
+        ":iso.far",
         ":nfc.far",
         ":nfc_utf8.far",
         ":visual_norm.far",
@@ -226,6 +227,7 @@ py_test(
     srcs_version = "PY3",
     deps = [
         ":util",
+        "//nisaba/scripts/utils:file",
         "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
         "@io_abseil_py//absl/testing:parameterized",
