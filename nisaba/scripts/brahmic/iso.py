@@ -92,7 +92,7 @@ def brahmic_to_iso(consonant_file: os.PathLike, vowel_sign_file: os.PathLike,
   ins_dash = pynutil.insert('-')
   ins_dot = pynutil.insert('.')
   del_virama = pynutil.delete(virama)
-  virama_mark = pynini.cross(virama, '˘')
+  virama_mark = pynini.cross(virama, '\N{COMBINING BREVE}')
 
   low_priority_epsilon = pynini.accep('', weight=1)
 
@@ -105,8 +105,7 @@ def brahmic_to_iso(consonant_file: os.PathLike, vowel_sign_file: os.PathLike,
       standalone,
 
       # Rare cases:
-      # Dangling vowel signs.
-      ins_dash + vowel_sign + (ins_dot + vowel).star + low_priority_epsilon,
+      ins_dash + vowel_sign + low_priority_epsilon,  # Dangling vowel signs.
       virama_mark + low_priority_epsilon,  # Explicit virama elsewhere.
       common_symbol,  # Joiners.
 

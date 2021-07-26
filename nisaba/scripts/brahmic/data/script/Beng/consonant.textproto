@@ -24,7 +24,7 @@ item {
 }
 item {
   uname: ["LETTER KHA"] raw: "খ"
-  to_raw: "kʰ"
+  to_raw: "kh"
 }
 item {
   uname: ["LETTER GA"] raw: "গ"
@@ -32,7 +32,7 @@ item {
 }
 item {
   uname: ["LETTER GHA"] raw: "ঘ"
-  to_raw: "gʰ"
+  to_raw: "gh"
 }
 item {
   uname: ["LETTER NGA"] raw: "ঙ"
@@ -44,7 +44,7 @@ item {
 }
 item {
   uname: ["LETTER CHA"] raw: "ছ"
-  to_raw: "cʰ"
+  to_raw: "ch"
 }
 item {
   uname: ["LETTER JA"] raw: "জ"
@@ -52,7 +52,7 @@ item {
 }
 item {
   uname: ["LETTER JHA"] raw: "ঝ"
-  to_raw: "jʰ"
+  to_raw: "jh"
 }
 item {
   uname: ["LETTER NYA"] raw: "ঞ"
@@ -64,7 +64,7 @@ item {
 }
 item {
   uname: ["LETTER TTHA"] raw: "ঠ"
-  to_uname: ["T WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ṭʰ"
+  to_uname: ["T WITH DOT BELOW", "H"] to_raw: "ṭh"
 }
 item {
   uname: ["LETTER DDA"] raw: "ড"
@@ -76,11 +76,11 @@ item {
 }
 item {
   uname: ["LETTER DDHA"] raw: "ঢ"
-  to_uname: ["D WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ḍʰ"
+  to_uname: ["D WITH DOT BELOW", "H"] to_raw: "ḍh"
 }
 item {
   uname: ["LETTER DDHA", "SIGN NUKTA"] raw: "ঢ়"
-  to_uname: ["R WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ṛʰ"
+  to_uname: ["R WITH DOT BELOW", "H"] to_raw: "ṛh"
 }
 item {
   uname: ["LETTER NNA"] raw: "ণ"
@@ -92,7 +92,7 @@ item {
 }
 item {
   uname: ["LETTER THA"] raw: "থ"
-  to_raw: "tʰ"
+  to_raw: "th"
 }
 item {
   uname: ["LETTER DA"] raw: "দ"
@@ -100,7 +100,7 @@ item {
 }
 item {
   uname: ["LETTER DHA"] raw: "ধ"
-  to_raw: "dʰ"
+  to_raw: "dh"
 }
 item {
   uname: ["LETTER NA"] raw: "ন"
@@ -112,7 +112,7 @@ item {
 }
 item {
   uname: ["LETTER PHA"] raw: "ফ"
-  to_raw: "pʰ"
+  to_raw: "ph"
 }
 item {
   uname: ["LETTER BA"] raw: "ব"
@@ -120,7 +120,7 @@ item {
 }
 item {
   uname: ["LETTER BHA"] raw: "ভ"
-  to_raw: "bʰ"
+  to_raw: "bh"
 }
 item {
   uname: ["LETTER MA"] raw: "ম"
