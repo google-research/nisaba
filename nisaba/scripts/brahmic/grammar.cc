@@ -14,6 +14,7 @@
 
 #include "nisaba/scripts/brahmic/grammar.h"
 
+#include "google/protobuf/stubs/logging.h"
 #include "nisaba/port/file_util.h"
 
 namespace nisaba {
@@ -22,7 +23,7 @@ namespace brahmic {
 bool Grammar::Load() {
   const auto far_path = file::GetRunfilesResourcePath(far_file_path_);
   if (!far_path.ok()) {
-    LOG(ERROR) << far_path.status();
+    GOOGLE_LOG(ERROR) << far_path.status().ToString();
     return false;
   }
   if (!grm_mgr_->LoadArchive(far_path.value())) return false;

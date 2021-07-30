@@ -81,7 +81,7 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [
         ":utf8_delimiters",
-        "@org_openfst//:fst",
+        "@com_google_protobuf//:protobuf",
         "//nisaba/port:integral_types",
         "@com_github_utfcpp//:utfcpp",
         "@com_google_absl//absl/strings",
@@ -155,7 +155,7 @@ cc_library(
         "//nisaba/port:status-matchers",
         "@com_google_absl//absl/flags:flag",
         "@com_google_googletest//:gtest",
-        "@org_openfst//:fst",
+        "@com_google_protobuf//:protobuf",
     ],
 )
 

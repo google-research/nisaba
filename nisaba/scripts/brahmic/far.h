@@ -35,14 +35,14 @@ class Far {
  public:
   explicit Far(const std::string& far_name)
       : far_name_(far_name),
-        grm_mgr_(absl::make_unique<thrax::GrmManager>()){}
+        grm_mgr_(absl::make_unique<::thrax::GrmManager>()){}
 
   bool Load();
-  std::unique_ptr<fst::StdFst> Fst(const std::string& fst_name) const;
+  std::unique_ptr<::fst::StdFst> Fst(const std::string& fst_name) const;
 
  private:
   const std::string far_name_;
-  const std::unique_ptr<thrax::GrmManager> grm_mgr_;
+  const std::unique_ptr<::thrax::GrmManager> grm_mgr_;
 };
 
 }  // namespace brahmic

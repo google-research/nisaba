@@ -40,7 +40,7 @@ class Grammar {
       : far_file_path_(file::JoinPath(
             far_path, absl::AsciiStrToLower(far_name) + kFarExtn)),
         fst_name_(absl::AsciiStrToUpper(fst_name)),
-        grm_mgr_(absl::make_unique<thrax::GrmManager>()) {}
+        grm_mgr_(absl::make_unique<::thrax::GrmManager>()) {}
 
   Grammar(const std::string& far_name, const std::string& fst_name)
       : Grammar(kFarPath, far_name, fst_name){}
@@ -53,7 +53,7 @@ class Grammar {
  private:
   const std::string far_file_path_;
   std::string fst_name_;
-  const std::unique_ptr<thrax::GrmManager> grm_mgr_;
+  const std::unique_ptr<::thrax::GrmManager> grm_mgr_;
 };
 
 // Provides normalization of Brahmic text by composing multiple Grammar classes.

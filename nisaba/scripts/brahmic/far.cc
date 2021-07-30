@@ -14,7 +14,7 @@
 
 #include "nisaba/scripts/brahmic/far.h"
 
-#include "fst/compat.h"
+#include "google/protobuf/stubs/logging.h"
 #include "absl/strings/ascii.h"
 #include "nisaba/port/file_util.h"
 
@@ -25,7 +25,7 @@ bool Far::Load() {
   constexpr char kFarPath[] = "com_google_nisaba/nisaba/scripts/brahmic";
   const auto far_dir = file::GetRunfilesResourcePath(kFarPath);
   if (!far_dir.ok()) {
-    LOG(ERROR) << far_dir.status();
+    GOOGLE_LOG(ERROR) << far_dir.status().ToString();
     return false;
   }
   constexpr char kFarExtn[] = ".far";
@@ -34,7 +34,7 @@ bool Far::Load() {
   return grm_mgr_->LoadArchive(far_file_path);
 }
 
-std::unique_ptr<fst::StdFst> Far::Fst(const std::string& fst_name) const {
+std::unique_ptr<::fst::StdFst> Far::Fst(const std::string& fst_name) const {
   return grm_mgr_->GetFstSafe(absl::AsciiStrToUpper(fst_name));
 }
 

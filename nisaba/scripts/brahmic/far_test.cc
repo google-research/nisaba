@@ -20,23 +20,23 @@
 #include "fst/fstlib.h"
 #include "gtest/gtest.h"
 
+using ::fst::StdFst;
+using ::fst::StdVectorFst;
+using StringCompiler = ::fst::StringCompiler<::fst::StdArc>;
+
 namespace nisaba {
 namespace brahmic {
 namespace {
 
-using ::fst::StdFst;
-using ::fst::StdVectorFst;
-using StringCompiler = ::fst::StringCompiler<fst::StdArc>;
-
 bool UTF8AcceptsString(const StdFst &fsa, const std::string &s) {
-  StringCompiler string_compiler(fst::TokenType::UTF8);
+  StringCompiler string_compiler(::fst::TokenType::UTF8);
   StdVectorFst string_fst;
   string_compiler(s, &string_fst);
 
   StdVectorFst output;
-  fst::Compose(string_fst, fsa, &output);
+  ::fst::Compose(string_fst, fsa, &output);
 
-  return output.Start() != fst::kNoStateId;
+  return output.Start() != ::fst::kNoStateId;
 }
 
 TEST(WellformedFarTest, Basic) {
