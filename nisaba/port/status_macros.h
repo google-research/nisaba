@@ -61,7 +61,9 @@ namespace mozolm {
   } while (false)
 
 // We need dependency on logging to import the core GOOGLE_CHECK macros.
+#if !defined(GOOGLE_CHECK_OK)
 #define GOOGLE_CHECK_OK(value) GOOGLE_CHECK((value).ok())
+#endif  // GOOGLE_CHECK_OK
 
 }  // namespace mozolm
 
