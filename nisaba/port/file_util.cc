@@ -115,11 +115,14 @@ absl::Status WriteTextFile(std::string_view file_path,
   return absl::OkStatus();
 }
 
-absl::StatusOr<std::string> ReadBinaryFile(std::string_view file_path) {
+namespace {
+
+absl::StatusOr<std::string> ReadFile(std::string_view file_path,
+                                     std::ios_base::openmode mode) {
   std::ifstream input;
   // Need to construct std::string explictly below. See:
   //   https://cplusplus.github.io/LWG/issue3430
-  input.open(std::string(file_path), std::ifstream::in | std::ifstream::binary);
+  input.open(std::string(file_path), mode);
   if (!input) {
     return absl::NotFoundError(absl::StrCat("Failed to open: ", file_path));
   }
@@ -134,6 +137,16 @@ absl::StatusOr<std::string> ReadBinaryFile(std::string_view file_path) {
   contents.assign(std::istreambuf_iterator<char>(input),
                   std::istreambuf_iterator<char>());
   return contents;
+}
+
+}  // namespace
+
+absl::StatusOr<std::string> ReadBinaryFile(std::string_view file_path) {
+  return ReadFile(file_path, std::ifstream::in | std::ifstream::binary);
+}
+
+absl::StatusOr<std::string> ReadTextFile(std::string_view file_path) {
+  return ReadFile(file_path, std::ifstream::in);
 }
 
 absl::StatusOr<std::vector<std::string>> ReadLines(

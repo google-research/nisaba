@@ -48,6 +48,9 @@ absl::Status WriteTextFile(std::string_view file_path,
 // Reads binary file into a buffer or returns error.
 absl::StatusOr<std::string> ReadBinaryFile(std::string_view file_path);
 
+// Reads text file into a buffer or returns error.
+absl::StatusOr<std::string> ReadTextFile(std::string_view file_path);
+
 // Reads lines from a text file removing the trailing carriage return and line
 // feed characters.
 absl::StatusOr<std::vector<std::string>> ReadLines(
