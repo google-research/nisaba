@@ -173,3 +173,19 @@ py_binary(
         "@io_abseil_py//absl/logging",
     ],
 )
+
+proto_library(
+    name = "letter_languages_proto",
+    srcs = ["letter_languages.proto"],
+    deps = [":unicode_strings_proto"],
+)
+
+py_proto_library(
+    name = "letter_languages_py_pb2",
+    # Bazel: This rule is not supported natively (yet). There is a custom
+    # Starlark macro supplied by the Bazel team (loaded from `protobuf.bzl` file
+    # above). See
+    #   https://thethoughtfulkoala.com/posts/2020/05/08/py-protobuf-bazel.html
+    srcs = ["letter_languages.proto"],
+    deps = [":unicode_strings_py_pb2"],
+)

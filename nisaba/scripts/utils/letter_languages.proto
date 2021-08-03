@@ -1,0 +1,55 @@
+// Copyright 2021 Nisaba Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+package nisaba;
+
+import "nisaba/scripts/utils/unicode_strings.proto";
+
+// An index containing, for each letter of a particular script, a list of
+// languages using it.
+//
+// Next available ID: 3
+message LetterLanguages {
+  // A mapping between single letter and the corresponding list of languages.
+  //
+  // Next available ID: 4
+  message Item {
+    // Letter definition.
+    UnicodeStrings.Item letter = 1;
+
+    // A list of three-letter (`alpha-3`) language codes in ISO 639-2/3 format.
+    // See: https://iso639-3.sil.org/code_tables/639/data.
+    repeated string language = 2;
+
+    // A letter may or may not be specific to a particular region as well. This
+    // list specifies three-letter (`alpha-3`) country codes where this letter
+    // is used in ISO 3166-1/2/3 format. For example, according to Wikipedia,
+    // Chad has over 120 indigenous languages, a considerable number of which
+    // are written using either Latin or Arabic orthography (`L’Alphabet
+    // national tchadien`) developed by the ministry of education (see, e.g.,
+    // https://unicode.org/L2/L2010/10288-arabic-proposal.pdf).
+    repeated string region = 3;
+  }
+
+  // Default name prefix of the Unicode characters in this file. This usually
+  // corresponds, but is not restricted, to the name of the script we're
+  // manipulating upon, e.g. "BENGALI LETTER", "ARABIC". If this field is set,
+  // this prefix can be omitted from the names of the characters.
+  string uname_prefix = 1;
+
+  // List of all the letters.
+  repeated Item item = 2;
+}
