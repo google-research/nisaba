@@ -189,3 +189,7 @@ py_proto_library(
     srcs = ["letter_languages.proto"],
     deps = [":unicode_strings_py_pb2"],
 )
+
+# Note: This test is copied to the respective directory where the script resides
+# and executed there using the Starlark rule.
+exports_files(["letter_languages_integrity_test.py"])
