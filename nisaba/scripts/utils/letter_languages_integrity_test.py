@@ -70,7 +70,8 @@ class LetterLanguagesIntegrityTest(absltest.TestCase):
     if uname_prefix and not uname_prefix.endswith(' '):
       uname_prefix += ' '
 
-    for item in self._letters_proto.item:
+    all_letters = set()
+    for i, item in enumerate(self._letters_proto.item):
       # Letter message should not be empty.
       self.assertTrue(item.letter)
       self.assertTrue(item.letter.uname)
@@ -82,6 +83,19 @@ class LetterLanguagesIntegrityTest(absltest.TestCase):
       with self.assertNotRaises(KeyError):
         u_char = self._lookup_char(uname_prefix, uname)
       self.assertEqual(u_char, item.letter.raw)
+
+      # Check that there are no duplicates and the letters are in the
+      # Unicode codepoint order.
+      self.assertNotIn(u_char, all_letters,
+                       f'Letter {i}: Duplicate letter `{u_char}` found')
+      all_letters.add(u_char)
+      if i:
+        this_codepoint = ord(u_char)
+        prev_codepoint = ord(self._letters_proto.item[i - 1].letter.raw)
+        self.assertLess(prev_codepoint, this_codepoint,
+                        f'Letter {i}: Should be in Unicode codepoint order. '
+                        f'This codepoint: {this_codepoint}, '
+                        f'previous: {prev_codepoint}')
 
   def test_languages(self):
     """Sanity checks for language codes."""
