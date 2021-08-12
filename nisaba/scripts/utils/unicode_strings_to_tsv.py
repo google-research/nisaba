@@ -71,7 +71,8 @@ def _convert_data_proto_to_file(data_proto: unicode_strings_pb2.UnicodeStrings):
     output_file.write('# Auto-generated using \'%s\'\n' % sys.argv[0])
     for index, item in enumerate(data_proto.item):
       source_str, dest_str = lib.convert_item(
-          data_proto.uname_prefix, data_proto.to_uname_prefix, index, item)
+          list(data_proto.uname_prefix), list(data_proto.to_uname_prefix),
+          index, item)
       if dest_str:
         output_file.write('%s\t%s\n' % (source_str, dest_str))
       else:

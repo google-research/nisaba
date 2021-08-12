@@ -14,62 +14,71 @@
 
 """Utilities for processing Unicode strings from protocol message."""
 
-from typing import List, Tuple, Union
+from typing import List, Sequence, Tuple, Union
 
 import unicodedata
 
 from nisaba.scripts.utils import unicode_strings_pb2
 
 
-def _names_to_string(uname_prefix: str, item_index: int,
-                     names: List[str]) -> Tuple[str, List[str]]:
+def _name_to_char(prefixes: Sequence[str], suffix: str) -> Tuple[str, str]:
+  """Converts a Unicode character name to the corresponding character string.
+
+  Args:
+    prefixes: Character name prefixes
+    suffix: Unicode character name suffix.
+
+  Returns:
+    Returns a tuple that consists of a character in UTF-8 encoding and the
+    character name that fully resolve using `uname_prefixes`.
+  """
+
+  char_names = []
+  for prefix in list(prefixes) + ['']:
+    uname = (prefix + ' ' + suffix).lstrip()
+    try:
+      char = unicodedata.lookup(uname)
+      if unicodedata.category(char) != 'Cc':
+        char_names.append((char, uname))
+    except KeyError:
+      pass
+  if not char_names:
+    raise ValueError(f'`{suffix}` does not match a character name '
+                     f'with the prefix(es): `{prefixes}`')
+  if len(char_names) > 1:
+    raise ValueError(f'With prefix(es) `{prefixes}`, suffix `{suffix}` '
+                     f'resolves to more than one character: `{char_names}`.')
+  return char_names[0]
+
+
+def _names_to_string(uname_prefixes: Sequence[str], names: Sequence[str]
+                     ) -> Tuple[str, List[str]]:
   """Converts list of Unicode character names to the corresponding string.
 
   Args:
-    uname_prefix: Character name prefix.
-    item_index: Index of the item in the proto (for debugging).
+    uname_prefixes: Character name prefixes.
     names: List of Unicode character names.
 
   Returns:
     Returns a tuple that consists of a string in UTF-8 encoding and a list
-    of character names that fully resolve using `uname_prefix`.
+    of character names that fully resolve using `uname_prefixes`.
   Raises:
     ValueError: If character cannot be converted.
   """
-  u_chars: List[str] = []
-  resolved_names: List[str] = []
-  for name in names:
-    prefix_and_name = (uname_prefix + ' ' + name if uname_prefix and
-                       not name.startswith(uname_prefix) else name)
-    try:
-      # As a first attempt at matching, try to match against a full character
-      # name including the prefix `uname_prefix` (if set).
-      u_char = unicodedata.lookup(prefix_and_name)
-      resolved_names.append(prefix_and_name)
-    except KeyError as exc:
-      if not uname_prefix:  # Nothing we can do. Pass the exception on.
-        raise ValueError('Item %d: Lookup failed: \'%s\'' % (
-            item_index, prefix_and_name)) from exc
-      # Attempt to match the second time, without a script name.
-      try:
-        u_char = unicodedata.lookup(name)
-        resolved_names.append(name)
-      except KeyError as exc:
-        raise ValueError('Item %d: Cannot convert \'%s\'' % (
-            item_index, name)) from exc
-    u_chars.append(u_char)
+  u_chars, resolved_names = zip(*(_name_to_char(uname_prefixes, name)
+                                  for name in names))
   return ''.join(u_chars), resolved_names
 
 
-def proto_entries_to_string(uname_prefix: str, item_index: int,
-                            uname: List[str], raw: str) -> str:
+def proto_entries_to_string(uname_prefixes: Sequence[str], item_index: int,
+                            uname: Sequence[str], raw: str) -> str:
   """Computes string from either Unicode names or codepoint sequence.
 
   Given unicode names and/or raw Unicode codepoint sequence specification
   computes the final string.
 
   Args:
-     uname_prefix: Character name prefix.
+     uname_prefixes: Character name prefixes.
      item_index: Index of the item in the proto (for debugging).
      uname: List of Unicode character name strings, possibly empty.
      raw: Raw string, possibly empty.
@@ -87,7 +96,11 @@ def proto_entries_to_string(uname_prefix: str, item_index: int,
     # Use the raw string as a sanity check to compare with the values in uname.
     test_str = raw
 
-  source_str, char_names = _names_to_string(uname_prefix, item_index, uname)
+  try:
+    source_str, char_names = _names_to_string(uname_prefixes, uname)
+  except ValueError as exc:
+    raise ValueError(f'Lookup failed: item #{item_index}') from exc
+
   if test_str and source_str != test_str:
     # Name lookup may throw ValueError as well.
     test_names = [unicodedata.name(c) for c in test_str]
@@ -98,16 +111,16 @@ def proto_entries_to_string(uname_prefix: str, item_index: int,
 
 
 def convert_item(
-    uname_prefix: str,
-    to_uname_prefix: str,
+    uname_prefixes: Sequence[str],
+    to_uname_prefixes: Sequence[str],
     item_index: int,
     data_item: unicode_strings_pb2.UnicodeStrings.Item) -> Tuple[
         str, Union[str, None]]:
   """Converts individual item into source and destination strings.
 
   Args:
-     uname_prefix: Character name prefix.
-     to_uname_prefix: Character name prefix for those in `to_uname` field.
+     uname_prefixes: Character name prefixes.
+     to_uname_prefixes: Character name prefixes for those in `to_uname` field.
      item_index: Index of the item in the proto (for debugging).
      data_item: An item message in the data proto.
 
@@ -122,13 +135,13 @@ def convert_item(
     raise ValueError('Item %d: Either \'raw\' or \'uname\' have to be defined' %
                      item_index)
 
-  source_str = proto_entries_to_string(uname_prefix, item_index,
+  source_str = proto_entries_to_string(uname_prefixes, item_index,
                                        list(data_item.uname), data_item.raw)
   # Check if item defines a mapping.
   if not data_item.to_uname and not data_item.to_raw:
     return source_str, None
-  if not to_uname_prefix:
-    to_uname_prefix = uname_prefix
-  dest_str = proto_entries_to_string(to_uname_prefix, item_index,
+  if not to_uname_prefixes:
+    to_uname_prefixes = uname_prefixes
+  dest_str = proto_entries_to_string(to_uname_prefixes, item_index,
                                      list(data_item.to_uname), data_item.to_raw)
   return source_str, dest_str
