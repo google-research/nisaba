@@ -45,6 +45,33 @@ def _label_list_to_string_fsa(labels: List[int]) -> pynini.Fst:
   return fst
 
 
+def assert_fst_functional(fst: pynini.Fst,
+                          token_type: pynini.TokenType,
+                          string_fsa: pynini.Fst) -> None:
+  """Assert that an FST is funcional for the given string FSA.
+
+  Args:
+    fst: An FST to verify if is functional.
+    token_type: The token_type used to derive the Fst.
+    string_fsa: The string FSA to verify functional behavior.
+
+  Raises:
+    AssertionError: If the FST is found to have a non-functional.
+  """
+  with pynini.default_token_type(token_type):
+    cascade = string_fsa @ fst
+    try:
+      cascade.string()
+    except pynini.FstOpError as e:
+      raise AssertionError(
+          "Expected Fst to be functional but input string `{input}`"
+          " produced output strings: {outputs}".format(
+              input=string_fsa.string(),
+              outputs=", ".join(
+                  f"`{ostring}`" for ostring in
+                  cascade.optimize().paths().ostrings()))) from e
+
+
 class FstPropertiesTestCase(absltest.TestCase):
 
   def assertFstCompliesWithProperties(
@@ -92,14 +119,4 @@ class FstRandgenTestCase(absltest.TestCase):
     with pynini.default_token_type(token_type):
       for olabels in _olabels_iter(input_samples):
         string_fsa = _label_list_to_string_fsa(olabels)
-        cascade = string_fsa @ fst
-        try:
-          cascade.string()
-        except pynini.FstOpError as e:
-          raise AssertionError(
-              "Expected Fst to be functional but input string `{input}`"
-              " produced output strings: {outputs}".format(
-                  input=string_fsa.string(),
-                  outputs=", ".join(
-                      f"`{ostring}`" for ostring in
-                      cascade.optimize().paths().ostrings()))) from e
+        assert_fst_functional(fst, token_type, string_fsa)
