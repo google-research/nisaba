@@ -52,11 +52,11 @@ def nisaba_public_repositories(name = ""):
     # OpenGrm N-Gram: See
     #   http://www.openfst.org/twiki/bin/view/GRM/NGramLibrary
     # -------------------------------------------------------------------------
-    opengrm_ngram_version = "1.3.13-rc1"
+    opengrm_ngram_version = "1.3.14-rc1"
 
     http_archive(
         name = "org_opengrm_ngram",
         urls = ["https://github.com/agutkin/finite_state/raw/main/ngram-%s.tar.gz" % opengrm_ngram_version],
-        sha256 = "c027cee208090f35a1f725dc9cc22bc0d977adba346d765bf2e1f55990a4fa40",
+        sha256 = "2faa4f1e456e2adfbc736d072d402453eabc7fb54ba67a0da476951f18d73aca",
         strip_prefix = "ngram-%s" % opengrm_ngram_version,
     )

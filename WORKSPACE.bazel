@@ -53,12 +53,12 @@ http_archive(
 # grammar manipulation. See
 #    http://www.openfst.org/twiki/bin/view/GRM/Thrax
 # -------------------------------------------------------------------------
-thrax_version = "1.3.6-rc1"
+thrax_version = "1.3.7-rc1"
 
 http_archive(
     name = "org_opengrm_thrax",
     urls = ["https://github.com/agutkin/finite_state/raw/main/thrax-%s.tar.gz" % thrax_version],
-    sha256 = "30d600a1504a8cdaefa9db58edd1b9779d68d42a6f2ee881826a3533e7b9bf06",
+    sha256 = "ef1e87f4e7e88dd130887bbccd4bce50f00e9a58f24d5a17d931769bc14cd3e7",
     strip_prefix = "thrax-%s" % thrax_version,
 )
 
@@ -67,12 +67,12 @@ http_archive(
 #    http://www.opengrm.org/twiki/pub/GRM/PyniniDownload/README.md
 # -------------------------------------------------------------------------
 
-pynini_version = "2.1.4-rc1"
+pynini_version = "2.1.5-rc1"
 
 http_archive(
     name = "org_opengrm_pynini",
     urls = ["https://github.com/agutkin/finite_state/raw/main/pynini-%s.tar.gz" % pynini_version],
-    sha256 = "a574b308427661b5f18048cd58c43209f29ce3c5c51b571f710fbe378039fcc3",
+    sha256 = "ed478961192c0a8b9c90b71a8058a6997f281670b6e4847c42f693f6113fce72",
     strip_prefix = "pynini-%s" % pynini_version
 )
 
