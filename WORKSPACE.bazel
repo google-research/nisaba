@@ -58,7 +58,7 @@ thrax_version = "1.3.7-rc1"
 http_archive(
     name = "org_opengrm_thrax",
     urls = ["https://github.com/agutkin/finite_state/raw/main/thrax-%s.tar.gz" % thrax_version],
-    sha256 = "ef1e87f4e7e88dd130887bbccd4bce50f00e9a58f24d5a17d931769bc14cd3e7",
+    sha256 = "93a7b905725ecabd9ca52d64d6c8b3fad8cf8736b35bf5a63e853312ddefee51",
     strip_prefix = "thrax-%s" % thrax_version,
 )
 

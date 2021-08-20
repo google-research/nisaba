@@ -16,8 +16,8 @@ jobs:
     runs-on: macos-latest
     env:
       BAZEL: bazelisk-darwin-amd64
-      CC: gcc-9
-      CXX: g++-9
+      CC: gcc-10
+      CXX: g++-10
 
     steps:
     - uses: actions/checkout@v2
