@@ -21,7 +21,7 @@ import unicodedata
 from nisaba.scripts.utils import unicode_strings_pb2
 
 
-def _name_to_char(prefixes: Sequence[str], suffix: str) -> Tuple[str, str]:
+def name_to_char(prefixes: Sequence[str], suffix: str) -> Tuple[str, str]:
   """Converts a Unicode character name to the corresponding character string.
 
   Args:
@@ -65,7 +65,7 @@ def _names_to_string(uname_prefixes: Sequence[str], names: Sequence[str]
   Raises:
     ValueError: If character cannot be converted.
   """
-  u_chars, resolved_names = zip(*(_name_to_char(uname_prefixes, name)
+  u_chars, resolved_names = zip(*(name_to_char(uname_prefixes, name)
                                   for name in names))
   return ''.join(u_chars), resolved_names
 

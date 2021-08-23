@@ -17,7 +17,6 @@
 import contextlib
 import logging
 import os
-import unicodedata
 
 from absl import flags
 import pycountry
@@ -25,6 +24,7 @@ import pycountry
 from google.protobuf import text_format
 from absl.testing import absltest
 from nisaba.scripts.utils import letter_languages_pb2
+import nisaba.scripts.utils.unicode_strings_util as uutil
 
 flags.DEFINE_string(
     'input_text_proto', None,
@@ -44,14 +44,6 @@ class LetterLanguagesIntegrityTest(absltest.TestCase):
     except exc_type:
       raise self.failureException('{} raised'.format(exc_type.__name__))
 
-  def _lookup_char(self, uname_prefix, uname):
-    prefix_and_name = uname_prefix + uname
-    try:
-      u_char = unicodedata.lookup(prefix_and_name)
-    except KeyError:
-      u_char = unicodedata.lookup(uname)
-    return u_char
-
   def setUp(self):
     super().setUp()
     logging.info('Parsing %s ...', FLAGS.input_text_proto)
@@ -67,8 +59,6 @@ class LetterLanguagesIntegrityTest(absltest.TestCase):
   def test_letters(self):
     """Make sure the unicode letter names map to raw characters correctly."""
     uname_prefix = self._letters_proto.uname_prefix
-    if uname_prefix and not uname_prefix.endswith(' '):
-      uname_prefix += ' '
 
     all_letters = set()
     for i, item in enumerate(self._letters_proto.item):
@@ -81,7 +71,7 @@ class LetterLanguagesIntegrityTest(absltest.TestCase):
       # Check that unicode character name matches the raw character.
       uname = item.letter.uname[0]
       with self.assertNotRaises(KeyError):
-        u_char = self._lookup_char(uname_prefix, uname)
+        (u_char, unused_name) = uutil.name_to_char(uname_prefix, uname)
       self.assertEqual(u_char, item.letter.raw)
 
       # Check that there are no duplicates and the letters are in the

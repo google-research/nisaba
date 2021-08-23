@@ -44,6 +44,7 @@ def setup_letter_languages(name):
             "@com_google_protobuf//:protobuf_python",
             "@io_abseil_py//absl/testing:absltest",
             "//nisaba/scripts/utils:letter_languages_py_pb2",
+            "//nisaba/scripts/utils:unicode_strings_util",
             "@io_abseil_py//absl/flags",
             "@io_abseil_py//absl/logging",
         ],

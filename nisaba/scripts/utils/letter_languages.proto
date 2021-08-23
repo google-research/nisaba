@@ -44,11 +44,16 @@ message LetterLanguages {
     repeated string region = 3;
   }
 
-  // Default name prefix of the Unicode characters in this file. This usually
-  // corresponds, but is not restricted, to the name of the script we're
-  // manipulating upon, e.g. "BENGALI LETTER", "ARABIC". If this field is set,
-  // this prefix can be omitted from the names of the characters.
-  string uname_prefix = 1;
+  // Default prefixes for the Unicode character names listed in the
+  // `letter.uname` field in `Item` messages in this file. This usually
+  // corresponds, but is not restricted, to the script name of these
+  // characters, e.g. "BENGALI", "GUJARATI". It could have multiple values like
+  // `["ARABIC", "ARABIC LETTER"]`. An empty prefix is assumed to be
+  // implicitly present. When joined with these prefixes, `letter.uname` in
+  // an `Item` should be equal to exactly one character name. If this field
+  // is set, these prefixes can be omitted from the names of the characters.
+
+  repeated string uname_prefix = 1;
 
   // List of all the letters.
   repeated Item item = 2;
