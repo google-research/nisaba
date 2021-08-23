@@ -111,15 +111,17 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
             u.SCRIPT_DIR / script / 'consonant.tsv',
             sigma=sigma)).optimize()
 
-      for lang, script in u.LANG_SCRIPT_MAP.items():
+      for lang, script in u.LANG_SCRIPTS:
         sigma = sigma_map[script]
         consonant_map = uf.StringFile(u.SCRIPT_DIR / script / 'consonant.tsv')
         consonant = pynini.project(consonant_map, 'input')
 
-        before_cons = uf.StringFile(u.LANG_DIR / lang / 'before_consonant.tsv')
+        before_cons = uf.StringFile(u.LANG_DIR / lang /
+                                    f'before_consonant_{script}.tsv')
         rewrite_before_cons = ur.Rewrite(before_cons, '', consonant,
                                          sigma=sigma)
-        after_cons = uf.StringFile(u.LANG_DIR / lang / 'after_consonant.tsv')
+        after_cons = uf.StringFile(u.LANG_DIR / lang /
+                                   f'after_consonant_{script}.tsv')
         rewrite_after_cons = ur.Rewrite(after_cons, '', consonant, sigma=sigma)
         rewrite_map[lang] = (rewrite_map[script] @
                              rewrite_before_cons @

@@ -73,10 +73,12 @@ SCRIPTS = [
     "Tglg",
 ]
 
-LANG_SCRIPT_MAP = {
-    "as": "Beng",
-    "bn": "Beng",
-}
+# Language-script combinations. Several scripts may, in theory, correspond to
+# the same language.
+LANG_SCRIPTS = [
+    ("as", "Beng"),
+    ("bn", "Beng"),
+]
 
 FIXED_RULE_SCRIPTS = ["Mlym"]
 

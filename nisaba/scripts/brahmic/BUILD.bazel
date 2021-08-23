@@ -25,7 +25,7 @@ load(
 load(
     "//nisaba/scripts/brahmic:constant.bzl",
     "FIXED_RULE_SCRIPTS",
-    "LANG_DIRS",
+    "LANG_SCRIPTS",
     "SCRIPTS",
 )
 
@@ -252,8 +252,8 @@ nisaba_compile_multi_grm_py(
             "visual_rewrite",
         ]
     ] + [
-        "//nisaba/scripts/brahmic/data/lang/{}:{}.tsv".format(lang, file_name)
-        for lang in LANG_DIRS
+        "//nisaba/scripts/brahmic/data/lang/{}:{}_{}.tsv".format(lang, file_name, script)
+        for lang, script in LANG_SCRIPTS
         for file_name in [
             "after_consonant",
             "before_consonant",

@@ -7,7 +7,6 @@ directory names follow [ISO 15924](https://en.wikipedia.org/wiki/ISO_15924)
 convention of four letter script codes in lowercase with the initial letter
 capitalized. Example: `Deva` for Devanagari.
 
-
 1.  `consonant.tsv`: Characters with an inherent schwa. This can be a cluster as
     well. The corresponding Latin sequence does not have schwa. Example: `क ⇥ k`
 1.  `dead_consonant.tsv`: Consonants without an inherent schwa. Examples:
@@ -56,16 +55,16 @@ capitalized. Example: `Deva` for Devanagari.
 
 ## Language specific directories
 
-Data files corresponding to the specific languages are kept under `lang`.
-These directory names follow [BCP 47](https://tools.ietf.org/html/bcp47).
-Example: `bn` for Bengali.
+Data files corresponding to the specific languages are kept under `lang`. These
+directory names follow [BCP 47](https://tools.ietf.org/html/bcp47). Example:
+`bn` for Bengali.
 
-1.  `before_consonant.tsv` and `after_consonant.tsv`: The specific rewrites are
-    part of the Visual Norm rewrites specific to the language on top of the
-    corresponding script specific ones. For example, the rewrites in `bn`
-    will be applied on top of the corresponding `Beng` script rewrites. These
-    rewrites are applied with _before-consonant_ and _after-consonant_ contexts
-    respectively.
+1.  `before_consonant_$S.tsv` and `after_consonant_$S.tsv`: The specific
+    rewrites are part of the Visual Norm rewrites specific to the language on
+    top of the corresponding script specific ones, where the script is specified
+    by `$S`. For example, the rewrites in `bn` will be applied on top of the
+    corresponding `Beng` script rewrites. These rewrites are applied with
+    _before-consonant_ and _after-consonant_ contexts respectively.
 
 ## Common directory
 

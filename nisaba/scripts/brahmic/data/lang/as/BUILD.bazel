@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Language definitions for Assamese(Asamiya).
+# Language definitions for Assamese (Asamiya).
 
 load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
 
@@ -23,7 +23,7 @@ licenses(["notice"])
 setup_script_data(
     name = "as",
     script_data_components = [
-        "after_consonant",
-        "before_consonant",
+        "after_consonant_Beng",
+        "before_consonant_Beng",
     ],
 )
