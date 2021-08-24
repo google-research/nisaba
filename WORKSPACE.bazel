@@ -58,7 +58,7 @@ thrax_version = "1.3.7-rc1"
 http_archive(
     name = "org_opengrm_thrax",
     urls = ["https://github.com/agutkin/finite_state/raw/main/thrax-%s.tar.gz" % thrax_version],
-    sha256 = "93a7b905725ecabd9ca52d64d6c8b3fad8cf8736b35bf5a63e853312ddefee51",
+    sha256 = "7f7feb1d4b99f58b01cc6d07357861706810d7686be09dc7ad00e00dd6377f7d",
     strip_prefix = "thrax-%s" % thrax_version,
 )
 
@@ -72,7 +72,7 @@ pynini_version = "2.1.5-rc1"
 http_archive(
     name = "org_opengrm_pynini",
     urls = ["https://github.com/agutkin/finite_state/raw/main/pynini-%s.tar.gz" % pynini_version],
-    sha256 = "ed478961192c0a8b9c90b71a8058a6997f281670b6e4847c42f693f6113fce72",
+    sha256 = "d4fb7f1bf8c7952b44845c1e77e1c7d91394c0131f071c227b356a2fd1fe2207",
     strip_prefix = "pynini-%s" % pynini_version
 )
 
