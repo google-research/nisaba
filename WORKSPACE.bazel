@@ -51,7 +51,7 @@ http_archive(
 # -------------------------------------------------------------------------
 # Thrax: This repo is only used to retrieve some of the build rules for
 # grammar manipulation. See
-#    http://www.openfst.org/twiki/bin/view/GRM/Thrax
+#    http://www.opengrm.org/twiki/bin/view/GRM/Thrax
 # -------------------------------------------------------------------------
 thrax_version = "1.3.7-rc1"
 
@@ -64,9 +64,8 @@ http_archive(
 
 # -------------------------------------------------------------------------
 # Pynini: See
-#    http://www.opengrm.org/twiki/pub/GRM/PyniniDownload/README.md
+#    http://www.opengrm.org/twiki/bin/view/GRM/Pynini
 # -------------------------------------------------------------------------
-
 pynini_version = "2.1.5-rc1"
 
 http_archive(
@@ -86,8 +85,8 @@ pynini_repositories()
 
 http_archive(
     name = "fresh_rules_python",
-    url = "https://github.com/bazelbuild/rules_python/releases/download/0.1.0/rules_python-0.1.0.tar.gz",
-    sha256 = "b6d46438523a3ec0f3cead544190ee13223a52f6a6765a29eae7b7cc24cc83a0",
+    url = "https://github.com/bazelbuild/rules_python/releases/download/0.3.0/rules_python-0.3.0.tar.gz",
+    sha256 = "934c9ceb552e84577b0faf1e5a2f0450314985b4d8712b2b70717dc679fdc01b",
 )
 
 # Python external packages installation.
