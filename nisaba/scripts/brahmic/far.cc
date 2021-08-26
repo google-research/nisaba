@@ -14,28 +14,34 @@
 
 #include "nisaba/scripts/brahmic/far.h"
 
-#include "google/protobuf/stubs/logging.h"
 #include "absl/strings/ascii.h"
+#include "absl/strings/str_cat.h"
 #include "nisaba/port/file_util.h"
 
 namespace nisaba {
 namespace brahmic {
+namespace {
 
-bool Far::Load() {
-  constexpr char kFarPath[] = "com_google_nisaba/nisaba/scripts/brahmic";
+constexpr char kFarPath[] = "com_google_nisaba/nisaba/scripts/brahmic";
+constexpr char kFarExtn[] = ".far";
+
+}  // namespace
+
+absl::Status Far::Load() {
   const auto far_dir = file::GetRunfilesResourcePath(kFarPath);
-  if (!far_dir.ok()) {
-    GOOGLE_LOG(ERROR) << far_dir.status().ToString();
-    return false;
-  }
-  constexpr char kFarExtn[] = ".far";
+  if (!far_dir.ok()) return far_dir.status();
+
   const auto far_file_path = file::JoinPath(
       far_dir.value(), absl::AsciiStrToLower(far_name_) + kFarExtn);
-  return grm_mgr_->LoadArchive(far_file_path);
+  if (!grm_mgr_.LoadArchive(far_file_path)) {
+    return absl::NotFoundError(absl::StrCat("Failed to load archive from ",
+                                            far_file_path));
+  }
+  return absl::OkStatus();
 }
 
-std::unique_ptr<::fst::StdFst> Far::Fst(const std::string& fst_name) const {
-  return grm_mgr_->GetFstSafe(absl::AsciiStrToUpper(fst_name));
+std::unique_ptr<::fst::StdFst> Far::Fst(absl::string_view fst_name) const {
+  return grm_mgr_.GetFstSafe(absl::AsciiStrToUpper(fst_name));
 }
 
 }  // namespace brahmic

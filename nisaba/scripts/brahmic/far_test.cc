@@ -18,6 +18,8 @@
 #include <string>
 
 #include "fst/fstlib.h"
+#include "gmock/gmock.h"
+#include "nisaba/port/status-matchers.h"
 #include "gtest/gtest.h"
 
 using ::fst::StdFst;
@@ -35,13 +37,12 @@ bool UTF8AcceptsString(const StdFst &fsa, const std::string &s) {
 
   StdVectorFst output;
   ::fst::Compose(string_fst, fsa, &output);
-
   return output.Start() != ::fst::kNoStateId;
 }
 
 TEST(WellformedFarTest, Basic) {
   Far far("wellformed_utf8");
-  ASSERT_TRUE(far.Load());
+  ASSERT_OK(far.Load());
   std::unique_ptr<const StdFst> deva = far.Fst("Deva");
   ASSERT_TRUE(deva != nullptr);
 

@@ -1,14 +1,14 @@
 # Text Processing Grammars for Brahmic scripts
 
-This package is a collection of [OpenGrm
-Thrax](http://www.openfst.org/twiki/bin/view/GRM/Thrax) and [OpenGrm
-Pynini](http://www.opengrm.org/twiki/bin/view/GRM/Pynini) grammars to work with
-the texts in Brahmic scripts of South and Southeast Asia. Respective C++ and
-Python access APIs are also provided.  The language scripts under consideration
-and their [BCP-47](https://tools.ietf.org/rfc/bcp/bcp47.txt) script tags are as
-below. When a script tag is used as a finite state transducer (FST) name, it
-will be all uppercase; example: `DEVA`. FST Archive (FAR) names are all
-lowercase (e.g., `iso`).
+This package is a collection of
+[OpenGrm Thrax](http://www.openfst.org/twiki/bin/view/GRM/Thrax) and
+[OpenGrm Pynini](http://www.opengrm.org/twiki/bin/view/GRM/Pynini) grammars to
+work with the texts in Brahmic scripts of South and Southeast Asia. Respective
+C++ and Python access APIs are also provided. The language scripts under
+consideration and their [BCP-47](https://tools.ietf.org/rfc/bcp/bcp47.txt)
+script tags are as below. When a script tag is used as a finite state transducer
+(FST) name, it will be all uppercase; example: `DEVA`. FST Archive (FAR) names
+are all lowercase (e.g., `iso`).
 
 1.  Bengali (`Beng`)
 1.  Devanagari (`Deva`)
@@ -320,8 +320,8 @@ and the FAR files are embedded in the library as a memfile.
 #### Grammar Class
 
 1.  To access individual grammars, create a `Grammar` instance like:
-    `nisaba::brahmic::Grammar("iso", "FROM_DEVA")`. The parameters are the
-    FAR file's basename and the FST name, respectively. Available FARs and their
+    `nisaba::brahmic::Grammar("iso", "FROM_DEVA")`. The parameters are the FAR
+    file's basename and the FST name, respectively. Available FARs and their
     FSTs are indicated below and are described in the respective sub-sections:
 
     1.  [iso](#iso)
@@ -360,15 +360,16 @@ and the FAR files are embedded in the library as a memfile.
 1.  Acceptance of a string by the FSA is indicated by the boolean value returned
     by: `.Accept("हिन्दी")`.
 
-Please see nisaba/scripts/brahmic/grammar_test.cc as well to learn the usage.
+Please see nisaba/scripts/brahmic/grammar_test.cc as well to
+learn the usage.
 
 #### Normalizer Class
 
 Normalizer rewrites an input string by applying visual norm; then, returns a
 boolean indicating if that output string is well-formed or not.
 
-1.  Create a `Normalizer` instance like:
-    `nisaba::brahmic::Normalizer("Deva")`. Only parameter is the script tag.
+1.  Create a `Normalizer` instance like: `nisaba::brahmic::Normalizer("Deva")`.
+    Only parameter is the script tag.
 
 1.  The constructed `Normalizer` instance needs to be initialized by `.Load()`.
 
@@ -378,7 +379,8 @@ boolean indicating if that output string is well-formed or not.
     be well-formed, result of the visual norm is updated in the output string.
     Input and output strings can be the same `std::string` instance.
 
-Please see nisaba/scripts/brahmic/grammar_test.cc as well to learn the usage.
+Please see nisaba/scripts/brahmic/grammar_test.cc as well to
+learn the usage.
 
 ### Lower level Far Class to access FSTs directly
 
@@ -388,7 +390,7 @@ Include directive:
 #include "nisaba/scripts/brahmic/far.h"
 ```
 
-BUILD dependency:
+Build dependency:
 
 ```
 "//nisaba/scripts/brahmic:far_cc"
@@ -405,12 +407,13 @@ the run files directory at runtime.
     described above.
 
 1.  Far object needs to be initialized by `.Load()` before accessing the
-    contained FSTs; returns false, if failed.
+    contained FSTs; returns `absl::OkStatus()`, if successful.
 
 1.  Unique pointer to the FST is available through `.Fst(FST name)`. Example for
     an FST name: `Deva`.
 
-Please see nisaba/scripts/brahmic/far_test.cc as well to learn the usage.
+Please see `nisaba/scripts/brahmic/far_test.cc` as well to
+learn the usage.
 
 ## Python API
 

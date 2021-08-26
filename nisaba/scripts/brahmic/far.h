@@ -22,7 +22,8 @@
 
 #include "fst/fstlib.h"
 #include "thrax/grm-manager.h"
-#include "absl/memory/memory.h"
+#include "absl/status/status.h"
+#include "absl/strings/string_view.h"
 
 namespace nisaba {
 namespace brahmic {
@@ -33,16 +34,16 @@ namespace brahmic {
 // compactness. This needs to done together here and in Grammar classes.
 class Far {
  public:
-  explicit Far(const std::string& far_name)
-      : far_name_(far_name),
-        grm_mgr_(absl::make_unique<::thrax::GrmManager>()){}
+  explicit Far(absl::string_view far_name) : far_name_(far_name) {}
 
-  bool Load();
-  std::unique_ptr<::fst::StdFst> Fst(const std::string& fst_name) const;
+  absl::Status Load();
+  std::unique_ptr<::fst::StdFst> Fst(absl::string_view fst_name) const;
 
  private:
+  Far() = delete;
+
   const std::string far_name_;
-  const std::unique_ptr<::thrax::GrmManager> grm_mgr_;
+  ::thrax::GrmManager grm_mgr_;
 };
 
 }  // namespace brahmic
