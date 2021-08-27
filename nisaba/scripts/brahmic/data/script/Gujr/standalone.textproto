@@ -18,6 +18,8 @@
 uname_prefix: "GUJARATI"
 
 item {
-  uname: ["OM"] raw: "ૐ"
-  to_uname: ["LATIN SMALL LETTER O WITH MACRON", "LATIN SMALL LETTER M", "COMBINING CANDRABINDU"] to_raw: "ōm̐"
+  uname: ["OM"]
+  raw: "ૐ"
+  to_uname: ["LATIN SMALL LETTER O WITH TILDE", "LATIN SMALL LETTER M"]
+  to_raw: "õm"
 }

@@ -35,7 +35,7 @@ TO_TELU	brahmiki	బ్రహ్మికి
 
 FROM_BRAHMIC	ব্রাহ্মীকে	brāhmīkē
 FROM_BRAHMIC	ब्राह्मिक	brāhmika
-FROM_BRAHMIC	अधे़ड	adhēˑḍa
+FROM_BRAHMIC	अधे़ड	adʰēˑḍa
 FROM_BRAHMIC	ॲलन	ælana
 
 # Out of script characters are pass through
@@ -43,12 +43,13 @@ FROM_BRAHMIC	Abæ ॲलन	Abæ ælana
 
 FROM_BRAHMIC	ാം	-āṁ
 FROM_BRAHMIC	മൂൺ	mūṇⸯ
-FROM_BRAHMIC	ൻ്റെ	nⸯ̆ṟe
-FROM_BRAHMIC	ത്തു്	ttŭ
-FROM_BRAHMIC	ഡൈ്വ	ḍaĭva
-FROM_BRAHMIC	അ്	ă
+FROM_BRAHMIC	ൻ്റെ	nⸯ˘ṟe
+FROM_BRAHMIC	ത്തു്	ttu˘
+FROM_BRAHMIC	ഡൈ്വ	ḍai˘va
+FROM_BRAHMIC	അ്	a˘
 FROM_BRAHMIC	ക	ka
 FROM_BRAHMIC	മ്അ	m.a
+FROM_BRAHMIC	ന്അ	n.a
 FROM_BRAHMIC	ക്‌ക	k|ka
 FROM_BRAHMIC	കൌ	kau̯
 FROM_BRAHMIC	രംഗ	raṁga
@@ -70,24 +71,24 @@ FROM_BRAHMIC	കഇഇഇ	ka.i.i.i
 FROM_BRAHMIC	ക്ഇഇഇ	k.i.i.i
 
 # Rewrite of aspirated consonants:
-FROM_BRAHMIC	घऔ	gha.au
+FROM_BRAHMIC	घऔ	gʰa.au
 FROM_BRAHMIC	गहाउ	gahā.u
-TO_DEVA	gha.au	घऔ
+TO_DEVA	gʰa.au	घऔ
 TO_DEVA	gahā.u	गहाउ
 
 TO_MLYM	-āṁ	ാം
 TO_MLYM	mūṇⸯ	മൂൺ
-TO_MLYM	nⸯ̆ṟe	ൻ്റെ
-TO_MLYM	ttŭ	ത്തു്
-TO_MLYM	ḍaĭva	ഡൈ്വ
-TO_MLYM	ă	അ്
+TO_MLYM	nⸯ˘ṟe	ൻ്റെ
+TO_MLYM	ttu˘	ത്തു്
+TO_MLYM	ḍai˘va	ഡൈ്വ
+TO_MLYM	a˘	അ്
 TO_MLYM	m.a	മ്അ
 TO_MLYM	ka	ക
 TO_MLYM	k|ka	ക്‌ക
 TO_MLYM	kau̯	കൌ
 
 # Rewrite only Brahmic characters if they are mixed with Latin.
-FROM_BRAHMIC	AघऔB	Agha.auB
+FROM_BRAHMIC	AघऔB	Agʰa.auB
 
 # Test Devanagari Eyelash Ra modern encoding and legacy encoding
 FROM_BRAHMIC	दऱ्या	dar̆yā
@@ -104,9 +105,9 @@ FROM_MTEI	ꯑꯩꯅ	eina
 FROM_MTEI	ꯀꯣꯛ	kok'
 FROM_MTEI	ꯁꯝ	sam'
 FROM_MTEI	ꯑꯇꯤꯌꯥ	Atiyā
-FROM_MTEI	ꯆꯤꯟ	chin'
+FROM_MTEI	ꯆꯤꯟ	cʰin'
 FROM_MTEI	ꯒ꯭ꯂꯥꯁ	glāsa
-FROM_MTEI	ꯀꯐꯣꯢ	kaphoi'
+FROM_MTEI	ꯀꯐꯣꯢ	kapʰoi'
 FROM_MTEI	ꯀꯨꯁꯨꯝꯂꯩ	kusum'lei
 FROM_MTEI	ꯀꯦꯇꯨꯀꯤ	ketuki
 FROM_MTEI	ꯀꯦꯇꯦꯀꯤ	keteki
@@ -114,17 +115,17 @@ FROM_MTEI	ꯀꯣꯝꯂꯥ	kom'lā
 FROM_MTEI	ꯁꯤꯡ	siṅ'
 FROM_MTEI	ꯂꯩꯁꯥꯕꯤ	leisābi
 FROM_MTEI	ꯃꯌꯥꯡꯇꯣꯟ	mayāṅ'ton'
-FROM_MTEI	ꯃꯦꯊꯤ	methi
+FROM_MTEI	ꯃꯦꯊꯤ	metʰi
 FROM_MTEI	ꯄꯨꯗꯤꯅꯥ	pudinā
 FROM_MTEI	ꯅꯨꯁꯤꯍꯤꯗꯥꯛ	nusihidāk'
-FROM_MTEI	ꯆꯝꯄ꯭ꯔꯥ	cham'prā
+FROM_MTEI	ꯆꯝꯄ꯭ꯔꯥ	cʰam'prā
 FROM_MTEI	ꯇꯨꯜꯁꯤꯄꯝꯕꯤ	tul'sipam'bi
 FROM_MTEI	ꯌꯥꯢꯉꯪ	yāi'ṅaṁ
 FROM_MTEI	ꯍꯩꯅꯧ	heinou
 FROM_MTEI	ꯎꯁꯤꯡꯁꯥ	Usiṅ'sā
 FROM_MTEI	ꯑꯗꯨꯔꯒꯨꯂꯥꯕ	Aduragulāba
 FROM_MTEI	ꯒꯨꯂꯥꯕ	gulāba
-FROM_MTEI	ꯖꯥꯢꯐꯜ	jāi'phal'
+FROM_MTEI	ꯖꯥꯢꯐꯜ	jāi'pʰal'
 FROM_MTEI	ꯀꯥꯡ	kāṅ'
 FROM_MTEI	ꯀꯥ꯬ꯉ	kā^ṅa
 FROM_MTEI	ꯂꯦꯡꯖꯨꯝ	leṅ'jum'
@@ -132,9 +133,9 @@ TO_MTEI	eina	ꯑꯩꯅ
 TO_MTEI	kok'	ꯀꯣꯛ
 TO_MTEI	sam'	ꯁꯝ
 TO_MTEI	Atiyā	ꯑꯇꯤꯌꯥ
-TO_MTEI	chin'	ꯆꯤꯟ
+TO_MTEI	cʰin'	ꯆꯤꯟ
 TO_MTEI	glāsa	ꯒ꯭ꯂꯥꯁ
-TO_MTEI	kaphoi'	ꯀꯐꯣꯢ
+TO_MTEI	kapʰoi'	ꯀꯐꯣꯢ
 TO_MTEI	kusum'lei	ꯀꯨꯁꯨꯝꯂꯩ
 TO_MTEI	ketuki	ꯀꯦꯇꯨꯀꯤ
 TO_MTEI	keteki	ꯀꯦꯇꯦꯀꯤ
@@ -142,17 +143,17 @@ TO_MTEI	kom'lā	ꯀꯣꯝꯂꯥ
 TO_MTEI	siṅ'	ꯁꯤꯡ
 TO_MTEI	leisābi	ꯂꯩꯁꯥꯕꯤ
 TO_MTEI	mayāṅ'ton'	ꯃꯌꯥꯡꯇꯣꯟ
-TO_MTEI	methi	ꯃꯦꯊꯤ
+TO_MTEI	metʰi	ꯃꯦꯊꯤ
 TO_MTEI	pudinā	ꯄꯨꯗꯤꯅꯥ
 TO_MTEI	nusihidāk'	ꯅꯨꯁꯤꯍꯤꯗꯥꯛ
-TO_MTEI	cham'prā	ꯆꯝꯄ꯭ꯔꯥ
+TO_MTEI	cʰam'prā	ꯆꯝꯄ꯭ꯔꯥ
 TO_MTEI	tul'sipam'bi	ꯇꯨꯜꯁꯤꯄꯝꯕꯤ
 TO_MTEI	yāi'ṅaṁ	ꯌꯥꯢꯉꯪ
 TO_MTEI	heinou	ꯍꯩꯅꯧ
 TO_MTEI	Usiṅ'sā	ꯎꯁꯤꯡꯁꯥ
 TO_MTEI	Aduragulāba	ꯑꯗꯨꯔꯒꯨꯂꯥꯕ
 TO_MTEI	gulāba	ꯒꯨꯂꯥꯕ
-TO_MTEI	jāi'phal'	ꯖꯥꯢꯐꯜ
+TO_MTEI	jāi'pʰal'	ꯖꯥꯢꯐꯜ
 TO_MTEI	leṅ'jum'	ꯂꯦꯡꯖꯨꯝ
 TO_MTEI	kā^ṅa	ꯀꯥ꯬ꯉ
 
@@ -160,21 +161,20 @@ TO_MTEI	kā^ṅa	ꯀꯥ꯬ꯉ
 # Baybayin (Tagalog).
 # ------------------------------------------------------------------------------
 FROM_TGLG	ᜀᜋ	ama
-FROM_TGLG	ᜋᜅ	manga
+FROM_TGLG	ᜋᜅ	maṅa
 FROM_TGLG	ᜁᜀᜇ᜔ᜌ	i.adya
-FROM_TGLG	ᜐᜓᜋᜐᜎᜅᜒᜆ᜔	sumasalangit
+FROM_TGLG	ᜐᜓᜋᜐᜎᜅᜒᜆ᜔	sumasalaṅit
 FROM_TGLG	ᜃ	ka
 FROM_TGLG	ᜐᜋ᜔ᜊᜑᜒᜈ᜔	sambahin
 FROM_TGLG	ᜋᜉᜐᜀᜋᜒᜈ᜔	mapasa.amin
 FROM_TGLG	ᜉᜄ᜔ᜉᜉᜆᜏᜇ᜔	pagpapatawad
 FROM_TGLG	ᜋᜃᜃᜎᜒᜃᜐᜈ᜔	makakalikasan
 TO_TGLG	ama	ᜀᜋ
-TO_TGLG	manga	ᜋᜅ
+TO_TGLG	maṅa	ᜋᜅ
 TO_TGLG	i.adya	ᜁᜀᜇ᜔ᜌ
-TO_TGLG	sumasalangit	ᜐᜓᜋᜐᜎᜅᜒᜆ᜔
+TO_TGLG	sumasalaṅit	ᜐᜓᜋᜐᜎᜅᜒᜆ᜔
 TO_TGLG	ka	ᜃ
 TO_TGLG	sambahin	ᜐᜋ᜔ᜊᜑᜒᜈ᜔
 TO_TGLG	mapasa.amin	ᜋᜉᜐᜀᜋᜒᜈ᜔
 TO_TGLG	pagpapatawad	ᜉᜄ᜔ᜉᜉᜆᜏᜇ᜔
 TO_TGLG	makakalikasan	ᜋᜃᜃᜎᜒᜃᜐᜈ᜔
-

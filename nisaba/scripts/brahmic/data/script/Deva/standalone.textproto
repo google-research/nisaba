@@ -22,18 +22,26 @@
 uname_prefix: "VEDIC"
 
 item {
-  uname: ["SIGN JIHVAMULIYA"] raw: "ᳵ"
-  to_uname: ["LATIN SMALL LETTER H WITH LINE BELOW"] to_raw: "ẖ"
+  uname: ["SIGN JIHVAMULIYA"]
+  raw: "ᳵ"
+  to_uname: ["LATIN SMALL LETTER H WITH LINE BELOW"]
+  to_raw: "ẖ"
 }
 item {
-  uname: ["SIGN UPADHMANIYA"] raw: "ᳶ"
-  to_uname: ["LATIN SMALL LETTER H WITH BREVE BELOW"] to_raw: "ḫ"
+  uname: ["SIGN UPADHMANIYA"]
+  raw: "ᳶ"
+  to_uname: ["LATIN SMALL LETTER H WITH BREVE BELOW"]
+  to_raw: "ḫ"
 }
 item {
-  uname: ["DEVANAGARI OM"] raw: "ॐ"
-  to_uname: ["LATIN SMALL LETTER O WITH MACRON", "LATIN SMALL LETTER M", "COMBINING CANDRABINDU"] to_raw: "ōm̐"
+  uname: ["DEVANAGARI OM"]
+  raw: "ॐ"
+  to_uname: ["LATIN SMALL LETTER O WITH TILDE", "LATIN SMALL LETTER M"]
+  to_raw: "õm"
 }
 item {
-  uname: ["DEVANAGARI SIGN AVAGRAHA"] raw: "ऽ"
-  to_uname: ["RIGHT SINGLE QUOTATION MARK"] to_raw: "’"
+  uname: ["DEVANAGARI SIGN AVAGRAHA"]
+  raw: "ऽ"
+  to_uname: ["RIGHT SINGLE QUOTATION MARK"]
+  to_raw: "’"
 }

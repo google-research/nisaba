@@ -17,9 +17,11 @@
 
 import itertools
 
+import pynini
 from absl.testing import absltest
 from absl.testing import parameterized
 from nisaba.scripts.brahmic import util as u
+from nisaba.scripts.utils import file
 from nisaba.scripts.utils import test_util
 
 
@@ -35,6 +37,17 @@ class FstRandgenTest(parameterized.TestCase, test_util.FstRandgenTestCase):
   def test_visual_norm(self, script: str, token_type: str):
     fst = u.OpenFstFromBrahmicFar('visual_norm', script, token_type=token_type)
     self.assertFstProbablyFunctional(fst, token_type=token_type,
+                                     samples=test_util.NUM_TEST_SAMPLES)
+
+  @parameterized.parameters(u.SCRIPTS)
+  def test_iso_roundtrip(self, tag: str):
+    tag = tag.upper()
+    far_path = u.FAR_DIR / 'iso.far'
+    with pynini.Far(file.AsResourcePath(far_path), 'r') as far:
+      natv_to_iso = far[f'FROM_{tag}']
+      iso_to_natv = far[f'TO_{tag}']
+      self.assertFstProbablyIdentity([natv_to_iso, iso_to_natv],
+                                     token_type='byte',
                                      samples=test_util.NUM_TEST_SAMPLES)
 
   @parameterized.parameters(
