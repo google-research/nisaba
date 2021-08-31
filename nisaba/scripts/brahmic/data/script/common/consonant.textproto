@@ -134,10 +134,6 @@ item {
   to_raw: "l"
 }
 item {
-  uname: "VA"
-  to_raw: "v"
-}
-item {
   uname: "SHA"
   to_uname: "S WITH ACUTE" to_raw: "ś"
 }

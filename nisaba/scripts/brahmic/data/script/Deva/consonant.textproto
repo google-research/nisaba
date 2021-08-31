@@ -46,6 +46,10 @@ item {
   to_uname: "L WITH DOT BELOW" to_raw: "ḷ"
 }
 item {
+  uname: "VA" raw: "व"
+  to_raw: "v"
+}
+item {
   uname: ["KA", "NUKTA"] raw: "क़"
   to_raw: "q"
 }

@@ -22,6 +22,10 @@ item {
   to_uname: "R WITH LINE BELOW" to_raw: "ṟ"
 }
 item {
+  uname: "VA" raw: "ವ"
+  to_raw: "v"
+}
+item {
   uname: "FA" raw: "ೞ"
   to_uname: "L WITH LINE BELOW" to_raw: "ḻ"
 }
