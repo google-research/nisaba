@@ -22,6 +22,9 @@ licenses(["notice"])
 
 setup_script_data(
     name = "Devanagari",
+    more_component_paths = {
+        "//nisaba/scripts/brahmic/data/script/common": ["consonant"],
+    },
     script_data_components = [
         "accept",
         "coda",

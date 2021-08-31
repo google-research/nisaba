@@ -16,25 +16,35 @@
 
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 
-def _convert_script_data_component(script_data_name):
+def _convert_script_data_component(script_data_name, proto_tgts):
     """Converts script data proto into TSV format.
 
     Args:
       script_data_name: The name of the script data (e.g., `consonant`).
+      proto_tgts: Text proto targets make up this component.
     """
-    input_proto_file = "%s.textproto" % script_data_name
+
+    proto_files = " ".join([("$(location %s)" % tgt) for tgt in proto_tgts])
+    combined_textproto = "combined_%s.textproto" % script_data_name
+    native.genrule(
+        name = "combine_%s_textproto" % script_data_name,
+        outs = [combined_textproto],
+        srcs = proto_tgts,
+        visibility = ["//visibility:public"],
+        cmd = "cat %s > $@" % proto_files,
+    )
 
     converter_tool = "//nisaba/scripts/utils:unicode_strings_to_tsv"
     converter_rule_name = "generate_" + script_data_name
     native.genrule(
         name = converter_rule_name,
         outs = ["%s.tsv" % script_data_name],
-        srcs = [input_proto_file],
+        srcs = [combined_textproto],
         exec_tools = [converter_tool],
         visibility = ["//visibility:public"],
         cmd = "$(location %s) --input_text_proto $(location %s) --output_tsv $@" % (
             converter_tool,
-            ":" + input_proto_file,
+            combined_textproto,
         ),
     )
     build_test(
@@ -42,12 +52,24 @@ def _convert_script_data_component(script_data_name):
         targets = [":" + converter_rule_name],
     )
 
-def setup_script_data(name, script_data_components):
+def setup_script_data(name, script_data_components = (), more_component_paths = {}):
     """Converts a list of script components to the corresponding TSV files.
 
     Args:
-       name: Name of this macro.
-       script_data_components: A list of script data component names.
+      name: Name of this macro.
+      script_data_components: A list of script data component names.
+      more_component_paths: Map of component parts available at a path.
     """
-    for script_data in script_data_components:
-        _convert_script_data_component(script_data)
+
+    # Creating the map from components to all their text proto targets
+    path_to_components = dict(more_component_paths)
+    path_to_components[""] = script_data_components
+    component_to_proto_tgts = {}
+    for path, components in path_to_components.items():
+        for component in components:
+            proto_tgt = "%s:%s.textproto" % (path, component)
+            component_to_proto_tgts.setdefault(component, []).append(proto_tgt)
+
+    # Adding the Build rules for each component
+    for component, proto_tgts in component_to_proto_tgts.items():
+        _convert_script_data_component(component, depset(proto_tgts).to_list())

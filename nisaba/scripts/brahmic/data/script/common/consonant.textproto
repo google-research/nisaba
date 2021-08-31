@@ -1,0 +1,155 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+# This file contain shared parts of the 'consonant' data files for the scripts
+# under `scripts/brahmic/data/script`. Since this is shared across scripts, we
+# cannot have the script specific fields `raw` and `uname_prefix`.
+
+to_uname_prefix: "LATIN SMALL LETTER"
+
+item {
+  uname: "KA"
+  to_raw: "k"
+}
+item {
+  uname: "KHA"
+  to_raw: "kh"
+}
+item {
+  uname: "GA"
+  to_raw: "g"
+}
+item {
+  uname: "GHA"
+  to_raw: "gh"
+}
+item {
+  uname: "NGA"
+  to_uname: "N WITH DOT ABOVE" to_raw: "ṅ"
+}
+item {
+  uname: "CA"
+  to_raw: "c"
+}
+item {
+  uname: "CHA"
+  to_raw: "ch"
+}
+item {
+  uname: "JA"
+  to_raw: "j"
+}
+item {
+  uname: "JHA"
+  to_raw: "jh"
+}
+item {
+  uname: "NYA"
+  to_uname: "N WITH TILDE" to_raw: "ñ"
+}
+item {
+  uname: "TTA"
+  to_uname: "T WITH DOT BELOW" to_raw: "ṭ"
+}
+item {
+  uname: "TTHA"
+  to_uname: ["T WITH DOT BELOW", "H"] to_raw: "ṭh"
+}
+item {
+  uname: "DDA"
+  to_uname: "D WITH DOT BELOW" to_raw: "ḍ"
+}
+item {
+  uname: "DDHA"
+  to_uname: ["D WITH DOT BELOW", "H"] to_raw: "ḍh"
+}
+item {
+  uname: "NNA"
+  to_uname: "N WITH DOT BELOW" to_raw: "ṇ"
+}
+item {
+  uname: "TA"
+  to_raw: "t"
+}
+item {
+  uname: "THA"
+  to_raw: "th"
+}
+item {
+  uname: "DA"
+  to_raw: "d"
+}
+item {
+  uname: "DHA"
+  to_raw: "dh"
+}
+item {
+  uname: "NA"
+  to_raw: "n"
+}
+item {
+  uname: "PA"
+  to_raw: "p"
+}
+item {
+  uname: "PHA"
+  to_raw: "ph"
+}
+item {
+  uname: "BA"
+  to_raw: "b"
+}
+item {
+  uname: "BHA"
+  to_raw: "bh"
+}
+item {
+  uname: "MA"
+  to_raw: "m"
+}
+item {
+  uname: "YA"
+  to_raw: "y"
+}
+item {
+  uname: "RA"
+  to_raw: "r"
+}
+item {
+  uname: "LA"
+  to_raw: "l"
+}
+item {
+  uname: "VA"
+  to_raw: "v"
+}
+item {
+  uname: "SHA"
+  to_uname: "S WITH ACUTE" to_raw: "ś"
+}
+item {
+  uname: "SSA"
+  to_uname: "S WITH DOT BELOW" to_raw: "ṣ"
+}
+item {
+  uname: "SA"
+  to_raw: "s"
+}
+item {
+  uname: "HA"
+  to_raw: "h"
+}
