@@ -41,9 +41,8 @@ class UnicodeStringsUtilTest(absltest.TestCase):
     self.assertEqual("abc", self._proto_entries_to_string(raw="abc"))
     self.assertEqual("abc", self._proto_entries_to_string(
         uname_prefixes=["Latin Small Letter"], uname=["A", "B", "C"]))
-    with self.assertRaisesRegex(ValueError, r"Lookup failed"):
-      # Invalid Unicode character name should fail.
-      self._proto_entries_to_string(uname=["AZTEC LETTER Ы"])
+    # Invalid Unicode character name with reference `raw` field returns None.
+    self.assertIsNone(self._proto_entries_to_string(uname=["AZTEC LETTER Ы"]))
 
     # Both the unicode names or raw Unicode codepoint sequence specification is
     # set. In this case, both need to be equivalent.
@@ -85,6 +84,10 @@ class UnicodeStringsUtilTest(absltest.TestCase):
     source, dest = self._convert_item(uname_prefixes=latin_prefix,
                                       uname=["A", "B", "C"])
     self.assertEqual("abc", source)
+    self.assertFalse(dest)
+    source, dest = self._convert_item(uname_prefixes=latin_prefix,
+                                      uname=["ABC", "B", "C"])
+    self.assertFalse(source)
     self.assertFalse(dest)
     source, dest = self._convert_item(uname_prefixes=latin_prefix,
                                       raw="abc", uname=["A", "B", "C"])

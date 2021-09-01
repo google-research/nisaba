@@ -73,10 +73,11 @@ def _convert_data_proto_to_file(data_proto: unicode_strings_pb2.UnicodeStrings):
       source_str, dest_str = lib.convert_item(
           list(data_proto.uname_prefix), list(data_proto.to_uname_prefix),
           index, item)
-      if dest_str:
-        output_file.write('%s\t%s\n' % (source_str, dest_str))
-      else:
-        output_file.write('%s\n' % source_str)
+      if source_str:
+        if dest_str:
+          output_file.write('%s\t%s\n' % (source_str, dest_str))
+        else:
+          output_file.write('%s\n' % source_str)
 
 
 def main(argv: Sequence[str]) -> None:

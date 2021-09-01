@@ -21,6 +21,14 @@ import unicodedata
 from nisaba.scripts.utils import unicode_strings_pb2
 
 
+class NoMatchError(ValueError):
+  pass
+
+
+class MultipleMatchesError(ValueError):
+  pass
+
+
 def name_to_char(prefixes: Sequence[str], suffix: str) -> Tuple[str, str]:
   """Converts a Unicode character name to the corresponding character string.
 
@@ -31,6 +39,11 @@ def name_to_char(prefixes: Sequence[str], suffix: str) -> Tuple[str, str]:
   Returns:
     Returns a tuple that consists of a character in UTF-8 encoding and the
     character name that fully resolve using `uname_prefixes`.
+
+  Raises:
+    MultipleMatchesError: When multiple character names match the prefix and
+    suffix.
+    NoMatchError: When no character name matches the prefix and suffix.
   """
 
   char_names = []
@@ -43,11 +56,12 @@ def name_to_char(prefixes: Sequence[str], suffix: str) -> Tuple[str, str]:
     except KeyError:
       pass
   if not char_names:
-    raise ValueError(f'`{suffix}` does not match a character name '
-                     f'with the prefix(es): `{prefixes}`')
+    raise NoMatchError(f'`{suffix}` does not match a character name '
+                       f'with the prefix(es): `{prefixes}`')
   if len(char_names) > 1:
-    raise ValueError(f'With prefix(es) `{prefixes}`, suffix `{suffix}` '
-                     f'resolves to more than one character: `{char_names}`.')
+    raise MultipleMatchesError(
+        f'With prefix(es) `{prefixes}`, suffix `{suffix}` '
+        f'resolves to more than one character: `{char_names}`.')
   return char_names[0]
 
 
@@ -86,7 +100,8 @@ def proto_entries_to_string(uname_prefixes: Sequence[str], item_index: int,
   Raises:
     ValueError: If parsing fails.
   Returns:
-    Final raw string.
+    Final raw string. None if uname does not match any character, while no raw
+    field is specified for comparision.
   """
   if raw and not uname:
     return raw
@@ -96,10 +111,12 @@ def proto_entries_to_string(uname_prefixes: Sequence[str], item_index: int,
     # Use the raw string as a sanity check to compare with the values in uname.
     test_str = raw
 
+  source_str: str = None
   try:
     source_str, char_names = _names_to_string(uname_prefixes, uname)
   except ValueError as exc:
-    raise ValueError(f'Lookup failed: item #{item_index}') from exc
+    if test_str or isinstance(exc, MultipleMatchesError):
+      raise ValueError(f'Lookup failed: item #{item_index}') from exc
 
   if test_str and source_str != test_str:
     # Name lookup may throw ValueError as well.
@@ -126,7 +143,8 @@ def convert_item(
 
   Returns:
      A tuple of source and destination strings. The latter can be None if
-     destination is not defined.
+     destination is not defined. Source can be None if name does not match any
+     character; but no raw specified for comparision.
   Raises:
     ValueError: If parsing fails.
   """
