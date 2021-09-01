@@ -18,54 +18,75 @@
 uname_prefix: ["DEVANAGARI LETTER", "DEVANAGARI SIGN"]
 
 item {
-  uname: "NNNA" raw: "ऩ"
-  to_uname: "N WITH LINE BELOW" to_raw: "ṉ"
+  uname: "NNNA"
+  raw: "ऩ"
+  to_uname: "N WITH LINE BELOW"
+  to_raw: "ṉ"
 }
 item {
-  uname: "LLLA" raw: "ऴ"
-  to_uname: "L WITH LINE BELOW" to_raw: "ḻ"
+  uname: "LLLA"
+  raw: "ऴ"
+  to_uname: "L WITH LINE BELOW"
+  to_raw: "ḻ"
 }
 item {
-  uname: ["DDA", "NUKTA"] raw: "ड़"
-  to_uname: "R WITH DOT BELOW" to_raw: "ṛ"
+  uname: ["DDA", "NUKTA"]
+  raw: "ड़"
+  to_uname: "R WITH DOT BELOW"
+  to_raw: "ṛ"
 }
 item {
-  uname: ["DDHA", "NUKTA"] raw: "ढ़"
-  to_uname: ["R WITH DOT BELOW", "H"] to_raw: "ṛh"
+  uname: ["DDHA", "NUKTA"]
+  raw: "ढ़"
+  to_uname: ["R WITH DOT BELOW", "MODIFIER LETTER SMALL H"]
+  to_raw: "ṛʰ"
 }
 item {
-  uname: ["YA", "NUKTA"] raw: "य़"
-  to_uname: "Y WITH DOT ABOVE" to_raw: "ẏ"
+  uname: ["YA", "NUKTA"]
+  raw: "य़"
+  to_uname: "Y WITH DOT ABOVE"
+  to_raw: "ẏ"
 }
 item {
-  uname: "RRA" raw: "ऱ"
-  to_uname: ["R", "COMBINING BREVE"] to_raw: "r̆"
+  uname: "RRA"
+  raw: "ऱ"
+  to_uname: ["R", "COMBINING BREVE"]
+  to_raw: "r̆"
 }
 item {
-  uname: "LLA" raw: "ळ"
-  to_uname: "L WITH DOT BELOW" to_raw: "ḷ"
+  uname: "LLA"
+  raw: "ळ"
+  to_uname: "L WITH DOT BELOW"
+  to_raw: "ḷ"
 }
 item {
-  uname: "VA" raw: "व"
+  uname: "VA"
+  raw: "व"
   to_raw: "v"
 }
 item {
-  uname: ["KA", "NUKTA"] raw: "क़"
+  uname: ["KA", "NUKTA"]
+  raw: "क़"
   to_raw: "q"
 }
 item {
-  uname: ["KHA", "NUKTA"] raw: "ख़"
+  uname: ["KHA", "NUKTA"]
+  raw: "ख़"
   to_raw: "x"
 }
 item {
-  uname: ["GA", "NUKTA"] raw: "ग़"
-  to_uname: "G WITH DOT ABOVE" to_raw: "ġ"
+  uname: ["GA", "NUKTA"]
+  raw: "ग़"
+  to_uname: "G WITH DOT ABOVE"
+  to_raw: "ġ"
 }
 item {
-  uname: ["JA", "NUKTA"] raw: "ज़"
+  uname: ["JA", "NUKTA"]
+  raw: "ज़"
   to_raw: "z"
 }
 item {
-  uname: ["PHA", "NUKTA"] raw: "फ़"
+  uname: ["PHA", "NUKTA"]
+  raw: "फ़"
   to_raw: "f"
 }

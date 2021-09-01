@@ -18,46 +18,63 @@
 uname_prefix: ["BENGALI LETTER", "BENGALI SIGN"]
 
 item {
-  uname: ["DDA", "NUKTA"] raw: "ড়"
-  to_uname: "R WITH DOT BELOW" to_raw: "ṛ"
+  uname: ["DDA", "NUKTA"]
+  raw: "ড়"
+  to_uname: "R WITH DOT BELOW"
+  to_raw: "ṛ"
 }
 item {
-  uname: ["DDHA", "NUKTA"] raw: "ঢ়"
-  to_uname: ["R WITH DOT BELOW", "H"] to_raw: "ṛh"
+  uname: ["DDHA", "NUKTA"]
+  raw: "ঢ়"
+  to_uname: ["R WITH DOT BELOW", "MODIFIER LETTER SMALL H"]
+  to_raw: "ṛʰ"
 }
 item {
-  uname: ["YA", "NUKTA"] raw: "য়"
-  to_uname: "Y WITH DOT ABOVE" to_raw: "ẏ"
+  uname: ["YA", "NUKTA"]
+  raw: "য়"
+  to_uname: "Y WITH DOT ABOVE"
+  to_raw: "ẏ"
 }
 item {
-  uname: ["RA WITH MIDDLE DIAGONAL"] raw: "ৰ"
-  to_uname: "TURNED R" to_raw: "ɹ"
+  uname: ["RA WITH MIDDLE DIAGONAL"]
+  raw: "ৰ"
+  to_uname: "TURNED R"
+  to_raw: "ɹ"
 }
 item {
-  uname: ["RA WITH LOWER DIAGONAL"] raw: "ৱ"
+  uname: ["RA WITH LOWER DIAGONAL"]
+  raw: "ৱ"
   to_raw: "v"
 }
 item {
-  uname: ["KA", "NUKTA"] raw: "ক়"
+  uname: ["KA", "NUKTA"]
+  raw: "ক়"
   to_raw: "q"
 }
 item {
-  uname: ["KHA", "NUKTA"] raw: "খ়"
+  uname: ["KHA", "NUKTA"]
+  raw: "খ়"
   to_raw: "x"
 }
 item {
-  uname: ["GA", "NUKTA"] raw: "গ়"
-  to_uname: "G WITH DOT ABOVE" to_raw: "ġ"
+  uname: ["GA", "NUKTA"]
+  raw: "গ়"
+  to_uname: "G WITH DOT ABOVE"
+  to_raw: "ġ"
 }
 item {
-  uname: ["JA", "NUKTA"] raw: "জ়"
+  uname: ["JA", "NUKTA"]
+  raw: "জ়"
   to_raw: "z"
 }
 item {
-  uname: ["PHA", "NUKTA"] raw: "ফ়"
+  uname: ["PHA", "NUKTA"]
+  raw: "ফ়"
   to_raw: "f"
 }
 item {
-  uname: ["RA", "ZERO WIDTH JOINER", "VIRAMA", "YA"] raw: "র‍্য"
-  to_uname: ["R", "Y WITH TILDE"] to_raw: "rỹ"
+  uname: ["RA", "ZERO WIDTH JOINER", "VIRAMA", "YA"]
+  raw: "র‍্য"
+  to_uname: ["R", "Y WITH TILDE"]
+  to_raw: "rỹ"
 }

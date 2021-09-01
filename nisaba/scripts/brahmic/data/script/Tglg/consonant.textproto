@@ -17,17 +17,17 @@
 
 uname_prefix: "TAGALOG LETTER"
 
-item { uname: "KA"  to_raw: "k"  }
-item { uname: "GA"  to_raw: "g"  }
-item { uname: "NGA" to_raw: "ng" }
-item { uname: "TA"  to_raw: "t"  }
-item { uname: "DA"  to_raw: "d"  }
-item { uname: "NA"  to_raw: "n"  }
-item { uname: "PA"  to_raw: "p"  }
-item { uname: "BA"  to_raw: "b"  }
-item { uname: "MA"  to_raw: "m"  }
-item { uname: "YA"  to_raw: "y"  }
-item { uname: "LA"  to_raw: "l"  }
-item { uname: "WA"  to_raw: "w"  }
-item { uname: "SA"  to_raw: "s"  }
-item { uname: "HA"  to_raw: "h"  }
+item { uname: "KA" to_raw: "k" }
+item { uname: "GA" to_raw: "g" }
+item { uname: "NGA" to_raw: "ṅ" }
+item { uname: "TA" to_raw: "t" }
+item { uname: "DA" to_raw: "d" }
+item { uname: "NA" to_raw: "n" }
+item { uname: "PA" to_raw: "p" }
+item { uname: "BA" to_raw: "b" }
+item { uname: "MA" to_raw: "m" }
+item { uname: "YA" to_raw: "y" }
+item { uname: "LA" to_raw: "l" }
+item { uname: "WA" to_raw: "w" }
+item { uname: "SA" to_raw: "s" }
+item { uname: "HA" to_raw: "h" }
