@@ -14,53 +14,74 @@
 
 #include "nisaba/scripts/brahmic/grammar.h"
 
-#include "google/protobuf/stubs/logging.h"
+#include "absl/strings/str_cat.h"
 #include "nisaba/port/file_util.h"
+#include "nisaba/port/status_macros.h"
 
 namespace nisaba {
 namespace brahmic {
 
-bool Grammar::Load() {
+absl::Status Grammar::Load() {
   const auto far_path = file::GetRunfilesResourcePath(far_file_path_);
-  if (!far_path.ok()) {
-    GOOGLE_LOG(ERROR) << far_path.status().ToString();
-    return false;
+  if (!far_path.ok()) return far_path.status();
+  if (!grm_mgr_->LoadArchive(far_path.value())) {
+    return absl::InternalError(absl::StrCat("Failed to load archive from \"",
+                                            far_path.value(), "\""));
   }
-  if (!grm_mgr_->LoadArchive(far_path.value())) return false;
 
   static const std::map<std::string, std::string>& lang_script_map =
       {{"bn", "Beng"}, {"gu", "Gujr"}, {"hi", "Deva"}, {"kn", "Knda"},
        {"ml", "Mlym"}, {"mr", "Deva"}, {"or", "Orya"}, {"pa", "Guru"},
        {"si", "Sinh"}, {"ta", "Taml"}, {"te", "Telu"}};
 
-  if (!grm_mgr_->GetFstMap()->count(fst_name_)) {
+  if (grm_mgr_->GetFstMap()->count(fst_name_) == 0) {
     const auto entry = lang_script_map.find(absl::AsciiStrToLower(fst_name_));
-    if (entry == lang_script_map.end()) return false;
+    if (entry == lang_script_map.end()) {
+      return absl::InternalError(absl::StrCat(
+          "FST \"", fst_name_, "\" not found in lowercase"));
+    }
     fst_name_ = absl::AsciiStrToUpper(entry->second);
-    return grm_mgr_->GetFstMap()->count(fst_name_);
+    if (grm_mgr_->GetFstMap()->count(fst_name_) == 0) {
+      return absl::InternalError(absl::StrCat(
+          "FST \"", fst_name_, "\" not found in uppercase"));
+    }
   }
-  return true;
+  return absl::OkStatus();
 }
 
-bool Grammar::Rewrite(const std::string& input, std::string *output) const {
-  return grm_mgr_->RewriteBytes(fst_name_, input, output);
+absl::Status Grammar::Rewrite(absl::string_view input,
+                              std::string *output) const {
+  if (!grm_mgr_->RewriteBytes(fst_name_, input, output)) {
+    return absl::InternalError(absl::StrCat(
+        "Rewrite failed for \"", input, "\""));
+  }
+  return absl::OkStatus();
 }
 
-bool Grammar::Accept(const std::string& input) const {
+absl::Status Grammar::Accept(absl::string_view input) const {
   std::string output;
-  return grm_mgr_->RewriteBytes(fst_name_, input, &output);
+  if (!grm_mgr_->RewriteBytes(fst_name_, input, &output)) {
+    return absl::InternalError(absl::StrCat(
+        "Rewrite failed for \"", input, "\""));
+  }
+  return absl::OkStatus();
 }
 
-bool Normalizer::Load() {
-  return visual_norm_.Load() && wellformed_.Load();
+absl::Status Normalizer::Load() {
+  RETURN_IF_ERROR(visual_norm_.Load());
+  RETURN_IF_ERROR(wellformed_.Load());
+  return absl::OkStatus();
 }
 
-bool Normalizer::Rewrite(const std::string& input, std::string *output) const {
-  return visual_norm_.Rewrite(input, output) && wellformed_.Accept(*output);
+absl::Status Normalizer::Rewrite(absl::string_view input,
+                                 std::string *output) const {
+  RETURN_IF_ERROR(NormalizeOnly(input, output));
+  RETURN_IF_ERROR(wellformed_.Accept(*output));
+  return absl::OkStatus();
 }
 
-bool Normalizer::NormalizeOnly(const std::string& input,
-                               std::string* output) const {
+absl::Status Normalizer::NormalizeOnly(absl::string_view input,
+                                       std::string *output) const {
   return visual_norm_.Rewrite(input, output);
 }
 

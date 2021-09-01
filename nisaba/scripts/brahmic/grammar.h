@@ -22,8 +22,10 @@
 
 #include "nisaba/port/file_util.h"
 #include "thrax/grm-manager.h"
-#include "absl/strings/ascii.h"
 #include "absl/memory/memory.h"
+#include "absl/status/status.h"
+#include "absl/strings/ascii.h"
+#include "absl/strings/string_view.h"
 
 namespace nisaba {
 namespace brahmic {
@@ -35,22 +37,23 @@ constexpr char kFarExtn[] = ".far";
 // Generic wrapper around FST archive with Brahmic transducers.
 class Grammar {
  public:
-  Grammar(const std::string& far_path, const std::string& far_name,
-          const std::string& fst_name)
+  Grammar(absl::string_view far_path, absl::string_view far_name,
+          absl::string_view fst_name)
       : far_file_path_(file::JoinPath(
             far_path, absl::AsciiStrToLower(far_name) + kFarExtn)),
         fst_name_(absl::AsciiStrToUpper(fst_name)),
         grm_mgr_(absl::make_unique<::thrax::GrmManager>()) {}
 
-  Grammar(const std::string& far_name, const std::string& fst_name)
-      : Grammar(kFarPath, far_name, fst_name){}
+  Grammar(absl::string_view far_name, absl::string_view fst_name)
+      : Grammar(kFarPath, far_name, fst_name) {}
 
-  bool Load();
-  bool Rewrite(const std::string& input,
-                     std::string *output) const;
-  bool Accept(const std::string& input) const;
+  absl::Status Load();
+  absl::Status Rewrite(absl::string_view input, std::string *output) const;
+  absl::Status Accept(absl::string_view input) const;
 
  private:
+  Grammar() = delete;
+
   const std::string far_file_path_;
   std::string fst_name_;
   const std::unique_ptr<::thrax::GrmManager> grm_mgr_;
@@ -59,20 +62,22 @@ class Grammar {
 // Provides normalization of Brahmic text by composing multiple Grammar classes.
 class Normalizer {
  public:
-  explicit Normalizer(const std::string& far_path, const std::string& fst_name)
+  Normalizer(absl::string_view far_path, absl::string_view fst_name)
       : visual_norm_(far_path, "visual_norm", fst_name),
-        wellformed_(far_path, "wellformed", fst_name){}
+        wellformed_(far_path, "wellformed", fst_name) {}
 
-  explicit Normalizer(const std::string& fst_name):
-                      visual_norm_("visual_norm", fst_name),
-                      wellformed_("wellformed", fst_name){}
+  explicit Normalizer(absl::string_view fst_name) :
+      visual_norm_("visual_norm", fst_name),
+      wellformed_("wellformed", fst_name) {}
 
-  bool Load();
-  bool Rewrite(const std::string& input,
-               std::string *output) const;
-  bool NormalizeOnly(const std::string& input, std::string* output) const;
+  absl::Status Load();
+  absl::Status Rewrite(absl::string_view input, std::string *output) const;
+  absl::Status NormalizeOnly(absl::string_view input,
+                             std::string *output) const;
 
  private:
+  Normalizer() = delete;
+
   Grammar visual_norm_;
   Grammar wellformed_;
 };

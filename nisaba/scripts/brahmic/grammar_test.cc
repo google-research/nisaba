@@ -17,8 +17,11 @@
 #include <memory>
 #include <string>
 
+#include "gmock/gmock.h"
+#include "nisaba/port/status-matchers.h"
 #include "gtest/gtest.h"
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
 
 namespace nisaba {
 namespace brahmic {
@@ -26,45 +29,45 @@ namespace {
 
 class GrammarTest : public ::testing::Test {
  public:
-  void TestRewrite(const std::string& input,
-                   const std::string& expected_output) const {
+  void TestRewrite(absl::string_view input,
+                   absl::string_view expected_output) const {
     std::string actual_output;
-    EXPECT_TRUE(rewriter_->Rewrite(input, &actual_output));
+    EXPECT_OK(rewriter_->Rewrite(input, &actual_output));
     EXPECT_EQ(expected_output, actual_output);
   }
 
-  void TestAccept(const std::string& input) const {
-    EXPECT_TRUE(accepter_->Accept(input));
+  void TestAccept(absl::string_view input) const {
+    EXPECT_OK(accepter_->Accept(input));
   }
 
-  void TestReject(const std::string& input) const {
-    EXPECT_FALSE(accepter_->Accept(input));
+  void TestReject(absl::string_view input) const {
+    EXPECT_FALSE(accepter_->Accept(input).ok());
   }
 
-  void TestNormalize(const std::string& input,
-                     const std::string& expected_output) const {
+  void TestNormalize(absl::string_view input,
+                     absl::string_view expected_output) const {
     std::string actual_output;
-    EXPECT_TRUE(normalizer_->Rewrite(input, &actual_output));
+    EXPECT_OK(normalizer_->Rewrite(input, &actual_output));
     EXPECT_EQ(expected_output, actual_output);
-    EXPECT_TRUE(normalizer_->NormalizeOnly(input, &actual_output));
+    EXPECT_OK(normalizer_->NormalizeOnly(input, &actual_output));
     EXPECT_EQ(expected_output, actual_output);
   }
 
-  void TestNormalizeReject(const std::string& input) const {
+  void TestNormalizeReject(absl::string_view input) const {
     std::string actual_output;
-    EXPECT_FALSE(normalizer_->Rewrite(input, &actual_output));
+    EXPECT_FALSE(normalizer_->Rewrite(input, &actual_output).ok());
   }
 
  protected:
   void SetUp() override {
     rewriter_ = absl::make_unique<Grammar>("ISO", "FROM_DEVA");
-    rewriter_->Load();
+    ASSERT_OK(rewriter_->Load());
 
     accepter_ = absl::make_unique<Grammar>("WellFormed", "Deva");
-    accepter_->Load();
+    ASSERT_OK(accepter_->Load());
 
     normalizer_ = absl::make_unique<Normalizer>("Deva");
-    normalizer_->Load();
+    ASSERT_OK(normalizer_->Load());
   }
 
   std::unique_ptr<Grammar> rewriter_;
