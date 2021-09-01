@@ -18,31 +18,31 @@
 uname_prefix: "ORIYA LETTER"
 
 item { uname: "KA"   to_raw: "k"  }
-item { uname: "KHA"  to_raw: "kh" }
+item { uname: "KHA"  to_raw: "kʰ" }
 item { uname: "GA"   to_raw: "g"  }
-item { uname: "GHA"  to_raw: "gh" }
+item { uname: "GHA"  to_raw: "gʰ" }
 item { uname: "NGA"  to_raw: "ṅ"  }
 item { uname: "CA"   to_raw: "c"  }
-item { uname: "CHA"  to_raw: "ch" }
+item { uname: "CHA"  to_raw: "cʰ" }
 item { uname: "JA"   to_raw: "j"  }
-item { uname: "JHA"  to_raw: "jh" }
+item { uname: "JHA"  to_raw: "jʰ" }
 item { uname: "NYA"  to_raw: "ñ"  }
 item { uname: "TTA"  to_raw: "ṭ"  }
-item { uname: "TTHA" to_raw: "ṭh" }
+item { uname: "TTHA" to_raw: "ṭʰ" }
 item { uname: "DDA"  to_raw: "ḍ"  }
 item { uname: ["DDA", "ORIYA SIGN NUKTA"] to_raw: "ṛ" }
-item { uname: "DDHA" to_raw: "ḍh" }
-item { uname: ["DDHA", "ORIYA SIGN NUKTA"] to_raw: "ṛh" }
+item { uname: "DDHA" to_raw: "ḍʰ" }
+item { uname: ["DDHA", "ORIYA SIGN NUKTA"] to_raw: "ṛʰ" }
 item { uname: "NNA"  to_raw: "ṇ"  }
 item { uname: "TA"   to_raw: "t"  }
-item { uname: "THA"  to_raw: "th" }
+item { uname: "THA"  to_raw: "tʰ" }
 item { uname: "DA"   to_raw: "d"  }
-item { uname: "DHA"  to_raw: "dh" }
+item { uname: "DHA"  to_raw: "dʰ" }
 item { uname: "NA"   to_raw: "n"  }
 item { uname: "PA"   to_raw: "p"  }
-item { uname: "PHA"  to_raw: "ph" }
+item { uname: "PHA"  to_raw: "pʰ" }
 item { uname: "BA"   to_raw: "b"  }
-item { uname: "BHA"  to_raw: "bh" }
+item { uname: "BHA"  to_raw: "bʰ" }
 item { uname: "MA"   to_raw: "m"  }
 item { uname: "YA"   to_raw: "y"  }
 item { uname: "YYA"  to_raw: "ẏ"  }

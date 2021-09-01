@@ -53,6 +53,7 @@ py_library(
     srcs_version = "PY3",
     deps = [
         ":file",
+        ":rewrite",
         "@io_abseil_py//absl/testing:absltest",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:utf8",

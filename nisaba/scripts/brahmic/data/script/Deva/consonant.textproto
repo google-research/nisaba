@@ -31,7 +31,7 @@ item {
 }
 item {
   uname: ["DDHA", "NUKTA"] raw: "ढ़"
-  to_uname: ["R WITH DOT BELOW", "H"] to_raw: "ṛh"
+  to_uname: ["R WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ṛʰ"
 }
 item {
   uname: ["YA", "NUKTA"] raw: "य़"

@@ -27,7 +27,7 @@ item {
 }
 item {
   uname: "KHA"
-  to_raw: "kh"
+  to_uname: ["K", "MODIFIER LETTER SMALL H"] to_raw: "kʰ"
 }
 item {
   uname: "GA"
@@ -35,7 +35,7 @@ item {
 }
 item {
   uname: "GHA"
-  to_raw: "gh"
+  to_uname: ["G", "MODIFIER LETTER SMALL H"] to_raw: "gʰ"
 }
 item {
   uname: "NGA"
@@ -47,7 +47,7 @@ item {
 }
 item {
   uname: "CHA"
-  to_raw: "ch"
+  to_uname: ["C", "MODIFIER LETTER SMALL H"] to_raw: "cʰ"
 }
 item {
   uname: "JA"
@@ -55,7 +55,7 @@ item {
 }
 item {
   uname: "JHA"
-  to_raw: "jh"
+  to_uname: ["J", "MODIFIER LETTER SMALL H"] to_raw: "jʰ"
 }
 item {
   uname: "NYA"
@@ -67,7 +67,7 @@ item {
 }
 item {
   uname: "TTHA"
-  to_uname: ["T WITH DOT BELOW", "H"] to_raw: "ṭh"
+  to_uname: ["T WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ṭʰ"
 }
 item {
   uname: "DDA"
@@ -75,7 +75,7 @@ item {
 }
 item {
   uname: "DDHA"
-  to_uname: ["D WITH DOT BELOW", "H"] to_raw: "ḍh"
+  to_uname: ["D WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ḍʰ"
 }
 item {
   uname: "NNA"
@@ -87,7 +87,7 @@ item {
 }
 item {
   uname: "THA"
-  to_raw: "th"
+  to_uname: ["T", "MODIFIER LETTER SMALL H"] to_raw: "tʰ"
 }
 item {
   uname: "DA"
@@ -95,7 +95,7 @@ item {
 }
 item {
   uname: "DHA"
-  to_raw: "dh"
+  to_uname: ["D", "MODIFIER LETTER SMALL H"] to_raw: "dʰ"
 }
 item {
   uname: "NA"
@@ -107,7 +107,7 @@ item {
 }
 item {
   uname: "PHA"
-  to_raw: "ph"
+  to_uname: ["P", "MODIFIER LETTER SMALL H"] to_raw: "pʰ"
 }
 item {
   uname: "BA"
@@ -115,7 +115,7 @@ item {
 }
 item {
   uname: "BHA"
-  to_raw: "bh"
+  to_uname: ["B", "MODIFIER LETTER SMALL H"] to_raw: "bʰ"
 }
 item {
   uname: "MA"
