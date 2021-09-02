@@ -211,9 +211,9 @@ py_test(
 )
 
 py_test(
-    name = "fst_randgen_test",
-    size = "large",
-    srcs = ["fst_randgen_test.py"],
+    name = "randgen_test",
+    size = "enormous",
+    srcs = ["randgen_test.py"],
     data = [
         ":fixed.far",
         ":fixed_utf8.far",
