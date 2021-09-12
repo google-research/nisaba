@@ -70,7 +70,7 @@ def _names_to_string(uname_prefixes: Sequence[str], names: Sequence[str]
   return ''.join(u_chars), resolved_names
 
 
-def proto_entries_to_string(uname_prefixes: Sequence[str], item_index: int,
+def proto_entries_to_string(uname_prefixes: Sequence[str],
                             uname: Sequence[str], raw: str) -> str:
   """Computes string from either Unicode names or codepoint sequence.
 
@@ -79,7 +79,6 @@ def proto_entries_to_string(uname_prefixes: Sequence[str], item_index: int,
 
   Args:
      uname_prefixes: Character name prefixes.
-     item_index: Index of the item in the proto (for debugging).
      uname: List of Unicode character name strings, possibly empty.
      raw: Raw string, possibly empty.
 
@@ -96,24 +95,19 @@ def proto_entries_to_string(uname_prefixes: Sequence[str], item_index: int,
     # Use the raw string as a sanity check to compare with the values in uname.
     test_str = raw
 
-  try:
-    source_str, char_names = _names_to_string(uname_prefixes, uname)
-  except ValueError as exc:
-    raise ValueError(f'Lookup failed: item #{item_index}') from exc
+  source_str, char_names = _names_to_string(uname_prefixes, uname)
 
   if test_str and source_str != test_str:
     # Name lookup may throw ValueError as well.
     test_names = [unicodedata.name(c) for c in test_str]
-    raise ValueError('Item %d: Names in `uname` (%s) mismatch the contents '
-                     'of the `raw` field (%s)' % (
-                         item_index, char_names, test_names))
+    raise ValueError('`uname` field (%s) mismatch names of the characters '
+                     'in the `raw` field (%s)' % (char_names, test_names))
   return source_str
 
 
 def convert_item(
     uname_prefixes: Sequence[str],
     to_uname_prefixes: Sequence[str],
-    item_index: int,
     data_item: unicode_strings_pb2.UnicodeStrings.Item) -> Tuple[
         str, Union[str, None]]:
   """Converts individual item into source and destination strings.
@@ -121,7 +115,6 @@ def convert_item(
   Args:
      uname_prefixes: Character name prefixes.
      to_uname_prefixes: Character name prefixes for those in `to_uname` field.
-     item_index: Index of the item in the proto (for debugging).
      data_item: An item message in the data proto.
 
   Returns:
@@ -132,16 +125,15 @@ def convert_item(
   """
   # We always expect the list item portion to be defined.
   if not data_item.uname and not data_item.raw:
-    raise ValueError('Item %d: Either \'raw\' or \'uname\' have to be defined' %
-                     item_index)
+    raise ValueError('Either \'raw\' or \'uname\' have to be defined')
 
-  source_str = proto_entries_to_string(uname_prefixes, item_index,
-                                       list(data_item.uname), data_item.raw)
+  source_str = proto_entries_to_string(
+      uname_prefixes, list(data_item.uname), data_item.raw)
   # Check if item defines a mapping.
   if not data_item.to_uname and not data_item.to_raw:
     return source_str, None
   if not to_uname_prefixes:
     to_uname_prefixes = uname_prefixes
-  dest_str = proto_entries_to_string(to_uname_prefixes, item_index,
-                                     list(data_item.to_uname), data_item.to_raw)
+  dest_str = proto_entries_to_string(
+      to_uname_prefixes, list(data_item.to_uname), data_item.to_raw)
   return source_str, dest_str

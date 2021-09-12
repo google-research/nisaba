@@ -22,7 +22,7 @@ from absl.testing import absltest
 class UnicodeStringsUtilTest(absltest.TestCase):
 
   def _proto_entries_to_string(self, uname_prefixes=(), uname=(), raw=""):
-    return lib.proto_entries_to_string(uname_prefixes, 0, uname, raw)
+    return lib.proto_entries_to_string(uname_prefixes, uname, raw)
 
   def _convert_item(self, uname_prefixes=(), to_uname_prefixes=(),
                     uname=None, raw="", to_uname=None, to_raw=""):
@@ -33,7 +33,7 @@ class UnicodeStringsUtilTest(absltest.TestCase):
       item.uname.extend(uname)
     if to_uname:
       item.to_uname.extend(to_uname)
-    return lib.convert_item(uname_prefixes, to_uname_prefixes, 0, item)
+    return lib.convert_item(uname_prefixes, to_uname_prefixes, item)
 
   def testProtoEntriesToString(self):
     """Tests the internal API for parsing `uname` and `raw` fields."""
@@ -41,7 +41,7 @@ class UnicodeStringsUtilTest(absltest.TestCase):
     self.assertEqual("abc", self._proto_entries_to_string(raw="abc"))
     self.assertEqual("abc", self._proto_entries_to_string(
         uname_prefixes=["Latin Small Letter"], uname=["A", "B", "C"]))
-    with self.assertRaisesRegex(ValueError, r"Lookup failed"):
+    with self.assertRaisesRegex(ValueError, "does not match a character name"):
       # Invalid Unicode character name should fail.
       self._proto_entries_to_string(uname=["AZTEC LETTER Ы"])
 
@@ -55,16 +55,17 @@ class UnicodeStringsUtilTest(absltest.TestCase):
         uname_prefixes=["BRAHMI"], uname=brahmi_unames, raw=brahmi_string))
 
     # The Unicode name sequence mismatches the reference raw string.
-    with self.assertRaisesRegex(ValueError, r"mismatch the contents"):
+    with self.assertRaisesRegex(ValueError, "mismatch names of the characters"):
       self._proto_entries_to_string(
           uname_prefixes=["BRAHMI"], uname=brahmi_unames + ["LETTER A"],
           raw=brahmi_string)
-    with self.assertRaisesRegex(ValueError, r"mismatch the contents"):
+    with self.assertRaisesRegex(ValueError, "mismatch names of the characters"):
       self._proto_entries_to_string(
           uname_prefixes=["BRAHMI"], uname=brahmi_unames,
           raw=brahmi_string + "𑀞")
     # Both prefixes resolve different characters.
-    with self.assertRaisesRegex(ValueError, r"Lookup failed"):
+    with self.assertRaisesRegex(
+        ValueError, "resolves to more than one character"):
       self._proto_entries_to_string(
           uname_prefixes=["BRAHMI LETTER", "BRAHMI VOWEL SIGN"], uname=["I"],
           raw="𑀇")
@@ -92,9 +93,9 @@ class UnicodeStringsUtilTest(absltest.TestCase):
     self.assertFalse(dest)
 
     # Either `uname` or `raw` or both have to be set.
-    with self.assertRaisesRegex(ValueError, r"have to be defined"):
+    with self.assertRaisesRegex(ValueError, "have to be defined"):
       self._convert_item(to_raw="abc")
-    with self.assertRaisesRegex(ValueError, r"have to be defined"):
+    with self.assertRaisesRegex(ValueError, "have to be defined"):
       self._convert_item(to_uname=["A", "B", "C"])
 
     # Mapping items are set.
@@ -141,15 +142,16 @@ class UnicodeStringsUtilTest(absltest.TestCase):
     self.assertEqual("N", source)
     self.assertEqual("ɴ", dest)
 
-    with self.assertRaisesRegex(ValueError, r"Lookup failed"):
+    with self.assertRaisesRegex(
+        ValueError, "resolves to more than one character"):
       self._convert_item(uname_prefixes=["LATIN", "LATIN SMALL LETTER",
                                          "LATIN CAPITAL LETTER"],
                          uname=["X"], to_uname=["Y"])
 
     # Check equivalence of raw and uname fields on either side.
-    with self.assertRaisesRegex(ValueError, r"mismatch the contents"):
+    with self.assertRaisesRegex(ValueError, "mismatch names of the characters"):
       self._convert_item(uname_prefixes=latin_prefix, raw="abc", uname=["X"])
-    with self.assertRaisesRegex(ValueError, r"mismatch the contents"):
+    with self.assertRaisesRegex(ValueError, "mismatch names of the characters"):
       self._convert_item(uname_prefixes=latin_prefix,
                          raw="___", to_raw="abc", to_uname=["X"])
 
