@@ -106,6 +106,16 @@ py_library(
 )
 
 py_library(
+    name = "proto",
+    srcs = ["proto.py"],
+    srcs_version = "PY3",
+    deps = [
+        ":file",
+        "@com_google_protobuf//:protobuf_python",
+    ],
+)
+
+py_library(
     name = "func",
     srcs = ["func.py"],
 )
@@ -138,7 +148,10 @@ py_library(
     name = "unicode_strings_util",
     srcs = ["unicode_strings_util.py"],
     srcs_version = "PY3",
-    deps = [":unicode_strings_py_pb2"],
+    deps = [
+        ":proto",
+        ":unicode_strings_py_pb2",
+    ],
 )
 
 py_test(
@@ -188,6 +201,17 @@ py_proto_library(
     #   https://thethoughtfulkoala.com/posts/2020/05/08/py-protobuf-bazel.html
     srcs = ["letter_languages.proto"],
     deps = [":unicode_strings_py_pb2"],
+)
+
+py_library(
+    name = "letter_languages",
+    srcs = ["letter_languages.py"],
+    srcs_version = "PY3",
+    deps = [
+        ":letter_languages_py_pb2",
+        ":proto",
+        ":unicode_strings_util",
+    ],
 )
 
 # Note: This test is copied to the respective directory where the script resides

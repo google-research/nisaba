@@ -34,6 +34,15 @@ message UnicodeStrings {
     // representation in `uname` must match the contents of `raw`, otherwise an
     // error is raised.
 
+    // Invisible characters like ZWJ and combining marks like FATHA cannot be
+    // reliably displayed in isolation or next to a Latin punctuation like
+    // QUOTATION MARK. So `raw` and/or `to_raw` fields can be omitted, in those
+    // cases. The value of these fields will be generated from the corresponding
+    // `uname` fields.
+
+    // As a practice, `uname` fields can be omitted, if the `raw` field is
+    // exclusively ASCII.
+
     // Sequence of Unicode characters specified by their character names (e.g.,
     // `BENGALI VOWEL SIGN UU`) or name aliases (e.g., `KANNADA LETTER LLLA`),
     // or sequence names (e.g., `TAMIL SYLLABLE NNNAI`).  Example:

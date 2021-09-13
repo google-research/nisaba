@@ -41,11 +41,8 @@ def setup_letter_languages(name):
         args = ["--input_text_proto=$(location :%s)" % text_proto_name],
         data = [":%s" % text_proto_name],
         deps = [
-            "@com_google_protobuf//:protobuf_python",
             "@io_abseil_py//absl/testing:absltest",
-            "//nisaba/scripts/utils:letter_languages_py_pb2",
-            "//nisaba/scripts/utils:unicode_strings_util",
+            "//nisaba/scripts/utils:letter_languages",
             "@io_abseil_py//absl/flags",
-            "@io_abseil_py//absl/logging",
         ],
     )

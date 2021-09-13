@@ -15,16 +15,12 @@
 """Simple integrity test for the letter language registry."""
 
 import contextlib
-import logging
-import os
 
 from absl import flags
 import pycountry
 
-from google.protobuf import text_format
 from absl.testing import absltest
-from nisaba.scripts.utils import letter_languages_pb2
-import nisaba.scripts.utils.unicode_strings_util as uutil
+from nisaba.scripts.utils import letter_languages
 
 flags.DEFINE_string(
     'input_text_proto', None,
@@ -46,21 +42,13 @@ class LetterLanguagesIntegrityTest(absltest.TestCase):
 
   def setUp(self):
     super().setUp()
-    logging.info('Parsing %s ...', FLAGS.input_text_proto)
-    self.assertTrue(os.path.exists(FLAGS.input_text_proto))
-    letters_proto = letter_languages_pb2.LetterLanguages()
-    with open(FLAGS.input_text_proto, encoding='utf8') as f:
-      text_format.Parse(f.read(), letters_proto)
-    num_letters = len(letters_proto.item)
-    logging.info('Read %d letters.', num_letters)
-    self.assertLess(0, num_letters)
-    self._letters_proto = letters_proto
+    self._letters_proto = letter_languages.read_textproto(
+        FLAGS.input_text_proto)
 
   def test_letters(self):
     """Make sure the unicode letter names map to raw characters correctly."""
-    uname_prefix = self._letters_proto.uname_prefix
-
     all_letters = set()
+    self.assertTrue(self._letters_proto.item)
     for i, item in enumerate(self._letters_proto.item):
       # Letter message should not be empty.
       self.assertTrue(item.letter)
@@ -68,15 +56,10 @@ class LetterLanguagesIntegrityTest(absltest.TestCase):
       self.assertLen(item.letter.uname, 1)
       self.assertTrue(item.letter.raw)
 
-      # Check that unicode character name matches the raw character.
-      uname = item.letter.uname[0]
-      with self.assertNotRaises(KeyError):
-        (u_char, unused_name) = uutil.name_to_char(uname_prefix, uname)
-      self.assertEqual(u_char, item.letter.raw)
-
       # Check that there are no duplicates and the letters are in the
       # Unicode codepoint order.
-      self.assertNotIn(u_char, all_letters,
+      u_char = item.letter.raw
+      self.assertNotIn(item.letter.raw, all_letters,
                        f'Letter {i}: Duplicate letter `{u_char}` found')
       all_letters.add(u_char)
       if i:
@@ -86,6 +69,7 @@ class LetterLanguagesIntegrityTest(absltest.TestCase):
                         f'Letter {i}: Should be in Unicode codepoint order. '
                         f'This codepoint: {this_codepoint}, '
                         f'previous: {prev_codepoint}')
+    self.assertEqual(len(self._letters_proto.item), len(all_letters))
 
   def test_languages(self):
     """Sanity checks for language codes."""
