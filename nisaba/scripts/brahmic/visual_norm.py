@@ -94,11 +94,8 @@ def open_nfc(script_code: str, *, token_type: str) -> pynini.Fst:
 def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generates FSTs for visual normalization of Brahmic scripts."""
   for token_type in ('byte', 'utf8'):
-    # TODO(): Once typing.Literal support is able to tell
-    # that our token_type variable will only be "byte" or "utf8", drop
-    # the pytype disable comment.
     rewrite_map = {}
-    with pynini.default_token_type(token_type):  # pytype: disable=wrong-arg-types
+    with pynini.default_token_type(token_type):
       sigma_map = {}
       for script in u.SCRIPTS:
         sigma = u.OpenSigma(script, token_type=token_type)

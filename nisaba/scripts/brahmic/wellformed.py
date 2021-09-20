@@ -101,10 +101,7 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generate unweighted FSAs accepting the language of each Brahmic script."""
 
   for token_type in ('byte', 'utf8'):
-    # TODO(): Once typing.Literal support is able to tell
-    # that our token_type variable will only be "byte" or "utf8", drop
-    # the pytype disable comment.
-    with pynini.default_token_type(token_type):  # pytype: disable=wrong-arg-types
+    with pynini.default_token_type(token_type):
       exporter = exporter_map[token_type]
       for script in u.SCRIPTS:
         exporter[script.upper()] = accept_well_formed(

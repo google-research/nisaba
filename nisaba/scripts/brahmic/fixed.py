@@ -65,10 +65,7 @@ def _fixed_rule_fst(script: str) -> pynini.Fst:
 def generator_main(exporter_map: multi_grm.ExporterMapping):
   """FSTs for ISO conversion of fixed rule romanization of Brahmic."""
   for token_type in ('byte', 'utf8'):
-    # TODO(): Once typing.Literal support is able to tell
-    # that our token_type variable will only be "byte" or "utf8", drop
-    # the pytype disable comment.
-    with pynini.default_token_type(token_type):  # pytype: disable=wrong-arg-types
+    with pynini.default_token_type(token_type):
       exporter = exporter_map[token_type]
       for script in u.FIXED_RULE_SCRIPTS:
         exporter[f'{script.upper()}'] = _fixed_rule_fst(script)
