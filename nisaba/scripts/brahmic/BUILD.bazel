@@ -252,8 +252,9 @@ nisaba_compile_multi_grm_py(
             "visual_rewrite",
         ]
     ] + [
-        "//nisaba/scripts/brahmic/data/lang/{}:{}.tsv".format(lang, file_name)
-        for lang in LANG_DIRS
+        "//nisaba/scripts/brahmic/data/script/{}/{}:{}.tsv".format(script, lang, file_name)
+        for script in LANG_DIRS
+        for lang in LANG_DIRS[script]
         for file_name in [
             "after_consonant",
             "before_consonant",

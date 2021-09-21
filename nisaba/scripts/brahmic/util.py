@@ -74,8 +74,7 @@ SCRIPTS = [
 ]
 
 LANG_SCRIPT_MAP = {
-    "as": "Beng",
-    "bn": "Beng",
+    "Beng": ["as", "bn"]
 }
 
 FIXED_RULE_SCRIPTS = ["Mlym"]
@@ -83,4 +82,3 @@ FIXED_RULE_SCRIPTS = ["Mlym"]
 FAR_DIR = pathlib.Path("com_google_nisaba/nisaba/scripts/brahmic")
 DATA_DIR = FAR_DIR / "data"
 SCRIPT_DIR = DATA_DIR / "script"
-LANG_DIR = DATA_DIR / "lang"

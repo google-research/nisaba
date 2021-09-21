@@ -31,9 +31,8 @@ SCRIPTS = [
     "Tglg",
 ]
 
-LANG_DIRS = [
-    "as",
-    "bn",
-]
+LANG_DIRS = {
+    "Beng": ["as", "bn"],
+}
 
 FIXED_RULE_SCRIPTS = ["Mlym"]

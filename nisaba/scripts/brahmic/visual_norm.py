@@ -108,19 +108,23 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
             u.SCRIPT_DIR / script / 'consonant.tsv',
             sigma=sigma)).optimize()
 
-      for lang, script in u.LANG_SCRIPT_MAP.items():
-        sigma = sigma_map[script]
-        consonant_map = uf.StringFile(u.SCRIPT_DIR / script / 'consonant.tsv')
-        consonant = pynini.project(consonant_map, 'input')
+      for script, langs in u.LANG_SCRIPT_MAP.items():
+        for lang in langs:
+          sigma = sigma_map[script]
+          consonant_map = uf.StringFile(u.SCRIPT_DIR / script / 'consonant.tsv')
+          consonant = pynini.project(consonant_map, 'input')
 
-        before_cons = uf.StringFile(u.LANG_DIR / lang / 'before_consonant.tsv')
-        rewrite_before_cons = ur.Rewrite(before_cons, '', consonant,
-                                         sigma=sigma)
-        after_cons = uf.StringFile(u.LANG_DIR / lang / 'after_consonant.tsv')
-        rewrite_after_cons = ur.Rewrite(after_cons, '', consonant, sigma=sigma)
-        rewrite_map[lang] = (rewrite_map[script] @
-                             rewrite_before_cons @
-                             rewrite_after_cons).optimize()
+          before_cons = uf.StringFile(
+              u.SCRIPT_DIR / script / lang / 'before_consonant.tsv')
+          rewrite_before_cons = ur.Rewrite(before_cons, '', consonant,
+                                           sigma=sigma)
+          after_cons = uf.StringFile(
+              u.SCRIPT_DIR / script / lang / 'after_consonant.tsv')
+          rewrite_after_cons = ur.Rewrite(
+              after_cons, '', consonant, sigma=sigma)
+          rewrite_map[lang] = (rewrite_map[script] @
+                               rewrite_before_cons @
+                               rewrite_after_cons).optimize()
 
       exporter = exporter_map[token_type]
       for name, fst in rewrite_map.items():
