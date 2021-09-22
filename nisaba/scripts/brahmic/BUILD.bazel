@@ -380,12 +380,9 @@ cc_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        "//nisaba/port:file_util",
-        "@com_google_absl//absl/memory",
+        "//nisaba/scripts/utils:far_base",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/strings",
-        "@org_openfst//:fst",
-        "@org_opengrm_thrax//:thrax",
     ],
 )
 

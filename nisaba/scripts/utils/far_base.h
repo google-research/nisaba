@@ -12,36 +12,43 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// See the documentation on further information on this API.
+#ifndef NISABA_SCRIPTS_UTILS_FAR_BASE_H_
+#define NISABA_SCRIPTS_UTILS_FAR_BASE_H_
 
-#ifndef NISABA_SCRIPTS_BRAHMIC_FAR_H_
-#define NISABA_SCRIPTS_BRAHMIC_FAR_H_
+#include <memory>
+#include <string>
 
+#include "fst/fstlib.h"
+#include "thrax/grm-manager.h"
 #include "absl/status/status.h"
 #include "absl/strings/string_view.h"
-#include "nisaba/scripts/utils/far_base.h"
 
 namespace nisaba {
-namespace brahmic {
 
-// Generic wrapper around FST archive with Brahmic transducers. This class
-// injects the Brahmic-specific data path as well as the corresponding Brahmic
-// script FARs.
-//
+constexpr char kFarExtn[] = ".far";
+
+// Generic wrapper around FST archive with transducers from a given directory.
 // TODO: Instead of far_name, allow the FAR to be specified by
 // Grammar type (iso, wellformed, etc.), Token type (utf8, byte) and
 // compactness. This needs to done together here and in Grammar classes.
-class Far : public FarBase{
+class FarBase {
  public:
-  explicit Far(absl::string_view far_name) : FarBase(far_name) {}
+  // Fetches FST given by its name.
+  std::unique_ptr<::fst::StdFst> Fst(absl::string_view fst_name) const;
 
-  absl::Status Load();
+ protected:
+  explicit FarBase(absl::string_view far_name) : far_name_(far_name) {}
+
+  // Loads FAR from the supplied directory `far_path`.
+  absl::Status Load(absl::string_view far_path);
 
  private:
-  Far() = delete;
+  FarBase() = delete;
+
+  const std::string far_name_;
+  ::thrax::GrmManager grm_mgr_;
 };
 
-}  // namespace brahmic
 }  // namespace nisaba
 
-#endif  // NISABA_SCRIPTS_BRAHMIC_FAR_H_
+#endif  // NISABA_SCRIPTS_UTILS_FAR_BASE_H_
