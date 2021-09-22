@@ -131,6 +131,27 @@ MLYM	ൽ	ൽ
 # sat-Beng specific <SIGN AA, NUKTA>
 BENG	গিদরা়	গিদরা়
 
+# Kokborok specific examples:
+
+# For vowel letter aw
+BENG	অৗইকৗ	অৗইকৗ
+
+# For vowel letter ua
+BENG	কম্পিউারে	কম্পিউারে
+
+# Santali specific examples:
+
+# আৗ for ᱟᱹ
+BENG	আৗডী	আৗডী
+BENG	তাহৗন	তাহৗন
+BENG	কৗল	কৗল
+
+# অঁ for ᱚᱸ
+BENG	মৗঁঝী	মৗঁঝী
+BENG	মৗঁর্ডী	মৗঁর্ডী
+BENG	মৗঁইজিউই	মৗঁইজিউই
+BENG	নিঃহৗঁত	নিঃহৗঁত
+
 # -----------------------------------------------------------------------------
 # Meetei Mayek (Manipuri).
 # -----------------------------------------------------------------------------

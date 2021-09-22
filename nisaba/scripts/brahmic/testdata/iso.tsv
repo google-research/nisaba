@@ -97,6 +97,27 @@ FROM_BRAHMIC	दर्‍या	dar+yā
 FROM_MLYM	കെയ്ൻ	keynⸯ
 FROM_BENG	বেন্ডনর্ৎস	bēnḍanartⸯsa
 
+# Kokborok specific examples:
+
+# For vowel letter aw
+FROM_BENG	অৗইকৗ	a͟w.ikă
+
+# For vowel letter ua
+FROM_BENG	কম্পিউারে	kampi.u͟arē
+
+# Santali specific examples:
+
+# আৗ for ᱟᱹ
+FROM_BENG	আৗডী	ăḍī
+FROM_BENG	তাহৗন	tāhăna
+FROM_BENG	কৗল	kăla
+
+# অঁ for ᱚᱸ
+FROM_BENG	মৗঁঝী	măm̐jhī
+FROM_BENG	মৗঁর্ডী	măm̐rḍī
+FROM_BENG	মৗঁইজিউই	măm̐iji.u.i
+FROM_BENG	নিঃহৗঁত	niḥhăm̐ta
+
 # ------------------------------------------------------------------------------
 # Meetei Mayek (Manipuri):
 # ------------------------------------------------------------------------------
