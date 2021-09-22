@@ -12,27 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Starlark constants for Brahmic targets."""
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
 
-# Script and language codes are used as per IANA registry:
-# https://www.iana.org/assignments/language-subtag-registry
-SCRIPTS = [
-    "Beng",
-    "Deva",
-    "Gujr",
-    "Guru",
-    "Knda",
-    "Mlym",
-    "Mtei",
-    "Orya",
-    "Sinh",
-    "Taml",
-    "Telu",
-    "Tglg",
-]
+uname_prefix: "BENGALI"
 
-LANG_DIRS = {
-    "Beng": ["as", "bn", "sat", "trp"],
+# Bengali transliteration of Ol Chiki ᱟᱹ
+# Romanization from: https://en.wikipedia.org/wiki/Ol_Chiki_script
+item {
+  uname: ["LETTER AA", "AU LENGTH MARK"] raw: "আৗ"
+  to_uname: ["LATIN SMALL LETTER A WITH BREVE"] to_raw: "ă"
 }
-
-FIXED_RULE_SCRIPTS = ["Mlym"]

@@ -46,7 +46,7 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 """
 
 import os
-from typing import Dict
+from typing import Dict, Iterable
 
 import pynini
 from pynini.export import grm
@@ -56,38 +56,24 @@ import nisaba.scripts.utils.file as uf
 import nisaba.scripts.utils.rewrite as ur
 
 
-def brahmic_to_iso(consonant_file: os.PathLike, vowel_sign_file: os.PathLike,
-                   vowel_file: os.PathLike, coda_file: os.PathLike,
-                   standalone_file: os.PathLike,
-                   virama_file: os.PathLike) -> pynini.Fst:
+def _brahmic_to_iso_fst(consonant: pynini.Fst, vowel_sign: pynini.Fst,
+                        vowel: pynini.Fst, coda: pynini.Fst,
+                        standalone: pynini.Fst, virama: pynini.Fst,
+                        common_symbol: pynini.Fst) -> pynini.Fst:
   """Creates an FST that transduces a Brahmic script to ISO 15919.
 
   Args:
-    consonant_file: Path relative to the runfiles directory of a StringFile containing a
-      native--latin consonant mapping.
-    vowel_sign_file: Path relative to depot of a StringFile containing a
-      native--latin vowel matra mapping.
-    vowel_file: Path relative to depot of a StringFile containing a
-      native--latin independent vowel mapping.
-    coda_file: Path relative to depot of a StringFile containing a
-      native--latin coda mapping.
-    standalone_file: Path relative to depot of a StringFile containing a
-      native--latin standalone string mapping.
-    virama_file: Path relative to depot of a StringFile containing the virama
-      for the script.
+    consonant: native--latin consonant mapping.
+    vowel_sign: native--latin vowel matra mapping.
+    vowel: native--latin independent vowel mapping.
+    coda: native--latin coda mapping.
+    standalone: native--latin standalone string mapping.
+    virama: Virama for the script.
+    common_symbol: Script-agnostic common symbol mapping.
 
   Returns:
     Brahmic script to ISO FST.
   """
-
-  consonant = uf.StringFile(consonant_file)
-  vowel_sign = uf.StringFile(vowel_sign_file)
-  vowel = uf.StringFile(vowel_file)
-  coda = uf.StringFile(coda_file)
-  standalone = uf.StringFile(standalone_file)
-  virama = uf.StringFile(virama_file)
-  common_symbol = uf.StringFile(u.DATA_DIR / 'common' / 'symbol.tsv')
-
   ins_a = pynutil.insert('a')
   ins_dash = pynutil.insert('-')
   ins_dot = pynutil.insert('.')
@@ -118,13 +104,49 @@ def brahmic_to_iso(consonant_file: os.PathLike, vowel_sign_file: os.PathLike,
   return pynini.optimize(convert_to_iso.star)
 
 
+def _brahmic_to_iso(consonant_files: Iterable[os.PathLike],
+                    vowel_sign_files: Iterable[os.PathLike],
+                    vowel_files: Iterable[os.PathLike],
+                    coda_files: Iterable[os.PathLike],
+                    standalone_files: Iterable[os.PathLike],
+                    virama_files: Iterable[os.PathLike]) -> pynini.Fst:
+  """Creates an FST that transduces a Brahmic script to ISO 15919.
+
+  Args:
+    consonant_files: Paths relative to the runfiles directory of a StringFile containing a
+      native--latin consonant mapping.
+    vowel_sign_files: Paths relative to depot of a StringFile containing a
+      native--latin vowel matra mapping.
+    vowel_files: Paths relative to depot of a StringFile containing a
+      native--latin independent vowel mapping.
+    coda_files: Paths relative to depot of a StringFile containing a
+      native--latin coda mapping.
+    standalone_files: Paths relative to depot of a StringFile containing a
+      native--latin standalone string mapping.
+    virama_files: Paths relative to depot of a StringFile containing the virama
+      for the script.
+
+  Returns:
+    Brahmic script to ISO FST.
+  """
+  consonant = uf.StringFiles(consonant_files)
+  vowel_sign = uf.StringFiles(vowel_sign_files)
+  vowel = uf.StringFiles(vowel_files)
+  coda = uf.StringFiles(coda_files)
+  standalone = uf.StringFiles(standalone_files)
+  virama = uf.StringFiles(virama_files)
+  common_symbol = uf.StringFile(u.DATA_DIR / 'common' / 'symbol.tsv')
+  return _brahmic_to_iso_fst(consonant, vowel_sign, vowel, coda, standalone,
+                             virama, common_symbol)
+
+
 def _script_to_iso(script: str) -> pynini.Fst:
-  return brahmic_to_iso(u.SCRIPT_DIR / script / 'consonant.tsv',
-                        u.SCRIPT_DIR / script / 'vowel_sign.tsv',
-                        u.SCRIPT_DIR / script / 'vowel.tsv',
-                        u.SCRIPT_DIR / script / 'coda.tsv',
-                        u.SCRIPT_DIR / script / 'standalone.tsv',
-                        u.SCRIPT_DIR / script / 'virama.tsv')
+  return _brahmic_to_iso([u.SCRIPT_DIR / script / 'consonant.tsv'],
+                         [u.SCRIPT_DIR / script / 'vowel_sign.tsv'],
+                         u.AllScriptAndLangFiles(script, 'vowel.tsv'),
+                         [u.SCRIPT_DIR / script / 'coda.tsv'],
+                         [u.SCRIPT_DIR / script / 'standalone.tsv'],
+                         [u.SCRIPT_DIR / script / 'virama.tsv'])
 
 
 def generator_main(exporter: grm.Exporter):

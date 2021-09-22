@@ -18,6 +18,7 @@
 import errno
 import os
 import pathlib
+from typing import Iterable
 
 import pynini
 from rules_python.python.runfiles import runfiles
@@ -49,6 +50,21 @@ def StringFileSafe(filename: os.PathLike) -> pynini.Fst:
   fst = StringFile(filename) if IsFileExist(filename) else None
   # TODO: Remove the empty FST check once  is fixed.
   return fst if fst and str(fst) else pynini.accep("")
+
+
+def StringFiles(files: Iterable[os.PathLike]) -> pynini.Fst:
+  """Returns the union of string maps specified in `files` that must exist."""
+  return pynini.union(*(StringFile(path) for path in files))
+
+
+def StringFilesSafe(files: Iterable[os.PathLike]) -> pynini.Fst:
+  """Returns the union of string maps specified in `files` which may be invalid."""
+  fsts = [StringFile(filename) for filename in files if IsFileExist(filename)]
+  # TODO: Remove the empty FST check once  is fixed.
+  fsts = [fst for fst in fsts if str(fst)]
+  if not fsts:
+    return pynini.accep("")
+  return pynini.union(*fsts).optimize()
 
 
 def OpenFstFromFar(far_dir: pathlib.Path, far_name: str,

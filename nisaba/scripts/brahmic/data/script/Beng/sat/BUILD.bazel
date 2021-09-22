@@ -12,27 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Starlark constants for Brahmic targets."""
+# Language definitions for Santali.
 
-# Script and language codes are used as per IANA registry:
-# https://www.iana.org/assignments/language-subtag-registry
-SCRIPTS = [
-    "Beng",
-    "Deva",
-    "Gujr",
-    "Guru",
-    "Knda",
-    "Mlym",
-    "Mtei",
-    "Orya",
-    "Sinh",
-    "Taml",
-    "Telu",
-    "Tglg",
-]
+load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
 
-LANG_DIRS = {
-    "Beng": ["as", "bn", "sat", "trp"],
-}
+package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
-FIXED_RULE_SCRIPTS = ["Mlym"]
+licenses(["notice"])
+
+setup_script_data(
+    name = "sat",
+    script_data_components = [
+        "after_consonant",
+        "before_consonant",
+        "vowel",
+    ],
+)

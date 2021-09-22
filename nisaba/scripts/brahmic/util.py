@@ -15,7 +15,9 @@
 
 """Utility functions and definitions used in this package."""
 
+import os
 import pathlib
+from typing import List
 
 import pynini
 from pynini.lib import byte
@@ -74,7 +76,7 @@ SCRIPTS = [
 ]
 
 LANG_SCRIPT_MAP = {
-    "Beng": ["as", "bn"]
+    "Beng": ["as", "bn", "sat", "trp"]
 }
 
 FIXED_RULE_SCRIPTS = ["Mlym"]
@@ -82,3 +84,14 @@ FIXED_RULE_SCRIPTS = ["Mlym"]
 FAR_DIR = pathlib.Path("com_google_nisaba/nisaba/scripts/brahmic")
 DATA_DIR = FAR_DIR / "data"
 SCRIPT_DIR = DATA_DIR / "script"
+
+
+def AllLangFiles(script: str, file_name: str) -> List[os.PathLike]:
+  """For a given script returns all language files with a given file name."""
+  return [SCRIPT_DIR / script / lang / file_name for lang in
+          LANG_SCRIPT_MAP[script]] if script in LANG_SCRIPT_MAP else []
+
+
+def AllScriptAndLangFiles(script: str, file_name: str) -> List[os.PathLike]:
+  """Given script and component file name returns all relevant files."""
+  return [SCRIPT_DIR / script / file_name] + AllLangFiles(script, file_name)

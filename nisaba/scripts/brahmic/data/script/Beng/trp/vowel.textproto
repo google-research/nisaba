@@ -12,27 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Starlark constants for Brahmic targets."""
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
 
-# Script and language codes are used as per IANA registry:
-# https://www.iana.org/assignments/language-subtag-registry
-SCRIPTS = [
-    "Beng",
-    "Deva",
-    "Gujr",
-    "Guru",
-    "Knda",
-    "Mlym",
-    "Mtei",
-    "Orya",
-    "Sinh",
-    "Taml",
-    "Telu",
-    "Tglg",
-]
+uname_prefix: "BENGALI"
 
-LANG_DIRS = {
-    "Beng": ["as", "bn", "sat", "trp"],
+# Kokborok diphthongs
+# Ref: Unicode Standard 13.0 chapter 12.2 table 12-12
+
+# Vowel letter aw
+item {
+  uname: ["LETTER A", "AU LENGTH MARK"] raw: "অৗ"
+  to_uname: ["LATIN SMALL LETTER A", "COMBINING DOUBLE MACRON BELOW", "LATIN SMALL LETTER W"] to_raw: "a͟w"
 }
 
-FIXED_RULE_SCRIPTS = ["Mlym"]
+# Vowel letter ua
+item {
+  uname: ["LETTER U", "VOWEL SIGN AA"] raw: "উা"
+  to_uname: ["LATIN SMALL LETTER U", "COMBINING DOUBLE MACRON BELOW", "LATIN SMALL LETTER A"] to_raw: "u͟a"
+}

@@ -25,5 +25,6 @@ setup_script_data(
     script_data_components = [
         "after_consonant",
         "before_consonant",
+        "vowel",
     ],
 )

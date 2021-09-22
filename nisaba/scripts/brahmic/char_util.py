@@ -37,7 +37,7 @@ def script_chars(script: str) -> Set[str]:
           u.SCRIPT_DIR / script / "virama.tsv",
           u.SCRIPT_DIR / script / "vowel.tsv",
           u.SCRIPT_DIR / script / "vowel_sign.tsv",
-      ],
+      ] + u.AllLangFiles(script, "vowel.tsv"),
       both_sides=[
           u.SCRIPT_DIR / script / "nfc.tsv",
           u.SCRIPT_DIR / script / "visual_rewrite.tsv",
