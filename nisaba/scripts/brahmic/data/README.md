@@ -33,12 +33,13 @@ capitalized. Example: `Deva` for Devanagari.
     defined in Unicode data tables, for the given script. Example: `क़(U+0958) ⇥
     क़(U+0915 U+093C)`
 1.  `visual_rewrite.textproto`: The specific rewrites that are part of the
-    Visual Norm rewrites. Example: In Devanagari, eyelash-RA can be represented
-    in two ways <RA, VIRAMA, ZWJ> and <RRA, VIRAMA>, where the later being the
-    standard ([The Unicode Standard](http://www.unicode.org/versions/latest/)
-    §12.1). The former sequence is rewritten to this standard form. First column
-    represents the non-standard form and the second column is the corresponding
-    standard form.
+    visual normalization rewrites. Example: In Devanagari, eyelash-RA can be
+    represented in two ways <RA, VIRAMA, ZWJ> and <RRA, VIRAMA>, where the later
+    being the standard
+    ([The Unicode Standard](http://www.unicode.org/versions/latest/) §12.1). The
+    former sequence is rewritten to this standard form. First column represents
+    the non-standard form and the second column is the corresponding standard
+    form.
 1.  `preserve.textproto`: Usually the zero width characters like Zero Width
     Joiner (ZWJ U+200D), Zero Width Non-Joiner (ZWNJ U+200C), and Zero Width
     Space (ZWS U+200B) can be deleted from the text. However, they are
@@ -57,16 +58,17 @@ capitalized. Example: `Deva` for Devanagari.
 
 ## Language specific directories
 
-Data files corresponding to the specific languages are kept under `lang`. These
-directory names follow [BCP 47](https://tools.ietf.org/html/bcp47). Example:
-`bn` for Bengali.
+The data for languages that use a particular script are kept under
+subdirectories inside the corresponding script directory. These directory names
+follow [BCP 47](https://tools.ietf.org/html/bcp47). For example, the data files
+for Bangla in Bengali script are located in `Beng/bn` directory.
 
 1.  `before_consonant.textproto` and `after_consonant.textproto`: The specific
-    rewrites are part of the Visual Norm rewrites specific to the language on
-    top of the corresponding script specific ones. For example, the rewrites in
-    `bn` will be applied on top of the corresponding `Beng` script rewrites.
-    These rewrites are applied with *before-consonant* and *after-consonant*
-    contexts respectively.
+    rewrites are part of the visual normalization rewrites specific to the
+    language on top of the corresponding script specific ones. For example, the
+    rewrites in `bn` will be applied on top of the corresponding `Beng` script
+    rewrites. These rewrites are applied with *before-consonant* and
+    *after-consonant* contexts respectively.
 
 ## Common directory
 
