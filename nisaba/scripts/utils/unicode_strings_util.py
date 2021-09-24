@@ -129,6 +129,10 @@ def convert_item(
   if not data_item.uname and not data_item.raw:
     raise ValueError('Either \'raw\' or \'uname\' have to be defined')
 
+  # Make sure the lists of Unicode prefixes contain unique elements.
+  uname_prefixes = list(set(uname_prefixes))
+  to_uname_prefixes = list(set(to_uname_prefixes))
+
   source_str = proto_entries_to_string(
       uname_prefixes, list(data_item.uname), data_item.raw)
   # Check if item defines a mapping.
