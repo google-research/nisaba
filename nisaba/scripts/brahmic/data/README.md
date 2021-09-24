@@ -69,6 +69,8 @@ for Bangla in Bengali script are located in `Beng/bn` directory.
     rewrites in `bn` will be applied on top of the corresponding `Beng` script
     rewrites. These rewrites are applied with *before-consonant* and
     *after-consonant* contexts respectively.
+1.  `vowel.textproto`: Language-specific independent vowel listing. These
+    entries are included in romanization and well-formedness transducers.
 
 ## Common directory
 
