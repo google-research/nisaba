@@ -113,8 +113,7 @@ nisaba_grm_regression_test(
 
 nisaba_grm_regression_test(
     name = "nfc_utf8_test",
-    far_file_target = ":nfc_utf8.far",
-    grammar = ":nfc",
+    grammar = ":nfc_utf8",
     test_file = "testdata:nfc.tsv",
     token_type = "utf8",
 )
@@ -281,8 +280,7 @@ nisaba_grm_regression_test(
 
 nisaba_grm_regression_test(
     name = "visual_norm_utf8_test",
-    far_file_target = ":visual_norm_utf8.far",
-    grammar = ":visual_norm",
+    grammar = ":visual_norm_utf8",
     test_file = "testdata:visual_norm.tsv",
     token_type = "utf8",
 )
@@ -328,8 +326,7 @@ nisaba_grm_regression_test(
 
 nisaba_grm_regression_test(
     name = "wellformed_utf8_test",
-    far_file_target = ":wellformed_utf8.far",
-    grammar = ":wellformed",
+    grammar = ":wellformed_utf8",
     test_file = "testdata:wellformed.tsv",
     token_type = "utf8",
 )
