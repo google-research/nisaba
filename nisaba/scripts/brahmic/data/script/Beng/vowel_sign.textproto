@@ -69,17 +69,3 @@ item {
   uname: ["VOWEL SIGN AU"] raw: "ৌ"
   to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER U"] to_raw: "au"
 }
-
-# Nasalized vowel sign used by Santali when written in Bengali script.
-# Uses ALA-LC transliteration for Ol Chiki ᱚᱹ
-item {
-  uname: ["VOWEL SIGN AA", "SIGN NUKTA"] raw: "া়"
-  to_uname: ["LATIN SMALL LETTER A WITH DOT BELOW", "COMBINING MACRON"] to_raw: "ạ̄"
-}
-
-# Bengali transliteration of Ol Chiki ᱚᱹ as per:
-# Romanization from: https://en.wikipedia.org/wiki/Ol_Chiki_script
-item {
-  uname: ["AU LENGTH MARK"] raw: "ৗ"
-  to_uname: ["LATIN SMALL LETTER A WITH BREVE"] to_raw: "ă"
-}

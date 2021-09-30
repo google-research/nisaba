@@ -18,4 +18,4 @@ package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
-exports_files(["vowel.textproto"])
+exports_files(glob(["*.textproto"]))
