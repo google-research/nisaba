@@ -11,6 +11,7 @@ script tags are as below. When a script tag is used as a finite state transducer
 are all lowercase (e.g., `iso`).
 
 1.  Bengali (`Beng`)
+1.  Lontara (`Bugi`)
 1.  Devanagari (`Deva`)
 1.  Gujarati (`Gujr`)
 1.  Gurmukhi (`Guru`)

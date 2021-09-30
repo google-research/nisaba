@@ -199,3 +199,38 @@ TO_TGLG	mapasa.amin	ᜋᜉᜐᜀᜋᜒᜈ᜔
 TO_TGLG	pagpapatawad	ᜉᜄ᜔ᜉᜉᜆᜏᜇ᜔
 TO_TGLG	makakalikasan	ᜋᜃᜃᜎᜒᜃᜐᜈ᜔
 
+# ------------------------------------------------------------------------------
+# Lontara (Buginese).
+# ------------------------------------------------------------------------------
+FROM_BUGI	ᨅᨗᨕᨚᨒᨚᨁᨗ	bi.ologi
+FROM_BUGI	ᨊᨕᨔᨛᨂᨗᨈᨚ	na.asæŋito
+FROM_BUGI	ᨔᨕᨗᨊᨔ	sa.inasa
+FROM_BUGI	ᨀᨚᨆᨘᨊᨗᨈᨔ	komunitasa
+FROM_BUGI	ᨔᨙᨉᨗᨔᨙᨉᨗ	sedisedi
+FROM_BUGI	ᨕᨔᨗᨒᨚᨑᨗᨂᨛ	asiloriŋæ
+FROM_BUGI	ᨔᨗᨅᨓ	sibawa
+FROM_BUGI	ᨐᨙ	ye
+FROM_BUGI	ᨑᨗᨕᨙᨅᨘ	ri.ebu
+FROM_BUGI	ᨆᨕᨙᨁ	ma.ega
+FROM_BUGI	ᨕᨄᨛᨒᨗᨀᨔᨗ	apælikasi
+FROM_BUGI	ᨓᨗᨀᨗᨄᨙᨉᨗᨕ	wikipedi.a
+FROM_BUGI	ᨕᨙᨔᨗᨀᨚᨒᨚᨄᨙᨉᨗ	esikolopedi
+FROM_BUGI	ᨔᨛᨊᨗ	sæni
+FROM_BUGI	ᨆᨘᨒᨘᨈᨗᨆᨙᨉᨗᨐ		mulutimediya
+FROM_BUGI	ᨕᨛᨃ	æŋka
+TO_BUGI		bi.ologia	ᨅᨗᨕᨚᨒᨚᨁᨗᨕ
+TO_BUGI		na.asæŋito	ᨊᨕᨔᨛᨂᨗᨈᨚ
+TO_BUGI		sa.inasa	ᨔᨕᨗᨊᨔ
+TO_BUGI		komunitasa	ᨀᨚᨆᨘᨊᨗᨈᨔ
+TO_BUGI		sedisedi	ᨔᨙᨉᨗᨔᨙᨉᨗ
+TO_BUGI		asiloriŋæ	ᨕᨔᨗᨒᨚᨑᨗᨂᨛ
+TO_BUGI		sibawa		ᨔᨗᨅᨓ
+TO_BUGI		ye		ᨐᨙ
+TO_BUGI		ri.ebu		ᨑᨗᨕᨙᨅᨘ
+TO_BUGI		ma.ega		ᨆᨕᨙᨁ
+TO_BUGI		apælikasi	ᨕᨄᨛᨒᨗᨀᨔᨗ
+TO_BUGI		wikipedi.a	ᨓᨗᨀᨗᨄᨙᨉᨗᨕ
+TO_BUGI		esikolopedi	ᨕᨙᨔᨗᨀᨚᨒᨚᨄᨙᨉᨗ
+TO_BUGI		sæni		ᨔᨛᨊᨗ
+TO_BUGI		mulutimediya	ᨆᨘᨒᨘᨈᨗᨆᨙᨉᨗᨐ
+TO_BUGI		æŋka		ᨕᨛᨃ

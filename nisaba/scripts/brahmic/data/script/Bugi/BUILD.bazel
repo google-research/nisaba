@@ -12,28 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Starlark constants for Brahmic targets."""
+# Script definitions for Lontara (Buginese).
 
-# Script and language codes are used as per IANA registry:
-# https://www.iana.org/assignments/language-subtag-registry
-SCRIPTS = [
-    "Beng",
-    "Bugi",
-    "Deva",
-    "Gujr",
-    "Guru",
-    "Knda",
-    "Mlym",
-    "Mtei",
-    "Orya",
-    "Sinh",
-    "Taml",
-    "Telu",
-    "Tglg",
-]
+load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
 
-LANG_DIRS = {
-    "Beng": ["as", "bn"],
-}
+package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
-FIXED_RULE_SCRIPTS = ["Mlym"]
+licenses(["notice"])
+
+setup_script_data(
+    name = "Bugi",
+    script_data_components = [
+        "accept",
+        "coda",
+        "consonant",
+        "nfc",
+        "preserve",
+        "standalone",
+        "virama",
+        "visual_rewrite",
+        "vowel",
+        "vowel_sign",
+    ],
+)

@@ -60,6 +60,7 @@ def OpenSigma(script: str, *, token_type: str) -> pynini.Fst:
 # https://www.iana.org/assignments/language-subtag-registry
 SCRIPTS = [
     "Beng",
+    "Bugi",
     "Deva",
     "Gujr",
     "Guru",
