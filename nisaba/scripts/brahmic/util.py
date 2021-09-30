@@ -67,6 +67,7 @@ SCRIPTS = [
     "Knda",
     "Mlym",
     "Mtei",
+    "Newa",
     "Orya",
     "Sinh",
     "Taml",

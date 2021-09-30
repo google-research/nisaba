@@ -234,3 +234,27 @@ TO_BUGI		esikolopedi	ᨕᨙᨔᨗᨀᨚᨒᨚᨄᨙᨉᨗ
 TO_BUGI		sæni		ᨔᨛᨊᨗ
 TO_BUGI		mulutimediya	ᨆᨘᨒᨘᨈᨗᨆᨙᨉᨗᨐ
 TO_BUGI		æŋka		ᨕᨛᨃ
+
+# ------------------------------------------------------------------------------
+# Newa (Pracalit).
+# ------------------------------------------------------------------------------
+FROM_NEWA	𑐨𑐵𑐫𑑂	bʰāy
+FROM_NEWA	𑐣𑐾𑐰𑐵𑑅	nēwāḥ
+FROM_NEWA	𑐣𑐾𑐥𑐵𑐮	nēpāla
+FROM_NEWA	𑐧𑐶𑐮𑐫𑑂	bilay
+FROM_NEWA	𑐥𑑂𑐬𑐔𑐮𑐶𑐟	pracalita
+FROM_NEWA	𑐀𑑄𑐐𑑂𑐬𑐖𑐟𑐫𑐾𑐳𑑄	aṁgrajatayēsaṁ
+FROM_NEWA	𑐀𑐣𑑂𑐟𑐬𑐩𑐴𑐵𑐡𑐾𑐱𑐷𑐫	antaramahādēśīya
+FROM_NEWA	𑐴𑐮𑐶𑐩𑐫𑐵	halimayā
+FROM_NEWA	𑐠𑐣𑐫𑐵𑐐𑐸	tʰanayāgu
+FROM_NEWA	𑐖𑐣𑐳𑑄𑐏𑑂𑐫𑐵	janasaṁkʰyā
+TO_NEWA	bʰāy	𑐨𑐵𑐫𑑂
+TO_NEWA	nēwāḥ	𑐣𑐾𑐰𑐵𑑅
+TO_NEWA	nēpāla	𑐣𑐾𑐥𑐵𑐮
+TO_NEWA	bilay	𑐧𑐶𑐮𑐫𑑂
+TO_NEWA	pracalita	𑐥𑑂𑐬𑐔𑐮𑐶𑐟
+TO_NEWA	aṁgrajatayēsaṁ	𑐀𑑄𑐐𑑂𑐬𑐖𑐟𑐫𑐾𑐳𑑄
+TO_NEWA	antaramahādēśīya	𑐀𑐣𑑂𑐟𑐬𑐩𑐴𑐵𑐡𑐾𑐱𑐷𑐫
+TO_NEWA	halimayā	𑐴𑐮𑐶𑐩𑐫𑐵
+TO_NEWA	tʰanayāgu	𑐠𑐣𑐫𑐵𑐐𑐸
+TO_NEWA	janasaṁkʰyā	𑐖𑐣𑐳𑑄𑐏𑑂𑐫𑐵

@@ -1,0 +1,35 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "NEWA"
+
+# ------------------------------------------------------------------------------
+# See the `Encoding Choices` section of
+#   https://r12a.github.io/scripts/newa/#vowel_encoding
+# ------------------------------------------------------------------------------
+item {
+  uname: ["LETTER A", "VOWEL SIGN AA"]  raw: "𑐀𑐵"
+  to_uname: "LETTER AA" to_raw: "𑐁"
+}
+item {
+  uname: ["LETTER U", "VOWEL SIGN O"] raw: "𑐄𑑀"
+  to_uname: "LETTER O" to_raw: "𑐌"
+}
+item {
+  uname: ["VOWEL SIGN E", "VOWEL SIGN AA"] raw: "𑐾𑐵"
+  to_uname: "VOWEL SIGN O" to_raw: "𑑀"
+}

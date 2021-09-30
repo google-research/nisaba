@@ -18,6 +18,7 @@ are all lowercase (e.g., `iso`).
 1.  Kannada (`Knda`)
 1.  Malayalam (`Mlym`)
 1.  Meetei Mayek (`Mtei`)
+1.  Newa (Prachalit) (`Newa`)
 1.  Oriya (`Orya`)
 1.  Sinhala (`Sinh`)
 1.  Tagalog (Baybayin) (`Tglg`)
@@ -71,7 +72,7 @@ Single FST for all the supported scripts: `nfc.BRAHMIC`
 
 ## Visual Norm {#visual_norm}
 
-_Visual Norm_ of a text is the result of the normalization that rewrites the
+*Visual Norm* of a text is the result of the normalization that rewrites the
 text to its standard sequence of codepoints, preserving its visual fidelity. For
 example, in Malayalam, following rewrite needs to be applied to get the standard
 Chillu representation from the legacy one:
@@ -294,9 +295,9 @@ represented separately as `au̯`.
 
 #### Religious symbol Om {.leaf-numbered}
 
-Some Brahmic scripts have the religious symbol _Om_ encoded as a separate
+Some Brahmic scripts have the religious symbol *Om* encoded as a separate
 character. Strictly speaking, religious symbols need not to be transliterated.
-However, as _Om_ has a standard phonetic transcription, it is represented as
+However, as *Om* has a standard phonetic transcription, it is represented as
 `ōm̐`, as an exception to this convention.
 
 ## C++ API {#cc}
@@ -402,8 +403,8 @@ Vector format. The FAR data dependencies are not embedded and are accessed from
 the run files directory at runtime.
 
 1.  The construct `Far` object with the FAR name as the only argument. Example
-    for FAR names: _wellformed\_utf8_ indicating `utf8` token type.
-    Corresponding `byte` token type FAR name would be: _wellformed_. Apart from
+    for FAR names: *wellformed\_utf8* indicating `utf8` token type.
+    Corresponding `byte` token type FAR name would be: *wellformed*. Apart from
     the token type, the FAR and FST names are as used in the `Grammar` class
     described above.
 

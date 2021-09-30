@@ -235,3 +235,6 @@ AS	রর্	রর্
 ORYA	ଓ୍ବେବ	ୱେବ
 # Oriya LETTER WA mis-encoded as <LETTER O, VIRAMA, LETTER WA>
 ORYA	ଓ୍ୱାଇଫାଇ	ୱାଇଫାଇ
+
+# Newa (Pracalit): <LETTER AA> misencoded as <LETTER A, VOWEL SIGN AA>.
+NEWA	𑐀𑐵𑐩𑐾	𑐁𑐩𑐾

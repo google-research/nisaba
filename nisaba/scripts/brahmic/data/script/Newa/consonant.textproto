@@ -1,0 +1,58 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "NEWA LETTER"
+
+item { uname: "KA"   raw: "𑐎" to_raw: "k"  }
+item { uname: "KHA"  raw: "𑐏" to_raw: "kʰ" }
+item { uname: "GA"   raw: "𑐐" to_raw: "g"  }
+item { uname: "GHA"  raw: "𑐑" to_raw: "gʰ" }
+item { uname: "NGA"  raw: "𑐒" to_raw: "ṅ" }
+item { uname: "NGHA" raw: "𑐓" to_raw: "ṅʰ" }
+item { uname: "CA"   raw: "𑐔" to_raw: "c"  }
+item { uname: "CHA"  raw: "𑐕" to_raw: "cʰ" }
+item { uname: "JA"   raw: "𑐖" to_raw: "j"  }
+item { uname: "JHA"  raw: "𑐗" to_raw: "jʰ" }
+item { uname: "NYA"  raw: "𑐘" to_raw: "ñ"  }
+item { uname: "NYHA" raw: "𑐙" to_raw: "ñʰ" }
+item { uname: "TTA"  raw: "𑐚" to_raw: "ṭ"  }
+item { uname: "TTHA" raw: "𑐛" to_raw: "ṭʰ" }
+item { uname: "DDA"  raw: "𑐜" to_raw: "ḍ"  }
+item { uname: "DDHA" raw: "𑐝" to_raw: "ṛʰ" }
+item { uname: "NNA"  raw: "𑐞" to_raw: "ṇ"  }
+item { uname: "TA"   raw: "𑐟" to_raw: "t"  }
+item { uname: "THA"  raw: "𑐠" to_raw: "tʰ" }
+item { uname: "DA"   raw: "𑐡" to_raw: "d"  }
+item { uname: "DHA"  raw: "𑐢" to_raw: "dʰ" }
+item { uname: "NA"   raw: "𑐣" to_raw: "n"  }
+item { uname: "NHA"  raw: "𑐤" to_raw: "nʰ" }
+item { uname: "PA"   raw: "𑐥" to_raw: "p"  }
+item { uname: "PHA"  raw: "𑐦" to_raw: "pʰ" }
+item { uname: "BA"   raw: "𑐧" to_raw: "b"  }
+item { uname: "BHA"  raw: "𑐨" to_raw: "bʰ" }
+item { uname: "MA"   raw: "𑐩" to_raw: "m"  }
+item { uname: "MHA"  raw: "𑐪" to_raw: "mʰ" }
+item { uname: "YA"   raw: "𑐫" to_raw: "y"  }
+item { uname: "RA"   raw: "𑐬" to_raw: "r"  }
+item { uname: "RHA"  raw: "𑐭" to_raw: "rʰ" }
+item { uname: "LA"   raw: "𑐮" to_raw: "l"  }
+item { uname: "LHA"  raw: "𑐯" to_raw: "lʰ"  }
+item { uname: "WA"   raw: "𑐰" to_raw: "w"  }
+item { uname: "SHA"  raw: "𑐱" to_raw: "ś"  }
+item { uname: "SSA"  raw: "𑐲" to_raw: "ṣ"  }
+item { uname: "SA"   raw: "𑐳" to_raw: "s"  }
+item { uname: "HA"   raw: "𑐴" to_raw: "h"  }
