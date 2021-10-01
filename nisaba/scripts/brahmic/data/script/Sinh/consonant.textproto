@@ -23,7 +23,7 @@ item {
 }
 item {
   uname: ["LETTER MAHAAPRAANA KAYANNA"] raw: "ඛ"
-  to_uname: ["LATIN SMALL LETTER K", "LATIN SMALL LETTER H"] to_raw: "kh"
+  to_uname: ["LATIN SMALL LETTER K", "MODIFIER LETTER SMALL H"] to_raw: "kʰ"
 }
 item {
   uname: ["LETTER ALPAPRAANA GAYANNA"] raw: "ග"
@@ -31,7 +31,7 @@ item {
 }
 item {
   uname: ["LETTER MAHAAPRAANA GAYANNA"] raw: "ඝ"
-  to_uname: ["LATIN SMALL LETTER G", "LATIN SMALL LETTER H"] to_raw: "gh"
+  to_uname: ["LATIN SMALL LETTER G", "MODIFIER LETTER SMALL H"] to_raw: "gʰ"
 }
 item {
   uname: ["LETTER KANTAJA NAASIKYAYA"] raw: "ඞ"
@@ -39,7 +39,7 @@ item {
 }
 item {
   uname: ["LETTER SANYAKA GAYANNA"] raw: "ඟ"
-  to_uname: ["LATIN SMALL LETTER N", "COMBINING BREVE", "LATIN SMALL LETTER G"] to_raw: "n̆g"
+  to_uname: ["MODIFIER LETTER SMALL ENG", "LATIN SMALL LETTER G"] to_raw: "ᵑg"
 }
 item {
   uname: ["LETTER ALPAPRAANA CAYANNA"] raw: "ච"
@@ -47,7 +47,7 @@ item {
 }
 item {
   uname: ["LETTER MAHAAPRAANA CAYANNA"] raw: "ඡ"
-  to_uname: ["LATIN SMALL LETTER C", "LATIN SMALL LETTER H"] to_raw: "ch"
+  to_uname: ["LATIN SMALL LETTER C", "MODIFIER LETTER SMALL H"] to_raw: "cʰ"
 }
 item {
   uname: ["LETTER ALPAPRAANA JAYANNA"] raw: "ජ"
@@ -55,7 +55,7 @@ item {
 }
 item {
   uname: ["LETTER MAHAAPRAANA JAYANNA"] raw: "ඣ"
-  to_uname: ["LATIN SMALL LETTER J", "LATIN SMALL LETTER H"] to_raw: "jh"
+  to_uname: ["LATIN SMALL LETTER J", "MODIFIER LETTER SMALL H"] to_raw: "jʰ"
 }
 item {
   uname: ["LETTER TAALUJA NAASIKYAYA"] raw: "ඤ"
@@ -63,7 +63,7 @@ item {
 }
 item {
   uname: ["LETTER SANYAKA JAYANNA"] raw: "ඦ"
-  to_uname: ["LATIN SMALL LETTER N", "COMBINING BREVE", "LATIN SMALL LETTER J"] to_raw: "n̆j"
+  to_uname: ["MODIFIER LETTER SMALL ENG", "LATIN SMALL LETTER J"] to_raw: "ᵑj"
 }
 item {
   uname: ["LETTER ALPAPRAANA TTAYANNA"] raw: "ට"
@@ -71,7 +71,7 @@ item {
 }
 item {
   uname: ["LETTER MAHAAPRAANA TTAYANNA"] raw: "ඨ"
-  to_uname: ["LATIN SMALL LETTER T WITH DOT BELOW", "LATIN SMALL LETTER H"] to_raw: "ṭh"
+  to_uname: ["LATIN SMALL LETTER T WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ṭʰ"
 }
 item {
   uname: ["LETTER ALPAPRAANA DDAYANNA"] raw: "ඩ"
@@ -79,7 +79,7 @@ item {
 }
 item {
   uname: ["LETTER MAHAAPRAANA DDAYANNA"] raw: "ඪ"
-  to_uname: ["LATIN SMALL LETTER D WITH DOT BELOW", "LATIN SMALL LETTER H"] to_raw: "ḍh"
+  to_uname: ["LATIN SMALL LETTER D WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ḍʰ"
 }
 item {
   uname: ["LETTER MUURDHAJA NAYANNA"] raw: "ණ"
@@ -87,7 +87,7 @@ item {
 }
 item {
   uname: ["LETTER SANYAKA DDAYANNA"] raw: "ඬ"
-  to_uname: ["LATIN SMALL LETTER N", "COMBINING BREVE", "LATIN SMALL LETTER D WITH DOT BELOW"] to_raw: "n̆ḍ"
+  to_uname: ["MODIFIER LETTER SMALL ENG", "LATIN SMALL LETTER D WITH DOT BELOW"] to_raw: "ᵑḍ"
 }
 item {
   uname: ["LETTER ALPAPRAANA TAYANNA"] raw: "ත"
@@ -95,7 +95,7 @@ item {
 }
 item {
   uname: ["LETTER MAHAAPRAANA TAYANNA"] raw: "ථ"
-  to_uname: ["LATIN SMALL LETTER T", "LATIN SMALL LETTER H"] to_raw: "th"
+  to_uname: ["LATIN SMALL LETTER T", "MODIFIER LETTER SMALL H"] to_raw: "tʰ"
 }
 item {
   uname: ["LETTER ALPAPRAANA DAYANNA"] raw: "ද"
@@ -103,7 +103,7 @@ item {
 }
 item {
   uname: ["LETTER MAHAAPRAANA DAYANNA"] raw: "ධ"
-  to_uname: ["LATIN SMALL LETTER D", "LATIN SMALL LETTER H"] to_raw: "dh"
+  to_uname: ["LATIN SMALL LETTER D", "MODIFIER LETTER SMALL H"] to_raw: "dʰ"
 }
 item {
   uname: ["LETTER DANTAJA NAYANNA"] raw: "න"
@@ -111,7 +111,7 @@ item {
 }
 item {
   uname: ["LETTER SANYAKA DAYANNA"] raw: "ඳ"
-  to_uname: ["LATIN SMALL LETTER N", "COMBINING BREVE", "LATIN SMALL LETTER D"] to_raw: "n̆d"
+  to_uname: ["MODIFIER LETTER SMALL ENG", "LATIN SMALL LETTER D"] to_raw: "ᵑd"
 }
 item {
   uname: ["LETTER ALPAPRAANA PAYANNA"] raw: "ප"
@@ -119,7 +119,7 @@ item {
 }
 item {
   uname: ["LETTER MAHAAPRAANA PAYANNA"] raw: "ඵ"
-  to_uname: ["LATIN SMALL LETTER P", "LATIN SMALL LETTER H"] to_raw: "ph"
+  to_uname: ["LATIN SMALL LETTER P", "MODIFIER LETTER SMALL H"] to_raw: "pʰ"
 }
 item {
   uname: ["LETTER ALPAPRAANA BAYANNA"] raw: "බ"
@@ -127,7 +127,7 @@ item {
 }
 item {
   uname: ["LETTER MAHAAPRAANA BAYANNA"] raw: "භ"
-  to_uname: ["LATIN SMALL LETTER B", "LATIN SMALL LETTER H"] to_raw: "bh"
+  to_uname: ["LATIN SMALL LETTER B", "MODIFIER LETTER SMALL H"] to_raw: "bʰ"
 }
 item {
   uname: ["LETTER MAYANNA"] raw: "ම"
@@ -135,7 +135,7 @@ item {
 }
 item {
   uname: ["LETTER AMBA BAYANNA"] raw: "ඹ"
-  to_uname: ["LATIN SMALL LETTER M", "COMBINING BREVE", "LATIN SMALL LETTER B"] to_raw: "m̆b"
+  to_uname: ["MODIFIER LETTER SMALL ENG", "LATIN SMALL LETTER B"] to_raw: "ᵑb"
 }
 item {
   uname: ["LETTER YAYANNA"] raw: "ය"

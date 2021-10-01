@@ -23,7 +23,7 @@ item {
 }
 item {
   uname: ["LETTER KHA"] raw: "ఖ"
-  to_uname: ["LATIN SMALL LETTER K", "LATIN SMALL LETTER H"] to_raw: "kh"
+  to_uname: ["LATIN SMALL LETTER K", "MODIFIER LETTER SMALL H"] to_raw: "kʰ"
 }
 item {
   uname: ["LETTER GA"] raw: "గ"
@@ -31,7 +31,7 @@ item {
 }
 item {
   uname: ["LETTER GHA"] raw: "ఘ"
-  to_uname: ["LATIN SMALL LETTER G", "LATIN SMALL LETTER H"] to_raw: "gh"
+  to_uname: ["LATIN SMALL LETTER G", "MODIFIER LETTER SMALL H"] to_raw: "gʰ"
 }
 item {
   uname: ["LETTER NGA"] raw: "ఙ"
@@ -47,7 +47,7 @@ item {
 }
 item {
   uname: ["LETTER CHA"] raw: "ఛ"
-  to_uname: ["LATIN SMALL LETTER C", "LATIN SMALL LETTER H"] to_raw: "ch"
+  to_uname: ["LATIN SMALL LETTER C", "MODIFIER LETTER SMALL H"] to_raw: "cʰ"
 }
 item {
   uname: ["LETTER JA"] raw: "జ"
@@ -55,7 +55,7 @@ item {
 }
 item {
   uname: ["LETTER JHA"] raw: "ఝ"
-  to_uname: ["LATIN SMALL LETTER J", "LATIN SMALL LETTER H"] to_raw: "jh"
+  to_uname: ["LATIN SMALL LETTER J", "MODIFIER LETTER SMALL H"] to_raw: "jʰ"
 }
 item {
   uname: ["LETTER NYA"] raw: "ఞ"
@@ -67,7 +67,7 @@ item {
 }
 item {
   uname: ["LETTER TTHA"] raw: "ఠ"
-  to_uname: ["LATIN SMALL LETTER T WITH DOT BELOW", "LATIN SMALL LETTER H"] to_raw: "ṭh"
+  to_uname: ["LATIN SMALL LETTER T WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ṭʰ"
 }
 item {
   uname: ["LETTER DDA"] raw: "డ"
@@ -75,7 +75,7 @@ item {
 }
 item {
   uname: ["LETTER DDHA"] raw: "ఢ"
-  to_uname: ["LATIN SMALL LETTER D WITH DOT BELOW", "LATIN SMALL LETTER H"] to_raw: "ḍh"
+  to_uname: ["LATIN SMALL LETTER D WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ḍʰ"
 }
 item {
   uname: ["LETTER NNA"] raw: "ణ"
@@ -87,7 +87,7 @@ item {
 }
 item {
   uname: ["LETTER THA"] raw: "థ"
-  to_uname: ["LATIN SMALL LETTER T", "LATIN SMALL LETTER H"] to_raw: "th"
+  to_uname: ["LATIN SMALL LETTER T", "MODIFIER LETTER SMALL H"] to_raw: "tʰ"
 }
 item {
   uname: ["LETTER DA"] raw: "ద"
@@ -95,7 +95,7 @@ item {
 }
 item {
   uname: ["LETTER DHA"] raw: "ధ"
-  to_uname: ["LATIN SMALL LETTER D", "LATIN SMALL LETTER H"] to_raw: "dh"
+  to_uname: ["LATIN SMALL LETTER D", "MODIFIER LETTER SMALL H"] to_raw: "dʰ"
 }
 item {
   uname: ["LETTER NA"] raw: "న"
@@ -107,7 +107,7 @@ item {
 }
 item {
   uname: ["LETTER PHA"] raw: "ఫ"
-  to_uname: ["LATIN SMALL LETTER P", "LATIN SMALL LETTER H"] to_raw: "ph"
+  to_uname: ["LATIN SMALL LETTER P", "MODIFIER LETTER SMALL H"] to_raw: "pʰ"
 }
 item {
   uname: ["LETTER BA"] raw: "బ"
@@ -115,7 +115,7 @@ item {
 }
 item {
   uname: ["LETTER BHA"] raw: "భ"
-  to_uname: ["LATIN SMALL LETTER B", "LATIN SMALL LETTER H"] to_raw: "bh"
+  to_uname: ["LATIN SMALL LETTER B", "MODIFIER LETTER SMALL H"] to_raw: "bʰ"
 }
 item {
   uname: ["LETTER MA"] raw: "మ"

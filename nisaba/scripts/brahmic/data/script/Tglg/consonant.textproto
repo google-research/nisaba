@@ -19,7 +19,7 @@ uname_prefix: "TAGALOG LETTER"
 
 item { uname: "KA"  to_raw: "k"  }
 item { uname: "GA"  to_raw: "g"  }
-item { uname: "NGA" to_raw: "ng" }
+item { uname: "NGA" to_raw: "ṅ" }
 item { uname: "TA"  to_raw: "t"  }
 item { uname: "DA"  to_raw: "d"  }
 item { uname: "NA"  to_raw: "n"  }
