@@ -46,7 +46,7 @@ nisaba_compile_grm_py(
             "vowel",
             "vowel_sign",
         ]
-    ] + ["//nisaba/scripts/brahmic/data/common:symbol.tsv"],
+    ] + ["//nisaba/scripts/brahmic/data/script/common:symbol.tsv"],
     visibility = ["//visibility:public"],
     deps = [
         ":util",
@@ -307,7 +307,6 @@ nisaba_compile_multi_grm_py(
             "vowel_sign",
         ]
     ] + [
-        "//nisaba/scripts/brahmic/data/common:symbol.tsv",
         "//nisaba/scripts/brahmic/data/script/Beng:dead_consonant.tsv",
         "//nisaba/scripts/brahmic/data/script/Mlym:dead_consonant.tsv",
         "//nisaba/scripts/brahmic/data/script/Mtei:dead_consonant.tsv",

@@ -12,10 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Common definitions for Brahmic scripts.
+
+load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
+
 licenses(["notice"])
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 exports_files(
     glob(["*.textproto"]),
+)
+
+setup_script_data(
+    name = "common",
+    script_data_components = ["symbol"],
 )

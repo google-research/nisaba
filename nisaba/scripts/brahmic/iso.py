@@ -86,7 +86,7 @@ def brahmic_to_iso(consonant_file: os.PathLike, vowel_sign_file: os.PathLike,
   coda = uf.StringFile(coda_file)
   standalone = uf.StringFile(standalone_file)
   virama = uf.StringFile(virama_file)
-  common_symbol = uf.StringFile(u.DATA_DIR / 'common' / 'symbol.tsv')
+  common_symbol = uf.StringFile(u.SCRIPT_DIR / 'common' / 'symbol.tsv')
 
   ins_a = pynutil.insert('a')
   ins_dash = pynutil.insert('-')
