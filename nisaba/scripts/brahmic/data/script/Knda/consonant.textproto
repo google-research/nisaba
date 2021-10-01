@@ -17,29 +17,25 @@
 
 uname_prefix: ["KANNADA LETTER", "KANNADA SIGN"]
 
-item {
-  uname: "RRA" raw: "ಱ"
-  to_uname: "R WITH LINE BELOW" to_raw: "ṟ"
-}
-item {
-  uname: "VA" raw: "ವ"
-  to_raw: "v"
-}
+item { uname: "VA" raw: "ವ" to_raw: "v" }
+item { uname: ["JA", "NUKTA"] raw: "ಜ಼" to_raw: "z" }
+item { uname: ["PHA", "NUKTA"] raw: "ಫ಼" to_raw: "f" }
+
 item {
   uname: "FA" raw: "ೞ"
   to_uname: "L WITH LINE BELOW" to_raw: "ḻ"
+}
+item {
+  uname: "RRA" raw: "ಱ"
+  to_uname: "R WITH LINE BELOW" to_raw: "ṟ"
 }
 item {
   uname: "LLA" raw: "ಳ"
   to_uname: "L WITH DOT BELOW" to_raw: "ḷ"
 }
 item {
-  uname: ["JA", "NUKTA"] raw: "ಜ಼"
-  to_raw: "z"
-}
-item {
-  uname: ["PHA", "NUKTA"] raw: "ಫ಼"
-  to_raw: "f"
+  uname: "SSA" raw: "ಷ"
+  to_uname: "S WITH DOT BELOW" to_raw: "ṣ"
 }
 item {
   uname: ["RA", "ZERO WIDTH JOINER", "VIRAMA", "YA"] raw: "ರ‍್ಯ"

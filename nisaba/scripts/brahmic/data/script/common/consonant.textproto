@@ -138,10 +138,6 @@ item {
   to_uname: "S WITH ACUTE" to_raw: "ś"
 }
 item {
-  uname: "SSA"
-  to_uname: "S WITH DOT BELOW" to_raw: "ṣ"
-}
-item {
   uname: "SA"
   to_raw: "s"
 }
