@@ -18,66 +18,66 @@
 uname_prefix: "BENGALI"
 
 item {
-  uname: ["LETTER A"] raw: "অ"
-  to_uname: ["LATIN SMALL LETTER A"] to_raw: "a"
+  uname: "LETTER A" raw: "অ"
+  to_uname: "LATIN SMALL LETTER A" to_raw: "a"
 }
 item {
-  uname: ["LETTER AA"] raw: "আ"
-  to_uname: ["LATIN SMALL LETTER A WITH MACRON"] to_raw: "ā"
+  uname: "LETTER AA" raw: "আ"
+  to_uname: "LATIN SMALL LETTER A WITH MACRON" to_raw: "ā"
 }
 item {
   uname: ["LETTER A", "SIGN VIRAMA", "LETTER YA", "VOWEL SIGN AA"] raw: "অ্যা"
-  to_uname: ["LATIN SMALL LETTER AE"] to_raw: "æ"
+  to_uname: "LATIN SMALL LETTER AE" to_raw: "æ"
 }
 item {
-  uname: ["LETTER I"] raw: "ই"
-  to_uname: ["LATIN SMALL LETTER I"] to_raw: "i"
+  uname: "LETTER I" raw: "ই"
+  to_uname: "LATIN SMALL LETTER I" to_raw: "i"
 }
 item {
-  uname: ["LETTER II"] raw: "ঈ"
-  to_uname: ["LATIN SMALL LETTER I WITH MACRON"] to_raw: "ī"
+  uname: "LETTER II" raw: "ঈ"
+  to_uname: "LATIN SMALL LETTER I WITH MACRON" to_raw: "ī"
 }
 item {
-  uname: ["LETTER U"] raw: "উ"
-  to_uname: ["LATIN SMALL LETTER U"] to_raw: "u"
+  uname: "LETTER U" raw: "উ"
+  to_uname: "LATIN SMALL LETTER U" to_raw: "u"
 }
 item {
-  uname: ["LETTER UU"] raw: "ঊ"
-  to_uname: ["LATIN SMALL LETTER U WITH MACRON"] to_raw: "ū"
+  uname: "LETTER UU" raw: "ঊ"
+  to_uname: "LATIN SMALL LETTER U WITH MACRON" to_raw: "ū"
 }
 item {
-  uname: ["LETTER VOCALIC R"] raw: "ঋ"
+  uname: "LETTER VOCALIC R" raw: "ঋ"
   to_uname: ["LATIN SMALL LETTER R", "COMBINING RING BELOW"] to_raw: "r̥"
 }
 item {
-  uname: ["LETTER VOCALIC RR"] raw: "ৠ"
+  uname: "LETTER VOCALIC RR" raw: "ৠ"
   to_uname: ["LATIN SMALL LETTER R", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "r̥̄"
 }
 item {
-  uname: ["LETTER VOCALIC L"] raw: "ঌ"
+  uname: "LETTER VOCALIC L" raw: "ঌ"
   to_uname: ["LATIN SMALL LETTER L", "COMBINING RING BELOW"] to_raw: "l̥"
 }
 item {
-  uname: ["LETTER VOCALIC LL"] raw: "ৡ"
+  uname: "LETTER VOCALIC LL" raw: "ৡ"
   to_uname: ["LATIN SMALL LETTER L", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "l̥̄"
 }
 item {
-  uname: ["LETTER E"] raw: "এ"
-  to_uname: ["LATIN SMALL LETTER E WITH MACRON"] to_raw: "ē"
+  uname: "LETTER E" raw: "এ"
+  to_uname: "LATIN SMALL LETTER E WITH MACRON" to_raw: "ē"
 }
 item {
   uname: ["LETTER E", "SIGN VIRAMA", "LETTER YA", "VOWEL SIGN AA"] raw: "এ্যা"
-  to_uname: ["LATIN SMALL LETTER E WITH CIRCUMFLEX"] to_raw: "ê"
+  to_uname: "LATIN SMALL LETTER E WITH CIRCUMFLEX" to_raw: "ê"
 }
 item {
-  uname: ["LETTER AI"] raw: "ঐ"
+  uname: "LETTER AI" raw: "ঐ"
   to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER I"] to_raw: "ai"
 }
 item {
-  uname: ["LETTER O"] raw: "ও"
-  to_uname: ["LATIN SMALL LETTER O WITH MACRON"] to_raw: "ō"
+  uname: "LETTER O" raw: "ও"
+  to_uname: "LATIN SMALL LETTER O WITH MACRON" to_raw: "ō"
 }
 item {
-  uname: ["LETTER AU"] raw: "ঔ"
+  uname: "LETTER AU" raw: "ঔ"
   to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER U"] to_raw: "au"
 }
