@@ -52,9 +52,25 @@ def _convert_script_data_component(script_data_name, proto_tgts):
         targets = [":" + converter_rule_name],
     )
 
+def _create_empty_component(script_data_name):
+    """Creates an empty script data component file in TSV format.
+
+    Args:
+      script_data_name: The name of the script data (e.g., `accept`).
+    """
+
+    native.genrule(
+        name = "create_%s_tsv" % script_data_name,
+        outs = ["%s.tsv" % script_data_name],
+        visibility = ["//visibility:public"],
+        # May not work in Windows. To be fixed when Windows support is added.
+        cmd = "touch $@",
+    )
+
 def setup_script_data(
         name,
         script_data_components = (),
+        empty_components = (),
         more_component_paths = {},
         export_script_data = True):
     """Converts a list of script components to the corresponding TSV files.
@@ -62,6 +78,7 @@ def setup_script_data(
     Args:
       name: Name of this macro.
       script_data_components: A list of script data component names.
+      empty_components: List of components without any items.
       more_component_paths: Map of component parts available at a path.
       export_script_data: Whether the script data should be exported. If
         the data is auto-generated set this argument to `False`.
@@ -88,3 +105,6 @@ def setup_script_data(
     # Adding the build rules for each component.
     for component, proto_tgts in component_to_proto_tgts.items():
         _convert_script_data_component(component, depset(proto_tgts).to_list())
+
+    for component in empty_components:
+        _create_empty_component(component)

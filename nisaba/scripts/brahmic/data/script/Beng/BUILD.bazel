@@ -22,6 +22,10 @@ licenses(["notice"])
 
 setup_script_data(
     name = "Bengali",
+    empty_components = [
+        "accept",
+        "standalone",
+    ],
     more_component_paths = {
         "//nisaba/scripts/brahmic/data/script/common": ["consonant"],
         "//nisaba/scripts/brahmic/data/script/Beng/sat": [
@@ -31,13 +35,11 @@ setup_script_data(
         "//nisaba/scripts/brahmic/data/script/Beng/trp": ["vowel"],
     },
     script_data_components = [
-        "accept",
         "coda",
         "consonant",
         "dead_consonant",
         "nfc",
         "preserve",
-        "standalone",
         "virama",
         "visual_rewrite",
         "vowel",
