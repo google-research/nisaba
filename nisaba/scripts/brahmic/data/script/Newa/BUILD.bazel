@@ -22,14 +22,16 @@ licenses(["notice"])
 
 setup_script_data(
     name = "Newa",
+    empty_components = [
+        "accept",
+        "nfc",
+    ],
     more_component_paths = {
         "//nisaba/scripts/brahmic/data/script/common": ["consonant"],
     },
     script_data_components = [
-        "accept",
         "coda",
         "consonant",
-        "nfc",
         "preserve",
         "standalone",
         "virama",

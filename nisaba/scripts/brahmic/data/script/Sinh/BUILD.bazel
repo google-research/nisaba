@@ -22,13 +22,15 @@ licenses(["notice"])
 
 setup_script_data(
     name = "Sinhala",
-    script_data_components = [
+    empty_components = [
         "accept",
+        "standalone",
+    ],
+    script_data_components = [
         "coda",
         "consonant",
         "nfc",
         "preserve",
-        "standalone",
         "virama",
         "visual_rewrite",
         "vowel",

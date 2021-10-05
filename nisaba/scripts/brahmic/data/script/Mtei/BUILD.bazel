@@ -22,16 +22,18 @@ licenses(["notice"])
 
 setup_script_data(
     name = "Mtei",
+    empty_components = [
+        "nfc",
+        "preserve",
+        "standalone",
+        "visual_rewrite",
+    ],
     script_data_components = [
         "accept",
         "coda",
         "consonant",
         "dead_consonant",
-        "nfc",
-        "preserve",
-        "standalone",
         "virama",
-        "visual_rewrite",
         "vowel",
         "vowel_sign",
     ],

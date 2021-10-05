@@ -22,6 +22,9 @@ licenses(["notice"])
 
 setup_script_data(
     name = "Malayalam",
+    empty_components = [
+        "standalone",
+    ],
     more_component_paths = {
         "//nisaba/scripts/brahmic/data/script/common": ["consonant"],
     },
@@ -33,7 +36,6 @@ setup_script_data(
         "fixed",
         "nfc",
         "preserve",
-        "standalone",
         "virama",
         "visual_rewrite",
         "vowel",

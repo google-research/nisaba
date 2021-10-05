@@ -22,15 +22,17 @@ licenses(["notice"])
 
 setup_script_data(
     name = "Bugi",
-    script_data_components = [
+    empty_components = [
         "accept",
         "coda",
-        "consonant",
         "nfc",
         "preserve",
         "standalone",
         "virama",
         "visual_rewrite",
+    ],
+    script_data_components = [
+        "consonant",
         "vowel",
         "vowel_sign",
     ],

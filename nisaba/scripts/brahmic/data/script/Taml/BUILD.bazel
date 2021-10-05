@@ -22,12 +22,14 @@ licenses(["notice"])
 
 setup_script_data(
     name = "Tamil",
-    script_data_components = [
+    empty_components = [
         "accept",
+        "preserve",
+    ],
+    script_data_components = [
         "coda",
         "consonant",
         "nfc",
-        "preserve",
         "standalone",
         "virama",
         "visual_rewrite",
