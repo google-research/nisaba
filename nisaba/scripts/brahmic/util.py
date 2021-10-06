@@ -15,10 +15,13 @@
 
 """Utility functions and definitions used in this package."""
 
+import os
 import pathlib
 
+from google.protobuf import text_format
 import pynini
 from pynini.lib import byte
+from nisaba.scripts.brahmic import script_config_pb2
 import nisaba.scripts.utils.file as uf
 
 
@@ -55,6 +58,18 @@ def OpenSigma(script: str, *, token_type: str) -> pynini.Fst:
     raise ValueError(f"Received invalid token_type: {token_type}")
 
 
+def MaybeLoadScriptConfig(
+    file_path: os.PathLike) -> script_config_pb2.ScriptConfig:
+  """Loads script configuration, if present."""
+  pb = script_config_pb2.ScriptConfig()
+  if not uf.IsFileExist(file_path):
+    return pb
+  file_path = uf.AsResourcePath(file_path)
+  with open(file_path, encoding="utf8") as f:
+    text_format.Parse(f.read(), pb)
+  return pb
+
+
 # Scripts supported by the brahmic library.
 # Script and language codes are used as per IANA registry:
 # https://www.iana.org/assignments/language-subtag-registry
@@ -73,6 +88,7 @@ SCRIPTS = [
     "Taml",
     "Telu",
     "Tglg",
+    "Thaa",
 ]
 
 LANG_SCRIPT_MAP = {

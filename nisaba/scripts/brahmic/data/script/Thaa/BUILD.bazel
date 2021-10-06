@@ -12,30 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Starlark constants for Brahmic targets."""
+# Thaana script definitions.
 
-# Script and language codes are used as per IANA registry:
-# https://www.iana.org/assignments/language-subtag-registry
-SCRIPTS = [
-    "Beng",
-    "Bugi",
-    "Deva",
-    "Gujr",
-    "Guru",
-    "Knda",
-    "Mlym",
-    "Mtei",
-    "Newa",
-    "Orya",
-    "Sinh",
-    "Taml",
-    "Telu",
-    "Tglg",
-    "Thaa",
-]
+load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
 
-LANG_DIRS = {
-    "Beng": ["as", "bn"],
-}
+package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
-FIXED_RULE_SCRIPTS = ["Mlym"]
+licenses(["notice"])
+
+setup_script_data(
+    name = "Thaa",
+    empty_components = [
+        "accept",
+        "nfc",
+        "preserve",
+        "standalone",
+        "visual_rewrite",
+    ],
+    script_data_components = [
+        "coda",
+        "consonant",
+        "virama",
+        "vowel",
+        "vowel_sign",
+    ],
+)
+
+exports_files(["script_config.textproto"])

@@ -259,3 +259,86 @@ TO_NEWA	antaramahādēśīya	𑐀𑐣𑑂𑐟𑐬𑐩𑐴𑐵𑐡𑐾𑐱𑐷�
 TO_NEWA	halimayā	𑐴𑐮𑐶𑐩𑐫𑐵
 TO_NEWA	tʰanayāgu	𑐠𑐣𑐫𑐵𑐐𑐸
 TO_NEWA	janasaṁkʰyā	𑐖𑐣𑐳𑑄𑐏𑑂𑐫𑐵
+
+# ------------------------------------------------------------------------------
+# Thaana.
+# ------------------------------------------------------------------------------
+FROM_THAA	ތާނަ	tāna
+FROM_THAA	ކަނޑު	kaⁿḍu
+FROM_THAA	ބައްޓެއް	baẖṭeẖ
+FROM_THAA	އެންމެ	enme
+FROM_THAA	ފައް	faẖ
+FROM_THAA	ދަނަހަ	danaha
+FROM_THAA	ދިވެހި	divehi
+FROM_THAA	އަދި	adi
+FROM_THAA	ތެރޭގައި	terēga.i
+FROM_THAA	ނަމަވެސް	namaves
+FROM_THAA	ގޮތުގައި	gotuga.i
+FROM_THAA	ހުރެއެވެ	hure.eve
+FROM_THAA	ސަބަބުން	sababun
+FROM_THAA	ރައްޔިތުންގެ	raẖyitunge
+FROM_THAA	އެހެންކަމުން	ehenkamun
+FROM_THAA	ސަލާމް	salām
+FROM_THAA	ޝިކާރަވެރީންނެވެ	sʰikāraverīnneve
+FROM_THAA	ރާއްޖޭގެ	rāẖjēge
+FROM_THAA	ނުވަތަ	nuvata
+FROM_THAA	މުޙައްމަދު	muḥaẖmadu
+FROM_THAA	ދިވެހިރާއްޖޭގައި	divehirāẖjēga.i
+FROM_THAA	ނަޔާޗާންދު	nayācāndu
+FROM_THAA	ކާނޭޝަންމާގެ	kānēsʰanmāge
+FROM_THAA	ކަޝްމީރު	kasʰmīru
+FROM_THAA	ކަޝްމީރުގާރްޑަން	kasʰmīrugārḍan
+FROM_THAA	މެރިންގޯލްޑް	meringōlḍ
+FROM_THAA	ޓްރެންކްއިލްވިލާ	ṭrenk.ilvilā
+FROM_THAA	ދާރުލްސަލާމް	dārulsalām
+FROM_THAA	ދަންވަރު	danvaru
+FROM_THAA	މެންދަން	mendan
+FROM_THAA	އިއްޔެ	iẖye
+FROM_THAA	ބަންދުކޮށްފަ	bandukośfa
+FROM_THAA	ކޮށްޕާލާ	kośpālā
+FROM_THAA	ބައްދަލުވީތީ	baẖdaluvītī
+FROM_THAA	އައްސަލާމު	aẖsalāmu
+FROM_THAA	ޝުކުރިއްޔާ	sʰukuriẖyā
+FROM_THAA	ވަންނަ	vanna
+TO_THAA	tāna	ތާނަ
+TO_THAA	kaⁿḍu	ކަނޑު
+TO_THAA	baẖṭeẖ	ބައްޓެއް
+TO_THAA	enme	އެންމެ
+TO_THAA	faẖ	ފައް
+TO_THAA	danaha	ދަނަހަ
+TO_THAA	divehi	ދިވެހި
+TO_THAA	adi	އަދި
+TO_THAA	terēga.i	ތެރޭގައި
+TO_THAA	namaves	ނަމަވެސް
+TO_THAA	gotuga.i	ގޮތުގައި
+TO_THAA	hure.eve	ހުރެއެވެ
+TO_THAA	sababun	ސަބަބުން
+TO_THAA	raẖyitunge	ރައްޔިތުންގެ
+TO_THAA	ehenkamun	އެހެންކަމުން
+TO_THAA	salām	ސަލާމް
+TO_THAA	sʰikāraverīnneve	ޝިކާރަވެރީންނެވެ
+TO_THAA	rāẖjēge	ރާއްޖޭގެ
+TO_THAA	nuvata	ނުވަތަ
+TO_THAA	muḥaẖmadu	މުޙައްމަދު
+TO_THAA	divehirāẖjēga.i	ދިވެހިރާއްޖޭގައި
+TO_THAA	nayācāndu	ނަޔާޗާންދު
+TO_THAA	kānēsʰanmāge	ކާނޭޝަންމާގެ
+TO_THAA	meringōlḍ	މެރިންގޯލްޑް
+TO_THAA	ṭrenk.ilvilā	ޓްރެންކްއިލްވިލާ
+TO_THAA	dārulsalām	ދާރުލްސަލާމް
+TO_THAA	kasʰmīru	ކަޝްމީރު
+TO_THAA	kasʰmīrugārḍan	ކަޝްމީރުގާރްޑަން
+TO_THAA	mendan	މެންދަން
+TO_THAA	danvaru	ދަންވަރު
+TO_THAA	iẖye	އިއްޔެ
+TO_THAA	bandukośfa	ބަންދުކޮށްފަ
+TO_THAA	kośpālā	ކޮށްޕާލާ
+TO_THAA	baẖdaluvītī	ބައްދަލުވީތީ
+TO_THAA	sʰukuriẖyā	ޝުކުރިއްޔާ
+TO_THAA	vanna	ވަންނަ
+
+# Some Dhivehi words found online violate the `SUKUN` principle in consonant
+# clusters. The following word `ކަޝްމީރުގާރްޑަން` cannot be rewritten by our grammar
+# to the expected form `kasʰmīrugārḍan` because `SUKUN` is missing between
+# `r` and `ḍ`. The correctly behaving forms of the same can be found above.
+FROM_THAA	ކަޝްމީރުގާރޑަން

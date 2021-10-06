@@ -1,0 +1,32 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: ["THAANA", "THAANA LETTER"]
+
+# Thaana represents standalone vowels using `LETTER ALIFU` as a base,
+# to which vowel diacritics are attached.
+
+item { uname: ["ALIFU", "ABAFILI"]   raw: "އަ"  to_raw: "a" }
+item { uname: ["ALIFU", "AABAAFILI"] raw: "އާ"  to_raw: "ā" }
+item { uname: ["ALIFU", "IBIFILI"]   raw: "އި"  to_raw: "i" }
+item { uname: ["ALIFU", "EEBEEFILI"] raw: "އީ"  to_raw: "ī" }
+item { uname: ["ALIFU", "UBUFILI"]   raw: "އު"  to_raw: "u" }
+item { uname: ["ALIFU", "OOBOOFILI"] raw: "އޫ"  to_raw: "ū" }
+item { uname: ["ALIFU", "EBEFILI"]   raw: "އެ"  to_raw: "e" }
+item { uname: ["ALIFU", "EYBEYFILI"] raw: "އޭ"  to_raw: "ē" }
+item { uname: ["ALIFU", "OBOFILI"]   raw: "އޮ"  to_raw: "o" }
+item { uname: ["ALIFU", "OABOAFILI"] raw: "އޯ"  to_raw: "ō" }

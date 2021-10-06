@@ -55,6 +55,12 @@ capitalized. Example: `Deva` for Devanagari.
     they may not have any exceptions from the general logic.
 1.  `fixed.textproto`: Rewrites for fixed rule romanization for the script to
     its ISO representation.
+1.  `script_config.textproto`: Script-specific configuration defined by
+    `nisaba.brahmic.ScriptConfig` protocol buffer. For the vast majority of the
+    Brahmic scripts supported by Nisaba, this configuration file is not
+    required. But there are some special cases, like Thaana (`Thaa`), that
+    require customizations (e.g., removing the inherent vowel requirement), best
+    defined through this configuration file.
 
 ## Language specific directories
 

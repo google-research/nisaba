@@ -12,30 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Starlark constants for Brahmic targets."""
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
 
-# Script and language codes are used as per IANA registry:
-# https://www.iana.org/assignments/language-subtag-registry
-SCRIPTS = [
-    "Beng",
-    "Bugi",
-    "Deva",
-    "Gujr",
-    "Guru",
-    "Knda",
-    "Mlym",
-    "Mtei",
-    "Newa",
-    "Orya",
-    "Sinh",
-    "Taml",
-    "Telu",
-    "Tglg",
-    "Thaa",
-]
+uname_prefix: "THAANA"
 
-LANG_DIRS = {
-    "Beng": ["as", "bn"],
-}
-
-FIXED_RULE_SCRIPTS = ["Mlym"]
+# TODO: Looks like <ALIFU> + <SUKUN> combination is context-specific.
+# It becomes a glottal stop at the end of the word. Otherwise indicates
+# gemination of the following *non-nasal* consonant.
+# Source: https://r12a.github.io/scripts/thaana/
+#
+# Glottal stop.
+item { uname: ["LETTER ALIFU", "SUKUN"] raw: "އް" to_raw: "ẖ" }

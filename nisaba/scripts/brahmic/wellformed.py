@@ -40,7 +40,8 @@ def _input_string_file(filename: os.PathLike) -> pynini.Fst:
   return pynini.project(uf.StringFileSafe(filename), 'input').rmepsilon()
 
 
-def accept_well_formed(consonant_file: os.PathLike,
+def accept_well_formed(script_config_file: os.PathLike,
+                       consonant_file: os.PathLike,
                        dead_consonant_file: os.PathLike,
                        vowel_sign_file: os.PathLike,
                        vowel_file: os.PathLike,
@@ -52,6 +53,8 @@ def accept_well_formed(consonant_file: os.PathLike,
   """Create an unweighted FSA to accept the well-formed strings in a script.
 
   Args:
+    script_config_file: Script configuration protocol buffer in text format.
+      This file is allowed to be missing.
     consonant_file: Path relative to depot of a StringFile containing a
       native--latin consonant mapping.
     dead_consonant_file: Path relative to the runfiles directory of a StringFile containing a
@@ -75,6 +78,7 @@ def accept_well_formed(consonant_file: os.PathLike,
   Returns:
     pynini.Fst: An unweighted FSA to accept this language.
   """
+  script_config = u.MaybeLoadScriptConfig(script_config_file)
   consonant = _input_string_file(consonant_file)
   dead_consonant = _input_string_file(dead_consonant_file)
   independent_vowel = _input_string_file(vowel_file)
@@ -86,25 +90,32 @@ def accept_well_formed(consonant_file: os.PathLike,
   accept = _input_string_file(accept_file)
 
   cluster = (consonant + pynini.union(virama, preserve)).star + consonant
-  codable = pynini.union(
+  cluster_with_vowel = cluster + vowel_sign.ques
+  cluster_and_virama = cluster + virama + dead_consonant.ques
+  if script_config.no_inherent_vowel:
+    # This case supports the category of scripts that always require the
+    # dependent vowel to present after a consonant (e.g., Thaana).
+    cluster_with_vowel = (consonant + pynini.union(virama, vowel_sign)).plus
+    cluster_and_virama = cluster_with_vowel + dead_consonant.ques
+  cluster_or_vowel_with_coda = pynini.union(
       independent_vowel,
-      cluster + vowel_sign.ques
+      cluster_with_vowel
   ) + coda.ques
   akshara = pynini.union(
-      codable,
-      cluster + virama + dead_consonant.ques
+      cluster_or_vowel_with_coda,
+      cluster_and_virama,
   )
   return pynini.union(akshara, standalone, accept).plus.optimize()
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generate unweighted FSAs accepting the language of each Brahmic script."""
-
   for token_type in ('byte', 'utf8'):
     with pynini.default_token_type(token_type):
       exporter = exporter_map[token_type]
       for script in u.SCRIPTS:
         exporter[script.upper()] = accept_well_formed(
+            u.SCRIPT_DIR / script / 'script_config.textproto',
             u.SCRIPT_DIR / script / 'consonant.tsv',
             u.SCRIPT_DIR / script / 'dead_consonant.tsv',
             u.SCRIPT_DIR / script / 'vowel_sign.tsv',

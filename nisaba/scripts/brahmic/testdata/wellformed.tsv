@@ -199,6 +199,9 @@ MTEI	ꯈꯨ꯭
 MTEI	ꯟ
 MTEI	ꯢ
 
+# Reject: <VOWEL SIGN ONAP, LETTER LAI, MEETEI MAYEK VOWEL SIGN UNAP>.
+MTEI	ꯣꯂꯨ
+
 # -----------------------------------------------------------------------------
 # Baybain (Tagalog).
 # -----------------------------------------------------------------------------
@@ -224,3 +227,66 @@ BUGI	ᨑᨗᨔᨗᨈᨗᨊᨍᨊᨕᨙᨈᨚᨔ	ᨑᨗᨔᨗᨈᨗᨊᨍᨊᨕ�
 
 # Reject: Consecutive dependent vowels.
 BUGI	ᨕᨍᨙᨙ
+
+# -----------------------------------------------------------------------------
+# Thaana.
+# -----------------------------------------------------------------------------
+THAA	މުޙައްމަދު	މުޙައްމަދު
+THAA	ގޮތުގައި	ގޮތުގައި
+THAA	ކަނޑު	ކަނޑު
+
+# The following two examples provide two different ways to spell
+# `kasʰmīrugārḍan`: the first example is the correct way to spell the last
+# consonant cluster with <RAA, SUKUN, DAVIYANI> with intermediate <SUKUN>, the
+# second example (real example from the web) has <RAA, DAVIYANI> combination
+# and should fail.
+THAA	ކަޝްމީރުގާރްޑަން	ކަޝްމީރުގާރްޑަން
+THAA	ކަޝްމީރުގާރޑަން
+
+# Reject: Spelling of Jefferson without a <SUKUN> between <RAA> and <SEENU>,
+# `Washington` without a <SUKUN> between <GAAFU> and <TAVIYANI>.
+THAA	ޖެފަރސަން
+THAA	ވޮޝިންގޓަން
+THAA	އެލެގްޒެންޑަރ
+
+# Reject: `Minister`, `September`, `November` and `Alexander` without <SUKUN>
+# after final <RAA>.
+THAA	ސެޕްޓެމްބަރ
+THAA	ނޮވެމްބަރ
+THAA	މިނިސްޓަރ
+THAA	އެލެގްޒެންޑަރ
+
+# Reject: Sequence of vowel signs (double <ABAFILI>).
+THAA	ވަރަަކަށް
+
+# Reject: Sequence of vowel signs + SUKUN: <ZAVIYANI, 2 EEBEEFILI, SUKUN>.
+THAA	ޒީޭް
+
+# Reject: <ZAVIYANI, EEBEEFILI, SUKUN>
+THAA	ޒީް
+
+# Reject: Stray SUKUN (<SUKUN, KAAFU, OBOFILI>).
+THAA	ްކޮ
+
+# Reject: Multiple SUKUNs (<MEEMU, IBIFILI, SUKUN, SUKUN>).
+THAA	މިްް
+
+# Reject: Multiple SUKUNs (<MEEMU, SUKUN, SUKUN>).
+THAA	 މްް
+
+# Reject: ALIFU without combining marks (<ALIFU, LHAVIYANI, OBOFILI>).
+THAA	އޅޮ
+
+# Reject: ALIFU without combining marks (<LHAVIYANI, OBOFILI, ALIFU>).
+THAA	ޅޮއ
+
+# Reject: Synthetic: Vowel sign starting a word: <UBUFILI, YAA>.
+THAA	ޔ
+
+# TODO: Not clear whether we should accept or reject the
+# abbreviations. Following is a synthetic example "Mr" (with SUKUNs), the
+# spelling without SUKUNs (that we reject) is also frequent.
+THAA	މްރް	މްރް
+THAA	މރ
+
+

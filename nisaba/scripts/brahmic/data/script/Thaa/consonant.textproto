@@ -1,0 +1,87 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "THAANA LETTER"
+
+# Basic consonants.
+# -----------------
+
+item { uname: "HAA"       raw: "ހ" to_raw: "h" }
+item { uname: "SHAVIYANI" raw: "ށ" to_raw: "ś" }
+item { uname: "NOONU"     raw: "ނ" to_raw: "n" }
+item { uname: "RAA"       raw: "ރ" to_raw: "r" }
+item { uname: "BAA"       raw: "ބ" to_raw: "b" }
+item { uname: "LHAVIYANI" raw: "ޅ" to_raw: "ḷ" }
+item { uname: "KAAFU"     raw: "ކ" to_raw: "k" }
+# Note: `ALIFU` has no sound value on its own, hence omitting it.
+item { uname: "VAAVU"     raw: "ވ" to_raw: "v" }
+item { uname: "MEEMU"     raw: "މ" to_raw: "m" }
+item { uname: "FAAFU"     raw: "ފ" to_raw: "f" }
+item { uname: "DHAALU"    raw: "ދ" to_raw: "d" }
+item { uname: "THAA"      raw: "ތ" to_raw: "t" }
+item { uname: "LAAMU"     raw: "ލ" to_raw: "l" }
+item { uname: "GAAFU"     raw: "ގ" to_raw: "g" }
+item { uname: "GNAVIYANI" raw: "ޏ" to_raw: "ñ" }
+item { uname: "SEENU"     raw: "ސ" to_raw: "s" }
+item { uname: "DAVIYANI"  raw: "ޑ" to_raw: "ḍ" }
+item { uname: "ZAVIYANI"  raw: "ޒ" to_raw: "z" }
+item { uname: "TAVIYANI"  raw: "ޓ" to_raw: "ṭ" }
+item { uname: "YAA"       raw: "ޔ" to_raw: "y" }
+item { uname: "PAVIYANI"  raw: "ޕ" to_raw: "p" }
+item { uname: "JAVIYANI"  raw: "ޖ" to_raw: "j" }
+item { uname: "CHAVIYANI" raw: "ޗ" to_raw: "c" }
+item { uname: "NAA"       raw: "ޱ" to_raw: "ň" }
+
+# Extensions for Arabic.
+# ----------------------
+
+item { uname: "TTAA"   raw: "ޘ" to_raw: "tʰ" }
+item { uname: "HHAA"   raw: "ޙ" to_raw: "ḥ" }
+item { uname: "KHAA"   raw: "ޚ" to_raw: "kʰ" }
+item { uname: "THAALU" raw: "ޛ" to_raw: "dʰ" }
+item { uname: "ZAA"    raw: "ޜ" to_raw: "ẓ" }
+item { uname: "SHEENU" raw: "ޝ" to_raw: "sʰ" }
+item { uname: "SAADHU" raw: "ޞ" to_raw: "ṣ" }
+item { uname: "DAADHU" raw: "ޟ" to_raw: "ḏ" }
+item { uname: "TO"     raw: "ޠ" to_raw: "ẗ" }
+item { uname: "ZO"     raw: "ޡ" to_raw: "ẓ" }
+item { uname: "AINU"   raw: "ޢ" to_raw: "'" }
+item { uname: "GHAINU" raw: "ޣ" to_raw: "gʰ" }
+item { uname: "QAAFU"  raw: "ޤ" to_raw: "qʰ" }
+item { uname: "WAAVU"  raw: "ޥ" to_raw: "w" }
+
+# ------------------------------------------------------------------------------
+# When `LETTER NOONU` is written with no diacritic, this indicates
+# prenasalization of a following stop. It is the only case where a letter can
+# appear without a diacritic.
+# ------------------------------------------------------------------------------
+
+item { uname: ["NOONU", "PAVIYANI"]  raw: "ނޕ" to_raw: "ⁿp" }
+item { uname: ["NOONU", "BAA"]       raw: "ނބ" to_raw: "ⁿb" }
+item { uname: ["NOONU", "THAA"]      raw: "ނތ" to_raw: "ⁿt" }
+item { uname: ["NOONU", "DHAALU"]    raw: "ނދ" to_raw: "ⁿd" }
+item { uname: ["NOONU", "CHAVIYANI"] raw: "ނޗ" to_raw: "ⁿc" }
+item { uname: ["NOONU", "JAVIYANI"]  raw: "ނޖ" to_raw: "ⁿj" }
+item { uname: ["NOONU", "TAVIYANI"]  raw: "ނޓ" to_raw: "ⁿṭ" }
+item { uname: ["NOONU", "DAVIYANI"]  raw: "ނޑ" to_raw: "ⁿḍ" }
+item { uname: ["NOONU", "KAAFU"]     raw: "ނކ" to_raw: "ⁿk" }
+item { uname: ["NOONU", "GAAFU"]     raw: "ނގ" to_raw: "ⁿg" }
+
+# TODO: <NOONU> + <SUKUN> marks gemination of the
+# following nasal. Introduce. Also check <SHAVIYANI> + <SUKUN> as it's likely
+# to mark gemination of the following consonant as well, e.g.:
+#   bandhukoffa (ބަންދުކޮށްފަ)

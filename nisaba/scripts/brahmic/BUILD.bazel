@@ -14,6 +14,7 @@
 
 # Build packages for the Brahmic script APIs.
 
+load("@com_google_protobuf//:protobuf.bzl", "py_proto_library")
 load("@nisaba_deps//:requirements.bzl", "requirement")
 
 load(
@@ -33,6 +34,20 @@ package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
+proto_library(
+    name = "script_config_proto",
+    srcs = ["script_config.proto"],
+)
+
+py_proto_library(
+    name = "script_config_py_pb2",
+    # Bazel: This rule is not supported natively (yet). There is a custom
+    # Starlark macro supplied by the Bazel team (loaded from `protobuf.bzl` file
+    # above). See
+    #   https://thethoughtfulkoala.com/posts/2020/05/08/py-protobuf-bazel.html
+    srcs = ["script_config.proto"],
+)
+
 nisaba_compile_grm_py(
     name = "iso",
     data = [
@@ -46,7 +61,10 @@ nisaba_compile_grm_py(
             "vowel",
             "vowel_sign",
         ]
-    ] + ["//nisaba/scripts/brahmic/data/script/common:symbol.tsv"],
+    ] + [
+        "//nisaba/scripts/brahmic/data/script/common:symbol.tsv",
+        "//nisaba/scripts/brahmic/data/script/Thaa:script_config.textproto",
+    ],
     visibility = ["//visibility:public"],
     deps = [
         ":util",
@@ -123,7 +141,9 @@ py_library(
     srcs = ["util.py"],
     srcs_version = "PY3",
     deps = [
+        ":script_config_py_pb2",
         "//nisaba/scripts/utils:file",
+        "@com_google_protobuf//:protobuf_python",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:byte",
         "@rules_python//python/runfiles",
@@ -310,6 +330,7 @@ nisaba_compile_multi_grm_py(
         "//nisaba/scripts/brahmic/data/script/Beng:dead_consonant.tsv",
         "//nisaba/scripts/brahmic/data/script/Mlym:dead_consonant.tsv",
         "//nisaba/scripts/brahmic/data/script/Mtei:dead_consonant.tsv",
+        "//nisaba/scripts/brahmic/data/script/Thaa:script_config.textproto",
     ],
     visibility = ["//visibility:public"],
     deps = [
