@@ -80,6 +80,7 @@ SCRIPTS = [
     "Gujr",
     "Guru",
     "Knda",
+    "Limb",
     "Mlym",
     "Mtei",
     "Newa",

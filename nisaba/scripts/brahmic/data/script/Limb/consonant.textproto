@@ -1,0 +1,53 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "LIMBU LETTER"
+
+item { uname: "KA"   raw: "ᤁ" to_raw: "k" }
+item { uname: "KHA"  raw: "ᤂ" to_raw: "kʰ" }
+item { uname: "GA"   raw: "ᤃ" to_raw: "g" }
+item { uname: "GHA"  raw: "ᤄ" to_raw: "gʰ" }
+item { uname: "NGA"  raw: "ᤅ" to_raw: "ṅ" }
+item { uname: "CA"   raw: "ᤆ" to_raw: "c" }
+item { uname: "CHA"  raw: "ᤇ" to_raw: "cʰ" }
+item { uname: "JA"   raw: "ᤈ" to_raw: "j" }
+item { uname: "JHA"  raw: "ᤉ" to_raw: "jʰ" }
+item { uname: "TA"   raw: "ᤋ" to_raw: "t" }
+item { uname: "THA"  raw: "ᤌ" to_raw: "tʰ" }
+item { uname: "DA"   raw: "ᤍ" to_raw: "d" }
+item { uname: "DHA"  raw: "ᤎ" to_raw: "dʰ" }
+item { uname: "NA"   raw: "ᤏ" to_raw: "n" }
+item { uname: "PA"   raw: "ᤐ" to_raw: "p" }
+item { uname: "PHA"  raw: "ᤑ" to_raw: "pʰ" }
+item { uname: "BA"   raw: "ᤒ" to_raw: "b" }
+item { uname: "BHA"  raw: "ᤓ" to_raw: "bʰ" }
+item { uname: "MA"   raw: "ᤔ" to_raw: "m" }
+item { uname: "YA"   raw: "ᤕ" to_raw: "y" }
+item { uname: "RA"   raw: "ᤖ" to_raw: "r" }
+item { uname: "LA"   raw: "ᤗ" to_raw: "l" }
+item { uname: "WA"   raw: "ᤘ" to_raw: "w" }
+item { uname: "SHA"  raw: "ᤙ" to_raw: "ś" }
+item { uname: "SSA"  raw: "ᤚ" to_raw: "ṣ" }
+item { uname: "SA"   raw: "ᤛ" to_raw: "s" }
+item { uname: "HA"   raw: "ᤜ" to_raw: "h" }
+
+# --------
+# Obsolete
+# --------
+item { uname: "YAN"  raw: "ᤊ" to_raw: "ɲ" }
+item { uname: "GYAN" raw: "ᤝ" to_raw: "jñ" }  # Nepali consonantal conjunct.
+item { uname: "TRA"  raw: "ᤞ" to_raw: "ṭr" }  # Nepali consonantal conjunct.

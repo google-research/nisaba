@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Script definitions for Tagalog (Baybayin).
+# Script definitions for Limbu.
 
 load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
 
@@ -21,22 +21,22 @@ package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 licenses(["notice"])
 
 setup_script_data(
-    name = "Tglg",
+    name = "Limb",
     empty_components = [
         "accept",
-        "coda",
-        "dead_consonant",
         "nfc",
         "preserve",
         "standalone",
-        "subjoined_consonant",
         "visual_rewrite",
-        "vowel_length_sign",
     ],
     script_data_components = [
+        "coda",
         "consonant",
+        "dead_consonant",
+        "subjoined_consonant",
         "virama",
         "vowel",
+        "vowel_length_sign",
         "vowel_sign",
     ],
 )

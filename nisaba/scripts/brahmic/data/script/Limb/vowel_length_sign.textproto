@@ -12,31 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Starlark constants for Brahmic targets."""
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
 
-# Script and language codes are used as per IANA registry:
-# https://www.iana.org/assignments/language-subtag-registry
-SCRIPTS = [
-    "Beng",
-    "Bugi",
-    "Deva",
-    "Gujr",
-    "Guru",
-    "Knda",
-    "Limb",
-    "Mlym",
-    "Mtei",
-    "Newa",
-    "Orya",
-    "Sinh",
-    "Taml",
-    "Telu",
-    "Tglg",
-    "Thaa",
-]
-
-LANG_DIRS = {
-    "Beng": ["as", "bn"],
-}
-
-FIXED_RULE_SCRIPTS = ["Mlym"]
+# Vowel lengthening using `KEMPHRENG`:
+# ------------------------------------
+# Used to make a vowel slightly longer than usual. According to the online data
+# it modifies the (in)dependent vowel. In one of the vowel lengthening methods,
+# which is in use in Nepal, vowel length is indicated by `KEMPHRENG`, as for
+# open syllables, and the syllable-final consonant appears in "small"
+# form without virama (`SA-I`).
+item { uname: "LIMBU SIGN KEMPHRENG" to_raw: "'" }

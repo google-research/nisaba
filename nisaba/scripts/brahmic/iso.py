@@ -58,8 +58,9 @@ import nisaba.scripts.utils.rewrite as ur
 
 def brahmic_to_iso(script_config_file: os.PathLike,
                    consonant_file: os.PathLike, vowel_sign_file: os.PathLike,
-                   vowel_file: os.PathLike, coda_file: os.PathLike,
-                   standalone_file: os.PathLike,
+                   vowel_file: os.PathLike, vowel_length_sign_file: os.PathLike,
+                   coda_file: os.PathLike, standalone_file: os.PathLike,
+                   subjoined_consonant_file: os.PathLike,
                    virama_file: os.PathLike) -> pynini.Fst:
   """Creates an FST that transduces a Brahmic script to ISO 15919.
 
@@ -72,10 +73,14 @@ def brahmic_to_iso(script_config_file: os.PathLike,
       native--latin vowel matra mapping.
     vowel_file: Path relative to depot of a StringFile containing a
       native--latin independent vowel mapping.
+    vowel_length_sign_file: Path relative to depot of a StringFile containing a
+      native--latin vowel length sign mapping.
     coda_file: Path relative to depot of a StringFile containing a
       native--latin coda mapping.
     standalone_file: Path relative to depot of a StringFile containing a
       native--latin standalone string mapping.
+    subjoined_consonant_file: Path relative to depot of a StringFile containing
+      a native--latin subjoined consonant mapping.
     virama_file: Path relative to depot of a StringFile containing the virama
       for the script.
 
@@ -83,13 +88,17 @@ def brahmic_to_iso(script_config_file: os.PathLike,
     Brahmic script to ISO FST.
   """
   script_config = u.MaybeLoadScriptConfig(script_config_file)
-  consonant = uf.StringFile(consonant_file)
+  core_consonant = uf.StringFile(consonant_file)
   vowel_sign = uf.StringFile(vowel_sign_file)
   vowel = uf.StringFile(vowel_file)
+  vowel_length_sign = uf.StringFile(vowel_length_sign_file)
   coda = uf.StringFile(coda_file)
   standalone = uf.StringFile(standalone_file)
   virama = uf.StringFile(virama_file)
   common_symbol = uf.StringFile(u.SCRIPT_DIR / 'common' / 'symbol.tsv')
+
+  subjoined_consonant = uf.StringFile(subjoined_consonant_file,
+                                      return_if_empty=uf.EPSILON)
 
   ins_a = pynutil.insert('a')
   ins_dash = pynutil.insert('-')
@@ -98,12 +107,13 @@ def brahmic_to_iso(script_config_file: os.PathLike,
   virama_mark = pynini.cross(virama, '˘')
 
   low_priority_epsilon = pynini.accep('', weight=1)
-
+  consonant = core_consonant + subjoined_consonant.ques
   convert_to_iso = pynini.union(
       consonant + vowel_sign,
       consonant + del_virama + low_priority_epsilon,
       vowel + low_priority_epsilon,
       coda,
+      vowel_length_sign,
       standalone,
 
       # Rare cases:
@@ -132,8 +142,10 @@ def _script_to_iso(script: str) -> pynini.Fst:
                         u.SCRIPT_DIR / script / 'consonant.tsv',
                         u.SCRIPT_DIR / script / 'vowel_sign.tsv',
                         u.SCRIPT_DIR / script / 'vowel.tsv',
+                        u.SCRIPT_DIR / script / 'vowel_length_sign.tsv',
                         u.SCRIPT_DIR / script / 'coda.tsv',
                         u.SCRIPT_DIR / script / 'standalone.tsv',
+                        u.SCRIPT_DIR / script / 'subjoined_consonant.tsv',
                         u.SCRIPT_DIR / script / 'virama.tsv')
 
 

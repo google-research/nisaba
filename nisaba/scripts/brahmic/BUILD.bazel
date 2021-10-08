@@ -57,8 +57,10 @@ nisaba_compile_grm_py(
             "coda",
             "consonant",
             "standalone",
+            "subjoined_consonant",
             "virama",
             "vowel",
+            "vowel_length_sign",
             "vowel_sign",
         ]
     ] + [
@@ -177,9 +179,11 @@ py_library(
             "consonant",
             "nfc",
             "standalone",
+            "subjoined_consonant",
             "virama",
             "visual_rewrite",
             "vowel",
+            "vowel_length_sign",
             "vowel_sign",
         ]
     ],
@@ -323,13 +327,13 @@ nisaba_compile_multi_grm_py(
             "dead_consonant",
             "preserve",
             "standalone",
+            "subjoined_consonant",
             "virama",
             "vowel",
+            "vowel_length_sign",
             "vowel_sign",
         ]
-    ] + [
-        "//nisaba/scripts/brahmic/data/script/Thaa:script_config.textproto",
-    ],
+    ] + ["//nisaba/scripts/brahmic/data/script/Thaa:script_config.textproto"],
     visibility = ["//visibility:public"],
     deps = [
         ":util",

@@ -29,8 +29,10 @@ setup_script_data(
         "nfc",
         "preserve",
         "standalone",
+        "subjoined_consonant",
         "virama",
         "visual_rewrite",
+        "vowel_length_sign",
     ],
     script_data_components = [
         "consonant",

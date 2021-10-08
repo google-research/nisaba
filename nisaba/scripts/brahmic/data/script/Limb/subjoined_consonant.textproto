@@ -12,31 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Starlark constants for Brahmic targets."""
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
 
-# Script and language codes are used as per IANA registry:
-# https://www.iana.org/assignments/language-subtag-registry
-SCRIPTS = [
-    "Beng",
-    "Bugi",
-    "Deva",
-    "Gujr",
-    "Guru",
-    "Knda",
-    "Limb",
-    "Mlym",
-    "Mtei",
-    "Newa",
-    "Orya",
-    "Sinh",
-    "Taml",
-    "Telu",
-    "Tglg",
-    "Thaa",
-]
+uname_prefix: "LIMBU SUBJOINED LETTER"
 
-LANG_DIRS = {
-    "Beng": ["as", "bn"],
-}
-
-FIXED_RULE_SCRIPTS = ["Mlym"]
+# Subjoined consonant letters
+# ------------------------------------------------------------------------------
+# These are joined to the bottom of the consonant letters, extending to the
+# right to indicate “medials” in syllable-initial consonant clusters. There are
+# very few of these clusters in native Limbu words.
+item { uname: "YA"  to_raw: "ỵ" }
+item { uname: "RA"  to_raw: "ṛ" }
+item { uname: "WA"  to_raw: "ẉ" }

@@ -12,31 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Starlark constants for Brahmic targets."""
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
 
-# Script and language codes are used as per IANA registry:
-# https://www.iana.org/assignments/language-subtag-registry
-SCRIPTS = [
-    "Beng",
-    "Bugi",
-    "Deva",
-    "Gujr",
-    "Guru",
-    "Knda",
-    "Limb",
-    "Mlym",
-    "Mtei",
-    "Newa",
-    "Orya",
-    "Sinh",
-    "Taml",
-    "Telu",
-    "Tglg",
-    "Thaa",
-]
-
-LANG_DIRS = {
-    "Beng": ["as", "bn"],
-}
-
-FIXED_RULE_SCRIPTS = ["Mlym"]
+# This sign marks vowel length in addition to functioning as a virama by
+# suppressing the inherent vowel of the syllable-final consonant. This method
+# of vowel lengthening is widely used in Sikkim.
+item { uname: "LIMBU SIGN SA-I" }

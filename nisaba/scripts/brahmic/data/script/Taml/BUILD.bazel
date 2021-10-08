@@ -26,6 +26,8 @@ setup_script_data(
         "accept",
         "dead_consonant",
         "preserve",
+        "subjoined_consonant",
+        "vowel_length_sign",
     ],
     script_data_components = [
         "coda",

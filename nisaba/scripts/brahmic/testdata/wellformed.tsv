@@ -289,4 +289,50 @@ THAA	ޔ
 THAA	މްރް	މްރް
 THAA	މރ
 
+# -----------------------------------------------------------------------------
+# Limbu.
+# -----------------------------------------------------------------------------
+LIMB	ᤜᤧᤰᤁᤩᤠᤱ	ᤜᤧᤰᤁᤩᤠᤱ
+LIMB	ᤜᤧᤰᤁᤣ᤺ᤸᤗᤧ	ᤜᤧᤰᤁᤣ᤺ᤸᤗᤧ
+LIMB	ᤕᤧᤛᤢ᤺ᤴ	ᤕᤧᤛᤢ᤺ᤴ
+LIMB	ᤔᤏᤠ᤺ᤸᤗᤧ	ᤔᤏᤠ᤺ᤸᤗᤧ
+LIMB	ᤀᤡ᤺ᤵᤔᤠ	ᤀᤡ᤺ᤵᤔᤠ
+LIMB	ᤆᤀᤡ᤺ᤳᤍᤠᤱᤒᤠ	ᤆᤀᤡ᤺ᤳᤍᤠᤱᤒᤠ
+LIMB	ᤔᤡᤰᤑ᤺ᤶᤒᤠ	ᤔᤡᤰᤑ᤺ᤶᤒᤠ
+LIMB	ᤀᤠᤎ᤺ᤳᤋᤢᤶᤔᤡᤸᤗᤧ	ᤀᤠᤎ᤺ᤳᤋᤢᤶᤔᤡᤸᤗᤧ
+LIMB	ᤀᤠᤱ	ᤀᤠᤱ
 
+# Reject: Double vowel signs (<VOWEL SIGN OO>).
+LIMB	ᤔᤧᤏᤡᤛᤛᤡᤖᤥᤥ
+LIMB	ᤜᤡᤶᤔᤥᤥ
+LIMB	ᤏᤜᤛᤥᤥᤏ"
+LIMB	ᤁᤢᤛ᤻ᤛᤠᤠ᤺
+LIMB	ᤒᤧᤒᤡᤗᤥᤥᤏ
+
+# Reject: Initial subjoined consonant (<SUBJOINED LETTER RA>).
+LIMB	ᤪᤀᤠᤸᤗ
+
+# Reject: Vowel followed by subjoined consonant (<SUBJOINED LETTER RA>).
+LIMB	ᤀᤠᤪ
+
+# Reject: Small (final) consonant word-initially (<SMALL LETTER KA>).
+LIMB	ᤰᤎ
+
+# Reject: Double word-final small consonants (<SMALL LETTER RA>).
+LIMB	ᤄᤷᤷ
+
+# Reject: Double <KEMPHRENG>s.
+LIMB	ᤆᤥ᤺᤺ᤰᤛᤧ
+LIMB	ᤕᤢ᤹᤺ᤀᤠᤱ
+
+# Reject: <MA, MUKPHRENG, KEMPHRENG>
+# TODO: Check if this is legal.
+LIMB	ᤔ᤹᤺
+
+# Reject: <KHA, SIGN E, NA, MUKPHRENG, SIGN E>
+# TODO: Check if vowel signs can apply to <MUKPHRENG>.
+LIMB	ᤂᤧᤏ᤹ᤧ
+
+# Reject: <MUKPHRENG> following a vowel sign.
+# TODO: This is likely a bug. Investigate.
+LIMB	ᤁᤧᤔᤠ᤹ᤰᤂᤡᤴᤏᤢ

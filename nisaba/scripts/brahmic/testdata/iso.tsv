@@ -342,3 +342,57 @@ TO_THAA	vanna	ވަންނަ
 # to the expected form `kasʰmīrugārḍan` because `SUKUN` is missing between
 # `r` and `ḍ`. The correctly behaving forms of the same can be found above.
 FROM_THAA	ކަޝްމީރުގާރޑަން
+
+# -----------------------------------------------------------------------------
+# Limbu.
+# -----------------------------------------------------------------------------
+FROM_LIMB	ᤛᤧᤘᤠᤖᤥ	sewārō
+FROM_LIMB	ᤜᤠᤍᤠᤱᤔᤠᤛᤣ	hādāṇ̇māsē
+FROM_LIMB	ᤕᤠᤰᤌᤢᤱᤐᤠᤴ	yāḳtʰuṇ̇pāṇ
+FROM_LIMB	ᤘᤡᤁᤡᤐᤡᤍᤡᤕᤠ	wikipidiyā
+FROM_LIMB	ᤗᤠᤶᤎᤠᤁᤠ	lāṃdʰākā
+FROM_LIMB	ᤒᤎᤠᤀᤢᤏᤠᤁᤠ	badʰā.unākā
+FROM_LIMB	ᤜᤧᤰᤁᤩᤠᤱ	heḳkỵāṇ̇
+FROM_LIMB	ᤂᤧᤴ	kʰeṇ
+FROM_LIMB	ᤀᤡᤱᤃᤠ᤹	iṇ̇gāḥ
+FROM_LIMB	ᤁᤖ	kara
+FROM_LIMB	ᤏᤡᤱᤘᤠ᤹ᤑᤢᤔᤠᤱᤅᤡᤸᤗᤧ	niṇ̇wāḥpʰumāṇ̇ṅiḷle
+FROM_LIMB	ᤜᤧᤰᤁᤣ᤺ᤸᤗᤧ	heḳkē'ḷle
+FROM_LIMB	ᤑᤠ᤹ᤀᤠᤱ	pʰāḥāṇ̇
+FROM_LIMB	ᤑᤠ᤹ᤃᤪ	pʰāḥgṛa
+FROM_LIMB	ᤂᤪᤡᤛ᤻ᤋᤖᤧ	kʰṛistare
+FROM_LIMB	ᤐᤋᤪᤢᤛᤧᤴ	patṛuseṇ
+FROM_LIMB	ᤀᤡᤛᤪᤠᤀᤡᤗᤡᤜᤠ᤹ᤖᤧ	isṛā.ilihāḥre
+FROM_LIMB	ᤁᤢᤛ᤻ᤛᤠ᤺	kussā'
+FROM_LIMB	ᤂᤪᤡᤛ᤻ᤋᤧᤴ	kʰṛisteṇ
+FROM_LIMB	ᤀᤢ᤺ᤳᤋᤢᤛᤡᤀᤠᤱ	u'ṭtusi.āṇ̇
+FROM_LIMB	ᤋᤠᤱᤛᤧᤵᤋᤛᤡ᤹ᤖᤥᤥ	tāṇ̇seṕtasiḥrō-ō
+FROM_LIMB	ᤛᤠᤶᤕᤥᤥᤛᤠᤵᤗᤠ᤺ᤸᤗᤧᤴ	sāṃyō-ōsāṕlā'ḷleṇ
+FROM_LIMB	ᤀᤡ᤺ᤵᤔᤏᤠᤒᤠᤏᤢ᤺ᤸᤗᤧᤀᤠᤱ	i'ṕmanābānu'ḷle.āṇ̇
+FROM_LIMB	ᤀᤠᤱ	āṇ̇
+FROM_LIMB	ᤁᤧᤔᤠ᤹ᤰᤂᤡᤴᤏᤢ	kemāḥḳkʰiṇnu
+TO_LIMB	sewārō	ᤛᤧᤘᤠᤖᤥ
+TO_LIMB	hādāṇ̇māsē	ᤜᤠᤍᤠᤱᤔᤠᤛᤣ
+TO_LIMB	yāḳtʰuṇ̇pāṇ	ᤕᤠᤰᤌᤢᤱᤐᤠᤴ
+TO_LIMB	wikipidiyā	ᤘᤡᤁᤡᤐᤡᤍᤡᤕᤠ
+TO_LIMB	lāṃdʰākā	ᤗᤠᤶᤎᤠᤁᤠ
+TO_LIMB	badʰā.unākā	ᤒᤎᤠᤀᤢᤏᤠᤁᤠ
+TO_LIMB	heḳkỵāṇ̇	ᤜᤧᤰᤁᤩᤠᤱ
+TO_LIMB	kʰeṇ	ᤂᤧᤴ
+TO_LIMB	iṇ̇gāḥ	ᤀᤡᤱᤃᤠ᤹
+TO_LIMB	kara	ᤁᤖ
+TO_LIMB	niṇ̇wāḥpʰumāṇ̇ṅiḷle	ᤏᤡᤱᤘᤠ᤹ᤑᤢᤔᤠᤱᤅᤡᤸᤗᤧ
+TO_LIMB	heḳkē'ḷle	ᤜᤧᤰᤁᤣ᤺ᤸᤗᤧ
+TO_LIMB	pʰāḥāṇ̇	ᤑᤠ᤹ᤀᤠᤱ
+TO_LIMB	pʰāḥgṛa	ᤑᤠ᤹ᤃᤪ
+TO_LIMB	patṛuseṇ	ᤐᤋᤪᤢᤛᤧᤴ
+TO_LIMB	kʰṛistare	ᤂᤪᤡᤛ᤻ᤋᤖᤧ
+TO_LIMB	kʰṛisteṇ	ᤂᤪᤡᤛ᤻ᤋᤧᤴ
+TO_LIMB	kussā'	ᤁᤢᤛ᤻ᤛᤠ᤺
+TO_LIMB	isṛā.ilihāḥre	ᤀᤡᤛᤪᤠᤀᤡᤗᤡᤜᤠ᤹ᤖᤧ
+TO_LIMB	u'ṭtusi.āṇ̇	ᤀᤢ᤺ᤳᤋᤢᤛᤡᤀᤠᤱ
+TO_LIMB	tāṇ̇seṕtasiḥrō-ō	ᤋᤠᤱᤛᤧᤵᤋᤛᤡ᤹ᤖᤥᤥ
+TO_LIMB	sāṃyō-ōsāṕlā'ḷleṇ	ᤛᤠᤶᤕᤥᤥᤛᤠᤵᤗᤠ᤺ᤸᤗᤧᤴ
+TO_LIMB	i'ṕmanābānu'ḷle.āṇ̇	ᤀᤡ᤺ᤵᤔᤏᤠᤒᤠᤏᤢ᤺ᤸᤗᤧᤀᤠᤱ
+TO_LIMB	āṇ̇	ᤀᤠᤱ
+TO_LIMB	kemāḥḳkʰiṇnu	ᤁᤧᤔᤠ᤹ᤰᤂᤡᤴᤏᤢ

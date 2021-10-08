@@ -45,8 +45,10 @@ def _input_string_file(filename: os.PathLike,
 def accept_well_formed(script_config_file: os.PathLike,
                        consonant_file: os.PathLike,
                        dead_consonant_file: os.PathLike,
+                       subjoined_consonant_file: os.PathLike,
                        vowel_sign_file: os.PathLike,
                        vowel_file: os.PathLike,
+                       vowel_length_sign_file: os.PathLike,
                        coda_file: os.PathLike,
                        standalone_file: os.PathLike,
                        virama_file: os.PathLike,
@@ -59,12 +61,16 @@ def accept_well_formed(script_config_file: os.PathLike,
       This file is allowed to be missing.
     consonant_file: Path relative to depot of a StringFile containing a
       native--latin consonant mapping.
-    dead_consonant_file: Path relative to the runfiles directory of a StringFile containing a
+    dead_consonant_file: Path relative to the runfiles directory of a StringFile containing
       native--latin dead consonants.
+    subjoined_consonant_file: Path relative to the runfiles directory of a StringFile
+      containing native--latin subjoined consonants.
     vowel_sign_file: Path relative to depot of a StringFile containing a
       native--latin vowel matra mapping.
     vowel_file: Path relative to depot of a StringFile containing a
       native--latin independent vowel mapping.
+    vowel_length_sign_file: Path relative to depot of a StringFile containing a
+      native--latin vowel length sign mapping.
     coda_file: Path relative to depot of a StringFile containing a
       native--latin coda symbol mapping.
     standalone_file: Path relative to depot of a StringFile containing a
@@ -81,7 +87,7 @@ def accept_well_formed(script_config_file: os.PathLike,
     pynini.Fst: An unweighted FSA to accept this language.
   """
   script_config = u.MaybeLoadScriptConfig(script_config_file)
-  consonant = _input_string_file(consonant_file)
+  core_consonant = _input_string_file(consonant_file)
   independent_vowel = _input_string_file(vowel_file)
   vowel_sign = _input_string_file(vowel_sign_file)
   virama = _input_string_file(virama_file)
@@ -92,7 +98,12 @@ def accept_well_formed(script_config_file: os.PathLike,
   coda = _input_string_file(coda_file, return_if_empty=uf.EPSILON)
   dead_consonant = _input_string_file(dead_consonant_file,
                                       return_if_empty=uf.EPSILON)
+  vowel_length_sign = _input_string_file(vowel_length_sign_file,
+                                         return_if_empty=uf.EPSILON)
+  subjoined_consonant = _input_string_file(subjoined_consonant_file,
+                                           return_if_empty=uf.EPSILON)
 
+  consonant = core_consonant + subjoined_consonant.ques
   cluster = (consonant + pynini.union(virama, preserve)).star + consonant
   cluster_and_virama = cluster + virama + dead_consonant.ques
 
@@ -101,13 +112,13 @@ def accept_well_formed(script_config_file: os.PathLike,
     # dependent vowel to present after a consonant (e.g., Thaana).
     cluster_with_vowel = cluster + vowel_sign
   else:
-    # Most of the Brahmic scripts, except few like 'Thaana'.
+    # Most of the Brahmic scripts.
     cluster_with_vowel = cluster + vowel_sign.ques
 
   cluster_or_vowel_with_coda = pynini.union(
       independent_vowel,
       cluster_with_vowel
-  ) + coda.ques
+  ) + vowel_length_sign.ques + coda.ques
   akshara = pynini.union(
       cluster_or_vowel_with_coda,
       cluster_and_virama,
@@ -125,8 +136,10 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
             u.SCRIPT_DIR / script / 'script_config.textproto',
             u.SCRIPT_DIR / script / 'consonant.tsv',
             u.SCRIPT_DIR / script / 'dead_consonant.tsv',
+            u.SCRIPT_DIR / script / 'subjoined_consonant.tsv',
             u.SCRIPT_DIR / script / 'vowel_sign.tsv',
             u.SCRIPT_DIR / script / 'vowel.tsv',
+            u.SCRIPT_DIR / script / 'vowel_length_sign.tsv',
             u.SCRIPT_DIR / script / 'coda.tsv',
             u.SCRIPT_DIR / script / 'standalone.tsv',
             u.SCRIPT_DIR / script / 'virama.tsv',

@@ -16,6 +16,7 @@ are all lowercase (e.g., `iso`).
 1.  Gujarati (`Gujr`)
 1.  Gurmukhi (`Guru`)
 1.  Kannada (`Knda`)
+1.  Limbu (`Limb`)
 1.  Malayalam (`Mlym`)
 1.  Meetei Mayek (`Mtei`)
 1.  Newa (Prachalit) (`Newa`)

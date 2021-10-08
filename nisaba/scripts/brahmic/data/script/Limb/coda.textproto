@@ -1,0 +1,41 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: ["LIMBU SIGN", "LIMBU SMALL LETTER"]
+
+# Used to indicate a slight breathing after a vowel.
+item { uname: "MUKPHRENG" to_raw: "ḥ" }
+
+# Presumably this is identical in function to other Brahmic scripts.
+# However, in Limbu anusvara is only used in legacy old documents.
+item { uname: "ANUSVARA"  to_raw: "ṁ" }
+
+# Syllable finals.
+# ------------------------------------------------------------------------------
+# The small letter consonants correspond to the syllable finals of native Limbu
+# words. These letters are independent forms that, unlike the conjoined or
+# half-letter forms of Indian scripts, may appear alone as word-final consonants
+# (where Indian scripts use full consonant letters and a virama). The syllable
+# finals are pronounced without a following vowel.
+item { uname: "KA"  to_raw: "ḳ" }
+item { uname: "NGA" to_raw: "ṇ̇" }
+item { uname: "TA"  to_raw: "ṭ" }
+item { uname: "NA"  to_raw: "ṇ" }
+item { uname: "PA"  to_raw: "ṕ" }
+item { uname: "MA"  to_raw: "ṃ" }
+item { uname: "RA"  to_raw: "ṛ" }
+item { uname: "LA"  to_raw: "ḷ" }
