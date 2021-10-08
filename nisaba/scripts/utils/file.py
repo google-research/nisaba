@@ -22,6 +22,9 @@ import pathlib
 import pynini
 from rules_python.python.runfiles import runfiles
 
+EMPTY: pynini.Fst = pynini.intersect(pynini.accep("a"), pynini.accep("b"))
+EPSILON: pynini.Fst = pynini.accep("")
+
 
 def AsResourcePath(filename: os.PathLike) -> os.PathLike:
   filename = os.fspath(filename)
@@ -40,8 +43,13 @@ def IsFileExist(filename: os.PathLike) -> bool:
   return False
 
 
-def StringFile(filename: os.PathLike) -> pynini.Fst:
-  return pynini.string_file(AsResourcePath(filename))
+def StringFile(filename: os.PathLike,
+               return_if_empty: pynini.Fst = EMPTY) -> pynini.Fst:
+  """Reads FST from `filename`. If FST is empty returns `return_if_empty`."""
+  fst = pynini.string_file(AsResourcePath(filename))
+  if fst.start() == pynini.NO_STATE_ID:
+    fst = return_if_empty
+  return fst
 
 
 def OpenFstFromFar(far_dir: pathlib.Path, far_name: str,

@@ -35,15 +35,10 @@ from pynini.export import multi_grm
 import nisaba.scripts.brahmic.util as u
 import nisaba.scripts.utils.file as uf
 
-_EMPTY: pynini.Fst = pynini.intersect(pynini.accep('a'), pynini.accep('b'))
-_EPSILON: pynini.Fst = pynini.accep('')
-
 
 def _input_string_file(filename: os.PathLike,
-                       return_if_empty: pynini.Fst = _EMPTY) -> pynini.Fst:
-  fst = uf.StringFile(filename)
-  if fst.start() == pynini.NO_STATE_ID:
-    fst = return_if_empty
+                       return_if_empty: pynini.Fst = uf.EMPTY) -> pynini.Fst:
+  fst = uf.StringFile(filename, return_if_empty)
   return pynini.project(fst, 'input').rmepsilon()
 
 
@@ -92,11 +87,11 @@ def accept_well_formed(script_config_file: os.PathLike,
   virama = _input_string_file(virama_file)
   preserve = _input_string_file(preserve_file)
 
-  standalone = _input_string_file(standalone_file, return_if_empty=_EPSILON)
-  accept = _input_string_file(accept_file, return_if_empty=_EPSILON)
-  coda = _input_string_file(coda_file, return_if_empty=_EPSILON)
+  standalone = _input_string_file(standalone_file, return_if_empty=uf.EPSILON)
+  accept = _input_string_file(accept_file, return_if_empty=uf.EPSILON)
+  coda = _input_string_file(coda_file, return_if_empty=uf.EPSILON)
   dead_consonant = _input_string_file(dead_consonant_file,
-                                      return_if_empty=_EPSILON)
+                                      return_if_empty=uf.EPSILON)
 
   cluster = (consonant + pynini.union(virama, preserve)).star + consonant
   cluster_and_virama = cluster + virama + dead_consonant.ques
