@@ -320,6 +320,7 @@ nisaba_compile_multi_grm_py(
             "accept",
             "coda",
             "consonant",
+            "dead_consonant",
             "preserve",
             "standalone",
             "virama",
@@ -327,9 +328,6 @@ nisaba_compile_multi_grm_py(
             "vowel_sign",
         ]
     ] + [
-        "//nisaba/scripts/brahmic/data/script/Beng:dead_consonant.tsv",
-        "//nisaba/scripts/brahmic/data/script/Mlym:dead_consonant.tsv",
-        "//nisaba/scripts/brahmic/data/script/Mtei:dead_consonant.tsv",
         "//nisaba/scripts/brahmic/data/script/Thaa:script_config.textproto",
     ],
     visibility = ["//visibility:public"],

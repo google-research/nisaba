@@ -24,6 +24,7 @@ setup_script_data(
     name = "Thaa",
     empty_components = [
         "accept",
+        "dead_consonant",
         "nfc",
         "preserve",
         "standalone",

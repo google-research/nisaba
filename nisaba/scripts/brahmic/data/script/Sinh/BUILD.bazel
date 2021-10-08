@@ -24,6 +24,7 @@ setup_script_data(
     name = "Sinhala",
     empty_components = [
         "accept",
+        "dead_consonant",
         "standalone",
     ],
     script_data_components = [

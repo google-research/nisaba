@@ -24,6 +24,7 @@ setup_script_data(
     name = "Orya",
     empty_components = [
         "accept",
+        "dead_consonant",
         "standalone",
     ],
     more_component_paths = {

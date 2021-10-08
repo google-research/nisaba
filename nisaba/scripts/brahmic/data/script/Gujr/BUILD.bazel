@@ -24,6 +24,7 @@ setup_script_data(
     name = "Gujarati",
     empty_components = [
         "accept",
+        "dead_consonant",
         "nfc",
     ],
     more_component_paths = {

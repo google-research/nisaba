@@ -24,6 +24,7 @@ setup_script_data(
     name = "Tamil",
     empty_components = [
         "accept",
+        "dead_consonant",
         "preserve",
     ],
     script_data_components = [

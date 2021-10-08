@@ -25,6 +25,7 @@ setup_script_data(
     empty_components = [
         "accept",
         "coda",
+        "dead_consonant",
         "nfc",
         "preserve",
         "standalone",

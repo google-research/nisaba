@@ -35,9 +35,16 @@ from pynini.export import multi_grm
 import nisaba.scripts.brahmic.util as u
 import nisaba.scripts.utils.file as uf
 
+_EMPTY: pynini.Fst = pynini.intersect(pynini.accep('a'), pynini.accep('b'))
+_EPSILON: pynini.Fst = pynini.accep('')
 
-def _input_string_file(filename: os.PathLike) -> pynini.Fst:
-  return pynini.project(uf.StringFileSafe(filename), 'input').rmepsilon()
+
+def _input_string_file(filename: os.PathLike,
+                       return_if_empty: pynini.Fst = _EMPTY) -> pynini.Fst:
+  fst = uf.StringFile(filename)
+  if fst.start() == pynini.NO_STATE_ID:
+    fst = return_if_empty
+  return pynini.project(fst, 'input').rmepsilon()
 
 
 def accept_well_formed(script_config_file: os.PathLike,
@@ -80,23 +87,28 @@ def accept_well_formed(script_config_file: os.PathLike,
   """
   script_config = u.MaybeLoadScriptConfig(script_config_file)
   consonant = _input_string_file(consonant_file)
-  dead_consonant = _input_string_file(dead_consonant_file)
   independent_vowel = _input_string_file(vowel_file)
   vowel_sign = _input_string_file(vowel_sign_file)
-  coda = _input_string_file(coda_file)
   virama = _input_string_file(virama_file)
-  standalone = _input_string_file(standalone_file)
   preserve = _input_string_file(preserve_file)
-  accept = _input_string_file(accept_file)
+
+  standalone = _input_string_file(standalone_file, return_if_empty=_EPSILON)
+  accept = _input_string_file(accept_file, return_if_empty=_EPSILON)
+  coda = _input_string_file(coda_file, return_if_empty=_EPSILON)
+  dead_consonant = _input_string_file(dead_consonant_file,
+                                      return_if_empty=_EPSILON)
 
   cluster = (consonant + pynini.union(virama, preserve)).star + consonant
-  cluster_with_vowel = cluster + vowel_sign.ques
   cluster_and_virama = cluster + virama + dead_consonant.ques
+
   if script_config.no_inherent_vowel:
     # This case supports the category of scripts that always require the
     # dependent vowel to present after a consonant (e.g., Thaana).
-    cluster_with_vowel = (consonant + pynini.union(virama, vowel_sign)).plus
-    cluster_and_virama = cluster_with_vowel + dead_consonant.ques
+    cluster_with_vowel = cluster + vowel_sign
+  else:
+    # Most of the Brahmic scripts, except few like 'Thaana'.
+    cluster_with_vowel = cluster + vowel_sign.ques
+
   cluster_or_vowel_with_coda = pynini.union(
       independent_vowel,
       cluster_with_vowel

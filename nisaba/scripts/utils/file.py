@@ -44,13 +44,6 @@ def StringFile(filename: os.PathLike) -> pynini.Fst:
   return pynini.string_file(AsResourcePath(filename))
 
 
-def StringFileSafe(filename: os.PathLike) -> pynini.Fst:
-  """Returns non-empty transducer if file exists and is non-empty."""
-  fst = StringFile(filename) if IsFileExist(filename) else None
-  # TODO: Remove the empty FST check once  is fixed.
-  return fst if fst and str(fst) else pynini.accep("")
-
-
 def OpenFstFromFar(far_dir: pathlib.Path, far_name: str,
                    token_type: str, fst_name: str) -> pynini.Fst:
   tt_suffix = {"byte": "", "utf8": "_utf8"}[token_type]

@@ -24,6 +24,7 @@ setup_script_data(
     name = "Kannada",
     empty_components = [
         "accept",
+        "dead_consonant",
     ],
     more_component_paths = {
         "//nisaba/scripts/brahmic/data/script/common": ["consonant"],
