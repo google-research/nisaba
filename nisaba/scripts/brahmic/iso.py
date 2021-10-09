@@ -57,9 +57,13 @@ import nisaba.scripts.utils.rewrite as ur
 
 
 def brahmic_to_iso(script_config_file: os.PathLike,
-                   consonant_file: os.PathLike, vowel_sign_file: os.PathLike,
-                   vowel_file: os.PathLike, vowel_length_sign_file: os.PathLike,
-                   coda_file: os.PathLike, standalone_file: os.PathLike,
+                   consonant_file: os.PathLike,
+                   vowel_sign_file: os.PathLike,
+                   vowel_file: os.PathLike,
+                   vowel_length_sign_file: os.PathLike,
+                   coda_file: os.PathLike,
+                   dead_consonant_file: os.PathLike,
+                   standalone_file: os.PathLike,
                    subjoined_consonant_file: os.PathLike,
                    virama_file: os.PathLike) -> pynini.Fst:
   """Creates an FST that transduces a Brahmic script to ISO 15919.
@@ -77,6 +81,8 @@ def brahmic_to_iso(script_config_file: os.PathLike,
       native--latin vowel length sign mapping.
     coda_file: Path relative to depot of a StringFile containing a
       native--latin coda mapping.
+    dead_consonant_file: Path relative to depot of a StringFile containing a
+      native--latin dead consonant mapping.
     standalone_file: Path relative to depot of a StringFile containing a
       native--latin standalone string mapping.
     subjoined_consonant_file: Path relative to depot of a StringFile containing
@@ -93,6 +99,7 @@ def brahmic_to_iso(script_config_file: os.PathLike,
   vowel = uf.StringFile(vowel_file)
   vowel_length_sign = uf.StringFile(vowel_length_sign_file)
   coda = uf.StringFile(coda_file)
+  dead_consonant = uf.StringFile(dead_consonant_file)
   standalone = uf.StringFile(standalone_file)
   virama = uf.StringFile(virama_file)
   common_symbol = uf.StringFile(u.SCRIPT_DIR / 'common' / 'symbol.tsv')
@@ -113,6 +120,7 @@ def brahmic_to_iso(script_config_file: os.PathLike,
       consonant + del_virama + low_priority_epsilon,
       vowel + low_priority_epsilon,
       coda,
+      dead_consonant,
       vowel_length_sign,
       standalone,
 
@@ -144,6 +152,7 @@ def _script_to_iso(script: str) -> pynini.Fst:
                         u.SCRIPT_DIR / script / 'vowel.tsv',
                         u.SCRIPT_DIR / script / 'vowel_length_sign.tsv',
                         u.SCRIPT_DIR / script / 'coda.tsv',
+                        u.SCRIPT_DIR / script / 'dead_consonant.tsv',
                         u.SCRIPT_DIR / script / 'standalone.tsv',
                         u.SCRIPT_DIR / script / 'subjoined_consonant.tsv',
                         u.SCRIPT_DIR / script / 'virama.tsv')

@@ -17,15 +17,6 @@
 
 uname_prefix: "MEETEI MAYEK LETTER"
 
-item { uname: "KOK LONSUM"  to_raw: "k'" }
-item { uname: "LAI LONSUM"  to_raw: "l'" }
-item { uname: "MIT LONSUM"  to_raw: "m'" }
-item { uname: "PA LONSUM"   to_raw: "p'" }
-item { uname: "NA LONSUM"   to_raw: "n'" }
-item { uname: "TIL LONSUM"  to_raw: "t'" }
-item { uname: "NGOU LONSUM" to_raw: "ṅ'" }
-item { uname: "I LONSUM"    to_raw: "i'" }
-
 item { uname: "MEETEI MAYEK VOWEL SIGN NUNG" to_raw: "ṁ" }  # anusvara.
 
 # In Unicode 13.0 the following character is referred to as "heavy tone mark".

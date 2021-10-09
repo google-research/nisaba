@@ -30,12 +30,6 @@ item {
   to_uname: ["LATIN SMALL LETTER H WITH DOT BELOW"] to_raw: "ḥ"
 }
 
-# TODO: Consider allowing word initial Khanda Ta & Chillus.
-item {
-  uname: ["LETTER KHANDA TA"] raw: "ৎ"
-  to_uname: ["LATIN SMALL LETTER T", "VERTICAL TILDE"] to_raw: "tⸯ"
-}
-
 # TODO: Consider treating non-Deva avagraha as a symbol.
 item {
   uname: ["SIGN AVAGRAHA"] raw: "ঽ"

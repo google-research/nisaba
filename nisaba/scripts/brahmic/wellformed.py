@@ -118,7 +118,7 @@ def accept_well_formed(script_config_file: os.PathLike,
   cluster_or_vowel_with_coda = pynini.union(
       independent_vowel,
       cluster_with_vowel
-  ) + vowel_length_sign.ques + coda.ques
+  ) + vowel_length_sign.ques + coda.ques + dead_consonant.ques
   akshara = pynini.union(
       cluster_or_vowel_with_coda,
       cluster_and_virama,

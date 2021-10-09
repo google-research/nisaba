@@ -23,19 +23,3 @@ item { uname: "MUKPHRENG" to_raw: "ḥ" }
 # Presumably this is identical in function to other Brahmic scripts.
 # However, in Limbu anusvara is only used in legacy old documents.
 item { uname: "ANUSVARA"  to_raw: "ṁ" }
-
-# Syllable finals.
-# ------------------------------------------------------------------------------
-# The small letter consonants correspond to the syllable finals of native Limbu
-# words. These letters are independent forms that, unlike the conjoined or
-# half-letter forms of Indian scripts, may appear alone as word-final consonants
-# (where Indian scripts use full consonant letters and a virama). The syllable
-# finals are pronounced without a following vowel.
-item { uname: "KA"  to_raw: "ḳ" }
-item { uname: "NGA" to_raw: "ṇ̇" }
-item { uname: "TA"  to_raw: "ṭ" }
-item { uname: "NA"  to_raw: "ṇ" }
-item { uname: "PA"  to_raw: "ṕ" }
-item { uname: "MA"  to_raw: "ṃ" }
-item { uname: "RA"  to_raw: "ṛ" }
-item { uname: "LA"  to_raw: "ḷ" }

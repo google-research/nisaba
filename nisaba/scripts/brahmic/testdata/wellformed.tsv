@@ -302,6 +302,10 @@ LIMB	ᤔᤡᤰᤑ᤺ᤶᤒᤠ	ᤔᤡᤰᤑ᤺ᤶᤒᤠ
 LIMB	ᤀᤠᤎ᤺ᤳᤋᤢᤶᤔᤡᤸᤗᤧ	ᤀᤠᤎ᤺ᤳᤋᤢᤶᤔᤡᤸᤗᤧ
 LIMB	ᤀᤠᤱ	ᤀᤠᤱ
 
+# Accept: <MUKPHRENG> following a vowel sign.
+# TODO: Investigate if this is acceptable or not.
+LIMB	ᤁᤧᤔᤠ᤹ᤰᤂᤡᤴᤏᤢ	ᤁᤧᤔᤠ᤹ᤰᤂᤡᤴᤏᤢ
+
 # Reject: Double vowel signs (<VOWEL SIGN OO>).
 LIMB	ᤔᤧᤏᤡᤛᤛᤡᤖᤥᤥ
 LIMB	ᤜᤡᤶᤔᤥᤥ
@@ -332,7 +336,3 @@ LIMB	ᤔ᤹᤺
 # Reject: <KHA, SIGN E, NA, MUKPHRENG, SIGN E>
 # TODO: Check if vowel signs can apply to <MUKPHRENG>.
 LIMB	ᤂᤧᤏ᤹ᤧ
-
-# Reject: <MUKPHRENG> following a vowel sign.
-# TODO: This is likely a bug. Investigate.
-LIMB	ᤁᤧᤔᤠ᤹ᤰᤂᤡᤴᤏᤢ
