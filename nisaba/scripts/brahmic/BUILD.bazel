@@ -51,7 +51,7 @@ py_proto_library(
 nisaba_compile_grm_py(
     name = "iso",
     data = [
-        "//nisaba/scripts/brahmic/data/script/{}:{}.tsv".format(script, file_name)
+        "//nisaba/scripts/brahmic/data/{}:{}.tsv".format(script, file_name)
         for script in SCRIPTS
         for file_name in [
             "coda",
@@ -64,8 +64,8 @@ nisaba_compile_grm_py(
             "vowel_sign",
         ]
     ] + [
-        "//nisaba/scripts/brahmic/data/script/common:symbol.tsv",
-        "//nisaba/scripts/brahmic/data/script/Thaa:script_config.textproto",
+        "//nisaba/scripts/brahmic/data/common:symbol.tsv",
+        "//nisaba/scripts/brahmic/data/Thaa:script_config.textproto",
     ],
     visibility = ["//visibility:public"],
     deps = [
@@ -89,7 +89,7 @@ nisaba_compile_multi_grm_py(
         "utf8": "fixed_utf8.far",
     },
     data = [":sigma_utf8.far"] + [
-        "//nisaba/scripts/brahmic/data/script/{}:fixed.tsv".format(script)
+        "//nisaba/scripts/brahmic/data/{}:fixed.tsv".format(script)
         for script in FIXED_RULE_SCRIPTS
     ],
     visibility = ["//visibility:public"],
@@ -116,7 +116,10 @@ nisaba_compile_multi_grm_py(
     },
     data = [
         ":sigma_utf8.far",
-    ] + ["//nisaba/scripts/brahmic/data/script/{}:nfc.tsv".format(script) for script in SCRIPTS],
+    ] + [
+        "//nisaba/scripts/brahmic/data/{}:nfc.tsv".format(script)
+        for script in SCRIPTS
+    ],
     visibility = ["//visibility:public"],
     deps = [
         ":util",
@@ -157,7 +160,7 @@ py_test(
     name = "util_test",
     size = "small",
     srcs = ["util_test.py"],
-    data = ["//nisaba/scripts/brahmic/data/script/Beng:dead_consonant.tsv"],
+    data = ["//nisaba/scripts/brahmic/data/Beng:dead_consonant.tsv"],
     python_version = "PY3",
     srcs_version = "PY3",
     deps = [
@@ -171,7 +174,7 @@ py_library(
     name = "char_util",
     srcs = ["char_util.py"],
     data = [
-        "//nisaba/scripts/brahmic/data/script/{}:{}.tsv".format(script, file_name)
+        "//nisaba/scripts/brahmic/data/{}:{}.tsv".format(script, file_name)
         for script in SCRIPTS
         for file_name in [
             "accept",
@@ -269,7 +272,7 @@ nisaba_compile_multi_grm_py(
         ":nfc_utf8.far",
         ":sigma_utf8.far",
     ] + [
-        "//nisaba/scripts/brahmic/data/script/{}:{}.tsv".format(script, file_name)
+        "//nisaba/scripts/brahmic/data/{}:{}.tsv".format(script, file_name)
         for script in SCRIPTS
         for file_name in [
             "consonant",
@@ -277,7 +280,7 @@ nisaba_compile_multi_grm_py(
             "visual_rewrite",
         ]
     ] + [
-        "//nisaba/scripts/brahmic/data/script/{}/{}:{}.tsv".format(script, lang, file_name)
+        "//nisaba/scripts/brahmic/data/{}/{}:{}.tsv".format(script, lang, file_name)
         for script in LANG_DIRS
         for lang in LANG_DIRS[script]
         for file_name in [
@@ -318,7 +321,7 @@ nisaba_compile_multi_grm_py(
         "utf8": "wellformed_utf8.far",
     },
     data = [
-        "//nisaba/scripts/brahmic/data/script/{}:{}.tsv".format(script, file_name)
+        "//nisaba/scripts/brahmic/data/{}:{}.tsv".format(script, file_name)
         for script in SCRIPTS
         for file_name in [
             "accept",
@@ -333,7 +336,7 @@ nisaba_compile_multi_grm_py(
             "vowel_length_sign",
             "vowel_sign",
         ]
-    ] + ["//nisaba/scripts/brahmic/data/script/Thaa:script_config.textproto"],
+    ] + ["//nisaba/scripts/brahmic/data/Thaa:script_config.textproto"],
     visibility = ["//visibility:public"],
     deps = [
         ":util",

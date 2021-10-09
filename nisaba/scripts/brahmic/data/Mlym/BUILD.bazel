@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Script definitions for Oriya.
+# Script definitions for Malayalam.
 
 load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
 
@@ -21,20 +21,21 @@ package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 licenses(["notice"])
 
 setup_script_data(
-    name = "Orya",
+    name = "Malayalam",
     empty_components = [
-        "accept",
-        "dead_consonant",
         "standalone",
         "subjoined_consonant",
         "vowel_length_sign",
     ],
     more_component_paths = {
-        "//nisaba/scripts/brahmic/data/script/common": ["consonant"],
+        "//nisaba/scripts/brahmic/data/common": ["consonant"],
     },
     script_data_components = [
+        "accept",
         "coda",
         "consonant",
+        "dead_consonant",
+        "fixed",
         "nfc",
         "preserve",
         "virama",

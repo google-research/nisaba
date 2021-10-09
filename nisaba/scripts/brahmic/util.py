@@ -99,5 +99,4 @@ LANG_SCRIPT_MAP = {
 FIXED_RULE_SCRIPTS = ["Mlym"]
 
 FAR_DIR = pathlib.Path("com_google_nisaba/nisaba/scripts/brahmic")
-DATA_DIR = FAR_DIR / "data"
-SCRIPT_DIR = DATA_DIR / "script"
+SCRIPT_DIR = FAR_DIR / "data"

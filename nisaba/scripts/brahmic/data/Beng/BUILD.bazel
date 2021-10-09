@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Newa (Pracalit, Nepala Lipi) script definitions.
+# Script definitions for Bengali.
 
 load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
 
@@ -21,22 +21,27 @@ package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 licenses(["notice"])
 
 setup_script_data(
-    name = "Newa",
+    name = "Bengali",
     empty_components = [
         "accept",
-        "dead_consonant",
-        "nfc",
+        "standalone",
         "subjoined_consonant",
         "vowel_length_sign",
     ],
     more_component_paths = {
-        "//nisaba/scripts/brahmic/data/script/common": ["consonant"],
+        "//nisaba/scripts/brahmic/data/common": ["consonant"],
+        "//nisaba/scripts/brahmic/data/Beng/sat": [
+            "vowel",
+            "vowel_sign",
+        ],
+        "//nisaba/scripts/brahmic/data/Beng/trp": ["vowel"],
     },
     script_data_components = [
         "coda",
         "consonant",
+        "dead_consonant",
+        "nfc",
         "preserve",
-        "standalone",
         "virama",
         "visual_rewrite",
         "vowel",
