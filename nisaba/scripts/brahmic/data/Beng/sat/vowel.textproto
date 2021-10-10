@@ -20,6 +20,6 @@ uname_prefix: "BENGALI"
 # Bengali transliteration of Ol Chiki ᱟᱹ
 # Romanization from: https://en.wikipedia.org/wiki/Ol_Chiki_script
 item {
-  uname: ["LETTER AA", "AU LENGTH MARK"] raw: "আৗ"
-  to_uname: ["LATIN SMALL LETTER A WITH BREVE"] to_raw: "ă"
+  uname: ["AA", "AU LENGTH MARK"] raw: "আৗ"
+  to_uname: "A WITH BREVE" to_raw: "ă"
 }

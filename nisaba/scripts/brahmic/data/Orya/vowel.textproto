@@ -16,18 +16,3 @@
 # proto-message: nisaba.UnicodeStrings
 
 uname_prefix: "ORIYA LETTER"
-
-item { uname: "A"          to_raw: "a" }
-item { uname: "AA"         to_raw: "ā" }
-item { uname: "I"          to_raw: "i" }
-item { uname: "II"         to_raw: "ī" }
-item { uname: "U"          to_raw: "u" }
-item { uname: "UU"         to_raw: "ū" }
-item { uname: "VOCALIC R"  to_raw: "r̥" }
-item { uname: "VOCALIC RR" to_raw: "r̥̄" }
-item { uname: "VOCALIC L"  to_raw: "l̥" }
-item { uname: "VOCALIC LL" to_raw: "l̥̄" }
-item { uname: "E"          to_raw: "ē" }
-item { uname: "AI"         to_raw: "ai" }
-item { uname: "O"          to_raw: "ō" }
-item { uname: "AU"         to_raw: "au" }

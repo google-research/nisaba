@@ -15,69 +15,7 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "MALAYALAM"
+uname_prefix: "MALAYALAM LETTER"
 
-item {
-  uname: ["LETTER A"] raw: "അ"
-  to_uname: ["LATIN SMALL LETTER A"] to_raw: "a"
-}
-item {
-  uname: ["LETTER AA"] raw: "ആ"
-  to_uname: ["LATIN SMALL LETTER A WITH MACRON"] to_raw: "ā"
-}
-item {
-  uname: ["LETTER I"] raw: "ഇ"
-  to_uname: ["LATIN SMALL LETTER I"] to_raw: "i"
-}
-item {
-  uname: ["LETTER II"] raw: "ഈ"
-  to_uname: ["LATIN SMALL LETTER I WITH MACRON"] to_raw: "ī"
-}
-item {
-  uname: ["LETTER U"] raw: "ഉ"
-  to_uname: ["LATIN SMALL LETTER U"] to_raw: "u"
-}
-item {
-  uname: ["LETTER UU"] raw: "ഊ"
-  to_uname: ["LATIN SMALL LETTER U WITH MACRON"] to_raw: "ū"
-}
-item {
-  uname: ["LETTER VOCALIC R"] raw: "ഋ"
-  to_uname: ["LATIN SMALL LETTER R", "COMBINING RING BELOW"] to_raw: "r̥"
-}
-item {
-  uname: ["LETTER VOCALIC RR"] raw: "ൠ"
-  to_uname: ["LATIN SMALL LETTER R", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "r̥̄"
-}
-item {
-  uname: ["LETTER VOCALIC L"] raw: "ഌ"
-  to_uname: ["LATIN SMALL LETTER L", "COMBINING RING BELOW"] to_raw: "l̥"
-}
-item {
-  uname: ["LETTER VOCALIC LL"] raw: "ൡ"
-  to_uname: ["LATIN SMALL LETTER L", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "l̥̄"
-}
-item {
-  uname: ["LETTER E"] raw: "എ"
-  to_uname: ["LATIN SMALL LETTER E"] to_raw: "e"
-}
-item {
-  uname: ["LETTER EE"] raw: "ഏ"
-  to_uname: ["LATIN SMALL LETTER E WITH MACRON"] to_raw: "ē"
-}
-item {
-  uname: ["LETTER AI"] raw: "ഐ"
-  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER I"] to_raw: "ai"
-}
-item {
-  uname: ["LETTER O"] raw: "ഒ"
-  to_uname: ["LATIN SMALL LETTER O"] to_raw: "o"
-}
-item {
-  uname: ["LETTER OO"] raw: "ഓ"
-  to_uname: ["LATIN SMALL LETTER O WITH MACRON"] to_raw: "ō"
-}
-item {
-  uname: ["LETTER AU"] raw: "ഔ"
-  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER U"] to_raw: "au"
-}
+item { uname: "EE" raw: "ഏ" to_uname: "E WITH MACRON" to_raw: "ē" }
+item { uname: "OO" raw: "ഓ" to_uname: "O WITH MACRON" to_raw: "ō" }

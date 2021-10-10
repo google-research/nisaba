@@ -22,12 +22,12 @@ uname_prefix: "BENGALI"
 
 # Vowel letter aw
 item {
-  uname: ["LETTER A", "AU LENGTH MARK"] raw: "অৗ"
-  to_uname: ["LATIN SMALL LETTER A", "COMBINING DOUBLE MACRON BELOW", "LATIN SMALL LETTER W"] to_raw: "a͟w"
+  uname: ["A", "AU LENGTH MARK"] raw: "অৗ"
+  to_uname: ["A", "DOUBLE MACRON BELOW", "W"] to_raw: "a͟w"
 }
 
 # Vowel letter ua
 item {
-  uname: ["LETTER U", "VOWEL SIGN AA"] raw: "উা"
-  to_uname: ["LATIN SMALL LETTER U", "COMBINING DOUBLE MACRON BELOW", "LATIN SMALL LETTER A"] to_raw: "u͟a"
+  uname: ["U", "SIGN AA"] raw: "উা"
+  to_uname: ["U", "DOUBLE MACRON BELOW", "A"] to_raw: "u͟a"
 }
