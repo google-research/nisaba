@@ -20,16 +20,8 @@ uname_prefix: "NEWA SIGN"
 to_uname_prefix: "LATIN SMALL LETTER"
 
 item {
-  uname: "ANUSVARA"
-  to_uname: "M WITH DOT ABOVE" to_raw: "ṁ"
-}
-item {
   uname: "CANDRABINDU"
   to_uname: ["M", "COMBINING CANDRABINDU"] to_raw: "m̐"
-}
-item {
-  uname: "VISARGA"
-  to_uname: "H WITH DOT BELOW" to_raw: "ḥ"
 }
 item {
   uname: "FINAL ANUSVARA"
@@ -38,6 +30,3 @@ item {
 
 # The nuqta is neither a coda nor a pure standalone symbol.
 item { uname: "NUKTA" to_raw: "ˑ" }
-
-# TODO: Consider treating non-Deva avagraha as a symbol.
-item { uname: "AVAGRAHA" to_raw: "’" }

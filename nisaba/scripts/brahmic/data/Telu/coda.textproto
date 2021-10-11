@@ -15,27 +15,13 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TELUGU"
+uname_prefix: "TELUGU SIGN"
 
 item {
-  uname: ["SIGN ANUSVARA"] raw: "ం"
-  to_uname: ["LATIN SMALL LETTER M WITH DOT ABOVE"] to_raw: "ṁ"
+  uname: "COMBINING CANDRABINDU ABOVE" raw: "ఀ"
+  to_uname: ["M", "COMBINING CANDRABINDU"] to_raw: "m̐"
 }
 item {
-  uname: ["SIGN COMBINING CANDRABINDU ABOVE"] raw: "ఀ"
-  to_uname: ["LATIN SMALL LETTER M", "COMBINING CANDRABINDU"] to_raw: "m̐"
-}
-item {
-  uname: ["SIGN CANDRABINDU"] raw: "ఁ"
-  to_uname: ["LATIN SMALL LETTER N", "COMBINING BREVE"] to_raw: "n̆"
-}
-item {
-  uname: ["SIGN VISARGA"] raw: "ః"
-  to_uname: ["LATIN SMALL LETTER H WITH DOT BELOW"] to_raw: "ḥ"
-}
-
-# TODO: Consider treating non-Deva avagraha as a symbol.
-item {
-  uname: ["SIGN AVAGRAHA"] raw: "ఽ"
-  to_uname: ["RIGHT SINGLE QUOTATION MARK"] to_raw: "’"
+  uname: "CANDRABINDU" raw: "ఁ"
+  to_uname: ["N", "COMBINING BREVE"] to_raw: "n̆"
 }

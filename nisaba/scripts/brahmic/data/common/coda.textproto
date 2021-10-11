@@ -15,14 +15,23 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "GUJARATI SIGN"
+to_uname_prefix: "LATIN SMALL LETTER"
+
 item {
-  uname: "CANDRABINDU" raw: "ઁ"
+  uname: "ANUSVARA"
+  to_uname: "M WITH DOT ABOVE" to_raw: "ṁ"
+}
+item {
+  uname: "CANDRABINDU"
   to_uname: ["M", "COMBINING CANDRABINDU"] to_raw: "m̐"
 }
-
-# The nuqta is neither a coda nor a pure standalone symbol.
 item {
-  uname: "NUKTA" raw: "઼"
-  to_uname: "MODIFIER LETTER HALF TRIANGULAR COLON" to_raw: "ˑ"
+  uname: "VISARGA"
+  to_uname: "H WITH DOT BELOW" to_raw: "ḥ"
+}
+
+# TODO: Consider treating non-Deva avagraha as a symbol.
+item {
+  uname: "AVAGRAHA"
+  to_uname: "RIGHT SINGLE QUOTATION MARK" to_raw: "’"
 }

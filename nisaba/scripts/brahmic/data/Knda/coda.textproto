@@ -15,19 +15,4 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "KANNADA"
-
-item {
-  uname: ["SIGN ANUSVARA"] raw: "ಂ"
-  to_uname: ["LATIN SMALL LETTER M WITH DOT ABOVE"] to_raw: "ṁ"
-}
-item {
-  uname: ["SIGN VISARGA"] raw: "ಃ"
-  to_uname: ["LATIN SMALL LETTER H WITH DOT BELOW"] to_raw: "ḥ"
-}
-
-# TODO: Consider treating non-Deva avagraha as a symbol.
-item {
-  uname: ["SIGN AVAGRAHA"] raw: "ಽ"
-  to_uname: ["RIGHT SINGLE QUOTATION MARK"] to_raw: "’"
-}
+uname_prefix: "KANNADA SIGN"

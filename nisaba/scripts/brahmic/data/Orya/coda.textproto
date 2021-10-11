@@ -17,12 +17,7 @@
 
 uname_prefix: "ORIYA SIGN"
 
-item { uname: "ANUSVARA"    to_raw: "ṁ" }
 item { uname: "CANDRABINDU" to_raw: "m̐" }
-item { uname: "VISARGA"     to_raw: "ḥ" }
 
 # The nuqta is neither a coda nor a pure standalone symbol.
 item { uname: "NUKTA" to_raw: "ˑ" }
-
-# TODO: Consider treating non-Deva avagraha as a symbol.
-item { uname: "AVAGRAHA" to_raw: "’" }
