@@ -34,6 +34,7 @@ setup_script_data(
     script_data_components = [
         "consonant",
         "dead_consonant",
+        "reading_norm",
         "subjoined_consonant",
         "vowel",
         "vowel_sign",
