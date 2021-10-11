@@ -181,6 +181,7 @@ py_library(
             "accept",
             "coda",
             "consonant",
+            "dead_consonant",
             "nfc",
             "standalone",
             "subjoined_consonant",

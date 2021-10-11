@@ -33,9 +33,12 @@ def script_chars(script: str) -> Set[str]:
           u.SCRIPT_DIR / script / "accept.tsv",
           u.SCRIPT_DIR / script / "coda.tsv",
           u.SCRIPT_DIR / script / "consonant.tsv",
+          u.SCRIPT_DIR / script / "dead_consonant.tsv",
           u.SCRIPT_DIR / script / "standalone.tsv",
+          u.SCRIPT_DIR / script / "subjoined_consonant.tsv",
           u.SCRIPT_DIR / script / "virama.tsv",
           u.SCRIPT_DIR / script / "vowel.tsv",
+          u.SCRIPT_DIR / script / "vowel_length_sign.tsv",
           u.SCRIPT_DIR / script / "vowel_sign.tsv",
       ],
       both_sides=[
