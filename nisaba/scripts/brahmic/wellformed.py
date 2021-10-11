@@ -96,6 +96,8 @@ def accept_well_formed(script_config_file: os.PathLike,
   standalone = _input_string_file(standalone_file, return_if_empty=uf.EPSILON)
   accept = _input_string_file(accept_file, return_if_empty=uf.EPSILON)
   coda = _input_string_file(coda_file, return_if_empty=uf.EPSILON)
+  virama_for_concat = _input_string_file(virama_file,
+                                         return_if_empty=uf.EPSILON)
   dead_consonant = _input_string_file(dead_consonant_file,
                                       return_if_empty=uf.EPSILON)
   vowel_length_sign = _input_string_file(vowel_length_sign_file,
@@ -105,7 +107,8 @@ def accept_well_formed(script_config_file: os.PathLike,
 
   consonant = core_consonant + subjoined_consonant.ques
   cluster = (consonant + pynini.union(virama, preserve)).star + consonant
-  cluster_and_virama = cluster + virama + dead_consonant.ques
+  cluster_and_virama = cluster + virama_for_concat + dead_consonant.ques
+  coda_and_or_dead_consonant = coda.ques + dead_consonant.ques
 
   if script_config.no_inherent_vowel:
     # This case supports the category of scripts that always require the
@@ -118,10 +121,10 @@ def accept_well_formed(script_config_file: os.PathLike,
   cluster_or_vowel_with_coda = pynini.union(
       independent_vowel,
       cluster_with_vowel
-  ) + vowel_length_sign.ques + coda.ques + dead_consonant.ques
+  ) + vowel_length_sign.ques + coda_and_or_dead_consonant
   akshara = pynini.union(
       cluster_or_vowel_with_coda,
-      cluster_and_virama,
+      cluster_and_virama
   )
   return pynini.union(akshara, standalone, accept).plus.optimize()
 

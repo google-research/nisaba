@@ -1,0 +1,84 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: ["LEPCHA", "LEPCHA LETTER", "LEPCHA SIGN"]
+
+item { uname: "KA"    raw: "ᰀ" to_raw: "k" }
+item { uname: "KLA"   raw: "ᰁ" to_raw: "kˡ" }
+item { uname: "KHA"   raw: "ᰂ" to_raw: "kʰ" }
+item { uname: "GA"    raw: "ᰃ" to_raw: "g" }
+item { uname: "GLA"   raw: "ᰄ" to_raw: "gˡ" }
+item { uname: "NGA"   raw: "ᰅ" to_raw: "ṅ" }
+item { uname: "CA"    raw: "ᰆ" to_raw: "c" }
+item { uname: "CHA"   raw: "ᰇ" to_raw: "cʰ" }
+item { uname: "JA"    raw: "ᰈ" to_raw: "j" }
+item { uname: "NYA"   raw: "ᰉ" to_raw: "ñ" }
+item { uname: "TA"    raw: "ᰊ" to_raw: "t" }
+item { uname: "THA"   raw: "ᰋ" to_raw: "tʰ" }
+item { uname: "DA"    raw: "ᰌ" to_raw: "d" }
+item { uname: "NA"    raw: "ᰍ" to_raw: "n" }
+item { uname: "PA"    raw: "ᰎ" to_raw: "p" }
+item { uname: "PLA"   raw: "ᰏ" to_raw: "pˡ" }
+item { uname: "PHA"   raw: "ᰐ" to_raw: "pʰ" }
+item { uname: "FA"    raw: "ᰑ" to_raw: "f" }
+item { uname: "FLA"   raw: "ᰒ" to_raw: "fˡ" }
+item { uname: "BA"    raw: "ᰓ" to_raw: "b" }
+item { uname: "BLA"   raw: "ᰔ" to_raw: "bˡ" }
+item { uname: "MA"    raw: "ᰕ" to_raw: "m" }
+item { uname: "MLA"   raw: "ᰖ" to_raw: "mˡ" }
+item { uname: "TSA"   raw: "ᰗ" to_raw: "t͡s" }
+item { uname: "TSHA"  raw: "ᰘ" to_raw: "t͡sʰ" }
+item { uname: "DZA"   raw: "ᰙ" to_raw: "z" }
+item { uname: "YA"    raw: "ᰚ" to_raw: "y" }
+item { uname: "RA"    raw: "ᰛ" to_raw: "r" }
+item { uname: "LA"    raw: "ᰜ" to_raw: "l" }
+item { uname: "HA"    raw: "ᰝ" to_raw: "h" }
+item { uname: "HLA"   raw: "ᰞ" to_raw: "hˡ" }
+item { uname: "VA"    raw: "ᰟ" to_raw: "v" }
+item { uname: "SA"    raw: "ᰠ" to_raw: "s" }
+item { uname: "SHA"   raw: "ᰡ" to_raw: "ś" }
+item { uname: "WA"    raw: "ᰢ" to_raw: "w" }
+
+# Retroflex consonants & nukta:
+# ------------------------------------------------------------------------------
+
+# Recently added additional letters.
+item { uname: "TTA"  raw: "ᱍ" to_raw: "ṭ" }
+item { uname: "TTHA" raw: "ᱎ" to_raw: "ṭʰ" }
+item { uname: "DDA"  raw: "ᱏ" to_raw: "ḍ" }
+
+# Common alternatives to the above: Traditionally, these retroflex consonants
+# above have been written in the Lepcha script with the syllables [kra], [hra],
+# and [gra], respectively.  To distinguish such a sequence representing a
+# retroflex /t/ from a sequence representing the actual syllable [kra], it is
+# common to use the nukta sign.
+#
+# TODO: Check for more information on nukta use in Lepcha.
+# According to Table 13-9 of https://www.unicode.org/versions/Unicode14.0.0/ch13.pdf
+# any syllable-initial consonant or `LETTER A` can be "nuktified", but the
+# precise phonological function of this apart from the retroflex case that we
+# cover is presently unclear. However, according to the discussion in
+# https://github.com/googlefonts/noto-fonts/issues/451, `NUKTA` *only* appears
+# in the following contexts below:
+item { uname: ["KA", "NUKTA", "SUBJOINED LETTER RA"] raw: "ᰀ᰷ᰥ" to_raw: "ṭ" }
+item { uname: ["HA", "NUKTA", "SUBJOINED LETTER RA"] raw: "ᰝ᰷ᰥ" to_raw: "ṭʰ" }
+item { uname: ["GA", "NUKTA", "SUBJOINED LETTER RA"] raw: "ᰃ᰷ᰥ" to_raw: "ḍ" }
+
+# Subjoined consonants on <A>: Our implementation does not allow subjoined
+# consonants on vowels, but Lepcha allows the following cluster.
+# ------------------------------------------------------------------------------
+item { uname: ["A", "SUBJOINED LETTER YA"] raw: "ᰣᰤ" to_raw: "aȳ" }

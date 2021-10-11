@@ -1,0 +1,48 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+# This sign can appear after the inherent vowel, dependent vowel or the final
+# consonant.
+#   - According to https://unicode.org/L2/L2015/15332-lepcha-comments.pdf:
+#     RAN is a modifier having effect on the pronunciation (length and accent) of
+#     the vowels.
+#   - According to https://www.unicode.org/L2/L2005/05158-n2947-lepcha.pdf:
+#     RAN can only come after the inherent vowel or -a or -i, never with any of
+#     the other vowels.
+#
+# From https://unicode.org/L2/L2015/15332-lepcha-comments.pdf:
+#
+#   The LEPCHA SIGN RAN (U+1C36) is a modifier having effect on the
+# pronunciation (length and accent) of the vowels. The sign is, thus,
+# clearly associated with the vowel signs. Handwritten Lepcha
+# documents reveal that the LEPCHA VOWEL SIGN OO is nothing short of a
+# LEPCHA VOWEL SIGN O + RAN merged into one character when the first
+# movable types were cast (Calcutta, around 1850). Likewise, the
+# LEPCHA VOWEL SIGN UU - conjunct in handwriting as well - may be seen
+# as a LEPCHA VOWEL SIGN U topped by a rudimentary RAN. Besides, it‘s
+# noteworthy that R.K. Sprigg, the paramount expert on Lepcha
+# linguistics, does not hesitate to speak of „the superscript rân
+# component of the í symbol“ (1983, p. 314, para 2). This may suffice
+# to stress the tight connection between vowel signs and U+1C36.
+# Therefore, input of RAN immediately after the vowel signs as
+# advocated by Kai (2003) and proposed by Everson et al. (2005) makes
+# sense. We are not fully confident to interpret your remarks in
+# appropriate way, but we have the impression that the UTC decided to
+# reverse the final two elements of the syllabic structure to ease
+# implementation in font production.
+
+item { uname: "LEPCHA SIGN RAN" to_raw: "'" }

@@ -1,0 +1,41 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "LEPCHA CONSONANT SIGN"
+
+# Syllable finals.
+# ------------------------------------------------------------------------------
+# Lepcha has no virama. Explicit final consonants are used where there is no
+# inherent vowel.
+item { uname: "K"  to_raw: "k`" }
+item { uname: "M"  to_raw: "m`" }
+item { uname: "L"  to_raw: "l`" }
+item { uname: "N"  to_raw: "n`" }
+item { uname: "P"  to_raw: "p`" }
+item { uname: "R"  to_raw: "r`" }
+item { uname: "T"  to_raw: "t`" }
+
+# The following two final consonants represent velar nasal `-ṅ`: `NYIN-DO` is
+# used only when there is no vowel matra, KANG is used in all other instances.
+#
+# TODO: The above principle is rather often violated in the observed
+# data. Examples: `KANG` after subjoined consonants ("ᰜᰤᰵᰋᰨᰩ"), `KANG` after
+# consonant ("ᰊᰰᰶᰚᰵᰓᰨᰫ"), `NYIN-DO` after vowel sign ("ᰕᰳᰃᰨᰴ"). Ideally `NYIN-DO`
+# should move to `subjoined_consonants`, but it's not clear how widespread the
+# confusion between the two is.
+item { uname: "NYIN-DO"  to_raw: "ṅ" }
+item { uname: "KANG"  to_raw: "ṇ̇" }

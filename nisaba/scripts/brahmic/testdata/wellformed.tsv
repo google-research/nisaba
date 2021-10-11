@@ -303,7 +303,6 @@ LIMB	ᤀᤠᤎ᤺ᤳᤋᤢᤶᤔᤡᤸᤗᤧ	ᤀᤠᤎ᤺ᤳᤋᤢᤶᤔᤡᤸ�
 LIMB	ᤀᤠᤱ	ᤀᤠᤱ
 
 # Accept: <MUKPHRENG> following a vowel sign.
-# TODO: Investigate if this is acceptable or not.
 LIMB	ᤁᤧᤔᤠ᤹ᤰᤂᤡᤴᤏᤢ	ᤁᤧᤔᤠ᤹ᤰᤂᤡᤴᤏᤢ
 
 # Reject: Double vowel signs (<VOWEL SIGN OO>).
@@ -327,7 +326,12 @@ LIMB	ᤄᤷᤷ
 
 # Reject: Double <KEMPHRENG>s.
 LIMB	ᤆᤥ᤺᤺ᤰᤛᤧ
-LIMB	ᤕᤢ᤹᤺ᤀᤠᤱ
+
+# Reject: Initial <KEMPHRENG>.
+LIMB	 ᤺ᤄ
+
+# Reject: Initial <MUKPHRENG>.
+LIMB	 ᤹ᤊ
 
 # Reject: <MA, MUKPHRENG, KEMPHRENG>
 # TODO: Check if this is legal.
@@ -336,3 +340,50 @@ LIMB	ᤔ᤹᤺
 # Reject: <KHA, SIGN E, NA, MUKPHRENG, SIGN E>
 # TODO: Check if vowel signs can apply to <MUKPHRENG>.
 LIMB	ᤂᤧᤏ᤹ᤧ
+
+# -----------------------------------------------------------------------------
+# Lepcha.
+# -----------------------------------------------------------------------------
+
+# From: https://scriptsource.org/cms/scripts/page.php?item_id=entry_detail&uid=t5r9zasayh
+LEPC	ᰊᰍᰜ	ᰊᰍᰜ
+LEPC	ᰊᰌᰠ	ᰊᰌᰠ
+LEPC	ᰝᰚᰍᰜ	ᰝᰚᰍᰜ
+LEPC	ᰣᰕᰛᰛ	ᰣᰕᰛᰛ
+LEPC	ᰊᰠᰕ	ᰊᰠᰕ
+LEPC	ᰕᰚᰃ	ᰕᰚᰃ
+LEPC	ᰀᰚᰠ	ᰀᰚᰠ
+LEPC	ᰊᰠᰕ	ᰊᰠᰕ
+
+# Reject: Initial vowel sign (<SIGN OO>).
+LEPC	ᰩᰚ
+
+# Reject: Initial final consonant (<CONSONANT SIGN R>).
+LEPC	 ᰲᰜ
+
+# Reject: Double vowel signs (<SIGN O, SIGN E>, <SIGN I, SIGN E>).
+LEPC	ᰀᰃᰨᰬ
+LEPC	ᰀᰧᰬᰍ
+
+# Reject: Subjoined consonant: <SUBJOINED YA, SUBJOINED RA>, but the
+# inverse is legal.
+LEPC	ᰜᰤᰥ
+LEPC	ᰜᰥᰤ	ᰜᰥᰤ
+
+# Reject: Uncontrolled nukta after consonant <LETTER TA, NUKTA>,
+# <LETTER NGA, NUKTA>.
+LEPC	ᰀᰪᰊᰊ᰷ᰬ
+LEPC	ᰃᰀᰨᰅ᰷ᰨ
+LEPC	ᰃᰣᰍ᰷ᰬ
+LEPC	ᰈᰣᰍᰇ᰷ᰧ
+
+# Reject: Nukta after <LETTER A>.
+LEPC	ᰇᰣ᰷ᰧ
+
+# Reject: Double consonant signs (<SIGN K, SIGN K>, <SIGN N, SIGN R>).
+LEPC	ᰀᰧᰌᰪᰭᰭ
+LEPC	ᰃᰪᰰᰲᰜᰬᰰ
+
+# Reject: <RAN> can only appear after the syllable-final consonant.
+LEPC	ᰀᰶᰛᰬᰞᰳᰬᰢ
+LEPC	ᰀᰞᰶᰬᰘᰪᰶ
