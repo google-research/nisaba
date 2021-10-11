@@ -15,18 +15,18 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "BENGALI"
+uname_prefix: ["BENGALI", "BENGALI VOWEL", "BENGALI SIGN"]
 
 # Nasalized vowel sign used by Santali when written in Bengali script.
 # Uses ALA-LC transliteration for Ol Chiki ᱚᱹ
 item {
-  uname: ["VOWEL SIGN AA", "SIGN NUKTA"] raw: "া়"
-  to_uname: ["LATIN SMALL LETTER A WITH DOT BELOW", "COMBINING MACRON"] to_raw: "ạ̄"
+  uname: ["SIGN AA", "NUKTA"] raw: "া়"
+  to_uname: ["A WITH DOT BELOW", "COMBINING MACRON"] to_raw: "ạ̄"
 }
 
 # Bengali transliteration of Ol Chiki ᱚᱹ as per:
 # Romanization from: https://en.wikipedia.org/wiki/Ol_Chiki_script
 item {
-  uname: ["AU LENGTH MARK"] raw: "ৗ"
-  to_uname: ["LATIN SMALL LETTER A WITH BREVE"] to_raw: "ă"
+  uname: "AU LENGTH MARK" raw: "ৗ"
+  to_uname: "A WITH BREVE" to_raw: "ă"
 }

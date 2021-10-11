@@ -32,6 +32,7 @@ setup_script_data(
         "//nisaba/scripts/brahmic/data/common": [
             "consonant",
             "vowel",
+            "vowel_sign",
         ],
     },
     script_data_components = [
