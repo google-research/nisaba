@@ -32,6 +32,7 @@ setup_script_data(
         "//nisaba/scripts/brahmic/data/common": [
             "coda",
             "consonant",
+            "inherent_vowel",
             "vowel",
             "vowel_sign",
         ],

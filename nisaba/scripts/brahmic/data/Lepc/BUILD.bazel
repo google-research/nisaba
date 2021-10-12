@@ -31,6 +31,11 @@ setup_script_data(
         "virama",
         "visual_rewrite",
     ],
+    more_component_paths = {
+        "//nisaba/scripts/brahmic/data/common": [
+            "inherent_vowel",
+        ],
+    },
     script_data_components = [
         "consonant",
         "dead_consonant",

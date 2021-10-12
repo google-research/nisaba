@@ -58,8 +58,11 @@ capitalized. Example: `Deva` for Devanagari.
 1.  `subjoined_consonant.textproto`: A list of consonant letters (usually
     combining signs) that are joined to the standalone consonant letters, to
     indicate *medials* in syllable-initial consonant clusters.
+1.  `inherent_vowel.textproto`: An inherent vowel which is inserted after
+    consonants in the absence of matras and vowel killers.
 1.  `vowel_length_sign.textproto`: A vowel length marker that applies to the
     vowels (independent, inherent or dependent ones) making them longer.
+
 1.  `script_config.textproto`: Script-specific configuration defined by
     `nisaba.brahmic.ScriptConfig` protocol buffer. For the vast majority of the
     Brahmic scripts supported by Nisaba, this configuration file is not
