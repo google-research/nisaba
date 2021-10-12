@@ -1,0 +1,46 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "SYLOTI NAGRI LETTER"
+
+item { uname: "KO"   raw: "ꠇ" to_raw: "k" }
+item { uname: "KHO"  raw: "ꠈ" to_raw: "kʰ" }
+item { uname: "GO"   raw: "ꠉ" to_raw: "g" }
+item { uname: "GHO"  raw: "ꠊ" to_raw: "gʰ" }
+item { uname: "CO"   raw: "ꠌ" to_raw: "c" }
+item { uname: "CHO"  raw: "ꠍ" to_raw: "cʰ" }
+item { uname: "JO"   raw: "ꠎ" to_raw: "j" }
+item { uname: "JHO"  raw: "ꠏ" to_raw: "jʰ" }
+item { uname: "TTO"  raw: "ꠐ" to_raw: "ṭ" }
+item { uname: "TTHO" raw: "ꠑ" to_raw: "ṭʰ" }
+item { uname: "DDO"  raw: "ꠒ" to_raw: "ḍ" }
+item { uname: "DDHO" raw: "ꠓ" to_raw: "ḍʰ" }
+item { uname: "TO"   raw: "ꠔ" to_raw: "t" }
+item { uname: "THO"  raw: "ꠕ" to_raw: "tʰ" }
+item { uname: "DO"   raw: "ꠖ" to_raw: "d" }
+item { uname: "DHO"  raw: "ꠗ" to_raw: "dʰ" }
+item { uname: "NO"   raw: "ꠘ" to_raw: "n" }
+item { uname: "PO"   raw: "ꠙ" to_raw: "p" }
+item { uname: "PHO"  raw: "ꠚ" to_raw: "pʰ" }
+item { uname: "BO"   raw: "ꠛ" to_raw: "b" }
+item { uname: "BHO"  raw: "ꠜ" to_raw: "bʰ" }
+item { uname: "MO"   raw: "ꠝ" to_raw: "m" }
+item { uname: "RO"   raw: "ꠞ" to_raw: "r" }
+item { uname: "LO"   raw: "ꠟ" to_raw: "l" }
+item { uname: "RRO"  raw: "ꠠ" to_raw: "r̆" }
+item { uname: "SO"   raw: "ꠡ" to_raw: "s" }
+item { uname: "HO"   raw: "ꠢ" to_raw: "h" }

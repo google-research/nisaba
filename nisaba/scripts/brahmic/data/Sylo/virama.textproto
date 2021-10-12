@@ -1,0 +1,41 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: "SYLOTI NAGRI"
+
+# From the original proposal
+#   https://www.unicode.org/L2/L2002/02388-syloti-proposal.pdf
+# Section II.1.5:
+#   "In current usage, a visible hasanta is still not consistently used
+# or considered obligatory. Thus, in both historic and modern usage,
+# dead consonants and consonant clusters are regularly written with no
+# indication that the inherent vowel is killed. Spellings can be
+# ambiguous with respect to pronunciation, though the appropriate
+# reading is generally clear from context."
+
+# Virama, forms conjuncts.
+item { uname: "SIGN HASANTA" }
+
+# On alternate hasanta, please consult:
+#   https://www.unicode.org/L2/L2019/19024-syloti-nagri-hasanta.pdf
+# Note from the above document: "Examples of ALTERNATE HASANTA have not been
+# found. However, it has been requested by modern Nagri users.
+
+# A pure killer, no conjunct formed.
+# TODO: Requires a fresh version of `unicodedata` package that
+# matches Unicode 14.0.
+# item { uname: "SIGN ALTERNATE HASANTA" }

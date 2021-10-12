@@ -441,3 +441,85 @@ TO_LEPC	taaȳukup`	ᰊᰣᰤᰪᰀᰪᰱ
 TO_LEPC	peaȳok`	ᰎᰬᰣᰤᰨᰭ
 TO_LEPC	saaȳok`	ᰠᰣᰤᰨᰭ
 TO_LEPC	aȳok`re	ᰣᰤᰨᰭᰛᰬ
+
+# -----------------------------------------------------------------------------
+# Syloti Nagri.
+# -----------------------------------------------------------------------------
+FROM_SYLO	ꠍꠤꠟꠐꠤ	cʰiloṭi
+FROM_SYLO	ꠗꠥꠝꠣ	dʰuma
+FROM_SYLO	ꠀꠉꠥꠁꠘ	agu.ino
+FROM_SYLO	ꠚꠣꠅꠞꠤꠟꠤꠍꠤ	pʰa.orilicʰi
+FROM_SYLO	ꠚꠣꠅꠞꠤꠟꠣꠁꠍꠁꠘ	pʰa.orila.icʰo.ino
+FROM_SYLO	ꠟꠦꠙꠐꠤꠘ	lepoṭino
+FROM_SYLO	ꠐꠣꠐ꠆ꠐꠤ	ṭaṭṭi
+FROM_SYLO	ꠛꠣꠞꠤꠘꠖꠣ	barinoda
+FROM_SYLO	ꠍꠦꠁꠍ	cʰe.icʰo
+FROM_SYLO	ꠞꠣꠘꠖꠣꠊꠞ	ranodagʰoro
+FROM_SYLO	ꠃꠘꠖꠣꠟ	unodalo
+FROM_SYLO	ꠢꠥꠞꠥꠔꠣꠁꠘ	huruta.ino
+FROM_SYLO	ꠛꠣꠁꠌ꠆ꠌꠣꠁꠘ	ba.icca.ino
+FROM_SYLO	ꠇꠁꠘ꠆ꠘꠣ	ko.inna
+FROM_SYLO	ꠚꠥꠠꠤ	pʰur̆i
+FROM_SYLO	ꠚꠥꠀ	pʰu.a
+FROM_SYLO	ꠉꠤꠀꠘꠞ	gi.anoro
+FROM_SYLO	ꠅꠁꠟꠣꠝ	o.ilamo
+FROM_SYLO	ꠔꠤꠞꠝꠤꠖꠤ	tiromidi
+FROM_SYLO	ꠍꠃꠇꠣꠝ	cʰo.ukamo
+FROM_SYLO	ꠢꠦꠅꠕ	he.otʰo
+FROM_SYLO	ꠇꠣꠟꠣꠁꠘꠎꠤ	kala.inoji
+FROM_SYLO	ꠛꠤꠀꠘ	bi.ano
+FROM_SYLO	ꠡꠇꠣꠟ	sokalo
+FROM_SYLO	ꠖꠥꠙꠁꠞ	dupo.iro
+TO_SYLO	cʰiloṭi	ꠍꠤꠟꠐꠤ
+TO_SYLO	dʰuma	ꠗꠥꠝꠣ
+TO_SYLO	agu.ino	ꠀꠉꠥꠁꠘ
+TO_SYLO	pʰa.orilicʰi	ꠚꠣꠅꠞꠤꠟꠤꠍꠤ
+TO_SYLO	pʰa.orila.icʰo.ino	ꠚꠣꠅꠞꠤꠟꠣꠁꠍꠁꠘ
+TO_SYLO	lepoṭino	ꠟꠦꠙꠐꠤꠘ
+TO_SYLO	ṭaṭṭi	ꠐꠣꠐ꠆ꠐꠤ
+TO_SYLO	barinoda	ꠛꠣꠞꠤꠘꠖꠣ
+TO_SYLO	cʰe.icʰo	ꠍꠦꠁꠍ
+TO_SYLO	ranodagʰoro	ꠞꠣꠘꠖꠣꠊꠞ
+TO_SYLO	unodalo	ꠃꠘꠖꠣꠟ
+TO_SYLO	huruta.ino	ꠢꠥꠞꠥꠔꠣꠁꠘ
+TO_SYLO	ba.icca.ino	ꠛꠣꠁꠌ꠆ꠌꠣꠁꠘ
+TO_SYLO	ko.inna	ꠇꠁꠘ꠆ꠘꠣ
+TO_SYLO	pʰur̆i	ꠚꠥꠠꠤ
+TO_SYLO	pʰu.a	ꠚꠥꠀ
+TO_SYLO	gi.anoro	ꠉꠤꠀꠘꠞ
+TO_SYLO	o.ilamo	ꠅꠁꠟꠣꠝ
+TO_SYLO	tiromidi	ꠔꠤꠞꠝꠤꠖꠤ
+TO_SYLO	cʰo.ukamo	ꠍꠃꠇꠣꠝ
+TO_SYLO	he.otʰo	ꠢꠦꠅꠕ
+TO_SYLO	kala.inoji	ꠇꠣꠟꠣꠁꠘꠎꠤ
+TO_SYLO	bi.ano	ꠛꠤꠀꠘ
+TO_SYLO	sokalo	ꠡꠇꠣꠟ
+TO_SYLO	dupo.iro	ꠖꠥꠙꠁꠞ
+
+# <HASANTA>.
+FROM_SYLO	ꠀꠁꠌ꠆ꠍꠣ	a.iccʰa
+FROM_SYLO	ꠄꠘ꠆ꠕꠘꠤ	entʰoni
+FROM_SYLO	ꠈ꠆ꠟꠣꠛ	kʰlabo
+FROM_SYLO	ꠔꠥꠞ꠆ꠛ	turbo
+FROM_SYLO	ꠚ꠆ꠞꠌꠣꠞ	pʰrocaro
+FROM_SYLO	ꠡꠥꠞ꠆ꠎꠧ	surjō
+TO_SYLO	a.iccʰa	ꠀꠁꠌ꠆ꠍꠣ
+TO_SYLO	entʰoni	ꠄꠘ꠆ꠕꠘꠤ
+TO_SYLO	kʰlabo	ꠈ꠆ꠟꠣꠛ
+TO_SYLO	turbo	ꠔꠥꠞ꠆ꠛ
+TO_SYLO	pʰrocaro	ꠚ꠆ꠞꠌꠣꠞ
+TO_SYLO	surjō	ꠡꠥꠞ꠆ꠎꠧ
+
+# <DVISVARA>.
+FROM_SYLO	ꠖꠥꠂꠚꠥꠞ	duipʰuro
+FROM_SYLO	ꠢꠂ	hoi
+FROM_SYLO	ꠉꠣꠂ	gai
+FROM_SYLO	ꠇꠂꠟꠣꠝ	koilamo
+FROM_SYLO	ꠈꠣꠂꠟꠣꠝ	kʰailamo
+FROM_SYLO	ꠅꠂꠘ	oino
+TO_SYLO	duipʰuro	ꠖꠥꠂꠚꠥꠞ
+TO_SYLO	hoi	ꠢꠂ
+TO_SYLO	gai	ꠉꠣꠂ
+TO_SYLO	koilamo	ꠇꠂꠟꠣꠝ
+TO_SYLO	kʰailamo	ꠈꠣꠂꠟꠣꠝ
+TO_SYLO	oino	ꠅꠂꠘ

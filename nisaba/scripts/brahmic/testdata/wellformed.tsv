@@ -387,3 +387,38 @@ LEPC	ᰃᰪᰰᰲᰜᰬᰰ
 # Reject: <RAN> can only appear after the syllable-final consonant.
 LEPC	ᰀᰶᰛᰬᰞᰳᰬᰢ
 LEPC	ᰀᰞᰶᰬᰘᰪᰶ
+
+# -----------------------------------------------------------------------------
+# Syloti Nagri.
+# -----------------------------------------------------------------------------
+SYLO	ꠝꠣꠖꠣꠘ	ꠝꠣꠖꠣꠘ
+SYLO	ꠢꠇ꠆ꠇꠟ	ꠢꠇ꠆ꠇꠟ
+SYLO	ꠡꠛ	ꠡꠛ
+SYLO	ꠢꠇ꠆ꠇꠟꠐꠤꠘꠞꠦ	ꠢꠇ꠆ꠇꠟꠐꠤꠘꠞꠦ
+SYLO	ꠛꠃꠇ꠆ꠇꠣ	ꠛꠃꠇ꠆ꠇꠣ
+SYLO	ꠏꠣꠁꠔꠞꠣꠝ	ꠏꠣꠁꠔꠞꠣꠝ
+SYLO	ꠀꠍ꠆ꠍꠣꠟꠣꠝꠥꠀꠟꠣꠁꠇꠥꠝ	ꠀꠍ꠆ꠍꠣꠟꠣꠝꠥꠀꠟꠣꠁꠇꠥꠝ
+SYLO	ꠀꠁꠞꠣꠝ	ꠀꠁꠞꠣꠝ
+
+# Reject: Initial vowel sign.
+SYLO	ꠣꠀ
+
+# Reject: Duplicate vowel signs (<SIGN OO>, <SIGN E>).
+SYLO	ꠢꠧꠦ
+
+# Reject: Hasanta on a vowel.
+SYLO	ꠃ꠆
+
+# Accept: <VOWEL SIGN U, SIGN DVISVARA>
+SYLO	ꠑꠥꠂ	ꠑꠥꠂ
+
+# Reject: <VOWEL SIGN I, SIGN DVISVARA>
+SYLO	ꠊꠤ ꠂ
+
+# Accept: <LETTER U, SIGN DVISVARA>
+SYLO	ꠠꠃꠂ	ꠠꠃꠂ
+
+# Reject: <LETTER I, SIGN DVISVARA>
+SYLO	ꠊꠁꠂ
+
+

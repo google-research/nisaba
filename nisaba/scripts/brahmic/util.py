@@ -87,6 +87,7 @@ SCRIPTS = [
     "Newa",
     "Orya",
     "Sinh",
+    "Sylo",
     "Taml",
     "Telu",
     "Tglg",

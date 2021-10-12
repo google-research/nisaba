@@ -23,6 +23,7 @@ are all lowercase (e.g., `iso`).
 1.  Newa (Prachalit) (`Newa`)
 1.  Oriya (`Orya`)
 1.  Sinhala (`Sinh`)
+1.  Syloti Nagri (`Sylo`)
 1.  Tagalog (Baybayin) (`Tglg`)
 1.  Tamil (`Taml`)
 1.  Telugu (`Telu`)
