@@ -101,11 +101,10 @@ def brahmic_to_iso(script_config_file: os.PathLike,
   coda = uf.StringFile(coda_file)
   dead_consonant = uf.StringFile(dead_consonant_file)
   standalone = uf.StringFile(standalone_file)
+  subjoined_consonant = uf.StringFile(subjoined_consonant_file)
   virama = uf.StringFile(virama_file)
-  common_symbol = uf.StringFile(u.SCRIPT_DIR / 'common' / 'symbol.tsv')
 
-  subjoined_consonant = uf.StringFile(subjoined_consonant_file,
-                                      return_if_empty=uf.EPSILON)
+  common_symbol = uf.StringFile(u.SCRIPT_DIR / 'common' / 'symbol.tsv')
 
   ins_a = pynutil.insert('a')
   ins_dash = pynutil.insert('-')
@@ -114,7 +113,7 @@ def brahmic_to_iso(script_config_file: os.PathLike,
   virama_mark = pynini.cross(virama, '˘')
 
   low_priority_epsilon = pynini.accep('', weight=1)
-  consonant = core_consonant + subjoined_consonant.ques
+  consonant = core_consonant + uf.QuesSafe(subjoined_consonant)
   convert_to_iso = pynini.union(
       consonant + vowel_sign,
       consonant + del_virama + low_priority_epsilon,

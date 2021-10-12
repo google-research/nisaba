@@ -43,13 +43,25 @@ def IsFileExist(filename: os.PathLike) -> bool:
   return False
 
 
+def OnEmpty(fst, return_if_empty=EMPTY):
+  """If FST is empty returns `return_if_empty`; no-op otherwise."""
+  return return_if_empty if fst.start() == pynini.NO_STATE_ID else fst
+
+
 def StringFile(filename: os.PathLike,
                return_if_empty: pynini.Fst = EMPTY) -> pynini.Fst:
   """Reads FST from `filename`. If FST is empty returns `return_if_empty`."""
-  fst = pynini.string_file(AsResourcePath(filename))
-  if fst.start() == pynini.NO_STATE_ID:
-    fst = return_if_empty
-  return fst
+  return OnEmpty(pynini.string_file(AsResourcePath(filename)), return_if_empty)
+
+
+def QuesSafe(fst: pynini.Fst) -> pynini.Fst:
+  """Version of `.ques`, always returning EPSILON when closure count is 0."""
+  return OnEmpty(fst, EPSILON).ques
+
+
+def StarSafe(fst: pynini.Fst) -> pynini.Fst:
+  """Version of `.star`, always returning EPSILON when closure count is 0."""
+  return OnEmpty(fst, EPSILON).star
 
 
 def OpenFstFromFar(far_dir: pathlib.Path, far_name: str,
