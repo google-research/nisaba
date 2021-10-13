@@ -20,5 +20,7 @@ uname_prefix: ["KANNADA LETTER", "KANNADA SIGN"]
 # Centralizing vowel AA to transliterate foreign words like 'attitude' & 'app'
 item { uname: ["AA", "VIRAMA", "YA"] raw: "ಆ್ಯ" to_uname: "AE" to_raw: "æ"}
 
+item { uname: "E" raw: "ಎ" to_raw: "e" }
+item { uname: "O" raw: "ಒ" to_raw: "o" }
 item { uname: "EE" raw: "ಏ" to_uname: "E WITH MACRON" to_raw: "ē" }
 item { uname: "OO" raw: "ಓ" to_uname: "O WITH MACRON" to_raw: "ō" }

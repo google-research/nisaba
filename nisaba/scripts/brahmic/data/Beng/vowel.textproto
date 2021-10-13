@@ -18,6 +18,16 @@
 uname_prefix: ["BENGALI LETTER", "BENGALI VOWEL", "BENGALI SIGN"]
 
 item {
+  uname: "E" raw: "এ"
+  to_uname: "E WITH MACRON" to_raw: "ē"
+}
+
+item {
+  uname: "O" raw: "ও"
+  to_uname: "O WITH MACRON" to_raw: "ō"
+}
+
+item {
   uname: ["A", "VIRAMA", "YA", "SIGN AA"] raw: "অ্যা"
   to_uname: "AE" to_raw: "æ"
 }

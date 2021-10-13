@@ -18,6 +18,14 @@
 uname_prefix: "GUJARATI VOWEL"
 
 item {
+  uname: "SIGN E" raw: "ે"
+  to_uname: "E WITH MACRON" to_raw: "ē"
+}
+item {
+  uname: "SIGN O" raw: "ો"
+  to_uname: "O WITH MACRON" to_raw: "ō"
+}
+item {
   uname: "SIGN CANDRA E" raw: "ૅ"
   to_uname: "E WITH CIRCUMFLEX" to_raw: "ê"
 }

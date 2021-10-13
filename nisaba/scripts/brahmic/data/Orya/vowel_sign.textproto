@@ -16,3 +16,12 @@
 # proto-message: nisaba.UnicodeStrings
 
 uname_prefix: "ORIYA VOWEL"
+
+item {
+  uname: "SIGN E"
+  to_uname: "E WITH MACRON" to_raw: "ē"
+}
+item {
+  uname: "SIGN O"
+  to_uname: "O WITH MACRON" to_raw: "ō"
+}

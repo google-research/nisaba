@@ -17,6 +17,16 @@
 
 uname_prefix: ["GUJARATI LETTER", "GUJARATI VOWEL"]
 
+item {
+  uname: "E" raw: "એ"
+  to_uname: "E WITH MACRON" to_raw: "ē"
+}
+
+item {
+  uname: "O" raw: "ઓ"
+  to_uname: "O WITH MACRON" to_raw: "ō"
+}
+
 item { uname: "CANDRA E" raw: "ઍ" to_uname: "E WITH CIRCUMFLEX" to_raw: "ê" }
 
 item { uname: "CANDRA O" raw: "ઑ" to_uname: "O WITH CIRCUMFLEX" to_raw: "ô" }

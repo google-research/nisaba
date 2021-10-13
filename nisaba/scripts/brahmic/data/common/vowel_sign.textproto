@@ -54,16 +54,8 @@ item {
   to_uname: ["L", "RING BELOW", "COMBINING MACRON"] to_raw: "l̥̄"
 }
 item {
-  uname: "SIGN E"
-  to_uname: "E WITH MACRON" to_raw: "ē"
-}
-item {
   uname: "SIGN AI"
   to_raw: "ai"
-}
-item {
-  uname: "SIGN O"
-  to_uname: "O WITH MACRON" to_raw: "ō"
 }
 item {
   uname: "SIGN AU"

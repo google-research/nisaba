@@ -18,6 +18,14 @@
 uname_prefix: "TELUGU VOWEL"
 
 item {
+  uname: "SIGN E" raw: "ె"
+  to_raw: "e"
+}
+item {
+  uname: "SIGN O" raw: "ొ"
+  to_raw: "o"
+}
+item {
   uname: "SIGN EE" raw: "ే"
   to_uname: "E WITH MACRON" to_raw: "ē"
 }

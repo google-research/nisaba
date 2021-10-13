@@ -17,6 +17,16 @@
 
 uname_prefix: "DEVANAGARI LETTER"
 
+item {
+  uname: "E" raw: "ए"
+  to_uname: "E WITH MACRON" to_raw: "ē"
+}
+
+item {
+  uname: "O" raw: "ओ"
+  to_uname: "O WITH MACRON" to_raw: "ō"
+}
+
 item { uname: "SHORT E" raw: "ऎ" to_raw: "e" }
 
 item { uname: "CANDRA E" raw: "ऍ" to_uname: "E WITH CIRCUMFLEX" to_raw: "ê" }
