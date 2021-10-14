@@ -16,7 +16,3 @@
 # proto-message: nisaba.UnicodeStrings
 
 uname_prefix: "BENGALI SIGN"
-item {
-  uname: "CANDRABINDU" raw: "ঁ"
-  to_uname: ["M", "COMBINING CANDRABINDU"] to_raw: "m̐"
-}
