@@ -1,0 +1,57 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: ["TIRHUTA LETTER", "TIRHUTA VOWEL"]
+
+# Vowels in Table 15-5 (Section 15.10) of the Unicode standard:
+#   https://www.unicode.org/versions/Unicode14.0.0/ch15.pdf
+# The "Do Not Use" rewrites:
+# ------------------------------------------------------------------------------
+
+item {
+  uname: ["A", "SIGN AA"]  raw: "𑒁𑒰"
+  to_uname: "AA" to_raw: "𑒂"
+}
+item {
+  uname: ["LA", "SIGN VOCALIC R"] raw: "𑒪𑒵"
+  to_uname: "VOCALIC L" to_raw: "𑒉"
+}
+item {
+  uname: ["LA", "SIGN VOCALIC RR"] raw: "𑒪𑒶"
+  to_uname: "VOCALIC LL" to_raw: "𑒊"
+}
+item {
+  uname: ["E", "SIGN SHORT E"] raw: "𑒋𑒺"
+  to_uname: "AI" to_raw: "𑒌"
+}
+item {
+  uname: ["O", "SIGN SHORT E"] raw: "𑒍𑒺"
+  to_uname: "AU" to_raw: "𑒎"
+}
+
+# TODO: Decide what to do with confusable characters. According to
+# Section 4.21 of
+#   https://www.unicode.org/L2/L2011/11175r-tirhuta.pdf
+# the following characters are visually confusable with Bengali:
+#
+#   1148B TIRHUTA LETTER E ; 098F BENGALI LETTER E
+#   1148C TIRHUTA LETTER AI ; 0990 BENGALI LETTER AI
+#   1148D TIRHUTA LETTER O ; 0993 BENGALI LETTER O
+#   1148E TIRHUTA LETTER AU ; 0994 BENGALI LETTER AU
+#   1148F TIRHUTA LETTER KA ; 0995 BENGALI LETTER KA
+#   11490 TIRHUTA LETTER KHA ; 0996 BENGALI LETTER KHA
+#   11491 TIRHUTA LETTER GA ; 0997 BENGALI LETTER GA

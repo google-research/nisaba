@@ -1,0 +1,51 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Script definitions for Tirhuta.
+
+load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
+
+package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
+
+licenses(["notice"])
+
+setup_script_data(
+    name = "Tirh",
+    empty_components = [
+        "accept",
+        "dead_consonant",
+        "subjoined_consonant",
+        "vowel_length_sign",
+    ],
+    more_component_paths = {
+        "//nisaba/scripts/brahmic/data/common": [
+            "coda",
+            "consonant",
+            "inherent_vowel",
+            "vowel",
+            "vowel_sign",
+        ],
+    },
+    script_data_components = [
+        "coda",
+        "consonant",
+        "nfc",
+        "preserve",
+        "standalone",
+        "virama",
+        "visual_rewrite",
+        "vowel",
+        "vowel_sign",
+    ],
+)

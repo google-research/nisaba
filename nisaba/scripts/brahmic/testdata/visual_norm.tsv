@@ -238,3 +238,11 @@ ORYA	ଓ୍ୱାଇଫାଇ	ୱାଇଫାଇ
 
 # Newa (Pracalit): <LETTER AA> misencoded as <LETTER A, VOWEL SIGN AA>.
 NEWA	𑐀𑐵𑐩𑐾	𑐁𑐩𑐾
+
+# Tirhuta: Table 15-5 (Section 15.10).
+# ------------------------------------
+TIRH	𑒁𑒰	𑒂
+TIRH	𑒪𑒵	𑒉
+TIRH	𑒪𑒶	𑒊
+TIRH	𑒋𑒺	𑒌
+TIRH	𑒍𑒺	𑒎

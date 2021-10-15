@@ -28,6 +28,7 @@ are all lowercase (e.g., `iso`).
 1.  Tamil (`Taml`)
 1.  Telugu (`Telu`)
 1.  Thaana (`Thaa`)
+1.  Tirhuta (Maithili) (`Tirh`)
 
 [TOC]
 

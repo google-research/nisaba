@@ -523,3 +523,21 @@ TO_SYLO	gai	ꠉꠣꠂ
 TO_SYLO	koilamo	ꠇꠂꠟꠣꠝ
 TO_SYLO	kʰailamo	ꠈꠣꠂꠟꠣꠝ
 TO_SYLO	oino	ꠅꠂꠘ
+
+# -----------------------------------------------------------------------------
+# Tirhuta.
+# -----------------------------------------------------------------------------
+FROM_TIRH	𑒞𑒱𑒩𑒯𑒳𑒞𑒰	tirahutā
+FROM_TIRH	𑒧𑒻𑒟𑒱𑒪𑒲	maitʰilī
+FROM_TIRH	𑒥𑒻𑒮𑒰𑒐	baisākʰa
+FROM_TIRH	𑒖𑒹𑒚	jēṭʰa
+FROM_TIRH	𑒁𑒮𑒰𑒜𑓃	asāṛʰa
+FROM_TIRH	𑒦𑒰𑒠𑒼	bʰādō
+FROM_TIRH	𑒏𑒰𑒞𑒱𑒏	kātika
+TO_TIRH	tirahutā	𑒞𑒱𑒩𑒯𑒳𑒞𑒰
+TO_TIRH	maitʰilī	𑒧𑒻𑒟𑒱𑒪𑒲
+TO_TIRH	baisākʰa	𑒥𑒻𑒮𑒰𑒐
+TO_TIRH	jēṭʰa	𑒖𑒹𑒚
+TO_TIRH	asāṛʰa	𑒁𑒮𑒰𑒜𑓃
+TO_TIRH	bʰādō	𑒦𑒰𑒠𑒼
+TO_TIRH	kātika	𑒏𑒰𑒞𑒱𑒏

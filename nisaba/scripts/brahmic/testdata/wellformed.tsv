@@ -421,4 +421,28 @@ SYLO	ꠠꠃꠂ	ꠠꠃꠂ
 # Reject: <LETTER I, SIGN DVISVARA>
 SYLO	ꠊꠁꠂ
 
+# -----------------------------------------------------------------------------
+# Tirhuta.
+# -----------------------------------------------------------------------------
+TIRH	𑒬𑓂𑒩	𑒬𑓂𑒩
+TIRH	𑒓𑓂𑒏𑓂𑒭	𑒓𑓂𑒏𑓂𑒭
+TIRH	𑒭𑓂𑒏𑓂𑒭	𑒭𑓂𑒏𑓂𑒭
 
+# Accept ANJI.
+TIRH	𑒀	𑒀
+
+# Reject: Consonant + (Virama + Vowel Sign | Vowel Sign + Virama).
+TIRH	𑒫𑓂𑒰
+TIRH	𑒫𑒰 𑓂
+
+# Reject: Initial vowel signs, double vowel signs.
+TIRH	𑒷𑒒
+TIRH	𑒣𑒺 𑒼
+
+# Reject: Vowel + virama.
+TIRH	𑒅𑓂
+
+# Reject: (|ZWS|ZWNJ|ZWJ) + coda.
+TIRH	 𑓄
+TIRH	 𑓄
+TIRH	 𑓀
