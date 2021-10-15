@@ -15,4 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "BENGALI SIGN"
+# Prefixes used for mapping between Bengali script character sequences.
+
+uname_prefix: ["BENGALI", "BENGALI LETTER", "BENGALI VOWEL", "BENGALI SIGN"]

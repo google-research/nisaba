@@ -15,28 +15,29 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "BENGALI"
-
 # Combine 2-part vowels
 item {
-  uname: ["VOWEL SIGN E", "VOWEL SIGN AA"] raw: "ো"
-  to_uname: ["VOWEL SIGN O"] to_raw: "ো"
+  uname: ["SIGN E", "SIGN AA"] raw: "ো"
+  to_uname: "SIGN O" to_raw: "ো"
 }
+
 item {
-  uname: ["VOWEL SIGN E", "AU LENGTH MARK"] raw: "ৌ"
-  to_uname: ["VOWEL SIGN AU"] to_raw: "ৌ"
+  uname: ["SIGN E", "AU LENGTH MARK"] raw: "ৌ"
+  to_uname: "SIGN AU" to_raw: "ৌ"
 }
 
 # Decompose to X + NUKTA
 item {
-  uname: ["LETTER RRA"] raw: "ড়"
-  to_uname: ["LETTER DDA", "SIGN NUKTA"] to_raw: "ড়"
+  uname: "RRA" raw: "ড়"
+  to_uname: ["DDA", "NUKTA"] to_raw: "ড়"
 }
+
 item {
-  uname: ["LETTER RHA"] raw: "ঢ়"
-  to_uname: ["LETTER DDHA", "SIGN NUKTA"] to_raw: "ঢ়"
+  uname: "RHA" raw: "ঢ়"
+  to_uname: ["DDHA", "NUKTA"] to_raw: "ঢ়"
 }
+
 item {
-  uname: ["LETTER YYA"] raw: "য়"
-  to_uname: ["LETTER YA", "SIGN NUKTA"] to_raw: "য়"
+  uname: "YYA" raw: "য়"
+  to_uname: ["YA", "NUKTA"] to_raw: "য়"
 }

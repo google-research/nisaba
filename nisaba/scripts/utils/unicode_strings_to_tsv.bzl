@@ -16,35 +16,35 @@
 
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 
-def _convert_script_data_component(script_data_name, proto_tgts):
-    """Converts script data proto into TSV format.
+def component_tsv(name, text_protos):
+    """Converts script component text protos into TSV format.
 
     Args:
-      script_data_name: The name of the script data (e.g., `consonant`).
-      proto_tgts: Text proto targets make up this component.
+      name: The name of the script data component (e.g., `consonant`).
+      text_protos: Text proto targets make up this component.
     """
 
-    proto_files = " ".join([("$(location %s)" % tgt) for tgt in proto_tgts])
-    combined_textproto = "combined_%s.textproto" % script_data_name
+    proto_files = " ".join([("$(location %s)" % tgt) for tgt in text_protos])
+    combined_text_proto = "combined_%s.textproto" % name
     native.genrule(
-        name = "combine_%s_textproto" % script_data_name,
-        outs = [combined_textproto],
-        srcs = proto_tgts,
-        visibility = ["//visibility:public"],
+        name = "combine_%s_text_protos" % name,
+        outs = [combined_text_proto],
+        srcs = text_protos,
+        visibility = ["//nisaba/scripts:__subpackages__"],
         cmd = "cat %s > $@" % proto_files,
     )
 
     converter_tool = "//nisaba/scripts/utils:unicode_strings_to_tsv"
-    converter_rule_name = "generate_" + script_data_name
+    converter_rule_name = "generate_" + name
     native.genrule(
         name = converter_rule_name,
-        outs = ["%s.tsv" % script_data_name],
-        srcs = [combined_textproto],
+        outs = ["%s.tsv" % name],
+        srcs = [combined_text_proto],
         exec_tools = [converter_tool],
-        visibility = ["//visibility:public"],
+        visibility = ["//nisaba/scripts:__subpackages__"],
         cmd = "$(location %s) --input_text_proto $(location %s) --output_tsv $@" % (
             converter_tool,
-            combined_textproto,
+            combined_text_proto,
         ),
     )
     build_test(
@@ -52,17 +52,17 @@ def _convert_script_data_component(script_data_name, proto_tgts):
         targets = [":" + converter_rule_name],
     )
 
-def _create_empty_component(script_data_name):
+def empty_component_tsv(name):
     """Creates an empty script data component file in TSV format.
 
     Args:
-      script_data_name: The name of the script data (e.g., `accept`).
+      name: The name of the script data component (e.g., `accept`).
     """
 
     native.genrule(
-        name = "create_%s_tsv" % script_data_name,
-        outs = ["%s.tsv" % script_data_name],
-        visibility = ["//visibility:public"],
+        name = "create_%s_tsv" % name,
+        outs = ["%s.tsv" % name],
+        visibility = ["//nisaba/scripts:__subpackages__"],
         # May not work in Windows. To be fixed when Windows support is added.
         cmd = "touch $@",
     )
@@ -104,7 +104,7 @@ def setup_script_data(
 
     # Adding the build rules for each component.
     for component, proto_tgts in component_to_proto_tgts.items():
-        _convert_script_data_component(component, depset(proto_tgts).to_list())
+        component_tsv(component, depset(proto_tgts).to_list())
 
     for component in empty_components:
-        _create_empty_component(component)
+        empty_component_tsv(component)

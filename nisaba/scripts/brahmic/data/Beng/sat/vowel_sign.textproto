@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["BENGALI", "BENGALI VOWEL", "BENGALI SIGN"]
-
 # Nasalized vowel sign used by Santali when written in Bengali script.
 # Uses ALA-LC transliteration for Ol Chiki ᱚᱹ
 item {

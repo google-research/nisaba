@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "BENGALI"
-
 # Bengali transliteration of Ol Chiki ᱟᱹ
 # Romanization from: https://en.wikipedia.org/wiki/Ol_Chiki_script
 item {

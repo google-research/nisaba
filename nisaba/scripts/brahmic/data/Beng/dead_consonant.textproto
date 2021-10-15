@@ -15,10 +15,8 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "BENGALI"
-
 # TODO: Consider allowing word initial Khanda Ta & Chillus.
 item {
-  uname: ["LETTER KHANDA TA"] raw: "ৎ"
-  to_uname: ["LATIN SMALL LETTER T", "VERTICAL TILDE"] to_raw: "tⸯ"
+  uname: "KHANDA TA" raw: "ৎ"
+  to_uname: ["T", "VERTICAL TILDE"] to_raw: "tⸯ"
 }

@@ -15,17 +15,4 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-# Kokborok diphthongs
-# Ref: Unicode Standard 13.0 chapter 12.2 table 12-12
-
-# Vowel letter aw
-item {
-  uname: ["A", "AU LENGTH MARK"] raw: "অৗ"
-  to_uname: ["A", "DOUBLE MACRON BELOW", "W"] to_raw: "a͟w"
-}
-
-# Vowel letter ua
-item {
-  uname: ["U", "SIGN AA"] raw: "উা"
-  to_uname: ["U", "DOUBLE MACRON BELOW", "A"] to_raw: "u͟a"
-}
+item { uname: "VIRAMA" }

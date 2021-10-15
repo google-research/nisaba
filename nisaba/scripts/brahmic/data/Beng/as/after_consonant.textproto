@@ -15,10 +15,8 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "BENGALI"
-
 # VIRAMA + BENGALI RA -> VIRAMA + ASSAMESE RA
 item {
-  uname: ["SIGN VIRAMA", "LETTER RA"] raw: "্র"
-  to_uname: ["SIGN VIRAMA", "LETTER RA WITH MIDDLE DIAGONAL"] to_raw: "্ৰ"
+  uname: ["VIRAMA", "RA"] raw: "্র"
+  to_uname: ["VIRAMA", "RA WITH MIDDLE DIAGONAL"] to_raw: "্ৰ"
 }

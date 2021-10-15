@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["BENGALI LETTER", "BENGALI VOWEL", "BENGALI SIGN"]
-
 item {
   uname: "E" raw: "এ"
   to_uname: "E WITH MACRON" to_raw: "ē"

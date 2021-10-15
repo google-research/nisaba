@@ -19,27 +19,27 @@
 # Rewrites from Unicode standard
 # Unicode version 12.0: Chapter 12.2
 
-uname_prefix: "BENGALI"
-
 # Table 12-11: Bangla Vowel Letters
 item {
-  uname: ["LETTER A", "VOWEL SIGN AA"] raw: "অা"
-  to_uname: ["LETTER AA"] to_raw: "আ"
+  uname: ["A", "SIGN AA"] raw: "অা"
+  to_uname: "AA" to_raw: "আ"
 }
+
 item {
-  uname: ["LETTER VOCALIC R", "VOWEL SIGN VOCALIC R"] raw: "ঋৃ"
-  to_uname: ["LETTER VOCALIC RR"] to_raw: "ৠ"
+  uname: ["VOCALIC R", "SIGN VOCALIC R"] raw: "ঋৃ"
+  to_uname: "VOCALIC RR" to_raw: "ৠ"
 }
+
 item {
-  uname: ["LETTER VOCALIC L", "VOWEL SIGN VOCALIC L"] raw: "ঌৢ"
-  to_uname: ["LETTER VOCALIC LL"] to_raw: "ৡ"
+  uname: ["VOCALIC L", "SIGN VOCALIC L"] raw: "ঌৢ"
+  to_uname: "VOCALIC LL" to_raw: "ৡ"
 }
 
 # Chapter 12.2: Section Khanda Ta.
 # Prefer atomic Khanda Ta
 item {
-  uname: ["LETTER TA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ত্‍"
-  to_uname: ["LETTER KHANDA TA"] to_raw: "ৎ"
+  uname: ["TA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ত্‍"
+  to_uname: "KHANDA TA" to_raw: "ৎ"
 }
 
 ###########################################################
@@ -47,10 +47,11 @@ item {
 
 # Reordered vowel sign equivalences from NFC specs
 item {
-  uname: ["VOWEL SIGN AA", "VOWEL SIGN E"] raw: "াে"
-  to_uname: ["VOWEL SIGN O"] to_raw: "ো"
+  uname: ["SIGN AA", "SIGN E"] raw: "াে"
+  to_uname: "SIGN O" to_raw: "ো"
 }
+
 item {
-  uname: ["AU LENGTH MARK", "VOWEL SIGN E"] raw: "ৗে"
-  to_uname: ["VOWEL SIGN AU"] to_raw: "ৌ"
+  uname: ["AU LENGTH MARK", "SIGN E"] raw: "ৗে"
+  to_uname: "SIGN AU" to_raw: "ৌ"
 }
