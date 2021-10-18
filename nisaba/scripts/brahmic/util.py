@@ -88,6 +88,7 @@ SCRIPTS = [
     "Orya",
     "Sinh",
     "Sylo",
+    "Takr",
     "Taml",
     "Telu",
     "Tglg",

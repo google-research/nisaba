@@ -25,6 +25,7 @@ are all lowercase (e.g., `iso`).
 1.  Sinhala (`Sinh`)
 1.  Syloti Nagri (`Sylo`)
 1.  Tagalog (Baybayin) (`Tglg`)
+1.  Takri (`Takr`)
 1.  Tamil (`Taml`)
 1.  Telugu (`Telu`)
 1.  Thaana (`Thaa`)

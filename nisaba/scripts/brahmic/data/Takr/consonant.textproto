@@ -1,0 +1,42 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+uname_prefix: ["TAKRI SIGN", "TAKRI LETTER"]
+
+item {
+  uname: "VA" raw: "𑚦"
+  to_raw: "v"
+}
+item {
+  uname: "RRA" raw: "𑚪"
+  to_uname: "R WITH LINE BELOW" to_raw: "ṟ"
+}
+
+# Following is a recent addition to the standard. Enable when `unicodedata`
+# package is updated.
+#
+#item {
+#  uname: "ARCHAIC KHA" raw: "𑚸"
+#  to_uname: "K WITH HOOK" to_raw: "ƙ"
+#}
+
+# Letters with nukta.
+item { uname: ["KA",  "NUKTA"] raw: "𑚊𑚷" to_raw: "q" }   # QA.
+item { uname: ["KHA", "NUKTA"] raw: "𑚋𑚷" to_raw: "x" }   # KHHA.
+item { uname: ["GHA", "NUKTA"] raw: "𑚍𑚷" to_raw: "ḡʰ" }  # GHHA.
+item { uname: ["JA",  "NUKTA"] raw: "𑚑𑚷" to_raw: "z" }   # ZA.
+item { uname: ["PHA", "NUKTA"] raw: "𑚟𑚷" to_raw: "f" }   # FA.

@@ -446,3 +446,24 @@ TIRH	𑒅𑓂
 TIRH	 𑓄
 TIRH	 𑓄
 TIRH	 𑓀
+
+# -----------------------------------------------------------------------------
+# Takri.
+# -----------------------------------------------------------------------------
+TAKR	𑚀𑚫𑚌𑚤𑚲𑚑𑚷	𑚀𑚫𑚌𑚤𑚲𑚑𑚷
+
+# Reject: Consonant + (Virama + Vowel Sign | Vowel Sign + Virama).
+TAKR	𑚔𑚶 𑚳
+TAKR	𑚙𑚯𑚶
+
+# Reject: Initial vowel signs, double vowel signs.
+TAKR	𑚭𑚓
+TAKR	𑚣𑚴𑚲
+
+# Reject: Vowel + virama.
+TAKR	𑚈𑚶
+
+# Reject: (|ZWS|ZWNJ|ZWJ) + coda.
+TAKR	 𑚫
+TAKR	  𑚫
+TAKR	  𑚫

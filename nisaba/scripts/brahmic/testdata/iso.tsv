@@ -541,3 +541,31 @@ TO_TIRH	jēṭʰa	𑒖𑒹𑒚
 TO_TIRH	asāṛʰa	𑒁𑒮𑒰𑒜𑓃
 TO_TIRH	bʰādō	𑒦𑒰𑒠𑒼
 TO_TIRH	kātika	𑒏𑒰𑒞𑒱𑒏
+
+# -----------------------------------------------------------------------------
+# Takri.
+# -----------------------------------------------------------------------------
+FROM_TAKR	𑚔𑚭𑚊𑚤𑚯	ṭākarī
+FROM_TAKR	𑚔𑚭𑚫𑚊𑚤𑚯	ṭāṁkarī
+FROM_TAKR	𑚢𑚶𑚩𑚨	mhasa
+FROM_TAKR	𑚊𑚶𑚩𑚥	khala
+FROM_TAKR	𑚙𑚭𑚫	tāṁ
+FROM_TAKR	𑚎𑚭	ṅā
+FROM_TAKR	𑚀𑚫𑚙𑚭𑚊𑚶𑚋𑚤𑚯	aṁtākkʰarī
+FROM_TAKR	𑚩𑚴𑚥𑚶𑚪𑚤	hōlṟara
+FROM_TAKR	𑚩𑚳𑚫𑚖𑚠𑚭𑚥	haiṁḍabāla
+FROM_TAKR	𑚩𑚮𑚢𑚭𑚏𑚥	himācala
+FROM_TAKR	𑚨𑚶𑚚𑚭𑚞𑚝𑚭	stʰāpanā
+FROM_TAKR	𑚨𑚶𑚔𑚯𑚦𑚲𑚫𑚨𑚝	sṭīvēṁsana
+TO_TAKR	ṭākarī	𑚔𑚭𑚊𑚤𑚯
+TO_TAKR	ṭāṁkarī	𑚔𑚭𑚫𑚊𑚤𑚯
+TO_TAKR	mhasa	𑚢𑚶𑚩𑚨
+TO_TAKR	khala	𑚊𑚶𑚩𑚥
+TO_TAKR	tāṁ	𑚙𑚭𑚫
+TO_TAKR	ṅā	𑚎𑚭
+TO_TAKR	aṁtākkʰarī	𑚀𑚫𑚙𑚭𑚊𑚶𑚋𑚤𑚯
+TO_TAKR	hōlṟara	𑚩𑚴𑚥𑚶𑚪𑚤
+TO_TAKR	haiṁḍabāla	𑚩𑚳𑚫𑚖𑚠𑚭𑚥
+TO_TAKR	himācala	𑚩𑚮𑚢𑚭𑚏𑚥
+TO_TAKR	stʰāpanā	𑚨𑚶𑚚𑚭𑚞𑚝𑚭
+TO_TAKR	sṭīvēṁsana	𑚨𑚶𑚔𑚯𑚦𑚲𑚫𑚨𑚝
