@@ -14,15 +14,19 @@
 
 # Script definitions for Meetei Mayek.
 
-load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
+load(
+    "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
+    "component_tsv",
+    "empty_components_tsv",
+)
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
-setup_script_data(
-    name = "Mtei",
-    empty_components = [
+empty_components_tsv(
+    name = "empties",
+    empty_component_names = [
         "nfc",
         "preserve",
         "standalone",
@@ -30,18 +34,44 @@ setup_script_data(
         "subjoined_consonant",
         "vowel_length_sign",
     ],
-    more_component_paths = {
-        "//nisaba/scripts/brahmic/data/common": [
-            "inherent_vowel",
-        ],
-    },
-    script_data_components = [
-        "accept",
-        "coda",
-        "consonant",
-        "dead_consonant",
-        "virama",
-        "vowel",
-        "vowel_sign",
-    ],
+)
+
+component_tsv(
+    name = "inherent_vowel",
+    text_protos = ["//nisaba/scripts/brahmic/data/common:inherent_vowel.textproto"],
+)
+
+component_tsv(
+    name = "accept",
+    text_protos = [":accept.textproto"],
+)
+
+component_tsv(
+    name = "coda",
+    text_protos = [":coda.textproto"],
+)
+
+component_tsv(
+    name = "consonant",
+    text_protos = [":consonant.textproto"],
+)
+
+component_tsv(
+    name = "dead_consonant",
+    text_protos = [":dead_consonant.textproto"],
+)
+
+component_tsv(
+    name = "virama",
+    text_protos = [":virama.textproto"],
+)
+
+component_tsv(
+    name = "vowel",
+    text_protos = [":vowel.textproto"],
+)
+
+component_tsv(
+    name = "vowel_sign",
+    text_protos = [":vowel_sign.textproto"],
 )

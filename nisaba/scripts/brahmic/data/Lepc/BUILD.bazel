@@ -14,15 +14,19 @@
 
 # Script definitions for Lepcha.
 
-load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
+load(
+    "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
+    "component_tsv",
+    "empty_components_tsv",
+)
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
-setup_script_data(
-    name = "Lepc",
-    empty_components = [
+empty_components_tsv(
+    name = "empties",
+    empty_component_names = [
         "accept",
         "coda",
         "nfc",
@@ -31,17 +35,39 @@ setup_script_data(
         "virama",
         "visual_rewrite",
     ],
-    more_component_paths = {
-        "//nisaba/scripts/brahmic/data/common": [
-            "inherent_vowel",
-        ],
-    },
-    script_data_components = [
-        "consonant",
-        "dead_consonant",
-        "subjoined_consonant",
-        "vowel",
-        "vowel_sign",
-        "vowel_length_sign",
-    ],
+)
+
+component_tsv(
+    name = "inherent_vowel",
+    text_protos = ["//nisaba/scripts/brahmic/data/common:inherent_vowel.textproto"],
+)
+
+component_tsv(
+    name = "consonant",
+    text_protos = [":consonant.textproto"],
+)
+
+component_tsv(
+    name = "dead_consonant",
+    text_protos = [":dead_consonant.textproto"],
+)
+
+component_tsv(
+    name = "subjoined_consonant",
+    text_protos = [":subjoined_consonant.textproto"],
+)
+
+component_tsv(
+    name = "vowel",
+    text_protos = [":vowel.textproto"],
+)
+
+component_tsv(
+    name = "vowel_sign",
+    text_protos = [":vowel_sign.textproto"],
+)
+
+component_tsv(
+    name = "vowel_length_sign",
+    text_protos = [":vowel_length_sign.textproto"],
 )
