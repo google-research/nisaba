@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "DEVANAGARI LETTER"
-
 item {
   uname: "E" raw: "ए"
   to_uname: "E WITH MACRON" to_raw: "ē"

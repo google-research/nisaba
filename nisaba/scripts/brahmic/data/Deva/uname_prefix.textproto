@@ -15,9 +15,11 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "DEVANAGARI"
+# Prefixes used for mapping between Devanagari script character sequences.
 
-item {
-  uname: ["SIGN VIRAMA", "ZERO WIDTH NON-JOINER"] raw: "्‌"
-  to_raw: "[VIRAMA,ZWNJ]"
-}
+uname_prefix: [
+  "DEVANAGARI",
+  "DEVANAGARI LETTER",
+  "DEVANAGARI VOWEL",
+  "DEVANAGARI SIGN"
+]

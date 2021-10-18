@@ -15,12 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "DEVANAGARI SIGN"
-item {
-  uname: "CANDRABINDU" raw: "ँ"
-  to_uname: ["M", "COMBINING CANDRABINDU"] to_raw: "m̐"
-}
-
 # The nuqta is neither a coda nor a pure standalone symbol.
 item {
   uname: "NUKTA" raw: "़"

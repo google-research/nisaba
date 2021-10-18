@@ -15,51 +15,49 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "DEVANAGARI"
-
 # Compose X + NUKTA to combined codepoint
 item {
-  uname: ["LETTER NA", "SIGN NUKTA"] raw: "ऩ"
-  to_uname: ["LETTER NNNA"] to_raw: "ऩ"
+  uname: ["NA", "NUKTA"] raw: "ऩ"
+  to_uname: "NNNA" to_raw: "ऩ"
 }
 item {
-  uname: ["LETTER RA", "SIGN NUKTA"] raw: "ऱ"
-  to_uname: ["LETTER RRA"] to_raw: "ऱ"
+  uname: ["RA", "NUKTA"] raw: "ऱ"
+  to_uname: "RRA" to_raw: "ऱ"
 }
 item {
-  uname: ["LETTER LLA", "SIGN NUKTA"] raw: "ऴ"
-  to_uname: ["LETTER LLLA"] to_raw: "ऴ"
+  uname: ["LLA", "NUKTA"] raw: "ऴ"
+  to_uname: "LLLA" to_raw: "ऴ"
 }
 # Decompose to X + NUKTA
 item {
-  uname: ["LETTER QA"] raw: "क़"
-  to_uname: ["LETTER KA", "SIGN NUKTA"] to_raw: "क़"
+  uname: "QA" raw: "क़"
+  to_uname: ["KA", "NUKTA"] to_raw: "क़"
 }
 item {
-  uname: ["LETTER KHHA"] raw: "ख़"
-  to_uname: ["LETTER KHA", "SIGN NUKTA"] to_raw: "ख़"
+  uname: "KHHA" raw: "ख़"
+  to_uname: ["KHA", "NUKTA"] to_raw: "ख़"
 }
 item {
-  uname: ["LETTER GHHA"] raw: "ग़"
-  to_uname: ["LETTER GA", "SIGN NUKTA"] to_raw: "ग़"
+  uname: "GHHA" raw: "ग़"
+  to_uname: ["GA", "NUKTA"] to_raw: "ग़"
 }
 item {
-  uname: ["LETTER ZA"] raw: "ज़"
-  to_uname: ["LETTER JA", "SIGN NUKTA"] to_raw: "ज़"
+  uname: "ZA" raw: "ज़"
+  to_uname: ["JA", "NUKTA"] to_raw: "ज़"
 }
 item {
-  uname: ["LETTER DDDHA"] raw: "ड़"
-  to_uname: ["LETTER DDA", "SIGN NUKTA"] to_raw: "ड़"
+  uname: "DDDHA" raw: "ड़"
+  to_uname: ["DDA", "NUKTA"] to_raw: "ड़"
 }
 item {
-  uname: ["LETTER RHA"] raw: "ढ़"
-  to_uname: ["LETTER DDHA", "SIGN NUKTA"] to_raw: "ढ़"
+  uname: "RHA" raw: "ढ़"
+  to_uname: ["DDHA", "NUKTA"] to_raw: "ढ़"
 }
 item {
-  uname: ["LETTER FA"] raw: "फ़"
-  to_uname: ["LETTER PHA", "SIGN NUKTA"] to_raw: "फ़"
+  uname: "FA" raw: "फ़"
+  to_uname: ["PHA", "NUKTA"] to_raw: "फ़"
 }
 item {
-  uname: ["LETTER YYA"] raw: "य़"
-  to_uname: ["LETTER YA", "SIGN NUKTA"] to_raw: "य़"
+  uname: "YYA" raw: "य़"
+  to_uname: ["YA", "NUKTA"] to_raw: "य़"
 }

@@ -24,6 +24,8 @@ package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
+exports_files(["uname_prefix.textproto"])
+
 empty_components_tsv(
     name = "empties",
     empty_component_names = [
@@ -37,6 +39,8 @@ empty_components_tsv(
 component_tsv(
     name = "coda",
     text_protos = [
+        ":uname_prefix.textproto",
+        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
         "//nisaba/scripts/brahmic/data/common:coda.textproto",
         ":coda.textproto",
     ],
@@ -45,6 +49,8 @@ component_tsv(
 component_tsv(
     name = "consonant",
     text_protos = [
+        ":uname_prefix.textproto",
+        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
         "//nisaba/scripts/brahmic/data/common:consonant.textproto",
         ":consonant.textproto",
     ],
@@ -58,6 +64,8 @@ component_tsv(
 component_tsv(
     name = "vowel",
     text_protos = [
+        ":uname_prefix.textproto",
+        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
         "//nisaba/scripts/brahmic/data/common:vowel.textproto",
         ":vowel.textproto",
     ],
@@ -66,32 +74,50 @@ component_tsv(
 component_tsv(
     name = "vowel_sign",
     text_protos = [
+        ":uname_prefix.textproto",
+        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
         "//nisaba/scripts/brahmic/data/common:vowel_sign.textproto",
         ":vowel_sign.textproto",
     ],
 )
 
 component_tsv(
-    name = "nfc",
-    text_protos = [":nfc.textproto"],
+    name = "virama",
+    text_protos = [
+        ":uname_prefix.textproto",
+        "//nisaba/scripts/brahmic/data/common:virama.textproto",
+    ],
 )
 
 component_tsv(
     name = "preserve",
-    text_protos = [":preserve.textproto"],
+    text_protos = [
+        ":uname_prefix.textproto",
+        "//nisaba/scripts/brahmic/data/common:preserve.textproto",
+    ],
 )
 
 component_tsv(
     name = "standalone",
-    text_protos = [":standalone.textproto"],
+    text_protos = [
+        ":uname_prefix.textproto",
+        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
+        ":standalone.textproto",
+    ],
 )
 
 component_tsv(
-    name = "virama",
-    text_protos = [":virama.textproto"],
+    name = "nfc",
+    text_protos = [
+        ":uname_prefix.textproto",
+        ":nfc.textproto",
+    ],
 )
 
 component_tsv(
     name = "visual_rewrite",
-    text_protos = [":visual_rewrite.textproto"],
+    text_protos = [
+        ":uname_prefix.textproto",
+        ":visual_rewrite.textproto",
+    ],
 )
