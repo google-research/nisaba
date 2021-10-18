@@ -52,20 +52,22 @@ def component_tsv(name, text_protos):
         targets = [":" + converter_rule_name],
     )
 
-def empty_component_tsv(name):
-    """Creates an empty script data component file in TSV format.
+def empty_components_tsv(name, empty_component_names):
+    """Creates empty script data component files in TSV format.
 
     Args:
-      name: The name of the script data component (e.g., `accept`).
+      name: Name of the rule.
+      empty_component_names: The names of the script data components (e.g.,
+        `accept`).
     """
-
-    native.genrule(
-        name = "create_%s_tsv" % name,
-        outs = ["%s.tsv" % name],
-        visibility = ["//nisaba/scripts:__subpackages__"],
-        # May not work in Windows. To be fixed when Windows support is added.
-        cmd = "touch $@",
-    )
+    for component_name in empty_component_names:
+        native.genrule(
+            name = "create_%s_tsv" % component_name,
+            outs = ["%s.tsv" % component_name],
+            visibility = ["//nisaba/scripts:__subpackages__"],
+            # May not work in Windows. To be fixed when Windows support is added.
+            cmd = "touch $@",
+        )
 
 def setup_script_data(
         name,
@@ -106,5 +108,5 @@ def setup_script_data(
     for component, proto_tgts in component_to_proto_tgts.items():
         component_tsv(component, depset(proto_tgts).to_list())
 
-    for component in empty_components:
-        empty_component_tsv(component)
+    # Add targets generating empty components.
+    empty_components_tsv("%s_empties" % name, empty_components)

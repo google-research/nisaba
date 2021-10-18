@@ -14,7 +14,7 @@
 
 # Script definitions for Bengali.
 
-load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "component_tsv", "empty_component_tsv")
+load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "component_tsv", "empty_components_tsv")
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
@@ -97,13 +97,15 @@ component_tsv(
     ],
 )
 
-empty_component_tsv(name = "accept")
-
-empty_component_tsv(name = "standalone")
-
-empty_component_tsv(name = "subjoined_consonant")
-
-empty_component_tsv(name = "vowel_length_sign")
+empty_components_tsv(
+    name = "empties",
+    empty_component_names = [
+        "accept",
+        "standalone",
+        "subjoined_consonant",
+        "vowel_length_sign",
+    ],
+)
 
 component_tsv(
     name = "nfc",
