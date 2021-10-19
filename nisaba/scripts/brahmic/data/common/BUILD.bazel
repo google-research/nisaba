@@ -14,7 +14,7 @@
 
 # Common definitions for Brahmic scripts.
 
-load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
+load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "component_tsv")
 
 licenses(["notice"])
 
@@ -24,7 +24,7 @@ exports_files(
     glob(["*.textproto"]),
 )
 
-setup_script_data(
-    name = "common",
-    script_data_components = ["symbol"],
+component_tsv(
+    name = "symbol",
+    text_protos = [":symbol.textproto"],
 )

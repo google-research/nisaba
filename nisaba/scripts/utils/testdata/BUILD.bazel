@@ -14,13 +14,13 @@
 
 # Test data for the utilities.
 
-load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
+load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "component_tsv")
 
 package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
 
-setup_script_data(
-    name = "brahmi",
-    script_data_components = ["brahmi_data"],
+component_tsv(
+    name = "brahmi_data",
+    text_protos = [":brahmi_data.textproto"],
 )
