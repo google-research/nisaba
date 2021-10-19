@@ -14,34 +14,68 @@
 
 # Script definitions for Tamil.
 
-load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
+load(
+    "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
+    "component_tsv",
+    "empty_components_tsv",
+)
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
-setup_script_data(
-    name = "Tamil",
-    empty_components = [
+empty_components_tsv(
+    name = "empties",
+    empty_component_names = [
         "accept",
         "dead_consonant",
         "preserve",
         "subjoined_consonant",
         "vowel_length_sign",
     ],
-    more_component_paths = {
-        "//nisaba/scripts/brahmic/data/common": [
-            "inherent_vowel",
-        ],
-    },
-    script_data_components = [
-        "coda",
-        "consonant",
-        "nfc",
-        "standalone",
-        "virama",
-        "visual_rewrite",
-        "vowel",
-        "vowel_sign",
-    ],
+)
+
+component_tsv(
+    name = "coda",
+    text_protos = [":coda.textproto"],
+)
+
+component_tsv(
+    name = "consonant",
+    text_protos = [":consonant.textproto"],
+)
+
+component_tsv(
+    name = "inherent_vowel",
+    text_protos = ["//nisaba/scripts/brahmic/data/common:inherent_vowel.textproto"],
+)
+
+component_tsv(
+    name = "nfc",
+    text_protos = [":nfc.textproto"],
+)
+
+component_tsv(
+    name = "standalone",
+    text_protos = [":standalone.textproto"],
+)
+
+component_tsv(
+    name = "virama",
+    text_protos = [":virama.textproto"],
+)
+
+component_tsv(
+    name = "visual_rewrite",
+    text_protos = [":visual_rewrite.textproto"],
+)
+
+component_tsv(
+    name = "vowel",
+    text_protos = [":vowel.textproto"],
+)
+
+component_tsv(
+    name = "vowel_sign",
+    text_protos = [":vowel_sign.textproto"],
 )

@@ -14,38 +14,80 @@
 
 # Script definitions for Oriya.
 
-load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "setup_script_data")
+load(
+    "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
+    "component_tsv",
+    "empty_components_tsv",
+)
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
-setup_script_data(
-    name = "Orya",
-    empty_components = [
+empty_components_tsv(
+    name = "empties",
+    empty_component_names = [
         "accept",
         "dead_consonant",
         "standalone",
         "subjoined_consonant",
         "vowel_length_sign",
     ],
-    more_component_paths = {
-        "//nisaba/scripts/brahmic/data/common": [
-            "coda",
-            "consonant",
-            "inherent_vowel",
-            "vowel",
-            "vowel_sign",
-        ],
-    },
-    script_data_components = [
-        "coda",
-        "consonant",
-        "nfc",
-        "preserve",
-        "virama",
-        "visual_rewrite",
-        "vowel",
-        "vowel_sign",
+)
+
+component_tsv(
+    name = "coda",
+    text_protos = [
+        "//nisaba/scripts/brahmic/data/common:coda.textproto",
+        ":coda.textproto",
+    ],
+)
+
+component_tsv(
+    name = "consonant",
+    text_protos = [
+        "//nisaba/scripts/brahmic/data/common:consonant.textproto",
+        ":consonant.textproto",
+    ],
+)
+
+component_tsv(
+    name = "inherent_vowel",
+    text_protos = ["//nisaba/scripts/brahmic/data/common:inherent_vowel.textproto"],
+)
+
+component_tsv(
+    name = "nfc",
+    text_protos = [":nfc.textproto"],
+)
+
+component_tsv(
+    name = "preserve",
+    text_protos = [":preserve.textproto"],
+)
+
+component_tsv(
+    name = "virama",
+    text_protos = [":virama.textproto"],
+)
+
+component_tsv(
+    name = "visual_rewrite",
+    text_protos = [":visual_rewrite.textproto"],
+)
+
+component_tsv(
+    name = "vowel",
+    text_protos = [
+        "//nisaba/scripts/brahmic/data/common:vowel.textproto",
+        ":vowel.textproto",
+    ],
+)
+
+component_tsv(
+    name = "vowel_sign",
+    text_protos = [
+        "//nisaba/scripts/brahmic/data/common:vowel_sign.textproto",
+        ":vowel_sign.textproto",
     ],
 )
