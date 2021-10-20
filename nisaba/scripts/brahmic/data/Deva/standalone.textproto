@@ -20,6 +20,7 @@
 
 # TODO: If deemed necessary, drop vedic marks from brahmic.
 uname_prefix: "VEDIC"
+to_uname_prefix: "LATIN SMALL LETTER"
 
 item {
   uname: "SIGN JIHVAMULIYA" raw: "ᳵ"

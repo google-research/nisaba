@@ -16,8 +16,13 @@
 
 load(
     "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
-    "component_tsv",
     "empty_components_tsv",
+)
+load(
+    "//nisaba/scripts/brahmic:components_tsv.bzl",
+    "components_tsv_from_common",
+    "components_tsv_local",
+    "components_tsv_local_with_common",
 )
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
@@ -36,88 +41,21 @@ empty_components_tsv(
     ],
 )
 
-component_tsv(
-    name = "coda",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
-        "//nisaba/scripts/brahmic/data/common:coda.textproto",
-        ":coda.textproto",
-    ],
-)
+components_tsv_from_common(names = [
+    "inherent_vowel",
+    "virama",
+    "preserve",
+])
 
-component_tsv(
-    name = "consonant",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
-        "//nisaba/scripts/brahmic/data/common:consonant.textproto",
-        ":consonant.textproto",
-    ],
-)
+components_tsv_local_with_common(names = [
+    "coda",
+    "consonant",
+    "vowel",
+    "vowel_sign",
+])
 
-component_tsv(
-    name = "inherent_vowel",
-    text_protos = ["//nisaba/scripts/brahmic/data/common:inherent_vowel.textproto"],
-)
-
-component_tsv(
-    name = "vowel",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
-        "//nisaba/scripts/brahmic/data/common:vowel.textproto",
-        ":vowel.textproto",
-    ],
-)
-
-component_tsv(
-    name = "vowel_sign",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
-        "//nisaba/scripts/brahmic/data/common:vowel_sign.textproto",
-        ":vowel_sign.textproto",
-    ],
-)
-
-component_tsv(
-    name = "virama",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:virama.textproto",
-    ],
-)
-
-component_tsv(
-    name = "preserve",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:preserve.textproto",
-    ],
-)
-
-component_tsv(
-    name = "standalone",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
-        ":standalone.textproto",
-    ],
-)
-
-component_tsv(
-    name = "nfc",
-    text_protos = [
-        ":uname_prefix.textproto",
-        ":nfc.textproto",
-    ],
-)
-
-component_tsv(
-    name = "visual_rewrite",
-    text_protos = [
-        ":uname_prefix.textproto",
-        ":visual_rewrite.textproto",
-    ],
-)
+components_tsv_local(names = [
+    "standalone",
+    "nfc",
+    "visual_rewrite",
+])
