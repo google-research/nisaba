@@ -50,12 +50,12 @@ components_tsv_from_common(names = [
 components_tsv_local_with_common(names = [
     "coda",
     "consonant",
+    "standalone",
     "vowel",
     "vowel_sign",
 ])
 
 components_tsv_local(names = [
-    "standalone",
     "nfc",
     "visual_rewrite",
 ])

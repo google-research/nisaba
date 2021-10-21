@@ -15,10 +15,8 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "BUGINESE VOWEL SIGN"
-
-item { uname: "I" to_raw: "i" }
-item { uname: "U" to_raw: "u" }
-item { uname: "E" to_raw: "e" }
-item { uname: "O" to_raw: "o" }
-item { uname: "AE" to_raw: "æ" }
+item { uname: "SIGN I"  to_raw: "i" }
+item { uname: "SIGN U"  to_raw: "u" }
+item { uname: "SIGN E"  to_raw: "e" }
+item { uname: "SIGN O"  to_raw: "o" }
+item { uname: "SIGN AE" to_raw: "æ" }

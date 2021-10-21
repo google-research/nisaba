@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "GUJARATI"
+# Prefixes used for mapping between Kannada script character sequences.
 
-item {
-  uname: ["SIGN VIRAMA"] raw: "્"
-}
+uname_prefix: ["KANNADA", "KANNADA LETTER", "KANNADA VOWEL", "KANNADA SIGN"]

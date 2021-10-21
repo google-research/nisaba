@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "BUGINESE LETTER"
-
 to_uname_prefix: "LATIN SMALL LETTER"
 
 # Note: `NGKA`, `NRA`, `NYCA` and `MPA` are consonantal clusters.

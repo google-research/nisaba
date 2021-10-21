@@ -15,41 +15,41 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "GURMUKHI"
+to_uname_prefix: "LATIN SMALL LETTER"
 
 item {
-  uname: ["VOWEL SIGN AA"] raw: "ਾ"
-  to_uname: ["LATIN SMALL LETTER A WITH MACRON"] to_raw: "ā"
+  uname: "SIGN AA" raw: "ਾ"
+  to_uname: "A WITH MACRON" to_raw: "ā"
 }
 item {
-  uname: ["VOWEL SIGN I"] raw: "ਿ"
-  to_uname: ["LATIN SMALL LETTER I"] to_raw: "i"
+  uname: "SIGN I" raw: "ਿ"
+  to_raw: "i"
 }
 item {
-  uname: ["VOWEL SIGN II"] raw: "ੀ"
-  to_uname: ["LATIN SMALL LETTER I WITH MACRON"] to_raw: "ī"
+  uname: "SIGN II" raw: "ੀ"
+  to_uname: "I WITH MACRON" to_raw: "ī"
 }
 item {
-  uname: ["VOWEL SIGN U"] raw: "ੁ"
-  to_uname: ["LATIN SMALL LETTER U"] to_raw: "u"
+  uname: "SIGN U" raw: "ੁ"
+  to_raw: "u"
 }
 item {
-  uname: ["VOWEL SIGN UU"] raw: "ੂ"
-  to_uname: ["LATIN SMALL LETTER U WITH MACRON"] to_raw: "ū"
+  uname: "SIGN UU" raw: "ੂ"
+  to_uname: "U WITH MACRON" to_raw: "ū"
 }
 item {
-  uname: ["VOWEL SIGN EE"] raw: "ੇ"
-  to_uname: ["LATIN SMALL LETTER E WITH MACRON"] to_raw: "ē"
+  uname: "SIGN EE" raw: "ੇ"
+  to_uname: "E WITH MACRON" to_raw: "ē"
 }
 item {
-  uname: ["VOWEL SIGN AI"] raw: "ੈ"
-  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER I"] to_raw: "ai"
+  uname: "SIGN AI" raw: "ੈ"
+  to_raw: "ai"
 }
 item {
-  uname: ["VOWEL SIGN OO"] raw: "ੋ"
-  to_uname: ["LATIN SMALL LETTER O WITH MACRON"] to_raw: "ō"
+  uname: "SIGN OO" raw: "ੋ"
+  to_uname: "O WITH MACRON" to_raw: "ō"
 }
 item {
-  uname: ["VOWEL SIGN AU"] raw: "ੌ"
-  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER U"] to_raw: "au"
+  uname: "SIGN AU" raw: "ੌ"
+  to_raw: "au"
 }

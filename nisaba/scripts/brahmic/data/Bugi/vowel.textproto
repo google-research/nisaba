@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["BUGINESE LETTER", "BUGINESE VOWEL"]
-
 # Standalone vowel sounds are written using vowel-signs applied to `A`.
 item { uname: "A" raw: "ᨕ" to_raw: "a" }
 
@@ -25,5 +23,5 @@ item { uname: "A" raw: "ᨕ" to_raw: "a" }
 item { uname: ["A", "SIGN I"]  to_raw: "i" }
 item { uname: ["A", "SIGN U"]  to_raw: "u" }
 item { uname: ["A", "SIGN E"]  to_raw: "e" }
-item { uname: ["A", "SIGN AE"] to_raw: "æ" }
 item { uname: ["A", "SIGN O"]  to_raw: "o" }
+item { uname: ["A", "SIGN AE"] to_raw: "æ" }

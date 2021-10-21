@@ -15,41 +15,41 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "GURMUKHI"
+to_uname_prefix: ["LATIN", "LATIN SMALL LETTER", "MODIFIER LETTER"]
 
 item {
-  uname: ["SIGN BINDI"] raw: "ਂ"
-  to_uname: ["LATIN SMALL LETTER M WITH DOT ABOVE"] to_raw: "ṁ"
+  uname: "BINDI" raw: "ਂ"
+  to_uname: "M WITH DOT ABOVE" to_raw: "ṁ"
 }
 item {
-  uname: ["TIPPI"] raw: "ੰ"
-  to_uname: ["LATIN SMALL LETTER M WITH DOT BELOW"] to_raw: "ṃ"
+  uname: "TIPPI" raw: "ੰ"
+  to_uname: "M WITH DOT BELOW" to_raw: "ṃ"
 }
 item {
-  uname: ["SIGN ADAK BINDI"] raw: "ਁ"
-  to_uname: ["LATIN SMALL LETTER M", "COMBINING CANDRABINDU"] to_raw: "m̐"
+  uname: "ADAK BINDI" raw: "ਁ"
+  to_uname: ["M", "COMBINING CANDRABINDU"] to_raw: "m̐"
 }
 item {
-  uname: ["SIGN VISARGA"] raw: "ਃ"
-  to_uname: ["LATIN SMALL LETTER H WITH DOT BELOW"] to_raw: "ḥ"
+  uname: "VISARGA" raw: "ਃ"
+  to_uname: "H WITH DOT BELOW" to_raw: "ḥ"
 }
 item {
-  uname: ["ADDAK"] raw: "ੱ"
-  to_uname: ["MODIFIER LETTER PLUS SIGN"] to_raw: "˖"
+  uname: "ADDAK" raw: "ੱ"
+  to_uname: "MODIFIER LETTER PLUS SIGN" to_raw: "˖"
 }
 
 # TODO: The udaat, nuqta, and yakash act like devanagari nuqta
 # and must come between the consonant and any potential vowel signs. This should
 # be given appropriate handling.
 item {
-  uname: ["SIGN UDAAT"] raw: "ੑ"
-  to_uname: ["LATIN SUBSCRIPT SMALL LETTER H"] to_raw: "ₕ"
+  uname: "UDAAT" raw: "ੑ"
+  to_uname: "SUBSCRIPT SMALL LETTER H" to_raw: "ₕ"
 }
 item {
-  uname: ["SIGN NUKTA"] raw: "਼"
-  to_uname: ["MODIFIER LETTER HALF TRIANGULAR COLON"] to_raw: "ˑ"
+  uname: "NUKTA" raw: "਼"
+  to_uname: "HALF TRIANGULAR COLON" to_raw: "ˑ"
 }
 item {
-  uname: ["SIGN YAKASH"] raw: "ੵ"
-  to_uname: ["LATIN SMALL LETTER Y", "COMBINING BREVE"] to_raw: "y̆"
+  uname: "YAKASH" raw: "ੵ"
+  to_uname: ["Y", "COMBINING BREVE"] to_raw: "y̆"
 }

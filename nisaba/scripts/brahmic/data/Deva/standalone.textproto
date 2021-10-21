@@ -31,10 +31,6 @@ item {
   to_uname: "H WITH BREVE BELOW" to_raw: "ḫ"
 }
 item {
-  uname: "OM" raw: "ॐ"
-  to_uname: ["O WITH TILDE", "M"] to_raw: "õm"
-}
-item {
   uname: "SIGN AVAGRAHA" raw: "ऽ"
   to_uname: "RIGHT SINGLE QUOTATION MARK" to_raw: "’"
 }

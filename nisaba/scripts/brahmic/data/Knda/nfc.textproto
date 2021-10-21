@@ -15,32 +15,30 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "KANNADA"
-
 # Combine 2-part vowels
 item {
-  uname: ["VOWEL SIGN I", "LENGTH MARK"] raw: "ೀ"
-  to_uname: ["VOWEL SIGN II"] to_raw: "ೀ"
+  uname: ["SIGN I", "LENGTH MARK"] raw: "ೀ"
+  to_uname: "SIGN II" to_raw: "ೀ"
 }
 item {
-  uname: ["VOWEL SIGN E", "LENGTH MARK"] raw: "ೇ"
-  to_uname: ["VOWEL SIGN EE"] to_raw: "ೇ"
+  uname: ["SIGN E", "LENGTH MARK"] raw: "ೇ"
+  to_uname: "SIGN EE" to_raw: "ೇ"
 }
 item {
-  uname: ["VOWEL SIGN E", "AI LENGTH MARK"] raw: "ೈ"
-  to_uname: ["VOWEL SIGN AI"] to_raw: "ೈ"
+  uname: ["SIGN E", "AI LENGTH MARK"] raw: "ೈ"
+  to_uname: "SIGN AI" to_raw: "ೈ"
 }
 item {
-  uname: ["VOWEL SIGN E", "VOWEL SIGN UU"] raw: "ೊ"
-  to_uname: ["VOWEL SIGN O"] to_raw: "ೊ"
+  uname: ["SIGN E", "SIGN UU"] raw: "ೊ"
+  to_uname: "SIGN O" to_raw: "ೊ"
 }
 item {
-  uname: ["VOWEL SIGN O", "LENGTH MARK"] raw: "ೋ"
-  to_uname: ["VOWEL SIGN OO"] to_raw: "ೋ"
+  uname: ["SIGN O", "LENGTH MARK"] raw: "ೋ"
+  to_uname: "SIGN OO" to_raw: "ೋ"
 }
 
 # Combine 3-part vowel
 item {
-  uname: ["VOWEL SIGN E", "VOWEL SIGN UU", "LENGTH MARK"] raw: "ೋ"
-  to_uname: ["VOWEL SIGN OO"] to_raw: "ೋ"
+  uname: ["SIGN E", "SIGN UU", "LENGTH MARK"] raw: "ೋ"
+  to_uname: "SIGN OO" to_raw: "ೋ"
 }

@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["GUJARATI LETTER", "GUJARATI SIGN"]
-
 item { uname: "VA" raw: "વ" to_raw: "v" }
 item { uname: ["KA",  "NUKTA"] raw: "ક઼" to_raw: "q" }
 item { uname: ["KHA", "NUKTA"] raw: "ખ઼" to_raw: "x" }

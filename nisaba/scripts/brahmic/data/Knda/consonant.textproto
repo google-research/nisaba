@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["KANNADA LETTER", "KANNADA SIGN"]
-
 item { uname: "VA" raw: "ವ" to_raw: "v" }
 item { uname: ["JA", "NUKTA"] raw: "ಜ಼" to_raw: "z" }
 item { uname: ["PHA", "NUKTA"] raw: "ಫ಼" to_raw: "f" }

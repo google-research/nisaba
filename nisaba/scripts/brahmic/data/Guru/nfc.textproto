@@ -15,30 +15,28 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "GURMUKHI"
-
 # Decompose to X + NUKTA
 item {
-  uname: ["LETTER LLA"] raw: "ਲ਼"
-  to_uname: ["LETTER LA", "SIGN NUKTA"] to_raw: "ਲ਼"
+  uname: "LLA" raw: "ਲ਼"
+  to_uname: ["LA", "NUKTA"] to_raw: "ਲ਼"
 }
 item {
-  uname: ["LETTER SHA"] raw: "ਸ਼"
-  to_uname: ["LETTER SA", "SIGN NUKTA"] to_raw: "ਸ਼"
+  uname: "SHA" raw: "ਸ਼"
+  to_uname: ["SA", "NUKTA"] to_raw: "ਸ਼"
 }
 item {
-  uname: ["LETTER KHHA"] raw: "ਖ਼"
-  to_uname: ["LETTER KHA", "SIGN NUKTA"] to_raw: "ਖ਼"
+  uname: "KHHA" raw: "ਖ਼"
+  to_uname: ["KHA", "NUKTA"] to_raw: "ਖ਼"
 }
 item {
-  uname: ["LETTER GHHA"] raw: "ਗ਼"
-  to_uname: ["LETTER GA", "SIGN NUKTA"] to_raw: "ਗ਼"
+  uname: "GHHA" raw: "ਗ਼"
+  to_uname: ["GA", "NUKTA"] to_raw: "ਗ਼"
 }
 item {
-  uname: ["LETTER ZA"] raw: "ਜ਼"
-  to_uname: ["LETTER JA", "SIGN NUKTA"] to_raw: "ਜ਼"
+  uname: "ZA" raw: "ਜ਼"
+  to_uname: ["JA", "NUKTA"] to_raw: "ਜ਼"
 }
 item {
-  uname: ["LETTER FA"] raw: "ਫ਼"
-  to_uname: ["LETTER PHA", "SIGN NUKTA"] to_raw: "ਫ਼"
+  uname: "FA" raw: "ਫ਼"
+  to_uname: ["PHA", "NUKTA"] to_raw: "ਫ਼"
 }

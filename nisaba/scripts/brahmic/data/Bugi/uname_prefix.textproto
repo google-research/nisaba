@@ -15,9 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "GUJARATI"
+# Prefixes used for mapping between Bengali script character sequences.
 
-item {
-  uname: ["SIGN VIRAMA", "ZERO WIDTH NON-JOINER"] raw: "્‌"
-  to_raw: "[VIRAMA,ZWNJ]"
-}
+uname_prefix: ["BUGINESE", "BUGINESE LETTER", "BUGINESE VOWEL", "BUGINESE SIGN"]

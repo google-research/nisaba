@@ -15,9 +15,9 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "GUJARATI"
+to_uname_prefix: "LATIN SMALL LETTER"
 
 item {
-  uname: ["OM"] raw: "ૐ"
-  to_uname: ["LATIN SMALL LETTER O WITH TILDE", "LATIN SMALL LETTER M"] to_raw: "õm"
+  uname: "OM"
+  to_uname: ["O WITH TILDE", "M"] to_raw: "õm"
 }

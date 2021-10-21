@@ -15,53 +15,53 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "GURMUKHI"
+to_uname_prefix: "LATIN SMALL LETTER"
 
 item {
-  uname: ["LETTER A"] raw: "ਅ"
-  to_uname: ["LATIN SMALL LETTER A"] to_raw: "a"
+  uname: "A" raw: "ਅ"
+  to_raw: "a"
 }
 item {
-  uname: ["LETTER AA"] raw: "ਆ"
-  to_uname: ["LATIN SMALL LETTER A WITH MACRON"] to_raw: "ā"
+  uname: "AA" raw: "ਆ"
+  to_uname: "A WITH MACRON" to_raw: "ā"
 }
 item {
-  uname: ["IRI"] raw: "ੲ"
-  to_uname: ["LATIN SMALL LETTER I WITH CARON"] to_raw: "ǐ"
+  uname: "IRI" raw: "ੲ"
+  to_uname: "I WITH CARON" to_raw: "ǐ"
 }
 item {
-  uname: ["LETTER I"] raw: "ਇ"
-  to_uname: ["LATIN SMALL LETTER I"] to_raw: "i"
+  uname: "I" raw: "ਇ"
+  to_raw: "i"
 }
 item {
-  uname: ["LETTER II"] raw: "ਈ"
-  to_uname: ["LATIN SMALL LETTER I WITH MACRON"] to_raw: "ī"
+  uname: "II" raw: "ਈ"
+  to_uname: "I WITH MACRON" to_raw: "ī"
 }
 item {
-  uname: ["URA"] raw: "ੳ"
-  to_uname: ["LATIN SMALL LETTER U WITH CARON"] to_raw: "ǔ"
+  uname: "URA" raw: "ੳ"
+  to_uname: "U WITH CARON" to_raw: "ǔ"
 }
 item {
-  uname: ["LETTER U"] raw: "ਉ"
-  to_uname: ["LATIN SMALL LETTER U"] to_raw: "u"
+  uname: "U" raw: "ਉ"
+  to_raw: "u"
 }
 item {
-  uname: ["LETTER UU"] raw: "ਊ"
-  to_uname: ["LATIN SMALL LETTER U WITH MACRON"] to_raw: "ū"
+  uname: "UU" raw: "ਊ"
+  to_uname: "U WITH MACRON" to_raw: "ū"
 }
 item {
-  uname: ["LETTER EE"] raw: "ਏ"
-  to_uname: ["LATIN SMALL LETTER E WITH MACRON"] to_raw: "ē"
+  uname: "EE" raw: "ਏ"
+  to_uname: "E WITH MACRON" to_raw: "ē"
 }
 item {
-  uname: ["LETTER AI"] raw: "ਐ"
-  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER I"] to_raw: "ai"
+  uname: "AI" raw: "ਐ"
+  to_raw: "ai"
 }
 item {
-  uname: ["LETTER OO"] raw: "ਓ"
-  to_uname: ["LATIN SMALL LETTER O WITH MACRON"] to_raw: "ō"
+  uname: "OO" raw: "ਓ"
+  to_uname: "O WITH MACRON" to_raw: "ō"
 }
 item {
-  uname: ["LETTER AU"] raw: "ਔ"
-  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER U"] to_raw: "au"
+  uname: "AU" raw: "ਔ"
+  to_raw: "au"
 }

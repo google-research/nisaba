@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["KANNADA LETTER", "KANNADA SIGN"]
-
 # Centralizing vowel AA to transliterate foreign words like 'attitude' & 'app'
 item { uname: ["AA", "VIRAMA", "YA"] raw: "ಆ್ಯ" to_uname: "AE" to_raw: "æ"}
 

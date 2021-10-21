@@ -15,4 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "KANNADA SIGN"
+# Prefixes used for mapping between Bengali script character sequences.
+
+uname_prefix: ["GURMUKHI", "GURMUKHI LETTER", "GURMUKHI VOWEL", "GURMUKHI SIGN"]

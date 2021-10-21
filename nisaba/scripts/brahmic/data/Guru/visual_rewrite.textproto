@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "GURMUKHI"
-
 ################################
 # Rewrites from Unicode standard
 # Unicode version 12.0: Chapter 12.3
@@ -24,38 +22,38 @@ uname_prefix: "GURMUKHI"
 # Table 12-16: Gurmukhi Vowel Letters
 
 item {
-  uname: ["LETTER A", "VOWEL SIGN AA"] raw: "ਅਾ"
-  to_uname: ["LETTER AA"] to_raw: "ਆ"
+  uname: ["A", "SIGN AA"] raw: "ਅਾ"
+  to_uname: "AA" to_raw: "ਆ"
 }
 item {
-  uname: ["IRI", "VOWEL SIGN I"] raw: "ੲਿ"
-  to_uname: ["LETTER I"] to_raw: "ਇ"
+  uname: ["IRI", "SIGN I"] raw: "ੲਿ"
+  to_uname: "I" to_raw: "ਇ"
 }
 item {
-  uname: ["IRI", "VOWEL SIGN II"] raw: "ੲੀ"
-  to_uname: ["LETTER II"] to_raw: "ਈ"
+  uname: ["IRI", "SIGN II"] raw: "ੲੀ"
+  to_uname: "II" to_raw: "ਈ"
 }
 item {
-  uname: ["URA", "VOWEL SIGN U"] raw: "ੳੁ"
-  to_uname: ["LETTER U"] to_raw: "ਉ"
+  uname: ["URA", "SIGN U"] raw: "ੳੁ"
+  to_uname: "U" to_raw: "ਉ"
 }
 item {
-  uname: ["URA", "VOWEL SIGN UU"] raw: "ੳੂ"
-  to_uname: ["LETTER UU"] to_raw: "ਊ"
+  uname: ["URA", "SIGN UU"] raw: "ੳੂ"
+  to_uname: "UU" to_raw: "ਊ"
 }
 item {
-  uname: ["IRI", "VOWEL SIGN EE"] raw: "ੲੇ"
-  to_uname: ["LETTER EE"] to_raw: "ਏ"
+  uname: ["IRI", "SIGN EE"] raw: "ੲੇ"
+  to_uname: "EE" to_raw: "ਏ"
 }
 item {
-  uname: ["LETTER A", "VOWEL SIGN AI"] raw: "ਅੈ"
-  to_uname: ["LETTER AI"] to_raw: "ਐ"
+  uname: ["A", "SIGN AI"] raw: "ਅੈ"
+  to_uname: "AI" to_raw: "ਐ"
 }
 item {
-  uname: ["URA", "VOWEL SIGN OO"] raw: "ੳੋ"
-  to_uname: ["LETTER OO"] to_raw: "ਓ"
+  uname: ["URA", "SIGN OO"] raw: "ੳੋ"
+  to_uname: "OO" to_raw: "ਓ"
 }
 item {
-  uname: ["LETTER A", "VOWEL SIGN AU"] raw: "ਅੌ"
-  to_uname: ["LETTER AU"] to_raw: "ਔ"
+  uname: ["A", "SIGN AU"] raw: "ਅੌ"
+  to_uname: "AU" to_raw: "ਔ"
 }

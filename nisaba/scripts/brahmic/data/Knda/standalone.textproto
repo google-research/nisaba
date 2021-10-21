@@ -15,7 +15,7 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "KANNADA"
+to_uname_prefix: "LATIN SMALL LETTER"
 
 # The following two are vedic marks that are supposed to immediately precede
 # the contents of an orthographic syllable.
@@ -23,10 +23,10 @@ uname_prefix: "KANNADA"
 # TODO: If deemed necessary, drop vedic marks from brahmic.
 
 item {
-  uname: ["SIGN JIHVAMULIYA"] raw: "ೱ"
-  to_uname: ["LATIN SMALL LETTER H WITH LINE BELOW"] to_raw: "ẖ"
+  uname: "JIHVAMULIYA" raw: "ೱ"
+  to_uname: "H WITH LINE BELOW" to_raw: "ẖ"
 }
 item {
-  uname: ["SIGN UPADHMANIYA"] raw: "ೲ"
-  to_uname: ["LATIN SMALL LETTER H WITH BREVE BELOW"] to_raw: "ḫ"
+  uname: "UPADHMANIYA" raw: "ೲ"
+  to_uname: "H WITH BREVE BELOW" to_raw: "ḫ"
 }

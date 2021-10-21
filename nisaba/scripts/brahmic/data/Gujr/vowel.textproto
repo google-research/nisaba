@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["GUJARATI LETTER", "GUJARATI VOWEL"]
-
 item {
   uname: "E" raw: "એ"
   to_uname: "E WITH MACRON" to_raw: "ē"

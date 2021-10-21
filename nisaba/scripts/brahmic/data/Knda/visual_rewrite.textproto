@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "KANNADA"
-
 ################################
 # Rewrites from Unicode standard
 # Unicode version 12.0: Chapter 12.8
@@ -24,16 +22,16 @@ uname_prefix: "KANNADA"
 # Table 12-32: Kannada Vowel Letters
 
 item {
-  uname: ["LETTER U", "VOWEL SIGN AA"] raw: "ಉಾ"
-  to_uname: ["LETTER UU"] to_raw: "ಊ"
+  uname: ["U", "SIGN AA"] raw: "ಉಾ"
+  to_uname: "UU" to_raw: "ಊ"
 }
 item {
-  uname: ["LETTER O", "VOWEL SIGN AU"] raw: "ಒೌ"
-  to_uname: ["LETTER AU"] to_raw: "ಔ"
+  uname: ["O", "SIGN AU"] raw: "ಒೌ"
+  to_uname: "AU" to_raw: "ಔ"
 }
 item {
-  uname: ["LETTER VOCALIC R", "VOWEL SIGN AA"] raw: "ಋಾ"
-  to_uname: ["LETTER VOCALIC RR"] to_raw: "ೠ"
+  uname: ["VOCALIC R", "SIGN AA"] raw: "ಋಾ"
+  to_uname: "VOCALIC RR" to_raw: "ೠ"
 }
 
 ###########################################################
@@ -42,96 +40,96 @@ item {
 # SIGN U on VA is taken as the right arc of MA
 
 item {
-  uname: ["LETTER VA", "VOWEL SIGN I", "VOWEL SIGN U"] raw: "ವಿು"
-  to_uname: ["LETTER MA", "VOWEL SIGN I"] to_raw: "ಮಿ"
+  uname: ["VA", "SIGN I", "SIGN U"] raw: "ವಿು"
+  to_uname: ["MA", "SIGN I"] to_raw: "ಮಿ"
 }
 item {
-  uname: ["LETTER VA", "VOWEL SIGN E", "VOWEL SIGN U"] raw: "ವೆು"
-  to_uname: ["LETTER MA", "VOWEL SIGN E"] to_raw: "ಮೆ"
+  uname: ["VA", "SIGN E", "SIGN U"] raw: "ವೆು"
+  to_uname: ["MA", "SIGN E"] to_raw: "ಮೆ"
 }
 item {
-  uname: ["LETTER VA", "VOWEL SIGN E", "VOWEL SIGN U", "LENGTH MARK"] raw: "ವೆುೕ"
-  to_uname: ["LETTER MA", "VOWEL SIGN EE"] to_raw: "ಮೇ"
+  uname: ["VA", "SIGN E", "SIGN U", "LENGTH MARK"] raw: "ವೆುೕ"
+  to_uname: ["MA", "SIGN EE"] to_raw: "ಮೇ"
 }
 item {
-  uname: ["LETTER VA", "VOWEL SIGN E", "VOWEL SIGN U", "AI LENGTH MARK"] raw: "ವೆುೖ"
-  to_uname: ["LETTER MA", "VOWEL SIGN AI"] to_raw: "ಮೈ"
+  uname: ["VA", "SIGN E", "SIGN U", "AI LENGTH MARK"] raw: "ವೆುೖ"
+  to_uname: ["MA", "SIGN AI"] to_raw: "ಮೈ"
 }
 
 # Reordering of Nukta: <VOWEL SIGN, NUKTA> → <NUKTA, VOWEL SIGN>
 
 item {
-  uname: ["VOWEL SIGN AA", "SIGN NUKTA"] raw: "ಾ಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN AA"] to_raw: "಼ಾ"
+  uname: ["SIGN AA", "NUKTA"] raw: "ಾ಼"
+  to_uname: ["NUKTA", "SIGN AA"] to_raw: "಼ಾ"
 }
 item {
-  uname: ["VOWEL SIGN I", "SIGN NUKTA"] raw: "ಿ಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN I"] to_raw: "಼ಿ"
+  uname: ["SIGN I", "NUKTA"] raw: "ಿ಼"
+  to_uname: ["NUKTA", "SIGN I"] to_raw: "಼ಿ"
 }
 item {
-  uname: ["VOWEL SIGN II", "SIGN NUKTA"] raw: "ೀ಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+  uname: ["SIGN II", "NUKTA"] raw: "ೀ಼"
+  to_uname: ["NUKTA", "SIGN II"] to_raw: "಼ೀ"
 }
 item {
-  uname: ["VOWEL SIGN U", "SIGN NUKTA"] raw: "ು಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN U"] to_raw: "಼ು"
+  uname: ["SIGN U", "NUKTA"] raw: "ು಼"
+  to_uname: ["NUKTA", "SIGN U"] to_raw: "಼ು"
 }
 item {
-  uname: ["VOWEL SIGN UU", "SIGN NUKTA"] raw: "ೂ಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN UU"] to_raw: "಼ೂ"
+  uname: ["SIGN UU", "NUKTA"] raw: "ೂ಼"
+  to_uname: ["NUKTA", "SIGN UU"] to_raw: "಼ೂ"
 }
 item {
-  uname: ["VOWEL SIGN VOCALIC R", "SIGN NUKTA"] raw: "ೃ಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN VOCALIC R"] to_raw: "಼ೃ"
+  uname: ["SIGN VOCALIC R", "NUKTA"] raw: "ೃ಼"
+  to_uname: ["NUKTA", "SIGN VOCALIC R"] to_raw: "಼ೃ"
 }
 item {
-  uname: ["VOWEL SIGN VOCALIC RR", "SIGN NUKTA"] raw: "ೄ಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+  uname: ["SIGN VOCALIC RR", "NUKTA"] raw: "ೄ಼"
+  to_uname: ["NUKTA", "SIGN II"] to_raw: "಼ೀ"
 }
 item {
-  uname: ["VOWEL SIGN E", "SIGN NUKTA"] raw: "ೆ಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+  uname: ["SIGN E", "NUKTA"] raw: "ೆ಼"
+  to_uname: ["NUKTA", "SIGN II"] to_raw: "಼ೀ"
 }
 item {
-  uname: ["VOWEL SIGN EE", "SIGN NUKTA"] raw: "ೇ಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+  uname: ["SIGN EE", "NUKTA"] raw: "ೇ಼"
+  to_uname: ["NUKTA", "SIGN II"] to_raw: "಼ೀ"
 }
 item {
-  uname: ["VOWEL SIGN AI", "SIGN NUKTA"] raw: "ೈ಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+  uname: ["SIGN AI", "NUKTA"] raw: "ೈ಼"
+  to_uname: ["NUKTA", "SIGN II"] to_raw: "಼ೀ"
 }
 item {
-  uname: ["VOWEL SIGN O", "SIGN NUKTA"] raw: "ೊ಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+  uname: ["SIGN O", "NUKTA"] raw: "ೊ಼"
+  to_uname: ["NUKTA", "SIGN II"] to_raw: "಼ೀ"
 }
 item {
-  uname: ["VOWEL SIGN OO", "SIGN NUKTA"] raw: "ೋ಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+  uname: ["SIGN OO", "NUKTA"] raw: "ೋ಼"
+  to_uname: ["NUKTA", "SIGN II"] to_raw: "಼ೀ"
 }
 item {
-  uname: ["VOWEL SIGN AU", "SIGN NUKTA"] raw: "ೌ಼"
-  to_uname: ["SIGN NUKTA", "VOWEL SIGN II"] to_raw: "಼ೀ"
+  uname: ["SIGN AU", "NUKTA"] raw: "ೌ಼"
+  to_uname: ["NUKTA", "SIGN II"] to_raw: "಼ೀ"
 }
 
 # Reordered vowel sign equivalences from NFC specs
 
 item {
-  uname: ["LENGTH MARK", "VOWEL SIGN I"] raw: "ೕಿ"
-  to_uname: ["VOWEL SIGN II"] to_raw: "ೀ"
+  uname: ["LENGTH MARK", "SIGN I"] raw: "ೕಿ"
+  to_uname: "SIGN II" to_raw: "ೀ"
 }
 item {
-  uname: ["LENGTH MARK", "VOWEL SIGN E"] raw: "ೕೆ"
-  to_uname: ["VOWEL SIGN EE"] to_raw: "ೇ"
+  uname: ["LENGTH MARK", "SIGN E"] raw: "ೕೆ"
+  to_uname: "SIGN EE" to_raw: "ೇ"
 }
 item {
-  uname: ["AI LENGTH MARK", "VOWEL SIGN E"] raw: "ೖೆ"
-  to_uname: ["VOWEL SIGN AI"] to_raw: "ೈ"
+  uname: ["AI LENGTH MARK", "SIGN E"] raw: "ೖೆ"
+  to_uname: "SIGN AI" to_raw: "ೈ"
 }
 item {
-  uname: ["LENGTH MARK", "VOWEL SIGN O"] raw: "ೕೊ"
-  to_uname: ["VOWEL SIGN OO"] to_raw: "ೋ"
+  uname: ["LENGTH MARK", "SIGN O"] raw: "ೕೊ"
+  to_uname: "SIGN OO" to_raw: "ೋ"
 }
 item {
-  uname: ["VOWEL SIGN EE", "VOWEL SIGN UU"] raw: "ೇೂ"
-  to_uname: ["VOWEL SIGN OO"] to_raw: "ೋ"
+  uname: ["SIGN EE", "SIGN UU"] raw: "ೇೂ"
+  to_uname: "SIGN OO" to_raw: "ೋ"
 }
