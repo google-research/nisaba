@@ -16,8 +16,14 @@
 
 load(
     "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
-    "component_tsv",
     "empty_components_tsv",
+)
+load(
+    "//nisaba/scripts/brahmic:components_tsv.bzl",
+    "component_tsv_with_defaults",
+    "components_tsv_from_common",
+    "components_tsv_local",
+    "components_tsv_local_with_common",
 )
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
@@ -25,81 +31,6 @@ package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 licenses(["notice"])
 
 exports_files(["uname_prefix.textproto"])
-
-component_tsv(
-    name = "coda",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
-        "//nisaba/scripts/brahmic/data/common:coda.textproto",
-    ],
-)
-
-component_tsv(
-    name = "consonant",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
-        "//nisaba/scripts/brahmic/data/common:consonant.textproto",
-        ":consonant.textproto",
-    ],
-)
-
-component_tsv(
-    name = "dead_consonant",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
-        ":dead_consonant.textproto",
-    ],
-)
-
-component_tsv(
-    name = "vowel",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
-        "//nisaba/scripts/brahmic/data/common:vowel.textproto",
-        ":vowel.textproto",
-        "//nisaba/scripts/brahmic/data/Beng/sat:vowel.textproto",
-        "//nisaba/scripts/brahmic/data/Beng/trp:vowel.textproto",
-    ],
-)
-
-component_tsv(
-    name = "vowel_sign",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:to_uname_prefix_latin.textproto",
-        "//nisaba/scripts/brahmic/data/common:vowel_sign.textproto",
-        ":vowel_sign.textproto",
-        "//nisaba/scripts/brahmic/data/Beng/sat:vowel_sign.textproto",
-    ],
-)
-
-component_tsv(
-    name = "preserve",
-    text_protos = [
-        ":uname_prefix.textproto",
-        ":preserve.textproto",
-        "//nisaba/scripts/brahmic/data/common:preserve.textproto",
-    ],
-)
-
-component_tsv(
-    name = "virama",
-    text_protos = [
-        ":uname_prefix.textproto",
-        "//nisaba/scripts/brahmic/data/common:virama.textproto",
-    ],
-)
-
-component_tsv(
-    name = "inherent_vowel",
-    text_protos = [
-        "//nisaba/scripts/brahmic/data/common:inherent_vowel.textproto",
-    ],
-)
 
 empty_components_tsv(
     name = "empties",
@@ -111,18 +42,34 @@ empty_components_tsv(
     ],
 )
 
-component_tsv(
-    name = "nfc",
-    text_protos = [
-        ":uname_prefix.textproto",
-        ":nfc.textproto",
+components_tsv_from_common(names = [
+    "coda",
+    "inherent_vowel",
+    "virama",
+])
+
+components_tsv_local_with_common(names = [
+    "consonant",
+    "preserve",
+])
+
+components_tsv_local(names = [
+    "dead_consonant",
+    "nfc",
+    "visual_rewrite",
+])
+
+component_tsv_with_defaults(
+    name = "vowel",
+    more_text_protos_from = [
+        "//nisaba/scripts/brahmic/data/Beng/sat",
+        "//nisaba/scripts/brahmic/data/Beng/trp",
     ],
 )
 
-component_tsv(
-    name = "visual_rewrite",
-    text_protos = [
-        ":uname_prefix.textproto",
-        ":visual_rewrite.textproto",
+component_tsv_with_defaults(
+    name = "vowel_sign",
+    more_text_protos_from = [
+        "//nisaba/scripts/brahmic/data/Beng/sat",
     ],
 )

@@ -14,7 +14,7 @@
 
 # Language definitions for Hindi.
 
-load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "component_tsv")
+load("//nisaba/scripts/brahmic:components_tsv.bzl", "components_tsv_local")
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 

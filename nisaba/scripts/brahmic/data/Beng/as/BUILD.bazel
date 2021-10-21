@@ -14,24 +14,16 @@
 
 # Language definitions for Assamese(Asamiya).
 
-load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "component_tsv")
+load("//nisaba/scripts/brahmic:components_tsv.bzl", "components_tsv_local")
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
-component_tsv(
-    name = "before_consonant",
-    text_protos = [
-        "//nisaba/scripts/brahmic/data/Beng:uname_prefix.textproto",
-        ":before_consonant.textproto",
+components_tsv_local(
+    names = [
+        "before_consonant",
+        "after_consonant",
     ],
-)
-
-component_tsv(
-    name = "after_consonant",
-    text_protos = [
-        "//nisaba/scripts/brahmic/data/Beng:uname_prefix.textproto",
-        ":after_consonant.textproto",
-    ],
+    uname_prefix_from = "//nisaba/scripts/brahmic/data/Beng",
 )
