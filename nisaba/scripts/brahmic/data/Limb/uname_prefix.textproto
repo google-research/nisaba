@@ -15,9 +15,11 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "MALAYALAM"
+# Prefixes used for mapping between Limbu script character sequences.
 
-item {
-  uname: ["SIGN VIRAMA", "ZERO WIDTH NON-JOINER"] raw: "്‌"
-  to_raw: "[VIRAMA,ZWNJ]"
-}
+uname_prefix: [
+  "LIMBU",
+  "LIMBU LETTER",
+  "LIMBU VOWEL",
+  "LIMBU SIGN"
+]

@@ -15,11 +15,9 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["LIMBU SIGN", "LIMBU SMALL LETTER"]
-
 # Used to indicate a slight breathing after a vowel.
 item { uname: "MUKPHRENG" to_raw: "ḥ" }
 
 # Presumably this is identical in function to other Brahmic scripts.
 # However, in Limbu anusvara is only used in legacy old documents.
-item { uname: "ANUSVARA"  to_raw: "ṁ" }
+item { uname: "SMALL LETTER ANUSVARA" to_raw: "ṁ" }

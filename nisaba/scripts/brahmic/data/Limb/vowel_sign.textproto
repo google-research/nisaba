@@ -15,14 +15,12 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "LIMBU VOWEL SIGN"
-
-item { uname: "A"  to_raw: "ā"  }
-item { uname: "I"  to_raw: "i"  }
-item { uname: "U"  to_raw: "u"  }
-item { uname: "EE" to_raw: "ē"  }
-item { uname: "AI" to_raw: "ai" }
-item { uname: "OO" to_raw: "ō"  }
-item { uname: "AU" to_raw: "au" }
-item { uname: "E"  to_raw: "e"  }
-item { uname: "O"  to_raw: "o"  }
+item { uname: "SIGN A"  to_raw: "ā"  }
+item { uname: "SIGN I"  to_raw: "i"  }
+item { uname: "SIGN U"  to_raw: "u"  }
+item { uname: "SIGN EE" to_raw: "ē"  }
+item { uname: "SIGN AI" to_raw: "ai" }
+item { uname: "SIGN OO" to_raw: "ō"  }
+item { uname: "SIGN AU" to_raw: "au" }
+item { uname: "SIGN E"  to_raw: "e"  }
+item { uname: "SIGN O"  to_raw: "o"  }

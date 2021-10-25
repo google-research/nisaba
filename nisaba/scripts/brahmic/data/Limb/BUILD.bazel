@@ -16,8 +16,12 @@
 
 load(
     "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
-    "component_tsv",
     "empty_components_tsv",
+)
+load(
+    "//nisaba/scripts/brahmic:components_tsv.bzl",
+    "components_tsv_from_common",
+    "components_tsv_local",
 )
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
@@ -35,47 +39,17 @@ empty_components_tsv(
     ],
 )
 
-component_tsv(
-    name = "inherent_vowel",
-    text_protos = ["//nisaba/scripts/brahmic/data/common:inherent_vowel.textproto"],
-)
+components_tsv_from_common(names = [
+    "inherent_vowel",
+])
 
-component_tsv(
-    name = "coda",
-    text_protos = [":coda.textproto"],
-)
-
-component_tsv(
-    name = "consonant",
-    text_protos = [":consonant.textproto"],
-)
-
-component_tsv(
-    name = "dead_consonant",
-    text_protos = [":dead_consonant.textproto"],
-)
-
-component_tsv(
-    name = "subjoined_consonant",
-    text_protos = [":subjoined_consonant.textproto"],
-)
-
-component_tsv(
-    name = "virama",
-    text_protos = [":virama.textproto"],
-)
-
-component_tsv(
-    name = "vowel",
-    text_protos = [":vowel.textproto"],
-)
-
-component_tsv(
-    name = "vowel_sign",
-    text_protos = [":vowel_sign.textproto"],
-)
-
-component_tsv(
-    name = "vowel_length_sign",
-    text_protos = [":vowel_length_sign.textproto"],
-)
+components_tsv_local(names = [
+    "coda",
+    "consonant",
+    "dead_consonant",
+    "subjoined_consonant",
+    "virama",
+    "vowel",
+    "vowel_sign",
+    "vowel_length_sign",
+])

@@ -15,16 +15,14 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["LIMBU", "LIMBU VOWEL SIGN"]
-
 item { uname: "VOWEL-CARRIER LETTER" raw: "ᤀ" to_raw: "a"}
 
-item { uname: ["VOWEL-CARRIER LETTER", "A"]  raw: "ᤀᤠ" to_raw: "ā" }
-item { uname: ["VOWEL-CARRIER LETTER", "I"]  raw: "ᤀᤡ" to_raw: "i" }
-item { uname: ["VOWEL-CARRIER LETTER", "U"]  raw: "ᤀᤢ" to_raw: "u" }
-item { uname: ["VOWEL-CARRIER LETTER", "EE"] raw: "ᤀᤣ" to_raw: "ē" }
-item { uname: ["VOWEL-CARRIER LETTER", "AI"] raw: "ᤀᤤ" to_raw: "ai" }
-item { uname: ["VOWEL-CARRIER LETTER", "OO"] raw: "ᤀᤥ" to_raw: "ō" }
-item { uname: ["VOWEL-CARRIER LETTER", "AU"] raw: "ᤀᤦ" to_raw: "au" }
-item { uname: ["VOWEL-CARRIER LETTER", "E"]  raw: "ᤀᤧ" to_raw: "e" }
-item { uname: ["VOWEL-CARRIER LETTER", "O"]  raw: "ᤀᤨ" to_raw: "o" }
+item { uname: ["VOWEL-CARRIER LETTER", "SIGN A"]  raw: "ᤀᤠ" to_raw: "ā" }
+item { uname: ["VOWEL-CARRIER LETTER", "SIGN I"]  raw: "ᤀᤡ" to_raw: "i" }
+item { uname: ["VOWEL-CARRIER LETTER", "SIGN U"]  raw: "ᤀᤢ" to_raw: "u" }
+item { uname: ["VOWEL-CARRIER LETTER", "SIGN EE"] raw: "ᤀᤣ" to_raw: "ē" }
+item { uname: ["VOWEL-CARRIER LETTER", "SIGN AI"] raw: "ᤀᤤ" to_raw: "ai" }
+item { uname: ["VOWEL-CARRIER LETTER", "SIGN OO"] raw: "ᤀᤥ" to_raw: "ō" }
+item { uname: ["VOWEL-CARRIER LETTER", "SIGN AU"] raw: "ᤀᤦ" to_raw: "au" }
+item { uname: ["VOWEL-CARRIER LETTER", "SIGN E"]  raw: "ᤀᤧ" to_raw: "e" }
+item { uname: ["VOWEL-CARRIER LETTER", "SIGN O"]  raw: "ᤀᤨ" to_raw: "o" }

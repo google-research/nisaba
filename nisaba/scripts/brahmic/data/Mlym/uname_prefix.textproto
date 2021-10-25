@@ -15,10 +15,11 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-item { uname: "SIGN AA" to_raw: "ā" }
-item { uname: "SIGN I"  to_raw: "i" }
-item { uname: "SIGN O"  to_raw: "o" }
-item { uname: "SIGN OO" to_raw: "ō" }
-item { uname: "SIGN U"  to_raw: "u" }
-item { uname: "SIGN UU" to_raw: "ū" }
-item { uname: "SIGN E"  to_raw: "e" }
+# Prefixes used for mapping between Malayalam script character sequences.
+
+uname_prefix: [
+  "MALAYALAM",
+  "MALAYALAM LETTER",
+  "MALAYALAM VOWEL",
+  "MALAYALAM SIGN"
+]

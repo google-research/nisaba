@@ -15,10 +15,10 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "MALAYALAM LETTER"
-
-item { uname: "VA" raw: "വ" to_raw: "v" }
-
+item {
+  uname: "VA" raw: "വ"
+  to_raw: "v"
+}
 item {
   uname: "TTTA" raw: "ഺ"
   to_uname: "T WITH LINE BELOW" to_raw: "ṯ"

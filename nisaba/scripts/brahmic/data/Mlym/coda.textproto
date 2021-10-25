@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["MALAYALAM LETTER", "MALAYALAM SIGN"]
-
 item {
   uname: "DOT REPH" raw: "ൎ"
   to_uname: ["R", "VERTICAL TILDE"] to_raw: "rⸯ"

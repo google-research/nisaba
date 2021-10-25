@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "MALAYALAM"
-
 
 ################################
 # Rewrites from Unicode standard
@@ -25,47 +23,47 @@ uname_prefix: "MALAYALAM"
 # Table 12-34: Malayalam Vowel Letters
 
 item {
-  uname: ["LETTER I", "AU LENGTH MARK"] raw: "ഇൗ"
-  to_uname: ["LETTER II"] to_raw: "ഈ"
+  uname: ["I", "AU LENGTH MARK"] raw: "ഇൗ"
+  to_uname: "II" to_raw: "ഈ"
 }
 item {
-  uname: ["LETTER U", "AU LENGTH MARK"] raw: "ഉൗ"
-  to_uname: ["LETTER UU"] to_raw: "ഊ"
+  uname: ["U", "AU LENGTH MARK"] raw: "ഉൗ"
+  to_uname: "UU" to_raw: "ഊ"
 }
 item {
-  uname: ["LETTER E", "VOWEL SIGN E"] raw: "എെ"
-  to_uname: ["LETTER AI"] to_raw: "ഐ"
+  uname: ["E", "SIGN E"] raw: "എെ"
+  to_uname: "AI" to_raw: "ഐ"
 }
 item {
-  uname: ["LETTER O", "VOWEL SIGN AA"] raw: "ഒാ"
-  to_uname: ["LETTER OO"] to_raw: "ഓ"
+  uname: ["O", "SIGN AA"] raw: "ഒാ"
+  to_uname: "OO" to_raw: "ഓ"
 }
 item {
-  uname: ["LETTER O", "AU LENGTH MARK"] raw: "ഒൗ"
-  to_uname: ["LETTER AU"] to_raw: "ഔ"
+  uname: ["O", "AU LENGTH MARK"] raw: "ഒൗ"
+  to_uname: "AU" to_raw: "ഔ"
 }
 
 # Table 12-42: Legacy Encoding of Malayalam Chillus
 
 item {
-  uname: ["LETTER NNA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ണ്‍"
-  to_uname: ["LETTER CHILLU NN"] to_raw: "ൺ"
+  uname: ["NNA", "VIRAMA", "ZERO WIDTH JOINER"] raw: "ണ്‍"
+  to_uname: "CHILLU NN" to_raw: "ൺ"
 }
 item {
-  uname: ["LETTER NA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ന്‍"
-  to_uname: ["LETTER CHILLU N"] to_raw: "ൻ"
+  uname: ["NA", "VIRAMA", "ZERO WIDTH JOINER"] raw: "ന്‍"
+  to_uname: "CHILLU N" to_raw: "ൻ"
 }
 item {
-  uname: ["LETTER RA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ര്‍"
-  to_uname: ["LETTER CHILLU RR"] to_raw: "ർ"
+  uname: ["RA", "VIRAMA", "ZERO WIDTH JOINER"] raw: "ര്‍"
+  to_uname: "CHILLU RR" to_raw: "ർ"
 }
 item {
-  uname: ["LETTER LA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ല്‍"
-  to_uname: ["LETTER CHILLU L"] to_raw: "ൽ"
+  uname: ["LA", "VIRAMA", "ZERO WIDTH JOINER"] raw: "ല്‍"
+  to_uname: "CHILLU L" to_raw: "ൽ"
 }
 item {
-  uname: ["LETTER LLA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ള്‍"
-  to_uname: ["LETTER CHILLU LL"] to_raw: "ൾ"
+  uname: ["LLA", "VIRAMA", "ZERO WIDTH JOINER"] raw: "ള്‍"
+  to_uname: "CHILLU LL" to_raw: "ൾ"
 }
 
 ###########################################################
@@ -74,36 +72,36 @@ item {
 # Additional Legacy Encoding of Chillu
 
 item {
-  uname: ["LETTER KA", "SIGN VIRAMA", "ZERO WIDTH JOINER"] raw: "ക്‍"
-  to_uname: ["LETTER CHILLU K"] to_raw: "ൿ"
+  uname: ["KA", "VIRAMA", "ZERO WIDTH JOINER"] raw: "ക്‍"
+  to_uname: "CHILLU K" to_raw: "ൿ"
 }
 
 # Legacy encoding of 'nta' conjunct
 
 item {
-  uname: ["LETTER NA", "SIGN VIRAMA", "LETTER RRA"] raw: "ന്റ"
-  to_uname: ["LETTER CHILLU N", "SIGN VIRAMA", "LETTER RRA"] to_raw: "ൻ്റ"
+  uname: ["NA", "VIRAMA", "RRA"] raw: "ന്റ"
+  to_uname: ["CHILLU N", "VIRAMA", "RRA"] to_raw: "ൻ്റ"
 }
 item {
-  uname: ["LETTER NA", "SIGN VIRAMA", "ZERO WIDTH JOINER", "LETTER RRA"] raw: "ന്‍റ"
-  to_uname: ["LETTER CHILLU N", "SIGN VIRAMA", "LETTER RRA"] to_raw: "ൻ്റ"
+  uname: ["NA", "VIRAMA", "ZERO WIDTH JOINER", "RRA"] raw: "ന്‍റ"
+  to_uname: ["CHILLU N", "VIRAMA", "RRA"] to_raw: "ൻ്റ"
 }
 
 # Reordered vowel sign equivalences from NFC specs
 
 item {
-  uname: ["VOWEL SIGN E", "VOWEL SIGN E"] raw: "െെ"
-  to_uname: ["VOWEL SIGN AI"] to_raw: "ൈ"
+  uname: ["SIGN E", "SIGN E"] raw: "െെ"
+  to_uname: "SIGN AI" to_raw: "ൈ"
 }
 item {
-  uname: ["VOWEL SIGN AA", "VOWEL SIGN E"] raw: "ാെ"
-  to_uname: ["VOWEL SIGN O"] to_raw: "ൊ"
+  uname: ["SIGN AA", "SIGN E"] raw: "ാെ"
+  to_uname: "SIGN O" to_raw: "ൊ"
 }
 item {
-  uname: ["VOWEL SIGN AA", "VOWEL SIGN EE"] raw: "ാേ"
-  to_uname: ["VOWEL SIGN OO"] to_raw: "ോ"
+  uname: ["SIGN AA", "SIGN EE"] raw: "ാേ"
+  to_uname: "SIGN OO" to_raw: "ോ"
 }
 item {
-  uname: ["AU LENGTH MARK", "VOWEL SIGN E"] raw: "ൗെ"
-  to_uname: ["VOWEL SIGN AU"] to_raw: "ൌ"
+  uname: ["AU LENGTH MARK", "SIGN E"] raw: "ൗെ"
+  to_uname: "SIGN AU" to_raw: "ൌ"
 }

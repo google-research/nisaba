@@ -15,13 +15,11 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "LIMBU SUBJOINED LETTER"
-
 # Subjoined consonant letters
 # ------------------------------------------------------------------------------
 # These are joined to the bottom of the consonant letters, extending to the
 # right to indicate “medials” in syllable-initial consonant clusters. There are
 # very few of these clusters in native Limbu words.
-item { uname: "YA"  to_raw: "ỵ" }
-item { uname: "RA"  to_raw: "ṛ" }
-item { uname: "WA"  to_raw: "ẉ" }
+item { uname: "SUBJOINED LETTER YA"  to_raw: "ỵ" }
+item { uname: "SUBJOINED LETTER RA"  to_raw: "ṛ" }
+item { uname: "SUBJOINED LETTER WA"  to_raw: "ẉ" }

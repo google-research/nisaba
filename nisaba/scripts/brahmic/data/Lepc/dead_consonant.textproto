@@ -15,19 +15,17 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "LEPCHA CONSONANT SIGN"
-
 # Syllable finals.
 # ------------------------------------------------------------------------------
 # Lepcha has no virama. Explicit final consonants are used where there is no
 # inherent vowel.
-item { uname: "K"  to_raw: "k`" }
-item { uname: "M"  to_raw: "m`" }
-item { uname: "L"  to_raw: "l`" }
-item { uname: "N"  to_raw: "n`" }
-item { uname: "P"  to_raw: "p`" }
-item { uname: "R"  to_raw: "r`" }
-item { uname: "T"  to_raw: "t`" }
+item { uname: "SIGN K"  to_raw: "k`" }
+item { uname: "SIGN M"  to_raw: "m`" }
+item { uname: "SIGN L"  to_raw: "l`" }
+item { uname: "SIGN N"  to_raw: "n`" }
+item { uname: "SIGN P"  to_raw: "p`" }
+item { uname: "SIGN R"  to_raw: "r`" }
+item { uname: "SIGN T"  to_raw: "t`" }
 
 # The following two final consonants represent velar nasal `-ṅ`: `NYIN-DO` is
 # used only when there is no vowel matra, KANG is used in all other instances.
@@ -37,5 +35,5 @@ item { uname: "T"  to_raw: "t`" }
 # consonant ("ᰊᰰᰶᰚᰵᰓᰨᰫ"), `NYIN-DO` after vowel sign ("ᰕᰳᰃᰨᰴ"). Ideally `NYIN-DO`
 # should move to `subjoined_consonants`, but it's not clear how widespread the
 # confusion between the two is.
-item { uname: "NYIN-DO"  to_raw: "ṅ" }
-item { uname: "KANG"  to_raw: "ṇ̇" }
+item { uname: "SIGN NYIN-DO"  to_raw: "ṅ" }
+item { uname: "SIGN KANG"  to_raw: "ṇ̇" }

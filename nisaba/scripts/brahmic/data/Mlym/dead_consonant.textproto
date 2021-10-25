@@ -15,33 +15,33 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "MALAYALAM"
+to_uname_prefix: "LATIN SMALL LETTER"
 
 # TODO: Consider allowing word initial Khanda Ta & Chillus.
 
 # TODO Consider listing chillu forms as consonants as they can
 # take vowel signs and viramas.
 item {
-  uname: ["LETTER CHILLU K"] raw: "ൿ"
-  to_uname: ["LATIN SMALL LETTER K", "VERTICAL TILDE"] to_raw: "kⸯ"
+  uname: "CHILLU K" raw: "ൿ"
+  to_uname: ["K", "VERTICAL TILDE"] to_raw: "kⸯ"
 }
 item {
-  uname: ["LETTER CHILLU NN"] raw: "ൺ"
-  to_uname: ["LATIN SMALL LETTER N WITH DOT BELOW", "VERTICAL TILDE"] to_raw: "ṇⸯ"
+  uname: "CHILLU NN" raw: "ൺ"
+  to_uname: ["N WITH DOT BELOW", "VERTICAL TILDE"] to_raw: "ṇⸯ"
 }
 item {
-  uname: ["LETTER CHILLU N"] raw: "ൻ"
-  to_uname: ["LATIN SMALL LETTER N", "VERTICAL TILDE"] to_raw: "nⸯ"
+  uname: "CHILLU N" raw: "ൻ"
+  to_uname: ["N", "VERTICAL TILDE"] to_raw: "nⸯ"
 }
 item {
-  uname: ["LETTER CHILLU RR"] raw: "ർ"
-  to_uname: ["LATIN SMALL LETTER R WITH LINE BELOW", "VERTICAL TILDE"] to_raw: "ṟⸯ"
+  uname: "CHILLU RR" raw: "ർ"
+  to_uname: ["R WITH LINE BELOW", "VERTICAL TILDE"] to_raw: "ṟⸯ"
 }
 item {
-  uname: ["LETTER CHILLU L"] raw: "ൽ"
-  to_uname: ["LATIN SMALL LETTER L", "VERTICAL TILDE"] to_raw: "lⸯ"
+  uname: "CHILLU L" raw: "ൽ"
+  to_uname: ["L", "VERTICAL TILDE"] to_raw: "lⸯ"
 }
 item {
-  uname: ["LETTER CHILLU LL"] raw: "ൾ"
-  to_uname: ["LATIN SMALL LETTER L WITH DOT BELOW", "VERTICAL TILDE"] to_raw: "ḷⸯ"
+  uname: "CHILLU LL" raw: "ൾ"
+  to_uname: ["L WITH DOT BELOW", "VERTICAL TILDE"] to_raw: "ḷⸯ"
 }

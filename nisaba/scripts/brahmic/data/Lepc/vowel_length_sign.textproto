@@ -45,4 +45,4 @@
 # reverse the final two elements of the syllabic structure to ease
 # implementation in font production.
 
-item { uname: "LEPCHA SIGN RAN" to_raw: "'" }
+item { uname: "SIGN RAN" to_raw: "'" }

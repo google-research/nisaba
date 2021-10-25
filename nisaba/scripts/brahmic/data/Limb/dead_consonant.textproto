@@ -15,13 +15,18 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "LIMBU SMALL LETTER"
-
-item { uname: "KA"  to_raw: "ḳ" }
-item { uname: "NGA" to_raw: "ṇ̇" }
-item { uname: "TA"  to_raw: "ṭ" }
-item { uname: "NA"  to_raw: "ṇ" }
-item { uname: "PA"  to_raw: "ṕ" }
-item { uname: "MA"  to_raw: "ṃ" }
-item { uname: "RA"  to_raw: "ṛ" }
-item { uname: "LA"  to_raw: "ḷ" }
+# Syllable finals.
+# ------------------------------------------------------------------------------
+# The small letter consonants correspond to the syllable finals of native Limbu
+# words. These letters are independent forms that, unlike the conjoined or
+# half-letter forms of Indian scripts, may appear alone as word-final consonants
+# (where Indian scripts use full consonant letters and a virama). The syllable
+# finals are pronounced without a following vowel.
+item { uname: "SMALL LETTER KA"  to_raw: "ḳ" }
+item { uname: "SMALL LETTER NGA" to_raw: "ṇ̇" }
+item { uname: "SMALL LETTER TA"  to_raw: "ṭ" }
+item { uname: "SMALL LETTER NA"  to_raw: "ṇ" }
+item { uname: "SMALL LETTER PA"  to_raw: "ṕ" }
+item { uname: "SMALL LETTER MA"  to_raw: "ṃ" }
+item { uname: "SMALL LETTER RA"  to_raw: "ṛ" }
+item { uname: "SMALL LETTER LA"  to_raw: "ḷ" }

@@ -15,11 +15,9 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "LEPCHA SUBJOINED LETTER"
-
-item { uname: "YA"  to_raw: "ỵ" }
-item { uname: "RA"  to_raw: "ṛ" }
+item { uname: "SUBJOINED LETTER YA"  to_raw: "ỵ" }
+item { uname: "SUBJOINED LETTER RA"  to_raw: "ṛ" }
 
 # The two subjoined consonants above can also combine to form `-rya`. The
 # reverse combination `*-yra` is illegal.
-item { uname: ["RA", "YA"] to_raw: "ṛỵ" }
+item { uname: ["SUBJOINED LETTER RA", "SUBJOINED LETTER YA"] to_raw: "ṛỵ" }

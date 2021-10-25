@@ -22,4 +22,4 @@
 # which is in use in Nepal, vowel length is indicated by `KEMPHRENG`, as for
 # open syllables, and the syllable-final consonant appears in "small"
 # form without virama (`SA-I`).
-item { uname: "LIMBU SIGN KEMPHRENG" to_raw: "'" }
+item { uname: "KEMPHRENG" to_raw: "'" }

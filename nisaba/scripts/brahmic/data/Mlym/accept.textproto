@@ -15,30 +15,28 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "MALAYALAM"
-
 item {
-  uname: ["LETTER CHILLU N", "SIGN VIRAMA"] raw: "ൻ്"
+  uname: ["CHILLU N", "VIRAMA"] raw: "ൻ്"
 }
 item {
-  uname: ["LETTER CHILLU N", "VOWEL SIGN E"] raw: "ൻെ"
+  uname: ["CHILLU N", "SIGN E"] raw: "ൻെ"
 }
 item {
-  uname: ["LETTER CHILLU N", "VOWEL SIGN EE"] raw: "ൻേ"
+  uname: ["CHILLU N", "SIGN EE"] raw: "ൻേ"
 }
 item {
-  uname: ["VOWEL SIGN U", "SIGN VIRAMA"] raw: "ു്"
+  uname: ["SIGN U", "VIRAMA"] raw: "ു്"
 }
 item {
-  uname: ["LETTER A", "SIGN VIRAMA"] raw: "അ്"
+  uname: ["A", "VIRAMA"] raw: "അ്"
 }
 
 # Example: 7-ാം (meaning 'seventh')
 item {
-  uname: ["VOWEL SIGN AA", "SIGN ANUSVARA"] raw: "ാം"
+  uname: ["SIGN AA", "ANUSVARA"] raw: "ാം"
 }
 
 # Example: 2020-ൽ (meaning 'in 2020')
 item {
-  uname: ["LETTER CHILLU L"] raw: "ൽ"
+  uname: "CHILLU L" raw: "ൽ"
 }

@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "LIMBU LETTER"
-
 item { uname: "KA"   raw: "ᤁ" to_raw: "k" }
 item { uname: "KHA"  raw: "ᤂ" to_raw: "kʰ" }
 item { uname: "GA"   raw: "ᤃ" to_raw: "g" }

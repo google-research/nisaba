@@ -15,296 +15,296 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "LATIN"
+uname_prefix: "LATIN SMALL LETTER"
 
 item {
-  uname: ["SMALL LETTER A", "SMALL LETTER A"] raw: "aa"
-  to_uname: ["SMALL LETTER A WITH MACRON"] to_raw: "ā"
+  raw: "aa"
+  to_uname: "A WITH MACRON" to_raw: "ā"
 }
 item {
-  uname: ["SMALL LETTER I", "SMALL LETTER I"] raw: "ii"
-  to_uname: ["SMALL LETTER I WITH MACRON"] to_raw: "ī"
+  raw: "ii"
+  to_uname: "I WITH MACRON" to_raw: "ī"
 }
 item {
-  uname: ["SMALL LETTER U", "SMALL LETTER U"] raw: "uu"
-  to_uname: ["SMALL LETTER U WITH MACRON"] to_raw: "ū"
-}
-
-item {
-  uname: ["SMALL LETTER Z", "SMALL LETTER H"] raw: "zh"
-  to_uname: ["SMALL LETTER L WITH LINE BELOW"] to_raw: "ḻ"
-}
-item {
-  uname: ["SMALL LETTER S", "SMALL LETTER H"] raw: "sh"
-  to_uname: ["SMALL LETTER S WITH DOT BELOW"] to_raw: "ṣ"
-}
-item {
-  uname: ["SMALL LETTER C", "SMALL LETTER H"] raw: "ch"
-  to_uname: ["SMALL LETTER C"] to_raw: "c"
+  raw: "uu"
+  to_uname: "U WITH MACRON" to_raw: "ū"
 }
 
 item {
-  uname: ["CAPITAL LETTER E"] raw: "E"
-  to_uname: ["SMALL LETTER E WITH MACRON"] to_raw: "ē"
+  raw: "zh"
+  to_uname: "L WITH LINE BELOW" to_raw: "ḻ"
 }
 item {
-  uname: ["CAPITAL LETTER O"] raw: "O"
-  to_uname: ["SMALL LETTER O WITH MACRON"] to_raw: "ō"
+  raw: "sh"
+  to_uname: "S WITH DOT BELOW" to_raw: "ṣ"
 }
 item {
-  uname: ["CAPITAL LETTER H"] raw: "H"
-  to_uname: ["SMALL LETTER H WITH DOT BELOW"] to_raw: "ḥ"
-}
-
-item {
-  uname: ["CAPITAL LETTER T"] raw: "T"
-  to_uname: ["SMALL LETTER T WITH DOT BELOW"] to_raw: "ṭ"
-}
-item {
-  uname: ["CAPITAL LETTER D"] raw: "D"
-  to_uname: ["SMALL LETTER D WITH DOT BELOW"] to_raw: "ḍ"
-}
-item {
-  uname: ["CAPITAL LETTER N"] raw: "N"
-  to_uname: ["SMALL LETTER N WITH DOT BELOW", "VERTICAL TILDE"] to_raw: "ṇⸯ"
-}
-item {
-  uname: ["SMALL LETTER N"] raw: "n"
-  to_uname: ["SMALL LETTER N", "VERTICAL TILDE"] to_raw: "nⸯ"
-}
-item {
-  uname: ["SMALL LETTER M"] raw: "m"
-  to_uname: ["SMALL LETTER M WITH DOT ABOVE"] to_raw: "ṁ"
-}
-item {
-  uname: ["SMALL LETTER R"] raw: "r"
-  to_uname: ["SMALL LETTER R", "VERTICAL TILDE"] to_raw: "rⸯ"
-}
-item {
-  uname: ["SMALL LETTER L"] raw: "l"
-  to_uname: ["SMALL LETTER L", "VERTICAL TILDE"] to_raw: "lⸯ"
-}
-item {
-  uname: ["CAPITAL LETTER S"] raw: "S"
-  to_uname: ["SMALL LETTER S WITH ACUTE"] to_raw: "ś"
-}
-item {
-  uname: ["CAPITAL LETTER L"] raw: "L"
-  to_uname: ["SMALL LETTER L WITH DOT BELOW", "VERTICAL TILDE"] to_raw: "ḷⸯ"
-}
-item {
-  uname: ["SMALL LETTER T"] raw: "t"
-  to_uname: ["SMALL LETTER R WITH LINE BELOW", "SMALL LETTER R WITH LINE BELOW"] to_raw: "ṟṟ"
-}
-item {
-  uname: ["CAPITAL LETTER R"] raw: "R"
-  to_uname: ["SMALL LETTER R", "COMBINING RING BELOW"] to_raw: "r̥"
+  raw: "ch"
+  to_raw: "c"
 }
 
 item {
-  uname: ["SMALL LETTER R", "COMBINING RING BELOW", "SMALL LETTER R", "COMBINING RING BELOW"] raw: "r̥r̥"
-  to_uname: ["SMALL LETTER R", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "r̥̄"
+  raw: "E"
+  to_uname: "E WITH MACRON" to_raw: "ē"
 }
 item {
-  uname: ["SMALL LETTER N", "VERTICAL TILDE", "SMALL LETTER J"] raw: "nⸯj"
-  to_uname: ["SMALL LETTER N WITH TILDE"] to_raw: "ñ"
+  raw: "O"
+  to_uname: "O WITH MACRON" to_raw: "ō"
 }
 item {
-  uname: ["SMALL LETTER R WITH LINE BELOW", "SMALL LETTER R WITH LINE BELOW", "SMALL LETTER H"] raw: "ṟṟh"
-  to_uname: ["SMALL LETTER T"] to_raw: "t"
-}
-item {
-  uname: ["SMALL LETTER N", "VERTICAL TILDE", "SMALL LETTER G"] raw: "nⸯg"
-  to_uname: ["SMALL LETTER N WITH DOT ABOVE"] to_raw: "ṅ"
+  raw: "H"
+  to_uname: "H WITH DOT BELOW" to_raw: "ḥ"
 }
 
 item {
-  uname: ["SMALL LETTER R", "VERTICAL TILDE", "SMALL LETTER R", "VERTICAL TILDE"] raw: "rⸯrⸯ"
-  to_uname: ["SMALL LETTER R WITH LINE BELOW"] to_raw: "ṟ"
+  raw: "T"
+  to_uname: "T WITH DOT BELOW" to_raw: "ṭ"
 }
 item {
-  uname: ["SMALL LETTER N", "VERTICAL TILDE", "SMALL LETTER N", "VERTICAL TILDE"] raw: "nⸯnⸯ"
-  to_uname: ["SMALL LETTER N", "SMALL LETTER N"] to_raw: "nn"
+  raw: "D"
+  to_uname: "D WITH DOT BELOW" to_raw: "ḍ"
 }
 item {
-  uname: ["SMALL LETTER N", "VERTICAL TILDE", "SMALL LETTER D"] raw: "nⸯd"
-  to_uname: ["SMALL LETTER N", "SMALL LETTER D"] to_raw: "nd"
+  raw: "N"
+  to_uname: ["N WITH DOT BELOW", "VERTICAL TILDE"] to_raw: "ṇⸯ"
 }
 item {
-  uname: ["SMALL LETTER N", "VERTICAL TILDE", "SMALL LETTER M WITH DOT ABOVE"] raw: "nⸯṁ"
-  to_uname: ["SMALL LETTER N", "SMALL LETTER M"] to_raw: "nm"
+  raw: "n"
+  to_uname: ["N", "VERTICAL TILDE"] to_raw: "nⸯ"
 }
 item {
-  uname: ["SMALL LETTER N WITH DOT BELOW", "VERTICAL TILDE", "SMALL LETTER N WITH DOT BELOW", "VERTICAL TILDE"] raw: "ṇⸯṇⸯ"
-  to_uname: ["SMALL LETTER N WITH DOT BELOW", "SMALL LETTER N WITH DOT BELOW"] to_raw: "ṇṇ"
+  raw: "m"
+  to_uname: "M WITH DOT ABOVE" to_raw: "ṁ"
 }
 item {
-  uname: ["SMALL LETTER N WITH DOT BELOW", "VERTICAL TILDE", "SMALL LETTER D WITH DOT BELOW"] raw: "ṇⸯḍ"
-  to_uname: ["SMALL LETTER N WITH DOT BELOW", "SMALL LETTER D WITH DOT BELOW"] to_raw: "ṇḍ"
+  raw: "r"
+  to_uname: ["R", "VERTICAL TILDE"] to_raw: "rⸯ"
 }
 item {
-  uname: ["SMALL LETTER N WITH DOT BELOW", "VERTICAL TILDE", "SMALL LETTER T WITH DOT BELOW"] raw: "ṇⸯṭ"
-  to_uname: ["SMALL LETTER N WITH DOT BELOW", "SMALL LETTER T WITH DOT BELOW"] to_raw: "ṇṭ"
+  raw: "l"
+  to_uname: ["L", "VERTICAL TILDE"] to_raw: "lⸯ"
 }
 item {
-  uname: ["SMALL LETTER N WITH DOT BELOW", "VERTICAL TILDE", "SMALL LETTER M WITH DOT ABOVE"] raw: "ṇⸯṁ"
-  to_uname: ["SMALL LETTER N WITH DOT BELOW", "SMALL LETTER M"] to_raw: "ṇm"
+  raw: "S"
+  to_uname: "S WITH ACUTE" to_raw: "ś"
 }
 item {
-  uname: ["SMALL LETTER L", "VERTICAL TILDE", "SMALL LETTER L", "VERTICAL TILDE"] raw: "lⸯlⸯ"
-  to_uname: ["SMALL LETTER L", "SMALL LETTER L"] to_raw: "ll"
+  raw: "L"
+  to_uname: ["L WITH DOT BELOW", "VERTICAL TILDE"] to_raw: "ḷⸯ"
 }
 item {
-  uname: ["SMALL LETTER L", "VERTICAL TILDE", "SMALL LETTER M WITH DOT ABOVE"] raw: "lⸯṁ"
-  to_uname: ["SMALL LETTER L", "SMALL LETTER M"] to_raw: "lm"
+  raw: "t"
+  to_uname: ["R WITH LINE BELOW", "R WITH LINE BELOW"] to_raw: "ṟṟ"
 }
 item {
-  uname: ["SMALL LETTER L", "VERTICAL TILDE", "SMALL LETTER P"] raw: "lⸯp"
-  to_uname: ["SMALL LETTER L", "SMALL LETTER P"] to_raw: "lp"
-}
-item {
-  uname: ["SMALL LETTER L WITH DOT BELOW", "VERTICAL TILDE", "SMALL LETTER L WITH DOT BELOW", "VERTICAL TILDE"] raw: "ḷⸯḷⸯ"
-  to_uname: ["SMALL LETTER L WITH DOT BELOW", "SMALL LETTER L WITH DOT BELOW"] to_raw: "ḷḷ"
+  raw: "R"
+  to_uname: ["R", "COMBINING RING BELOW"] to_raw: "r̥"
 }
 
 item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER A"] raw: "ⸯa"
-  to_uname: ["SMALL LETTER A"] to_raw: "a"
+  uname: ["R", "COMBINING RING BELOW", "R", "COMBINING RING BELOW"] raw: "r̥r̥"
+  to_uname: ["R", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "r̥̄"
 }
 item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER A WITH MACRON"] raw: "ⸯā"
-  to_uname: ["SMALL LETTER A WITH MACRON"] to_raw: "ā"
+  uname: ["N", "VERTICAL TILDE", "J"] raw: "nⸯj"
+  to_uname: "N WITH TILDE" to_raw: "ñ"
 }
 item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER I"] raw: "ⸯi"
-  to_uname: ["SMALL LETTER I"] to_raw: "i"
+  uname: ["R WITH LINE BELOW", "R WITH LINE BELOW", "H"] raw: "ṟṟh"
+  to_raw: "t"
 }
 item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER I WITH MACRON"] raw: "ⸯī"
-  to_uname: ["SMALL LETTER I WITH MACRON"] to_raw: "ī"
-}
-item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER U"] raw: "ⸯu"
-  to_uname: ["SMALL LETTER U"] to_raw: "u"
-}
-item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER U WITH MACRON"] raw: "ⸯū"
-  to_uname: ["SMALL LETTER U WITH MACRON"] to_raw: "ū"
-}
-item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER R", "COMBINING RING BELOW"] raw: "ⸯr̥"
-  to_uname: ["SMALL LETTER R", "COMBINING RING BELOW"] to_raw: "r̥"
-}
-item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER E"] raw: "ⸯe"
-  to_uname: ["SMALL LETTER E"] to_raw: "e"
-}
-item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER E WITH MACRON"] raw: "ⸯē"
-  to_uname: ["SMALL LETTER E WITH MACRON"] to_raw: "ē"
-}
-item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER O"] raw: "ⸯo"
-  to_uname: ["SMALL LETTER O"] to_raw: "o"
-}
-item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER O WITH MACRON"] raw: "ⸯō"
-  to_uname: ["SMALL LETTER O WITH MACRON"] to_raw: "ō"
-}
-item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER Y"] raw: "ⸯy"
-  to_uname: ["SMALL LETTER Y"] to_raw: "y"
-}
-item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER R"] raw: "ⸯr"
-  to_uname: ["SMALL LETTER R"] to_raw: "r"
-}
-item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER L"] raw: "ⸯl"
-  to_uname: ["SMALL LETTER L"] to_raw: "l"
-}
-item {
-  uname: ["VERTICAL TILDE", "SMALL LETTER V"] raw: "ⸯv"
-  to_uname: ["SMALL LETTER V"] to_raw: "v"
+  uname: ["N", "VERTICAL TILDE", "G"] raw: "nⸯg"
+  to_uname: "N WITH DOT ABOVE" to_raw: "ṅ"
 }
 
 item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER M WITH DOT ABOVE"] raw: "ṁṁ"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER M"] to_raw: "mm"
+  uname: ["R", "VERTICAL TILDE", "R", "VERTICAL TILDE"] raw: "rⸯrⸯ"
+  to_uname: "R WITH LINE BELOW" to_raw: "ṟ"
 }
 item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER A"] raw: "ṁa"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER A"] to_raw: "ma"
+  uname: ["N", "VERTICAL TILDE", "N", "VERTICAL TILDE"] raw: "nⸯnⸯ"
+  to_raw: "nn"
 }
 item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER A WITH MACRON"] raw: "ṁā"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER A WITH MACRON"] to_raw: "mā"
+  uname: ["N", "VERTICAL TILDE", "D"] raw: "nⸯd"
+  to_raw: "nd"
 }
 item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER I"] raw: "ṁi"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER I"] to_raw: "mi"
+  uname: ["N", "VERTICAL TILDE", "M WITH DOT ABOVE"] raw: "nⸯṁ"
+  to_raw: "nm"
 }
 item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER I WITH MACRON"] raw: "ṁī"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER I WITH MACRON"] to_raw: "mī"
+  uname: ["N WITH DOT BELOW", "VERTICAL TILDE", "N WITH DOT BELOW", "VERTICAL TILDE"] raw: "ṇⸯṇⸯ"
+  to_uname: ["N WITH DOT BELOW", "N WITH DOT BELOW"] to_raw: "ṇṇ"
 }
 item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER U"] raw: "ṁu"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER U"] to_raw: "mu"
+  uname: ["N WITH DOT BELOW", "VERTICAL TILDE", "D WITH DOT BELOW"] raw: "ṇⸯḍ"
+  to_uname: ["N WITH DOT BELOW", "D WITH DOT BELOW"] to_raw: "ṇḍ"
 }
 item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER U WITH MACRON"] raw: "ṁū"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER U WITH MACRON"] to_raw: "mū"
+  uname: ["N WITH DOT BELOW", "VERTICAL TILDE", "T WITH DOT BELOW"] raw: "ṇⸯṭ"
+  to_uname: ["N WITH DOT BELOW", "T WITH DOT BELOW"] to_raw: "ṇṭ"
 }
 item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER E"] raw: "ṁe"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER E"] to_raw: "me"
+  uname: ["N WITH DOT BELOW", "VERTICAL TILDE", "M WITH DOT ABOVE"] raw: "ṇⸯṁ"
+  to_uname: ["N WITH DOT BELOW", "M"] to_raw: "ṇm"
 }
 item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER E WITH MACRON"] raw: "ṁē"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER E WITH MACRON"] to_raw: "mē"
+  uname: ["L", "VERTICAL TILDE", "L", "VERTICAL TILDE"] raw: "lⸯlⸯ"
+  to_raw: "ll"
 }
 item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER O"] raw: "ṁo"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER O"] to_raw: "mo"
+  uname: ["L", "VERTICAL TILDE", "M WITH DOT ABOVE"] raw: "lⸯṁ"
+  to_raw: "lm"
 }
 item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER P"] raw: "ṁp"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER P"] to_raw: "mp"
+  uname: ["L", "VERTICAL TILDE", "P"] raw: "lⸯp"
+  to_raw: "lp"
 }
 item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER Y"] raw: "ṁy"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER Y"] to_raw: "my"
-}
-item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER L"] raw: "ṁl"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER L"] to_raw: "ml"
-}
-item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER V"] raw: "ṁv"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER V"] to_raw: "mv"
-}
-item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER R"] raw: "ṁr"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER R"] to_raw: "mr"
-}
-item {
-  uname: ["SMALL LETTER M WITH DOT ABOVE", "SMALL LETTER R", "COMBINING RING BELOW"] raw: "ṁr̥"
-  to_uname: ["SMALL LETTER M", "SMALL LETTER R", "COMBINING RING BELOW"] to_raw: "mr̥"
+  uname: ["L WITH DOT BELOW", "VERTICAL TILDE", "L WITH DOT BELOW", "VERTICAL TILDE"] raw: "ḷⸯḷⸯ"
+  to_uname: ["L WITH DOT BELOW", "L WITH DOT BELOW"] to_raw: "ḷḷ"
 }
 
 item {
-  uname: ["SMALL LETTER N", "VERTICAL TILDE", "SMALL LETTER T"] raw: "nⸯt"
-  to_uname: ["SMALL LETTER N", "SMALL LETTER T"] to_raw: "nt"
+  uname: ["VERTICAL TILDE", "A"] raw: "ⸯa"
+  to_raw: "a"
 }
 item {
-  uname: ["SMALL LETTER N", "VERTICAL TILDE", "SMALL LETTER R WITH LINE BELOW", "SMALL LETTER R WITH LINE BELOW"] raw: "nⸯṟṟ"
-  to_uname: ["SMALL LETTER N", "VERTICAL TILDE", "COMBINING BREVE", "SMALL LETTER R WITH LINE BELOW"] to_raw: "nⸯ̆ṟ"
+  uname: ["VERTICAL TILDE", "A WITH MACRON"] raw: "ⸯā"
+  to_uname: "A WITH MACRON" to_raw: "ā"
+}
+item {
+  uname: ["VERTICAL TILDE", "I"] raw: "ⸯi"
+  to_raw: "i"
+}
+item {
+  uname: ["VERTICAL TILDE", "I WITH MACRON"] raw: "ⸯī"
+  to_uname: "I WITH MACRON" to_raw: "ī"
+}
+item {
+  uname: ["VERTICAL TILDE", "U"] raw: "ⸯu"
+  to_raw: "u"
+}
+item {
+  uname: ["VERTICAL TILDE", "U WITH MACRON"] raw: "ⸯū"
+  to_uname: "U WITH MACRON" to_raw: "ū"
+}
+item {
+  uname: ["VERTICAL TILDE", "R", "COMBINING RING BELOW"] raw: "ⸯr̥"
+  to_uname: ["R", "COMBINING RING BELOW"] to_raw: "r̥"
+}
+item {
+  uname: ["VERTICAL TILDE", "E"] raw: "ⸯe"
+  to_raw: "e"
+}
+item {
+  uname: ["VERTICAL TILDE", "E WITH MACRON"] raw: "ⸯē"
+  to_uname: "E WITH MACRON" to_raw: "ē"
+}
+item {
+  uname: ["VERTICAL TILDE", "O"] raw: "ⸯo"
+  to_raw: "o"
+}
+item {
+  uname: ["VERTICAL TILDE", "O WITH MACRON"] raw: "ⸯō"
+  to_uname: "O WITH MACRON" to_raw: "ō"
+}
+item {
+  uname: ["VERTICAL TILDE", "Y"] raw: "ⸯy"
+  to_raw: "y"
+}
+item {
+  uname: ["VERTICAL TILDE", "R"] raw: "ⸯr"
+  to_raw: "r"
+}
+item {
+  uname: ["VERTICAL TILDE", "L"] raw: "ⸯl"
+  to_raw: "l"
+}
+item {
+  uname: ["VERTICAL TILDE", "V"] raw: "ⸯv"
+  to_raw: "v"
 }
 
 item {
-  uname: ["APOSTROPHE", "TILDE"] raw: "'~"
+  uname: ["M WITH DOT ABOVE", "M WITH DOT ABOVE"] raw: "ṁṁ"
+  to_raw: "mm"
 }
 item {
-  uname: ["TILDE"] raw: "~"
+  uname: ["M WITH DOT ABOVE", "A"] raw: "ṁa"
+  to_raw: "ma"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "A WITH MACRON"] raw: "ṁā"
+  to_uname: ["M", "A WITH MACRON"] to_raw: "mā"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "I"] raw: "ṁi"
+  to_raw: "mi"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "I WITH MACRON"] raw: "ṁī"
+  to_uname: ["M", "I WITH MACRON"] to_raw: "mī"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "U"] raw: "ṁu"
+  to_raw: "mu"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "U WITH MACRON"] raw: "ṁū"
+  to_uname: ["M", "U WITH MACRON"] to_raw: "mū"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "E"] raw: "ṁe"
+  to_raw: "me"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "E WITH MACRON"] raw: "ṁē"
+  to_uname: ["M", "E WITH MACRON"] to_raw: "mē"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "O"] raw: "ṁo"
+  to_raw: "mo"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "P"] raw: "ṁp"
+  to_raw: "mp"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "Y"] raw: "ṁy"
+  to_raw: "my"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "L"] raw: "ṁl"
+  to_raw: "ml"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "V"] raw: "ṁv"
+  to_raw: "mv"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "R"] raw: "ṁr"
+  to_raw: "mr"
+}
+item {
+  uname: ["M WITH DOT ABOVE", "R", "COMBINING RING BELOW"] raw: "ṁr̥"
+  to_uname: ["M", "R", "COMBINING RING BELOW"] to_raw: "mr̥"
+}
+
+item {
+  uname: ["N", "VERTICAL TILDE", "T"] raw: "nⸯt"
+  to_raw: "nt"
+}
+item {
+  uname: ["N", "VERTICAL TILDE", "R WITH LINE BELOW", "R WITH LINE BELOW"] raw: "nⸯṟṟ"
+  to_uname: ["N", "VERTICAL TILDE", "COMBINING BREVE", "R WITH LINE BELOW"] to_raw: "nⸯ̆ṟ"
+}
+
+item {
+  raw: "'~"
+}
+item {
+  raw: "~"
 }

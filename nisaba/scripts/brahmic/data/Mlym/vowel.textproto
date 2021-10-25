@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "MALAYALAM LETTER"
-
 item { uname: "E" raw: "എ" to_raw: "e" }
 item { uname: "O" raw: "ഒ" to_raw: "o" }
 item { uname: "EE" raw: "ഏ" to_uname: "E WITH MACRON" to_raw: "ē" }

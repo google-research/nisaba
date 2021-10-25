@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["LEPCHA LETTER", "LEPCHA VOWEL"]
-
 item { uname: "A" raw: "ᰣ" to_raw: "a"}
 
 item { uname: ["A", "SIGN AA"] raw: "ᰣᰦ" to_raw: "ā"}

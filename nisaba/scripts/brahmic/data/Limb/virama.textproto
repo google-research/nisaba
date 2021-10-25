@@ -18,4 +18,4 @@
 # This sign marks vowel length in addition to functioning as a virama by
 # suppressing the inherent vowel of the syllable-final consonant. This method
 # of vowel lengthening is widely used in Sikkim.
-item { uname: "LIMBU SIGN SA-I" }
+item { uname: "SA-I" }
