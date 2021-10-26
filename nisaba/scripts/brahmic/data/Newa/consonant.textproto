@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "NEWA LETTER"
-
 item { uname: "NGHA" raw: "𑐓" to_raw: "ṅʰ" }
 item { uname: "NYHA" raw: "𑐙" to_raw: "ñʰ" }
 item { uname: "NHA"  raw: "𑐤" to_raw: "nʰ" }

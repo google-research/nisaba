@@ -15,6 +15,4 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "MEETEI MAYEK"
-
-item { uname: "LUM IYEK" }  # Heavy tone mark.
+item { uname: "LUM IYEK" raw: "꯬"}  # Heavy tone mark.

@@ -15,29 +15,27 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "MEETEI MAYEK LETTER"
-
-item { uname: "BA"    to_raw: "b"  }
-item { uname: "BHAM"  to_raw: "bʰ" }
-item { uname: "CHIL"  to_raw: "cʰ" }
-item { uname: "DIL"   to_raw: "d"  }
-item { uname: "DHOU"  to_raw: "dʰ" }
-item { uname: "GOK"   to_raw: "g"  }
-item { uname: "GHOU"  to_raw: "gʰ" }
-item { uname: "HUK"   to_raw: "h"  }
-item { uname: "JIL"   to_raw: "j"  }
-item { uname: "JHAM"  to_raw: "jʰ" }
-item { uname: "KOK"   to_raw: "k"  }
-item { uname: "KHOU"  to_raw: "kʰ" }
-item { uname: "LAI"   to_raw: "l"  }
-item { uname: "MIT"   to_raw: "m"  }
-item { uname: "NA"    to_raw: "n"  }
-item { uname: "NGOU"  to_raw: "ṅ"  }
-item { uname: "PA"    to_raw: "p"  }
-item { uname: "PHAM"  to_raw: "pʰ" }
-item { uname: "RAI"   to_raw: "r"  }
-item { uname: "SAM"   to_raw: "s"  }
-item { uname: "TIL"   to_raw: "t"  }
-item { uname: "THOU"  to_raw: "tʰ" }
-item { uname: "WAI"   to_raw: "w"  }
-item { uname: "YANG"  to_raw: "y"  }
+item { uname: "KOK"  raw: "ꯀ" to_raw: "k"  }
+item { uname: "SAM"  raw: "ꯁ" to_raw: "s"  }
+item { uname: "LAI"  raw: "ꯂ" to_raw: "l"  }
+item { uname: "MIT"  raw: "ꯃ" to_raw: "m"  }
+item { uname: "PA"   raw: "ꯄ" to_raw: "p"  }
+item { uname: "NA"   raw: "ꯅ" to_raw: "n"  }
+item { uname: "CHIL" raw: "ꯆ" to_raw: "cʰ" }
+item { uname: "TIL"  raw: "ꯇ" to_raw: "t"  }
+item { uname: "KHOU" raw: "ꯈ" to_raw: "kʰ" }
+item { uname: "NGOU" raw: "ꯉ" to_raw: "ṅ"  }
+item { uname: "THOU" raw: "ꯊ" to_raw: "tʰ" }
+item { uname: "WAI"  raw: "ꯋ" to_raw: "w"  }
+item { uname: "YANG" raw: "ꯌ" to_raw: "y"  }
+item { uname: "HUK"  raw: "ꯍ" to_raw: "h"  }
+item { uname: "PHAM" raw: "ꯐ" to_raw: "pʰ" }
+item { uname: "GOK"  raw: "ꯒ" to_raw: "g"  }
+item { uname: "JHAM" raw: "ꯓ" to_raw: "jʰ" }
+item { uname: "RAI"  raw: "ꯔ" to_raw: "r"  }
+item { uname: "BA"   raw: "ꯕ" to_raw: "b"  }
+item { uname: "JIL"  raw: "ꯖ" to_raw: "j"  }
+item { uname: "DIL"  raw: "ꯗ" to_raw: "d"  }
+item { uname: "GHOU" raw: "ꯘ" to_raw: "gʰ" }
+item { uname: "DHOU" raw: "ꯙ" to_raw: "dʰ" }
+item { uname: "BHAM" raw: "ꯚ" to_raw: "bʰ" }

@@ -15,10 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "NEWA SIGN"
-
-to_uname_prefix: "LATIN SMALL LETTER"
-
 item {
   uname: "CANDRABINDU"
   to_uname: ["M", "COMBINING CANDRABINDU"] to_raw: "m̐"

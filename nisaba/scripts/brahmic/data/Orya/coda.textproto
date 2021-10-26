@@ -15,9 +15,7 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "ORIYA SIGN"
-
-item { uname: "CANDRABINDU" to_raw: "m̐" }
+item { uname: "CANDRABINDU" raw: "ଁ" to_raw: "m̐" }
 
 # The nuqta is neither a coda nor a pure standalone symbol.
-item { uname: "NUKTA" to_raw: "ˑ" }
+item { uname: "NUKTA" raw: "଼" to_raw: "ˑ" }

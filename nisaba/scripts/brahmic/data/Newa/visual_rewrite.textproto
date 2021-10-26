@@ -15,21 +15,19 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "NEWA"
-
 # ------------------------------------------------------------------------------
 # See the `Encoding Choices` section of
 #   https://r12a.github.io/scripts/newa/#vowel_encoding
 # ------------------------------------------------------------------------------
 item {
-  uname: ["LETTER A", "VOWEL SIGN AA"]  raw: "𑐀𑐵"
-  to_uname: "LETTER AA" to_raw: "𑐁"
+  uname: ["A", "SIGN AA"]  raw: "𑐀𑐵"
+  to_uname: "AA" to_raw: "𑐁"
 }
 item {
-  uname: ["LETTER U", "VOWEL SIGN O"] raw: "𑐄𑑀"
-  to_uname: "LETTER O" to_raw: "𑐌"
+  uname: ["U", "SIGN O"] raw: "𑐄𑑀"
+  to_uname: "O" to_raw: "𑐌"
 }
 item {
-  uname: ["VOWEL SIGN E", "VOWEL SIGN AA"] raw: "𑐾𑐵"
-  to_uname: "VOWEL SIGN O" to_raw: "𑑀"
+  uname: ["SIGN E", "SIGN AA"] raw: "𑐾𑐵"
+  to_uname: "SIGN O" to_raw: "𑑀"
 }

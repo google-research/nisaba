@@ -20,12 +20,10 @@
 # association with Iyek Ipee characters (all standalone letters modulo Lonsum
 # characters).
 
-uname_prefix: "MEETEI MAYEK VOWEL SIGN"
-
-item { uname: "ONAP"    to_raw: "o"  }
-item { uname: "INAP"    to_raw: "i"  }
-item { uname: "ANAP"    to_raw: "ā"  }
-item { uname: "YENAP"   to_raw: "e"  }
-item { uname: "SOUNAP"  to_raw: "ou" }
-item { uname: "UNAP"    to_raw: "u"  }
-item { uname: "CHEINAP" to_raw: "ei" }
+item { uname: "ANAP"    raw: "ꯥ" to_raw: "ā"  }
+item { uname: "INAP"    raw: "ꯤ" to_raw: "i"  }
+item { uname: "UNAP"    raw: "ꯨ" to_raw: "u"  }
+item { uname: "YENAP"   raw: "ꯦ" to_raw: "e"  }
+item { uname: "ONAP"    raw: "ꯣ" to_raw: "o"  }
+item { uname: "CHEINAP" raw: "ꯩ" to_raw: "ei" }
+item { uname: "SOUNAP"  raw: "ꯧ" to_raw: "ou" }

@@ -15,7 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-item {
-  uname: ["ORIYA SIGN VIRAMA", "ZERO WIDTH NON-JOINER"]
-  to_raw: "[VIRAMA,ZWNJ]"
-}
+# Prefixes used for mapping between Oriya script character sequences.
+
+uname_prefix: ["ORIYA", "ORIYA LETTER", "ORIYA VOWEL", "ORIYA SIGN"]

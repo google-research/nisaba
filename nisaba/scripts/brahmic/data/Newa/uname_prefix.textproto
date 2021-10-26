@@ -15,12 +15,7 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "NEWA"
+# Prefixes used for mapping between Newa (Pracalit, Nepaalalipi) script
+# character sequences.
 
-item {
-  uname: ["OM"] raw: "𑑉"
-  to_uname: [
-      "LATIN SMALL LETTER O WITH TILDE",
-      "LATIN SMALL LETTER M"
-  ] to_raw: "õm"
-}
+uname_prefix: ["NEWA", "NEWA LETTER", "NEWA VOWEL", "NEWA SIGN"]

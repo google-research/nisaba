@@ -15,4 +15,10 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-item { uname: "NEWA SIGN VIRAMA" }
+# Prefixes used for mapping between Meetei Mayek script character sequences.
+
+uname_prefix: [
+  "MEETEI MAYEK",
+  "MEETEI MAYEK LETTER",
+  "MEETEI MAYEK VOWEL SIGN"
+]

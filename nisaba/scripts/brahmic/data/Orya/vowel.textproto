@@ -15,14 +15,11 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "ORIYA LETTER"
-
 item {
-  uname: "E"
+  uname: "E" raw: "ଏ"
   to_uname: "E WITH MACRON" to_raw: "ē"
 }
-
 item {
-  uname: "O"
+  uname: "O" raw: "ଓ"
   to_uname: "O WITH MACRON" to_raw: "ō"
 }

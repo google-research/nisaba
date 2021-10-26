@@ -15,13 +15,11 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "ORIYA LETTER"
+item { uname: "YYA" raw: "ୟ" to_raw: "ẏ"  }
+item { uname: "LLA" raw: "ଳ" to_raw: "ḷ"  }
+item { uname: "VA"  raw: "ଵ" to_raw: "v"  }
+item { uname: "WA"  raw: "ୱ" to_raw: "w"  }
+item { uname: "SSA" raw: "ଷ" to_raw: "ṣ"  }
 
-item { uname: "YYA"  to_raw: "ẏ"  }
-item { uname: "LLA"  to_raw: "ḷ"  }
-item { uname: "VA"   to_raw: "v"  }
-item { uname: "WA"   to_raw: "w"  }
-item { uname: "SSA"  to_raw: "ṣ"  }
-
-item { uname: ["DDA", "ORIYA SIGN NUKTA"] to_raw: "ṛ" }
-item { uname: ["DDHA", "ORIYA SIGN NUKTA"] to_raw: "ṛʰ" }
+item { uname: ["DDA",  "ORIYA SIGN NUKTA"] raw: "ଡ଼" to_raw: "ṛ" }
+item { uname: ["DDHA", "ORIYA SIGN NUKTA"] raw: "ଢ଼" to_raw: "ṛʰ" }

@@ -15,28 +15,26 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "ORIYA"
-
 # Combine 2-part vowels.
 item {
-  uname: ["VOWEL SIGN E", "AI LENGTH MARK"] raw: "ୈ"
-  to_uname: "VOWEL SIGN AI"                 to_raw: "ୈ"
+  uname: ["SIGN E", "AI LENGTH MARK"] raw: "ୈ"
+  to_uname: "SIGN AI" to_raw: "ୈ"
 }
 item {
-  uname: ["VOWEL SIGN E", "VOWEL SIGN AA"]  raw: "ୋ"
-  to_uname: "VOWEL SIGN O"                  to_raw: "ୋ"
+  uname: ["SIGN E", "SIGN AA"]  raw: "ୋ"
+  to_uname: "SIGN O" to_raw: "ୋ"
 }
 item {
-  uname: ["VOWEL SIGN E", "AU LENGTH MARK"] raw: "ୌ"
-  to_uname: "VOWEL SIGN AU"                 to_raw: "ୌ"
+  uname: ["SIGN E", "AU LENGTH MARK"] raw: "ୌ"
+  to_uname: "SIGN AU" to_raw: "ୌ"
 }
 
 # Decompose to X + NUKTA.
 item {
-  uname: "LETTER RRA"                     raw: "ଡ଼"
-  to_uname: ["LETTER DDA", "SIGN NUKTA"]  to_raw: "ଡ଼"
+  uname: "RRA" raw: "ଡ଼"
+  to_uname: ["DDA", "NUKTA"] to_raw: "ଡ଼"
 }
 item {
-  uname: "LETTER RHA"                     raw: "ଢ଼"
-  to_uname: ["LETTER DDHA", "SIGN NUKTA"] to_raw: "ଢ଼"
+  uname: "RHA" raw: "ଢ଼"
+  to_uname: ["DDHA", "NUKTA"] to_raw: "ଢ଼"
 }

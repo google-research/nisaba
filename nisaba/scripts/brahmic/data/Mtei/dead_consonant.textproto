@@ -15,13 +15,11 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "MEETEI MAYEK LETTER"
-
-item { uname: "KOK LONSUM"  to_raw: "k'" }
-item { uname: "LAI LONSUM"  to_raw: "l'" }
-item { uname: "MIT LONSUM"  to_raw: "m'" }
-item { uname: "PA LONSUM"   to_raw: "p'" }
-item { uname: "NA LONSUM"   to_raw: "n'" }
-item { uname: "TIL LONSUM"  to_raw: "t'" }
-item { uname: "NGOU LONSUM" to_raw: "ṅ'" }
-item { uname: "I LONSUM"    to_raw: "i'" }
+item { uname: "KOK LONSUM"  raw: "ꯛ" to_raw: "k'" }
+item { uname: "LAI LONSUM"  raw: "ꯜ" to_raw: "l'" }
+item { uname: "MIT LONSUM"  raw: "ꯝ" to_raw: "m'" }
+item { uname: "PA LONSUM"   raw: "ꯞ" to_raw: "p'" }
+item { uname: "NA LONSUM"   raw: "ꯟ" to_raw: "n'" }
+item { uname: "TIL LONSUM"  raw: "ꯠ" to_raw: "t'" }
+item { uname: "NGOU LONSUM" raw: "ꯡ" to_raw: "ṅ'" }
+item { uname: "I LONSUM"    raw: "ꯢ" to_raw: "i'" }

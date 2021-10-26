@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "ORIYA"
-
 ################################
 # Rewrites from Unicode standard
 # Unicode version 12.0: Chapter 12.5
@@ -24,16 +22,16 @@ uname_prefix: "ORIYA"
 # Table 12-22: Oriya Vowel Letters
 
 item {
-  uname: ["LETTER A", "VOWEL SIGN AA"]  raw: "ଅା"
-  to_uname: "LETTER AA" to_raw: "ଆ"
+  uname: ["A", "SIGN AA"]  raw: "ଅା"
+  to_uname: "AA" to_raw: "ଆ"
 }
 item {
-  uname: ["LETTER E", "AU LENGTH MARK"] raw: "ଏୗ"
-  to_uname: "LETTER AI" to_raw: "ଐ"
+  uname: ["E", "AU LENGTH MARK"] raw: "ଏୗ"
+  to_uname: "AI" to_raw: "ଐ"
 }
 item {
-  uname: ["LETTER O", "AU LENGTH MARK"] raw: "ଓୗ"
-  to_uname: "LETTER AU" to_raw: "ଔ"
+  uname: ["O", "AU LENGTH MARK"] raw: "ଓୗ"
+  to_uname: "AU" to_raw: "ଔ"
 }
 
 ###########################################################
@@ -42,11 +40,11 @@ item {
 
 # Mis-encoding of LETTER WA as <O, VIRAMA, BA>
 item {
-  uname: ["LETTER O", "SIGN VIRAMA", "LETTER BA"] raw: "ଓ୍ବ"
-  to_uname: "LETTER WA" to_raw: "ୱ"
+  uname: ["O", "VIRAMA", "BA"] raw: "ଓ୍ବ"
+  to_uname: "WA" to_raw: "ୱ"
 }
 # Mis-encoding of LETTER WA as <O, VIRAMA, WA>
 item {
-  uname: ["LETTER O", "SIGN VIRAMA", "LETTER WA"] raw: "ଓ୍ୱ"
-  to_uname: "LETTER WA" to_raw: "ୱ"
+  uname: ["O", "VIRAMA", "WA"] raw: "ଓ୍ୱ"
+  to_uname: "WA" to_raw: "ୱ"
 }
