@@ -38,13 +38,35 @@ platforms that Bazel supports.
 
 ### Prerequisites
 
+#### Bazel or Bazelisk
+
+Your operating system may permit an easy installation of pre-built Bazel
+package, like the Debian-specific example below shows:
+
+```shell
+sudo apt-get install bazel
+```
+
+Alternatively, e.g., on macOS, a user-friendly Bazel launcher called
+[Bazelisk](https://github.com/bazelbuild/bazelisk) can be installed:
+
+```shell
+BAZEL=bazelisk-darwin-amd64
+curl -LO "https://github.com/bazelbuild/bazelisk/releases/latest/download/$BAZEL"
+chmod +x $BAZEL
+```
+
+When using Bazelisk, simply replace the command `bazel` in the examples below
+with `$BAZEL`.
+
+#### C++ and Python
+
 Nisaba requires a modern C++ compiler that supports C++17 standard (e.g., the
 [GCC 10](https://gcc.gnu.org/gcc-10/) release series) and Python3. Assuming
 these are already present, the required dependencies are the Python3 development
 headers and the Python3 package installer [pip](https://pip.pypa.io/en/stable/).
 
 ```shell
-sudo apt-get install bazel
 sudo apt-get install python3-dev
 sudo apt-get install python3-pip
 ```
