@@ -15,77 +15,77 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "SINHALA"
+to_uname_prefix: ["LATIN SMALL LETTER", "COMBINING"]
 
 item {
-  uname: ["LETTER AYANNA"] raw: "අ"
-  to_uname: ["LATIN SMALL LETTER A"] to_raw: "a"
+  uname: "AYANNA" raw: "අ"
+  to_raw: "a"
 }
 item {
-  uname: ["LETTER AAYANNA"] raw: "ආ"
-  to_uname: ["LATIN SMALL LETTER A WITH MACRON"] to_raw: "ā"
+  uname: "AAYANNA" raw: "ආ"
+  to_uname: "A WITH MACRON" to_raw: "ā"
 }
 item {
-  uname: ["LETTER AEYANNA"] raw: "ඇ"
-  to_uname: ["LATIN SMALL LETTER AE"] to_raw: "æ"
+  uname: "AEYANNA" raw: "ඇ"
+  to_uname: "AE" to_raw: "æ"
 }
 item {
-  uname: ["LETTER AEEYANNA"] raw: "ඈ"
-  to_uname: ["LATIN SMALL LETTER AE WITH MACRON"] to_raw: "ǣ"
+  uname: "AEEYANNA" raw: "ඈ"
+  to_uname: "AE WITH MACRON" to_raw: "ǣ"
 }
 item {
-  uname: ["LETTER IYANNA"] raw: "ඉ"
-  to_uname: ["LATIN SMALL LETTER I"] to_raw: "i"
+  uname: "IYANNA" raw: "ඉ"
+  to_raw: "i"
 }
 item {
-  uname: ["LETTER IIYANNA"] raw: "ඊ"
-  to_uname: ["LATIN SMALL LETTER I WITH MACRON"] to_raw: "ī"
+  uname: "IIYANNA" raw: "ඊ"
+  to_uname: "I WITH MACRON" to_raw: "ī"
 }
 item {
-  uname: ["LETTER UYANNA"] raw: "උ"
-  to_uname: ["LATIN SMALL LETTER U"] to_raw: "u"
+  uname: "UYANNA" raw: "උ"
+  to_raw: "u"
 }
 item {
-  uname: ["LETTER UUYANNA"] raw: "ඌ"
-  to_uname: ["LATIN SMALL LETTER U WITH MACRON"] to_raw: "ū"
+  uname: "UUYANNA" raw: "ඌ"
+  to_uname: "U WITH MACRON" to_raw: "ū"
 }
 item {
-  uname: ["LETTER IRUYANNA"] raw: "ඍ"
-  to_uname: ["LATIN SMALL LETTER R", "COMBINING RING BELOW"] to_raw: "r̥"
+  uname: "IRUYANNA" raw: "ඍ"
+  to_uname: ["R", "RING BELOW"] to_raw: "r̥"
 }
 item {
-  uname: ["LETTER IRUUYANNA"] raw: "ඎ"
-  to_uname: ["LATIN SMALL LETTER R", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "r̥̄"
+  uname: "IRUUYANNA" raw: "ඎ"
+  to_uname: ["R", "RING BELOW", "COMBINING MACRON"] to_raw: "r̥̄"
 }
 item {
-  uname: ["LETTER ILUYANNA"] raw: "ඏ"
-  to_uname: ["LATIN SMALL LETTER L", "COMBINING RING BELOW"] to_raw: "l̥"
+  uname: "ILUYANNA" raw: "ඏ"
+  to_uname: ["L", "RING BELOW"] to_raw: "l̥"
 }
 item {
-  uname: ["LETTER ILUUYANNA"] raw: "ඐ"
-  to_uname: ["LATIN SMALL LETTER L", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "l̥̄"
+  uname: "ILUUYANNA" raw: "ඐ"
+  to_uname: ["L", "RING BELOW", "COMBINING MACRON"] to_raw: "l̥̄"
 }
 item {
-  uname: ["LETTER EYANNA"] raw: "එ"
-  to_uname: ["LATIN SMALL LETTER E"] to_raw: "e"
+  uname: "EYANNA" raw: "එ"
+  to_raw: "e"
 }
 item {
-  uname: ["LETTER EEYANNA"] raw: "ඒ"
-  to_uname: ["LATIN SMALL LETTER E WITH MACRON"] to_raw: "ē"
+  uname: "EEYANNA" raw: "ඒ"
+  to_uname: "E WITH MACRON" to_raw: "ē"
 }
 item {
-  uname: ["LETTER AIYANNA"] raw: "ඓ"
-  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER I"] to_raw: "ai"
+  uname: "AIYANNA" raw: "ඓ"
+  to_raw: "ai"
 }
 item {
-  uname: ["LETTER OYANNA"] raw: "ඔ"
-  to_uname: ["LATIN SMALL LETTER O"] to_raw: "o"
+  uname: "OYANNA" raw: "ඔ"
+  to_raw: "o"
 }
 item {
-  uname: ["LETTER OOYANNA"] raw: "ඕ"
-  to_uname: ["LATIN SMALL LETTER O WITH MACRON"] to_raw: "ō"
+  uname: "OOYANNA" raw: "ඕ"
+  to_uname: "O WITH MACRON" to_raw: "ō"
 }
 item {
-  uname: ["LETTER AUYANNA"] raw: "ඖ"
-  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER U"] to_raw: "au"
+  uname: "AUYANNA" raw: "ඖ"
+  to_raw: "au"
 }

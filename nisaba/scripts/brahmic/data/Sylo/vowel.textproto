@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["SYLOTI NAGRI", "SYLOTI NAGRI LETTER"]
-
 item { uname: "A" raw: "ꠀ" to_raw: "a" }
 item { uname: "I" raw: "ꠁ" to_raw: "i" }
 item { uname: "U" raw: "ꠃ" to_raw: "u" }
@@ -29,7 +27,7 @@ item { uname: "O" raw: "ꠅ" to_raw: "o" }
 #   The dvisvara sign can attach to consonants to form the diphthong /oi/
 #   with the inherent vowel, or it can also combine with dependent or
 #   independent vowels to form other diphthongs with /i/ as the second element.
-item { uname: ["A", "SIGN DVISVARA"], to_raw: "ai" }
-item { uname: ["U", "SIGN DVISVARA"], to_raw: "ui" }
-item { uname: ["E", "SIGN DVISVARA"], to_raw: "ei" }
-item { uname: ["O", "SIGN DVISVARA"], to_raw: "oi" }
+item { uname: ["A", "DVISVARA"] raw: "ꠀꠂ" to_raw: "ai" }
+item { uname: ["U", "DVISVARA"] raw: "ꠃꠂ" to_raw: "ui" }
+item { uname: ["E", "DVISVARA"] raw: "ꠄꠂ" to_raw: "ei" }
+item { uname: ["O", "DVISVARA"] raw: "ꠅꠂ" to_raw: "oi" }

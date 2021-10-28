@@ -15,169 +15,169 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "SINHALA"
+to_uname_prefix: ["LATIN SMALL LETTER", "MODIFIER LETTER"]
 
 item {
-  uname: ["LETTER ALPAPRAANA KAYANNA"] raw: "ක"
-  to_uname: ["LATIN SMALL LETTER K"] to_raw: "k"
+  uname: "ALPAPRAANA KAYANNA" raw: "ක"
+  to_raw: "k"
 }
 item {
-  uname: ["LETTER MAHAAPRAANA KAYANNA"] raw: "ඛ"
-  to_uname: ["LATIN SMALL LETTER K", "MODIFIER LETTER SMALL H"] to_raw: "kʰ"
+  uname: "MAHAAPRAANA KAYANNA" raw: "ඛ"
+  to_uname: ["K", "SMALL H"] to_raw: "kʰ"
 }
 item {
-  uname: ["LETTER ALPAPRAANA GAYANNA"] raw: "ග"
-  to_uname: ["LATIN SMALL LETTER G"] to_raw: "g"
+  uname: "ALPAPRAANA GAYANNA" raw: "ග"
+  to_raw: "g"
 }
 item {
-  uname: ["LETTER MAHAAPRAANA GAYANNA"] raw: "ඝ"
-  to_uname: ["LATIN SMALL LETTER G", "MODIFIER LETTER SMALL H"] to_raw: "gʰ"
+  uname: "MAHAAPRAANA GAYANNA" raw: "ඝ"
+  to_uname: ["G", "SMALL H"] to_raw: "gʰ"
 }
 item {
-  uname: ["LETTER KANTAJA NAASIKYAYA"] raw: "ඞ"
-  to_uname: ["LATIN SMALL LETTER N WITH DOT ABOVE"] to_raw: "ṅ"
+  uname: "KANTAJA NAASIKYAYA" raw: "ඞ"
+  to_uname: "N WITH DOT ABOVE" to_raw: "ṅ"
 }
 item {
-  uname: ["LETTER SANYAKA GAYANNA"] raw: "ඟ"
-  to_uname: ["MODIFIER LETTER SMALL ENG", "LATIN SMALL LETTER G"] to_raw: "ᵑg"
+  uname: "SANYAKA GAYANNA" raw: "ඟ"
+  to_uname: ["SMALL ENG", "G"] to_raw: "ᵑg"
 }
 item {
-  uname: ["LETTER ALPAPRAANA CAYANNA"] raw: "ච"
-  to_uname: ["LATIN SMALL LETTER C"] to_raw: "c"
+  uname: "ALPAPRAANA CAYANNA" raw: "ච"
+  to_raw: "c"
 }
 item {
-  uname: ["LETTER MAHAAPRAANA CAYANNA"] raw: "ඡ"
-  to_uname: ["LATIN SMALL LETTER C", "MODIFIER LETTER SMALL H"] to_raw: "cʰ"
+  uname: "MAHAAPRAANA CAYANNA" raw: "ඡ"
+  to_uname: ["C", "SMALL H"] to_raw: "cʰ"
 }
 item {
-  uname: ["LETTER ALPAPRAANA JAYANNA"] raw: "ජ"
-  to_uname: ["LATIN SMALL LETTER J"] to_raw: "j"
+  uname: "ALPAPRAANA JAYANNA" raw: "ජ"
+  to_raw: "j"
 }
 item {
-  uname: ["LETTER MAHAAPRAANA JAYANNA"] raw: "ඣ"
-  to_uname: ["LATIN SMALL LETTER J", "MODIFIER LETTER SMALL H"] to_raw: "jʰ"
+  uname: "MAHAAPRAANA JAYANNA" raw: "ඣ"
+  to_uname: ["J", "SMALL H"] to_raw: "jʰ"
 }
 item {
-  uname: ["LETTER TAALUJA NAASIKYAYA"] raw: "ඤ"
-  to_uname: ["LATIN SMALL LETTER N WITH TILDE"] to_raw: "ñ"
+  uname: "TAALUJA NAASIKYAYA" raw: "ඤ"
+  to_uname: "N WITH TILDE" to_raw: "ñ"
 }
 item {
-  uname: ["LETTER SANYAKA JAYANNA"] raw: "ඦ"
-  to_uname: ["MODIFIER LETTER SMALL ENG", "LATIN SMALL LETTER J"] to_raw: "ᵑj"
+  uname: "SANYAKA JAYANNA" raw: "ඦ"
+  to_uname: ["SMALL ENG", "J"] to_raw: "ᵑj"
 }
 item {
-  uname: ["LETTER ALPAPRAANA TTAYANNA"] raw: "ට"
-  to_uname: ["LATIN SMALL LETTER T WITH DOT BELOW"] to_raw: "ṭ"
+  uname: "ALPAPRAANA TTAYANNA" raw: "ට"
+  to_uname: "T WITH DOT BELOW" to_raw: "ṭ"
 }
 item {
-  uname: ["LETTER MAHAAPRAANA TTAYANNA"] raw: "ඨ"
-  to_uname: ["LATIN SMALL LETTER T WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ṭʰ"
+  uname: "MAHAAPRAANA TTAYANNA" raw: "ඨ"
+  to_uname: ["T WITH DOT BELOW", "SMALL H"] to_raw: "ṭʰ"
 }
 item {
-  uname: ["LETTER ALPAPRAANA DDAYANNA"] raw: "ඩ"
-  to_uname: ["LATIN SMALL LETTER D WITH DOT BELOW"] to_raw: "ḍ"
+  uname: "ALPAPRAANA DDAYANNA" raw: "ඩ"
+  to_uname: "D WITH DOT BELOW" to_raw: "ḍ"
 }
 item {
-  uname: ["LETTER MAHAAPRAANA DDAYANNA"] raw: "ඪ"
-  to_uname: ["LATIN SMALL LETTER D WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ḍʰ"
+  uname: "MAHAAPRAANA DDAYANNA" raw: "ඪ"
+  to_uname: ["D WITH DOT BELOW", "SMALL H"] to_raw: "ḍʰ"
 }
 item {
-  uname: ["LETTER MUURDHAJA NAYANNA"] raw: "ණ"
-  to_uname: ["LATIN SMALL LETTER N WITH DOT BELOW"] to_raw: "ṇ"
+  uname: "MUURDHAJA NAYANNA" raw: "ණ"
+  to_uname: "N WITH DOT BELOW" to_raw: "ṇ"
 }
 item {
-  uname: ["LETTER SANYAKA DDAYANNA"] raw: "ඬ"
-  to_uname: ["MODIFIER LETTER SMALL ENG", "LATIN SMALL LETTER D WITH DOT BELOW"] to_raw: "ᵑḍ"
+  uname: "SANYAKA DDAYANNA" raw: "ඬ"
+  to_uname: ["SMALL ENG", "D WITH DOT BELOW"] to_raw: "ᵑḍ"
 }
 item {
-  uname: ["LETTER ALPAPRAANA TAYANNA"] raw: "ත"
-  to_uname: ["LATIN SMALL LETTER T"] to_raw: "t"
+  uname: "ALPAPRAANA TAYANNA" raw: "ත"
+  to_raw: "t"
 }
 item {
-  uname: ["LETTER MAHAAPRAANA TAYANNA"] raw: "ථ"
-  to_uname: ["LATIN SMALL LETTER T", "MODIFIER LETTER SMALL H"] to_raw: "tʰ"
+  uname: "MAHAAPRAANA TAYANNA" raw: "ථ"
+  to_uname: ["T", "SMALL H"] to_raw: "tʰ"
 }
 item {
-  uname: ["LETTER ALPAPRAANA DAYANNA"] raw: "ද"
-  to_uname: ["LATIN SMALL LETTER D"] to_raw: "d"
+  uname: "ALPAPRAANA DAYANNA" raw: "ද"
+  to_raw: "d"
 }
 item {
-  uname: ["LETTER MAHAAPRAANA DAYANNA"] raw: "ධ"
-  to_uname: ["LATIN SMALL LETTER D", "MODIFIER LETTER SMALL H"] to_raw: "dʰ"
+  uname: "MAHAAPRAANA DAYANNA" raw: "ධ"
+  to_uname: ["D", "SMALL H"] to_raw: "dʰ"
 }
 item {
-  uname: ["LETTER DANTAJA NAYANNA"] raw: "න"
-  to_uname: ["LATIN SMALL LETTER N"] to_raw: "n"
+  uname: "DANTAJA NAYANNA" raw: "න"
+  to_raw: "n"
 }
 item {
-  uname: ["LETTER SANYAKA DAYANNA"] raw: "ඳ"
-  to_uname: ["MODIFIER LETTER SMALL ENG", "LATIN SMALL LETTER D"] to_raw: "ᵑd"
+  uname: "SANYAKA DAYANNA" raw: "ඳ"
+  to_uname: ["SMALL ENG", "D"] to_raw: "ᵑd"
 }
 item {
-  uname: ["LETTER ALPAPRAANA PAYANNA"] raw: "ප"
-  to_uname: ["LATIN SMALL LETTER P"] to_raw: "p"
+  uname: "ALPAPRAANA PAYANNA" raw: "ප"
+  to_raw: "p"
 }
 item {
-  uname: ["LETTER MAHAAPRAANA PAYANNA"] raw: "ඵ"
-  to_uname: ["LATIN SMALL LETTER P", "MODIFIER LETTER SMALL H"] to_raw: "pʰ"
+  uname: "MAHAAPRAANA PAYANNA" raw: "ඵ"
+  to_uname: ["P", "SMALL H"] to_raw: "pʰ"
 }
 item {
-  uname: ["LETTER ALPAPRAANA BAYANNA"] raw: "බ"
-  to_uname: ["LATIN SMALL LETTER B"] to_raw: "b"
+  uname: "ALPAPRAANA BAYANNA" raw: "බ"
+  to_raw: "b"
 }
 item {
-  uname: ["LETTER MAHAAPRAANA BAYANNA"] raw: "භ"
-  to_uname: ["LATIN SMALL LETTER B", "MODIFIER LETTER SMALL H"] to_raw: "bʰ"
+  uname: "MAHAAPRAANA BAYANNA" raw: "භ"
+  to_uname: ["B", "SMALL H"] to_raw: "bʰ"
 }
 item {
-  uname: ["LETTER MAYANNA"] raw: "ම"
-  to_uname: ["LATIN SMALL LETTER M"] to_raw: "m"
+  uname: "MAYANNA" raw: "ම"
+  to_raw: "m"
 }
 item {
-  uname: ["LETTER AMBA BAYANNA"] raw: "ඹ"
-  to_uname: ["MODIFIER LETTER SMALL ENG", "LATIN SMALL LETTER B"] to_raw: "ᵑb"
+  uname: "AMBA BAYANNA" raw: "ඹ"
+  to_uname: ["SMALL ENG", "B"] to_raw: "ᵑb"
 }
 item {
-  uname: ["LETTER YAYANNA"] raw: "ය"
-  to_uname: ["LATIN SMALL LETTER Y"] to_raw: "y"
+  uname: "YAYANNA" raw: "ය"
+  to_raw: "y"
 }
 item {
-  uname: ["LETTER RAYANNA"] raw: "ර"
-  to_uname: ["LATIN SMALL LETTER R"] to_raw: "r"
+  uname: "RAYANNA" raw: "ර"
+  to_raw: "r"
 }
 item {
-  uname: ["LETTER DANTAJA LAYANNA"] raw: "ල"
-  to_uname: ["LATIN SMALL LETTER L"] to_raw: "l"
+  uname: "DANTAJA LAYANNA" raw: "ල"
+  to_raw: "l"
 }
 item {
-  uname: ["LETTER MUURDHAJA LAYANNA"] raw: "ළ"
-  to_uname: ["LATIN SMALL LETTER L WITH DOT BELOW"] to_raw: "ḷ"
+  uname: "MUURDHAJA LAYANNA" raw: "ළ"
+  to_uname: "L WITH DOT BELOW" to_raw: "ḷ"
 }
 item {
-  uname: ["LETTER VAYANNA"] raw: "ව"
-  to_uname: ["LATIN SMALL LETTER V"] to_raw: "v"
+  uname: "VAYANNA" raw: "ව"
+  to_raw: "v"
 }
 item {
-  uname: ["LETTER TAALUJA SAYANNA"] raw: "ශ"
-  to_uname: ["LATIN SMALL LETTER S WITH ACUTE"] to_raw: "ś"
+  uname: "TAALUJA SAYANNA" raw: "ශ"
+  to_uname: "S WITH ACUTE" to_raw: "ś"
 }
 item {
-  uname: ["LETTER MUURDHAJA SAYANNA"] raw: "ෂ"
-  to_uname: ["LATIN SMALL LETTER S WITH DOT BELOW"] to_raw: "ṣ"
+  uname: "MUURDHAJA SAYANNA" raw: "ෂ"
+  to_uname: "S WITH DOT BELOW" to_raw: "ṣ"
 }
 item {
-  uname: ["LETTER DANTAJA SAYANNA"] raw: "ස"
-  to_uname: ["LATIN SMALL LETTER S"] to_raw: "s"
+  uname: "DANTAJA SAYANNA" raw: "ස"
+  to_raw: "s"
 }
 item {
-  uname: ["LETTER HAYANNA"] raw: "හ"
-  to_uname: ["LATIN SMALL LETTER H"] to_raw: "h"
+  uname: "HAYANNA" raw: "හ"
+  to_raw: "h"
 }
 item {
-  uname: ["LETTER FAYANNA"] raw: "ෆ"
-  to_uname: ["LATIN SMALL LETTER F"] to_raw: "f"
+  uname: "FAYANNA" raw: "ෆ"
+  to_raw: "f"
 }
 item {
-  uname: ["LETTER TAALUJA SANYOOGA NAAKSIKYAYA"] raw: "ඥ"
-  to_uname: ["MODIFIER LETTER SMALL ENG", "LATIN SMALL LETTER J WITH CARON"] to_raw: "ᵑǰ"
+  uname: "TAALUJA SANYOOGA NAAKSIKYAYA" raw: "ඥ"
+  to_uname: ["SMALL ENG", "J WITH CARON"] to_raw: "ᵑǰ"
 }

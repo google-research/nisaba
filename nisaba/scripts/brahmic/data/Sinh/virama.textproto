@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "SINHALA"
-
 item {
-  uname: ["SIGN AL-LAKUNA"] raw: "්"
+  uname: "AL-LAKUNA" raw: "්"
 }

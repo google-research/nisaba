@@ -15,73 +15,73 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "SINHALA"
+to_uname_prefix: ["LATIN SMALL LETTER", "COMBINING"]
 
 item {
-  uname: ["VOWEL SIGN AELA-PILLA"] raw: "ා"
-  to_uname: ["LATIN SMALL LETTER A WITH MACRON"] to_raw: "ā"
+  uname: "AELA-PILLA" raw: "ා"
+  to_uname: "A WITH MACRON" to_raw: "ā"
 }
 item {
-  uname: ["VOWEL SIGN KETTI AEDA-PILLA"] raw: "ැ"
-  to_uname: ["LATIN SMALL LETTER AE"] to_raw: "æ"
+  uname: "KETTI AEDA-PILLA" raw: "ැ"
+  to_uname: "AE" to_raw: "æ"
 }
 item {
-  uname: ["VOWEL SIGN DIGA AEDA-PILLA"] raw: "ෑ"
-  to_uname: ["LATIN SMALL LETTER AE WITH MACRON"] to_raw: "ǣ"
+  uname: "DIGA AEDA-PILLA" raw: "ෑ"
+  to_uname: "AE WITH MACRON" to_raw: "ǣ"
 }
 item {
-  uname: ["VOWEL SIGN KETTI IS-PILLA"] raw: "ි"
-  to_uname: ["LATIN SMALL LETTER I"] to_raw: "i"
+  uname: "KETTI IS-PILLA" raw: "ි"
+  to_raw: "i"
 }
 item {
-  uname: ["VOWEL SIGN DIGA IS-PILLA"] raw: "ී"
-  to_uname: ["LATIN SMALL LETTER I WITH MACRON"] to_raw: "ī"
+  uname: "DIGA IS-PILLA" raw: "ී"
+  to_uname: "I WITH MACRON" to_raw: "ī"
 }
 item {
-  uname: ["VOWEL SIGN KETTI PAA-PILLA"] raw: "ු"
-  to_uname: ["LATIN SMALL LETTER U"] to_raw: "u"
+  uname: "KETTI PAA-PILLA" raw: "ු"
+  to_raw: "u"
 }
 item {
-  uname: ["VOWEL SIGN DIGA PAA-PILLA"] raw: "ූ"
-  to_uname: ["LATIN SMALL LETTER U WITH MACRON"] to_raw: "ū"
+  uname: "DIGA PAA-PILLA" raw: "ූ"
+  to_uname: "U WITH MACRON" to_raw: "ū"
 }
 item {
-  uname: ["VOWEL SIGN GAETTA-PILLA"] raw: "ෘ"
-  to_uname: ["LATIN SMALL LETTER R", "COMBINING RING BELOW"] to_raw: "r̥"
+  uname: "GAETTA-PILLA" raw: "ෘ"
+  to_uname: ["R", "RING BELOW"] to_raw: "r̥"
 }
 item {
-  uname: ["VOWEL SIGN DIGA GAETTA-PILLA"] raw: "ෲ"
-  to_uname: ["LATIN SMALL LETTER R", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "r̥̄"
+  uname: "DIGA GAETTA-PILLA" raw: "ෲ"
+  to_uname: ["R", "RING BELOW", "COMBINING MACRON"] to_raw: "r̥̄"
 }
 item {
-  uname: ["VOWEL SIGN GAYANUKITTA"] raw: "ෟ"
-  to_uname: ["LATIN SMALL LETTER L", "COMBINING RING BELOW"] to_raw: "l̥"
+  uname: "GAYANUKITTA" raw: "ෟ"
+  to_uname: ["L", "RING BELOW"] to_raw: "l̥"
 }
 item {
-  uname: ["VOWEL SIGN DIGA GAYANUKITTA"] raw: "ෳ"
-  to_uname: ["LATIN SMALL LETTER L", "COMBINING RING BELOW", "COMBINING MACRON"] to_raw: "l̥̄"
+  uname: "DIGA GAYANUKITTA" raw: "ෳ"
+  to_uname: ["L", "RING BELOW", "COMBINING MACRON"] to_raw: "l̥̄"
 }
 item {
-  uname: ["VOWEL SIGN KOMBUVA"] raw: "ෙ"
-  to_uname: ["LATIN SMALL LETTER E"] to_raw: "e"
+  uname: "KOMBUVA" raw: "ෙ"
+  to_raw: "e"
 }
 item {
-  uname: ["VOWEL SIGN DIGA KOMBUVA"] raw: "ේ"
-  to_uname: ["LATIN SMALL LETTER E WITH MACRON"] to_raw: "ē"
+  uname: "DIGA KOMBUVA" raw: "ේ"
+  to_uname: "E WITH MACRON" to_raw: "ē"
 }
 item {
-  uname: ["VOWEL SIGN KOMBU DEKA"] raw: "ෛ"
-  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER I"] to_raw: "ai"
+  uname: "KOMBU DEKA" raw: "ෛ"
+  to_raw: "ai"
 }
 item {
-  uname: ["VOWEL SIGN KOMBUVA HAA AELA-PILLA"] raw: "ො"
-  to_uname: ["LATIN SMALL LETTER O"] to_raw: "o"
+  uname: "KOMBUVA HAA AELA-PILLA" raw: "ො"
+  to_raw: "o"
 }
 item {
-  uname: ["VOWEL SIGN KOMBUVA HAA DIGA AELA-PILLA"] raw: "ෝ"
-  to_uname: ["LATIN SMALL LETTER O WITH MACRON"] to_raw: "ō"
+  uname: "KOMBUVA HAA DIGA AELA-PILLA" raw: "ෝ"
+  to_uname: "O WITH MACRON" to_raw: "ō"
 }
 item {
-  uname: ["VOWEL SIGN KOMBUVA HAA GAYANUKITTA"] raw: "ෞ"
-  to_uname: ["LATIN SMALL LETTER A", "LATIN SMALL LETTER U"] to_raw: "au"
+  uname: "KOMBUVA HAA GAYANUKITTA" raw: "ෞ"
+  to_raw: "au"
 }

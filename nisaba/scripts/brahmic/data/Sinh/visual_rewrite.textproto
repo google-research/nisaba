@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "SINHALA"
-
 ################################
 # Rewrites from Unicode standard
 # Unicode version 12.0: Chapter 13.2
@@ -24,40 +22,40 @@ uname_prefix: "SINHALA"
 # Table 13-2: Sinhala Vowel Letters
 
 item {
-  uname: ["LETTER AYANNA", "VOWEL SIGN AELA-PILLA"] raw: "අා"
-  to_uname: ["LETTER AAYANNA"] to_raw: "ආ"
+  uname: ["AYANNA", "AELA-PILLA"] raw: "අා"
+  to_uname: "AAYANNA" to_raw: "ආ"
 }
 item {
-  uname: ["LETTER AYANNA", "VOWEL SIGN KETTI AEDA-PILLA"] raw: "අැ"
-  to_uname: ["LETTER AEYANNA"] to_raw: "ඇ"
+  uname: ["AYANNA", "KETTI AEDA-PILLA"] raw: "අැ"
+  to_uname: "AEYANNA" to_raw: "ඇ"
 }
 item {
-  uname: ["LETTER AYANNA", "VOWEL SIGN DIGA AEDA-PILLA"] raw: "අෑ"
-  to_uname: ["LETTER AEEYANNA"] to_raw: "ඈ"
+  uname: ["AYANNA", "DIGA AEDA-PILLA"] raw: "අෑ"
+  to_uname: "AEEYANNA" to_raw: "ඈ"
 }
 item {
-  uname: ["LETTER UYANNA", "VOWEL SIGN GAYANUKITTA"] raw: "උෟ"
-  to_uname: ["LETTER UUYANNA"] to_raw: "ඌ"
+  uname: ["UYANNA", "GAYANUKITTA"] raw: "උෟ"
+  to_uname: "UUYANNA" to_raw: "ඌ"
 }
 item {
-  uname: ["LETTER IRUYANNA", "VOWEL SIGN GAETTA-PILLA"] raw: "ඍෘ"
-  to_uname: ["LETTER IRUUYANNA"] to_raw: "ඎ"
+  uname: ["IRUYANNA", "GAETTA-PILLA"] raw: "ඍෘ"
+  to_uname: "IRUUYANNA" to_raw: "ඎ"
 }
 item {
-  uname: ["LETTER ILUYANNA", "VOWEL SIGN GAYANUKITTA"] raw: "ඏෟ"
-  to_uname: ["LETTER ILUUYANNA"] to_raw: "ඐ"
+  uname: ["ILUYANNA", "GAYANUKITTA"] raw: "ඏෟ"
+  to_uname: "ILUUYANNA" to_raw: "ඐ"
 }
 item {
-  uname: ["LETTER EYANNA", "SIGN AL-LAKUNA"] raw: "එ්"
-  to_uname: ["LETTER EEYANNA"] to_raw: "ඒ"
+  uname: ["EYANNA", "AL-LAKUNA"] raw: "එ්"
+  to_uname: "EEYANNA" to_raw: "ඒ"
 }
 item {
-  uname: ["LETTER EYANNA", "VOWEL SIGN KOMBUVA"] raw: "එෙ"
-  to_uname: ["LETTER AIYANNA"] to_raw: "ඓ"
+  uname: ["EYANNA", "KOMBUVA"] raw: "එෙ"
+  to_uname: "AIYANNA" to_raw: "ඓ"
 }
 item {
-  uname: ["LETTER OYANNA", "VOWEL SIGN GAYANUKITTA"] raw: "ඔෟ"
-  to_uname: ["LETTER AUYANNA"] to_raw: "ඖ"
+  uname: ["OYANNA", "GAYANUKITTA"] raw: "ඔෟ"
+  to_uname: "AUYANNA" to_raw: "ඖ"
 }
 
 ###########################################################
@@ -66,10 +64,10 @@ item {
 # Reordered vowel sign equivalences from NFC specs
 
 item {
-  uname: ["VOWEL SIGN KOMBUVA", "VOWEL SIGN KOMBUVA"] raw: "ෙෙ"
-  to_uname: ["VOWEL SIGN KOMBU DEKA"] to_raw: "ෛ"
+  uname: ["KOMBUVA", "KOMBUVA"] raw: "ෙෙ"
+  to_uname: "KOMBU DEKA" to_raw: "ෛ"
 }
 item {
-  uname: ["VOWEL SIGN GAETTA-PILLA", "VOWEL SIGN GAETTA-PILLA"] raw: "ෘෘ"
-  to_uname: ["VOWEL SIGN DIGA GAETTA-PILLA"] to_raw: "ෲ"
+  uname: ["GAETTA-PILLA", "GAETTA-PILLA"] raw: "ෘෘ"
+  to_uname: "DIGA GAETTA-PILLA" to_raw: "ෲ"
 }

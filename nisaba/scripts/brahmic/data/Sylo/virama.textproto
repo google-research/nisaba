@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "SYLOTI NAGRI"
-
 # From the original proposal
 #   https://www.unicode.org/L2/L2002/02388-syloti-proposal.pdf
 # Section II.1.5:
@@ -28,7 +26,7 @@ uname_prefix: "SYLOTI NAGRI"
 # reading is generally clear from context."
 
 # Virama, forms conjuncts.
-item { uname: "SIGN HASANTA" }
+item { uname: "HASANTA" raw: "꠆" }
 
 # On alternate hasanta, please consult:
 #   https://www.unicode.org/L2/L2019/19024-syloti-nagri-hasanta.pdf

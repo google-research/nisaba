@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "SYLOTI NAGRI LETTER"
-
 item { uname: "KO"   raw: "ꠇ" to_raw: "k" }
 item { uname: "KHO"  raw: "ꠈ" to_raw: "kʰ" }
 item { uname: "GO"   raw: "ꠉ" to_raw: "g" }

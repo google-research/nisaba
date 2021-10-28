@@ -15,13 +15,13 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "SINHALA"
+to_uname_prefix: "LATIN SMALL LETTER"
 
 item {
-  uname: ["SIGN ANUSVARAYA"] raw: "ං"
-  to_uname: ["LATIN SMALL LETTER M WITH DOT ABOVE"] to_raw: "ṁ"
+  uname: "ANUSVARAYA" raw: "ං"
+  to_uname: "M WITH DOT ABOVE" to_raw: "ṁ"
 }
 item {
-  uname: ["SIGN VISARGAYA"] raw: "ඃ"
-  to_uname: ["LATIN SMALL LETTER H WITH DOT BELOW"] to_raw: "ḥ"
+  uname: "VISARGAYA" raw: "ඃ"
+  to_uname: "H WITH DOT BELOW" to_raw: "ḥ"
 }

@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TAKRI VOWEL"
-
 to_uname_prefix: "LATIN SMALL LETTER"
 
 item { uname: "SIGN AA" to_uname: "A WITH MACRON" to_raw: "ā" }

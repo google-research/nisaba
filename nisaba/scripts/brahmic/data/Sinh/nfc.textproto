@@ -16,25 +16,23 @@
 # proto-message: nisaba.UnicodeStrings
 
 # Combine multi-part vowels
-uname_prefix: "SINHALA"
-
 item {
-  uname: ["VOWEL SIGN KOMBUVA", "SIGN AL-LAKUNA"] raw: "ේ"
-  to_uname: ["VOWEL SIGN DIGA KOMBUVA"] to_raw: "ේ"
+  uname: ["KOMBUVA", "AL-LAKUNA"] raw: "ේ"
+  to_uname: "DIGA KOMBUVA" to_raw: "ේ"
 }
 item {
-  uname: ["VOWEL SIGN KOMBUVA", "VOWEL SIGN AELA-PILLA"] raw: "ො"
-  to_uname: ["VOWEL SIGN KOMBUVA HAA AELA-PILLA"] to_raw: "ො"
+  uname: ["KOMBUVA", "AELA-PILLA"] raw: "ො"
+  to_uname: "KOMBUVA HAA AELA-PILLA" to_raw: "ො"
 }
 item {
-  uname: ["VOWEL SIGN KOMBUVA HAA AELA-PILLA", "SIGN AL-LAKUNA"] raw: "ෝ"
-  to_uname: ["VOWEL SIGN KOMBUVA HAA DIGA AELA-PILLA"] to_raw: "ෝ"
+  uname: ["KOMBUVA HAA AELA-PILLA", "AL-LAKUNA"] raw: "ෝ"
+  to_uname: "KOMBUVA HAA DIGA AELA-PILLA" to_raw: "ෝ"
 }
 item {
-  uname: ["VOWEL SIGN KOMBUVA", "VOWEL SIGN AELA-PILLA", "SIGN AL-LAKUNA"] raw: "ෝ"
-  to_uname: ["VOWEL SIGN KOMBUVA HAA DIGA AELA-PILLA"] to_raw: "ෝ"
+  uname: ["KOMBUVA", "AELA-PILLA", "AL-LAKUNA"] raw: "ෝ"
+  to_uname: "KOMBUVA HAA DIGA AELA-PILLA" to_raw: "ෝ"
 }
 item {
-  uname: ["VOWEL SIGN KOMBUVA", "VOWEL SIGN GAYANUKITTA"] raw: "ෞ"
-  to_uname: ["VOWEL SIGN KOMBUVA HAA GAYANUKITTA"] to_raw: "ෞ"
+  uname: ["KOMBUVA", "GAYANUKITTA"] raw: "ෞ"
+  to_uname: "KOMBUVA HAA GAYANUKITTA" to_raw: "ෞ"
 }

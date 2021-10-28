@@ -15,11 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-item {
-  uname: ["AL-LAKUNA", "ZERO WIDTH JOINER"] raw: "්‍"
-  to_raw: "[VIRAMA,ZWJ]"
-}
-item {
-  uname: ["ZERO WIDTH JOINER", "AL-LAKUNA"] raw: "‍්"
-  to_raw: "[ZWJ,VIRAMA]"
-}
+# Prefixes used for mapping between Sinhala script character sequences.
+
+uname_prefix: ["SINHALA LETTER", "SINHALA VOWEL SIGN", "SINHALA SIGN"]

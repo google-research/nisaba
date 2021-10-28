@@ -15,15 +15,13 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TAKRI SIGN"
-
 to_uname_prefix: "LATIN SMALL LETTER"
 
 item {
-  uname: "ANUSVARA"
+  uname: "ANUSVARA" raw: "𑚫"
   to_uname: "M WITH DOT ABOVE" to_raw: "ṁ"
 }
 item {
-  uname: "VISARGA"
+  uname: "VISARGA" raw: "𑚬"
   to_uname: "H WITH DOT BELOW" to_raw: "ḥ"
 }

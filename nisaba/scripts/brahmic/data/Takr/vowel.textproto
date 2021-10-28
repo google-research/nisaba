@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TAKRI LETTER"
-
 to_uname_prefix: "LATIN SMALL LETTER"
 
 item { uname: "A"  raw: "𑚀" to_raw: "a" }
