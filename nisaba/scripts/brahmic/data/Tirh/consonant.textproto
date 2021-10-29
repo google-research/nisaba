@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["TIRHUTA LETTER", "TIRHUTA SIGN"]
-
 item { uname: "VA" raw: "𑒫" to_raw: "v" }
 
 item {

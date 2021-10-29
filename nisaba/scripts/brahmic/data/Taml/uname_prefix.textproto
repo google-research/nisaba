@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TELUGU"
+# Prefixes used for mapping between Tamil script character sequences.
 
-item {
-  uname: ["SIGN VIRAMA"] raw: "్"
-}
+uname_prefix: ["TAMIL", "TAMIL LETTER", "TAMIL VOWEL", "TAMIL SIGN"]

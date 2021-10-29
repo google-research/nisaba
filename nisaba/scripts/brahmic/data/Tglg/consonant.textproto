@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TAGALOG LETTER"
-
 item { uname: "KA"  to_raw: "k"  }
 item { uname: "GA"  to_raw: "g"  }
 item { uname: "NGA" to_raw: "ṅ" }

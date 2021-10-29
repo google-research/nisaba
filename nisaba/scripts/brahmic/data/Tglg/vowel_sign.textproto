@@ -15,7 +15,5 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TAGALOG VOWEL SIGN"
-
-item { uname: "I" to_raw: "i" }
-item { uname: "U" to_raw: "u" }
+item { uname: "SIGN I" to_raw: "i" }
+item { uname: "SIGN U" to_raw: "u" }

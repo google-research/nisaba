@@ -15,4 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-item { uname: "TAGALOG SIGN VIRAMA" }
+# Prefixes used for mapping between Telugu script character sequences.
+
+uname_prefix: ["TELUGU", "TELUGU LETTER", "TELUGU VOWEL", "TELUGU SIGN"]

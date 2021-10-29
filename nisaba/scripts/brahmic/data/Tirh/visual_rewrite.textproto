@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["TIRHUTA LETTER", "TIRHUTA VOWEL"]
-
 # Vowels in Table 15-5 (Section 15.10) of the Unicode standard:
 #   https://www.unicode.org/versions/Unicode14.0.0/ch15.pdf
 # The "Do Not Use" rewrites:

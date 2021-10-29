@@ -24,30 +24,30 @@ uname_prefix: "TELUGU"
 # Table 12-30: Telugu Vowel Letters
 
 item {
-  uname: ["LETTER O", "LENGTH MARK"] raw: "ఒౕ"
-  to_uname: ["LETTER OO"] to_raw: "ఓ"
+  uname: ["O", "LENGTH MARK"] raw: "ఒౕ"
+  to_uname: "OO" to_raw: "ఓ"
 }
 item {
-  uname: ["LETTER O", "VOWEL SIGN AU"] raw: "ఒౌ"
-  to_uname: ["LETTER AU"] to_raw: "ఔ"
+  uname: ["O", "SIGN AU"] raw: "ఒౌ"
+  to_uname: "AU" to_raw: "ఔ"
 }
 item {
-  uname: ["VOWEL SIGN I", "LENGTH MARK"] raw: "ిౕ"
-  to_uname: ["VOWEL SIGN II"] to_raw: "ీ"
+  uname: ["SIGN I", "LENGTH MARK"] raw: "ిౕ"
+  to_uname: "SIGN II" to_raw: "ీ"
 }
 item {
-  uname: ["VOWEL SIGN E", "LENGTH MARK"] raw: "ెౕ"
-  to_uname: ["VOWEL SIGN EE"] to_raw: "ే"
+  uname: ["SIGN E", "LENGTH MARK"] raw: "ెౕ"
+  to_uname: "SIGN EE" to_raw: "ే"
 }
 item {
-  uname: ["VOWEL SIGN O", "LENGTH MARK"] raw: "ొౕ"
-  to_uname: ["VOWEL SIGN OO"] to_raw: "ో"
+  uname: ["SIGN O", "LENGTH MARK"] raw: "ొౕ"
+  to_uname: "SIGN OO" to_raw: "ో"
 }
 
 ###########################################################
 # Additional rewrites for the usages found in web documents
 
 item {
-  uname: ["LETTER BA", "VOWEL SIGN U", "VOWEL SIGN U"] raw: "బుు"
-  to_uname: ["LETTER VOCALIC R"] to_raw: "ఋ"
+  uname: ["BA", "SIGN U", "SIGN U"] raw: "బుు"
+  to_uname: "VOCALIC R" to_raw: "ఋ"
 }

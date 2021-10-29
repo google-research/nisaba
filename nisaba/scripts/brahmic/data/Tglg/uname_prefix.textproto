@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TAMIL"
+# Prefixes used for mapping between Tagalog script character sequences.
 
-item {
-  uname: ["SIGN VIRAMA"] raw: "்"
-}
+uname_prefix: ["TAGALOG LETTER", "TAGALOG VOWEL", "TAGALOG SIGN"]

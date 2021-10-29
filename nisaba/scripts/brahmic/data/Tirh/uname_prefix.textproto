@@ -15,9 +15,7 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TELUGU"
+# Prefixes used for mapping between Tirhuta (Maithili, Mithilakshara) script
+# character sequences.
 
-item {
-  uname: ["SIGN VIRAMA", "ZERO WIDTH NON-JOINER"] raw: "్‌"
-  to_raw: "[VIRAMA,ZWNJ]"
-}
+uname_prefix: ["TIRHUTA", "TIRHUTA LETTER", "TIRHUTA VOWEL", "TIRHUTA SIGN"]

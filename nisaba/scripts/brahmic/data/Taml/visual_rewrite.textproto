@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TAMIL"
-
 ################################
 # Rewrites from Unicode standard
 # Unicode version 12.0: Chapter 12.6
@@ -24,30 +22,30 @@ uname_prefix: "TAMIL"
 # Table 12-26: Tamil Vowel Letters
 
 item {
-  uname: ["LETTER A", "VOWEL SIGN UU"] raw: "அூ"
-  to_uname: ["LETTER AA"] to_raw: "ஆ"
+  uname: ["A", "SIGN UU"] raw: "அூ"
+  to_uname: "AA" to_raw: "ஆ"
 }
 
 # Figure 12-23: Tamil Ligatures with ra
 
 item {
-  uname: ["VOWEL SIGN AA", "SIGN VIRAMA"] raw: "ா்"
-  to_uname: ["LETTER RA", "SIGN VIRAMA"] to_raw: "ர்"
+  uname: ["SIGN AA", "VIRAMA"] raw: "ா்"
+  to_uname: ["RA", "VIRAMA"] to_raw: "ர்"
 }
 item {
-  uname: ["VOWEL SIGN AA", "VOWEL SIGN I"] raw: "ாி"
-  to_uname: ["LETTER RA", "VOWEL SIGN I"] to_raw: "ரி"
+  uname: ["SIGN AA", "SIGN I"] raw: "ாி"
+  to_uname: ["RA", "SIGN I"] to_raw: "ரி"
 }
 item {
-  uname: ["VOWEL SIGN AA", "VOWEL SIGN II"] raw: "ாீ"
-  to_uname: ["LETTER RA", "VOWEL SIGN II"] to_raw: "ரீ"
+  uname: ["SIGN AA", "SIGN II"] raw: "ாீ"
+  to_uname: ["RA", "SIGN II"] to_raw: "ரீ"
 }
 
 # Figure 12-24: Tamil Ligatures for shri
 
 item {
-  uname: ["LETTER SA", "SIGN VIRAMA", "LETTER RA", "VOWEL SIGN II"] raw: "ஸ்ரீ"
-  to_uname: ["LETTER SHA", "SIGN VIRAMA", "LETTER RA", "VOWEL SIGN II"] to_raw: "ஶ்ரீ"
+  uname: ["SA", "VIRAMA", "RA", "SIGN II"] raw: "ஸ்ரீ"
+  to_uname: ["SHA", "VIRAMA", "RA", "SIGN II"] to_raw: "ஶ்ரீ"
 }
 
 ###########################################################
@@ -55,56 +53,56 @@ item {
 
 # Vowel Letter UU
 item {
-  uname: ["LETTER U", "AU LENGTH MARK"] raw: "உௗ"
-  to_uname: ["LETTER UU"] to_raw: "ஊ"
+  uname: ["U", "AU LENGTH MARK"] raw: "உௗ"
+  to_uname: "UU" to_raw: "ஊ"
 }
 
 # Vowel Signs
 
 # To cover the usage like: துா for தூ
 item {
-  uname: ["VOWEL SIGN U", "VOWEL SIGN AA"] raw: "ுா"
-  to_uname: ["VOWEL SIGN UU"] to_raw: "ூ"
+  uname: ["SIGN U", "SIGN AA"] raw: "ுா"
+  to_uname: "SIGN UU" to_raw: "ூ"
 }
 
 # Right part of SIGN O acts as RA
 item {
-  uname: ["VOWEL SIGN O", "SIGN VIRAMA"] raw: "ொ்"
-  to_uname: ["VOWEL SIGN E", "LETTER RA", "SIGN VIRAMA"] to_raw: "ெர்"
+  uname: ["SIGN O", "VIRAMA"] raw: "ொ்"
+  to_uname: ["SIGN E", "RA", "VIRAMA"] to_raw: "ெர்"
 }
 item {
-  uname: ["VOWEL SIGN O", "VOWEL SIGN AA"] raw: "ொா"
-  to_uname: ["VOWEL SIGN E", "LETTER RA", "VOWEL SIGN AA"] to_raw: "ெரா"
+  uname: ["SIGN O", "SIGN AA"] raw: "ொா"
+  to_uname: ["SIGN E", "RA", "SIGN AA"] to_raw: "ெரா"
 }
 item {
-  uname: ["VOWEL SIGN O", "VOWEL SIGN I"] raw: "ொி"
-  to_uname: ["VOWEL SIGN E", "LETTER RA", "VOWEL SIGN I"] to_raw: "ெரி"
+  uname: ["SIGN O", "SIGN I"] raw: "ொி"
+  to_uname: ["SIGN E", "RA", "SIGN I"] to_raw: "ெரி"
 }
 
 # Right part of SIGN OO acts as RA
 item {
-  uname: ["VOWEL SIGN OO", "SIGN VIRAMA"] raw: "ோ்"
-  to_uname: ["VOWEL SIGN EE", "LETTER RA", "SIGN VIRAMA"] to_raw: "ேர்"
+  uname: ["SIGN OO", "VIRAMA"] raw: "ோ்"
+  to_uname: ["SIGN EE", "RA", "VIRAMA"] to_raw: "ேர்"
 }
 item {
-  uname: ["VOWEL SIGN OO", "VOWEL SIGN AA"] raw: "ோா"
-  to_uname: ["VOWEL SIGN EE", "LETTER RA", "VOWEL SIGN AA"] to_raw: "ேரா"
+  uname: ["SIGN OO", "SIGN AA"] raw: "ோா"
+  to_uname: ["SIGN EE", "RA", "SIGN AA"] to_raw: "ேரா"
 }
 item {
-  uname: ["VOWEL SIGN OO", "VOWEL SIGN I"] raw: "ோி"
-  to_uname: ["VOWEL SIGN EE", "LETTER RA", "VOWEL SIGN I"] to_raw: "ேரி"
+  uname: ["SIGN OO", "SIGN I"] raw: "ோி"
+  to_uname: ["SIGN EE", "RA", "SIGN I"] to_raw: "ேரி"
 }
 
 # Right part of SIGN AU acts as LLA
 item {
-  uname: ["VOWEL SIGN AU", "SIGN VIRAMA"] raw: "ௌ்"
-  to_uname: ["VOWEL SIGN E", "LETTER LLA", "SIGN VIRAMA"] to_raw: "ெள்"
+  uname: ["SIGN AU", "VIRAMA"] raw: "ௌ்"
+  to_uname: ["SIGN E", "LLA", "VIRAMA"] to_raw: "ெள்"
 }
 item {
-  uname: ["VOWEL SIGN AU", "VOWEL SIGN AA"] raw: "ௌா"
-  to_uname: ["VOWEL SIGN E", "LETTER LLA", "VOWEL SIGN AA"] to_raw: "ெளா"
+  uname: ["SIGN AU", "SIGN AA"] raw: "ௌா"
+  to_uname: ["SIGN E", "LLA", "SIGN AA"] to_raw: "ெளா"
 }
 item {
-  uname: ["VOWEL SIGN AU", "VOWEL SIGN I"] raw: "ௌி"
-  to_uname: ["VOWEL SIGN E", "LETTER LLA", "VOWEL SIGN I"] to_raw: "ெளி"
+  uname: ["SIGN AU", "SIGN I"] raw: "ௌி"
+  to_uname: ["SIGN E", "LLA", "SIGN I"] to_raw: "ெளி"
 }

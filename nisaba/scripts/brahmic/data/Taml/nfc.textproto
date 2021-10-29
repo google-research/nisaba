@@ -15,24 +15,22 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TAMIL"
-
 # Combine independent vowel and vowel sign into independent vowel
 item {
-  uname: ["LETTER O", "AU LENGTH MARK"] raw: "ஔ"
-  to_uname: ["LETTER AU"] to_raw: "ஔ"
+  uname: ["O", "AU LENGTH MARK"] raw: "ஔ"
+  to_uname: "AU" to_raw: "ஔ"
 }
 
 # Combine 2-part vowels
 item {
-  uname: ["VOWEL SIGN E", "VOWEL SIGN AA"] raw: "ொ"
-  to_uname: ["VOWEL SIGN O"] to_raw: "ொ"
+  uname: ["SIGN E", "SIGN AA"] raw: "ொ"
+  to_uname: "SIGN O" to_raw: "ொ"
 }
 item {
-  uname: ["VOWEL SIGN EE", "VOWEL SIGN AA"] raw: "ோ"
-  to_uname: ["VOWEL SIGN OO"] to_raw: "ோ"
+  uname: ["SIGN EE", "SIGN AA"] raw: "ோ"
+  to_uname: "SIGN OO" to_raw: "ோ"
 }
 item {
-  uname: ["VOWEL SIGN E", "AU LENGTH MARK"] raw: "ௌ"
-  to_uname: ["VOWEL SIGN AU"] to_raw: "ௌ"
+  uname: ["SIGN E", "AU LENGTH MARK"] raw: "ௌ"
+  to_uname: "SIGN AU" to_raw: "ௌ"
 }

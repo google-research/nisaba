@@ -15,18 +15,16 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TIRHUTA"
-
 # Combine 2-part vowels.
 item {
-  uname: ["VOWEL SIGN E", "VOWEL SIGN SHORT E"] raw: "𑒻"
-  to_uname: "VOWEL SIGN AI" to_raw: "𑒻"
+  uname: ["SIGN E", "SIGN SHORT E"] raw: "𑒻"
+  to_uname: "SIGN AI" to_raw: "𑒻"
 }
 item {
-  uname: ["VOWEL SIGN E", "VOWEL SIGN AA"] raw: "𑒼"
-  to_uname: "VOWEL SIGN O" to_raw: "𑒼"
+  uname: ["SIGN E", "SIGN AA"] raw: "𑒼"
+  to_uname: "SIGN O" to_raw: "𑒼"
 }
 item {
-  uname: ["VOWEL SIGN E", "VOWEL SIGN SHORT O"] raw: "𑒾"
-  to_uname: "VOWEL SIGN AU" to_raw: "𑒾"
+  uname: ["SIGN E", "SIGN SHORT O"] raw: "𑒾"
+  to_uname: "SIGN AU" to_raw: "𑒾"
 }

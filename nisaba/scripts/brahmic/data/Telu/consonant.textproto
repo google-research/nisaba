@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TELUGU LETTER"
-
 item { uname: "VA"  raw: "వ" to_raw: "v" }
 item { uname: "DZA" raw: "ౙ" to_raw: "z" }
 

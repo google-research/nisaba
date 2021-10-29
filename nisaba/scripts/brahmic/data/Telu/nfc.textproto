@@ -15,10 +15,8 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TELUGU"
-
 # Combine 2-part vowels
 item {
-  uname: ["VOWEL SIGN E", "AI LENGTH MARK"] raw: "ై"
-  to_uname: ["VOWEL SIGN AI"] to_raw: "ై"
+  uname: ["SIGN E", "AI LENGTH MARK"] raw: "ై"
+  to_uname: "SIGN AI" to_raw: "ై"
 }

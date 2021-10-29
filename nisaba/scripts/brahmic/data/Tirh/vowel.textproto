@@ -15,7 +15,5 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TIRHUTA LETTER"
-
 item { uname: "E" to_uname: "E WITH MACRON" to_raw: "ē" }
 item { uname: "O" to_uname: "O WITH MACRON" to_raw: "ō" }

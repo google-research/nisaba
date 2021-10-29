@@ -15,113 +15,113 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TAMIL"
+to_uname_prefix: "LATIN SMALL LETTER"
 
 item {
-  uname: ["LETTER KA"] raw: "க"
-  to_uname: ["LATIN SMALL LETTER K"] to_raw: "k"
+  uname: "KA" raw: "க"
+  to_raw: "k"
 }
 item {
-  uname: ["LETTER NGA"] raw: "ங"
-  to_uname: ["LATIN SMALL LETTER N WITH DOT ABOVE"] to_raw: "ṅ"
+  uname: "NGA" raw: "ங"
+  to_uname: "N WITH DOT ABOVE" to_raw: "ṅ"
 }
 item {
-  uname: ["LETTER CA"] raw: "ச"
-  to_uname: ["LATIN SMALL LETTER C"] to_raw: "c"
+  uname: "CA" raw: "ச"
+  to_raw: "c"
 }
 item {
-  uname: ["LETTER JA"] raw: "ஜ"
-  to_uname: ["LATIN SMALL LETTER J"] to_raw: "j"
+  uname: "JA" raw: "ஜ"
+  to_raw: "j"
 }
 item {
-  uname: ["LETTER NYA"] raw: "ஞ"
-  to_uname: ["LATIN SMALL LETTER N WITH TILDE"] to_raw: "ñ"
+  uname: "NYA" raw: "ஞ"
+  to_uname: "N WITH TILDE" to_raw: "ñ"
 }
 item {
-  uname: ["LETTER TTA"] raw: "ட"
-  to_uname: ["LATIN SMALL LETTER T WITH DOT BELOW"] to_raw: "ṭ"
+  uname: "TTA" raw: "ட"
+  to_uname: "T WITH DOT BELOW" to_raw: "ṭ"
 }
 item {
-  uname: ["LETTER NNA"] raw: "ண"
-  to_uname: ["LATIN SMALL LETTER N WITH DOT BELOW"] to_raw: "ṇ"
+  uname: "NNA" raw: "ண"
+  to_uname: "N WITH DOT BELOW" to_raw: "ṇ"
 }
 item {
-  uname: ["LETTER TA"] raw: "த"
-  to_uname: ["LATIN SMALL LETTER T"] to_raw: "t"
+  uname: "TA" raw: "த"
+  to_raw: "t"
 }
 item {
-  uname: ["LETTER NA"] raw: "ந"
-  to_uname: ["LATIN SMALL LETTER N"] to_raw: "n"
+  uname: "NA" raw: "ந"
+  to_raw: "n"
 }
 item {
-  uname: ["LETTER PA"] raw: "ப"
-  to_uname: ["LATIN SMALL LETTER P"] to_raw: "p"
+  uname: "PA" raw: "ப"
+  to_raw: "p"
 }
 item {
-  uname: ["LETTER MA"] raw: "ம"
-  to_uname: ["LATIN SMALL LETTER M"] to_raw: "m"
+  uname: "MA" raw: "ம"
+  to_raw: "m"
 }
 item {
-  uname: ["LETTER RRA"] raw: "ற"
-  to_uname: ["LATIN SMALL LETTER R WITH LINE BELOW"] to_raw: "ṟ"
+  uname: "RRA" raw: "ற"
+  to_uname: "R WITH LINE BELOW" to_raw: "ṟ"
 }
 item {
-  uname: ["LETTER NNNA"] raw: "ன"
-  to_uname: ["LATIN SMALL LETTER N WITH LINE BELOW"] to_raw: "ṉ"
+  uname: "NNNA" raw: "ன"
+  to_uname: "N WITH LINE BELOW" to_raw: "ṉ"
 }
 item {
-  uname: ["LETTER LLLA"] raw: "ழ"
-  to_uname: ["LATIN SMALL LETTER L WITH LINE BELOW"] to_raw: "ḻ"
+  uname: "LLLA" raw: "ழ"
+  to_uname: "L WITH LINE BELOW" to_raw: "ḻ"
 }
 item {
-  uname: ["LETTER YA"] raw: "ய"
-  to_uname: ["LATIN SMALL LETTER Y"] to_raw: "y"
+  uname: "YA" raw: "ய"
+  to_raw: "y"
 }
 item {
-  uname: ["LETTER RA"] raw: "ர"
-  to_uname: ["LATIN SMALL LETTER R"] to_raw: "r"
+  uname: "RA" raw: "ர"
+  to_raw: "r"
 }
 item {
-  uname: ["LETTER LA"] raw: "ல"
-  to_uname: ["LATIN SMALL LETTER L"] to_raw: "l"
+  uname: "LA" raw: "ல"
+  to_raw: "l"
 }
 item {
-  uname: ["LETTER LLA"] raw: "ள"
-  to_uname: ["LATIN SMALL LETTER L WITH DOT BELOW"] to_raw: "ḷ"
+  uname: "LLA" raw: "ள"
+  to_uname: "L WITH DOT BELOW" to_raw: "ḷ"
 }
 item {
-  uname: ["LETTER VA"] raw: "வ"
-  to_uname: ["LATIN SMALL LETTER V"] to_raw: "v"
+  uname: "VA" raw: "வ"
+  to_raw: "v"
 }
 item {
-  uname: ["LETTER SHA"] raw: "ஶ"
-  to_uname: ["LATIN SMALL LETTER S WITH ACUTE"] to_raw: "ś"
+  uname: "SHA" raw: "ஶ"
+  to_uname: "S WITH ACUTE" to_raw: "ś"
 }
 item {
-  uname: ["LETTER SSA"] raw: "ஷ"
-  to_uname: ["LATIN SMALL LETTER S WITH DOT BELOW"] to_raw: "ṣ"
+  uname: "SSA" raw: "ஷ"
+  to_uname: "S WITH DOT BELOW" to_raw: "ṣ"
 }
 item {
-  uname: ["LETTER SA"] raw: "ஸ"
-  to_uname: ["LATIN SMALL LETTER S"] to_raw: "s"
+  uname: "SA" raw: "ஸ"
+  to_raw: "s"
 }
 item {
-  uname: ["LETTER HA"] raw: "ஹ"
-  to_uname: ["LATIN SMALL LETTER H"] to_raw: "h"
+  uname: "HA" raw: "ஹ"
+  to_raw: "h"
 }
 item {
-  uname: ["SIGN VISARGA", "LETTER PA"] raw: "ஃப"
-  to_uname: ["LATIN SMALL LETTER F"] to_raw: "f"
+  uname: ["VISARGA", "PA"] raw: "ஃப"
+  to_raw: "f"
 }
 item {
-  uname: ["SIGN VISARGA", "LETTER JA"] raw: "ஃஜ"
-  to_uname: ["LATIN SMALL LETTER Z"] to_raw: "z"
+  uname: ["VISARGA", "JA"] raw: "ஃஜ"
+  to_raw: "z"
 }
 item {
-  uname: ["SIGN VISARGA", "LETTER SA"] raw: "ஃஸ"
-  to_uname: ["LATIN SMALL LETTER X"] to_raw: "x"
+  uname: ["VISARGA", "SA"] raw: "ஃஸ"
+  to_raw: "x"
 }
 item {
-  uname: ["SIGN VISARGA", "LETTER KA"] raw: "ஃக"
-  to_uname: ["LATIN SMALL LETTER Q"] to_raw: "q"
+  uname: ["VISARGA", "KA"] raw: "ஃக"
+  to_raw: "q"
 }

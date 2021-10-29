@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TELUGU SIGN"
-
 item {
   uname: "COMBINING CANDRABINDU ABOVE" raw: "ఀ"
   to_uname: ["M", "COMBINING CANDRABINDU"] to_raw: "m̐"

@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TIRHUTA"
+# Prefixes used for mapping between Thaana script character sequences.
 
-item {
-  uname: ["SIGN VIRAMA"] raw: "𑓂"
-}
+uname_prefix: ["THAANA", "THAANA LETTER"]

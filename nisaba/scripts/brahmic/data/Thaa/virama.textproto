@@ -16,4 +16,4 @@
 # proto-message: nisaba.UnicodeStrings
 
 # `SUKUN` indicates that there is no vowel following the consonant it sits on.
-item { uname: "THAANA SUKUN" }
+item { uname: "SUKUN" }

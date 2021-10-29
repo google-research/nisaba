@@ -15,9 +15,9 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TAMIL"
+to_uname_prefix: "LATIN SMALL LETTER"
 
 item {
-  uname: ["SIGN VISARGA"] raw: "ஃ"
-  to_uname: ["LATIN SMALL LETTER K WITH LINE BELOW"] to_raw: "ḵ"
+  uname: "VISARGA" raw: "ஃ"
+  to_uname: "K WITH LINE BELOW" to_raw: "ḵ"
 }

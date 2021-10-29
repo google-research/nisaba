@@ -15,8 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: ["THAANA", "THAANA LETTER"]
-
 # Thaana represents standalone vowels using `LETTER ALIFU` as a base,
 # to which vowel diacritics are attached.
 

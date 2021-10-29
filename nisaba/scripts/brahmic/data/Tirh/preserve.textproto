@@ -15,14 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-uname_prefix: "TIRHUTA"
-
-item {
-  uname: ["SIGN VIRAMA", "ZERO WIDTH NON-JOINER"] raw: "𑓂‌"
-  to_raw: "[VIRAMA,ZWNJ]"
-}
-
-
 # TODO: Below rule preserves <ZWJ, VIRAMA> wherever it occurs.
 # Even though explicit ya-phalaa using ZWJ is relevant only for special
 # cases like <RA, ZWJ, VIRAMA,YA>. Even then, cases like
@@ -31,6 +23,6 @@ item {
 # required special handling.
 
 item {
-  uname: ["ZERO WIDTH JOINER", "SIGN VIRAMA"] raw: "‍𑓂"
+  uname: ["ZERO WIDTH JOINER", "VIRAMA"] raw: "‍𑓂"
   to_raw: "[ZWJ,VIRAMA]"
 }
