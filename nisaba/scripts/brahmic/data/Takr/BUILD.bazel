@@ -37,7 +37,6 @@ empty_components_tsv(
         "nfc",
         "standalone",
         "subjoined_consonant",
-        "visual_rewrite",
         "vowel_length_sign",
     ],
 )
@@ -54,6 +53,7 @@ components_tsv_local_with_common(names = [
 
 components_tsv_local(names = [
     "coda",
+    "visual_rewrite",
     "vowel",
     "vowel_sign",
 ])
