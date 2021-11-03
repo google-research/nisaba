@@ -15,6 +15,6 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-# Prefixes used for mapping between Bengali script character sequences.
+# Prefixes used for mapping between Gurmukhi script character sequences.
 
 uname_prefix: ["GURMUKHI", "GURMUKHI LETTER", "GURMUKHI VOWEL", "GURMUKHI SIGN"]

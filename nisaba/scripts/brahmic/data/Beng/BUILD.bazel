@@ -15,15 +15,12 @@
 # Script definitions for Bengali.
 
 load(
-    "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
-    "empty_components_tsv",
-)
-load(
     "//nisaba/scripts/brahmic:components_tsv.bzl",
     "component_tsv_with_defaults",
     "components_tsv_from_common",
     "components_tsv_local",
     "components_tsv_local_with_common",
+    "empty_components_tsv",
 )
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
@@ -32,15 +29,12 @@ licenses(["notice"])
 
 exports_files(["uname_prefix.textproto"])
 
-empty_components_tsv(
-    name = "empties",
-    empty_component_names = [
-        "accept",
-        "standalone",
-        "subjoined_consonant",
-        "vowel_length_sign",
-    ],
-)
+empty_components_tsv(names = [
+    "accept",
+    "standalone",
+    "subjoined_consonant",
+    "vowel_length_sign",
+])
 
 components_tsv_from_common(names = [
     "coda",

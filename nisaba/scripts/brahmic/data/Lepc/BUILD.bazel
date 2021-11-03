@@ -15,31 +15,25 @@
 # Script definitions for Lepcha.
 
 load(
-    "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
-    "empty_components_tsv",
-)
-load(
     "//nisaba/scripts/brahmic:components_tsv.bzl",
     "components_tsv_from_common",
     "components_tsv_local",
+    "empty_components_tsv",
 )
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
-empty_components_tsv(
-    name = "empties",
-    empty_component_names = [
-        "accept",
-        "coda",
-        "nfc",
-        "preserve",
-        "standalone",
-        "virama",
-        "visual_rewrite",
-    ],
-)
+empty_components_tsv(names = [
+    "accept",
+    "coda",
+    "nfc",
+    "preserve",
+    "standalone",
+    "virama",
+    "visual_rewrite",
+])
 
 components_tsv_from_common(names = [
     "inherent_vowel",

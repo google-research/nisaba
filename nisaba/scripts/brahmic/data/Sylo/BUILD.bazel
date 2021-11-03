@@ -14,26 +14,26 @@
 
 # Script definitions for Syloti Nagri.
 
-load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "empty_components_tsv")
-load("//nisaba/scripts/brahmic:components_tsv.bzl", "components_tsv_local")
+load(
+    "//nisaba/scripts/brahmic:components_tsv.bzl",
+    "components_tsv_local",
+    "empty_components_tsv",
+)
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
-empty_components_tsv(
-    name = "empties",
-    empty_component_names = [
-        "accept",
-        "dead_consonant",
-        "nfc",
-        "preserve",
-        "standalone",
-        "subjoined_consonant",
-        "visual_rewrite",
-        "vowel_length_sign",
-    ],
-)
+empty_components_tsv(names = [
+    "accept",
+    "dead_consonant",
+    "nfc",
+    "preserve",
+    "standalone",
+    "subjoined_consonant",
+    "visual_rewrite",
+    "vowel_length_sign",
+])
 
 components_tsv_local(names = [
     "coda",

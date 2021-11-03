@@ -16,7 +16,7 @@
 
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 
-_DEFAULT_VISIBILITY = "//nisaba/scripts:__subpackages__"
+DEFAULT_VISIBILITY = "//nisaba/scripts:__subpackages__"
 
 def component_tsv(name, text_protos):
     """Converts script component text protos into TSV format.
@@ -32,7 +32,7 @@ def component_tsv(name, text_protos):
         name = "combine_%s_text_protos" % name,
         outs = [combined_text_proto],
         srcs = text_protos,
-        visibility = [_DEFAULT_VISIBILITY],
+        visibility = [DEFAULT_VISIBILITY],
         cmd = "cat %s > $@" % proto_files,
     )
 
@@ -43,7 +43,7 @@ def component_tsv(name, text_protos):
         outs = ["%s.tsv" % name],
         srcs = [combined_text_proto],
         exec_tools = [converter_tool],
-        visibility = [_DEFAULT_VISIBILITY],
+        visibility = [DEFAULT_VISIBILITY],
         cmd = "$(location %s) --input_text_proto $(location %s) --output_tsv $@" % (
             converter_tool,
             combined_text_proto,
@@ -53,20 +53,3 @@ def component_tsv(name, text_protos):
         name = converter_rule_name + "_smoke_test",
         targets = [":" + converter_rule_name],
     )
-
-def empty_components_tsv(name, empty_component_names):
-    """Creates empty script data component files in TSV format.
-
-    Args:
-      name: Name of the rule.
-      empty_component_names: The names of the script data components (e.g.,
-        `accept`).
-    """
-    for component_name in empty_component_names:
-        native.genrule(
-            name = "create_%s_tsv" % component_name,
-            outs = ["%s.tsv" % component_name],
-            visibility = [_DEFAULT_VISIBILITY],
-            # May not work in Windows. To be fixed when Windows support is added.
-            cmd = "touch $@",
-        )

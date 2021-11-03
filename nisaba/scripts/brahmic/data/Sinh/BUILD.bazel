@@ -15,29 +15,23 @@
 # Script definitions for Sinhala.
 
 load(
-    "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
-    "empty_components_tsv",
-)
-load(
     "//nisaba/scripts/brahmic:components_tsv.bzl",
     "components_tsv_from_common",
     "components_tsv_local",
+    "empty_components_tsv",
 )
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
-empty_components_tsv(
-    name = "empties",
-    empty_component_names = [
-        "accept",
-        "dead_consonant",
-        "standalone",
-        "subjoined_consonant",
-        "vowel_length_sign",
-    ],
-)
+empty_components_tsv(names = [
+    "accept",
+    "dead_consonant",
+    "standalone",
+    "subjoined_consonant",
+    "vowel_length_sign",
+])
 
 components_tsv_from_common(names = ["inherent_vowel"])
 

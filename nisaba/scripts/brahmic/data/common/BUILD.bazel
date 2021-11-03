@@ -20,9 +20,7 @@ licenses(["notice"])
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
-exports_files(
-    glob(["*.textproto"]),
-)
+exports_files(glob(["*.textproto"]))
 
 component_tsv(
     name = "symbol",
