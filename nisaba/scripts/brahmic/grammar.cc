@@ -38,12 +38,14 @@ absl::Status Grammar::Load() {
     const auto entry = lang_script_map.find(absl::AsciiStrToLower(fst_name_));
     if (entry == lang_script_map.end()) {
       return absl::InternalError(absl::StrCat(
-          "FST \"", fst_name_, "\" not found in lowercase"));
+          "FST \"", fst_name_, "\" not found in lowercase inside FAR \"",
+          far_path.value(), "\""));
     }
     fst_name_ = absl::AsciiStrToUpper(entry->second);
     if (grm_mgr_->GetFstMap()->count(fst_name_) == 0) {
       return absl::InternalError(absl::StrCat(
-          "FST \"", fst_name_, "\" not found in uppercase"));
+          "FST \"", fst_name_, "\" not found in uppercase inside FAR \"",
+          far_path.value(), "\""));
     }
   }
   return absl::OkStatus();
