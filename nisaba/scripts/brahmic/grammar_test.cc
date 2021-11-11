@@ -16,6 +16,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "gmock/gmock.h"
 #include "nisaba/port/status-matchers.h"
@@ -84,6 +85,21 @@ TEST_F(GrammarTest, SimpleTest) {
 TEST_F(GrammarTest, NormalizeTest) {
   TestNormalize("गोल्‍डबर्ग", "गोल्डबर्ग");
   TestNormalizeReject("काु");
+}
+
+TEST_F(GrammarTest, DoubleLoadNormalizeTest) {
+  EXPECT_OK(normalizer_->Load());
+  EXPECT_OK(normalizer_->Load());
+}
+
+TEST_F(GrammarTest, MultiLanguageNormalizeLoadTest) {
+  const std::vector<std::string> languages = {
+    "bn", "gu", "hi", "kn", "ml", "mr", "or", "pa", "si", "ta", "te" };
+  std::vector<std::unique_ptr<Normalizer>> normalizers(languages.size());
+  for (int i = 0; i < normalizers.size(); ++i) {
+    normalizers[i] = absl::make_unique<Normalizer>(languages[i]);
+    EXPECT_OK(normalizers[i]->Load());
+  }
 }
 
 }  // namespace
