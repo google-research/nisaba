@@ -1,0 +1,103 @@
+# Unit tests for visual norm of Perso-Arabic script languages.
+
+# ----
+# Urdu
+# ----
+
+# Can do NFC as well (ALEF WITH HAMZA ABOVE).
+UR	غالبأ	غالبأ
+
+# ZWS
+UR	آ​پ	آپ
+
+# ZWJ
+UR	آغا‍ز	آغاز
+
+# HEH GOAL WITH HAMZA ABOVE
+UR	شدۀ	شدۂ
+
+# TODO: To be included once HEH GOAL rule is implemented.
+# ARABIC LETTER HEH GOAL
+# UR	هذه	هذہ
+
+# U
+UR	وُضع	ۇضع
+
+# YEH WITH HAMZA ABOVE
+UR	آزادیٔ	آزادئ
+UR	انیٔ	انئ
+
+# --------
+# Kashmiri
+# --------
+
+# Can do NFC as well (HEH GOAL WITH HAMZA ABOVE).
+KS	ۂتۍ	ۂتۍ
+
+# HEH GOAL WITH HAMZA ABOVE
+KS	تۂندۍ	تۂندۍ
+KS	ۂسۍ	ۂسۍ
+KS	پۂلۍ	پۂلۍ
+
+# HAH WITH HAMZA ABOVE
+KS	حٔثۍ	ځثۍ
+KS	سَرحٔدی	سَرځدی
+KS	وُنحٔسیٖن	ۇنځسیٖن
+
+# REH WITH HAMZA ABOVE
+KS	فرٔج	فݬج
+KS	پیتݬ	پیتݬ
+KS	کرٔن	کݬن
+
+# OE
+KS	ہیوٚل	ہیۆل
+KS	یوٚتام	یۆتام
+KS	گیوٚو	گیۆو
+KS	کوٚر	کۆر
+
+# U
+KS	یِوُن	یِۇن
+KS	ہووُن	ہوۇن
+KS	گاشراوُن	گاشراۇن
+
+# YEH WITH HAMZA ABOVE
+KS	یٔہے	ئہے
+KS	میٔژ	مئژ
+KS	حکایٔژ	حکائژ
+
+# YEH WITH SMALL V
+KS	ہیٚرِم	ہێرِم
+KS	کارریٚلِہ	کاررێلِہ
+KS	ییٚلہ	یێلہ
+KS	کیٚر	کێر
+
+# ALEF + WAVY HAMZA BELOW
+KS	كٳم	كاٟم
+
+# ------
+# Sindhi
+# ------
+
+# HEH GOAL
+SD	ڳڙهه	ڳڙہہ
+SD	بهاريءَ	بہاريءَ
+SD	ڳوهه	ڳوہہ
+
+# U
+SD	نوُح	نۇح
+SD	آئوُن	آئۇن
+SD	سوُرن	سۇرن
+
+# -------
+# Panjabi
+# -------
+
+# HEH GOAL
+PA	همای	ہمای
+PA	کننده	کنندہ
+PA	شهبازبیضا	شہبازبیضا
+
+# U
+PA	آگوُ	آگۇ
+PA	لاگوُ	لاگۇ
+PA	لگوُ	لگۇ
