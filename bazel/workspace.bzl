@@ -57,6 +57,6 @@ def nisaba_public_repositories(name = ""):
     http_archive(
         name = "org_opengrm_ngram",
         urls = ["https://github.com/agutkin/finite_state/raw/main/ngram-%s.tar.gz" % opengrm_ngram_version],
-        sha256 = "77ba9c7d9e48d2a40c879a4ca9706abd60b939d450464b174dab71152bba3184",
+        sha256 = "0822b88e4cd333638c0539a1f831898306fb01ade60bfa28fa567c9fb501975c",
         strip_prefix = "ngram-%s" % opengrm_ngram_version,
     )

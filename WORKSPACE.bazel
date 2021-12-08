@@ -44,8 +44,8 @@ http_archive(
 
 http_archive(
     name = "com_google_googletest",
-    strip_prefix = "googletest-master",
-    urls = ["https://github.com/google/googletest/archive/master.zip"],
+    strip_prefix = "googletest-main",
+    urls = ["https://github.com/google/googletest/archive/main.zip"],
 )
 
 # -------------------------------------------------------------------------
@@ -58,7 +58,7 @@ thrax_version = "1.3.7-rc1"
 http_archive(
     name = "org_opengrm_thrax",
     urls = ["https://github.com/agutkin/finite_state/raw/main/thrax-%s.tar.gz" % thrax_version],
-    sha256 = "7f7feb1d4b99f58b01cc6d07357861706810d7686be09dc7ad00e00dd6377f7d",
+    sha256 = "8708b4822ed12d6ab35b6177436e0fec6e041259df7b6f7949f0bc46ad23285b",
     strip_prefix = "thrax-%s" % thrax_version,
 )
 
@@ -71,7 +71,7 @@ pynini_version = "2.1.5-rc1"
 http_archive(
     name = "org_opengrm_pynini",
     urls = ["https://github.com/agutkin/finite_state/raw/main/pynini-%s.tar.gz" % pynini_version],
-    sha256 = "d4fb7f1bf8c7952b44845c1e77e1c7d91394c0131f071c227b356a2fd1fe2207",
+    sha256 = "2ddfa9dc76c7d47b4999f9c59426a79f40e3db480c87ecd307f5d7413e78cb63",
     strip_prefix = "pynini-%s" % pynini_version
 )
 
