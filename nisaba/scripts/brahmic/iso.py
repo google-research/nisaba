@@ -25,7 +25,7 @@ bazel build -c opt @org_opengrm_thrax//:rewrite-tester \
 
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \
  --far=bazel-bin/nisaba/scripts/brahmic/iso.far \
- --rules=From_Brahmic \
+ --rules=FROM_BRAHMIC \
  < /tmp/words.txt
 ```
 
@@ -37,7 +37,7 @@ bazel build -c opt @org_opengrm_thrax//:rewrite-tester \
 
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \
  --far=bazel-bin/nisaba/scripts/brahmic/iso.far \
- --rules=From_Brahmic \
+ --rules=FROM_BRAHMIC \
  < /tmp/words.txt \
  | sed 's/Output string: //' \
  | paste /tmp/words.txt - \
