@@ -23,11 +23,11 @@ item { uname: "ATIYA" raw: "ꯑ" to_raw: "A" }
 
 # Additional vowels are produced by the application of the
 # vowel signs/matras (Cheitap Iyek) to <ATIYA> letter.
-item { uname: ["ATIYA", "ANAP"]    raw: "ꯑꯥ" to_raw: "ā" }
-item { uname: ["ATIYA", "INAP"]    raw: "ꯑꯤ" to_raw: "i" }
-item { uname: ["ATIYA", "UNAP"]    raw: "ꯑꯨ" to_raw: "u" }
-item { uname: ["ATIYA", "YENAP"]   raw: "ꯑꯦ" to_raw: "e" }
-item { uname: ["ATIYA", "ONAP"]    raw: "ꯑꯣ" to_raw: "o" }
-item { uname: ["ATIYA", "CHEINAP"] raw: "ꯑꯩ" to_raw: "ei" }
-item { uname: ["ATIYA", "SOUNAP"]  raw: "ꯑꯧ" to_raw: "ou" }
-item { uname: ["ATIYA", "NUNG"]    raw: "ꯑꯪ" to_raw: "aṁ" }
+item { uname: ["ATIYA", "SIGN ANAP"]    raw: "ꯑꯥ" to_raw: "ā" }
+item { uname: ["ATIYA", "SIGN INAP"]    raw: "ꯑꯤ" to_raw: "i" }
+item { uname: ["ATIYA", "SIGN UNAP"]    raw: "ꯑꯨ" to_raw: "u" }
+item { uname: ["ATIYA", "SIGN YENAP"]   raw: "ꯑꯦ" to_raw: "e" }
+item { uname: ["ATIYA", "SIGN ONAP"]    raw: "ꯑꯣ" to_raw: "o" }
+item { uname: ["ATIYA", "SIGN CHEINAP"] raw: "ꯑꯩ" to_raw: "ei" }
+item { uname: ["ATIYA", "SIGN SOUNAP"]  raw: "ꯑꯧ" to_raw: "ou" }
+item { uname: ["ATIYA", "SIGN NUNG"]    raw: "ꯑꯪ" to_raw: "aṁ" }
