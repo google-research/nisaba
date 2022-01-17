@@ -1,0 +1,56 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+# As per https://www.unicode.org/versions/Unicode13.0.0/ch12.pdf (pg 508):
+# In modern times, the dominant practice is to write the dependent form of the
+# au vowel using only “ൗ”, which is placed on the right side of the consonant
+# it modifies; such texts are represented in Unicode using U+0D57 malayalam
+# au length mark. In the past, this dependent form was written using both “െ”
+# on the left side and “ൗ” on the right side; U+0D4C malayalam vowel sign au
+# can be used for documents following this earlier tradition.
+
+item {
+  uname: "SIGN AU" raw: "ൌ"
+  to_uname: "AU LENGTH MARK" to_raw: "ൗ"
+}
+
+# As per https://www.unicode.org/versions/Unicode13.0.0/ch12.pdf (pg 510):
+# When the candrakkala sign is visibly shown in Malayalam, it indicates either
+# the suppression of the preceding vowel or its replacement with a neutral vowel
+# sound. This sound is often called “half-u” or samvruthokaram. In traditional
+# orthography it is displayed with a vowel sign -u followed by candrakkala, and
+# in modern orthography it is displayed with a candrakkala alone.
+
+item {
+  uname: ["SIGN U", "VIRAMA"] raw: "ു്"
+  to_uname: "VIRAMA" to_raw: "്"
+}
+
+# As per https://www.unicode.org/versions/Unicode13.0.0/ch12.pdf (pg 512):
+# Words that formerly used dot reph on a consonant are now spelled instead with
+# a chillu-rr form preceding the consonant.
+#
+# However, <DOT REPH, YA, VIRAMA, YA> → <RA, VIRMA, YA> is a special case.
+
+item {
+  uname: ["DOT REPH", "YA", "VIRAMA", "YA"] raw: "ൎയ്യ"
+  to_uname: ["RA", "VIRAMA", "YA"] to_raw: "ര്യ"
+}
+item {
+  uname: "DOT REPH" raw: "ൎ"
+  to_uname: "CHILLU RR" to_raw: "ർ"
+}

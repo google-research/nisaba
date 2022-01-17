@@ -27,6 +27,8 @@ load(
     "//nisaba/scripts/brahmic:constant.bzl",
     "FIXED_RULE_SCRIPTS",
     "LANG_DIRS",
+    "READING_NORM_LANGS",
+    "READING_NORM_SCRIPTS",
     "SCRIPTS",
 )
 
@@ -219,6 +221,8 @@ py_test(
         ":fixed_utf8.far",
         ":nfc.far",
         ":nfc_utf8.far",
+        ":reading_norm.far",
+        ":reading_norm_utf8.far",
         ":sigma_utf8.far",
         ":visual_norm.far",
         ":visual_norm_utf8.far",
@@ -246,6 +250,8 @@ py_test(
         ":iso.far",
         ":nfc.far",
         ":nfc_utf8.far",
+        ":reading_norm.far",
+        ":reading_norm_utf8.far",
         ":visual_norm.far",
         ":visual_norm_utf8.far",
     ],
@@ -315,6 +321,45 @@ nisaba_grm_regression_test(
 )
 
 nisaba_compile_multi_grm_py(
+    name = "reading_norm",
+    outs = {
+        "byte": "reading_norm.far",
+        "utf8": "reading_norm_utf8.far",
+    },
+    data = [
+        ":sigma_utf8.far",
+    ] + [
+        "//nisaba/scripts/brahmic/data/{}:reading_norm.tsv".format(script)
+        for script in READING_NORM_SCRIPTS
+    ] + [
+        "//nisaba/scripts/brahmic/data/{}/{}:reading_norm.tsv".format(script, lang)
+        for script in READING_NORM_LANGS
+        for lang in READING_NORM_LANGS[script]
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":util",
+        "//nisaba/scripts/utils:file",
+        "//nisaba/scripts/utils:rewrite",
+        "//nisaba/scripts/utils:rule",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_grm_regression_test(
+    name = "reading_norm_test",
+    grammar = ":reading_norm",
+    token_type = "byte",
+)
+
+nisaba_grm_regression_test(
+    name = "reading_norm_utf8_test",
+    grammar = ":reading_norm_utf8",
+    test_file = "testdata:reading_norm.tsv",
+    token_type = "utf8",
+)
+
+nisaba_compile_multi_grm_py(
     name = "wellformed",
     outs = {
         "byte": "wellformed.far",
@@ -364,6 +409,7 @@ py_library(
     data = [
         ":iso.far",
         ":nfc.far",
+        ":reading_norm.far",
         ":visual_norm.far",
         ":wellformed.far",
     ],
@@ -397,6 +443,8 @@ cc_library(
         ":iso.far",
         ":nfc.far",
         ":nfc_utf8.far",
+        ":reading_norm.far",
+        ":reading_norm_utf8.far",
         ":visual_norm.far",
         ":visual_norm_utf8.far",
         ":wellformed.far",

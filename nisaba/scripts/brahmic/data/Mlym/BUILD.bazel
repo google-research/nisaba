@@ -49,6 +49,7 @@ components_tsv_local(names = [
     "accept",
     "dead_consonant",
     "nfc",
+    "reading_norm",
     "visual_rewrite",
     "vowel_sign",
 ])

@@ -1,0 +1,149 @@
+# Copyright 2021 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+# As per https://en.wikipedia.org/wiki/Anusvara#Devanagari_script,
+# In Standard Hindi, the anusvāra is traditionally defined as representing a
+# nasal consonant homorganic to a following plosive, in contrast to the
+# candrabindu (anunāsika), which indicates vowel nasalization. In practice,
+# however, the two are often used interchangeably.
+#
+# In Hindi, it is standard to use the Anusvara form and is implemented with the
+# following rewrite:
+#
+# <Nasalized consonant, Virama, Plosive consonant (homorganic to the nasal)> →
+#   <Anusvara, the plosive consonant>
+
+# Velar
+# ङ्([क-घ]) → ं$1
+item {
+  uname: ["NGA", "VIRAMA", "KA"]  raw: "ङ्क"
+  to_uname: ["ANUSVARA", "KA"] to_raw: "ंक"
+}
+item {
+  uname: ["NGA", "VIRAMA", "KHA"]  raw: "ङ्ख"
+  to_uname: ["ANUSVARA", "KHA"] to_raw: "ंख"
+}
+item {
+  uname: ["NGA", "VIRAMA", "GA"]  raw: "ङ्ग"
+  to_uname: ["ANUSVARA", "GA"] to_raw: "ंग"
+}
+item {
+  uname: ["NGA", "VIRAMA", "GHA"]  raw: "ङ्घ"
+  to_uname: ["ANUSVARA", "GHA"] to_raw: "ंघ"
+}
+
+# Palatal
+# ञ्([च-झ]) → ं$1
+item {
+  uname: ["NYA", "VIRAMA", "CA"]  raw: "ञ्च"
+  to_uname: ["ANUSVARA", "CA"] to_raw: "ंच"
+}
+item {
+  uname: ["NYA", "VIRAMA", "CHA"]  raw: "ञ्छ"
+  to_uname: ["ANUSVARA", "CHA"] to_raw: "ंछ"
+}
+item {
+  uname: ["NYA", "VIRAMA", "JA"]  raw: "ञ्ज"
+  to_uname: ["ANUSVARA", "JA"] to_raw: "ंज"
+}
+item {
+  uname: ["NYA", "VIRAMA", "JHA"]  raw: "ञ्झ"
+  to_uname: ["ANUSVARA", "JHA"] to_raw: "ंझ"
+}
+
+# Retroflex
+# ण्([ट-ढ]) → ं$1
+item {
+  uname: ["NNA", "VIRAMA", "TTA"]  raw: "ण्ट"
+  to_uname: ["ANUSVARA", "TTA"] to_raw: "ंट"
+}
+item {
+  uname: ["NNA", "VIRAMA", "TTHA"]  raw: "ण्ठ"
+  to_uname: ["ANUSVARA", "TTHA"] to_raw: "ंठ"
+}
+item {
+  uname: ["NNA", "VIRAMA", "DDA"]  raw: "ण्ड"
+  to_uname: ["ANUSVARA", "DDA"] to_raw: "ंड"
+}
+item {
+  uname: ["NNA", "VIRAMA", "DDHA"]  raw: "ण्ढ"
+  to_uname: ["ANUSVARA", "DDHA"] to_raw: "ंढ"
+}
+
+# Dental
+# न्([त-ध]) → ं$1
+item {
+  uname: ["NA", "VIRAMA", "TA"]  raw: "न्त"
+  to_uname: ["ANUSVARA", "TA"] to_raw: "ंत"
+}
+item {
+  uname: ["NA", "VIRAMA", "THA"]  raw: "न्थ"
+  to_uname: ["ANUSVARA", "THA"] to_raw: "ंथ"
+}
+item {
+  uname: ["NA", "VIRAMA", "DA"]  raw: "न्द"
+  to_uname: ["ANUSVARA", "DA"] to_raw: "ंद"
+}
+item {
+  uname: ["NA", "VIRAMA", "DHA"]  raw: "न्ध"
+  to_uname: ["ANUSVARA", "DHA"] to_raw: "ंध"
+}
+
+# Bilabial
+# म्([प-भ]) → ं$1
+item {
+  uname: ["MA", "VIRAMA", "PA"]  raw: "म्प"
+  to_uname: ["ANUSVARA", "PA"] to_raw: "ंप"
+}
+item {
+  uname: ["MA", "VIRAMA", "PHA"]  raw: "म्फ"
+  to_uname: ["ANUSVARA", "PHA"] to_raw: "ंफ"
+}
+item {
+  uname: ["MA", "VIRAMA", "BA"]  raw: "म्ब"
+  to_uname: ["ANUSVARA", "BA"] to_raw: "ंब"
+}
+item {
+  uname: ["MA", "VIRAMA", "BHA"]  raw: "म्भ"
+  to_uname: ["ANUSVARA", "BHA"] to_raw: "ंभ"
+}
+
+# Approximant
+# म्([यलव]) → ं$1
+item {
+  uname: ["MA", "VIRAMA", "YA"]  raw: "म्य"
+  to_uname: ["ANUSVARA", "YA"] to_raw: "ंय"
+}
+item {
+  uname: ["MA", "VIRAMA", "LA"]  raw: "म्ल"
+  to_uname: ["ANUSVARA", "LA"] to_raw: "ंल"
+}
+item {
+  uname: ["MA", "VIRAMA", "VA"]  raw: "म्व"
+  to_uname: ["ANUSVARA", "VA"] to_raw: "ंव"
+}
+
+# Fricative
+# न्([शस]) → ं$1
+item {
+  uname: ["NA", "VIRAMA", "SHA"]  raw: "न्श"
+  to_uname: ["ANUSVARA", "SHA"] to_raw: "ंश"
+}
+item {
+  uname: ["NA", "VIRAMA", "SA"]  raw: "न्स"
+  to_uname: ["ANUSVARA", "SA"] to_raw: "ंस"
+}

@@ -44,3 +44,12 @@ LANG_DIRS = {
 }
 
 FIXED_RULE_SCRIPTS = ["Mlym"]
+
+READING_NORM_SCRIPTS = [
+    "Lepc",
+    "Mlym",
+]
+
+READING_NORM_LANGS = {
+    "Deva": ["hi"],
+}

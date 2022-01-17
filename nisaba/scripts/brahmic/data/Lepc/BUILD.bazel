@@ -42,6 +42,7 @@ components_tsv_from_common(names = [
 components_tsv_local(names = [
     "consonant",
     "dead_consonant",
+    "reading_norm",
     "subjoined_consonant",
     "vowel",
     "vowel_sign",
