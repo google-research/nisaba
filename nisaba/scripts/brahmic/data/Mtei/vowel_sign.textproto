@@ -20,12 +20,31 @@
 # association with Iyek Ipee characters (all standalone letters modulo Lonsum
 # characters).
 
-item { uname: "SIGN ANAP"    raw: "ꯥ" to_raw: "ā"  }
-item { uname: "SIGN INAP"    raw: "ꯤ" to_raw: "i"  }
-item { uname: "SIGN UNAP"    raw: "ꯨ" to_raw: "u"  }
-item { uname: "SIGN YENAP"   raw: "ꯦ" to_raw: "e"  }
-item { uname: "SIGN ONAP"    raw: "ꯣ" to_raw: "o"  }
-item { uname: "SIGN CHEINAP" raw: "ꯩ" to_raw: "ei" }
-item { uname: "SIGN SOUNAP"  raw: "ꯧ" to_raw: "ou" }
-
-# Note: SIGN NUNG (= anusvara) is in `coda.textproto`.
+item {
+  uname: "SIGN ANAP" raw: "ꯥ"
+  to_raw: "ā"
+}
+item {
+  uname: "SIGN INAP" raw: "ꯤ"
+  to_raw: "ī"
+}
+item {
+  uname: "SIGN UNAP" raw: "ꯨ"
+  to_raw: "ū"
+}
+item {
+  uname: "SIGN YENAP" raw: "ꯦ"
+  to_raw: "ē"
+}
+item {
+  uname: "SIGN ONAP" raw: "ꯣ"
+  to_raw: "ō"
+}
+item {
+  uname: "SIGN CHEINAP" raw: "ꯩ"
+  to_raw: "ai"
+}
+item {
+  uname: "SIGN SOUNAP" raw: "ꯧ"
+  to_raw: "au"
+}
