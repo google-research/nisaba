@@ -1,4 +1,4 @@
-# Copyright 2021 Nisaba Authors.
+# Copyright 2022 Nisaba Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,4 +15,31 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-item { uname: "APUN IYEK" raw: "꯭" }  # virama
+# Apun Iyek/Khudam mark is used to mark consonant conjuncts. Meetei
+# syllable structure mostly permits up to two consonants in syllable
+# onset clusters. Two consonants can only be encountered in codas of
+# loanwords, e.g. `beŋk` (bank).
+#
+# Given the consonant cluster of two consonants that needs an Apun Iyek
+# (denoted K) one often encounters both `CKC` and `CCK` versions of the
+# spelling. The `CCK` relates to the way people write the cluster by
+# hand - Apun Iyek is drawn last - but is a wrong way to input the cluster
+# on computer. Examples of `CCK` and their corrected (`CKC`) versions are
+# provided below (`-` denotes syllable boundary).
+#
+# Examples:
+# ---------
+# Source: K. Kabi Khanganba, Girish Nath Jha (2014): "Challenges in Indian
+#   Language Transliteration: a case of Devanagari, Bangla and Manipuri",
+#   Proceedings of WILDRE2 - 2nd Workshop on Indian Language Data: Resources
+#   and Evaluation at LREC, pp. 77-83.
+#   http://www.lrec-conf.org/proceedings/lrec2014/workshops/LREC2014Workshop-WILDRE%20Proceedings.pdf
+#
+#   Original  Translit      Correct
+#   --------  ------------  -------
+#   ꯈꯋ꯭ꯥꯡ       `kʰwa-aṅ'`    ꯈ꯭ꯋꯥꯡ
+#   ꯆꯠꯀꯗꯔ꯭     `cʰat-kadra`  ꯆꯠꯀꯗ꯭ꯔꯥ
+#   ꯇꯧꯈꯔ꯭ꯦ     `tau-kʰrē`    ꯇꯧꯈ꯭ꯔꯦ
+#   ꯕꯂ꯭ꯣꯀꯦꯇ    `blō-kēta`    ꯕ꯭ꯂꯣꯀꯦꯇ
+
+item { uname: "APUN IYEK" raw: "꯭" }  # `virama`
