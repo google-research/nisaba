@@ -77,10 +77,18 @@ def components_tsv_local_with_common(
 
 # The list of components which do not have any local definitions and are
 # exclusively defined by the corresponding ones in the `brahmic/data/common`.
-# They use local `uname_prefix.textproto` to get the prefix information.
-def components_tsv_from_common(names, name = "components_from_common"):
+# By default, they use local `uname_prefix.textproto` to get the prefix
+# information.
+def components_tsv_from_common(
+        names,
+        name = "components_from_common",
+        uname_prefix_from = _LOCAL_DIR):
     for name in names:
-        component_tsv_with_defaults(name, text_protos_from = [_COMMON_DIR])
+        component_tsv_with_defaults(
+            name,
+            uname_prefix_from,
+            text_protos_from = [_COMMON_DIR],
+        )
 
 def empty_components_tsv(names, name = "empties"):
     """Creates empty script data component files in TSV format.

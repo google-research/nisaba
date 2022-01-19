@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Script definitions for Meetei Mayek.
+# Bengali script as used for recording Manipuri.
 
 load(
     "//nisaba/scripts/brahmic:components_tsv.bzl",
@@ -25,25 +25,29 @@ package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
-empty_components_tsv(names = [
-    "nfc",
-    "preserve",
-    "visual_rewrite",
-    "subjoined_consonant",
-    "vowel_length_sign",
-])
+empty_components_tsv(
+    names = [
+        "dead_consonant",
+        "subjoined_consonant",
+        "vowel_length_sign",
+    ],
+)
 
-components_tsv_from_common(names = [
-    "inherent_vowel",
-])
+components_tsv_from_common(
+    names = [
+        "inherent_vowel",
+    ],
+    uname_prefix_from = "//nisaba/scripts/brahmic/data/Beng",
+)
 
-components_tsv_local(names = [
-    "accept",
-    "coda",
-    "consonant",
-    "dead_consonant",
-    "standalone",
-    "virama",
-    "vowel",
-    "vowel_sign",
-])
+components_tsv_local(
+    names = [
+        "coda",
+        "consonant",
+        "standalone",
+        "virama",
+        "vowel",
+        "vowel_sign",
+    ],
+    uname_prefix_from = "//nisaba/scripts/brahmic/data/Beng",
+)

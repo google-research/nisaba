@@ -1,0 +1,107 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+# Kok (/kə/).
+item { uname: "KA" raw: "ক" to_raw: "k" }
+
+# Sham (/sə/).
+item { uname: "SSA"            raw: "ষ" to_raw: "s" }
+item { uname: ["SSA", "NUKTA"] raw: "ষ়" to_raw: "s" }
+item { uname: "SA"             raw: "স" to_raw: "s" }
+item { uname: "SHA"            raw: "শ" to_raw: "s" }
+item { uname: "CHA"            raw: "ছ" to_raw: "s" }
+
+# Laay (/lə/).
+item { uname: "LA"             raw: "ল" to_raw: "l" }
+item { uname: ["LA", "NUKTA"]  raw: "ল়" to_raw: "l" }
+
+# Meet (/mə/).
+item { uname: "MA" raw: "ম" to_raw: "m" }
+
+# Paa (/pə/).
+item { uname: "PA" raw: "প" to_raw: "p" }
+
+# Naa (/nə/).
+item { uname: "NA"  raw: "ন" to_raw: "n" }
+item { uname: "NNA" raw: "ণ" to_raw: "n" }
+item { uname: "NYA" raw: "ঞ" to_raw: "n" }
+
+# Cin (/cə/).
+item { uname: "CA" raw: "চ" to_raw: "cʰ" }
+
+# Til (/t̪ə/).
+item { uname: "TTA"       raw: "ট" to_raw: "t"}
+item { uname: "TA"        raw: "ত" to_raw: "t"}
+item { uname: "KHANDA TA" raw: "ৎ" to_raw: "t"}
+
+# Khau (kʰə).
+item { uname: "KHA" raw: "খ" to_raw: "kʰ" }
+
+# Ngau (/ŋə/).
+item { uname: "NGA" raw: "ঙ" to_raw: "ṅ" }
+
+# Thau (/t̪ʰə/).
+item { uname: "THA"  raw: "থ" to_raw: "tʰ" }
+item { uname: "TTHA" raw: "ঠ" to_raw: "tʰ" }
+
+# Way (/ʋə/).
+item { uname: "RA WITH LOWER DIAGONAL" raw: "ৱ" to_raw: "w" }
+
+# Yaang (/jə/).
+item { uname: "YA"            raw: "য" to_raw: "y" }
+item { uname: ["YA", "NUKTA"] raw: "য়" to_raw: "y" }
+item { uname: "YYA"           raw: "য়" to_raw: "y" }
+
+# Huk (/ɦə/).
+item { uname: "HA" raw: "হ" to_raw: "h" }
+
+# Pham (/pʰə/).
+item { uname: "PHA" raw: "ফ" to_raw: "pʰ" }
+
+# Gok (/gə/).
+item { uname: "GA" raw: "গ" to_raw: "g" }
+
+# Jham (/ɟʰə/).
+item { uname: "JHA" raw: "ঝ" to_raw: "jʰ" }
+
+# Raai (/rə/).
+item { uname: "RA"                      raw: "র" to_raw: "r" }
+item { uname: "RHA"                     raw: "ঢ়" to_raw: "r" }
+item { uname: "RRA"                     raw: "ড়" to_raw: "r" }
+item { uname: "RA WITH MIDDLE DIAGONAL" raw: "ৰ" to_raw: "w" }
+
+# Baa (/bə/).
+item { uname: "BA" raw: "ব" to_raw: "b" }
+
+# Jil (/ɟə/).
+item { uname: "JA" raw: "জ" to_raw: "j" }
+
+# Dil (/d̪ə/).
+item { uname: "DA"             raw: "দ"   to_raw: "d" }
+item { uname: "DDA"            raw: "ড"   to_raw: "d" }
+item { uname: ["DDA", "NUKTA"] raw: "ড়" to_raw: "d" }
+
+# Ghau (/ɡʰə/).
+item { uname: "GHA" raw: "ঘ" to_raw: "gʰ" }
+
+# Dhau (/d̪ʰə/).
+item { uname: "DHA"             raw: "ধ" to_raw: "dʰ" }
+item { uname: "DDHA"            raw: "ঢ" to_raw: "dʰ" }
+item { uname: ["DDHA", "NUKTA"] raw: "ঢ়" to_raw: "dʰ" }
+
+# Bham (/bʰə/).
+item { uname: "BHA" raw: "ভ" to_raw: "bʰ" }
