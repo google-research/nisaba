@@ -27,7 +27,6 @@ licenses(["notice"])
 
 empty_components_tsv(
     names = [
-        "dead_consonant",
         "subjoined_consonant",
         "vowel_length_sign",
     ],
@@ -44,6 +43,7 @@ components_tsv_local(
     names = [
         "coda",
         "consonant",
+        "dead_consonant",
         "standalone",
         "virama",
         "vowel",

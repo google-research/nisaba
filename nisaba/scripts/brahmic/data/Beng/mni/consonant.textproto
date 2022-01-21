@@ -43,10 +43,9 @@ item { uname: "NYA" raw: "ঞ" to_raw: "n" }
 # Cin (/cə/).
 item { uname: "CA" raw: "চ" to_raw: "cʰ" }
 
-# Til (/t̪ə/).
+# Til (/t̪ə/). Note: For `KHANDA TA` please see `dead_consonant.textproto`.
 item { uname: "TTA"       raw: "ট" to_raw: "t"}
 item { uname: "TA"        raw: "ত" to_raw: "t"}
-item { uname: "KHANDA TA" raw: "ৎ" to_raw: "t"}
 
 # Khau (kʰə).
 item { uname: "KHA" raw: "খ" to_raw: "kʰ" }
