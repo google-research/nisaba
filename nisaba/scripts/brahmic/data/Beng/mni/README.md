@@ -10,6 +10,16 @@ Note, the mappings in this directory are *not* compiled into the main Nisaba
 transducers, they are designed to be used by custom transducer pipeline
 implementing Bengali to Meetei Mayek transliteration.
 
+## A note on tone marking
+
+Insofar as the Meetei Mayek heavy tone marker (*lum iyek*) is concerned, it
+looks like there is no way in Bengali to show the heavy tone marker. It seems
+that some purists, to indicate the heavy tone marker, use a short `/i/` vowel
+sign in Bengali. Apperently this is not advisable since this is not an accepted
+convention. The heavy tone marker is therefore guessed from the context.
+
+## Sources
+
 This implementation is based on the following sources:
 
 1.  Kishorjit NongmeikapamNingombam Herojit SinghSonia ThoudamSivaji
