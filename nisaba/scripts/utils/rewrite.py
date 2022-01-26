@@ -32,7 +32,8 @@ def ComposeFsts(fsts: Iterable[pynini.Fst]) -> pynini.Fst:
   composed, *rest = fsts
   for fst in rest:
     composed @= fst
-  return composed.optimize()
+    composed.optimize()
+  return composed
 
 
 def RewriteAndComposeFsts(fsts: Iterable[pynini.Fst],
