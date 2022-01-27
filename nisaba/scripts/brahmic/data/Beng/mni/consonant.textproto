@@ -78,9 +78,14 @@ item { uname: "GA" raw: "গ" to_raw: "g" }
 item { uname: "JHA" raw: "ঝ" to_raw: "jʰ" }
 
 # Raai (/rə/).
-item { uname: "RA"                      raw: "র" to_raw: "r" }
-item { uname: "RHA"                     raw: "ঢ়" to_raw: "r" }
-item { uname: "RRA"                     raw: "ড়" to_raw: "r" }
+#
+# Example: `হার্বর` -> `ꯍꯥꯔꯕꯔ`.
+item { uname: "RA"             raw: "র" to_raw: "r" }
+item { uname: "RHA"            raw: "ঢ়" to_raw: "r" }
+item { uname: "RRA"            raw: "ড়" to_raw: "r" }
+item { uname: ["RA", "VIRAMA"] raw: "র্" to_raw: "r" }  # Reph.
+
+# Wai (/wə/).
 item { uname: "RA WITH MIDDLE DIAGONAL" raw: "ৰ" to_raw: "w" }
 
 # Baa (/bə/).
