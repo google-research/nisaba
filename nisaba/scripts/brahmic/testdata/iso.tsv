@@ -122,19 +122,19 @@ FROM_BENG	নিঃহৗঁত	niḥhăm̐ta
 # ------------------------------------------------------------------------------
 # Meetei Mayek (Manipuri):
 # ------------------------------------------------------------------------------
-FROM_MTEI	ꯑꯩꯅ	aina
+FROM_MTEI	ꯑꯩꯅ	əina
 FROM_MTEI	ꯀꯣꯛ	kōk'
 FROM_MTEI	ꯁꯝ	sam'
 FROM_MTEI	ꯑꯇꯤꯌꯥ	atīyā
 FROM_MTEI	ꯆꯤꯟ	cʰīn'
 FROM_MTEI	ꯒ꯭ꯂꯥꯁ	glāsa
 FROM_MTEI	ꯀꯐꯣꯢ	kapʰōi'
-FROM_MTEI	ꯀꯨꯁꯨꯝꯂꯩ	kūsūm'lai
+FROM_MTEI	ꯀꯨꯁꯨꯝꯂꯩ	kūsūm'ləi
 FROM_MTEI	ꯀꯦꯇꯨꯀꯤ	kētūkī
 FROM_MTEI	ꯀꯦꯇꯦꯀꯤ	kētēkī
 FROM_MTEI	ꯀꯣꯝꯂꯥ	kōm'lā
 FROM_MTEI	ꯁꯤꯡ	sīṅ'
-FROM_MTEI	ꯂꯩꯁꯥꯕꯤ	laisābī
+FROM_MTEI	ꯂꯩꯁꯥꯕꯤ	ləisābī
 FROM_MTEI	ꯃꯌꯥꯡꯇꯣꯟ	mayāṅ'tōn'
 FROM_MTEI	ꯃꯦꯊꯤ	mētʰī
 FROM_MTEI	ꯄꯨꯗꯤꯅꯥ	pūdīnā
@@ -142,7 +142,7 @@ FROM_MTEI	ꯅꯨꯁꯤꯍꯤꯗꯥꯛ	nūsīhīdāk'
 FROM_MTEI	ꯆꯝꯄ꯭ꯔꯥ	cʰam'prā
 FROM_MTEI	ꯇꯨꯜꯁꯤꯄꯝꯕꯤ	tūl'sīpam'bī
 FROM_MTEI	ꯌꯥꯢꯉꯪ	yāi'ṅaṁ
-FROM_MTEI	ꯍꯩꯅꯧ	hainau
+FROM_MTEI	ꯍꯩꯅꯧ	həinəu
 FROM_MTEI	ꯎꯁꯤꯡꯁꯥ	usīṅ'sā
 FROM_MTEI	ꯑꯗꯨꯔꯒꯨꯂꯥꯕ	adūragūlāba
 FROM_MTEI	ꯒꯨꯂꯥꯕ	gūlāba
@@ -150,19 +150,19 @@ FROM_MTEI	ꯖꯥꯢꯐꯜ	jāi'pʰal'
 FROM_MTEI	ꯀꯥꯡ	kāṅ'
 FROM_MTEI	ꯀꯥ꯬ꯉ	kā^ṅa
 FROM_MTEI	ꯂꯦꯡꯖꯨꯝ	lēṅ'jūm'
-TO_MTEI	aina	ꯑꯩꯅ
+TO_MTEI	əina	ꯑꯩꯅ
 TO_MTEI	kōk'	ꯀꯣꯛ
 TO_MTEI	sam'	ꯁꯝ
 TO_MTEI	atīyā	ꯑꯇꯤꯌꯥ
 TO_MTEI	cʰīn'	ꯆꯤꯟ
 TO_MTEI	glāsa	ꯒ꯭ꯂꯥꯁ
 TO_MTEI	kapʰōi'	ꯀꯐꯣꯢ
-TO_MTEI	kūsūm'lai	ꯀꯨꯁꯨꯝꯂꯩ
+TO_MTEI	kūsūm'ləi	ꯀꯨꯁꯨꯝꯂꯩ
 TO_MTEI	kētūkī	ꯀꯦꯇꯨꯀꯤ
 TO_MTEI	kētēkī	ꯀꯦꯇꯦꯀꯤ
 TO_MTEI	kōm'lā	ꯀꯣꯝꯂꯥ
 TO_MTEI	sīṅ'	ꯁꯤꯡ
-TO_MTEI	laisābī	ꯂꯩꯁꯥꯕꯤ
+TO_MTEI	ləisābī	ꯂꯩꯁꯥꯕꯤ
 TO_MTEI	mayāṅ'tōn'	ꯃꯌꯥꯡꯇꯣꯟ
 TO_MTEI	mētʰī	ꯃꯦꯊꯤ
 TO_MTEI	pūdīnā	ꯄꯨꯗꯤꯅꯥ
@@ -170,13 +170,19 @@ TO_MTEI	nūsīhīdāk'	ꯅꯨꯁꯤꯍꯤꯗꯥꯛ
 TO_MTEI	cʰam'prā	ꯆꯝꯄ꯭ꯔꯥ
 TO_MTEI	tūl'sīpam'bī	ꯇꯨꯜꯁꯤꯄꯝꯕꯤ
 TO_MTEI	yāi'ṅaṁ	ꯌꯥꯢꯉꯪ
-TO_MTEI	hainau	ꯍꯩꯅꯧ
+TO_MTEI	həinəu	ꯍꯩꯅꯧ
 TO_MTEI	usīṅ'sā	ꯎꯁꯤꯡꯁꯥ
 TO_MTEI	adūragūlāba	ꯑꯗꯨꯔꯒꯨꯂꯥꯕ
 TO_MTEI	gūlāba	ꯒꯨꯂꯥꯕ
 TO_MTEI	jāi'pʰal'	ꯖꯥꯢꯐꯜ
 TO_MTEI	lēṅ'jūm'	ꯂꯦꯡꯖꯨꯝ
 TO_MTEI	kā^ṅa	ꯀꯥ꯬ꯉ
+
+# Word-initial diphthongs.
+FROM_MTEI	ꯑꯧꯇꯗꯣꯔꯒꯤ	əutadōragī
+FROM_MTEI	ꯑꯧꯠ	əut'
+TO_MTEI	əutadōragī	ꯑꯧꯇꯗꯣꯔꯒꯤ
+TO_MTEI	əut'	ꯑꯧꯠ
 
 # ------------------------------------------------------------------------------
 # Baybayin (Tagalog).

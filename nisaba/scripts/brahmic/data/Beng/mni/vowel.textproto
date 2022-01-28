@@ -36,15 +36,15 @@ item { uname: "E" raw: "এ" to_raw: "ē" }
 item { uname: "O" raw: "ও" to_raw: "ō" }
 
 # Atiya + Cheinap /ɐi/.
-item { uname: "AI"        raw: "ঐ"  to_raw: "ai" }
-item { uname: ["A",  "I"] raw: "অই" to_raw: "ai" }
+item { uname: "AI"        raw: "ঐ"  to_raw: "əi" }
+item { uname: ["A",  "I"] raw: "অই" to_raw: "əi" }
 
 # Atiya + Sounap /ɐu/.
-item { uname: "AU"        raw: "ঔ"  to_raw: "au" }
-item { uname: ["A", "U"]  raw: "অউ" to_raw: "au" }
+item { uname: "AU"        raw: "ঔ"  to_raw: "əu" }
+item { uname: ["A", "U"]  raw: "অউ" to_raw: "əu" }
 
 # Atiya + Nung /ɐŋ/.
-item { uname: ["A", "ANUSVARA"] raw: "অং" to_raw: "aṁ" }
+item { uname: ["A", "ANUSVARA"] raw: "অং" to_raw: "əṁ" }
 
 # TODO: Double-check.
 item { uname: "VOCALIC R" raw: "ঋ" to_raw: "ri" }

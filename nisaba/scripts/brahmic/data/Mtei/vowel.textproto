@@ -28,6 +28,11 @@ item { uname: ["ATIYA", "SIGN INAP"]    raw: "ꯑꯤ" to_raw: "ī" }
 item { uname: ["ATIYA", "SIGN UNAP"]    raw: "ꯑꯨ"  to_raw: "ū" }
 item { uname: ["ATIYA", "SIGN YENAP"]   raw: "ꯑꯦ" to_raw: "ē" }
 item { uname: ["ATIYA", "SIGN ONAP"]    raw: "ꯑꯣ" to_raw: "ō" }
-item { uname: ["ATIYA", "SIGN CHEINAP"] raw: "ꯑꯩ" to_raw: "ai" }
-item { uname: ["ATIYA", "SIGN SOUNAP"]  raw: "ꯑꯧ" to_raw: "au" }
-item { uname: ["ATIYA", "SIGN NUNG"]    raw: "ꯑꯪ" to_raw: "aṁ" }
+
+# The "real", more accurate output representation of diphthongs below
+# that matches the above output notation, is `ai`, `au` and `aṁ`. But
+# we map them here to unique output symbols to avoid non-determinism
+# by replacing `a` with `ə`.
+item { uname: ["ATIYA", "SIGN CHEINAP"] raw: "ꯑꯩ" to_raw: "əi" }
+item { uname: ["ATIYA", "SIGN SOUNAP"]  raw: "ꯑꯧ" to_raw: "əu" }
+item { uname: ["ATIYA", "SIGN NUNG"]    raw: "ꯑꯪ" to_raw: "əṁ" }

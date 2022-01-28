@@ -35,10 +35,10 @@ item { uname: "SIGN E" to_raw: "ē"  }
 item { uname: "SIGN O"  to_raw: "ō" }
 
 # Sounap /ɐu/.
-item { uname: "SIGN AU" to_raw: "au" }
+item { uname: "SIGN AU" to_raw: "əu" }
 
 # Cheinap /ɐi/.
-item { uname: "SIGN AI" to_raw: "ai" }
+item { uname: "SIGN AI" to_raw: "əi" }
 
 # TODO: Double-check.
 item { uname: "SIGN VOCALIC R" to_raw: "ri" }
