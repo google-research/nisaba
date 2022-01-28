@@ -40,11 +40,14 @@ item {
   uname: "SIGN ONAP" raw: "ꯣ"
   to_raw: "ō"
 }
+
+# Please see the corresponding note on output mapping symbols for diphthongs
+# in `vowel.textproto`.
 item {
   uname: "SIGN CHEINAP" raw: "ꯩ"
-  to_raw: "ai"
+  to_raw: "əi"
 }
 item {
   uname: "SIGN SOUNAP" raw: "ꯧ"
-  to_raw: "au"
+  to_raw: "əu"
 }
