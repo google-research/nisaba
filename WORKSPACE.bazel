@@ -26,8 +26,8 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # Google protocol buffers. See
 #    https://github.com/protocolbuffers/protobuf
 # -------------------------------------------------------------------------
-protobuf_version = "3.17.3"
-protobuf_sha256 = "c6003e1d2e7fefa78a3039f19f383b4f3a61e81be8c19356f85b6461998ad3db"
+protobuf_version = "3.19.4"
+protobuf_sha256 = "3bd7828aa5af4b13b99c191e8b1e884ebfa9ad371b0ce264605d347f135d2568"
 
 http_archive(
     name = "com_google_protobuf",
@@ -83,14 +83,18 @@ pynini_repositories()
 # External Python packages.
 # -------------------------------------------------------------------------
 
+rules_python_version = "0.6.0"
+
 http_archive(
-    name = "fresh_rules_python",
-    url = "https://github.com/bazelbuild/rules_python/releases/download/0.3.0/rules_python-0.3.0.tar.gz",
-    sha256 = "934c9ceb552e84577b0faf1e5a2f0450314985b4d8712b2b70717dc679fdc01b",
+    name = "rules_python",
+    url = "https://github.com/bazelbuild/rules_python/archive/%s.tar.gz" % (
+        rules_python_version),
+    strip_prefix = "rules_python-%s" % rules_python_version,
+    sha256 = "a30abdfc7126d497a7698c29c46ea9901c6392d6ed315171a6df5ce433aa4502",
 )
 
 # Python external packages installation.
-load("@fresh_rules_python//python:pip.bzl", "pip_install")
+load("@rules_python//python:pip.bzl", "pip_install")
 
 pip_install(
     name = "nisaba_deps",
