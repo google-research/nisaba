@@ -165,6 +165,7 @@ If you use this software in a publication, please cite the accompanying
     year = {2021},
     pages = {14--23},
     publisher = {Association for Computational Linguistics},
+    doi = {10.18653/v1/2021.eacl-demos.3},
     url = {https://www.aclweb.org/anthology/2021.eacl-demos.3},
 }
 ```
