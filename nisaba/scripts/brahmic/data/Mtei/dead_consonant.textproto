@@ -15,11 +15,37 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-item { uname: "KOK LONSUM"  raw: "ꯛ" to_raw: "k'" }
-item { uname: "LAI LONSUM"  raw: "ꯜ" to_raw: "l'" }
-item { uname: "MIT LONSUM"  raw: "ꯝ" to_raw: "m'" }
-item { uname: "PA LONSUM"   raw: "ꯞ" to_raw: "p'" }
-item { uname: "NA LONSUM"   raw: "ꯟ" to_raw: "n'" }
-item { uname: "TIL LONSUM"  raw: "ꯠ" to_raw: "t'" }
-item { uname: "NGOU LONSUM" raw: "ꯡ" to_raw: "ṅ'" }
-item { uname: "I LONSUM"    raw: "ꯢ" to_raw: "i'" }
+to_uname_prefix: "LATIN SMALL LETTER"
+
+item {
+  uname: "KOK LONSUM" raw: "ꯛ"
+  to_uname: ["K", "VERTICAL TILDE"] to_raw: "kⸯ"
+}
+item {
+  uname: "LAI LONSUM" raw: "ꯜ"
+  to_uname: ["L", "VERTICAL TILDE"] to_raw: "lⸯ"
+}
+item {
+  uname: "MIT LONSUM" raw: "ꯝ"
+  to_uname: ["M", "VERTICAL TILDE"] to_raw: "mⸯ"
+}
+item {
+  uname: "PA LONSUM" raw: "ꯞ"
+  to_uname: ["P", "VERTICAL TILDE"] to_raw: "pⸯ"
+}
+item {
+  uname: "NA LONSUM" raw: "ꯟ"
+  to_uname: ["N", "VERTICAL TILDE"] to_raw: "nⸯ"
+}
+item {
+  uname: "TIL LONSUM" raw: "ꯠ"
+  to_uname: ["T", "VERTICAL TILDE"] to_raw: "tⸯ"
+}
+item {
+  uname: "NGOU LONSUM" raw: "ꯡ"
+  to_uname: ["N WITH DOT ABOVE", "VERTICAL TILDE"] to_raw: "ṅⸯ"
+}
+item {
+  uname: "I LONSUM" raw: "ꯢ"
+  to_uname: ["I", "VERTICAL TILDE"] to_raw: "iⸯ"
+}

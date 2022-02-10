@@ -15,5 +15,10 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
+to_uname_prefix: "LATIN SMALL LETTER"
+
 # Always maps to TIL LONSUM (ꯠ).
-item { uname: "KHANDA TA" raw: "ৎ" to_raw: "t'" }
+item {
+  uname: "KHANDA TA" raw: "ৎ"
+  to_uname: ["T", "VERTICAL TILDE"] to_raw: "tⸯ"
+}
