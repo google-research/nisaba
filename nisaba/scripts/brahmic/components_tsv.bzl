@@ -16,9 +16,11 @@
 
 load(
     "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
-    "DEFAULT_VISIBILITY",
     "component_tsv",
+    _empty_components_tsv = "empty_components_tsv",
 )
+
+empty_components_tsv = _empty_components_tsv
 
 _COMMON_DIR = "//nisaba/scripts/brahmic/data/common"
 
@@ -88,20 +90,4 @@ def components_tsv_from_common(
             name,
             uname_prefix_from,
             text_protos_from = [_COMMON_DIR],
-        )
-
-def empty_components_tsv(names, name = "empties"):
-    """Creates empty script data component files in TSV format.
-
-    Args:
-      names: The names of the script data components (e.g., `accept`).
-      name: Name of the rule.
-    """
-    for component_name in names:
-        native.genrule(
-            name = "create_%s_tsv" % component_name,
-            outs = ["%s.tsv" % component_name],
-            visibility = [DEFAULT_VISIBILITY],
-            # May not work in Windows. To be fixed when Windows support is added.
-            cmd = "touch $@",
         )

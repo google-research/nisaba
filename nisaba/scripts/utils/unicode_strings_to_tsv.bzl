@@ -53,3 +53,19 @@ def component_tsv(name, text_protos):
         name = converter_rule_name + "_smoke_test",
         targets = [":" + converter_rule_name],
     )
+
+def empty_components_tsv(names, name = "empty"):
+    """Creates empty script data component files in TSV format.
+
+    Args:
+      names: The names of the script data components (e.g., `accept`).
+      name: Name of the rule.
+    """
+    for component_name in names:
+        native.genrule(
+            name = "create_%s_%s_tsv" % (name, component_name),
+            outs = ["%s.tsv" % component_name],
+            visibility = [DEFAULT_VISIBILITY],
+            # May not work in Windows. To be fixed when Windows support is added.
+            cmd = "touch $@",
+        )
