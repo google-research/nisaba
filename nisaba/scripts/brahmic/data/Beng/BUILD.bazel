@@ -16,7 +16,6 @@
 
 load(
     "//nisaba/scripts/brahmic:components_tsv.bzl",
-    "component_tsv_with_defaults",
     "components_tsv_from_common",
     "components_tsv_local",
     "components_tsv_local_with_common",
@@ -53,17 +52,15 @@ components_tsv_local(names = [
     "visual_rewrite",
 ])
 
-component_tsv_with_defaults(
-    name = "vowel",
+components_tsv_local_with_common(
     more_text_protos_from = [
         "//nisaba/scripts/brahmic/data/Beng/sat",
         "//nisaba/scripts/brahmic/data/Beng/trp",
     ],
+    names = ["vowel"],
 )
 
-component_tsv_with_defaults(
-    name = "vowel_sign",
-    more_text_protos_from = [
-        "//nisaba/scripts/brahmic/data/Beng/sat",
-    ],
+components_tsv_local_with_common(
+    more_text_protos_from = ["//nisaba/scripts/brahmic/data/Beng/sat"],
+    names = ["vowel_sign"],
 )

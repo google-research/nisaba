@@ -16,78 +16,16 @@
 
 load(
     "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
-    "component_tsv",
+    "add_args_to_fn",
+    _components_tsv_from_common = "components_tsv_from_common",
+    _components_tsv_local = "components_tsv_local",
+    _components_tsv_local_with_common = "components_tsv_local_with_common",
     _empty_components_tsv = "empty_components_tsv",
 )
 
+_COMMON_ARGS = {"common_dir": "//nisaba/scripts/brahmic/data/common"}
+
 empty_components_tsv = _empty_components_tsv
-
-_COMMON_DIR = "//nisaba/scripts/brahmic/data/common"
-
-# Empty string represents local directory as in ":consonant.textptoto"
-_LOCAL_DIR = ""
-
-# Wrapper over `component_tsv` with defaults meaningful for Brahmic scripts.
-#
-# The `uname_prefix_from` provides the path for `uname_prefix.textproto`.
-# Default is the local directory path.
-#
-# The `text_protos_from` provides the default paths for the component.
-# Default is both local and common directory paths.
-#
-# The `more_text_protos_from` provides the additional text proto paths for the
-# component, along with the `text_protos_from`.
-#
-# Both of these path lists assume the presence of `<name>.textproto` in that
-# path.
-def component_tsv_with_defaults(
-        name,
-        uname_prefix_from = _LOCAL_DIR,
-        text_protos_from = [_LOCAL_DIR, _COMMON_DIR],
-        more_text_protos_from = []):
-    component_tsv(
-        name,
-        ["%s:uname_prefix.textproto" % uname_prefix_from] +
-        [
-            "%s:%s.textproto" % (path, name)
-            for path in text_protos_from + more_text_protos_from
-        ],
-    )
-
-# The list of components which are defined by local files in the directory
-# only. By default, they use local `uname_prefix.textproto` to get the prefix
-# information.
-def components_tsv_local(
-        names,
-        name = "components_local",
-        uname_prefix_from = _LOCAL_DIR):
-    for name in names:
-        component_tsv_with_defaults(
-            name,
-            text_protos_from = [_LOCAL_DIR],
-            uname_prefix_from = uname_prefix_from,
-        )
-
-# The list of components which are defined by local files in the directory and
-# the corresponding ones in the `brahmic/data/common` as well.
-# They use local `uname_prefix.textproto` to get the prefix information.
-def components_tsv_local_with_common(
-        names,
-        name = "components_local_with_common"):
-    for name in names:
-        component_tsv_with_defaults(name)
-
-# The list of components which do not have any local definitions and are
-# exclusively defined by the corresponding ones in the `brahmic/data/common`.
-# By default, they use local `uname_prefix.textproto` to get the prefix
-# information.
-def components_tsv_from_common(
-        names,
-        name = "components_from_common",
-        uname_prefix_from = _LOCAL_DIR):
-    for name in names:
-        component_tsv_with_defaults(
-            name,
-            uname_prefix_from,
-            text_protos_from = [_COMMON_DIR],
-        )
+components_tsv_local = _components_tsv_local
+components_tsv_local_with_common = add_args_to_fn(_components_tsv_local_with_common, _COMMON_ARGS)
+components_tsv_from_common = add_args_to_fn(_components_tsv_from_common, _COMMON_ARGS)
