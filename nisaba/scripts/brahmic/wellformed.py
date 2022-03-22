@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 r"""Acceptor for well-formed strings from major modern Brahmic scripts.
 
 To try:

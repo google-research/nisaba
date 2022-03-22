@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 """Creates FST from unweighted rules with same sigma on lhs and rhs.
 
 Two different relationships between the rules are supported:

@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 r"""Grammar to convert Brahmic fixed rule romanization to ISO 15919.
 
 By fixed rule romanization, we refer to the set of deterministic rules used

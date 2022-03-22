@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 r"""Grammar for Reading Norm of major Brahmic language script texts.
 
 To try each rule:

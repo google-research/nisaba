@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 """Library to load a .far file and transduce a string with an FST from that."""
 
 import os

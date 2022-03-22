@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 r"""ISO 15919 2-way converstion rules for major Brahmic family of scripts.
 
 Please refer to: https://en.wikipedia.org/wiki/ISO_15919 Also, please refer to

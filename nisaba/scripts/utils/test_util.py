@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 """A library for making unit tests that verify FST properties."""
 
 import collections

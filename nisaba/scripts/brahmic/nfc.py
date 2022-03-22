@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 r"""Grammar to convert texts in Brahmic family of scripts to their NFC form.
 
 Please refer to: http://unicode.org/charts/normalization/
