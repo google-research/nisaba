@@ -22,7 +22,7 @@ convention. The heavy tone marker is therefore guessed from the context.
 
 This implementation is based on the following sources:
 
-1.  Kishorjit NongmeikapamNingombam Herojit SinghSonia ThoudamSivaji
+1.  Kishorjit Nongmeikapam, Ningombam Herojit Singh, Sonia Thoudam, and Sivaji
     Bandyopadhyay (2011): "Manipuri Transliteration from Bengali Script to
     Meitei Mayek: A Rule Based Approach", *Proceedings of International
     Conference on Information Systems for Indian Languages (ICISIL)*, pp.
