@@ -39,4 +39,5 @@ This implementation is based on the following sources:
     *Proceedings of WILDRE2 - 2nd Workshop on Indian Language Data: Resources
     and Evaluation*, pp. 77-83.
 1.  Leihaorambam Sarbajit Singh, Kabita Thaoroijam, Pradip Kumar Das (2007):
-    ["Bengali Script and Meiteiron Spelling"](http://www.languageinindia.com/june2007/meiteiphoneme.pdf)
+    ["Written Manipuri (Meiteron) -- Phoneme to Grapheme Correspondence"](http://www.languageinindia.com/june2007/meiteiphoneme.pdf),
+    *Language in India*, vol. 7, June.
