@@ -1,0 +1,6 @@
+TYP_TO_TXN	(h)(i)(ans)(d)(ii)	(h=h)(i=i)(ans=ni)(d=di)(ii=i_l)
+TYP_TO_TXN	(h)(i)(n)(d)(ii)	(h=h)(i=i)(n=ni)(d=di)(ii=i_l)
+TYP_TO_TXN	(h)(i)(n)(d)(i)	(h=h)(i=i)(n=ni)(d=di)(i=i)
+TYP_TO_TXN	(i)(ans)(dd)(i)(y)(aa)	(i=i)(ans=ni)(dd=dd)(i=i)(y=y)(aa=a_l)
+TYP_TO_TXN	(i)(n)(t)(y)(a)	(i=i)(n=ni)(t=ti)(y=y)(a=a)
+TYP_TO_TXN	(i)(n_chl)(dd)(y)(a)	(i=i)(n_chl=ni)(dd=dd)(y=y)(a=a)

@@ -1,0 +1,12 @@
+TXN_TO_PSAF	(h=h)(i=i)(ans=ni)(d=di)(ii=i_l)	hindii
+TXN_TO_PSAF	(h=h)(i=i)(n=ni)(d=di)(ii=i_l)	hindii
+TXN_TO_PSAF	(h=h)(i=i)(n=ni)(d=di)(i=i)	hindi
+TXN_TO_PSAF	(i=i)(ans=ni)(dd=dd)(i=i)(y=y)(aa=a_l)	indiyaa
+TXN_TO_PSAF	(i=i)(n=ni)(t=di)(y=y)(a=a)	indya
+TXN_TO_PSAF	(i=i)(n_chl=ni)(dd=dd)(y=y)(a=a)	indya
+TXN_TO_PSAC	(h=h)(i=i)(ans=ni)(d=di)(ii=i_l)	hindi
+TXN_TO_PSAC	(h=h)(i=i)(n=ni)(d=di)(ii=i_l)	hindi
+TXN_TO_PSAC	(h=h)(i=i)(n=ni)(d=di)(i=i)	hindi
+TXN_TO_PSAC	(i=i)(ans=ni)(dd=dd)(i=i)(y=y)(aa=a_l)	indiya
+TXN_TO_PSAC	(i=i)(n=ni)(t=di)(y=y)(a=a)	indya
+TXN_TO_PSAC	(i=i)(n_chl=ni)(dd=dd)(y=y)(a=a)	indya

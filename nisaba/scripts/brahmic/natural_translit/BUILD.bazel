@@ -1,0 +1,175 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+load(
+    "//nisaba/scripts/utils:grammars.bzl",
+    "nisaba_compile_multi_grm_py",
+    "nisaba_grm_regression_test",
+)
+
+package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
+
+licenses(["notice"])
+
+nisaba_compile_multi_grm_py(
+    name = "iso2typ",
+    outs = {
+        "byte": "iso2typ.far",
+        "utf8": "iso2typ_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:byte",
+    ],
+)
+
+nisaba_grm_regression_test(
+    name = "iso2typ_test",
+    grammar = ":iso2typ",
+)
+
+nisaba_grm_regression_test(
+    name = "iso2typ_utf8_test",
+    grammar = ":iso2typ_utf8",
+    test_file = "testdata:iso2typ.tsv",
+    token_type = "utf8",
+)
+
+nisaba_compile_multi_grm_py(
+    name = "typ2txn",
+    outs = {
+        "byte": "typ2txn.far",
+        "utf8": "typ2txn_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = ["@org_opengrm_pynini//pynini"],
+)
+
+nisaba_grm_regression_test(
+    name = "typ2txn_test",
+    grammar = ":typ2txn",
+)
+
+nisaba_grm_regression_test(
+    name = "typ2txn_utf8_test",
+    grammar = ":typ2txn_utf8",
+    test_file = "testdata:typ2txn.tsv",
+    token_type = "utf8",
+)
+
+nisaba_compile_multi_grm_py(
+    name = "phon_ops",
+    outs = {
+        "byte": "phon_ops.far",
+        "utf8": "phon_ops_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:byte",
+    ],
+)
+
+nisaba_grm_regression_test(
+    name = "phon_ops_test",
+    grammar = ":phon_ops",
+)
+
+nisaba_grm_regression_test(
+    name = "phon_ops_utf8_test",
+    grammar = ":phon_ops_utf8",
+    test_file = "testdata:phon_ops.tsv",
+    token_type = "utf8",
+)
+
+nisaba_compile_multi_grm_py(
+    name = "txn2nat",
+    outs = {
+        "byte": "txn2nat.far",
+        "utf8": "txn2nat_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:byte",
+    ],
+)
+
+nisaba_grm_regression_test(
+    name = "txn2nat_test",
+    grammar = ":txn2nat",
+)
+
+nisaba_grm_regression_test(
+    name = "txn2nat_utf8_test",
+    grammar = ":txn2nat_utf8",
+    test_file = "testdata:txn2nat.tsv",
+    token_type = "utf8",
+)
+
+nisaba_compile_multi_grm_py(
+    name = "hi_e2e",
+    outs = {
+        "byte": "hi_e2e.far",
+        "utf8": "hi_e2e_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        ":_iso2typ_lib",
+        ":_txn2nat_lib",
+        ":_typ2txn_lib",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_grm_regression_test(
+    name = "hi_e2e_test",
+    grammar = ":hi_e2e",
+)
+
+nisaba_grm_regression_test(
+    name = "hi_e2e_utf8_test",
+    grammar = ":hi_e2e_utf8",
+    test_file = "testdata:hi_e2e.tsv",
+    token_type = "utf8",
+)
+
+nisaba_compile_multi_grm_py(
+    name = "ml_e2e",
+    outs = {
+        "byte": "ml_e2e.far",
+        "utf8": "ml_e2e_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        ":_iso2typ_lib",
+        ":_phon_ops_lib",
+        ":_txn2nat_lib",
+        ":_typ2txn_lib",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_grm_regression_test(
+    name = "ml_e2e_test",
+    grammar = ":ml_e2e",
+)
+
+nisaba_grm_regression_test(
+    name = "ml_e2e_utf8_test",
+    grammar = ":ml_e2e_utf8",
+    test_file = "testdata:ml_e2e.tsv",
+    token_type = "utf8",
+)
