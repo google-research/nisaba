@@ -28,11 +28,19 @@ def Rewrite(rule: pynini.FstLike,
 
 
 def ComposeFsts(fsts: Iterable[pynini.Fst]) -> pynini.Fst:
-  composed, *rest = fsts
-  for fst in rest:
-    composed @= fst
-    composed.optimize()
-  return composed
+  """Composes the given FSTs together, ordered by a heuristics for speed."""
+  fsts = list(fsts)
+  if len(fsts) < 2:
+    return fsts[0]
+
+  # Heuristics for speed:
+  # Adjacent FSTs with minimum number of total states are composed first.
+  # After that first composition, we recurse on that shorter list of FSTs.
+  num_states = [fst.num_states() for fst in fsts]
+  num_states_sum = [sum(pair) for pair in zip(num_states, num_states[1:])]
+  i = num_states_sum.index(min(num_states_sum))
+  composed = (fsts[i] @ fsts[i+1]).optimize()
+  return ComposeFsts(fsts[:i] + [composed] + fsts[i+2:])
 
 
 def RewriteAndComposeFsts(fsts: Iterable[pynini.Fst],
