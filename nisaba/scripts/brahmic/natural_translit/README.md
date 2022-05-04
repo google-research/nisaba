@@ -1,4 +1,4 @@
-# Natural transliteration for Nisaba
+# Natural Transliteration for Brahmic Scripts
 
 ## typ representation and iso2typ grammar
 `typ` is an internal, typable representation for ISO characters.
