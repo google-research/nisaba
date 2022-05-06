@@ -16,6 +16,7 @@
 
 #include <errno.h>
 #include <stdlib.h>
+
 #include <filesystem>
 #include <fstream>
 
@@ -79,8 +80,7 @@ std::string JoinPath(absl::string_view dirname, absl::string_view basename) {
 }
 
 std::string TempFilePath(std::string_view filename) {
-  const std::filesystem::path tmp_dir =
-      std::filesystem::temp_directory_path();
+  const std::filesystem::path tmp_dir = std::filesystem::temp_directory_path();
   std::filesystem::path file_path = tmp_dir / filename;
   return file_path.string();
 }
@@ -90,11 +90,13 @@ absl::StatusOr<std::string> WriteTempTextFile(std::string_view filename,
   const std::string &path = TempFilePath(filename);
   std::ofstream out(path);
   if (!out) {
-    return absl::PermissionDeniedError(absl::StrCat("Failed to open: ", path));
+    return absl::PermissionDeniedError(
+        absl::StrCat("Failed to open: ", std::string(path)));
   }
   out << contents;
   if (!out.good()) {
-    return absl::InternalError(absl::StrCat("Failed to write to", path));
+    return absl::InternalError(
+        absl::StrCat("Failed to write to", std::string(path)));
   }
   return path;
 }
@@ -104,13 +106,14 @@ absl::Status WriteTextFile(std::string_view file_path,
   std::ofstream output;
   output.open(std::string(file_path));
   if (!output) {
-    return absl::PermissionDeniedError(absl::StrCat("Failed to open: ",
-                                                    file_path));
+    return absl::PermissionDeniedError(
+        absl::StrCat("Failed to open: ", std::string(file_path)));
   }
   output << contents;
   if (!output) {
-    return absl::PermissionDeniedError(absl::StrCat(
-        "Failed to write: ", contents.size(), " bytes to ", file_path));
+    return absl::PermissionDeniedError(
+        absl::StrCat("Failed to write: ", contents.size(), " bytes to ",
+                     std::string(file_path)));
   }
   return absl::OkStatus();
 }
@@ -124,7 +127,8 @@ absl::StatusOr<std::string> ReadFile(std::string_view file_path,
   //   https://cplusplus.github.io/LWG/issue3430
   input.open(std::string(file_path), mode);
   if (!input) {
-    return absl::NotFoundError(absl::StrCat("Failed to open: ", file_path));
+    return absl::NotFoundError(
+        absl::StrCat("Failed to open: ", std::string(file_path)));
   }
   std::string contents;
   input.seekg(0, std::ios::end);
@@ -149,8 +153,8 @@ absl::StatusOr<std::string> ReadTextFile(std::string_view file_path) {
   return ReadFile(file_path, std::ifstream::in);
 }
 
-absl::StatusOr<std::vector<std::string>> ReadLines(
-    absl::string_view input_file, int max_line_length) {
+absl::StatusOr<std::vector<std::string>> ReadLines(absl::string_view input_file,
+                                                   int max_line_length) {
   std::string::size_type max_length = max_line_length;
   if (max_line_length < 0) max_length = kDefaultMaxLineLength;
   std::vector<std::string> input_lines;
