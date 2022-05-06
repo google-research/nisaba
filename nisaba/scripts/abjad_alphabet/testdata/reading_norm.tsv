@@ -1,0 +1,151 @@
+# Reading normalization test data.
+
+# ----
+# Urdu
+# ----
+
+# Can do visual norm as well.
+# HEH GOAL WITH HAMZA ABOVE
+UR	ۀ	ۂ
+
+# TEH MARBUTA GOAL
+UR	صورة	صورۃ
+
+# WAVY HAMZA → HAMZA
+UR	حیثیٲت	حیثیأت
+UR	ٳيميلي	إیمیلي
+
+# --------
+# Kashmiri
+# --------
+
+# BEH
+KS	چٮ۪ن	چبن
+KS	ہٮ۪کُن	ہبکُن
+KS	کٮ۪نن	کبنن
+KS	گرٮ۪ز	گربز
+
+# KASHMIRI YEH
+KS	بیٹۍ	بیٹؠ
+KS	ھۍتک	ھؠتک
+KS	ۍنو	ؠنو
+
+# WAW WITH RING
+KS	یۅس	یۄس
+KS	کۅدش	کۄدش
+KS	مۅختہٕ	مۄختہٕ
+
+# FARSI YEH + SUPERSCRIPT ALEF
+KS	حَتّٰى	حَتّٰیٰ
+KS	ثى۪قہ	ثیٰ۪قہ
+KS	حَتّى	حَتّیٰ
+
+# KEHEH
+KS	لكل	لکل
+KS	يكلف	یکلف
+KS	وذلك	وذلک
+
+# FARSI YEH
+KS	يُرِيدُ	یُرِیدُ
+KS	يبيع	یبیع
+KS	مَرِيضًا	مَرِیضًا
+
+# ------
+# Sindhi
+# ------
+
+# TEH MARBUTA GOAL
+SD	دراسة	دراسۃ
+SD	حجة	حجۃ
+SD	مشڪوٰة	مشڪوٰۃ
+
+# YEH + SUPERSCRIPT ALEF
+SD	وهى	وھيٰ
+SD	عيسى	عيسيٰ
+
+# YEH
+SD	اڏمي	اڏمي
+SD	بجيٽُ	بجيٽُ
+SD	گيزلين	گيزلين
+
+# HEH GOAL
+SD	ڳڙهه	ڳڙھہ
+SD	بهاريءَ	بھاريءَ
+SD	ڳوهه	ڳوھہ
+
+# -------
+# Panjabi
+# -------
+
+# FARSI YEH
+PA	پرائيمیٹ	پرائیمیٹ
+PA	گيا	گیا
+PA	کئي	کئی
+
+# ----------------
+# Kurdish (Sorani)
+# ----------------
+# TODO: Double-check that these are indeed Kurdish (rather than
+# Persian) words.
+
+# KEHEH
+CKB	ئێكێ‌	ئێکێ‌
+CKB	لەكەس	لەکەس
+CKB	كەمت	کەمت
+CKB	لەشڪر	لەشکر
+CKB	ڪەڵک	کەڵک
+
+# ALEF
+CKB	خلجآن	خلجان
+CKB	پکآپ	پکاپ
+CKB	بةبآ	بەبا
+CKB	إِلَی	اِلَی
+CKB	إیراد	ایراد
+CKB	لنشأة	لنشاە
+CKB	رأیتُ	رایتُ
+CKB	الأولى	الاولى
+
+# FARSI YEH
+CKB	سورياى	سوریاى
+CKB	زەريا	زەریا
+CKB	رِيزى	رِیزى
+
+# AE
+CKB	بةبآ	بەبا
+CKB	بيَرة	بیَرە
+CKB	یةحیا	یەحیا
+
+# OE
+CKB	دؤخة	دۆخە
+CKB	خؤشه	خۆشھ
+CKB	ثؤلى	ثۆلى
+
+# HEH + ZWNJ -> AE
+CKB	ره‌زبه‌ر	رەزبەر
+
+# HEH DOACHASHMEE
+CKB	هەر	ھەر
+
+# ----------------
+# Persian
+# ----------------
+
+# FARSI YEH
+FA	برگردانيد	برگردانید
+FA	اگربپذيريد	اگربپذیرید
+FA	گويش	گویش
+
+# KEHEH
+FA	ماداگاسكار	ماداگاسکار
+FA	كشند	کشند
+FA	فيزيك	فیزیک
+
+# TEH MARBUTA
+FA	تذکرۃ	تذکرة
+
+# REH
+FA	گورانی‌چڕ	گورانی‌چڕ
+
+# WAW
+FA	مؤسسه	موسسه
+

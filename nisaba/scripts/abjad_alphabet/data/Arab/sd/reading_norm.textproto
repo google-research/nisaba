@@ -1,0 +1,56 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+#
+# Reading normalization rewrite rules for Sindhi.
+
+uname_prefix: ["ARABIC", "ARABIC LETTER"]
+
+# The <TEH MARBUTA GOAL> is specific to Arabic. See the corresponding discussion
+# regarding this letter in reading normalization grammar for Urdu.
+item {
+  uname: "TEH MARBUTA" raw: "ة"
+  to_uname: "TEH MARBUTA GOAL" to_raw: "ۃ"
+}
+
+# Because of visual similarity Arabic characters are used where Sindhi needs
+# to be used.
+
+item {
+  uname: "ALEF MAKSURA" raw: "ى"
+  to_uname: ["YEH", "SUPERSCRIPT ALEF"] to_raw: "يٰ"
+}
+
+item {
+  uname: "FARSI YEH" raw: "ی"
+  to_uname: "YEH" to_raw: "ي"
+}
+
+item {
+  uname: "HEH" raw: "ه"
+  to_uname: "HEH GOAL" to_raw: "ہ"
+}
+
+# ----------------------------------------------------
+# Confusables where a digit is used instead of Aleph:
+# ----------------------------------------------------
+
+# Digit+alef confused with alef madda.
+# Unattested.
+#item {
+#  uname: ["ARABIC-INDIC DIGIT ONE", "MADDAH ABOVE"] raw: "١ٓ"
+#  to_uname: "ALEF WITH MADDA ABOVE" to_raw: "آ"
+#}

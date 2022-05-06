@@ -1,0 +1,46 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+#
+# Reading normalization rewrite rules for Urdu.
+
+uname_prefix: ["ARABIC", "ARABIC LETTER"]
+
+# The <TEH MARBUTA GOAL> is specific to Arabic. By mutually agreed convention
+# both in Pakistani and Indian Urdu, the <TEH MARBUTA> is replaced by a
+# <HEH GOAL>. However if so desired a writer can use the <TEH MARBUTA GOAL> to
+# show a word in Arabic.
+# The same logic applies to <ALEF MAQSURA>. Once again, in Urdu the preferred
+# form is <FARSI YEH> (U+06CC) with a <SUPERSCRIPT ALEF> (Khada Alif). In any
+# case the <ALEF MAQSURA> is used with very few words such as "Musa" (Moses),
+# "Isaa" (Jesus).
+
+item {
+  uname: ["TEH MARBUTA"] raw: "ة"
+  to_uname: ["TEH MARBUTA GOAL"] to_raw: "ۃ"
+}
+
+item {
+  uname: "ALEF WITH WAVY HAMZA ABOVE" raw: "ٲ"
+  to_uname: "ALEF WITH HAMZA ABOVE" to_raw: "أ"
+}
+
+item {
+  uname: "ALEF WITH WAVY HAMZA BELOW" raw: "ٳ"
+  to_uname: "ALEF WITH HAMZA BELOW" to_raw: "إ"
+}
+
+# TODO: Complete.

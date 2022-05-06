@@ -14,6 +14,8 @@
 
 """Starlark utilities for letter registry."""
 
+load("@nisaba_deps//:requirements.bzl", "requirement")
+
 def setup_letter_languages(name):
     """Introduces several rules that deal with script letter language registry.
 
@@ -33,7 +35,7 @@ def setup_letter_languages(name):
     )
 
     # Introduce the integrity test target.
-    py_test(
+    native.py_test(
         name = "letter_languages_integrity_test",
         srcs = [":%s" % test_src_file],
         python_version = "PY3",
@@ -44,5 +46,6 @@ def setup_letter_languages(name):
             "@io_abseil_py//absl/testing:absltest",
             "//nisaba/scripts/utils:letter_languages",
             "@io_abseil_py//absl/flags",
+            requirement("pycountry"),
         ],
     )

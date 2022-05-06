@@ -1,0 +1,53 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+#
+# Visual norm rewrite rules for Persian.
+#
+# See the sources for these transformations in `README.md` in this directory.
+
+uname_prefix: "ARABIC LETTER"
+
+# Source: r12a.
+item {
+  uname: "HEH GOAL" raw: "ہ"
+  to_uname: "HEH" to_raw: "ه"
+}
+
+# Source: r12a.
+item {
+  uname: "AE" raw: "ە"
+  to_uname: "HEH" to_raw: "ه"
+}
+
+# ------------------------------------------------------------------------------
+# A single combining character + base form maps to a composed form.
+# ------------------------------------------------------------------------------
+# The sources `r12a` favors decomposition. See:
+#   https://r12a.github.io/scripts/arabic/arab-fa#non_canonical_hamza
+# But for consistency with other languages we do the opposite below.
+
+# Source: Mohtaj (2018) and r12a.
+item {
+  uname: ["HEH", "HAMZA ABOVE"] raw: "هٔ"
+  to_uname: "HEH WITH YEH ABOVE" to_raw: "ۀ"
+}
+
+# Source: r12a.
+item {
+  uname: ["FARSI YEH", "HAMZA ABOVE"] raw: "یٔ"
+  to_uname: "YEH WITH HAMZA ABOVE" to_raw: "ئ"
+}

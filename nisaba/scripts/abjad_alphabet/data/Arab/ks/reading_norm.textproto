@@ -1,0 +1,105 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+#
+# Reading normalization rewrite rules for Kashmiri.
+
+uname_prefix: ["ARABIC", "ARABIC LETTER"]
+
+# The <TEH MARBUTA GOAL> is specific to Arabic. See the corresponding discussion
+# regarding this letter in reading normalization grammar for Urdu.
+item {
+  uname: "TEH MARBUTA" raw: "ة"
+  to_uname: "TEH MARBUTA GOAL" to_raw: "ۃ"
+}
+
+# This combination includes not a dot but rather an `empty dot`, which
+# Unicode terms as a centre low stop and in no way can be normalised
+# to Arabic BEH. According to Kashmiri experts this is a wrong usage
+# mostly arising from faulty keyboards.
+item {
+  uname: ["DOTLESS BEH", "EMPTY CENTRE LOW STOP"] raw: "ٮ۪"
+  to_uname: "BEH" to_raw: "ب"
+  # Or: to_uname: "KASHMIRI YEH" to_raw: "ؠ"
+}
+
+# According to Kashmiri experts, `KASHMIRI YEH` is the palatalization marker
+# that is often replaced with `YEH WITH TAIL` due to inadequate input methods.
+# On `KASHMIRI YEH` see:
+#   https://www.unicode.org/L2/L2009/09215-kashmiri.pdf
+item {
+  uname: "YEH WITH TAIL" raw: "ۍ"
+  to_uname: "KASHMIRI YEH" to_raw: "ؠ"
+}
+
+item {
+  uname: "KIRGHIZ OE" raw: "ۅ"
+  to_uname: "WAW WITH RING" to_raw: "ۄ"
+}
+
+# ------------------------------------------------------------------------------
+# Corrective normalization.
+# ------------------------------------------------------------------------------
+# Because of Visual similarity Arabic characters are used where Kashmiri needs
+# to be used.
+
+item {
+  uname: "ALEF MAKSURA" raw: "ى"
+  to_uname: ["FARSI YEH", "SUPERSCRIPT ALEF"] to_raw: "یٰ"
+}
+
+item {
+  uname: "KAF" raw: "ك"
+  to_uname: "KEHEH" to_raw: "ک"
+}
+
+item {
+  uname: "YEH" raw: "ي"
+  to_uname: "FARSI YEH" to_raw: "ی"
+}
+
+# ----------------------------------------------------
+# Confusables with difference in position of the dots:
+# ----------------------------------------------------
+
+# Unattested.
+#item {
+#  uname: "TTEHEH" raw: "ٺ"
+#  to_uname: "TEH" to_raw: "ت"
+#}
+
+# Unattested.
+#item {
+#  uname: "TEH WITH THREE DOTS ABOVE DOWNWARDS" raw: "ٽ"
+#  to_uname: "THEH" to_raw: "ث"
+#}
+
+# Unattested.
+#item {
+#  uname: "HAH WITH THREE DOTS POINTING UPWARDS BELOW" raw: "ݘ"
+#  to_uname: "TCHEH" to_raw: "چ"
+#}
+
+# ----------------------------------------------------
+# Confusables where a digit is used instead of Aleph:
+# ----------------------------------------------------
+
+# Digit+alef confused with alef madda.
+# Unattested.
+#item {
+#  uname: ["ARABIC-INDIC DIGIT ONE", "MADDAH ABOVE"] raw: "١ٓ"
+#  to_uname: "ALEF WITH MADDA ABOVE" to_raw: "آ"
+#}

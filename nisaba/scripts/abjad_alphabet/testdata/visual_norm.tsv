@@ -1,0 +1,313 @@
+# Unit tests for visual norm of abjad / alphabet script languages.
+
+# ----
+# Presentation Forms
+# ----
+
+# LAM-ALEF
+UR	ﻻ	لا
+FA	ﻻ	لا
+KS	ﻻ	لا
+
+# ----
+# Urdu
+# ----
+
+# Can do NFC as well (ALEF WITH HAMZA ABOVE).
+UR	غالبأ	غالبأ
+
+# ZWS
+UR	آ​پ	آپ
+
+# ZWJ
+UR	آغا‍ز	آغاز
+
+# U
+UR	وُضع	ۇضع
+
+# ALEF WITH WAVY HAMZA ABOVE → ALEF WITH HAMZA ABOVE
+UR	ٲَفْرَاد	أَفْرَاد
+
+# ALEF WITH WAVY HAMZA BELOW → ALEF WITH HAMZA BELOW
+UR	ٳنشاء	إںشاء
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+UR	آزادیٔ	آزادئ
+UR	انیٔ	اںئ
+UR	آزادیٔمذہب	آزادئمذہب
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+UR	مذاہٮٜ	مذاہب
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+UR	ازح۬ود	ازخود
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+UR	تد۬کرہ	تذکرہ
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+UR	تنر۬لی	تںزلی
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+UR	خروسۛ	خروش
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+UR	راص۬ی	راضی
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+UR	ع۬لہ	غلہ
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+UR	ڡ۬اتح	فاتح
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+UR	قرباں۬	قربان
+
+# DAL, SMALL HIGH TAH → DDAL
+UR	مدؕھوں	مڈھوں
+
+# REH, SMALL HIGH TAH → RREH
+UR	اوکارؕہ	اوکاڑہ
+
+# REH, SMALL HIGH THREE DOTS → JEH
+UR	وررۛن	ورژن
+
+# HEH, HAMZA ABOVE → HEH GOAL WITH HAMZA ABOVE
+UR	شدۀ	شدۂ
+UR	جلوهٔ	جلوۂ
+
+# Tests for the normalizations at word initial position
+
+# KAF(Arabic) → KEHEH(Urdu).
+# (Updates medial YEH → FARSI YEH as well.)
+UR	كيا	کیا
+
+# HEH(Arabic) → HEH DOACHASHMEE(Urdu).
+UR	هی	ھی
+
+# YEH → FARSI YEH
+UR	يہ	یہ
+
+# QAF WITH DOT ABOVE → FEH
+UR	ڧهرست	فھرست
+
+# RNOON → TTEH
+UR	ڻیسٹ	ٹیسٹ
+
+# NOON → NOON GHUNNA
+UR	نئی	ںئی
+
+# Tests for the normalizations at word medial position
+
+# KAF(Arabic) → KEHEH(Urdu).
+UR	آكسیٹان	آکسیٹان
+
+# HEH(Arabic) → HEH DOACHASHMEE(Urdu).
+UR	چوتهی	چوتھی
+
+# YEH → FARSI YEH
+UR	ہيں	ہیں
+
+# QAF WITH DOT ABOVE → FEH
+UR	مقڧل	مقفل
+
+# RNOON → TTEH
+UR	کیڻیلان	کیٹیلان
+
+# NOON → NOON GHUNNA
+# (Final NOON remains as it is.)
+UR	ناظرین	ںاظرین
+
+# Tests for the normalizations at word final position
+
+# ALEF MAKSURA → FARSI YEH
+UR	کى	کی
+
+# Tests for the normalizations at isolated position
+
+UR	ه	ہ
+UR	ى	ی
+UR	ۀ	ۂ
+
+# --------
+# Kashmiri
+# --------
+
+# Can do NFC as well (HEH GOAL WITH HAMZA ABOVE).
+KS	ۂتۍ	ۂتۍ
+
+# HEH GOAL WITH HAMZA ABOVE
+KS	تۂندۍ	تۂندۍ
+KS	ۂسۍ	ۂسۍ
+KS	پۂلۍ	پۂلۍ
+
+# HAH WITH HAMZA ABOVE
+KS	حٔثۍ	ځثۍ
+KS	سَرحٔدی	سَرځدی
+KS	وُنحٔسیٖن	ۇنځسیٖن
+
+# REH WITH HAMZA ABOVE
+KS	فرٔج	فݬج
+KS	پیتݬ	پیتݬ
+KS	کرٔن	کݬن
+
+# OE
+KS	ہیوٚل	ہیۆل
+KS	یوٚتام	یۆتام
+KS	گیوٚو	گیۆو
+KS	کوٚر	کۆر
+
+# U
+KS	یِوُن	یِۇن
+KS	ہووُن	ہوۇن
+KS	گاشراوُن	گاشراۇن
+
+# YEH WITH HAMZA ABOVE
+KS	یٔہے	ئہے
+KS	میٔژ	مئژ
+KS	حکایٔژ	حکائژ
+
+# YEH WITH SMALL V
+KS	ہیٚرِم	ہێرِم
+KS	کارریٚلِہ	کاررێلِہ
+KS	ییٚلہ	یێلہ
+KS	کیٚر	کێر
+
+# ALEF + WAVY HAMZA BELOW
+KS	كٳم	كاٟم
+
+# ------
+# Sindhi
+# ------
+
+# U
+SD	نوُح	نۇح
+SD	آئوُن	آئۇن
+SD	سوُرن	سۇرن
+
+# Normalizations at word initial position
+
+# KAF → KEHEH
+SD	كان	کان
+
+# HEH → HEH DOACHASHMEE
+SD	هزار	ھزار
+
+# FARSI YEH → YEH
+SD	یوڪرينين	يوڪرينين
+
+# QAF WITH DOT ABOVE → FEH
+SD	ڧعال	فعال
+
+# Normalizations for isolated characters
+
+SD	ه	ہ
+
+# -------
+# Panjabi
+# -------
+
+# HEH GOAL
+PA	همای	ہمای
+PA	کننده	کنندہ
+PA	شهبازبیضا	شہبازبیضا
+
+# U
+PA	آگوُ	آگۇ
+PA	لاگوُ	لاگۇ
+PA	لگوُ	لگۇ
+
+# ----------------
+# Kurdish (Sorani)
+# ----------------
+# TODO: Double-check that these are indeed Kurdish (rather than
+# Persian) words.
+
+CKB	جەلەنده‌ر	جەلەندەر
+CKB	ئیێمه‌	ئیێمە
+CKB	گه‌یشت	گەیشت
+
+# ----------------
+# Persian
+# ----------------
+
+# HE
+# Mix of foreign-looking words (e.g. Pashto) from Persian Wikipedia.
+FA	دوہمی	دوهمی
+FA	قندہار	قندهار
+FA	ریشەهای	ریشههای
+FA	بەڕۆژه	بهڕۆژه
+FA	اینکە	اینکه
+
+# HEH + HAMZA ABVOVE.
+FA	رشتهٔ	رشتۀ
+FA	تکیهٔ	تکیۀ
+FA	باشندهٔ	باشندۀ
+
+# FARSI YEH + HAMZA ABOVE.
+FA	پروتیٔینی	پروتئینی
+FA	پانتیٔون	پانتئون
+
+# ----------------
+# Malay
+# ----------------
+
+# Tests for the normalizations at word initial position.
+
+# KEHEH.
+MS	كونچي	کونچي
+
+# HEH.
+MS	ھجرية	هجرية
+
+# YEH.
+MS	یاسا	ياسا
+
+# NOON WITH THREE DOTS ABOVE.
+MS	پارلاق	ڽارلاق
+
+# Tests for the normalizations at word medial position.
+
+# KEHEH.
+MS	ڤعكعك	ڤعکعك
+
+# HEH.
+MS	فرفيسھن	فرفيسهن
+
+# YEH.
+MS	مریك	مريك
+
+# NOON WITH THREE DOTS ABOVE.
+MS	ڤوپا	ڤوڽا
+
+# --------
+# Uighur:
+# --------
+
+# U.
+UG	وَرَسُوُلُهٗ	وَرَسُۇلُھٗ
+
+# YU.
+UG	لَوٰاتُ	لَۈاتُ
+
+# FEH.
+UG	گىراڧىكنىڭ	گىرافىكنىڭ
+
+# Isolated forms (AE).
+UG	ہ	ە
+
+# Tests for the normalizations at word initial position.
+
+# KAF.
+UG	کہا	كہا
+
+# HEH DOACHASHMEE.
+UG	أهل	أھل
+
+# YEH.
+UG	یاشاغان	ياشاغان
+
+# Tests for normalization at word-final position.
+
+# YEH.
+UG	تورکی	توركى

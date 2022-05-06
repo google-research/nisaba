@@ -1,0 +1,52 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+#
+# Reading normalization rewrite rules for Persian.
+#
+# See the sources for these transformations in `README.md` in this directory.
+
+uname_prefix: "ARABIC LETTER"
+
+# Source: r12a.
+item {
+  uname: "YEH" raw: "ي"
+  to_uname: "FARSI YEH" to_raw: "ی"
+}
+
+# Source: r12a.
+item {
+  uname: "TEH MARBUTA GOAL" raw: "ۃ"
+  to_uname: "TEH MARBUTA" to_raw: "ة"
+}
+
+# Source: r12a.
+item {
+  uname: "KAF" raw: "ك"
+  to_uname: "KEHEH" to_raw: "ک"
+}
+
+# Source: Mohtaj (2018).
+item {
+  uname: "REH WITH SMALL V" raw: "ڒ"
+  to_uname: "REH" to_raw: "ر"
+}
+
+# Source: Mohtaj (2018).
+item {
+  uname: "WAW WITH HAMZA ABOVE" raw: "ؤ"
+  to_uname: "WAW" to_raw: "و"
+}

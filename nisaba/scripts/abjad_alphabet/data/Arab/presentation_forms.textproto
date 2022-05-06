@@ -1,0 +1,3542 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+# Generated from UnicodeData.txt and also from
+# NFKC Unicode transformations applied to Arabic Presentation Forms-A.
+# See:
+#   - https://unicode.org/Public/UNIDATA/UnicodeData.txt
+#   - https://en.wikipedia.org/wiki/Arabic_Presentation_Forms-A
+#   - https://unicode.org/reports/tr15/
+#
+# Note:
+#   Some forms are only supported starting from Unicode 14.0. These are
+#   presently commented out.
+
+uname_prefix: ["ARABIC", "ARABIC LETTER"]
+
+item {  # "U+FB50"
+  uname: "ALEF WASLA ISOLATED FORM" raw: "ﭐ"
+  to_uname: "ALEF WASLA" to_raw: "ٱ"
+}
+
+item {  # "U+FB51"
+  uname: "ALEF WASLA FINAL FORM" raw: "ﭑ"
+  to_uname: "ALEF WASLA" to_raw: "ٱ"
+}
+
+item {  # "U+FB52"
+  uname: "BEEH ISOLATED FORM" raw: "ﭒ"
+  to_uname: "BEEH" to_raw: "ٻ"
+}
+
+item {  # "U+FB53"
+  uname: "BEEH FINAL FORM" raw: "ﭓ"
+  to_uname: "BEEH" to_raw: "ٻ"
+}
+
+item {  # "U+FB54"
+  uname: "BEEH INITIAL FORM" raw: "ﭔ"
+  to_uname: "BEEH" to_raw: "ٻ"
+}
+
+item {  # "U+FB55"
+  uname: "BEEH MEDIAL FORM" raw: "ﭕ"
+  to_uname: "BEEH" to_raw: "ٻ"
+}
+
+item {  # "U+FB56"
+  uname: "PEH ISOLATED FORM" raw: "ﭖ"
+  to_uname: "PEH" to_raw: "پ"
+}
+
+item {  # "U+FB57"
+  uname: "PEH FINAL FORM" raw: "ﭗ"
+  to_uname: "PEH" to_raw: "پ"
+}
+
+item {  # "U+FB58"
+  uname: "PEH INITIAL FORM" raw: "ﭘ"
+  to_uname: "PEH" to_raw: "پ"
+}
+
+item {  # "U+FB59"
+  uname: "PEH MEDIAL FORM" raw: "ﭙ"
+  to_uname: "PEH" to_raw: "پ"
+}
+
+item {  # "U+FB5A"
+  uname: "BEHEH ISOLATED FORM" raw: "ﭚ"
+  to_uname: "BEHEH" to_raw: "ڀ"
+}
+
+item {  # "U+FB5B"
+  uname: "BEHEH FINAL FORM" raw: "ﭛ"
+  to_uname: "BEHEH" to_raw: "ڀ"
+}
+
+item {  # "U+FB5C"
+  uname: "BEHEH INITIAL FORM" raw: "ﭜ"
+  to_uname: "BEHEH" to_raw: "ڀ"
+}
+
+item {  # "U+FB5D"
+  uname: "BEHEH MEDIAL FORM" raw: "ﭝ"
+  to_uname: "BEHEH" to_raw: "ڀ"
+}
+
+item {  # "U+FB5E"
+  uname: "TTEHEH ISOLATED FORM" raw: "ﭞ"
+  to_uname: "TTEHEH" to_raw: "ٺ"
+}
+
+item {  # "U+FB5F"
+  uname: "TTEHEH FINAL FORM" raw: "ﭟ"
+  to_uname: "TTEHEH" to_raw: "ٺ"
+}
+
+item {  # "U+FB60"
+  uname: "TTEHEH INITIAL FORM" raw: "ﭠ"
+  to_uname: "TTEHEH" to_raw: "ٺ"
+}
+
+item {  # "U+FB61"
+  uname: "TTEHEH MEDIAL FORM" raw: "ﭡ"
+  to_uname: "TTEHEH" to_raw: "ٺ"
+}
+
+item {  # "U+FB62"
+  uname: "TEHEH ISOLATED FORM" raw: "ﭢ"
+  to_uname: "TEHEH" to_raw: "ٿ"
+}
+
+item {  # "U+FB63"
+  uname: "TEHEH FINAL FORM" raw: "ﭣ"
+  to_uname: "TEHEH" to_raw: "ٿ"
+}
+
+item {  # "U+FB64"
+  uname: "TEHEH INITIAL FORM" raw: "ﭤ"
+  to_uname: "TEHEH" to_raw: "ٿ"
+}
+
+item {  # "U+FB65"
+  uname: "TEHEH MEDIAL FORM" raw: "ﭥ"
+  to_uname: "TEHEH" to_raw: "ٿ"
+}
+
+item {  # "U+FB66"
+  uname: "TTEH ISOLATED FORM" raw: "ﭦ"
+  to_uname: "TTEH" to_raw: "ٹ"
+}
+
+item {  # "U+FB67"
+  uname: "TTEH FINAL FORM" raw: "ﭧ"
+  to_uname: "TTEH" to_raw: "ٹ"
+}
+
+item {  # "U+FB68"
+  uname: "TTEH INITIAL FORM" raw: "ﭨ"
+  to_uname: "TTEH" to_raw: "ٹ"
+}
+
+item {  # "U+FB69"
+  uname: "TTEH MEDIAL FORM" raw: "ﭩ"
+  to_uname: "TTEH" to_raw: "ٹ"
+}
+
+item {  # "U+FB6A"
+  uname: "VEH ISOLATED FORM" raw: "ﭪ"
+  to_uname: "VEH" to_raw: "ڤ"
+}
+
+item {  # "U+FB6B"
+  uname: "VEH FINAL FORM" raw: "ﭫ"
+  to_uname: "VEH" to_raw: "ڤ"
+}
+
+item {  # "U+FB6C"
+  uname: "VEH INITIAL FORM" raw: "ﭬ"
+  to_uname: "VEH" to_raw: "ڤ"
+}
+
+item {  # "U+FB6D"
+  uname: "VEH MEDIAL FORM" raw: "ﭭ"
+  to_uname: "VEH" to_raw: "ڤ"
+}
+
+item {  # "U+FB6E"
+  uname: "PEHEH ISOLATED FORM" raw: "ﭮ"
+  to_uname: "PEHEH" to_raw: "ڦ"
+}
+
+item {  # "U+FB6F"
+  uname: "PEHEH FINAL FORM" raw: "ﭯ"
+  to_uname: "PEHEH" to_raw: "ڦ"
+}
+
+item {  # "U+FB70"
+  uname: "PEHEH INITIAL FORM" raw: "ﭰ"
+  to_uname: "PEHEH" to_raw: "ڦ"
+}
+
+item {  # "U+FB71"
+  uname: "PEHEH MEDIAL FORM" raw: "ﭱ"
+  to_uname: "PEHEH" to_raw: "ڦ"
+}
+
+item {  # "U+FB72"
+  uname: "DYEH ISOLATED FORM" raw: "ﭲ"
+  to_uname: "DYEH" to_raw: "ڄ"
+}
+
+item {  # "U+FB73"
+  uname: "DYEH FINAL FORM" raw: "ﭳ"
+  to_uname: "DYEH" to_raw: "ڄ"
+}
+
+item {  # "U+FB74"
+  uname: "DYEH INITIAL FORM" raw: "ﭴ"
+  to_uname: "DYEH" to_raw: "ڄ"
+}
+
+item {  # "U+FB75"
+  uname: "DYEH MEDIAL FORM" raw: "ﭵ"
+  to_uname: "DYEH" to_raw: "ڄ"
+}
+
+item {  # "U+FB76"
+  uname: "NYEH ISOLATED FORM" raw: "ﭶ"
+  to_uname: "NYEH" to_raw: "ڃ"
+}
+
+item {  # "U+FB77"
+  uname: "NYEH FINAL FORM" raw: "ﭷ"
+  to_uname: "NYEH" to_raw: "ڃ"
+}
+
+item {  # "U+FB78"
+  uname: "NYEH INITIAL FORM" raw: "ﭸ"
+  to_uname: "NYEH" to_raw: "ڃ"
+}
+
+item {  # "U+FB79"
+  uname: "NYEH MEDIAL FORM" raw: "ﭹ"
+  to_uname: "NYEH" to_raw: "ڃ"
+}
+
+item {  # "U+FB7A"
+  uname: "TCHEH ISOLATED FORM" raw: "ﭺ"
+  to_uname: "TCHEH" to_raw: "چ"
+}
+
+item {  # "U+FB7B"
+  uname: "TCHEH FINAL FORM" raw: "ﭻ"
+  to_uname: "TCHEH" to_raw: "چ"
+}
+
+item {  # "U+FB7C"
+  uname: "TCHEH INITIAL FORM" raw: "ﭼ"
+  to_uname: "TCHEH" to_raw: "چ"
+}
+
+item {  # "U+FB7D"
+  uname: "TCHEH MEDIAL FORM" raw: "ﭽ"
+  to_uname: "TCHEH" to_raw: "چ"
+}
+
+item {  # "U+FB7E"
+  uname: "TCHEHEH ISOLATED FORM" raw: "ﭾ"
+  to_uname: "TCHEHEH" to_raw: "ڇ"
+}
+
+item {  # "U+FB7F"
+  uname: "TCHEHEH FINAL FORM" raw: "ﭿ"
+  to_uname: "TCHEHEH" to_raw: "ڇ"
+}
+
+item {  # "U+FB80"
+  uname: "TCHEHEH INITIAL FORM" raw: "ﮀ"
+  to_uname: "TCHEHEH" to_raw: "ڇ"
+}
+
+item {  # "U+FB81"
+  uname: "TCHEHEH MEDIAL FORM" raw: "ﮁ"
+  to_uname: "TCHEHEH" to_raw: "ڇ"
+}
+
+item {  # "U+FB82"
+  uname: "DDAHAL ISOLATED FORM" raw: "ﮂ"
+  to_uname: "DDAHAL" to_raw: "ڍ"
+}
+
+item {  # "U+FB83"
+  uname: "DDAHAL FINAL FORM" raw: "ﮃ"
+  to_uname: "DDAHAL" to_raw: "ڍ"
+}
+
+item {  # "U+FB84"
+  uname: "DAHAL ISOLATED FORM" raw: "ﮄ"
+  to_uname: "DAHAL" to_raw: "ڌ"
+}
+
+item {  # "U+FB85"
+  uname: "DAHAL FINAL FORM" raw: "ﮅ"
+  to_uname: "DAHAL" to_raw: "ڌ"
+}
+
+item {  # "U+FB88"
+  uname: "DDAL ISOLATED FORM" raw: "ﮈ"
+  to_uname: "DDAL" to_raw: "ڈ"
+}
+
+item {  # "U+FB89"
+  uname: "DDAL FINAL FORM" raw: "ﮉ"
+  to_uname: "DDAL" to_raw: "ڈ"
+}
+
+item {  # "U+FB8A"
+  uname: "JEH ISOLATED FORM" raw: "ﮊ"
+  to_uname: "JEH" to_raw: "ژ"
+}
+
+item {  # "U+FB8B"
+  uname: "JEH FINAL FORM" raw: "ﮋ"
+  to_uname: "JEH" to_raw: "ژ"
+}
+
+item {  # "U+FB8C"
+  uname: "RREH ISOLATED FORM" raw: "ﮌ"
+  to_uname: "RREH" to_raw: "ڑ"
+}
+
+item {  # "U+FB8D"
+  uname: "RREH FINAL FORM" raw: "ﮍ"
+  to_uname: "RREH" to_raw: "ڑ"
+}
+
+item {  # "U+FB8E"
+  uname: "KEHEH ISOLATED FORM" raw: "ﮎ"
+  to_uname: "KEHEH" to_raw: "ک"
+}
+
+item {  # "U+FB8F"
+  uname: "KEHEH FINAL FORM" raw: "ﮏ"
+  to_uname: "KEHEH" to_raw: "ک"
+}
+
+item {  # "U+FB90"
+  uname: "KEHEH INITIAL FORM" raw: "ﮐ"
+  to_uname: "KEHEH" to_raw: "ک"
+}
+
+item {  # "U+FB91"
+  uname: "KEHEH MEDIAL FORM" raw: "ﮑ"
+  to_uname: "KEHEH" to_raw: "ک"
+}
+
+item {  # "U+FB92"
+  uname: "GAF ISOLATED FORM" raw: "ﮒ"
+  to_uname: "GAF" to_raw: "گ"
+}
+
+item {  # "U+FB93"
+  uname: "GAF FINAL FORM" raw: "ﮓ"
+  to_uname: "GAF" to_raw: "گ"
+}
+
+item {  # "U+FB94"
+  uname: "GAF INITIAL FORM" raw: "ﮔ"
+  to_uname: "GAF" to_raw: "گ"
+}
+
+item {  # "U+FB95"
+  uname: "GAF MEDIAL FORM" raw: "ﮕ"
+  to_uname: "GAF" to_raw: "گ"
+}
+
+item {  # "U+FB96"
+  uname: "GUEH ISOLATED FORM" raw: "ﮖ"
+  to_uname: "GUEH" to_raw: "ڳ"
+}
+
+item {  # "U+FB97"
+  uname: "GUEH FINAL FORM" raw: "ﮗ"
+  to_uname: "GUEH" to_raw: "ڳ"
+}
+
+item {  # "U+FB98"
+  uname: "GUEH INITIAL FORM" raw: "ﮘ"
+  to_uname: "GUEH" to_raw: "ڳ"
+}
+
+item {  # "U+FB99"
+  uname: "GUEH MEDIAL FORM" raw: "ﮙ"
+  to_uname: "GUEH" to_raw: "ڳ"
+}
+
+item {  # "U+FB9A"
+  uname: "NGOEH ISOLATED FORM" raw: "ﮚ"
+  to_uname: "NGOEH" to_raw: "ڱ"
+}
+
+item {  # "U+FB9B"
+  uname: "NGOEH FINAL FORM" raw: "ﮛ"
+  to_uname: "NGOEH" to_raw: "ڱ"
+}
+
+item {  # "U+FB9C"
+  uname: "NGOEH INITIAL FORM" raw: "ﮜ"
+  to_uname: "NGOEH" to_raw: "ڱ"
+}
+
+item {  # "U+FB9D"
+  uname: "NGOEH MEDIAL FORM" raw: "ﮝ"
+  to_uname: "NGOEH" to_raw: "ڱ"
+}
+
+item {  # "U+FB9E"
+  uname: "NOON GHUNNA ISOLATED FORM" raw: "ﮞ"
+  to_uname: "NOON GHUNNA" to_raw: "ں"
+}
+
+item {  # "U+FB9F"
+  uname: "NOON GHUNNA FINAL FORM" raw: "ﮟ"
+  to_uname: "NOON GHUNNA" to_raw: "ں"
+}
+
+item {  # "U+FBA0"
+  uname: "RNOON ISOLATED FORM" raw: "ﮠ"
+  to_uname: "RNOON" to_raw: "ڻ"
+}
+
+item {  # "U+FBA1"
+  uname: "RNOON FINAL FORM" raw: "ﮡ"
+  to_uname: "RNOON" to_raw: "ڻ"
+}
+
+item {  # "U+FBA2"
+  uname: "RNOON INITIAL FORM" raw: "ﮢ"
+  to_uname: "RNOON" to_raw: "ڻ"
+}
+
+item {  # "U+FBA3"
+  uname: "RNOON MEDIAL FORM" raw: "ﮣ"
+  to_uname: "RNOON" to_raw: "ڻ"
+}
+
+item {  # "U+FBA4"
+  uname: "HEH WITH YEH ABOVE ISOLATED FORM" raw: "ﮤ"
+  to_uname: "HEH WITH YEH ABOVE" to_raw: "ۀ"
+}
+
+item {  # "U+FBA5"
+  uname: "HEH WITH YEH ABOVE FINAL FORM" raw: "ﮥ"
+  to_uname: "HEH WITH YEH ABOVE" to_raw: "ۀ"
+}
+
+item {  # "U+FBA6"
+  uname: "HEH GOAL ISOLATED FORM" raw: "ﮦ"
+  to_uname: "HEH GOAL" to_raw: "ہ"
+}
+
+item {  # "U+FBA7"
+  uname: "HEH GOAL FINAL FORM" raw: "ﮧ"
+  to_uname: "HEH GOAL" to_raw: "ہ"
+}
+
+item {  # "U+FBA8"
+  uname: "HEH GOAL INITIAL FORM" raw: "ﮨ"
+  to_uname: "HEH GOAL" to_raw: "ہ"
+}
+
+item {  # "U+FBA9"
+  uname: "HEH GOAL MEDIAL FORM" raw: "ﮩ"
+  to_uname: "HEH GOAL" to_raw: "ہ"
+}
+
+item {  # "U+FBAA"
+  uname: "HEH DOACHASHMEE ISOLATED FORM" raw: "ﮪ"
+  to_uname: "HEH DOACHASHMEE" to_raw: "ھ"
+}
+
+item {  # "U+FBAB"
+  uname: "HEH DOACHASHMEE FINAL FORM" raw: "ﮫ"
+  to_uname: "HEH DOACHASHMEE" to_raw: "ھ"
+}
+
+item {  # "U+FBAC"
+  uname: "HEH DOACHASHMEE INITIAL FORM" raw: "ﮬ"
+  to_uname: "HEH DOACHASHMEE" to_raw: "ھ"
+}
+
+item {  # "U+FBAD"
+  uname: "HEH DOACHASHMEE MEDIAL FORM" raw: "ﮭ"
+  to_uname: "HEH DOACHASHMEE" to_raw: "ھ"
+}
+
+item {  # "U+FBAE"
+  uname: "YEH BARREE ISOLATED FORM" raw: "ﮮ"
+  to_uname: "YEH BARREE" to_raw: "ے"
+}
+
+item {  # "U+FBAF"
+  uname: "YEH BARREE FINAL FORM" raw: "ﮯ"
+  to_uname: "YEH BARREE" to_raw: "ے"
+}
+
+item {  # "U+FBB0"
+  uname: "YEH BARREE WITH HAMZA ABOVE ISOLATED FORM" raw: "ﮰ"
+  to_uname: "YEH BARREE WITH HAMZA ABOVE" to_raw: "ۓ"
+}
+
+item {  # "U+FBB1"
+  uname: "YEH BARREE WITH HAMZA ABOVE FINAL FORM" raw: "ﮱ"
+  to_uname: "YEH BARREE WITH HAMZA ABOVE" to_raw: "ۓ"
+}
+
+item {  # "U+FBD3"
+  uname: "NG ISOLATED FORM" raw: "ﯓ"
+  to_uname: "NG" to_raw: "ڭ"
+}
+
+item {  # "U+FBD4"
+  uname: "NG FINAL FORM" raw: "ﯔ"
+  to_uname: "NG" to_raw: "ڭ"
+}
+
+item {  # "U+FBD5"
+  uname: "NG INITIAL FORM" raw: "ﯕ"
+  to_uname: "NG" to_raw: "ڭ"
+}
+
+item {  # "U+FBD6"
+  uname: "NG MEDIAL FORM" raw: "ﯖ"
+  to_uname: "NG" to_raw: "ڭ"
+}
+
+item {  # "U+FBD7"
+  uname: "U ISOLATED FORM" raw: "ﯗ"
+  to_uname: "U" to_raw: "ۇ"
+}
+
+item {  # "U+FBD8"
+  uname: "U FINAL FORM" raw: "ﯘ"
+  to_uname: "U" to_raw: "ۇ"
+}
+
+item {  # "U+FBD9"
+  uname: "OE ISOLATED FORM" raw: "ﯙ"
+  to_uname: "OE" to_raw: "ۆ"
+}
+
+item {  # "U+FBDA"
+  uname: "OE FINAL FORM" raw: "ﯚ"
+  to_uname: "OE" to_raw: "ۆ"
+}
+
+item {  # "U+FBDD"
+  uname: "U WITH HAMZA ABOVE ISOLATED FORM" raw: "ﯝ"
+  to_uname: "U WITH HAMZA ABOVE" to_raw: "ٷ"
+}
+
+item {  # "U+FBDE"
+  uname: "VE ISOLATED FORM" raw: "ﯞ"
+  to_uname: "VE" to_raw: "ۋ"
+}
+
+item {  # "U+FBDF"
+  uname: "VE FINAL FORM" raw: "ﯟ"
+  to_uname: "VE" to_raw: "ۋ"
+}
+
+item {  # "U+FBE0"
+  uname: "KIRGHIZ OE ISOLATED FORM" raw: "ﯠ"
+  to_uname: "KIRGHIZ OE" to_raw: "ۅ"
+}
+
+item {  # "U+FBE1"
+  uname: "KIRGHIZ OE FINAL FORM" raw: "ﯡ"
+  to_uname: "KIRGHIZ OE" to_raw: "ۅ"
+}
+
+item {  # "U+FBE4"
+  uname: "E ISOLATED FORM" raw: "ﯤ"
+  to_uname: "E" to_raw: "ې"
+}
+
+item {  # "U+FBE5"
+  uname: "E FINAL FORM" raw: "ﯥ"
+  to_uname: "E" to_raw: "ې"
+}
+
+item {  # "U+FBE6"
+  uname: "E INITIAL FORM" raw: "ﯦ"
+  to_uname: "E" to_raw: "ې"
+}
+
+item {  # "U+FBE7"
+  uname: "E MEDIAL FORM" raw: "ﯧ"
+  to_uname: "E" to_raw: "ې"
+}
+
+item {  # "U+FBE8"
+  uname: "UIGHUR KAZAKH KIRGHIZ ALEF MAKSURA INITIAL FORM" raw: "ﯨ"
+  to_uname: "ALEF MAKSURA" to_raw: "ى"
+}
+
+item {  # "U+FBE9"
+  uname: "UIGHUR KAZAKH KIRGHIZ ALEF MAKSURA MEDIAL FORM" raw: "ﯩ"
+  to_uname: "ALEF MAKSURA" to_raw: "ى"
+}
+
+item {  # "U+FBEA"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH ALEF ISOLATED FORM" raw: "ﯪ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "ALEF"] to_raw: "ئا"
+}
+
+item {  # "U+FBEB"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH ALEF FINAL FORM" raw: "ﯫ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "ALEF"] to_raw: "ئا"
+}
+
+item {  # "U+FBEC"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH AE ISOLATED FORM" raw: "ﯬ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "AE"] to_raw: "ئە"
+}
+
+item {  # "U+FBED"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH AE FINAL FORM" raw: "ﯭ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "AE"] to_raw: "ئە"
+}
+
+item {  # "U+FBEE"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH WAW ISOLATED FORM" raw: "ﯮ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "WAW"] to_raw: "ئو"
+}
+
+item {  # "U+FBEF"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH WAW FINAL FORM" raw: "ﯯ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "WAW"] to_raw: "ئو"
+}
+
+item {  # "U+FBF0"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH U ISOLATED FORM" raw: "ﯰ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "U"] to_raw: "ئۇ"
+}
+
+item {  # "U+FBF1"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH U FINAL FORM" raw: "ﯱ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "U"] to_raw: "ئۇ"
+}
+
+item {  # "U+FBF2"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH OE ISOLATED FORM" raw: "ﯲ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "OE"] to_raw: "ئۆ"
+}
+
+item {  # "U+FBF3"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH OE FINAL FORM" raw: "ﯳ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "OE"] to_raw: "ئۆ"
+}
+
+item {  # "U+FBF6"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH E ISOLATED FORM" raw: "ﯶ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "E"] to_raw: "ئې"
+}
+
+item {  # "U+FBF7"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH E FINAL FORM" raw: "ﯷ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "E"] to_raw: "ئې"
+}
+
+item {  # "U+FBF8"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH E INITIAL FORM" raw: "ﯸ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "E"] to_raw: "ئې"
+}
+
+item {  # "U+FBF9"
+  uname: "LIGATURE UIGHUR KIRGHIZ YEH WITH HAMZA ABOVE WITH ALEF MAKSURA ISOLATED FORM" raw: "ﯹ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "ALEF MAKSURA"] to_raw: "ئى"
+}
+
+item {  # "U+FBFA"
+  uname: "LIGATURE UIGHUR KIRGHIZ YEH WITH HAMZA ABOVE WITH ALEF MAKSURA FINAL FORM" raw: "ﯺ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "ALEF MAKSURA"] to_raw: "ئى"
+}
+
+item {  # "U+FBFB"
+  uname: "LIGATURE UIGHUR KIRGHIZ YEH WITH HAMZA ABOVE WITH ALEF MAKSURA INITIAL FORM" raw: "ﯻ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "ALEF MAKSURA"] to_raw: "ئى"
+}
+
+item {  # "U+FBFC"
+  uname: "FARSI YEH ISOLATED FORM" raw: "ﯼ"
+  to_uname: "FARSI YEH" to_raw: "ی"
+}
+
+item {  # "U+FBFD"
+  uname: "FARSI YEH FINAL FORM" raw: "ﯽ"
+  to_uname: "FARSI YEH" to_raw: "ی"
+}
+
+item {  # "U+FBFE"
+  uname: "FARSI YEH INITIAL FORM" raw: "ﯾ"
+  to_uname: "FARSI YEH" to_raw: "ی"
+}
+
+item {  # "U+FBFF"
+  uname: "FARSI YEH MEDIAL FORM" raw: "ﯿ"
+  to_uname: "FARSI YEH" to_raw: "ی"
+}
+
+item {  # "U+FC00"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH JEEM ISOLATED FORM" raw: "ﰀ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "JEEM"] to_raw: "ئج"
+}
+
+item {  # "U+FC01"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH HAH ISOLATED FORM" raw: "ﰁ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "HAH"] to_raw: "ئح"
+}
+
+item {  # "U+FC02"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH MEEM ISOLATED FORM" raw: "ﰂ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "MEEM"] to_raw: "ئم"
+}
+
+item {  # "U+FC03"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH ALEF MAKSURA ISOLATED FORM" raw: "ﰃ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "ALEF MAKSURA"] to_raw: "ئى"
+}
+
+item {  # "U+FC04"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH YEH ISOLATED FORM" raw: "ﰄ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "YEH"] to_raw: "ئي"
+}
+
+item {  # "U+FC05"
+  uname: "LIGATURE BEH WITH JEEM ISOLATED FORM" raw: "ﰅ"
+  to_uname: ["BEH", "JEEM"] to_raw: "بج"
+}
+
+item {  # "U+FC06"
+  uname: "LIGATURE BEH WITH HAH ISOLATED FORM" raw: "ﰆ"
+  to_uname: ["BEH", "HAH"] to_raw: "بح"
+}
+
+item {  # "U+FC07"
+  uname: "LIGATURE BEH WITH KHAH ISOLATED FORM" raw: "ﰇ"
+  to_uname: ["BEH", "KHAH"] to_raw: "بخ"
+}
+
+item {  # "U+FC08"
+  uname: "LIGATURE BEH WITH MEEM ISOLATED FORM" raw: "ﰈ"
+  to_uname: ["BEH", "MEEM"] to_raw: "بم"
+}
+
+item {  # "U+FC09"
+  uname: "LIGATURE BEH WITH ALEF MAKSURA ISOLATED FORM" raw: "ﰉ"
+  to_uname: ["BEH", "ALEF MAKSURA"] to_raw: "بى"
+}
+
+item {  # "U+FC0A"
+  uname: "LIGATURE BEH WITH YEH ISOLATED FORM" raw: "ﰊ"
+  to_uname: ["BEH", "YEH"] to_raw: "بي"
+}
+
+item {  # "U+FC0B"
+  uname: "LIGATURE TEH WITH JEEM ISOLATED FORM" raw: "ﰋ"
+  to_uname: ["TEH", "JEEM"] to_raw: "تج"
+}
+
+item {  # "U+FC0C"
+  uname: "LIGATURE TEH WITH HAH ISOLATED FORM" raw: "ﰌ"
+  to_uname: ["TEH", "HAH"] to_raw: "تح"
+}
+
+item {  # "U+FC0D"
+  uname: "LIGATURE TEH WITH KHAH ISOLATED FORM" raw: "ﰍ"
+  to_uname: ["TEH", "KHAH"] to_raw: "تخ"
+}
+
+item {  # "U+FC0E"
+  uname: "LIGATURE TEH WITH MEEM ISOLATED FORM" raw: "ﰎ"
+  to_uname: ["TEH", "MEEM"] to_raw: "تم"
+}
+
+item {  # "U+FC0F"
+  uname: "LIGATURE TEH WITH ALEF MAKSURA ISOLATED FORM" raw: "ﰏ"
+  to_uname: ["TEH", "ALEF MAKSURA"] to_raw: "تى"
+}
+
+item {  # "U+FC10"
+  uname: "LIGATURE TEH WITH YEH ISOLATED FORM" raw: "ﰐ"
+  to_uname: ["TEH", "YEH"] to_raw: "تي"
+}
+
+item {  # "U+FC11"
+  uname: "LIGATURE THEH WITH JEEM ISOLATED FORM" raw: "ﰑ"
+  to_uname: ["THEH", "JEEM"] to_raw: "ثج"
+}
+
+item {  # "U+FC12"
+  uname: "LIGATURE THEH WITH MEEM ISOLATED FORM" raw: "ﰒ"
+  to_uname: ["THEH", "MEEM"] to_raw: "ثم"
+}
+
+item {  # "U+FC13"
+  uname: "LIGATURE THEH WITH ALEF MAKSURA ISOLATED FORM" raw: "ﰓ"
+  to_uname: ["THEH", "ALEF MAKSURA"] to_raw: "ثى"
+}
+
+item {  # "U+FC14"
+  uname: "LIGATURE THEH WITH YEH ISOLATED FORM" raw: "ﰔ"
+  to_uname: ["THEH", "YEH"] to_raw: "ثي"
+}
+
+item {  # "U+FC15"
+  uname: "LIGATURE JEEM WITH HAH ISOLATED FORM" raw: "ﰕ"
+  to_uname: ["JEEM", "HAH"] to_raw: "جح"
+}
+
+item {  # "U+FC16"
+  uname: "LIGATURE JEEM WITH MEEM ISOLATED FORM" raw: "ﰖ"
+  to_uname: ["JEEM", "MEEM"] to_raw: "جم"
+}
+
+item {  # "U+FC17"
+  uname: "LIGATURE HAH WITH JEEM ISOLATED FORM" raw: "ﰗ"
+  to_uname: ["HAH", "JEEM"] to_raw: "حج"
+}
+
+item {  # "U+FC18"
+  uname: "LIGATURE HAH WITH MEEM ISOLATED FORM" raw: "ﰘ"
+  to_uname: ["HAH", "MEEM"] to_raw: "حم"
+}
+
+item {  # "U+FC19"
+  uname: "LIGATURE KHAH WITH JEEM ISOLATED FORM" raw: "ﰙ"
+  to_uname: ["KHAH", "JEEM"] to_raw: "خج"
+}
+
+item {  # "U+FC1A"
+  uname: "LIGATURE KHAH WITH HAH ISOLATED FORM" raw: "ﰚ"
+  to_uname: ["KHAH", "HAH"] to_raw: "خح"
+}
+
+item {  # "U+FC1B"
+  uname: "LIGATURE KHAH WITH MEEM ISOLATED FORM" raw: "ﰛ"
+  to_uname: ["KHAH", "MEEM"] to_raw: "خم"
+}
+
+item {  # "U+FC1C"
+  uname: "LIGATURE SEEN WITH JEEM ISOLATED FORM" raw: "ﰜ"
+  to_uname: ["SEEN", "JEEM"] to_raw: "سج"
+}
+
+item {  # "U+FC1D"
+  uname: "LIGATURE SEEN WITH HAH ISOLATED FORM" raw: "ﰝ"
+  to_uname: ["SEEN", "HAH"] to_raw: "سح"
+}
+
+item {  # "U+FC1E"
+  uname: "LIGATURE SEEN WITH KHAH ISOLATED FORM" raw: "ﰞ"
+  to_uname: ["SEEN", "KHAH"] to_raw: "سخ"
+}
+
+item {  # "U+FC1F"
+  uname: "LIGATURE SEEN WITH MEEM ISOLATED FORM" raw: "ﰟ"
+  to_uname: ["SEEN", "MEEM"] to_raw: "سم"
+}
+
+item {  # "U+FC20"
+  uname: "LIGATURE SAD WITH HAH ISOLATED FORM" raw: "ﰠ"
+  to_uname: ["SAD", "HAH"] to_raw: "صح"
+}
+
+item {  # "U+FC21"
+  uname: "LIGATURE SAD WITH MEEM ISOLATED FORM" raw: "ﰡ"
+  to_uname: ["SAD", "MEEM"] to_raw: "صم"
+}
+
+item {  # "U+FC22"
+  uname: "LIGATURE DAD WITH JEEM ISOLATED FORM" raw: "ﰢ"
+  to_uname: ["DAD", "JEEM"] to_raw: "ضج"
+}
+
+item {  # "U+FC23"
+  uname: "LIGATURE DAD WITH HAH ISOLATED FORM" raw: "ﰣ"
+  to_uname: ["DAD", "HAH"] to_raw: "ضح"
+}
+
+item {  # "U+FC24"
+  uname: "LIGATURE DAD WITH KHAH ISOLATED FORM" raw: "ﰤ"
+  to_uname: ["DAD", "KHAH"] to_raw: "ضخ"
+}
+
+item {  # "U+FC25"
+  uname: "LIGATURE DAD WITH MEEM ISOLATED FORM" raw: "ﰥ"
+  to_uname: ["DAD", "MEEM"] to_raw: "ضم"
+}
+
+item {  # "U+FC26"
+  uname: "LIGATURE TAH WITH HAH ISOLATED FORM" raw: "ﰦ"
+  to_uname: ["TAH", "HAH"] to_raw: "طح"
+}
+
+item {  # "U+FC27"
+  uname: "LIGATURE TAH WITH MEEM ISOLATED FORM" raw: "ﰧ"
+  to_uname: ["TAH", "MEEM"] to_raw: "طم"
+}
+
+item {  # "U+FC28"
+  uname: "LIGATURE ZAH WITH MEEM ISOLATED FORM" raw: "ﰨ"
+  to_uname: ["ZAH", "MEEM"] to_raw: "ظم"
+}
+
+item {  # "U+FC29"
+  uname: "LIGATURE AIN WITH JEEM ISOLATED FORM" raw: "ﰩ"
+  to_uname: ["AIN", "JEEM"] to_raw: "عج"
+}
+
+item {  # "U+FC2A"
+  uname: "LIGATURE AIN WITH MEEM ISOLATED FORM" raw: "ﰪ"
+  to_uname: ["AIN", "MEEM"] to_raw: "عم"
+}
+
+item {  # "U+FC2B"
+  uname: "LIGATURE GHAIN WITH JEEM ISOLATED FORM" raw: "ﰫ"
+  to_uname: ["GHAIN", "JEEM"] to_raw: "غج"
+}
+
+item {  # "U+FC2C"
+  uname: "LIGATURE GHAIN WITH MEEM ISOLATED FORM" raw: "ﰬ"
+  to_uname: ["GHAIN", "MEEM"] to_raw: "غم"
+}
+
+item {  # "U+FC2D"
+  uname: "LIGATURE FEH WITH JEEM ISOLATED FORM" raw: "ﰭ"
+  to_uname: ["FEH", "JEEM"] to_raw: "فج"
+}
+
+item {  # "U+FC2E"
+  uname: "LIGATURE FEH WITH HAH ISOLATED FORM" raw: "ﰮ"
+  to_uname: ["FEH", "HAH"] to_raw: "فح"
+}
+
+item {  # "U+FC2F"
+  uname: "LIGATURE FEH WITH KHAH ISOLATED FORM" raw: "ﰯ"
+  to_uname: ["FEH", "KHAH"] to_raw: "فخ"
+}
+
+item {  # "U+FC30"
+  uname: "LIGATURE FEH WITH MEEM ISOLATED FORM" raw: "ﰰ"
+  to_uname: ["FEH", "MEEM"] to_raw: "فم"
+}
+
+item {  # "U+FC31"
+  uname: "LIGATURE FEH WITH ALEF MAKSURA ISOLATED FORM" raw: "ﰱ"
+  to_uname: ["FEH", "ALEF MAKSURA"] to_raw: "فى"
+}
+
+item {  # "U+FC32"
+  uname: "LIGATURE FEH WITH YEH ISOLATED FORM" raw: "ﰲ"
+  to_uname: ["FEH", "YEH"] to_raw: "في"
+}
+
+item {  # "U+FC33"
+  uname: "LIGATURE QAF WITH HAH ISOLATED FORM" raw: "ﰳ"
+  to_uname: ["QAF", "HAH"] to_raw: "قح"
+}
+
+item {  # "U+FC34"
+  uname: "LIGATURE QAF WITH MEEM ISOLATED FORM" raw: "ﰴ"
+  to_uname: ["QAF", "MEEM"] to_raw: "قم"
+}
+
+item {  # "U+FC35"
+  uname: "LIGATURE QAF WITH ALEF MAKSURA ISOLATED FORM" raw: "ﰵ"
+  to_uname: ["QAF", "ALEF MAKSURA"] to_raw: "قى"
+}
+
+item {  # "U+FC36"
+  uname: "LIGATURE QAF WITH YEH ISOLATED FORM" raw: "ﰶ"
+  to_uname: ["QAF", "YEH"] to_raw: "قي"
+}
+
+item {  # "U+FC37"
+  uname: "LIGATURE KAF WITH ALEF ISOLATED FORM" raw: "ﰷ"
+  to_uname: ["KAF", "ALEF"] to_raw: "كا"
+}
+
+item {  # "U+FC38"
+  uname: "LIGATURE KAF WITH JEEM ISOLATED FORM" raw: "ﰸ"
+  to_uname: ["KAF", "JEEM"] to_raw: "كج"
+}
+
+item {  # "U+FC39"
+  uname: "LIGATURE KAF WITH HAH ISOLATED FORM" raw: "ﰹ"
+  to_uname: ["KAF", "HAH"] to_raw: "كح"
+}
+
+item {  # "U+FC3A"
+  uname: "LIGATURE KAF WITH KHAH ISOLATED FORM" raw: "ﰺ"
+  to_uname: ["KAF", "KHAH"] to_raw: "كخ"
+}
+
+item {  # "U+FC3B"
+  uname: "LIGATURE KAF WITH LAM ISOLATED FORM" raw: "ﰻ"
+  to_uname: ["KAF", "LAM"] to_raw: "كل"
+}
+
+item {  # "U+FC3C"
+  uname: "LIGATURE KAF WITH MEEM ISOLATED FORM" raw: "ﰼ"
+  to_uname: ["KAF", "MEEM"] to_raw: "كم"
+}
+
+item {  # "U+FC3D"
+  uname: "LIGATURE KAF WITH ALEF MAKSURA ISOLATED FORM" raw: "ﰽ"
+  to_uname: ["KAF", "ALEF MAKSURA"] to_raw: "كى"
+}
+
+item {  # "U+FC3E"
+  uname: "LIGATURE KAF WITH YEH ISOLATED FORM" raw: "ﰾ"
+  to_uname: ["KAF", "YEH"] to_raw: "كي"
+}
+
+item {  # "U+FC3F"
+  uname: "LIGATURE LAM WITH JEEM ISOLATED FORM" raw: "ﰿ"
+  to_uname: ["LAM", "JEEM"] to_raw: "لج"
+}
+
+item {  # "U+FC40"
+  uname: "LIGATURE LAM WITH HAH ISOLATED FORM" raw: "ﱀ"
+  to_uname: ["LAM", "HAH"] to_raw: "لح"
+}
+
+item {  # "U+FC41"
+  uname: "LIGATURE LAM WITH KHAH ISOLATED FORM" raw: "ﱁ"
+  to_uname: ["LAM", "KHAH"] to_raw: "لخ"
+}
+
+item {  # "U+FC42"
+  uname: "LIGATURE LAM WITH MEEM ISOLATED FORM" raw: "ﱂ"
+  to_uname: ["LAM", "MEEM"] to_raw: "لم"
+}
+
+item {  # "U+FC43"
+  uname: "LIGATURE LAM WITH ALEF MAKSURA ISOLATED FORM" raw: "ﱃ"
+  to_uname: ["LAM", "ALEF MAKSURA"] to_raw: "لى"
+}
+
+item {  # "U+FC44"
+  uname: "LIGATURE LAM WITH YEH ISOLATED FORM" raw: "ﱄ"
+  to_uname: ["LAM", "YEH"] to_raw: "لي"
+}
+
+item {  # "U+FC45"
+  uname: "LIGATURE MEEM WITH JEEM ISOLATED FORM" raw: "ﱅ"
+  to_uname: ["MEEM", "JEEM"] to_raw: "مج"
+}
+
+item {  # "U+FC46"
+  uname: "LIGATURE MEEM WITH HAH ISOLATED FORM" raw: "ﱆ"
+  to_uname: ["MEEM", "HAH"] to_raw: "مح"
+}
+
+item {  # "U+FC47"
+  uname: "LIGATURE MEEM WITH KHAH ISOLATED FORM" raw: "ﱇ"
+  to_uname: ["MEEM", "KHAH"] to_raw: "مخ"
+}
+
+item {  # "U+FC48"
+  uname: "LIGATURE MEEM WITH MEEM ISOLATED FORM" raw: "ﱈ"
+  to_uname: ["MEEM", "MEEM"] to_raw: "مم"
+}
+
+item {  # "U+FC49"
+  uname: "LIGATURE MEEM WITH ALEF MAKSURA ISOLATED FORM" raw: "ﱉ"
+  to_uname: ["MEEM", "ALEF MAKSURA"] to_raw: "مى"
+}
+
+item {  # "U+FC4A"
+  uname: "LIGATURE MEEM WITH YEH ISOLATED FORM" raw: "ﱊ"
+  to_uname: ["MEEM", "YEH"] to_raw: "مي"
+}
+
+item {  # "U+FC4B"
+  uname: "LIGATURE NOON WITH JEEM ISOLATED FORM" raw: "ﱋ"
+  to_uname: ["NOON", "JEEM"] to_raw: "نج"
+}
+
+item {  # "U+FC4C"
+  uname: "LIGATURE NOON WITH HAH ISOLATED FORM" raw: "ﱌ"
+  to_uname: ["NOON", "HAH"] to_raw: "نح"
+}
+
+item {  # "U+FC4D"
+  uname: "LIGATURE NOON WITH KHAH ISOLATED FORM" raw: "ﱍ"
+  to_uname: ["NOON", "KHAH"] to_raw: "نخ"
+}
+
+item {  # "U+FC4E"
+  uname: "LIGATURE NOON WITH MEEM ISOLATED FORM" raw: "ﱎ"
+  to_uname: ["NOON", "MEEM"] to_raw: "نم"
+}
+
+item {  # "U+FC4F"
+  uname: "LIGATURE NOON WITH ALEF MAKSURA ISOLATED FORM" raw: "ﱏ"
+  to_uname: ["NOON", "ALEF MAKSURA"] to_raw: "نى"
+}
+
+item {  # "U+FC50"
+  uname: "LIGATURE NOON WITH YEH ISOLATED FORM" raw: "ﱐ"
+  to_uname: ["NOON", "YEH"] to_raw: "ني"
+}
+
+item {  # "U+FC51"
+  uname: "LIGATURE HEH WITH JEEM ISOLATED FORM" raw: "ﱑ"
+  to_uname: ["HEH", "JEEM"] to_raw: "هج"
+}
+
+item {  # "U+FC52"
+  uname: "LIGATURE HEH WITH MEEM ISOLATED FORM" raw: "ﱒ"
+  to_uname: ["HEH", "MEEM"] to_raw: "هم"
+}
+
+item {  # "U+FC53"
+  uname: "LIGATURE HEH WITH ALEF MAKSURA ISOLATED FORM" raw: "ﱓ"
+  to_uname: ["HEH", "ALEF MAKSURA"] to_raw: "هى"
+}
+
+item {  # "U+FC54"
+  uname: "LIGATURE HEH WITH YEH ISOLATED FORM" raw: "ﱔ"
+  to_uname: ["HEH", "YEH"] to_raw: "هي"
+}
+
+item {  # "U+FC55"
+  uname: "LIGATURE YEH WITH JEEM ISOLATED FORM" raw: "ﱕ"
+  to_uname: ["YEH", "JEEM"] to_raw: "يج"
+}
+
+item {  # "U+FC56"
+  uname: "LIGATURE YEH WITH HAH ISOLATED FORM" raw: "ﱖ"
+  to_uname: ["YEH", "HAH"] to_raw: "يح"
+}
+
+item {  # "U+FC57"
+  uname: "LIGATURE YEH WITH KHAH ISOLATED FORM" raw: "ﱗ"
+  to_uname: ["YEH", "KHAH"] to_raw: "يخ"
+}
+
+item {  # "U+FC58"
+  uname: "LIGATURE YEH WITH MEEM ISOLATED FORM" raw: "ﱘ"
+  to_uname: ["YEH", "MEEM"] to_raw: "يم"
+}
+
+item {  # "U+FC59"
+  uname: "LIGATURE YEH WITH ALEF MAKSURA ISOLATED FORM" raw: "ﱙ"
+  to_uname: ["YEH", "ALEF MAKSURA"] to_raw: "يى"
+}
+
+item {  # "U+FC5A"
+  uname: "LIGATURE YEH WITH YEH ISOLATED FORM" raw: "ﱚ"
+  to_uname: ["YEH", "YEH"] to_raw: "يي"
+}
+
+item {  # "U+FC5B"
+  uname: "LIGATURE THAL WITH SUPERSCRIPT ALEF ISOLATED FORM" raw: "ﱛ"
+  to_uname: ["THAL", "SUPERSCRIPT ALEF"] to_raw: "ذٰ"
+}
+
+item {  # "U+FC5C"
+  uname: "LIGATURE REH WITH SUPERSCRIPT ALEF ISOLATED FORM" raw: "ﱜ"
+  to_uname: ["REH", "SUPERSCRIPT ALEF"] to_raw: "رٰ"
+}
+
+item {  # "U+FC5D"
+  uname: "LIGATURE ALEF MAKSURA WITH SUPERSCRIPT ALEF ISOLATED FORM" raw: "ﱝ"
+  to_uname: ["ALEF MAKSURA", "SUPERSCRIPT ALEF"] to_raw: "ىٰ"
+}
+
+item {  # "U+FC64"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH REH FINAL FORM" raw: "ﱤ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "REH"] to_raw: "ئر"
+}
+
+item {  # "U+FC65"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH ZAIN FINAL FORM" raw: "ﱥ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "ZAIN"] to_raw: "ئز"
+}
+
+item {  # "U+FC66"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH MEEM FINAL FORM" raw: "ﱦ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "MEEM"] to_raw: "ئم"
+}
+
+item {  # "U+FC67"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH NOON FINAL FORM" raw: "ﱧ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "NOON"] to_raw: "ئن"
+}
+
+item {  # "U+FC68"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH ALEF MAKSURA FINAL FORM" raw: "ﱨ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "ALEF MAKSURA"] to_raw: "ئى"
+}
+
+item {  # "U+FC69"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH YEH FINAL FORM" raw: "ﱩ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "YEH"] to_raw: "ئي"
+}
+
+item {  # "U+FC6A"
+  uname: "LIGATURE BEH WITH REH FINAL FORM" raw: "ﱪ"
+  to_uname: ["BEH", "REH"] to_raw: "بر"
+}
+
+item {  # "U+FC6B"
+  uname: "LIGATURE BEH WITH ZAIN FINAL FORM" raw: "ﱫ"
+  to_uname: ["BEH", "ZAIN"] to_raw: "بز"
+}
+
+item {  # "U+FC6C"
+  uname: "LIGATURE BEH WITH MEEM FINAL FORM" raw: "ﱬ"
+  to_uname: ["BEH", "MEEM"] to_raw: "بم"
+}
+
+item {  # "U+FC6D"
+  uname: "LIGATURE BEH WITH NOON FINAL FORM" raw: "ﱭ"
+  to_uname: ["BEH", "NOON"] to_raw: "بن"
+}
+
+item {  # "U+FC6E"
+  uname: "LIGATURE BEH WITH ALEF MAKSURA FINAL FORM" raw: "ﱮ"
+  to_uname: ["BEH", "ALEF MAKSURA"] to_raw: "بى"
+}
+
+item {  # "U+FC6F"
+  uname: "LIGATURE BEH WITH YEH FINAL FORM" raw: "ﱯ"
+  to_uname: ["BEH", "YEH"] to_raw: "بي"
+}
+
+item {  # "U+FC70"
+  uname: "LIGATURE TEH WITH REH FINAL FORM" raw: "ﱰ"
+  to_uname: ["TEH", "REH"] to_raw: "تر"
+}
+
+item {  # "U+FC71"
+  uname: "LIGATURE TEH WITH ZAIN FINAL FORM" raw: "ﱱ"
+  to_uname: ["TEH", "ZAIN"] to_raw: "تز"
+}
+
+item {  # "U+FC72"
+  uname: "LIGATURE TEH WITH MEEM FINAL FORM" raw: "ﱲ"
+  to_uname: ["TEH", "MEEM"] to_raw: "تم"
+}
+
+item {  # "U+FC73"
+  uname: "LIGATURE TEH WITH NOON FINAL FORM" raw: "ﱳ"
+  to_uname: ["TEH", "NOON"] to_raw: "تن"
+}
+
+item {  # "U+FC74"
+  uname: "LIGATURE TEH WITH ALEF MAKSURA FINAL FORM" raw: "ﱴ"
+  to_uname: ["TEH", "ALEF MAKSURA"] to_raw: "تى"
+}
+
+item {  # "U+FC75"
+  uname: "LIGATURE TEH WITH YEH FINAL FORM" raw: "ﱵ"
+  to_uname: ["TEH", "YEH"] to_raw: "تي"
+}
+
+item {  # "U+FC76"
+  uname: "LIGATURE THEH WITH REH FINAL FORM" raw: "ﱶ"
+  to_uname: ["THEH", "REH"] to_raw: "ثر"
+}
+
+item {  # "U+FC77"
+  uname: "LIGATURE THEH WITH ZAIN FINAL FORM" raw: "ﱷ"
+  to_uname: ["THEH", "ZAIN"] to_raw: "ثز"
+}
+
+item {  # "U+FC78"
+  uname: "LIGATURE THEH WITH MEEM FINAL FORM" raw: "ﱸ"
+  to_uname: ["THEH", "MEEM"] to_raw: "ثم"
+}
+
+item {  # "U+FC79"
+  uname: "LIGATURE THEH WITH NOON FINAL FORM" raw: "ﱹ"
+  to_uname: ["THEH", "NOON"] to_raw: "ثن"
+}
+
+item {  # "U+FC7A"
+  uname: "LIGATURE THEH WITH ALEF MAKSURA FINAL FORM" raw: "ﱺ"
+  to_uname: ["THEH", "ALEF MAKSURA"] to_raw: "ثى"
+}
+
+item {  # "U+FC7B"
+  uname: "LIGATURE THEH WITH YEH FINAL FORM" raw: "ﱻ"
+  to_uname: ["THEH", "YEH"] to_raw: "ثي"
+}
+
+item {  # "U+FC7C"
+  uname: "LIGATURE FEH WITH ALEF MAKSURA FINAL FORM" raw: "ﱼ"
+  to_uname: ["FEH", "ALEF MAKSURA"] to_raw: "فى"
+}
+
+item {  # "U+FC7D"
+  uname: "LIGATURE FEH WITH YEH FINAL FORM" raw: "ﱽ"
+  to_uname: ["FEH", "YEH"] to_raw: "في"
+}
+
+item {  # "U+FC7E"
+  uname: "LIGATURE QAF WITH ALEF MAKSURA FINAL FORM" raw: "ﱾ"
+  to_uname: ["QAF", "ALEF MAKSURA"] to_raw: "قى"
+}
+
+item {  # "U+FC7F"
+  uname: "LIGATURE QAF WITH YEH FINAL FORM" raw: "ﱿ"
+  to_uname: ["QAF", "YEH"] to_raw: "قي"
+}
+
+item {  # "U+FC80"
+  uname: "LIGATURE KAF WITH ALEF FINAL FORM" raw: "ﲀ"
+  to_uname: ["KAF", "ALEF"] to_raw: "كا"
+}
+
+item {  # "U+FC81"
+  uname: "LIGATURE KAF WITH LAM FINAL FORM" raw: "ﲁ"
+  to_uname: ["KAF", "LAM"] to_raw: "كل"
+}
+
+item {  # "U+FC82"
+  uname: "LIGATURE KAF WITH MEEM FINAL FORM" raw: "ﲂ"
+  to_uname: ["KAF", "MEEM"] to_raw: "كم"
+}
+
+item {  # "U+FC83"
+  uname: "LIGATURE KAF WITH ALEF MAKSURA FINAL FORM" raw: "ﲃ"
+  to_uname: ["KAF", "ALEF MAKSURA"] to_raw: "كى"
+}
+
+item {  # "U+FC84"
+  uname: "LIGATURE KAF WITH YEH FINAL FORM" raw: "ﲄ"
+  to_uname: ["KAF", "YEH"] to_raw: "كي"
+}
+
+item {  # "U+FC85"
+  uname: "LIGATURE LAM WITH MEEM FINAL FORM" raw: "ﲅ"
+  to_uname: ["LAM", "MEEM"] to_raw: "لم"
+}
+
+item {  # "U+FC86"
+  uname: "LIGATURE LAM WITH ALEF MAKSURA FINAL FORM" raw: "ﲆ"
+  to_uname: ["LAM", "ALEF MAKSURA"] to_raw: "لى"
+}
+
+item {  # "U+FC87"
+  uname: "LIGATURE LAM WITH YEH FINAL FORM" raw: "ﲇ"
+  to_uname: ["LAM", "YEH"] to_raw: "لي"
+}
+
+item {  # "U+FC88"
+  uname: "LIGATURE MEEM WITH ALEF FINAL FORM" raw: "ﲈ"
+  to_uname: ["MEEM", "ALEF"] to_raw: "ما"
+}
+
+item {  # "U+FC89"
+  uname: "LIGATURE MEEM WITH MEEM FINAL FORM" raw: "ﲉ"
+  to_uname: ["MEEM", "MEEM"] to_raw: "مم"
+}
+
+item {  # "U+FC8A"
+  uname: "LIGATURE NOON WITH REH FINAL FORM" raw: "ﲊ"
+  to_uname: ["NOON", "REH"] to_raw: "نر"
+}
+
+item {  # "U+FC8B"
+  uname: "LIGATURE NOON WITH ZAIN FINAL FORM" raw: "ﲋ"
+  to_uname: ["NOON", "ZAIN"] to_raw: "نز"
+}
+
+item {  # "U+FC8C"
+  uname: "LIGATURE NOON WITH MEEM FINAL FORM" raw: "ﲌ"
+  to_uname: ["NOON", "MEEM"] to_raw: "نم"
+}
+
+item {  # "U+FC8D"
+  uname: "LIGATURE NOON WITH NOON FINAL FORM" raw: "ﲍ"
+  to_uname: ["NOON", "NOON"] to_raw: "نن"
+}
+
+item {  # "U+FC8E"
+  uname: "LIGATURE NOON WITH ALEF MAKSURA FINAL FORM" raw: "ﲎ"
+  to_uname: ["NOON", "ALEF MAKSURA"] to_raw: "نى"
+}
+
+item {  # "U+FC8F"
+  uname: "LIGATURE NOON WITH YEH FINAL FORM" raw: "ﲏ"
+  to_uname: ["NOON", "YEH"] to_raw: "ني"
+}
+
+item {  # "U+FC90"
+  uname: "LIGATURE ALEF MAKSURA WITH SUPERSCRIPT ALEF FINAL FORM" raw: "ﲐ"
+  to_uname: ["ALEF MAKSURA", "SUPERSCRIPT ALEF"] to_raw: "ىٰ"
+}
+
+item {  # "U+FC91"
+  uname: "LIGATURE YEH WITH REH FINAL FORM" raw: "ﲑ"
+  to_uname: ["YEH", "REH"] to_raw: "ير"
+}
+
+item {  # "U+FC92"
+  uname: "LIGATURE YEH WITH ZAIN FINAL FORM" raw: "ﲒ"
+  to_uname: ["YEH", "ZAIN"] to_raw: "يز"
+}
+
+item {  # "U+FC93"
+  uname: "LIGATURE YEH WITH MEEM FINAL FORM" raw: "ﲓ"
+  to_uname: ["YEH", "MEEM"] to_raw: "يم"
+}
+
+item {  # "U+FC94"
+  uname: "LIGATURE YEH WITH NOON FINAL FORM" raw: "ﲔ"
+  to_uname: ["YEH", "NOON"] to_raw: "ين"
+}
+
+item {  # "U+FC95"
+  uname: "LIGATURE YEH WITH ALEF MAKSURA FINAL FORM" raw: "ﲕ"
+  to_uname: ["YEH", "ALEF MAKSURA"] to_raw: "يى"
+}
+
+item {  # "U+FC96"
+  uname: "LIGATURE YEH WITH YEH FINAL FORM" raw: "ﲖ"
+  to_uname: ["YEH", "YEH"] to_raw: "يي"
+}
+
+item {  # "U+FC97"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH JEEM INITIAL FORM" raw: "ﲗ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "JEEM"] to_raw: "ئج"
+}
+
+item {  # "U+FC98"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH HAH INITIAL FORM" raw: "ﲘ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "HAH"] to_raw: "ئح"
+}
+
+item {  # "U+FC99"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH KHAH INITIAL FORM" raw: "ﲙ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "KHAH"] to_raw: "ئخ"
+}
+
+item {  # "U+FC9A"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH MEEM INITIAL FORM" raw: "ﲚ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "MEEM"] to_raw: "ئم"
+}
+
+item {  # "U+FC9B"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH HEH INITIAL FORM" raw: "ﲛ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "HEH"] to_raw: "ئه"
+}
+
+item {  # "U+FC9C"
+  uname: "LIGATURE BEH WITH JEEM INITIAL FORM" raw: "ﲜ"
+  to_uname: ["BEH", "JEEM"] to_raw: "بج"
+}
+
+item {  # "U+FC9D"
+  uname: "LIGATURE BEH WITH HAH INITIAL FORM" raw: "ﲝ"
+  to_uname: ["BEH", "HAH"] to_raw: "بح"
+}
+
+item {  # "U+FC9E"
+  uname: "LIGATURE BEH WITH KHAH INITIAL FORM" raw: "ﲞ"
+  to_uname: ["BEH", "KHAH"] to_raw: "بخ"
+}
+
+item {  # "U+FC9F"
+  uname: "LIGATURE BEH WITH MEEM INITIAL FORM" raw: "ﲟ"
+  to_uname: ["BEH", "MEEM"] to_raw: "بم"
+}
+
+item {  # "U+FCA0"
+  uname: "LIGATURE BEH WITH HEH INITIAL FORM" raw: "ﲠ"
+  to_uname: ["BEH", "HEH"] to_raw: "به"
+}
+
+item {  # "U+FCA1"
+  uname: "LIGATURE TEH WITH JEEM INITIAL FORM" raw: "ﲡ"
+  to_uname: ["TEH", "JEEM"] to_raw: "تج"
+}
+
+item {  # "U+FCA2"
+  uname: "LIGATURE TEH WITH HAH INITIAL FORM" raw: "ﲢ"
+  to_uname: ["TEH", "HAH"] to_raw: "تح"
+}
+
+item {  # "U+FCA3"
+  uname: "LIGATURE TEH WITH KHAH INITIAL FORM" raw: "ﲣ"
+  to_uname: ["TEH", "KHAH"] to_raw: "تخ"
+}
+
+item {  # "U+FCA4"
+  uname: "LIGATURE TEH WITH MEEM INITIAL FORM" raw: "ﲤ"
+  to_uname: ["TEH", "MEEM"] to_raw: "تم"
+}
+
+item {  # "U+FCA5"
+  uname: "LIGATURE TEH WITH HEH INITIAL FORM" raw: "ﲥ"
+  to_uname: ["TEH", "HEH"] to_raw: "ته"
+}
+
+item {  # "U+FCA6"
+  uname: "LIGATURE THEH WITH MEEM INITIAL FORM" raw: "ﲦ"
+  to_uname: ["THEH", "MEEM"] to_raw: "ثم"
+}
+
+item {  # "U+FCA7"
+  uname: "LIGATURE JEEM WITH HAH INITIAL FORM" raw: "ﲧ"
+  to_uname: ["JEEM", "HAH"] to_raw: "جح"
+}
+
+item {  # "U+FCA8"
+  uname: "LIGATURE JEEM WITH MEEM INITIAL FORM" raw: "ﲨ"
+  to_uname: ["JEEM", "MEEM"] to_raw: "جم"
+}
+
+item {  # "U+FCA9"
+  uname: "LIGATURE HAH WITH JEEM INITIAL FORM" raw: "ﲩ"
+  to_uname: ["HAH", "JEEM"] to_raw: "حج"
+}
+
+item {  # "U+FCAA"
+  uname: "LIGATURE HAH WITH MEEM INITIAL FORM" raw: "ﲪ"
+  to_uname: ["HAH", "MEEM"] to_raw: "حم"
+}
+
+item {  # "U+FCAB"
+  uname: "LIGATURE KHAH WITH JEEM INITIAL FORM" raw: "ﲫ"
+  to_uname: ["KHAH", "JEEM"] to_raw: "خج"
+}
+
+item {  # "U+FCAC"
+  uname: "LIGATURE KHAH WITH MEEM INITIAL FORM" raw: "ﲬ"
+  to_uname: ["KHAH", "MEEM"] to_raw: "خم"
+}
+
+item {  # "U+FCAD"
+  uname: "LIGATURE SEEN WITH JEEM INITIAL FORM" raw: "ﲭ"
+  to_uname: ["SEEN", "JEEM"] to_raw: "سج"
+}
+
+item {  # "U+FCAE"
+  uname: "LIGATURE SEEN WITH HAH INITIAL FORM" raw: "ﲮ"
+  to_uname: ["SEEN", "HAH"] to_raw: "سح"
+}
+
+item {  # "U+FCAF"
+  uname: "LIGATURE SEEN WITH KHAH INITIAL FORM" raw: "ﲯ"
+  to_uname: ["SEEN", "KHAH"] to_raw: "سخ"
+}
+
+item {  # "U+FCB0"
+  uname: "LIGATURE SEEN WITH MEEM INITIAL FORM" raw: "ﲰ"
+  to_uname: ["SEEN", "MEEM"] to_raw: "سم"
+}
+
+item {  # "U+FCB1"
+  uname: "LIGATURE SAD WITH HAH INITIAL FORM" raw: "ﲱ"
+  to_uname: ["SAD", "HAH"] to_raw: "صح"
+}
+
+item {  # "U+FCB2"
+  uname: "LIGATURE SAD WITH KHAH INITIAL FORM" raw: "ﲲ"
+  to_uname: ["SAD", "KHAH"] to_raw: "صخ"
+}
+
+item {  # "U+FCB3"
+  uname: "LIGATURE SAD WITH MEEM INITIAL FORM" raw: "ﲳ"
+  to_uname: ["SAD", "MEEM"] to_raw: "صم"
+}
+
+item {  # "U+FCB4"
+  uname: "LIGATURE DAD WITH JEEM INITIAL FORM" raw: "ﲴ"
+  to_uname: ["DAD", "JEEM"] to_raw: "ضج"
+}
+
+item {  # "U+FCB5"
+  uname: "LIGATURE DAD WITH HAH INITIAL FORM" raw: "ﲵ"
+  to_uname: ["DAD", "HAH"] to_raw: "ضح"
+}
+
+item {  # "U+FCB6"
+  uname: "LIGATURE DAD WITH KHAH INITIAL FORM" raw: "ﲶ"
+  to_uname: ["DAD", "KHAH"] to_raw: "ضخ"
+}
+
+item {  # "U+FCB7"
+  uname: "LIGATURE DAD WITH MEEM INITIAL FORM" raw: "ﲷ"
+  to_uname: ["DAD", "MEEM"] to_raw: "ضم"
+}
+
+item {  # "U+FCB8"
+  uname: "LIGATURE TAH WITH HAH INITIAL FORM" raw: "ﲸ"
+  to_uname: ["TAH", "HAH"] to_raw: "طح"
+}
+
+item {  # "U+FCB9"
+  uname: "LIGATURE ZAH WITH MEEM INITIAL FORM" raw: "ﲹ"
+  to_uname: ["ZAH", "MEEM"] to_raw: "ظم"
+}
+
+item {  # "U+FCBA"
+  uname: "LIGATURE AIN WITH JEEM INITIAL FORM" raw: "ﲺ"
+  to_uname: ["AIN", "JEEM"] to_raw: "عج"
+}
+
+item {  # "U+FCBB"
+  uname: "LIGATURE AIN WITH MEEM INITIAL FORM" raw: "ﲻ"
+  to_uname: ["AIN", "MEEM"] to_raw: "عم"
+}
+
+item {  # "U+FCBC"
+  uname: "LIGATURE GHAIN WITH JEEM INITIAL FORM" raw: "ﲼ"
+  to_uname: ["GHAIN", "JEEM"] to_raw: "غج"
+}
+
+item {  # "U+FCBD"
+  uname: "LIGATURE GHAIN WITH MEEM INITIAL FORM" raw: "ﲽ"
+  to_uname: ["GHAIN", "MEEM"] to_raw: "غم"
+}
+
+item {  # "U+FCBE"
+  uname: "LIGATURE FEH WITH JEEM INITIAL FORM" raw: "ﲾ"
+  to_uname: ["FEH", "JEEM"] to_raw: "فج"
+}
+
+item {  # "U+FCBF"
+  uname: "LIGATURE FEH WITH HAH INITIAL FORM" raw: "ﲿ"
+  to_uname: ["FEH", "HAH"] to_raw: "فح"
+}
+
+item {  # "U+FCC0"
+  uname: "LIGATURE FEH WITH KHAH INITIAL FORM" raw: "ﳀ"
+  to_uname: ["FEH", "KHAH"] to_raw: "فخ"
+}
+
+item {  # "U+FCC1"
+  uname: "LIGATURE FEH WITH MEEM INITIAL FORM" raw: "ﳁ"
+  to_uname: ["FEH", "MEEM"] to_raw: "فم"
+}
+
+item {  # "U+FCC2"
+  uname: "LIGATURE QAF WITH HAH INITIAL FORM" raw: "ﳂ"
+  to_uname: ["QAF", "HAH"] to_raw: "قح"
+}
+
+item {  # "U+FCC3"
+  uname: "LIGATURE QAF WITH MEEM INITIAL FORM" raw: "ﳃ"
+  to_uname: ["QAF", "MEEM"] to_raw: "قم"
+}
+
+item {  # "U+FCC4"
+  uname: "LIGATURE KAF WITH JEEM INITIAL FORM" raw: "ﳄ"
+  to_uname: ["KAF", "JEEM"] to_raw: "كج"
+}
+
+item {  # "U+FCC5"
+  uname: "LIGATURE KAF WITH HAH INITIAL FORM" raw: "ﳅ"
+  to_uname: ["KAF", "HAH"] to_raw: "كح"
+}
+
+item {  # "U+FCC6"
+  uname: "LIGATURE KAF WITH KHAH INITIAL FORM" raw: "ﳆ"
+  to_uname: ["KAF", "KHAH"] to_raw: "كخ"
+}
+
+item {  # "U+FCC7"
+  uname: "LIGATURE KAF WITH LAM INITIAL FORM" raw: "ﳇ"
+  to_uname: ["KAF", "LAM"] to_raw: "كل"
+}
+
+item {  # "U+FCC8"
+  uname: "LIGATURE KAF WITH MEEM INITIAL FORM" raw: "ﳈ"
+  to_uname: ["KAF", "MEEM"] to_raw: "كم"
+}
+
+item {  # "U+FCC9"
+  uname: "LIGATURE LAM WITH JEEM INITIAL FORM" raw: "ﳉ"
+  to_uname: ["LAM", "JEEM"] to_raw: "لج"
+}
+
+item {  # "U+FCCA"
+  uname: "LIGATURE LAM WITH HAH INITIAL FORM" raw: "ﳊ"
+  to_uname: ["LAM", "HAH"] to_raw: "لح"
+}
+
+item {  # "U+FCCB"
+  uname: "LIGATURE LAM WITH KHAH INITIAL FORM" raw: "ﳋ"
+  to_uname: ["LAM", "KHAH"] to_raw: "لخ"
+}
+
+item {  # "U+FCCC"
+  uname: "LIGATURE LAM WITH MEEM INITIAL FORM" raw: "ﳌ"
+  to_uname: ["LAM", "MEEM"] to_raw: "لم"
+}
+
+item {  # "U+FCCD"
+  uname: "LIGATURE LAM WITH HEH INITIAL FORM" raw: "ﳍ"
+  to_uname: ["LAM", "HEH"] to_raw: "له"
+}
+
+item {  # "U+FCCE"
+  uname: "LIGATURE MEEM WITH JEEM INITIAL FORM" raw: "ﳎ"
+  to_uname: ["MEEM", "JEEM"] to_raw: "مج"
+}
+
+item {  # "U+FCCF"
+  uname: "LIGATURE MEEM WITH HAH INITIAL FORM" raw: "ﳏ"
+  to_uname: ["MEEM", "HAH"] to_raw: "مح"
+}
+
+item {  # "U+FCD0"
+  uname: "LIGATURE MEEM WITH KHAH INITIAL FORM" raw: "ﳐ"
+  to_uname: ["MEEM", "KHAH"] to_raw: "مخ"
+}
+
+item {  # "U+FCD1"
+  uname: "LIGATURE MEEM WITH MEEM INITIAL FORM" raw: "ﳑ"
+  to_uname: ["MEEM", "MEEM"] to_raw: "مم"
+}
+
+item {  # "U+FCD2"
+  uname: "LIGATURE NOON WITH JEEM INITIAL FORM" raw: "ﳒ"
+  to_uname: ["NOON", "JEEM"] to_raw: "نج"
+}
+
+item {  # "U+FCD3"
+  uname: "LIGATURE NOON WITH HAH INITIAL FORM" raw: "ﳓ"
+  to_uname: ["NOON", "HAH"] to_raw: "نح"
+}
+
+item {  # "U+FCD4"
+  uname: "LIGATURE NOON WITH KHAH INITIAL FORM" raw: "ﳔ"
+  to_uname: ["NOON", "KHAH"] to_raw: "نخ"
+}
+
+item {  # "U+FCD5"
+  uname: "LIGATURE NOON WITH MEEM INITIAL FORM" raw: "ﳕ"
+  to_uname: ["NOON", "MEEM"] to_raw: "نم"
+}
+
+item {  # "U+FCD6"
+  uname: "LIGATURE NOON WITH HEH INITIAL FORM" raw: "ﳖ"
+  to_uname: ["NOON", "HEH"] to_raw: "نه"
+}
+
+item {  # "U+FCD7"
+  uname: "LIGATURE HEH WITH JEEM INITIAL FORM" raw: "ﳗ"
+  to_uname: ["HEH", "JEEM"] to_raw: "هج"
+}
+
+item {  # "U+FCD8"
+  uname: "LIGATURE HEH WITH MEEM INITIAL FORM" raw: "ﳘ"
+  to_uname: ["HEH", "MEEM"] to_raw: "هم"
+}
+
+item {  # "U+FCD9"
+  uname: "LIGATURE HEH WITH SUPERSCRIPT ALEF INITIAL FORM" raw: "ﳙ"
+  to_uname: ["HEH", "SUPERSCRIPT ALEF"] to_raw: "هٰ"
+}
+
+item {  # "U+FCDA"
+  uname: "LIGATURE YEH WITH JEEM INITIAL FORM" raw: "ﳚ"
+  to_uname: ["YEH", "JEEM"] to_raw: "يج"
+}
+
+item {  # "U+FCDB"
+  uname: "LIGATURE YEH WITH HAH INITIAL FORM" raw: "ﳛ"
+  to_uname: ["YEH", "HAH"] to_raw: "يح"
+}
+
+item {  # "U+FCDC"
+  uname: "LIGATURE YEH WITH KHAH INITIAL FORM" raw: "ﳜ"
+  to_uname: ["YEH", "KHAH"] to_raw: "يخ"
+}
+
+item {  # "U+FCDD"
+  uname: "LIGATURE YEH WITH MEEM INITIAL FORM" raw: "ﳝ"
+  to_uname: ["YEH", "MEEM"] to_raw: "يم"
+}
+
+item {  # "U+FCDE"
+  uname: "LIGATURE YEH WITH HEH INITIAL FORM" raw: "ﳞ"
+  to_uname: ["YEH", "HEH"] to_raw: "يه"
+}
+
+item {  # "U+FCDF"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH MEEM MEDIAL FORM" raw: "ﳟ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "MEEM"] to_raw: "ئم"
+}
+
+item {  # "U+FCE0"
+  uname: "LIGATURE YEH WITH HAMZA ABOVE WITH HEH MEDIAL FORM" raw: "ﳠ"
+  to_uname: ["YEH WITH HAMZA ABOVE", "HEH"] to_raw: "ئه"
+}
+
+item {  # "U+FCE1"
+  uname: "LIGATURE BEH WITH MEEM MEDIAL FORM" raw: "ﳡ"
+  to_uname: ["BEH", "MEEM"] to_raw: "بم"
+}
+
+item {  # "U+FCE2"
+  uname: "LIGATURE BEH WITH HEH MEDIAL FORM" raw: "ﳢ"
+  to_uname: ["BEH", "HEH"] to_raw: "به"
+}
+
+item {  # "U+FCE3"
+  uname: "LIGATURE TEH WITH MEEM MEDIAL FORM" raw: "ﳣ"
+  to_uname: ["TEH", "MEEM"] to_raw: "تم"
+}
+
+item {  # "U+FCE4"
+  uname: "LIGATURE TEH WITH HEH MEDIAL FORM" raw: "ﳤ"
+  to_uname: ["TEH", "HEH"] to_raw: "ته"
+}
+
+item {  # "U+FCE5"
+  uname: "LIGATURE THEH WITH MEEM MEDIAL FORM" raw: "ﳥ"
+  to_uname: ["THEH", "MEEM"] to_raw: "ثم"
+}
+
+item {  # "U+FCE6"
+  uname: "LIGATURE THEH WITH HEH MEDIAL FORM" raw: "ﳦ"
+  to_uname: ["THEH", "HEH"] to_raw: "ثه"
+}
+
+item {  # "U+FCE7"
+  uname: "LIGATURE SEEN WITH MEEM MEDIAL FORM" raw: "ﳧ"
+  to_uname: ["SEEN", "MEEM"] to_raw: "سم"
+}
+
+item {  # "U+FCE8"
+  uname: "LIGATURE SEEN WITH HEH MEDIAL FORM" raw: "ﳨ"
+  to_uname: ["SEEN", "HEH"] to_raw: "سه"
+}
+
+item {  # "U+FCE9"
+  uname: "LIGATURE SHEEN WITH MEEM MEDIAL FORM" raw: "ﳩ"
+  to_uname: ["SHEEN", "MEEM"] to_raw: "شم"
+}
+
+item {  # "U+FCEA"
+  uname: "LIGATURE SHEEN WITH HEH MEDIAL FORM" raw: "ﳪ"
+  to_uname: ["SHEEN", "HEH"] to_raw: "شه"
+}
+
+item {  # "U+FCEB"
+  uname: "LIGATURE KAF WITH LAM MEDIAL FORM" raw: "ﳫ"
+  to_uname: ["KAF", "LAM"] to_raw: "كل"
+}
+
+item {  # "U+FCEC"
+  uname: "LIGATURE KAF WITH MEEM MEDIAL FORM" raw: "ﳬ"
+  to_uname: ["KAF", "MEEM"] to_raw: "كم"
+}
+
+item {  # "U+FCED"
+  uname: "LIGATURE LAM WITH MEEM MEDIAL FORM" raw: "ﳭ"
+  to_uname: ["LAM", "MEEM"] to_raw: "لم"
+}
+
+item {  # "U+FCEE"
+  uname: "LIGATURE NOON WITH MEEM MEDIAL FORM" raw: "ﳮ"
+  to_uname: ["NOON", "MEEM"] to_raw: "نم"
+}
+
+item {  # "U+FCEF"
+  uname: "LIGATURE NOON WITH HEH MEDIAL FORM" raw: "ﳯ"
+  to_uname: ["NOON", "HEH"] to_raw: "نه"
+}
+
+item {  # "U+FCF0"
+  uname: "LIGATURE YEH WITH MEEM MEDIAL FORM" raw: "ﳰ"
+  to_uname: ["YEH", "MEEM"] to_raw: "يم"
+}
+
+item {  # "U+FCF1"
+  uname: "LIGATURE YEH WITH HEH MEDIAL FORM" raw: "ﳱ"
+  to_uname: ["YEH", "HEH"] to_raw: "يه"
+}
+
+item {  # "U+FCF5"
+  uname: "LIGATURE TAH WITH ALEF MAKSURA ISOLATED FORM" raw: "ﳵ"
+  to_uname: ["TAH", "ALEF MAKSURA"] to_raw: "طى"
+}
+
+item {  # "U+FCF6"
+  uname: "LIGATURE TAH WITH YEH ISOLATED FORM" raw: "ﳶ"
+  to_uname: ["TAH", "YEH"] to_raw: "طي"
+}
+
+item {  # "U+FCF7"
+  uname: "LIGATURE AIN WITH ALEF MAKSURA ISOLATED FORM" raw: "ﳷ"
+  to_uname: ["AIN", "ALEF MAKSURA"] to_raw: "عى"
+}
+
+item {  # "U+FCF8"
+  uname: "LIGATURE AIN WITH YEH ISOLATED FORM" raw: "ﳸ"
+  to_uname: ["AIN", "YEH"] to_raw: "عي"
+}
+
+item {  # "U+FCF9"
+  uname: "LIGATURE GHAIN WITH ALEF MAKSURA ISOLATED FORM" raw: "ﳹ"
+  to_uname: ["GHAIN", "ALEF MAKSURA"] to_raw: "غى"
+}
+
+item {  # "U+FCFA"
+  uname: "LIGATURE GHAIN WITH YEH ISOLATED FORM" raw: "ﳺ"
+  to_uname: ["GHAIN", "YEH"] to_raw: "غي"
+}
+
+item {  # "U+FCFB"
+  uname: "LIGATURE SEEN WITH ALEF MAKSURA ISOLATED FORM" raw: "ﳻ"
+  to_uname: ["SEEN", "ALEF MAKSURA"] to_raw: "سى"
+}
+
+item {  # "U+FCFC"
+  uname: "LIGATURE SEEN WITH YEH ISOLATED FORM" raw: "ﳼ"
+  to_uname: ["SEEN", "YEH"] to_raw: "سي"
+}
+
+item {  # "U+FCFD"
+  uname: "LIGATURE SHEEN WITH ALEF MAKSURA ISOLATED FORM" raw: "ﳽ"
+  to_uname: ["SHEEN", "ALEF MAKSURA"] to_raw: "شى"
+}
+
+item {  # "U+FCFE"
+  uname: "LIGATURE SHEEN WITH YEH ISOLATED FORM" raw: "ﳾ"
+  to_uname: ["SHEEN", "YEH"] to_raw: "شي"
+}
+
+item {  # "U+FCFF"
+  uname: "LIGATURE HAH WITH ALEF MAKSURA ISOLATED FORM" raw: "ﳿ"
+  to_uname: ["HAH", "ALEF MAKSURA"] to_raw: "حى"
+}
+
+item {  # "U+FD00"
+  uname: "LIGATURE HAH WITH YEH ISOLATED FORM" raw: "ﴀ"
+  to_uname: ["HAH", "YEH"] to_raw: "حي"
+}
+
+item {  # "U+FD01"
+  uname: "LIGATURE JEEM WITH ALEF MAKSURA ISOLATED FORM" raw: "ﴁ"
+  to_uname: ["JEEM", "ALEF MAKSURA"] to_raw: "جى"
+}
+
+item {  # "U+FD02"
+  uname: "LIGATURE JEEM WITH YEH ISOLATED FORM" raw: "ﴂ"
+  to_uname: ["JEEM", "YEH"] to_raw: "جي"
+}
+
+item {  # "U+FD03"
+  uname: "LIGATURE KHAH WITH ALEF MAKSURA ISOLATED FORM" raw: "ﴃ"
+  to_uname: ["KHAH", "ALEF MAKSURA"] to_raw: "خى"
+}
+
+item {  # "U+FD04"
+  uname: "LIGATURE KHAH WITH YEH ISOLATED FORM" raw: "ﴄ"
+  to_uname: ["KHAH", "YEH"] to_raw: "خي"
+}
+
+item {  # "U+FD05"
+  uname: "LIGATURE SAD WITH ALEF MAKSURA ISOLATED FORM" raw: "ﴅ"
+  to_uname: ["SAD", "ALEF MAKSURA"] to_raw: "صى"
+}
+
+item {  # "U+FD06"
+  uname: "LIGATURE SAD WITH YEH ISOLATED FORM" raw: "ﴆ"
+  to_uname: ["SAD", "YEH"] to_raw: "صي"
+}
+
+item {  # "U+FD07"
+  uname: "LIGATURE DAD WITH ALEF MAKSURA ISOLATED FORM" raw: "ﴇ"
+  to_uname: ["DAD", "ALEF MAKSURA"] to_raw: "ضى"
+}
+
+item {  # "U+FD08"
+  uname: "LIGATURE DAD WITH YEH ISOLATED FORM" raw: "ﴈ"
+  to_uname: ["DAD", "YEH"] to_raw: "ضي"
+}
+
+item {  # "U+FD09"
+  uname: "LIGATURE SHEEN WITH JEEM ISOLATED FORM" raw: "ﴉ"
+  to_uname: ["SHEEN", "JEEM"] to_raw: "شج"
+}
+
+item {  # "U+FD0A"
+  uname: "LIGATURE SHEEN WITH HAH ISOLATED FORM" raw: "ﴊ"
+  to_uname: ["SHEEN", "HAH"] to_raw: "شح"
+}
+
+item {  # "U+FD0B"
+  uname: "LIGATURE SHEEN WITH KHAH ISOLATED FORM" raw: "ﴋ"
+  to_uname: ["SHEEN", "KHAH"] to_raw: "شخ"
+}
+
+item {  # "U+FD0C"
+  uname: "LIGATURE SHEEN WITH MEEM ISOLATED FORM" raw: "ﴌ"
+  to_uname: ["SHEEN", "MEEM"] to_raw: "شم"
+}
+
+item {  # "U+FD0D"
+  uname: "LIGATURE SHEEN WITH REH ISOLATED FORM" raw: "ﴍ"
+  to_uname: ["SHEEN", "REH"] to_raw: "شر"
+}
+
+item {  # "U+FD0E"
+  uname: "LIGATURE SEEN WITH REH ISOLATED FORM" raw: "ﴎ"
+  to_uname: ["SEEN", "REH"] to_raw: "سر"
+}
+
+item {  # "U+FD0F"
+  uname: "LIGATURE SAD WITH REH ISOLATED FORM" raw: "ﴏ"
+  to_uname: ["SAD", "REH"] to_raw: "صر"
+}
+
+item {  # "U+FD10"
+  uname: "LIGATURE DAD WITH REH ISOLATED FORM" raw: "ﴐ"
+  to_uname: ["DAD", "REH"] to_raw: "ضر"
+}
+
+item {  # "U+FD11"
+  uname: "LIGATURE TAH WITH ALEF MAKSURA FINAL FORM" raw: "ﴑ"
+  to_uname: ["TAH", "ALEF MAKSURA"] to_raw: "طى"
+}
+
+item {  # "U+FD12"
+  uname: "LIGATURE TAH WITH YEH FINAL FORM" raw: "ﴒ"
+  to_uname: ["TAH", "YEH"] to_raw: "طي"
+}
+
+item {  # "U+FD13"
+  uname: "LIGATURE AIN WITH ALEF MAKSURA FINAL FORM" raw: "ﴓ"
+  to_uname: ["AIN", "ALEF MAKSURA"] to_raw: "عى"
+}
+
+item {  # "U+FD14"
+  uname: "LIGATURE AIN WITH YEH FINAL FORM" raw: "ﴔ"
+  to_uname: ["AIN", "YEH"] to_raw: "عي"
+}
+
+item {  # "U+FD15"
+  uname: "LIGATURE GHAIN WITH ALEF MAKSURA FINAL FORM" raw: "ﴕ"
+  to_uname: ["GHAIN", "ALEF MAKSURA"] to_raw: "غى"
+}
+
+item {  # "U+FD16"
+  uname: "LIGATURE GHAIN WITH YEH FINAL FORM" raw: "ﴖ"
+  to_uname: ["GHAIN", "YEH"] to_raw: "غي"
+}
+
+item {  # "U+FD17"
+  uname: "LIGATURE SEEN WITH ALEF MAKSURA FINAL FORM" raw: "ﴗ"
+  to_uname: ["SEEN", "ALEF MAKSURA"] to_raw: "سى"
+}
+
+item {  # "U+FD18"
+  uname: "LIGATURE SEEN WITH YEH FINAL FORM" raw: "ﴘ"
+  to_uname: ["SEEN", "YEH"] to_raw: "سي"
+}
+
+item {  # "U+FD19"
+  uname: "LIGATURE SHEEN WITH ALEF MAKSURA FINAL FORM" raw: "ﴙ"
+  to_uname: ["SHEEN", "ALEF MAKSURA"] to_raw: "شى"
+}
+
+item {  # "U+FD1A"
+  uname: "LIGATURE SHEEN WITH YEH FINAL FORM" raw: "ﴚ"
+  to_uname: ["SHEEN", "YEH"] to_raw: "شي"
+}
+
+item {  # "U+FD1B"
+  uname: "LIGATURE HAH WITH ALEF MAKSURA FINAL FORM" raw: "ﴛ"
+  to_uname: ["HAH", "ALEF MAKSURA"] to_raw: "حى"
+}
+
+item {  # "U+FD1C"
+  uname: "LIGATURE HAH WITH YEH FINAL FORM" raw: "ﴜ"
+  to_uname: ["HAH", "YEH"] to_raw: "حي"
+}
+
+item {  # "U+FD1D"
+  uname: "LIGATURE JEEM WITH ALEF MAKSURA FINAL FORM" raw: "ﴝ"
+  to_uname: ["JEEM", "ALEF MAKSURA"] to_raw: "جى"
+}
+
+item {  # "U+FD1E"
+  uname: "LIGATURE JEEM WITH YEH FINAL FORM" raw: "ﴞ"
+  to_uname: ["JEEM", "YEH"] to_raw: "جي"
+}
+
+item {  # "U+FD1F"
+  uname: "LIGATURE KHAH WITH ALEF MAKSURA FINAL FORM" raw: "ﴟ"
+  to_uname: ["KHAH", "ALEF MAKSURA"] to_raw: "خى"
+}
+
+item {  # "U+FD20"
+  uname: "LIGATURE KHAH WITH YEH FINAL FORM" raw: "ﴠ"
+  to_uname: ["KHAH", "YEH"] to_raw: "خي"
+}
+
+item {  # "U+FD21"
+  uname: "LIGATURE SAD WITH ALEF MAKSURA FINAL FORM" raw: "ﴡ"
+  to_uname: ["SAD", "ALEF MAKSURA"] to_raw: "صى"
+}
+
+item {  # "U+FD22"
+  uname: "LIGATURE SAD WITH YEH FINAL FORM" raw: "ﴢ"
+  to_uname: ["SAD", "YEH"] to_raw: "صي"
+}
+
+item {  # "U+FD23"
+  uname: "LIGATURE DAD WITH ALEF MAKSURA FINAL FORM" raw: "ﴣ"
+  to_uname: ["DAD", "ALEF MAKSURA"] to_raw: "ضى"
+}
+
+item {  # "U+FD24"
+  uname: "LIGATURE DAD WITH YEH FINAL FORM" raw: "ﴤ"
+  to_uname: ["DAD", "YEH"] to_raw: "ضي"
+}
+
+item {  # "U+FD25"
+  uname: "LIGATURE SHEEN WITH JEEM FINAL FORM" raw: "ﴥ"
+  to_uname: ["SHEEN", "JEEM"] to_raw: "شج"
+}
+
+item {  # "U+FD26"
+  uname: "LIGATURE SHEEN WITH HAH FINAL FORM" raw: "ﴦ"
+  to_uname: ["SHEEN", "HAH"] to_raw: "شح"
+}
+
+item {  # "U+FD27"
+  uname: "LIGATURE SHEEN WITH KHAH FINAL FORM" raw: "ﴧ"
+  to_uname: ["SHEEN", "KHAH"] to_raw: "شخ"
+}
+
+item {  # "U+FD28"
+  uname: "LIGATURE SHEEN WITH MEEM FINAL FORM" raw: "ﴨ"
+  to_uname: ["SHEEN", "MEEM"] to_raw: "شم"
+}
+
+item {  # "U+FD29"
+  uname: "LIGATURE SHEEN WITH REH FINAL FORM" raw: "ﴩ"
+  to_uname: ["SHEEN", "REH"] to_raw: "شر"
+}
+
+item {  # "U+FD2A"
+  uname: "LIGATURE SEEN WITH REH FINAL FORM" raw: "ﴪ"
+  to_uname: ["SEEN", "REH"] to_raw: "سر"
+}
+
+item {  # "U+FD2B"
+  uname: "LIGATURE SAD WITH REH FINAL FORM" raw: "ﴫ"
+  to_uname: ["SAD", "REH"] to_raw: "صر"
+}
+
+item {  # "U+FD2C"
+  uname: "LIGATURE DAD WITH REH FINAL FORM" raw: "ﴬ"
+  to_uname: ["DAD", "REH"] to_raw: "ضر"
+}
+
+item {  # "U+FD2D"
+  uname: "LIGATURE SHEEN WITH JEEM INITIAL FORM" raw: "ﴭ"
+  to_uname: ["SHEEN", "JEEM"] to_raw: "شج"
+}
+
+item {  # "U+FD2E"
+  uname: "LIGATURE SHEEN WITH HAH INITIAL FORM" raw: "ﴮ"
+  to_uname: ["SHEEN", "HAH"] to_raw: "شح"
+}
+
+item {  # "U+FD2F"
+  uname: "LIGATURE SHEEN WITH KHAH INITIAL FORM" raw: "ﴯ"
+  to_uname: ["SHEEN", "KHAH"] to_raw: "شخ"
+}
+
+item {  # "U+FD30"
+  uname: "LIGATURE SHEEN WITH MEEM INITIAL FORM" raw: "ﴰ"
+  to_uname: ["SHEEN", "MEEM"] to_raw: "شم"
+}
+
+item {  # "U+FD31"
+  uname: "LIGATURE SEEN WITH HEH INITIAL FORM" raw: "ﴱ"
+  to_uname: ["SEEN", "HEH"] to_raw: "سه"
+}
+
+item {  # "U+FD32"
+  uname: "LIGATURE SHEEN WITH HEH INITIAL FORM" raw: "ﴲ"
+  to_uname: ["SHEEN", "HEH"] to_raw: "شه"
+}
+
+item {  # "U+FD33"
+  uname: "LIGATURE TAH WITH MEEM INITIAL FORM" raw: "ﴳ"
+  to_uname: ["TAH", "MEEM"] to_raw: "طم"
+}
+
+item {  # "U+FD34"
+  uname: "LIGATURE SEEN WITH JEEM MEDIAL FORM" raw: "ﴴ"
+  to_uname: ["SEEN", "JEEM"] to_raw: "سج"
+}
+
+item {  # "U+FD35"
+  uname: "LIGATURE SEEN WITH HAH MEDIAL FORM" raw: "ﴵ"
+  to_uname: ["SEEN", "HAH"] to_raw: "سح"
+}
+
+item {  # "U+FD36"
+  uname: "LIGATURE SEEN WITH KHAH MEDIAL FORM" raw: "ﴶ"
+  to_uname: ["SEEN", "KHAH"] to_raw: "سخ"
+}
+
+item {  # "U+FD37"
+  uname: "LIGATURE SHEEN WITH JEEM MEDIAL FORM" raw: "ﴷ"
+  to_uname: ["SHEEN", "JEEM"] to_raw: "شج"
+}
+
+item {  # "U+FD38"
+  uname: "LIGATURE SHEEN WITH HAH MEDIAL FORM" raw: "ﴸ"
+  to_uname: ["SHEEN", "HAH"] to_raw: "شح"
+}
+
+item {  # "U+FD39"
+  uname: "LIGATURE SHEEN WITH KHAH MEDIAL FORM" raw: "ﴹ"
+  to_uname: ["SHEEN", "KHAH"] to_raw: "شخ"
+}
+
+item {  # "U+FD3A"
+  uname: "LIGATURE TAH WITH MEEM MEDIAL FORM" raw: "ﴺ"
+  to_uname: ["TAH", "MEEM"] to_raw: "طم"
+}
+
+item {  # "U+FD3B"
+  uname: "LIGATURE ZAH WITH MEEM MEDIAL FORM" raw: "ﴻ"
+  to_uname: ["ZAH", "MEEM"] to_raw: "ظم"
+}
+
+item {  # "U+FD3C"
+  uname: "LIGATURE ALEF WITH FATHATAN FINAL FORM" raw: "ﴼ"
+  to_uname: ["ALEF", "FATHATAN"] to_raw: "اً"
+}
+
+item {  # "U+FD3D"
+  uname: "LIGATURE ALEF WITH FATHATAN ISOLATED FORM" raw: "ﴽ"
+  to_uname: ["ALEF", "FATHATAN"] to_raw: "اً"
+}
+
+# Unicode 14.0 onwards:
+#LIGATURE RAHIMAHU ALLAAH	U+FD40	﵀	﵀
+#LIGATURE RADI ALLAAHU ANH	U+FD41	﵁	﵁
+#LIGATURE RADI ALLAAHU ANHAA	U+FD42	﵂	﵂
+#LIGATURE RADI ALLAAHU ANHUM	U+FD43	﵃	﵃
+#LIGATURE RADI ALLAAHU ANHUMAA	U+FD44	﵄	﵄
+#LIGATURE RADI ALLAAHU ANHUNNA	U+FD45	﵅	﵅
+#LIGATURE SALLALLAAHU ALAYHI WA-AALIH	U+FD46	﵆	﵆
+#LIGATURE ALAYHI AS-SALAAM	U+FD47	﵇	﵇
+#LIGATURE ALAYHIM AS-SALAAM	U+FD48	﵈	﵈
+#LIGATURE ALAYHIMAA AS-SALAAM	U+FD49	﵉	﵉
+#LIGATURE ALAYHI AS-SALAATU WAS-SALAAM	U+FD4A	﵊	﵊
+#LIGATURE QUDDISA SIRRAH	U+FD4B	﵋	﵋
+#LIGATURE SALLALLAHU ALAYHI WAAALIHEE WA-SALLAM	U+FD4C	﵌	﵌
+#LIGATURE ALAYHAA AS-SALAAM	U+FD4D	﵍	﵍
+#LIGATURE TABAARAKA WA-TAAALAA	U+FD4E	﵎	﵎
+#LIGATURE RAHIMAHUM ALLAAH	U+FD4F	﵏	﵏
+
+item {  # "U+FD50"
+  uname: "LIGATURE TEH WITH JEEM WITH MEEM INITIAL FORM" raw: "ﵐ"
+  to_uname: ["TEH", "JEEM", "MEEM"] to_raw: "تجم"
+}
+
+item {  # "U+FD51"
+  uname: "LIGATURE TEH WITH HAH WITH JEEM FINAL FORM" raw: "ﵑ"
+  to_uname: ["TEH", "HAH", "JEEM"] to_raw: "تحج"
+}
+
+item {  # "U+FD52"
+  uname: "LIGATURE TEH WITH HAH WITH JEEM INITIAL FORM" raw: "ﵒ"
+  to_uname: ["TEH", "HAH", "JEEM"] to_raw: "تحج"
+}
+
+item {  # "U+FD53"
+  uname: "LIGATURE TEH WITH HAH WITH MEEM INITIAL FORM" raw: "ﵓ"
+  to_uname: ["TEH", "HAH", "MEEM"] to_raw: "تحم"
+}
+
+item {  # "U+FD54"
+  uname: "LIGATURE TEH WITH KHAH WITH MEEM INITIAL FORM" raw: "ﵔ"
+  to_uname: ["TEH", "KHAH", "MEEM"] to_raw: "تخم"
+}
+
+item {  # "U+FD55"
+  uname: "LIGATURE TEH WITH MEEM WITH JEEM INITIAL FORM" raw: "ﵕ"
+  to_uname: ["TEH", "MEEM", "JEEM"] to_raw: "تمج"
+}
+
+item {  # "U+FD56"
+  uname: "LIGATURE TEH WITH MEEM WITH HAH INITIAL FORM" raw: "ﵖ"
+  to_uname: ["TEH", "MEEM", "HAH"] to_raw: "تمح"
+}
+
+item {  # "U+FD57"
+  uname: "LIGATURE TEH WITH MEEM WITH KHAH INITIAL FORM" raw: "ﵗ"
+  to_uname: ["TEH", "MEEM", "KHAH"] to_raw: "تمخ"
+}
+
+item {  # "U+FD58"
+  uname: "LIGATURE JEEM WITH MEEM WITH HAH FINAL FORM" raw: "ﵘ"
+  to_uname: ["JEEM", "MEEM", "HAH"] to_raw: "جمح"
+}
+
+item {  # "U+FD59"
+  uname: "LIGATURE JEEM WITH MEEM WITH HAH INITIAL FORM" raw: "ﵙ"
+  to_uname: ["JEEM", "MEEM", "HAH"] to_raw: "جمح"
+}
+
+item {  # "U+FD5A"
+  uname: "LIGATURE HAH WITH MEEM WITH YEH FINAL FORM" raw: "ﵚ"
+  to_uname: ["HAH", "MEEM", "YEH"] to_raw: "حمي"
+}
+
+item {  # "U+FD5B"
+  uname: "LIGATURE HAH WITH MEEM WITH ALEF MAKSURA FINAL FORM" raw: "ﵛ"
+  to_uname: ["HAH", "MEEM", "ALEF MAKSURA"] to_raw: "حمى"
+}
+
+item {  # "U+FD5C"
+  uname: "LIGATURE SEEN WITH HAH WITH JEEM INITIAL FORM" raw: "ﵜ"
+  to_uname: ["SEEN", "HAH", "JEEM"] to_raw: "سحج"
+}
+
+item {  # "U+FD5D"
+  uname: "LIGATURE SEEN WITH JEEM WITH HAH INITIAL FORM" raw: "ﵝ"
+  to_uname: ["SEEN", "JEEM", "HAH"] to_raw: "سجح"
+}
+
+item {  # "U+FD5E"
+  uname: "LIGATURE SEEN WITH JEEM WITH ALEF MAKSURA FINAL FORM" raw: "ﵞ"
+  to_uname: ["SEEN", "JEEM", "ALEF MAKSURA"] to_raw: "سجى"
+}
+
+item {  # "U+FD5F"
+  uname: "LIGATURE SEEN WITH MEEM WITH HAH FINAL FORM" raw: "ﵟ"
+  to_uname: ["SEEN", "MEEM", "HAH"] to_raw: "سمح"
+}
+
+item {  # "U+FD60"
+  uname: "LIGATURE SEEN WITH MEEM WITH HAH INITIAL FORM" raw: "ﵠ"
+  to_uname: ["SEEN", "MEEM", "HAH"] to_raw: "سمح"
+}
+
+item {  # "U+FD61"
+  uname: "LIGATURE SEEN WITH MEEM WITH JEEM INITIAL FORM" raw: "ﵡ"
+  to_uname: ["SEEN", "MEEM", "JEEM"] to_raw: "سمج"
+}
+
+item {  # "U+FD62"
+  uname: "LIGATURE SEEN WITH MEEM WITH MEEM FINAL FORM" raw: "ﵢ"
+  to_uname: ["SEEN", "MEEM", "MEEM"] to_raw: "سمم"
+}
+
+item {  # "U+FD63"
+  uname: "LIGATURE SEEN WITH MEEM WITH MEEM INITIAL FORM" raw: "ﵣ"
+  to_uname: ["SEEN", "MEEM", "MEEM"] to_raw: "سمم"
+}
+
+item {  # "U+FD64"
+  uname: "LIGATURE SAD WITH HAH WITH HAH FINAL FORM" raw: "ﵤ"
+  to_uname: ["SAD", "HAH", "HAH"] to_raw: "صحح"
+}
+
+item {  # "U+FD65"
+  uname: "LIGATURE SAD WITH HAH WITH HAH INITIAL FORM" raw: "ﵥ"
+  to_uname: ["SAD", "HAH", "HAH"] to_raw: "صحح"
+}
+
+item {  # "U+FD66"
+  uname: "LIGATURE SAD WITH MEEM WITH MEEM FINAL FORM" raw: "ﵦ"
+  to_uname: ["SAD", "MEEM", "MEEM"] to_raw: "صمم"
+}
+
+item {  # "U+FD67"
+  uname: "LIGATURE SHEEN WITH HAH WITH MEEM FINAL FORM" raw: "ﵧ"
+  to_uname: ["SHEEN", "HAH", "MEEM"] to_raw: "شحم"
+}
+
+item {  # "U+FD68"
+  uname: "LIGATURE SHEEN WITH HAH WITH MEEM INITIAL FORM" raw: "ﵨ"
+  to_uname: ["SHEEN", "HAH", "MEEM"] to_raw: "شحم"
+}
+
+item {  # "U+FD69"
+  uname: "LIGATURE SHEEN WITH JEEM WITH YEH FINAL FORM" raw: "ﵩ"
+  to_uname: ["SHEEN", "JEEM", "YEH"] to_raw: "شجي"
+}
+
+item {  # "U+FD6A"
+  uname: "LIGATURE SHEEN WITH MEEM WITH KHAH FINAL FORM" raw: "ﵪ"
+  to_uname: ["SHEEN", "MEEM", "KHAH"] to_raw: "شمخ"
+}
+
+item {  # "U+FD6B"
+  uname: "LIGATURE SHEEN WITH MEEM WITH KHAH INITIAL FORM" raw: "ﵫ"
+  to_uname: ["SHEEN", "MEEM", "KHAH"] to_raw: "شمخ"
+}
+
+item {  # "U+FD6C"
+  uname: "LIGATURE SHEEN WITH MEEM WITH MEEM FINAL FORM" raw: "ﵬ"
+  to_uname: ["SHEEN", "MEEM", "MEEM"] to_raw: "شمم"
+}
+
+item {  # "U+FD6D"
+  uname: "LIGATURE SHEEN WITH MEEM WITH MEEM INITIAL FORM" raw: "ﵭ"
+  to_uname: ["SHEEN", "MEEM", "MEEM"] to_raw: "شمم"
+}
+
+item {  # "U+FD6E"
+  uname: "LIGATURE DAD WITH HAH WITH ALEF MAKSURA FINAL FORM" raw: "ﵮ"
+  to_uname: ["DAD", "HAH", "ALEF MAKSURA"] to_raw: "ضحى"
+}
+
+item {  # "U+FD6F"
+  uname: "LIGATURE DAD WITH KHAH WITH MEEM FINAL FORM" raw: "ﵯ"
+  to_uname: ["DAD", "KHAH", "MEEM"] to_raw: "ضخم"
+}
+
+item {  # "U+FD70"
+  uname: "LIGATURE DAD WITH KHAH WITH MEEM INITIAL FORM" raw: "ﵰ"
+  to_uname: ["DAD", "KHAH", "MEEM"] to_raw: "ضخم"
+}
+
+item {  # "U+FD71"
+  uname: "LIGATURE TAH WITH MEEM WITH HAH FINAL FORM" raw: "ﵱ"
+  to_uname: ["TAH", "MEEM", "HAH"] to_raw: "طمح"
+}
+
+item {  # "U+FD72"
+  uname: "LIGATURE TAH WITH MEEM WITH HAH INITIAL FORM" raw: "ﵲ"
+  to_uname: ["TAH", "MEEM", "HAH"] to_raw: "طمح"
+}
+
+item {  # "U+FD73"
+  uname: "LIGATURE TAH WITH MEEM WITH MEEM INITIAL FORM" raw: "ﵳ"
+  to_uname: ["TAH", "MEEM", "MEEM"] to_raw: "طمم"
+}
+
+item {  # "U+FD74"
+  uname: "LIGATURE TAH WITH MEEM WITH YEH FINAL FORM" raw: "ﵴ"
+  to_uname: ["TAH", "MEEM", "YEH"] to_raw: "طمي"
+}
+
+item {  # "U+FD75"
+  uname: "LIGATURE AIN WITH JEEM WITH MEEM FINAL FORM" raw: "ﵵ"
+  to_uname: ["AIN", "JEEM", "MEEM"] to_raw: "عجم"
+}
+
+item {  # "U+FD76"
+  uname: "LIGATURE AIN WITH MEEM WITH MEEM FINAL FORM" raw: "ﵶ"
+  to_uname: ["AIN", "MEEM", "MEEM"] to_raw: "عمم"
+}
+
+item {  # "U+FD77"
+  uname: "LIGATURE AIN WITH MEEM WITH MEEM INITIAL FORM" raw: "ﵷ"
+  to_uname: ["AIN", "MEEM", "MEEM"] to_raw: "عمم"
+}
+
+item {  # "U+FD78"
+  uname: "LIGATURE AIN WITH MEEM WITH ALEF MAKSURA FINAL FORM" raw: "ﵸ"
+  to_uname: ["AIN", "MEEM", "ALEF MAKSURA"] to_raw: "عمى"
+}
+
+item {  # "U+FD79"
+  uname: "LIGATURE GHAIN WITH MEEM WITH MEEM FINAL FORM" raw: "ﵹ"
+  to_uname: ["GHAIN", "MEEM", "MEEM"] to_raw: "غمم"
+}
+
+item {  # "U+FD7A"
+  uname: "LIGATURE GHAIN WITH MEEM WITH YEH FINAL FORM" raw: "ﵺ"
+  to_uname: ["GHAIN", "MEEM", "YEH"] to_raw: "غمي"
+}
+
+item {  # "U+FD7B"
+  uname: "LIGATURE GHAIN WITH MEEM WITH ALEF MAKSURA FINAL FORM" raw: "ﵻ"
+  to_uname: ["GHAIN", "MEEM", "ALEF MAKSURA"] to_raw: "غمى"
+}
+
+item {  # "U+FD7C"
+  uname: "LIGATURE FEH WITH KHAH WITH MEEM FINAL FORM" raw: "ﵼ"
+  to_uname: ["FEH", "KHAH", "MEEM"] to_raw: "فخم"
+}
+
+item {  # "U+FD7D"
+  uname: "LIGATURE FEH WITH KHAH WITH MEEM INITIAL FORM" raw: "ﵽ"
+  to_uname: ["FEH", "KHAH", "MEEM"] to_raw: "فخم"
+}
+
+item {  # "U+FD7E"
+  uname: "LIGATURE QAF WITH MEEM WITH HAH FINAL FORM" raw: "ﵾ"
+  to_uname: ["QAF", "MEEM", "HAH"] to_raw: "قمح"
+}
+
+item {  # "U+FD7F"
+  uname: "LIGATURE QAF WITH MEEM WITH MEEM FINAL FORM" raw: "ﵿ"
+  to_uname: ["QAF", "MEEM", "MEEM"] to_raw: "قمم"
+}
+
+item {  # "U+FD80"
+  uname: "LIGATURE LAM WITH HAH WITH MEEM FINAL FORM" raw: "ﶀ"
+  to_uname: ["LAM", "HAH", "MEEM"] to_raw: "لحم"
+}
+
+item {  # "U+FD81"
+  uname: "LIGATURE LAM WITH HAH WITH YEH FINAL FORM" raw: "ﶁ"
+  to_uname: ["LAM", "HAH", "YEH"] to_raw: "لحي"
+}
+
+item {  # "U+FD82"
+  uname: "LIGATURE LAM WITH HAH WITH ALEF MAKSURA FINAL FORM" raw: "ﶂ"
+  to_uname: ["LAM", "HAH", "ALEF MAKSURA"] to_raw: "لحى"
+}
+
+item {  # "U+FD83"
+  uname: "LIGATURE LAM WITH JEEM WITH JEEM INITIAL FORM" raw: "ﶃ"
+  to_uname: ["LAM", "JEEM", "JEEM"] to_raw: "لجج"
+}
+
+item {  # "U+FD84"
+  uname: "LIGATURE LAM WITH JEEM WITH JEEM FINAL FORM" raw: "ﶄ"
+  to_uname: ["LAM", "JEEM", "JEEM"] to_raw: "لجج"
+}
+
+item {  # "U+FD85"
+  uname: "LIGATURE LAM WITH KHAH WITH MEEM FINAL FORM" raw: "ﶅ"
+  to_uname: ["LAM", "KHAH", "MEEM"] to_raw: "لخم"
+}
+
+item {  # "U+FD86"
+  uname: "LIGATURE LAM WITH KHAH WITH MEEM INITIAL FORM" raw: "ﶆ"
+  to_uname: ["LAM", "KHAH", "MEEM"] to_raw: "لخم"
+}
+
+item {  # "U+FD87"
+  uname: "LIGATURE LAM WITH MEEM WITH HAH FINAL FORM" raw: "ﶇ"
+  to_uname: ["LAM", "MEEM", "HAH"] to_raw: "لمح"
+}
+
+item {  # "U+FD88"
+  uname: "LIGATURE LAM WITH MEEM WITH HAH INITIAL FORM" raw: "ﶈ"
+  to_uname: ["LAM", "MEEM", "HAH"] to_raw: "لمح"
+}
+
+item {  # "U+FD89"
+  uname: "LIGATURE MEEM WITH HAH WITH JEEM INITIAL FORM" raw: "ﶉ"
+  to_uname: ["MEEM", "HAH", "JEEM"] to_raw: "محج"
+}
+
+item {  # "U+FD8A"
+  uname: "LIGATURE MEEM WITH HAH WITH MEEM INITIAL FORM" raw: "ﶊ"
+  to_uname: ["MEEM", "HAH", "MEEM"] to_raw: "محم"
+}
+
+item {  # "U+FD8B"
+  uname: "LIGATURE MEEM WITH HAH WITH YEH FINAL FORM" raw: "ﶋ"
+  to_uname: ["MEEM", "HAH", "YEH"] to_raw: "محي"
+}
+
+item {  # "U+FD8C"
+  uname: "LIGATURE MEEM WITH JEEM WITH HAH INITIAL FORM" raw: "ﶌ"
+  to_uname: ["MEEM", "JEEM", "HAH"] to_raw: "مجح"
+}
+
+item {  # "U+FD8D"
+  uname: "LIGATURE MEEM WITH JEEM WITH MEEM INITIAL FORM" raw: "ﶍ"
+  to_uname: ["MEEM", "JEEM", "MEEM"] to_raw: "مجم"
+}
+
+item {  # "U+FD8E"
+  uname: "LIGATURE MEEM WITH KHAH WITH JEEM INITIAL FORM" raw: "ﶎ"
+  to_uname: ["MEEM", "KHAH", "JEEM"] to_raw: "مخج"
+}
+
+item {  # "U+FD8F"
+  uname: "LIGATURE MEEM WITH KHAH WITH MEEM INITIAL FORM" raw: "ﶏ"
+  to_uname: ["MEEM", "KHAH", "MEEM"] to_raw: "مخم"
+}
+
+item {  # "U+FD92"
+  uname: "LIGATURE MEEM WITH JEEM WITH KHAH INITIAL FORM" raw: "ﶒ"
+  to_uname: ["MEEM", "JEEM", "KHAH"] to_raw: "مجخ"
+}
+
+item {  # "U+FD93"
+  uname: "LIGATURE HEH WITH MEEM WITH JEEM INITIAL FORM" raw: "ﶓ"
+  to_uname: ["HEH", "MEEM", "JEEM"] to_raw: "همج"
+}
+
+item {  # "U+FD94"
+  uname: "LIGATURE HEH WITH MEEM WITH MEEM INITIAL FORM" raw: "ﶔ"
+  to_uname: ["HEH", "MEEM", "MEEM"] to_raw: "همم"
+}
+
+item {  # "U+FD95"
+  uname: "LIGATURE NOON WITH HAH WITH MEEM INITIAL FORM" raw: "ﶕ"
+  to_uname: ["NOON", "HAH", "MEEM"] to_raw: "نحم"
+}
+
+item {  # "U+FD96"
+  uname: "LIGATURE NOON WITH HAH WITH ALEF MAKSURA FINAL FORM" raw: "ﶖ"
+  to_uname: ["NOON", "HAH", "ALEF MAKSURA"] to_raw: "نحى"
+}
+
+item {  # "U+FD97"
+  uname: "LIGATURE NOON WITH JEEM WITH MEEM FINAL FORM" raw: "ﶗ"
+  to_uname: ["NOON", "JEEM", "MEEM"] to_raw: "نجم"
+}
+
+item {  # "U+FD98"
+  uname: "LIGATURE NOON WITH JEEM WITH MEEM INITIAL FORM" raw: "ﶘ"
+  to_uname: ["NOON", "JEEM", "MEEM"] to_raw: "نجم"
+}
+
+item {  # "U+FD99"
+  uname: "LIGATURE NOON WITH JEEM WITH ALEF MAKSURA FINAL FORM" raw: "ﶙ"
+  to_uname: ["NOON", "JEEM", "ALEF MAKSURA"] to_raw: "نجى"
+}
+
+item {  # "U+FD9A"
+  uname: "LIGATURE NOON WITH MEEM WITH YEH FINAL FORM" raw: "ﶚ"
+  to_uname: ["NOON", "MEEM", "YEH"] to_raw: "نمي"
+}
+
+item {  # "U+FD9B"
+  uname: "LIGATURE NOON WITH MEEM WITH ALEF MAKSURA FINAL FORM" raw: "ﶛ"
+  to_uname: ["NOON", "MEEM", "ALEF MAKSURA"] to_raw: "نمى"
+}
+
+item {  # "U+FD9C"
+  uname: "LIGATURE YEH WITH MEEM WITH MEEM FINAL FORM" raw: "ﶜ"
+  to_uname: ["YEH", "MEEM", "MEEM"] to_raw: "يمم"
+}
+
+item {  # "U+FD9D"
+  uname: "LIGATURE YEH WITH MEEM WITH MEEM INITIAL FORM" raw: "ﶝ"
+  to_uname: ["YEH", "MEEM", "MEEM"] to_raw: "يمم"
+}
+
+item {  # "U+FD9E"
+  uname: "LIGATURE BEH WITH KHAH WITH YEH FINAL FORM" raw: "ﶞ"
+  to_uname: ["BEH", "KHAH", "YEH"] to_raw: "بخي"
+}
+
+item {  # "U+FD9F"
+  uname: "LIGATURE TEH WITH JEEM WITH YEH FINAL FORM" raw: "ﶟ"
+  to_uname: ["TEH", "JEEM", "YEH"] to_raw: "تجي"
+}
+
+item {  # "U+FDA0"
+  uname: "LIGATURE TEH WITH JEEM WITH ALEF MAKSURA FINAL FORM" raw: "ﶠ"
+  to_uname: ["TEH", "JEEM", "ALEF MAKSURA"] to_raw: "تجى"
+}
+
+item {  # "U+FDA1"
+  uname: "LIGATURE TEH WITH KHAH WITH YEH FINAL FORM" raw: "ﶡ"
+  to_uname: ["TEH", "KHAH", "YEH"] to_raw: "تخي"
+}
+
+item {  # "U+FDA2"
+  uname: "LIGATURE TEH WITH KHAH WITH ALEF MAKSURA FINAL FORM" raw: "ﶢ"
+  to_uname: ["TEH", "KHAH", "ALEF MAKSURA"] to_raw: "تخى"
+}
+
+item {  # "U+FDA3"
+  uname: "LIGATURE TEH WITH MEEM WITH YEH FINAL FORM" raw: "ﶣ"
+  to_uname: ["TEH", "MEEM", "YEH"] to_raw: "تمي"
+}
+
+item {  # "U+FDA4"
+  uname: "LIGATURE TEH WITH MEEM WITH ALEF MAKSURA FINAL FORM" raw: "ﶤ"
+  to_uname: ["TEH", "MEEM", "ALEF MAKSURA"] to_raw: "تمى"
+}
+
+item {  # "U+FDA5"
+  uname: "LIGATURE JEEM WITH MEEM WITH YEH FINAL FORM" raw: "ﶥ"
+  to_uname: ["JEEM", "MEEM", "YEH"] to_raw: "جمي"
+}
+
+item {  # "U+FDA6"
+  uname: "LIGATURE JEEM WITH HAH WITH ALEF MAKSURA FINAL FORM" raw: "ﶦ"
+  to_uname: ["JEEM", "HAH", "ALEF MAKSURA"] to_raw: "جحى"
+}
+
+item {  # "U+FDA7"
+  uname: "LIGATURE JEEM WITH MEEM WITH ALEF MAKSURA FINAL FORM" raw: "ﶧ"
+  to_uname: ["JEEM", "MEEM", "ALEF MAKSURA"] to_raw: "جمى"
+}
+
+item {  # "U+FDA8"
+  uname: "LIGATURE SEEN WITH KHAH WITH ALEF MAKSURA FINAL FORM" raw: "ﶨ"
+  to_uname: ["SEEN", "KHAH", "ALEF MAKSURA"] to_raw: "سخى"
+}
+
+item {  # "U+FDA9"
+  uname: "LIGATURE SAD WITH HAH WITH YEH FINAL FORM" raw: "ﶩ"
+  to_uname: ["SAD", "HAH", "YEH"] to_raw: "صحي"
+}
+
+item {  # "U+FDAA"
+  uname: "LIGATURE SHEEN WITH HAH WITH YEH FINAL FORM" raw: "ﶪ"
+  to_uname: ["SHEEN", "HAH", "YEH"] to_raw: "شحي"
+}
+
+item {  # "U+FDAB"
+  uname: "LIGATURE DAD WITH HAH WITH YEH FINAL FORM" raw: "ﶫ"
+  to_uname: ["DAD", "HAH", "YEH"] to_raw: "ضحي"
+}
+
+item {  # "U+FDAC"
+  uname: "LIGATURE LAM WITH JEEM WITH YEH FINAL FORM" raw: "ﶬ"
+  to_uname: ["LAM", "JEEM", "YEH"] to_raw: "لجي"
+}
+
+item {  # "U+FDAD"
+  uname: "LIGATURE LAM WITH MEEM WITH YEH FINAL FORM" raw: "ﶭ"
+  to_uname: ["LAM", "MEEM", "YEH"] to_raw: "لمي"
+}
+
+item {  # "U+FDAE"
+  uname: "LIGATURE YEH WITH HAH WITH YEH FINAL FORM" raw: "ﶮ"
+  to_uname: ["YEH", "HAH", "YEH"] to_raw: "يحي"
+}
+
+item {  # "U+FDAF"
+  uname: "LIGATURE YEH WITH JEEM WITH YEH FINAL FORM" raw: "ﶯ"
+  to_uname: ["YEH", "JEEM", "YEH"] to_raw: "يجي"
+}
+
+item {  # "U+FDB0"
+  uname: "LIGATURE YEH WITH MEEM WITH YEH FINAL FORM" raw: "ﶰ"
+  to_uname: ["YEH", "MEEM", "YEH"] to_raw: "يمي"
+}
+
+item {  # "U+FDB1"
+  uname: "LIGATURE MEEM WITH MEEM WITH YEH FINAL FORM" raw: "ﶱ"
+  to_uname: ["MEEM", "MEEM", "YEH"] to_raw: "ممي"
+}
+
+item {  # "U+FDB2"
+  uname: "LIGATURE QAF WITH MEEM WITH YEH FINAL FORM" raw: "ﶲ"
+  to_uname: ["QAF", "MEEM", "YEH"] to_raw: "قمي"
+}
+
+item {  # "U+FDB3"
+  uname: "LIGATURE NOON WITH HAH WITH YEH FINAL FORM" raw: "ﶳ"
+  to_uname: ["NOON", "HAH", "YEH"] to_raw: "نحي"
+}
+
+item {  # "U+FDB4"
+  uname: "LIGATURE QAF WITH MEEM WITH HAH INITIAL FORM" raw: "ﶴ"
+  to_uname: ["QAF", "MEEM", "HAH"] to_raw: "قمح"
+}
+
+item {  # "U+FDB5"
+  uname: "LIGATURE LAM WITH HAH WITH MEEM INITIAL FORM" raw: "ﶵ"
+  to_uname: ["LAM", "HAH", "MEEM"] to_raw: "لحم"
+}
+
+item {  # "U+FDB6"
+  uname: "LIGATURE AIN WITH MEEM WITH YEH FINAL FORM" raw: "ﶶ"
+  to_uname: ["AIN", "MEEM", "YEH"] to_raw: "عمي"
+}
+
+item {  # "U+FDB7"
+  uname: "LIGATURE KAF WITH MEEM WITH YEH FINAL FORM" raw: "ﶷ"
+  to_uname: ["KAF", "MEEM", "YEH"] to_raw: "كمي"
+}
+
+item {  # "U+FDB8"
+  uname: "LIGATURE NOON WITH JEEM WITH HAH INITIAL FORM" raw: "ﶸ"
+  to_uname: ["NOON", "JEEM", "HAH"] to_raw: "نجح"
+}
+
+item {  # "U+FDB9"
+  uname: "LIGATURE MEEM WITH KHAH WITH YEH FINAL FORM" raw: "ﶹ"
+  to_uname: ["MEEM", "KHAH", "YEH"] to_raw: "مخي"
+}
+
+item {  # "U+FDBA"
+  uname: "LIGATURE LAM WITH JEEM WITH MEEM INITIAL FORM" raw: "ﶺ"
+  to_uname: ["LAM", "JEEM", "MEEM"] to_raw: "لجم"
+}
+
+item {  # "U+FDBB"
+  uname: "LIGATURE KAF WITH MEEM WITH MEEM FINAL FORM" raw: "ﶻ"
+  to_uname: ["KAF", "MEEM", "MEEM"] to_raw: "كمم"
+}
+
+item {  # "U+FDBC"
+  uname: "LIGATURE LAM WITH JEEM WITH MEEM FINAL FORM" raw: "ﶼ"
+  to_uname: ["LAM", "JEEM", "MEEM"] to_raw: "لجم"
+}
+
+item {  # "U+FDBD"
+  uname: "LIGATURE NOON WITH JEEM WITH HAH FINAL FORM" raw: "ﶽ"
+  to_uname: ["NOON", "JEEM", "HAH"] to_raw: "نجح"
+}
+
+item {  # "U+FDBE"
+  uname: "LIGATURE JEEM WITH HAH WITH YEH FINAL FORM" raw: "ﶾ"
+  to_uname: ["JEEM", "HAH", "YEH"] to_raw: "جحي"
+}
+
+item {  # "U+FDBF"
+  uname: "LIGATURE HAH WITH JEEM WITH YEH FINAL FORM" raw: "ﶿ"
+  to_uname: ["HAH", "JEEM", "YEH"] to_raw: "حجي"
+}
+
+item {  # "U+FDC0"
+  uname: "LIGATURE MEEM WITH JEEM WITH YEH FINAL FORM" raw: "ﷀ"
+  to_uname: ["MEEM", "JEEM", "YEH"] to_raw: "مجي"
+}
+
+item {  # "U+FDC1"
+  uname: "LIGATURE FEH WITH MEEM WITH YEH FINAL FORM" raw: "ﷁ"
+  to_uname: ["FEH", "MEEM", "YEH"] to_raw: "فمي"
+}
+
+item {  # "U+FDC2"
+  uname: "LIGATURE BEH WITH HAH WITH YEH FINAL FORM" raw: "ﷂ"
+  to_uname: ["BEH", "HAH", "YEH"] to_raw: "بحي"
+}
+
+item {  # "U+FDC3"
+  uname: "LIGATURE KAF WITH MEEM WITH MEEM INITIAL FORM" raw: "ﷃ"
+  to_uname: ["KAF", "MEEM", "MEEM"] to_raw: "كمم"
+}
+
+item {  # "U+FDC4"
+  uname: "LIGATURE AIN WITH JEEM WITH MEEM INITIAL FORM" raw: "ﷄ"
+  to_uname: ["AIN", "JEEM", "MEEM"] to_raw: "عجم"
+}
+
+item {  # "U+FDC5"
+  uname: "LIGATURE SAD WITH MEEM WITH MEEM INITIAL FORM" raw: "ﷅ"
+  to_uname: ["SAD", "MEEM", "MEEM"] to_raw: "صمم"
+}
+
+item {  # "U+FDC6"
+  uname: "LIGATURE SEEN WITH KHAH WITH YEH FINAL FORM" raw: "ﷆ"
+  to_uname: ["SEEN", "KHAH", "YEH"] to_raw: "سخي"
+}
+
+item {  # "U+FDC7"
+  uname: "LIGATURE NOON WITH JEEM WITH YEH FINAL FORM" raw: "ﷇ"
+  to_uname: ["NOON", "JEEM", "YEH"] to_raw: "نجي"
+}
+
+# Unicode 14.0 onwards.
+#LIGATURE SALAAMUHU ALAYNAA	U+FDCF	﷏	﷏
+
+item {  # "U+FDF0"
+  uname: "LIGATURE SALLA USED AS KORANIC STOP SIGN ISOLATED FORM" raw: "ﷰ"
+  to_uname: ["SAD", "LAM", "YEH BARREE"] to_raw: "صلے"
+}
+
+item {  # "U+FDF1"
+  uname: "LIGATURE QALA USED AS KORANIC STOP SIGN ISOLATED FORM" raw: "ﷱ"
+  to_uname: ["QAF", "LAM", "YEH BARREE"] to_raw: "قلے"
+}
+
+item {  # "U+FDF2"
+  uname: "LIGATURE ALLAH ISOLATED FORM" raw: "ﷲ"
+  to_uname: ["ALEF", "LAM", "LAM", "HEH"] to_raw: "الله"
+}
+
+item {  # "U+FDF3"
+  uname: "LIGATURE AKBAR ISOLATED FORM" raw: "ﷳ"
+  to_uname: ["ALEF", "KAF", "BEH", "REH"] to_raw: "اكبر"
+}
+
+item {  # "U+FDF4"
+  uname: "LIGATURE MOHAMMAD ISOLATED FORM" raw: "ﷴ"
+  to_uname: ["MEEM", "HAH", "MEEM", "DAL"] to_raw: "محمد"
+}
+
+item {  # "U+FDF5"
+  uname: "LIGATURE SALAM ISOLATED FORM" raw: "ﷵ"
+  to_uname: ["SAD", "LAM", "AIN", "MEEM"] to_raw: "صلعم"
+}
+
+item {  # "U+FDF6"
+  uname: "LIGATURE RASOUL ISOLATED FORM" raw: "ﷶ"
+  to_uname: ["REH", "SEEN", "WAW", "LAM"] to_raw: "رسول"
+}
+
+item {  # "U+FDF7"
+  uname: "LIGATURE ALAYHE ISOLATED FORM" raw: "ﷷ"
+  to_uname: ["AIN", "LAM", "YEH", "HEH"] to_raw: "عليه"
+}
+
+item {  # "U+FDF8"
+  uname: "LIGATURE WASALLAM ISOLATED FORM" raw: "ﷸ"
+  to_uname: ["WAW", "SEEN", "LAM", "MEEM"] to_raw: "وسلم"
+}
+
+item {  # "U+FDF9"
+  uname: "LIGATURE SALLA ISOLATED FORM" raw: "ﷹ"
+  to_uname: ["SAD", "LAM", "ALEF MAKSURA"] to_raw: "صلى"
+}
+
+# TODO: Double-check.
+# Unicode 14.0 onwards.
+# item {  # "U+FDFD"
+#  uname: "LIGATURE BISMILLAH AR-RAHMAN AR-RAHEEM" raw: "﷽"
+#  to_uname: "LIGATURE BISMILLAH AR-RAHMAN AR-RAHEEM" to_raw: "﷽"
+#}
+
+item {  # "U+FE80"
+  uname: "HAMZA ISOLATED FORM" raw: "ﺀ"
+  to_uname: "HAMZA" to_raw: "ء"
+}
+
+item {  # "U+FE81"
+  uname: "ALEF WITH MADDA ABOVE ISOLATED FORM" raw: "ﺁ"
+  to_uname: "ALEF WITH MADDA ABOVE" to_raw: "آ"
+}
+
+item {  # "U+FE82"
+  uname: "ALEF WITH MADDA ABOVE FINAL FORM" raw: "ﺂ"
+  to_uname: "ALEF WITH MADDA ABOVE" to_raw: "آ"
+}
+
+item {  # "U+FE83"
+  uname: "ALEF WITH HAMZA ABOVE ISOLATED FORM" raw: "ﺃ"
+  to_uname: "ALEF WITH HAMZA ABOVE" to_raw: "أ"
+}
+
+item {  # "U+FE84"
+  uname: "ALEF WITH HAMZA ABOVE FINAL FORM" raw: "ﺄ"
+  to_uname: "ALEF WITH HAMZA ABOVE" to_raw: "أ"
+}
+
+item {  # "U+FE85"
+  uname: "WAW WITH HAMZA ABOVE ISOLATED FORM" raw: "ﺅ"
+  to_uname: "WAW WITH HAMZA ABOVE" to_raw: "ؤ"
+}
+
+item {  # "U+FE86"
+  uname: "WAW WITH HAMZA ABOVE FINAL FORM" raw: "ﺆ"
+  to_uname: "WAW WITH HAMZA ABOVE" to_raw: "ؤ"
+}
+
+item {  # "U+FE87"
+  uname: "ALEF WITH HAMZA BELOW ISOLATED FORM" raw: "ﺇ"
+  to_uname: "ALEF WITH HAMZA BELOW" to_raw: "إ"
+}
+
+item {  # "U+FE88"
+  uname: "ALEF WITH HAMZA BELOW FINAL FORM" raw: "ﺈ"
+  to_uname: "ALEF WITH HAMZA BELOW" to_raw: "إ"
+}
+
+item {  # "U+FE89"
+  uname: "YEH WITH HAMZA ABOVE ISOLATED FORM" raw: "ﺉ"
+  to_uname: "YEH WITH HAMZA ABOVE" to_raw: "ئ"
+}
+
+item {  # "U+FE8A"
+  uname: "YEH WITH HAMZA ABOVE FINAL FORM" raw: "ﺊ"
+  to_uname: "YEH WITH HAMZA ABOVE" to_raw: "ئ"
+}
+
+item {  # "U+FE8B"
+  uname: "YEH WITH HAMZA ABOVE INITIAL FORM" raw: "ﺋ"
+  to_uname: "YEH WITH HAMZA ABOVE" to_raw: "ئ"
+}
+
+item {  # "U+FE8C"
+  uname: "YEH WITH HAMZA ABOVE MEDIAL FORM" raw: "ﺌ"
+  to_uname: "YEH WITH HAMZA ABOVE" to_raw: "ئ"
+}
+
+item {  # "U+FE8D"
+  uname: "ALEF ISOLATED FORM" raw: "ﺍ"
+  to_uname: "ALEF" to_raw: "ا"
+}
+
+item {  # "U+FE8E"
+  uname: "ALEF FINAL FORM" raw: "ﺎ"
+  to_uname: "ALEF" to_raw: "ا"
+}
+
+item {  # "U+FE8F"
+  uname: "BEH ISOLATED FORM" raw: "ﺏ"
+  to_uname: "BEH" to_raw: "ب"
+}
+
+item {  # "U+FE90"
+  uname: "BEH FINAL FORM" raw: "ﺐ"
+  to_uname: "BEH" to_raw: "ب"
+}
+
+item {  # "U+FE91"
+  uname: "BEH INITIAL FORM" raw: "ﺑ"
+  to_uname: "BEH" to_raw: "ب"
+}
+
+item {  # "U+FE92"
+  uname: "BEH MEDIAL FORM" raw: "ﺒ"
+  to_uname: "BEH" to_raw: "ب"
+}
+
+item {  # "U+FE93"
+  uname: "TEH MARBUTA ISOLATED FORM" raw: "ﺓ"
+  to_uname: "TEH MARBUTA" to_raw: "ة"
+}
+
+item {  # "U+FE94"
+  uname: "TEH MARBUTA FINAL FORM" raw: "ﺔ"
+  to_uname: "TEH MARBUTA" to_raw: "ة"
+}
+
+item {  # "U+FE95"
+  uname: "TEH ISOLATED FORM" raw: "ﺕ"
+  to_uname: "TEH" to_raw: "ت"
+}
+
+item {  # "U+FE96"
+  uname: "TEH FINAL FORM" raw: "ﺖ"
+  to_uname: "TEH" to_raw: "ت"
+}
+
+item {  # "U+FE97"
+  uname: "TEH INITIAL FORM" raw: "ﺗ"
+  to_uname: "TEH" to_raw: "ت"
+}
+
+item {  # "U+FE98"
+  uname: "TEH MEDIAL FORM" raw: "ﺘ"
+  to_uname: "TEH" to_raw: "ت"
+}
+
+item {  # "U+FE99"
+  uname: "THEH ISOLATED FORM" raw: "ﺙ"
+  to_uname: "THEH" to_raw: "ث"
+}
+
+item {  # "U+FE9A"
+  uname: "THEH FINAL FORM" raw: "ﺚ"
+  to_uname: "THEH" to_raw: "ث"
+}
+
+item {  # "U+FE9B"
+  uname: "THEH INITIAL FORM" raw: "ﺛ"
+  to_uname: "THEH" to_raw: "ث"
+}
+
+item {  # "U+FE9C"
+  uname: "THEH MEDIAL FORM" raw: "ﺜ"
+  to_uname: "THEH" to_raw: "ث"
+}
+
+item {  # "U+FE9D"
+  uname: "JEEM ISOLATED FORM" raw: "ﺝ"
+  to_uname: "JEEM" to_raw: "ج"
+}
+
+item {  # "U+FE9E"
+  uname: "JEEM FINAL FORM" raw: "ﺞ"
+  to_uname: "JEEM" to_raw: "ج"
+}
+
+item {  # "U+FE9F"
+  uname: "JEEM INITIAL FORM" raw: "ﺟ"
+  to_uname: "JEEM" to_raw: "ج"
+}
+
+item {  # "U+FEA0"
+  uname: "JEEM MEDIAL FORM" raw: "ﺠ"
+  to_uname: "JEEM" to_raw: "ج"
+}
+
+item {  # "U+FEA1"
+  uname: "HAH ISOLATED FORM" raw: "ﺡ"
+  to_uname: "HAH" to_raw: "ح"
+}
+
+item {  # "U+FEA2"
+  uname: "HAH FINAL FORM" raw: "ﺢ"
+  to_uname: "HAH" to_raw: "ح"
+}
+
+item {  # "U+FEA3"
+  uname: "HAH INITIAL FORM" raw: "ﺣ"
+  to_uname: "HAH" to_raw: "ح"
+}
+
+item {  # "U+FEA4"
+  uname: "HAH MEDIAL FORM" raw: "ﺤ"
+  to_uname: "HAH" to_raw: "ح"
+}
+
+item {  # "U+FEA5"
+  uname: "KHAH ISOLATED FORM" raw: "ﺥ"
+  to_uname: "KHAH" to_raw: "خ"
+}
+
+item {  # "U+FEA6"
+  uname: "KHAH FINAL FORM" raw: "ﺦ"
+  to_uname: "KHAH" to_raw: "خ"
+}
+
+item {  # "U+FEA7"
+  uname: "KHAH INITIAL FORM" raw: "ﺧ"
+  to_uname: "KHAH" to_raw: "خ"
+}
+
+item {  # "U+FEA8"
+  uname: "KHAH MEDIAL FORM" raw: "ﺨ"
+  to_uname: "KHAH" to_raw: "خ"
+}
+
+item {  # "U+FEA9"
+  uname: "DAL ISOLATED FORM" raw: "ﺩ"
+  to_uname: "DAL" to_raw: "د"
+}
+
+item {  # "U+FEAA"
+  uname: "DAL FINAL FORM" raw: "ﺪ"
+  to_uname: "DAL" to_raw: "د"
+}
+
+item {  # "U+FEAB"
+  uname: "THAL ISOLATED FORM" raw: "ﺫ"
+  to_uname: "THAL" to_raw: "ذ"
+}
+
+item {  # "U+FEAC"
+  uname: "THAL FINAL FORM" raw: "ﺬ"
+  to_uname: "THAL" to_raw: "ذ"
+}
+
+item {  # "U+FEAD"
+  uname: "REH ISOLATED FORM" raw: "ﺭ"
+  to_uname: "REH" to_raw: "ر"
+}
+
+item {  # "U+FEAE"
+  uname: "REH FINAL FORM" raw: "ﺮ"
+  to_uname: "REH" to_raw: "ر"
+}
+
+item {  # "U+FEAF"
+  uname: "ZAIN ISOLATED FORM" raw: "ﺯ"
+  to_uname: "ZAIN" to_raw: "ز"
+}
+
+item {  # "U+FEB0"
+  uname: "ZAIN FINAL FORM" raw: "ﺰ"
+  to_uname: "ZAIN" to_raw: "ز"
+}
+
+item {  # "U+FEB1"
+  uname: "SEEN ISOLATED FORM" raw: "ﺱ"
+  to_uname: "SEEN" to_raw: "س"
+}
+
+item {  # "U+FEB2"
+  uname: "SEEN FINAL FORM" raw: "ﺲ"
+  to_uname: "SEEN" to_raw: "س"
+}
+
+item {  # "U+FEB3"
+  uname: "SEEN INITIAL FORM" raw: "ﺳ"
+  to_uname: "SEEN" to_raw: "س"
+}
+
+item {  # "U+FEB4"
+  uname: "SEEN MEDIAL FORM" raw: "ﺴ"
+  to_uname: "SEEN" to_raw: "س"
+}
+
+item {  # "U+FEB5"
+  uname: "SHEEN ISOLATED FORM" raw: "ﺵ"
+  to_uname: "SHEEN" to_raw: "ش"
+}
+
+item {  # "U+FEB6"
+  uname: "SHEEN FINAL FORM" raw: "ﺶ"
+  to_uname: "SHEEN" to_raw: "ش"
+}
+
+item {  # "U+FEB7"
+  uname: "SHEEN INITIAL FORM" raw: "ﺷ"
+  to_uname: "SHEEN" to_raw: "ش"
+}
+
+item {  # "U+FEB8"
+  uname: "SHEEN MEDIAL FORM" raw: "ﺸ"
+  to_uname: "SHEEN" to_raw: "ش"
+}
+
+item {  # "U+FEB9"
+  uname: "SAD ISOLATED FORM" raw: "ﺹ"
+  to_uname: "SAD" to_raw: "ص"
+}
+
+item {  # "U+FEBA"
+  uname: "SAD FINAL FORM" raw: "ﺺ"
+  to_uname: "SAD" to_raw: "ص"
+}
+
+item {  # "U+FEBB"
+  uname: "SAD INITIAL FORM" raw: "ﺻ"
+  to_uname: "SAD" to_raw: "ص"
+}
+
+item {  # "U+FEBC"
+  uname: "SAD MEDIAL FORM" raw: "ﺼ"
+  to_uname: "SAD" to_raw: "ص"
+}
+
+item {  # "U+FEBD"
+  uname: "DAD ISOLATED FORM" raw: "ﺽ"
+  to_uname: "DAD" to_raw: "ض"
+}
+
+item {  # "U+FEBE"
+  uname: "DAD FINAL FORM" raw: "ﺾ"
+  to_uname: "DAD" to_raw: "ض"
+}
+
+item {  # "U+FEBF"
+  uname: "DAD INITIAL FORM" raw: "ﺿ"
+  to_uname: "DAD" to_raw: "ض"
+}
+
+item {  # "U+FEC0"
+  uname: "DAD MEDIAL FORM" raw: "ﻀ"
+  to_uname: "DAD" to_raw: "ض"
+}
+
+item {  # "U+FEC1"
+  uname: "TAH ISOLATED FORM" raw: "ﻁ"
+  to_uname: "TAH" to_raw: "ط"
+}
+
+item {  # "U+FEC2"
+  uname: "TAH FINAL FORM" raw: "ﻂ"
+  to_uname: "TAH" to_raw: "ط"
+}
+
+item {  # "U+FEC3"
+  uname: "TAH INITIAL FORM" raw: "ﻃ"
+  to_uname: "TAH" to_raw: "ط"
+}
+
+item {  # "U+FEC4"
+  uname: "TAH MEDIAL FORM" raw: "ﻄ"
+  to_uname: "TAH" to_raw: "ط"
+}
+
+item {  # "U+FEC5"
+  uname: "ZAH ISOLATED FORM" raw: "ﻅ"
+  to_uname: "ZAH" to_raw: "ظ"
+}
+
+item {  # "U+FEC6"
+  uname: "ZAH FINAL FORM" raw: "ﻆ"
+  to_uname: "ZAH" to_raw: "ظ"
+}
+
+item {  # "U+FEC7"
+  uname: "ZAH INITIAL FORM" raw: "ﻇ"
+  to_uname: "ZAH" to_raw: "ظ"
+}
+
+item {  # "U+FEC8"
+  uname: "ZAH MEDIAL FORM" raw: "ﻈ"
+  to_uname: "ZAH" to_raw: "ظ"
+}
+
+item {  # "U+FEC9"
+  uname: "AIN ISOLATED FORM" raw: "ﻉ"
+  to_uname: "AIN" to_raw: "ع"
+}
+
+item {  # "U+FECA"
+  uname: "AIN FINAL FORM" raw: "ﻊ"
+  to_uname: "AIN" to_raw: "ع"
+}
+
+item {  # "U+FECB"
+  uname: "AIN INITIAL FORM" raw: "ﻋ"
+  to_uname: "AIN" to_raw: "ع"
+}
+
+item {  # "U+FECC"
+  uname: "AIN MEDIAL FORM" raw: "ﻌ"
+  to_uname: "AIN" to_raw: "ع"
+}
+
+item {  # "U+FECD"
+  uname: "GHAIN ISOLATED FORM" raw: "ﻍ"
+  to_uname: "GHAIN" to_raw: "غ"
+}
+
+item {  # "U+FECE"
+  uname: "GHAIN FINAL FORM" raw: "ﻎ"
+  to_uname: "GHAIN" to_raw: "غ"
+}
+
+item {  # "U+FECF"
+  uname: "GHAIN INITIAL FORM" raw: "ﻏ"
+  to_uname: "GHAIN" to_raw: "غ"
+}
+
+item {  # "U+FED0"
+  uname: "GHAIN MEDIAL FORM" raw: "ﻐ"
+  to_uname: "GHAIN" to_raw: "غ"
+}
+
+item {  # "U+FED1"
+  uname: "FEH ISOLATED FORM" raw: "ﻑ"
+  to_uname: "FEH" to_raw: "ف"
+}
+
+item {  # "U+FED2"
+  uname: "FEH FINAL FORM" raw: "ﻒ"
+  to_uname: "FEH" to_raw: "ف"
+}
+
+item {  # "U+FED3"
+  uname: "FEH INITIAL FORM" raw: "ﻓ"
+  to_uname: "FEH" to_raw: "ف"
+}
+
+item {  # "U+FED4"
+  uname: "FEH MEDIAL FORM" raw: "ﻔ"
+  to_uname: "FEH" to_raw: "ف"
+}
+
+item {  # "U+FED5"
+  uname: "QAF ISOLATED FORM" raw: "ﻕ"
+  to_uname: "QAF" to_raw: "ق"
+}
+
+item {  # "U+FED6"
+  uname: "QAF FINAL FORM" raw: "ﻖ"
+  to_uname: "QAF" to_raw: "ق"
+}
+
+item {  # "U+FED7"
+  uname: "QAF INITIAL FORM" raw: "ﻗ"
+  to_uname: "QAF" to_raw: "ق"
+}
+
+item {  # "U+FED8"
+  uname: "QAF MEDIAL FORM" raw: "ﻘ"
+  to_uname: "QAF" to_raw: "ق"
+}
+
+item {  # "U+FED9"
+  uname: "KAF ISOLATED FORM" raw: "ﻙ"
+  to_uname: "KAF" to_raw: "ك"
+}
+
+item {  # "U+FEDA"
+  uname: "KAF FINAL FORM" raw: "ﻚ"
+  to_uname: "KAF" to_raw: "ك"
+}
+
+item {  # "U+FEDB"
+  uname: "KAF INITIAL FORM" raw: "ﻛ"
+  to_uname: "KAF" to_raw: "ك"
+}
+
+item {  # "U+FEDC"
+  uname: "KAF MEDIAL FORM" raw: "ﻜ"
+  to_uname: "KAF" to_raw: "ك"
+}
+
+item {  # "U+FEDD"
+  uname: "LAM ISOLATED FORM" raw: "ﻝ"
+  to_uname: "LAM" to_raw: "ل"
+}
+
+item {  # "U+FEDE"
+  uname: "LAM FINAL FORM" raw: "ﻞ"
+  to_uname: "LAM" to_raw: "ل"
+}
+
+item {  # "U+FEDF"
+  uname: "LAM INITIAL FORM" raw: "ﻟ"
+  to_uname: "LAM" to_raw: "ل"
+}
+
+item {  # "U+FEE0"
+  uname: "LAM MEDIAL FORM" raw: "ﻠ"
+  to_uname: "LAM" to_raw: "ل"
+}
+
+item {  # "U+FEE1"
+  uname: "MEEM ISOLATED FORM" raw: "ﻡ"
+  to_uname: "MEEM" to_raw: "م"
+}
+
+item {  # "U+FEE2"
+  uname: "MEEM FINAL FORM" raw: "ﻢ"
+  to_uname: "MEEM" to_raw: "م"
+}
+
+item {  # "U+FEE3"
+  uname: "MEEM INITIAL FORM" raw: "ﻣ"
+  to_uname: "MEEM" to_raw: "م"
+}
+
+item {  # "U+FEE4"
+  uname: "MEEM MEDIAL FORM" raw: "ﻤ"
+  to_uname: "MEEM" to_raw: "م"
+}
+
+item {  # "U+FEE5"
+  uname: "NOON ISOLATED FORM" raw: "ﻥ"
+  to_uname: "NOON" to_raw: "ن"
+}
+
+item {  # "U+FEE6"
+  uname: "NOON FINAL FORM" raw: "ﻦ"
+  to_uname: "NOON" to_raw: "ن"
+}
+
+item {  # "U+FEE7"
+  uname: "NOON INITIAL FORM" raw: "ﻧ"
+  to_uname: "NOON" to_raw: "ن"
+}
+
+item {  # "U+FEE8"
+  uname: "NOON MEDIAL FORM" raw: "ﻨ"
+  to_uname: "NOON" to_raw: "ن"
+}
+
+item {  # "U+FEE9"
+  uname: "HEH ISOLATED FORM" raw: "ﻩ"
+  to_uname: "HEH" to_raw: "ه"
+}
+
+item {  # "U+FEEA"
+  uname: "HEH FINAL FORM" raw: "ﻪ"
+  to_uname: "HEH" to_raw: "ه"
+}
+
+item {  # "U+FEEB"
+  uname: "HEH INITIAL FORM" raw: "ﻫ"
+  to_uname: "HEH" to_raw: "ه"
+}
+
+item {  # "U+FEEC"
+  uname: "HEH MEDIAL FORM" raw: "ﻬ"
+  to_uname: "HEH" to_raw: "ه"
+}
+
+item {  # "U+FEED"
+  uname: "WAW ISOLATED FORM" raw: "ﻭ"
+  to_uname: "WAW" to_raw: "و"
+}
+
+item {  # "U+FEEE"
+  uname: "WAW FINAL FORM" raw: "ﻮ"
+  to_uname: "WAW" to_raw: "و"
+}
+
+item {  # "U+FEEF"
+  uname: "ALEF MAKSURA ISOLATED FORM" raw: "ﻯ"
+  to_uname: "ALEF MAKSURA" to_raw: "ى"
+}
+
+item {  # "U+FEF0"
+  uname: "ALEF MAKSURA FINAL FORM" raw: "ﻰ"
+  to_uname: "ALEF MAKSURA" to_raw: "ى"
+}
+
+item {  # "U+FEF1"
+  uname: "YEH ISOLATED FORM" raw: "ﻱ"
+  to_uname: "YEH" to_raw: "ي"
+}
+
+item {  # "U+FEF2"
+  uname: "YEH FINAL FORM" raw: "ﻲ"
+  to_uname: "YEH" to_raw: "ي"
+}
+
+item {  # "U+FEF3"
+  uname: "YEH INITIAL FORM" raw: "ﻳ"
+  to_uname: "YEH" to_raw: "ي"
+}
+
+item {  # "U+FEF4"
+  uname: "YEH MEDIAL FORM" raw: "ﻴ"
+  to_uname: "YEH" to_raw: "ي"
+}
+
+item {  # "U+FEF5"
+  uname: "LIGATURE LAM WITH ALEF WITH MADDA ABOVE ISOLATED FORM" raw: "ﻵ"
+  to_uname: ["LAM", "ALEF WITH MADDA ABOVE"] to_raw: "لآ"
+}
+
+item {  # "U+FEF6"
+  uname: "LIGATURE LAM WITH ALEF WITH MADDA ABOVE FINAL FORM" raw: "ﻶ"
+  to_uname: ["LAM", "ALEF WITH MADDA ABOVE"] to_raw: "لآ"
+}
+
+item {  # "U+FEF7"
+  uname: "LIGATURE LAM WITH ALEF WITH HAMZA ABOVE ISOLATED FORM" raw: "ﻷ"
+  to_uname: ["LAM", "ALEF WITH HAMZA ABOVE"] to_raw: "لأ"
+}
+
+item {  # "U+FEF8"
+  uname: "LIGATURE LAM WITH ALEF WITH HAMZA ABOVE FINAL FORM" raw: "ﻸ"
+  to_uname: ["LAM", "ALEF WITH HAMZA ABOVE"] to_raw: "لأ"
+}
+
+item {  # "U+FEF9"
+  uname: "LIGATURE LAM WITH ALEF WITH HAMZA BELOW ISOLATED FORM" raw: "ﻹ"
+  to_uname: ["LAM", "ALEF WITH HAMZA BELOW"] to_raw: "لإ"
+}
+
+item {  # "U+FEFA"
+  uname: "LIGATURE LAM WITH ALEF WITH HAMZA BELOW FINAL FORM" raw: "ﻺ"
+  to_uname: ["LAM", "ALEF WITH HAMZA BELOW"] to_raw: "لإ"
+}
+
+item {  # "U+FEFB"
+  uname: "LIGATURE LAM WITH ALEF ISOLATED FORM" raw: "ﻻ"
+  to_uname: ["LAM", "ALEF"] to_raw: "لا"
+}
+
+item {  # "U+FEFC"
+  uname: "LIGATURE LAM WITH ALEF FINAL FORM" raw: "ﻼ"
+  to_uname: ["LAM", "ALEF"] to_raw: "لا"
+}
