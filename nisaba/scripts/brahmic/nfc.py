@@ -41,7 +41,7 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       all_rules = []
       all_sigmas = []
       for script in u.SCRIPTS:
-        sigma = u.OpenSigma(script, token_type=token_type)
+        sigma = u.OpenSigma(script, token_type)
         rules = list(
             r.rules_from_string_file(u.SCRIPT_DIR / script / 'nfc.tsv'))
         fst = r.fst_from_rules(rules, sigma)

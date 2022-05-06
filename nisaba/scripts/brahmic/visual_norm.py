@@ -87,7 +87,7 @@ def core_visual_norm_fsts(rewrite_file: os.PathLike,
 
 
 def open_nfc(script_code: str, token_type: str) -> pynini.Fst:
-  return u.OpenFstFromBrahmicFar('nfc', script_code, token_type=token_type)
+  return u.OpenFstFromBrahmicFar('nfc', script_code, token_type)
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
@@ -97,7 +97,7 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
     with pynini.default_token_type(token_type):
       sigma_map = {}
       for script in u.SCRIPTS:
-        sigma = u.OpenSigma(script, token_type=token_type)
+        sigma = u.OpenSigma(script, token_type)
         sigma_map[script] = sigma
         dedup = cu.dedup_marks_fst(script, sigma)
         nfc = open_nfc(script, token_type)

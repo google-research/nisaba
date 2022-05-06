@@ -44,7 +44,7 @@ class FstPropertiesTest(parameterized.TestCase,
            pynini.ACCEPTOR), ('byte', 'utf8')))
   def test_wellformed(self, script: str, prop: pynini.FstProperties,
                       token_type: str):
-    fst = u.OpenFstFromBrahmicFar('wellformed', script, token_type=token_type)
+    fst = u.OpenFstFromBrahmicFar('wellformed', script, token_type)
     self.assertFstCompliesWithProperties(fst, prop)
 
   @parameterized.parameters(
@@ -53,7 +53,7 @@ class FstPropertiesTest(parameterized.TestCase,
                          pynini.ACCESSIBLE, pynini.COACCESSIBLE),
                         ('byte', 'utf8')))
   def test_nfc(self, script: str, prop: pynini.FstProperties, token_type: str):
-    fst = u.OpenFstFromBrahmicFar('nfc', script, token_type=token_type)
+    fst = u.OpenFstFromBrahmicFar('nfc', script, token_type)
     self.assertFstCompliesWithProperties(fst, prop)
 
   @parameterized.parameters(
@@ -63,7 +63,7 @@ class FstPropertiesTest(parameterized.TestCase,
                         ('byte', 'utf8')))
   def test_visual_norm(self, script: str, prop: pynini.FstProperties,
                        token_type: str):
-    fst = u.OpenFstFromBrahmicFar('visual_norm', script, token_type=token_type)
+    fst = u.OpenFstFromBrahmicFar('visual_norm', script, token_type)
     self.assertFstCompliesWithProperties(fst, prop)
 
   @parameterized.parameters(
@@ -80,7 +80,7 @@ class FstPropertiesTest(parameterized.TestCase,
                  script: str,
                  prop: pynini.FstProperties,
                  token_type: str):
-    fst = u.OpenFstFromBrahmicFar('fixed', script, token_type=token_type)
+    fst = u.OpenFstFromBrahmicFar('fixed', script, token_type)
     self.assertFstCompliesWithProperties(fst, prop)
 
 

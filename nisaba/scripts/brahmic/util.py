@@ -36,7 +36,7 @@ def BuildSigmaFstFromSymbolTable(syms: pynini.SymbolTableView) -> pynini.Fst:
   return f
 
 
-def OpenFstFromBrahmicFar(far_name: str, fst_name: str, *,
+def OpenFstFromBrahmicFar(far_name: str, fst_name: str,
                           token_type: str) -> pynini.Fst:
   return uf.OpenFstFromFar(FAR_DIR, far_name, token_type, fst_name)
 
@@ -47,16 +47,18 @@ def OpenFstFromBrahmicFarSafe(far_name: str, fst_name: str, token_type: str,
   return uf.OpenFstFromFarSafe(FAR_DIR, far_name, token_type, fst_name, default)
 
 
-def OpenSigma(script: str, *, token_type: str) -> pynini.Fst:
+def OpenSigma(script: str, token_type: str) -> pynini.Fst:
   # Returns the byte FSA if token_type is 'byte', otherwise opens the sigma FAR.
   if token_type == "byte":
     return byte.BYTE
   elif token_type == "utf8":
-    return OpenFstFromBrahmicFar("sigma", script, token_type=token_type)
+    return OpenFstFromBrahmicFar("sigma", script, token_type)
   else:
     raise ValueError(f"Received invalid token_type: {token_type}")
 
 
+
+# As github Python says: "TypeError: 'ABCMeta' object is not subscriptable"
 def MaybeLoadScriptConfig(
     file_path: os.PathLike) -> script_config_pb2.ScriptConfig:
   """Loads script configuration, if present."""

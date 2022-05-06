@@ -43,13 +43,13 @@ class FstRandgenTest(parameterized.TestCase, ut.FstRandgenTestCase):
   def test_visual_or_reading_norm(self, lang: str, far_name: str,
                                   token_type: str):
     fst = uf.OpenFstFromFar(u.FAR_DIR, far_name, token_type, lang)
-    self.assertFstProbablyFunctional(fst, token_type=token_type,
+    self.assertFstProbablyFunctional(fst, token_type,
                                      samples=ut.NUM_TEST_SAMPLES)
 
   @parameterized.parameters('byte', 'utf8')
   def test_nfc(self, token_type: str):
     fst = uf.OpenFstFromFar(u.FAR_DIR, 'nfc', token_type, 'ARAB')
-    self.assertFstProbablyFunctional(fst, token_type=token_type,
+    self.assertFstProbablyFunctional(fst, token_type,
                                      samples=ut.NUM_TEST_SAMPLES)
 
 

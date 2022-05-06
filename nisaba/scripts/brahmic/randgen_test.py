@@ -27,20 +27,20 @@ class FstRandgenTest(parameterized.TestCase, test_util.FstRandgenTestCase):
   @parameterized.parameters(
       itertools.product(u.SCRIPTS + ['brahmic'], ('byte', 'utf8')))
   def test_nfc(self, script: str, token_type: str):
-    fst = u.OpenFstFromBrahmicFar('nfc', script, token_type=token_type)
-    self.assertFstProbablyFunctional(fst, token_type=token_type, samples=1e6)
+    fst = u.OpenFstFromBrahmicFar('nfc', script, token_type)
+    self.assertFstProbablyFunctional(fst, token_type, samples=1e6)
 
   @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   def test_visual_norm(self, script: str, token_type: str):
-    fst = u.OpenFstFromBrahmicFar('visual_norm', script, token_type=token_type)
-    self.assertFstProbablyFunctional(fst, token_type=token_type,
+    fst = u.OpenFstFromBrahmicFar('visual_norm', script, token_type)
+    self.assertFstProbablyFunctional(fst, token_type,
                                      samples=test_util.NUM_TEST_SAMPLES)
 
   @parameterized.parameters(
       itertools.product(u.FIXED_RULE_SCRIPTS, ('byte', 'utf8')))
   def test_fixed(self, script: str, token_type: str):
-    fst = u.OpenFstFromBrahmicFar('fixed', script, token_type=token_type)
-    self.assertFstProbablyFunctional(fst, token_type=token_type, samples=1e6)
+    fst = u.OpenFstFromBrahmicFar('fixed', script, token_type)
+    self.assertFstProbablyFunctional(fst, token_type, samples=1e6)
 
 
 if __name__ == '__main__':

@@ -36,8 +36,7 @@ import nisaba.scripts.utils.file as uf
 
 
 def _open_nfc(script_or_lang_code: str, token_type: str) -> pynini.Fst:
-  return u.open_fst_from_far('nfc', script_or_lang_code.upper(),
-                             token_type=token_type)
+  return u.open_fst_from_far('nfc', script_or_lang_code.upper(), token_type)
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):

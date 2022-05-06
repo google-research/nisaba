@@ -31,12 +31,11 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 import pynini
 from pynini.export import multi_grm
 import nisaba.scripts.abjad_alphabet.util as u
-import nisaba.scripts.utils.rule as rule
+from nisaba.scripts.utils import rule
 
 
 def _open_visual(script_or_lang_code: str, token_type: str) -> pynini.Fst:
-  return u.open_fst_from_far('visual_norm', script_or_lang_code,
-                             token_type=token_type)
+  return u.open_fst_from_far('visual_norm', script_or_lang_code, token_type)
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):

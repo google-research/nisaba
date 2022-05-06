@@ -54,7 +54,7 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       scripts = set(u.READING_NORM_SCRIPTS)
       scripts.update(u.READING_NORM_LANG_SCRIPT_MAP)
       for script in scripts:
-        sigma = u.OpenSigma(script, token_type=token_type)
+        sigma = u.OpenSigma(script, token_type)
         sigma_map[script] = sigma
         rewrite_map[script] = _reading_norm_fst(u.SCRIPT_DIR, script, sigma)
 

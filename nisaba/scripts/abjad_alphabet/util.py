@@ -47,7 +47,7 @@ def sigma_from_common_data_files() -> pynini.Fst:
   return uc.derive_sigma(chars)
 
 
-def open_fst_from_far(far_name: str, fst_name: str, *,
+def open_fst_from_far(far_name: str, fst_name: str,
                       token_type: str) -> pynini.Fst:
   """Loads FST given by `fst_name` from FAR specified by `far_name`."""
   return uf.OpenFstFromFar(FAR_DIR, far_name, token_type, fst_name)
