@@ -53,7 +53,7 @@ def consonants(script: str) -> Set[str]:
 
 def _dedup_chars(chars: Iterable[str], sigma: pynini.Fst) -> pynini.Fst:
   """Creates an FST to de-dup the specified characters."""
-  char_fsts = (ur.Rewrite(pynutil.delete(c), left=c, sigma=sigma)
+  char_fsts = (ur.Rewrite(pynutil.delete(c), sigma, left=c)
                for c in chars)
   return ur.ComposeFsts(char_fsts).optimize()
 

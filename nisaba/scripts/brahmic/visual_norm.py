@@ -25,23 +25,26 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
   --rules=MLYM < /tmp/mlym_words.txt
 ```
 """
-
 import os
+from typing import List
 
 import pynini
 from pynini.export import multi_grm
 from pynini.lib import pynutil
 import nisaba.scripts.brahmic.char_util as cu
 import nisaba.scripts.brahmic.util as u
+from nisaba.scripts.utils import rule
 import nisaba.scripts.utils.char as uc
 import nisaba.scripts.utils.file as uf
 import nisaba.scripts.utils.rewrite as ur
-import nisaba.scripts.utils.rule as rule
 
 
-def visual_norm(rewrite_file: os.PathLike, preserve_file: os.PathLike,
-                consonant_file: os.PathLike, *,
-                sigma: pynini.Fst) -> pynini.Fst:
+
+# As github Python says: "TypeError: 'ABCMeta' object is not subscriptable"
+def core_visual_norm_fsts(rewrite_file: os.PathLike,
+                          preserve_file: os.PathLike,
+                          consonant_file: os.PathLike,
+                          sigma: pynini.Fst) -> List[pynini.Fst]:
   """Creates a visual normalization FST.
 
   Given a rewrite file, preserve file, and consonant file, returns an FST
@@ -72,21 +75,18 @@ def visual_norm(rewrite_file: os.PathLike, preserve_file: os.PathLike,
   intermediate_sigma = u.BuildSigmaFstFromSymbolTable(
       pynini.generated_symbols()).union(sigma)
 
-  mark_preserve = ur.Rewrite(
-      preserve, consonant, consonant, sigma=intermediate_sigma)
+  mark_preserve = ur.Rewrite(preserve, intermediate_sigma, consonant, consonant)
   clean_joiner = ur.Rewrite(
-      pynutil.delete(pynini.union(uc.ZWNJ, uc.ZWJ, uc.ZWS)),
-      sigma=intermediate_sigma)
-  reinstate = ur.Rewrite(pynini.invert(preserve), sigma=intermediate_sigma)
+      pynutil.delete(pynini.union(uc.ZWNJ, uc.ZWJ, uc.ZWS)), intermediate_sigma)
+  reinstate = ur.Rewrite(pynini.invert(preserve), intermediate_sigma)
 
-  return pynini.optimize(
-      rewrite_fst @ mark_preserve @ clean_joiner @ reinstate
-      # We right-compose with sigma.star to ensure the generated_symbols don't
-      # leak through into the visual_norm fst.
-      @ sigma.star)
+  return [rewrite_fst, mark_preserve, clean_joiner, reinstate,
+          # We right-compose with sigma.star to ensure the generated_symbols
+          # don't leak through into the visual_norm fst.
+          sigma.star]
 
 
-def open_nfc(script_code: str, *, token_type: str) -> pynini.Fst:
+def open_nfc(script_code: str, token_type: str) -> pynini.Fst:
   return u.OpenFstFromBrahmicFar('nfc', script_code, token_type=token_type)
 
 
@@ -99,13 +99,14 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       for script in u.SCRIPTS:
         sigma = u.OpenSigma(script, token_type=token_type)
         sigma_map[script] = sigma
-        dedup = cu.dedup_marks_fst(script, sigma=sigma)
-        nfc = open_nfc(script, token_type=token_type)
-        rewrite_map[script] = (nfc @ dedup @ visual_norm(
-            u.SCRIPT_DIR / script / 'visual_rewrite.tsv',
-            u.SCRIPT_DIR / script / 'preserve.tsv',
-            u.SCRIPT_DIR / script / 'consonant.tsv',
-            sigma=sigma)).optimize()
+        dedup = cu.dedup_marks_fst(script, sigma)
+        nfc = open_nfc(script, token_type)
+        rewrite_map[script] = ur.ComposeFsts(
+            [nfc, dedup] + core_visual_norm_fsts(
+                u.SCRIPT_DIR / script / 'visual_rewrite.tsv',
+                u.SCRIPT_DIR / script / 'preserve.tsv',
+                u.SCRIPT_DIR / script / 'consonant.tsv',
+                sigma))
 
       for script, langs in u.LANG_SCRIPT_MAP.items():
         for lang in langs:
@@ -115,15 +116,12 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
 
           before_cons = uf.StringFile(
               u.SCRIPT_DIR / script / lang / 'before_consonant.tsv')
-          rewrite_before_cons = ur.Rewrite(before_cons, '', consonant,
-                                           sigma=sigma)
+          rewrite_before_cons = ur.Rewrite(before_cons, sigma, right=consonant)
           after_cons = uf.StringFile(
               u.SCRIPT_DIR / script / lang / 'after_consonant.tsv')
-          rewrite_after_cons = ur.Rewrite(
-              after_cons, '', consonant, sigma=sigma)
-          rewrite_map[lang] = (rewrite_map[script] @
-                               rewrite_before_cons @
-                               rewrite_after_cons).optimize()
+          rewrite_after_cons = ur.Rewrite(after_cons, sigma, left=consonant)
+          rewrite_map[lang] = ur.ComposeFsts([
+              rewrite_map[script], rewrite_before_cons, rewrite_after_cons])
 
       exporter = exporter_map[token_type]
       for name, fst in rewrite_map.items():

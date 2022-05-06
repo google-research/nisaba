@@ -31,17 +31,17 @@ import pathlib
 import pynini
 from pynini.export import multi_grm
 import nisaba.scripts.brahmic.util as u
-import nisaba.scripts.utils.file as uf
-import nisaba.scripts.utils.rewrite as ur
-import nisaba.scripts.utils.rule as rule
+from nisaba.scripts.utils import file
+from nisaba.scripts.utils import rewrite
+from nisaba.scripts.utils import rule
 
 
 def _reading_norm_fst(
     path: pathlib.Path, tag: str, sigma: pynini.Fst) -> pynini.Fst:
-  default = ur.Rewrite('', sigma=sigma)
+  default = rewrite.Rewrite('', sigma)
   filename = path / tag / 'reading_norm.tsv'
   reading_rewrite_fst = (rule.fst_from_rule_file(filename, sigma)
-                         if uf.IsFileExist(filename) else default)
+                         if file.IsFileExist(filename) else default)
   return reading_rewrite_fst
 
 
@@ -61,9 +61,10 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       for script, langs in u.READING_NORM_LANG_SCRIPT_MAP.items():
         for lang in langs:
           sigma = sigma_map[script]
-          rewrite_map[lang] = (
-              rewrite_map[script] @
-              _reading_norm_fst(u.SCRIPT_DIR / script, lang, sigma)).optimize()
+          rewrite_map[lang] = rewrite.ComposeFsts([
+              rewrite_map[script],
+              _reading_norm_fst(u.SCRIPT_DIR / script, lang, sigma),
+          ])
 
       exporter = exporter_map[token_type]
       for name, fst in rewrite_map.items():

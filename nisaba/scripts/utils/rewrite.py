@@ -18,34 +18,35 @@ from typing import Iterable
 
 import pynini
 from pynini.lib import byte
+from nisaba.scripts.utils import file
 
 
 def Rewrite(rule: pynini.FstLike,
+            sigma: pynini.Fst = byte.BYTE,
             left: pynini.FstLike = "",
-            right: pynini.FstLike = "",
-            sigma: pynini.Fst = byte.BYTE) -> pynini.Fst:
+            right: pynini.FstLike = "") -> pynini.Fst:
   return pynini.optimize(pynini.cdrewrite(rule, left, right, sigma.star))
 
 
-def ComposeFsts(fsts: Iterable[pynini.Fst]) -> pynini.Fst:
+def ComposeFsts(fsts: Iterable[pynini.Fst],
+                default: pynini.Fst = file.EMPTY) -> pynini.Fst:
   """Composes the given FSTs together, ordered by a heuristics for speed."""
   fsts = list(fsts)
-  if len(fsts) < 2:
-    return fsts[0]
+  if not fsts:
+    return default.optimize()
+  if len(fsts) == 1:
+    return fsts[0].optimize()
 
   # Heuristics for speed:
   # Adjacent FSTs with minimum number of total states are composed first.
   # After that first composition, we recurse on that shorter list of FSTs.
   num_states = [fst.num_states() for fst in fsts]
-  num_states_sum = [sum(pair) for pair in zip(num_states, num_states[1:])]
-  i = num_states_sum.index(min(num_states_sum))
+  num_states_prod = [a * b for a, b in zip(num_states, num_states[1:])]
+  i = num_states_prod.index(min(num_states_prod))
   composed = (fsts[i] @ fsts[i+1]).optimize()
   return ComposeFsts(fsts[:i] + [composed] + fsts[i+2:])
 
 
 def RewriteAndComposeFsts(fsts: Iterable[pynini.Fst],
                           sigma: pynini.Fst) -> pynini.Fst:
-  composed = sigma.star
-  for fst in fsts:
-    composed @= Rewrite(fst, sigma=sigma)
-  return composed.optimize()
+  return ComposeFsts([Rewrite(fst, sigma) for fst in fsts], sigma.star)
