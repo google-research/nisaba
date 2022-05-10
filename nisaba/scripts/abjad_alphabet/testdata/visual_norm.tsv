@@ -298,14 +298,55 @@ MS	ڤوپا	ڤوڽا
 # U.
 UG	وَرَسُوُلُهٗ	وَرَسُۇلُھٗ
 
+# WAW, SMALL DAMMA → U
+UG	كۆتوؙروؙپ	كۆتۇرۇپ
+
 # YU.
 UG	لَوٰاتُ	لَۈاتُ
+UG	كۆتوٰ	كۆتۈ
 
 # FEH.
 UG	گىراڧىكنىڭ	گىرافىكنىڭ
+UG	ساڡ۬	ساف
 
 # Isolated forms (AE).
 UG	ہ	ە
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+UG	باتۇح۬ان	باتۇخان
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+UG	د۬و	ذو
+
+# REH, SMALL HIGH THREE DOTS → JEH
+UG	كامبودرۛا	كامبودژا
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+UG	رار۬ىلىق	رازىلىق
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+UG	راۋاجلىنىسۛىغا	راۋاجلىنىشىغا
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+UG	روھىع۬ا	روھىغا
+
+# KAF, SMALL HIGH THREE DOTS → NG
+UG	كايسارنىكۛ	كايسارنىڭ
+
+# WAW, VOWEL SIGN SMALL V ABOVE → OE
+UG	كوٚترۈم	كۆترۈم
+
+# WAW, SMALL HIGH THREE DOTS → VE
+UG	كۆمۈوۛېتىلگەن	كۆمۈۋېتىلگەن
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+UG	اٮٜو	ابو
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+UG	سالغاں۬	سالغان
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+UG	یٔایٔىت	ئائىت
 
 # Tests for the normalizations at word initial position.
 

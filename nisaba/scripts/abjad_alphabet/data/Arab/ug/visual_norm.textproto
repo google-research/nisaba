@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
 # Visual normalization rules for Uighur.
 
 item {
@@ -24,74 +27,67 @@ item {
   to_uname: "FEH" to_raw: "ف"
 }
 
-# Unattested.
-#item {
-#  uname: ["FARSI YEH", "HAMZA ABOVE"] raw: "یٔ"
-#  to_uname: "YEH WITH HAMZA ABOVE" to_raw: "ئ"
-#}
+item {
+ uname: ["FARSI YEH", "HAMZA ABOVE"] raw: "یٔ"
+ to_uname: "YEH WITH HAMZA ABOVE" to_raw: "ئ"
+}
 
-# Unattested.
-#item {
-#  uname: ["AIN", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ع۬"
-#  to_uname: "GHAIN" to_raw: "غ"
-#}
+item {
+ uname: ["AIN", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ع۬"
+ to_uname: "GHAIN" to_raw: "غ"
+}
 
-# Unattested.
-#item {
-#  uname: ["HAH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ح۬"
-#  to_uname: "KHAH" to_raw: "خ"
-#}
+item {
+ uname: ["HAH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ح۬"
+ to_uname: "KHAH" to_raw: "خ"
+}
 
-# Unattested.
-#item {
-#  uname: ["DAL", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "د۬"
-#  to_uname: "THAL" to_raw: "ذ"
-#}
+item {
+ uname: ["DAL", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "د۬"
+ to_uname: "THAL" to_raw: "ذ"
+}
 
-# Unattested.
-#item {
-#  uname: ["REH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ر۬"
-#  to_uname: "ZAIN" to_raw: "ز"
-#}
+item {
+ uname: ["REH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ر۬"
+ to_uname: "ZAIN" to_raw: "ز"
+}
 
-# Unattested.
-#item {
-#  uname: ["DOTLESS FEH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ڡ۬"
-#  to_uname: "FEH" to_raw: "ف"
-#}
+item {
+ uname: ["DOTLESS FEH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ڡ۬"
+ to_uname: "FEH" to_raw: "ف"
+}
 
-# Unattested.
-#item {
-#  uname: ["NOON GHUNNA", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ں۬"
-#  to_uname: "NOON" to_raw: "ن"
-#}
+item {
+ uname: ["NOON GHUNNA", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ں۬"
+ to_uname: "NOON" to_raw: "ن"
+}
 
-# Unattested.
-#item {
-#  uname: ["SEEN", "SMALL HIGH THREE DOTS"] raw: "سۛ"
-#  to_uname: "SHEEN" to_raw: "ش"
-#}
+item {
+ uname: ["SEEN", "SMALL HIGH THREE DOTS"] raw: "سۛ"
+ to_uname: "SHEEN" to_raw: "ش"
+}
 
-# Unattested.
-#item {
-#  uname: ["REH", "SMALL HIGH THREE DOTS"] raw: "رۛ"
-#  to_uname: "JEH" to_raw: "ژ"
-#}
+item {
+ uname: ["REH", "SMALL HIGH THREE DOTS"] raw: "رۛ"
+ to_uname: "JEH" to_raw: "ژ"
+}
 
-# Unattested.
-#item {
-#  uname: ["KAF", "SMALL HIGH THREE DOTS"] raw: "كۛ"
-#  to_uname: "NG" to_raw: "ڭ"
-#}
+item {
+ uname: ["KAF", "SMALL HIGH THREE DOTS"] raw: "كۛ"
+ to_uname: "NG" to_raw: "ڭ"
+}
 
-# Unattested.
-#item {
-#  uname: ["WAW", "SMALL HIGH THREE DOTS"] raw: "وۛ"
-#  to_uname: "VE" to_raw: "ۋ"
-#}
+item {
+ uname: ["WAW", "SMALL HIGH THREE DOTS"] raw: "وۛ"
+ to_uname: "VE" to_raw: "ۋ"
+}
 
-# Unattested.
-#item {
-#  uname: ["WAW", "VOWEL SIGN SMALL V ABOVE"] raw: "وٚ"
-#  to_uname: "OE" to_raw: "ۆ"
-#}
+item {
+ uname: ["WAW", "VOWEL SIGN SMALL V ABOVE"] raw: "وٚ"
+ to_uname: "OE" to_raw: "ۆ"
+}
+
+item {
+ uname: ["DOTLESS BEH", "VOWEL SIGN DOT BELOW"] raw: "ٮٜ"
+ to_uname: "BEH" to_raw: "ب"
+}

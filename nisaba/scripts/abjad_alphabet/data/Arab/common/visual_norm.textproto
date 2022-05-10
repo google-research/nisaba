@@ -34,3 +34,8 @@ item {
   uname: ["WAW", "DAMMA"] raw: "وُ"
   to_uname: "U" to_raw: "ۇ"
 }
+
+item {
+  uname: ["WAW", "SMALL DAMMA"] raw: "وؙ"
+  to_uname: "U" to_raw: "ۇ"
+}
