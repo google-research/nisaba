@@ -59,6 +59,7 @@ UR	ع۬لہ	غلہ
 
 # DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
 UR	ڡ۬اتح	فاتح
+UR	ڡ۬یصلوں	فیصلوں
 
 # NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
 UR	قرباں۬	قربان
@@ -97,22 +98,31 @@ UR	ڻیسٹ	ٹیسٹ
 # NOON → NOON GHUNNA
 UR	نئی	ںئی
 
+# RNOON → TTEH
+UR	ڻیسڻ	ٹیسڻ
+
+# KAF → KEHEH
+UR	كیا	کیا
+
 # Tests for the normalizations at word medial position
 
 # KAF(Arabic) → KEHEH(Urdu).
 UR	آكسیٹان	آکسیٹان
+UR	سپیكر	سپیکر
 
 # HEH(Arabic) → HEH DOACHASHMEE(Urdu).
 UR	چوتهی	چوتھی
 
 # YEH → FARSI YEH
 UR	ہيں	ہیں
+UR	ملکيت	ملکیت
 
 # QAF WITH DOT ABOVE → FEH
 UR	مقڧل	مقفل
 
 # RNOON → TTEH
 UR	کیڻیلان	کیٹیلان
+UR	مسڻر	مسٹر
 
 # NOON → NOON GHUNNA
 # (Final NOON remains as it is.)
@@ -128,6 +138,7 @@ UR	کى	کی
 UR	ه	ہ
 UR	ى	ی
 UR	ۀ	ۂ
+UR	ة	ۃ
 
 # --------
 # Kashmiri
