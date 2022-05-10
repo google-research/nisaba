@@ -90,7 +90,8 @@ absl::StatusOr<std::string> WriteTempTextFile(std::string_view filename,
   const std::string &path = TempFilePath(filename);
   std::ofstream out(path);
   if (!out) {
-    return absl::PermissionDeniedError(absl::StrCat("Failed to open: ", path));
+    return absl::PermissionDeniedError(
+        absl::StrCat("Failed to open: ", std::string(path)));
   }
   out << contents;
   if (!out.good()) {
@@ -104,13 +105,14 @@ absl::Status WriteTextFile(std::string_view file_path,
   std::ofstream output;
   output.open(std::string(file_path));
   if (!output) {
-    return absl::PermissionDeniedError(absl::StrCat("Failed to open: ",
-                                                    file_path));
+    return absl::PermissionDeniedError(
+        absl::StrCat("Failed to open: ", std::string(file_path)));
   }
   output << contents;
   if (!output) {
-    return absl::PermissionDeniedError(absl::StrCat(
-        "Failed to write: ", contents.size(), " bytes to ", file_path));
+    return absl::PermissionDeniedError(
+        absl::StrCat("Failed to write: ", contents.size(), " bytes to ",
+                     std::string(file_path)));
   }
   return absl::OkStatus();
 }
@@ -124,7 +126,8 @@ absl::StatusOr<std::string> ReadFile(std::string_view file_path,
   //   https://cplusplus.github.io/LWG/issue3430
   input.open(std::string(file_path), mode);
   if (!input) {
-    return absl::NotFoundError(absl::StrCat("Failed to open: ", file_path));
+    return absl::NotFoundError(
+        absl::StrCat("Failed to open: ", std::string(file_path)));
   }
   std::string contents;
   input.seekg(0, std::ios::end);
