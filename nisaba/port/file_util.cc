@@ -105,12 +105,13 @@ absl::Status WriteTextFile(std::string_view file_path,
   output.open(std::string(file_path));
   if (!output) {
     return absl::PermissionDeniedError(absl::StrCat("Failed to open: ",
-                                                    file_path));
+                                                    std::string(file_path)));
   }
   output << contents;
   if (!output) {
     return absl::PermissionDeniedError(absl::StrCat(
-        "Failed to write: ", contents.size(), " bytes to ", file_path));
+        "Failed to write: ", contents.size(), " bytes to ",
+        std::string(file_path)));
   }
   return absl::OkStatus();
 }
@@ -124,7 +125,8 @@ absl::StatusOr<std::string> ReadFile(std::string_view file_path,
   //   https://cplusplus.github.io/LWG/issue3430
   input.open(std::string(file_path), mode);
   if (!input) {
-    return absl::NotFoundError(absl::StrCat("Failed to open: ", file_path));
+    return absl::NotFoundError(absl::StrCat("Failed to open: ",
+                                            std::string(file_path)));
   }
   std::string contents;
   input.seekg(0, std::ios::end);
