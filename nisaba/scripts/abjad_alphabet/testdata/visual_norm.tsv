@@ -352,12 +352,26 @@ UG	یٔایٔىت	ئائىت
 
 # KAF.
 UG	کہا	كہا
+UG	کائون	كائون
 
 # HEH DOACHASHMEE.
 UG	أهل	أھل
+UG	هابداڭ	ھابداڭ
 
 # YEH.
 UG	یاشاغان	ياشاغان
+UG	یاباقۇ	ياباقۇ
+
+# Tests for the normalizations at word medial position.
+
+# KAF.
+UG	ئىلىسىکى	ئىلىسىكى
+
+# HEH DOACHASHMEE.
+UG	ئابىهايات	ئابىھايات
+
+# YEH.
+UG	ئابایا	ئابايا
 
 # Tests for normalization at word-final position.
 
