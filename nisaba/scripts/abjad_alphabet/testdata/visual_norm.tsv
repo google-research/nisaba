@@ -29,11 +29,11 @@ UR	وُضع	ۇضع
 UR	ٲَفْرَاد	أَفْرَاد
 
 # ALEF WITH WAVY HAMZA BELOW → ALEF WITH HAMZA BELOW
-UR	ٳنشاء	إںشاء
+UR	ٳنشاء	إنشاء
 
 # FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
 UR	آزادیٔ	آزادئ
-UR	انیٔ	اںئ
+UR	انیٔ	انئ
 UR	آزادیٔمذہب	آزادئمذہب
 
 # DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
@@ -46,7 +46,7 @@ UR	ازح۬ود	ازخود
 UR	تد۬کرہ	تذکرہ
 
 # REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
-UR	تنر۬لی	تںزلی
+UR	تنر۬لی	تنزلی
 
 # SEEN, SMALL HIGH THREE DOTS → SHEEN
 UR	خروسۛ	خروش
@@ -95,11 +95,8 @@ UR	ڧهرست	فھرست
 # RNOON → TTEH
 UR	ڻیسٹ	ٹیسٹ
 
-# NOON → NOON GHUNNA
-UR	نئی	ںئی
-
-# RNOON → TTEH
-UR	ڻیسڻ	ٹیسڻ
+# NOON GHUNNA → NOON
+UR	ںئی	نئی
 
 # KAF → KEHEH
 UR	كیا	کیا
@@ -124,9 +121,10 @@ UR	مقڧل	مقفل
 UR	کیڻیلان	کیٹیلان
 UR	مسڻر	مسٹر
 
-# NOON → NOON GHUNNA
-# (Final NOON remains as it is.)
-UR	ناظرین	ںاظرین
+# NOON GHUNNA → NOON
+# (Word-final NOON GHUNNA remains as it is)
+UR	ںاظرین	ناظرین
+UR	رںگ	رنگ
 
 # Tests for the normalizations at word final position
 

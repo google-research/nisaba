@@ -43,6 +43,6 @@ item {
 }
 
 item {
-  uname: "NOON" raw: "ن"
-  to_uname: "NOON GHUNNA" to_raw: "ں"
+  uname: "NOON GHUNNA" raw: "ں"
+  to_uname: "NOON" to_raw: "ن"
 }
