@@ -111,6 +111,18 @@ def composed_typ() -> p.Fst:
   compose_diphthong = p.cdrewrite(compose_diphthong_aux,
                                   '', '', sigma_star).optimize()
 
+  compose_vocalic_aux = (p.cross('(l)(vocal)', '(l_vocal)') |
+                         p.cross('(r)(vocal)', '(r_vocal)'))
+
+  compose_vocalic = p.cdrewrite(compose_vocalic_aux,
+                                '', '', sigma_star).optimize()
+
+  compose_retroflex_vocalic_aux = (p.cross('(l_vocal)(long)', '(ll_vocal)') |
+                                   p.cross('(r_vocal)(long)', '(rr_vocal)'))
+
+  compose_retroflex_vocalic = p.cdrewrite(compose_retroflex_vocalic_aux,
+                                          '', '', sigma_star).optimize()
+
   compose_ind_vowel_aux = (p.cross('(ind)(a)', '(a_i)') |
                            p.cross('(ind)(aa)', '(aa_i)') |
                            p.cross('(ind)(ac)', '(ac_i)') |
@@ -125,7 +137,11 @@ def composed_typ() -> p.Fst:
                            p.cross('(ind)(u)', '(u_i)') |
                            p.cross('(ind)(uu)', '(uu_i)') |
                            p.cross('(ind)(ai)', '(ai_i)') |
-                           p.cross('(ind)(au)', '(au_i)'))
+                           p.cross('(ind)(au)', '(au_i)') |
+                           p.cross('(ind)(l_vocal)', '(l_vocal_i)') |
+                           p.cross('(ind)(ll_vocal)', '(ll_vocal_i)') |
+                           p.cross('(ind)(r_vocal)', '(r_vocal_i)') |
+                           p.cross('(ind)(rr_vocal)', '(rr_vocal_i)'))
 
   compose_ind_vowel = p.cdrewrite(compose_ind_vowel_aux,
                                   '', '', sigma_star).optimize()
@@ -148,18 +164,6 @@ def composed_typ() -> p.Fst:
   compose_candra = p.cdrewrite(p.cross('(m)(candra)', '(cnd)'),
                                '', '', sigma_star).optimize()
 
-  compose_vocalic_aux = (p.cross('(l)(vocal)', '(l_vocal)') |
-                         p.cross('(r)(vocal)', '(r_vocal)'))
-
-  compose_vocalic = p.cdrewrite(compose_vocalic_aux,
-                                '', '', sigma_star).optimize()
-
-  compose_retroflex_vocalic_aux = (p.cross('(l_vocal)(long)', '(ll_vocal)') |
-                                   p.cross('(r_vocal)(long)', '(rr_vocal)'))
-
-  compose_retroflex_vocalic = p.cdrewrite(compose_retroflex_vocalic_aux,
-                                          '', '', sigma_star).optimize()
-
   # Malayalam chillu characters
   compose_chillu_aux = (p.cross('(k)(chl)', '(k_chl)') |
                         p.cross('(l)(chl)', '(l_chl)') |
@@ -180,11 +184,11 @@ def composed_typ() -> p.Fst:
                            '', '', sigma_star).optimize()
 
   return (compose_diphthong @
+          compose_vocalic @
+          compose_retroflex_vocalic @
           compose_ind_vowel @
           compose_aspiration @
           compose_candra @
-          compose_vocalic @
-          compose_retroflex_vocalic @
           compose_chillu @
           compose_eyelash@
           compose_om).optimize()
