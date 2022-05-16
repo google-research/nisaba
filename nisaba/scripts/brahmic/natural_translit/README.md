@@ -10,6 +10,8 @@
 * ṭ -> tt
 * nⸯ -> n_chl
 
+[ISO to typ table](#iso-to-typ-mapping)
+
 `iso2typ` grammar rewrites an ISO strings as a series of typ characters.
 
 **Example**
@@ -62,3 +64,93 @@ phoneme inventories.
 **Example**
 
 * (aa=a_l)(tt=dd)(aa=a_l)(n_chl=ni) -> aadan
+
+## Tables
+
+### ISO to typ mapping
+
+ISO | typ
+------|------
+’|avg
++|zwj
+||zwn
+ˑ|nkt
+a|a
+ā|aa
+æ|ac
+ai|ai
+au|au
+b|b
+bʰ|bh
+c|c
+cʰ|ch
+d|d
+ḍ|dd
+dʰ|dh
+ḍʰ|ddh
+e|e
+ê|ec
+ē|ee
+f|f
+g|g
+ġ|gg
+gʰ|gh
+h|h
+ḥ|vis
+ḫ|upadh
+ẖ|jihva
+i|i
+ī|ii
+j|j
+jʰ|jh
+k|k
+kʰ|kh
+kⸯ|k_chl
+l|l
+ḷ|ll
+l̥|l_vocal
+l̥̄|ll_vocal
+ḻ|lr
+lⸯ|l_chl
+ḷⸯ|ll_chl
+m|m
+ṁ|ans
+m̐|cnd
+n|n
+ñ|ny
+ṅ|ng
+ṇ|nn
+ṉ|na
+nⸯ|n_chl
+ṇⸯ|nn_chl
+o|o
+ô|oc
+ō|oo
+õm|om
+p|p
+pʰ|ph
+q|q
+r|r
+r̆|reye
+ṛ|rd
+r̥|r_vocal
+r̥̄|rr_vocal
+ṟ|rr
+ṛʰ|rdh
+rⸯ|reph
+ṟⸯ|rr_chl
+s|s
+ś|sh
+ṣ|ss
+t|t
+ṭ|tt
+ṯ|ta
+tʰ|th
+ṭʰ|tth
+u|u
+ū|uu
+v|v
+x|x
+y|y
+ẏ|yy
+z|z
