@@ -75,23 +75,23 @@ def iso_to_decomposed_typ() -> p.Fst:
                           p.cross('ẏ', '(yy)') |
                           p.cross('z', '(z)'))
 
-  iso_to_typ_coda = (p.cross('’', '(avg)') |
-                     p.cross('ˑ', '(nkt)') |
-                     p.cross('ḥ', '(vis)') |
-                     p.cross('ṁ', '(ans)') |
-                     p.cross('̐', '(candra)') |
-                     p.cross('ḫ', '(upadh)') |
-                     p.cross('ẖ', '(jihva)'))
+  iso_to_typ_coda = (p.cross('’', '(avg)') |  # avagraha
+                     p.cross('ˑ', '(nkt)') |  # nukta
+                     p.cross('ḥ', '(vis)') |  # visarga
+                     p.cross('ṁ', '(ans)') |  # anusvara
+                     p.cross('̐', '(candra)') |  # candrabindu
+                     p.cross('ḫ', '(upadh)') |  # upadhmaniya
+                     p.cross('ẖ', '(jihva)'))  # jihvamuliya
 
-  iso_to_typ_modifier = (p.cross('ʰ', '(asp)') |
-                         p.cross('̥', '(vocal)') |
+  iso_to_typ_modifier = (p.cross('ʰ', '(asp)') |  # aspiration
+                         p.cross('̥', '(vocal)') |  # vocalic
                          p.cross('̄', '(long)') |
-                         p.cross('ⸯ', '(chl)') |
-                         p.cross('̆', '(eye)'))
+                         p.cross('ⸯ', '(chl)') |  # chillu
+                         p.cross('̆', '(eye)'))  # eyelash
 
-  iso_to_typ_symbol = (p.cross('.', '(ind)') |
-                       p.cross('+', '(zwj)') |
-                       p.cross('|', '(zwn)'))
+  iso_to_typ_symbol = (p.cross('.', '(ind)') |  # independent vowel
+                       p.cross('+', '(zwj)') |  # zero width joiner
+                       p.cross('|', '(zwn)'))  # zero width non-joiner
 
   iso_to_decomposed_typ_aux = (iso_to_typ_vowel |
                                iso_to_typ_consonant |
