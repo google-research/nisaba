@@ -20,18 +20,49 @@ from pynini.lib import byte
 
 sigma_star = byte.BYTE.star
 
+
 # TODO: Grapheme inventory
-letter = p.union('a', 'c', 'd', 'h', 'i', 'l', 'n', 's', 't', 'y')
-left_bound = p.accep('(')
-right_bound = p.accep(')')
-assign = p.accep('=')
-grapheme = left_bound + letter.star + assign
+def letter() -> p.Fst:
+  """Characters for a valid grapheme or phoneme sequence."""
+  return p.union('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+                 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '_')
+
+
+def sep() -> p.Fst:
+  """Separator character."""
+  return p.accep(',')
+
+
+def sequence() -> p.Fst:
+  """Sequence of multiple graphemes or phonemes."""
+  return p.union(letter().star, sep().star).star
+
+
+def l_bound() -> p.Fst:
+  """Left boundary."""
+  return p.accep('(')
+
+
+def r_bound() -> p.Fst:
+  """Right boundary."""
+  return p.accep(')')
+
+
+def asgn() -> p.Fst:
+  """Assignment sign."""
+  return p.accep('=')
+
+
+def l_side() -> p.Fst:
+  """Left side of an assignment."""
+  return l_bound() + sequence() + asgn()
 
 # TODO: Phonological model
 vowel = p.union('a', 'i')
 nasal = p.accep('ni')
 approximant = p.accep('y')
-sonorant = vowel | nasal | approximant
+sonorant = p.union(vowel, nasal, approximant)
 
 
 def intersonorant_voicing() -> p.Fst:
@@ -41,8 +72,8 @@ def intersonorant_voicing() -> p.Fst:
   # TODO: add test to cover voicing with substring assignments
   voicing = p.cdrewrite(
       voicing_aux,
-      (sonorant + right_bound),
-      (grapheme + sonorant),
+      (sonorant + r_bound()),
+      (l_side() + sonorant),
       sigma_star).optimize()
 
   return voicing

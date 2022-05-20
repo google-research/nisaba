@@ -102,6 +102,7 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
+        ":_phon_ops_lib",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:byte",
     ],

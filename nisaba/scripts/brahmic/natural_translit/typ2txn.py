@@ -55,12 +55,12 @@ def typ_to_txn() -> p.Fst:
   # Vocalic characters are assigned a consonant followed by a vowel
   assign_phoneme_vocalic = (p.cross('(l_vocal)', '(l_vocal=l,u)') |
                             p.cross('(ll_vocal)', '(ll_vocal=ll,u)') |
-                            p.cross('(r_vocal)', '(r_vocal=r,u)') |
-                            p.cross('(rr_vocal)', '(rr_vocal_i=rr,u)') |
+                            p.cross('(r_vocal)', '(r_vocal=rt,u)') |
+                            p.cross('(rr_vocal)', '(rr_vocal_i=r,u)') |
                             p.cross('(l_vocal_i)', '(l_vocal_i=l,u)') |
                             p.cross('(ll_vocal_i)', '(ll_vocal_i=ll,u)') |
-                            p.cross('(r_vocal_i)', '(r_vocal_i=r,u)') |
-                            p.cross('(rr_vocal_i)', '(rr_vocal_i=rr,u)'))
+                            p.cross('(r_vocal_i)', '(r_vocal_i=rt,u)') |
+                            p.cross('(rr_vocal_i)', '(rr_vocal_i=r,u)'))
 
   assign_phoneme_consonant = (p.cross('(b)', '(b=b)') |
                               p.cross('(c)', '(c=ch)') |
