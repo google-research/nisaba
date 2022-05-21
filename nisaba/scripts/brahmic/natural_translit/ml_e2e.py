@@ -30,16 +30,16 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
     with p.default_token_type(token_type):
 
       iso_to_txn = (iso.iso_to_typ() @
-                    typ.typ_to_txn() @
-                    ops.intersonorant_voicing())
+                    typ.TYP_TO_TXN @
+                    ops.INTERSONORANT_VOICING)
 
       exporter = exporter_map[token_type]
       exporter['ISO_TO_PSAF'] = (
           iso_to_txn @
-          txn.txn_to_psaf()).optimize()
+          txn.TXN_TO_PSAF).optimize()
       exporter['ISO_TO_PSAC'] = (
           iso_to_txn @
-          txn.txn_to_psac()).optimize()
+          txn.TXN_TO_PSAC).optimize()
 
 
 if __name__ == '__main__':

@@ -18,7 +18,7 @@ import pynini as p
 from pynini.export import multi_grm
 
 
-def typ_to_txn() -> p.Fst:
+def _typ_to_txn() -> p.Fst:
   """Naive grapheme to phoneme assignment."""
 
   assign_phoneme_vowel = (p.cross('(a)', '(a=a)') |
@@ -136,6 +136,8 @@ def typ_to_txn() -> p.Fst:
           assign_phoneme_coda |
           assign_phoneme_om).star.optimize()
 
+TYP_TO_TXN = _typ_to_txn()
+
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generates FAR for ISO char to PSA phoneme assignment."""
@@ -143,7 +145,7 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
     with p.default_token_type(token_type):
 
       exporter = exporter_map[token_type]
-      exporter['TYP_TO_TXN'] = typ_to_txn()
+      exporter['TYP_TO_TXN'] = TYP_TO_TXN
 
 
 if __name__ == '__main__':

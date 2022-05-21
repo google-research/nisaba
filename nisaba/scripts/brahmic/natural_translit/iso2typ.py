@@ -21,7 +21,7 @@ from pynini.lib import byte
 sigma_star = byte.BYTE.star
 
 
-def iso_to_decomposed_typ() -> p.Fst:
+def _iso_to_decomposed_typ() -> p.Fst:
   """ISO to typable fst."""
 
   iso_to_typ_vowel = (p.cross('a', '(a)') |
@@ -102,7 +102,7 @@ def iso_to_decomposed_typ() -> p.Fst:
   return iso_to_decomposed_typ_aux.star.optimize()
 
 
-def composed_typ() -> p.Fst:
+def _composed_typ() -> p.Fst:
   """Maps multiple ISO characters to single native characters."""
 
   compose_diphthong_aux = (p.cross('(a)(i)', '(ai)') |
@@ -190,12 +190,13 @@ def composed_typ() -> p.Fst:
           compose_aspiration @
           compose_candra @
           compose_chillu @
-          compose_eyelash@
+          compose_eyelash @
           compose_om).optimize()
 
 
+# TODO: Convert to constant
 def iso_to_typ() -> p.Fst:
-  return (iso_to_decomposed_typ() @ composed_typ()).optimize()
+  return (_iso_to_decomposed_typ() @ _composed_typ()).optimize()
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
@@ -204,7 +205,7 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
     with p.default_token_type(token_type):
 
       exporter = exporter_map[token_type]
-      exporter['ISO_TO_TYP_DECOMPOSED'] = iso_to_decomposed_typ()
+      exporter['ISO_TO_TYP_DECOMPOSED'] = _iso_to_decomposed_typ()
       exporter['ISO_TO_TYP'] = iso_to_typ()
 
 

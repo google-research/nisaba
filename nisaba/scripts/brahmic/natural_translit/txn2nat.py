@@ -21,9 +21,14 @@ from pynini.lib import byte
 import nisaba.scripts.brahmic.natural_translit.phon_ops as ph
 
 sigma_star = byte.BYTE.star
+sep = ph.SEPARATOR
+sequence = ph.SYMBOL_SEQUENCE
+l_bound = ph.LEFT_BOUNDARY
+r_bound = ph.RIGHT_BOUNDARY
+asgn = ph.ASSIGNMENT_SIGN
 
 
-def romanize_fine() -> p.Fst:
+def _romanize_fine() -> p.Fst:
   """Fine-grained Pan South Asian romanization."""
   romanize_aux = (p.cross('a', 'a') |
                   p.cross('a_l', 'aa') |
@@ -75,20 +80,22 @@ def romanize_fine() -> p.Fst:
                   p.cross('sil', ''))
 
   romanize_first = p.cdrewrite(romanize_aux,
-                               ph.asgn(),
-                               ph.sep() | ph.r_bound(),
+                               asgn,
+                               sep | r_bound,
                                sigma_star).optimize()
 
   romanize_final = p.cdrewrite(romanize_aux,
-                               ph.asgn() + ph.sequence() + ph.sep(),
-                               ph.sep() | ph.r_bound(),
+                               asgn + sequence + sep,
+                               sep | r_bound,
                                sigma_star).optimize()
 
   return (romanize_first @
           romanize_final).optimize()
 
+ROMANIZE_FINE = _romanize_fine()
 
-def romanize_coarse() -> p.Fst:
+
+def _romanize_coarse() -> p.Fst:
   """Coarse-grained Pan South Asian romanization."""
 
   coarse_aux = (p.cross('aa', 'a') |
@@ -98,48 +105,54 @@ def romanize_coarse() -> p.Fst:
                 p.cross('uu', 'u'))
 
   coarse = p.cdrewrite(coarse_aux,
-                       ph.asgn(),
-                       ph.r_bound(),
+                       asgn,
+                       r_bound,
                        sigma_star).optimize()
 
   return coarse
 
+ROMANIZE_COARSE = _romanize_coarse()
 
-def remove_leftside() -> p.Fst:
+
+def _remove_graphemes() -> p.Fst:
   """Removes the left side of the assigment."""
 
-  remove_graphemes = p.cdrewrite(p.cross(ph.sequence().star, ''),
-                                 ph.l_bound(),
-                                 ph.asgn(),
-                                 sigma_star).optimize()
+  remove_sequence = p.cdrewrite(p.cross(sequence.star, ''),
+                                l_bound,
+                                asgn,
+                                sigma_star).optimize()
 
-  return remove_graphemes
+  return remove_sequence
 
 
-def remove_formatting() -> p.Fst:
+def _remove_markers() -> p.Fst:
   """Removes the assigment and boundary markers."""
 
-  markers = ph.sep() | ph.asgn() | ph.l_bound() | ph.r_bound()
+  signs = sep | asgn | l_bound | r_bound
 
-  remove_markers = p.cdrewrite(p.cross(markers, ''),
-                               '',
-                               '',
-                               sigma_star).optimize()
+  remove_signs = p.cdrewrite(p.cross(signs, ''),
+                             '',
+                             '',
+                             sigma_star).optimize()
 
-  return remove_markers
+  return remove_signs
 
-
-def txn_to_psaf() -> p.Fst:
-  return (romanize_fine() @
-          remove_leftside() @
-          remove_formatting()).optimize()
+REMOVE_FORMATTING = (_remove_graphemes() @ _remove_markers()).optimize()
 
 
-def txn_to_psac() -> p.Fst:
-  return (romanize_fine() @
-          romanize_coarse() @
-          remove_leftside() @
-          remove_formatting()).optimize()
+def _txn_to_psaf() -> p.Fst:
+  return (ROMANIZE_FINE @
+          REMOVE_FORMATTING).optimize()
+
+TXN_TO_PSAF = _txn_to_psaf()
+
+
+def _txn_to_psac() -> p.Fst:
+  return (ROMANIZE_FINE @
+          ROMANIZE_COARSE @
+          REMOVE_FORMATTING).optimize()
+
+TXN_TO_PSAC = _txn_to_psac()
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
@@ -148,8 +161,8 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
     with p.default_token_type(token_type):
 
       exporter = exporter_map[token_type]
-      exporter['TXN_TO_PSAF'] = txn_to_psaf()
-      exporter['TXN_TO_PSAC'] = txn_to_psac()
+      exporter['TXN_TO_PSAF'] = TXN_TO_PSAF
+      exporter['TXN_TO_PSAC'] = TXN_TO_PSAC
 
 if __name__ == '__main__':
   multi_grm.run(generator_main)
