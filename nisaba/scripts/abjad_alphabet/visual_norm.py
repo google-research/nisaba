@@ -27,6 +27,8 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
   < /tmp/urdu_word_list.txt
 ```
 """
+from typing import List
+
 import pynini
 from pynini.export import multi_grm
 import nisaba.scripts.abjad_alphabet.util as u
@@ -35,8 +37,33 @@ from nisaba.scripts.utils import rule
 import nisaba.scripts.utils.file as uf
 
 
-def _open_nfc(script_or_lang_code: str, token_type: str) -> pynini.Fst:
-  return u.open_fst_from_far('nfc', script_or_lang_code.upper(), token_type)
+def lang_fsts(lang: str, sigma: pynini.Fst) -> List[pynini.Fst]:
+  """FSTs for visual normalization of abjad / alphabet script languages."""
+  anywhere_rewrite = rule.fst_from_rule_file(
+      u.LANG_DIR / lang / 'visual_norm.tsv', sigma)
+
+  nonfinal_file = u.LANG_DIR / lang / 'visual_norm_nonfinal.tsv'
+  nonfinal_rule = uf.StringFile(nonfinal_file, return_if_empty=uf.EPSILON)
+  nonfinal_rewrite = rewrite.Rewrite(nonfinal_rule, sigma, right=sigma)
+
+  final_isolated_file = (u.LANG_DIR / lang / 'visual_norm_final_isolated.tsv')
+  final_isolated_rule = uf.StringFile(final_isolated_file,
+                                      return_if_empty=uf.EPSILON)
+  final_rewrite = rewrite.Rewrite(final_isolated_rule, sigma,
+                                  left=sigma, right='[EOS]')
+
+  isolated_file = u.LANG_DIR / lang / 'visual_norm_isolated.tsv'
+  isolated_rule = uf.StringFile(isolated_file, return_if_empty=uf.EPSILON)
+  isolated_rewrite = rewrite.Rewrite(
+      pynini.union(final_isolated_rule, isolated_rule), sigma,
+      left='[BOS]', right='[EOS]')
+
+  return [
+      anywhere_rewrite,
+      nonfinal_rewrite,
+      final_rewrite,
+      isolated_rewrite,
+  ]
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
@@ -47,37 +74,12 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       presentation_forms_rewrite = rule.fst_from_rule_file(
           u.LANG_DIR / 'presentation_forms.tsv', sigma)
       nfc_rewrite = rule.fst_from_rule_file(u.LANG_DIR / 'nfc.tsv', sigma)
-
+      script_fst = rewrite.ComposeFsts(
+          [presentation_forms_rewrite, nfc_rewrite])
       exporter = exporter_map[token_type]
       for lang in u.LANGS:
-        anywhere_rewrite = rule.fst_from_rule_file(
-            u.LANG_DIR / lang / 'visual_norm.tsv', sigma)
-
-        nonfinal_file = u.LANG_DIR / lang / 'visual_norm_nonfinal.tsv'
-        nonfinal_rule = uf.StringFile(nonfinal_file, return_if_empty=uf.EPSILON)
-        nonfinal_rewrite = rewrite.Rewrite(nonfinal_rule, sigma, right=sigma)
-
-        final_isolated_file = (u.LANG_DIR / lang /
-                               'visual_norm_final_isolated.tsv')
-        final_isolated_rule = uf.StringFile(final_isolated_file,
-                                            return_if_empty=uf.EPSILON)
-        final_rewrite = rewrite.Rewrite(final_isolated_rule, sigma,
-                                        left=sigma, right='[EOS]')
-
-        isolated_file = u.LANG_DIR / lang / 'visual_norm_isolated.tsv'
-        isolated_rule = uf.StringFile(isolated_file, return_if_empty=uf.EPSILON)
-        isolated_rewrite = rewrite.Rewrite(
-            pynini.union(final_isolated_rule, isolated_rule), sigma,
-            left='[BOS]', right='[EOS]')
-
-        exporter[lang.upper()] = rewrite.ComposeFsts([
-            presentation_forms_rewrite,
-            nfc_rewrite,
-            anywhere_rewrite,
-            nonfinal_rewrite,
-            final_rewrite,
-            isolated_rewrite,
-        ])
+        exporter[lang.upper()] = rewrite.ComposeFsts(
+            [script_fst] + lang_fsts(lang, sigma))
 
 
 if __name__ == '__main__':

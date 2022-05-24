@@ -133,25 +133,31 @@ nisaba_grm_regression_test(
     token_type = "utf8",
 )
 
-nisaba_compile_multi_grm_py(
+nisaba_compile_grm_py(
     name = "reading_norm",
-    outs = {
-        "byte": "reading_norm.far",
-        "utf8": "reading_norm_utf8.far",
-    },
     data = [
         "//nisaba/scripts/abjad_alphabet/data/Arab/{}:{}.tsv".format(lang, fst)
         for lang in LANGS
         for fst in ["reading_norm"]
-    ] + [
-        "visual_norm.far",
-        "visual_norm_utf8.far",
-        "//nisaba/scripts/abjad_alphabet/data/Arab:reversible_roman.tsv",
-    ],
+    ] + ["visual_norm.far"],
     visibility = ["//visibility:public"],
     deps = [
         ":util",
         "//nisaba/scripts/utils:rule",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_grm_py(
+    name = "reading_norm_utf8",
+    data = [
+        "//nisaba/scripts/abjad_alphabet/data/Arab/{}:{}.tsv".format(lang, fst)
+        for lang in LANGS
+        for fst in ["reading_norm"]
+    ] + ["visual_norm_utf8.far"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":_reading_norm_lib",
         "@org_opengrm_pynini//pynini",
     ],
 )

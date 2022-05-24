@@ -21,8 +21,9 @@ import pathlib
 import pynini
 from rules_python.python.runfiles import runfiles
 
-EMPTY: pynini.Fst = pynini.intersect(pynini.accep("a"), pynini.accep("b"))
-EPSILON: pynini.Fst = pynini.accep("")
+EMPTY: pynini.Fst = pynini.intersect(
+    pynini.accep("a"), pynini.accep("b")).optimize()
+EPSILON: pynini.Fst = pynini.accep("").optimize()
 
 
 def AsResourcePath(filename: os.PathLike) -> os.PathLike:

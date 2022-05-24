@@ -43,7 +43,7 @@ def _label_list_to_string_fsa(labels: List[int]) -> pynini.Fst:
   fst.set_final(len(labels))
   for i, lbl in enumerate(labels):
     fst.add_arc(i, pynini.Arc(lbl, lbl, pynini.Weight.one("tropical"), i + 1))
-  return fst
+  return fst.optimize()
 
 
 def assert_fst_functional(fst: pynini.Fst,
