@@ -22,6 +22,11 @@ package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 
 licenses(["notice"])
 
+py_library(
+    name = "constants",
+    srcs = ["constants.py"],
+)
+
 nisaba_compile_multi_grm_py(
     name = "iso2typ",
     outs = {
@@ -77,6 +82,7 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
+        ":constants",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:byte",
     ],
@@ -102,7 +108,7 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        ":_phon_ops_lib",
+        ":constants",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:byte",
     ],

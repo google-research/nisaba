@@ -18,14 +18,14 @@ import pynini as p
 from pynini.export import multi_grm
 from pynini.lib import byte
 
-import nisaba.scripts.brahmic.natural_translit.phon_ops as ph
+import nisaba.scripts.brahmic.natural_translit.constants as c
 
 sigma_star = byte.BYTE.star
-sep = ph.SEPARATOR
-sequence = ph.SYMBOL_SEQUENCE
-l_bound = ph.LEFT_BOUNDARY
-r_bound = ph.RIGHT_BOUNDARY
-asgn = ph.ASSIGNMENT_SIGN
+sep = c.SEPARATOR
+sequence = c.SYMBOL_SEQUENCE
+l_bound = c.LEFT_BOUNDARY
+r_bound = c.RIGHT_BOUNDARY
+asgn = c.ASSIGNMENT_SIGN
 
 
 def _romanize_fine() -> p.Fst:

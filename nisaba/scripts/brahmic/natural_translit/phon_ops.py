@@ -18,20 +18,11 @@ import pynini as p
 from pynini.export import multi_grm
 from pynini.lib import byte
 
-LETTERS = p.union('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-                  'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-                  's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '_')
-SEPARATOR = p.accep(',')
-SYMBOL_SEQUENCE = p.union(LETTERS.star, SEPARATOR.star).star
-LEFT_BOUNDARY = p.accep('(')
-RIGHT_BOUNDARY = p.accep(')')
-ASSIGNMENT_SIGN = p.accep('=')
-LEFT_SIDE = LEFT_BOUNDARY + SYMBOL_SEQUENCE + ASSIGNMENT_SIGN
+import nisaba.scripts.brahmic.natural_translit.constants as c
 
-# TODO: Grapheme inventory
 sigma_star = byte.BYTE.star
-r_bound = RIGHT_BOUNDARY
-l_side = LEFT_SIDE
+r_bound = c.RIGHT_BOUNDARY
+l_side = c.LEFT_SIDE
 
 # TODO: Phonological model
 vowel = p.union('a', 'i')
