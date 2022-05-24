@@ -194,23 +194,85 @@ SD	نوُح	نۇح
 SD	آئوُن	آئۇن
 SD	سوُرن	سۇرن
 
+# DAL,SMALL HIGH TAH → DDAL
+SD	چاندؕيو	چانڈيو
+
+# DAL,ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+SD	لد۬يِدُ۬	لذيِذُ
+
+# REH,SMALL HIGH THREE DOTS → JEH
+SD	ٽيليويرۛن	ٽيليويژن
+
+# REH,ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+SD	لطيفبارُ۬	لطيفبازُ
+
+# SEEN,SMALL HIGH THREE DOTS → SHEEN
+SD	لسۛڪريِ	لشڪريِ
+
+# SAD,ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+SD	لاغرص۬يِ	لاغرضيِ
+
+# DOTLESS BEH,SMALL HIGH THREE DOTS → THEH
+SD	الاٮۛار	الاثار
+
+# ALEF WITH WAVY HAMZA ABOVE → ALEF WITH HAMZA ABOVE
+SD	ٲَفْرَاد	أَفْرَاد
+
+# ALEF WITH WAVY HAMZA BELOW → ALEF WITH HAMZA BELOW
+SD	ٳن	إن
+
+# DOTLESS FEH,ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+SD	شغوڡ۬و	شغوفو
+
+# QAF WITH DOT ABOVE → FEH
+SD	ڧؤتن	فؤتن
+
+# NOON GHUNNA,SMALL HIGH TAH → RNOON
+SD	هميراںؕو	ھميراڻو
+
+# NOON GHUNNA,ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+SD	مں۬گلوار	منگلوار
+
+# FARSI YEH,HAMZA ABOVE → YEH WITH HAMZA ABOVE
+SD	الیٔه	الئه
+
 # Normalizations at word initial position
 
 # KAF → KEHEH
 SD	كان	کان
+SD	كلائيا	کلائيا
 
 # HEH → HEH DOACHASHMEE
 SD	هزار	ھزار
 
 # FARSI YEH → YEH
 SD	یوڪرينين	يوڪرينين
+SD	یجس	يجس
 
 # QAF WITH DOT ABOVE → FEH
 SD	ڧعال	فعال
 
+# Normalizations at word medial position
+
+# KAF → KEHEH
+SD	ميكرا	ميکرا
+
+# HEH → HEH DOACHASHMEE
+SD	تاراهو	تاراھو
+
+# NOON GHUNNA → NOON
+SD	ںاںا	نانا
+
+# FARSI YEH → YEH
+SD	میمنه	ميمنه
+
 # Normalizations for isolated characters
 
+# HEH → HEH GOAL
 SD	ه	ہ
+
+# TEH MARBUTA → TEH MARBUTA GOAL
+SD	ة	ۃ
 
 # -------
 # Panjabi

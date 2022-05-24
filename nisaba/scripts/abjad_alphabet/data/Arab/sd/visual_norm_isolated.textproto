@@ -23,3 +23,8 @@ item {
   uname: "HEH" raw: "ه"
   to_uname: "HEH GOAL" to_raw: "ہ"
 }
+
+item {
+  uname: "TEH MARBUTA" raw: "ة"
+  to_uname: "TEH MARBUTA GOAL" to_raw: "ۃ"
+}

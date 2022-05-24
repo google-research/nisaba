@@ -36,3 +36,8 @@ item {
   uname: "QAF WITH DOT ABOVE" raw: "ڧ"
   to_uname: "FEH" to_raw: "ف"
 }
+
+item {
+  uname: "NOON GHUNNA" raw: "ں"
+  to_uname: "NOON" to_raw: "ن"
+}
