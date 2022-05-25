@@ -25,6 +25,7 @@ licenses(["notice"])
 py_library(
     name = "constants",
     srcs = ["constants.py"],
+    deps = ["@org_opengrm_pynini//pynini/lib:byte"],
 )
 
 nisaba_compile_multi_grm_py(
@@ -35,8 +36,8 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
+        ":constants",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:byte",
     ],
 )
 
@@ -84,7 +85,6 @@ nisaba_compile_multi_grm_py(
     deps = [
         ":constants",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:byte",
     ],
 )
 
@@ -110,7 +110,6 @@ nisaba_compile_multi_grm_py(
     deps = [
         ":constants",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:byte",
     ],
 )
 
@@ -135,6 +134,7 @@ nisaba_compile_multi_grm_py(
     visibility = ["//visibility:public"],
     deps = [
         ":_iso2typ_lib",
+        ":_phon_ops_lib",
         ":_txn2nat_lib",
         ":_typ2txn_lib",
         "@org_opengrm_pynini//pynini",

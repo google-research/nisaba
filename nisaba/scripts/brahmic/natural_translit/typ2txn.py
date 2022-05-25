@@ -122,8 +122,8 @@ def _typ_to_txn() -> p.Fst:
 
   assign_phoneme_coda = (p.cross('(avg)', '(avg=sil)') |  # sil = silent
                          p.cross('(vis)', '(vis=h)') |
-                         p.cross('(ans)', '(ans=ni)') |
-                         p.cross('(cnd)', '(cnd=ni)') |
+                         p.cross('(ans)', '(ans=nsl)') |
+                         p.cross('(cnd)', '(cnd=nsl)') |
                          p.cross('(upadh)', '(upadh=h)') |
                          p.cross('(jihva)', '(jihva=h)'))
 

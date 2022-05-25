@@ -19,6 +19,7 @@ import pynini as p
 from pynini.export import multi_grm
 
 import nisaba.scripts.brahmic.natural_translit.iso2typ as iso
+import nisaba.scripts.brahmic.natural_translit.phon_ops as ops
 import nisaba.scripts.brahmic.natural_translit.txn2nat as txn
 import nisaba.scripts.brahmic.natural_translit.typ2txn as typ
 
@@ -28,7 +29,11 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
   for token_type in ('byte', 'utf8'):
     with p.default_token_type(token_type):
 
-      iso_to_txn = iso.iso_to_typ() @ typ.TYP_TO_TXN
+      iso_to_txn = (iso.iso_to_typ() @
+                    typ.TYP_TO_TXN @
+                    ops.ANUSVARA_ASSIMILATION @
+                    ops.DEFAULT_ANUSVARA_DENTAL @
+                    ops.WF_ANUSVARA_NASALIZATION)
 
       exporter = exporter_map[token_type]
       exporter['ISO_TO_PSAF'] = (

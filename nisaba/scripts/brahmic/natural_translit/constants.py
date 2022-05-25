@@ -16,14 +16,15 @@
 """Constants that make up phonemes, graphemes, and markers."""
 
 import pynini as p
+from pynini.lib import byte
 
-
+SIGMA_STAR = byte.BYTE.star
 LETTERS = p.union('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                   'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                   's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '_')
-SEPARATOR = p.accep(',')
-LEFT_BOUNDARY = p.accep('(')
-RIGHT_BOUNDARY = p.accep(')')
-ASSIGNMENT_SIGN = p.accep('=')
-SYMBOL_SEQUENCE = p.union(LETTERS.star, SEPARATOR.star).star
-LEFT_SIDE = LEFT_BOUNDARY + SYMBOL_SEQUENCE + ASSIGNMENT_SIGN
+SEP = p.accep(',')  # Separates symbols in a sequence
+L_BOUND = p.accep('(')  # Left boundary of an assignment
+R_BOUND = p.accep(')')  # Right boundary of an assignment
+ASSIGN = p.accep('=')  # Grapheme to phoneme or graphemee to translit assignment
+SEQUENCE = p.union(LETTERS.star, SEP.star).star  # A sequence of symbols
+L_SIDE = L_BOUND + SEQUENCE + ASSIGN  # Left side of an assigment

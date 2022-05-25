@@ -16,31 +16,119 @@
 
 import pynini as p
 from pynini.export import multi_grm
-from pynini.lib import byte
-
 import nisaba.scripts.brahmic.natural_translit.constants as c
 
-sigma_star = byte.BYTE.star
-r_bound = c.RIGHT_BOUNDARY
-l_side = c.LEFT_SIDE
-
 # TODO: Phonological model
-vowel = p.union('a', 'i')
-nasal = p.accep('ni')
-approximant = p.accep('y')
-sonorant = p.union(vowel, nasal, approximant)
+_PH_END = (c.SEP | c.R_BOUND)
+_NASAL = p.union('m', 'n', 'ni', 'ng', 'nn', 'ny', 'nsl')
+
+
+def _anusvara_assimilation() -> p.Fst:
+  """Place of articulation assimilation of anusvara."""
+
+  labial = p.union('b', 'm', 'p')
+  dental = p.union('di', 'ni', 'ti')
+  alveolar = p.union('t', 'd', 'n')
+  palatal = p.union('y', 'ny')
+  retroflex = p.union('dd', 'nn', 'tt')
+  velar = p.union('g', 'ng', 'k')
+
+  labial_assimilation = p.cdrewrite(p.cross('(ans=nsl)', '(ans=m)'),
+                                    '',
+                                    (c.L_SIDE + labial + _PH_END),
+                                    c.SIGMA_STAR).optimize()
+
+  dental_assimilation = p.cdrewrite(p.cross('(ans=nsl)', '(ans=ni)'),
+                                    '',
+                                    (c.L_SIDE + dental + _PH_END),
+                                    c.SIGMA_STAR).optimize()
+
+  alveolar_assimilation = p.cdrewrite(p.cross('(ans=nsl)', '(ans=n)'),
+                                      '',
+                                      (c.L_SIDE + alveolar + _PH_END),
+                                      c.SIGMA_STAR).optimize()
+
+  palatal_assimilation = p.cdrewrite(p.cross('(ans=nsl)', '(ans=ny)'),
+                                     '',
+                                     (c.L_SIDE + palatal + _PH_END),
+                                     c.SIGMA_STAR).optimize()
+
+  retroflex_assimilation = p.cdrewrite(p.cross('(ans=nsl)', '(ans=nn)'),
+                                       '',
+                                       (c.L_SIDE + retroflex + _PH_END),
+                                       c.SIGMA_STAR).optimize()
+
+  velar_assimilation = p.cdrewrite(p.cross('(ans=nsl)', '(ans=ng)'),
+                                   '',
+                                   (c.L_SIDE + velar + _PH_END),
+                                   c.SIGMA_STAR).optimize()
+
+  return (labial_assimilation @
+          dental_assimilation @
+          alveolar_assimilation @
+          palatal_assimilation @
+          retroflex_assimilation @
+          velar_assimilation)
+
+ANUSVARA_ASSIMILATION = _anusvara_assimilation()
+
+
+def _default_anusvara_dental() -> p.Fst:
+  """Remaining anusvara default to n."""
+
+  dental_anusvara = p.cdrewrite(p.cross('(ans=nsl)', '(ans=ni)'),
+                                '',
+                                '',
+                                c.SIGMA_STAR).optimize()
+  return dental_anusvara
+
+DEFAULT_ANUSVARA_DENTAL = _default_anusvara_dental()
+
+
+def _default_anusvara_labial() -> p.Fst:
+  """Remaining anusvara default to m."""
+
+  labial_anusvara = p.cdrewrite(p.cross('(ans=nsl)', '(ans=m)'),
+                                '',
+                                '',
+                                c.SIGMA_STAR).optimize()
+  return labial_anusvara
+
+DEFAULT_ANUSVARA_LABIAL = _default_anusvara_labial()
+
+
+def _wf_anusvara_nasalization() -> p.Fst:
+  """Word final anusvara nasalizes the preceding vowel."""
+
+  eos = p.accep('[EOS]')
+
+  wf_anusvara = p.cdrewrite(p.cross(_NASAL, 'nsl'),
+                            p.accep('ans='),
+                            c.R_BOUND + eos,
+                            c.SIGMA_STAR).optimize()
+  return wf_anusvara
+
+WF_ANUSVARA_NASALIZATION = _wf_anusvara_nasalization()
 
 
 def _intersonorant_voicing() -> p.Fst:
   """Voicing between vowels, approximants, and nasals."""
+
+  vowel = p.union('a', 'a_l', 'ae',
+                  'e', 'e_l',
+                  'i', 'i_l',
+                  'o', 'o_l',
+                  'u', 'u_l')
+  approximant = p.accep('y')
+  sonorant = p.union(vowel, _NASAL, approximant)
+
   voicing_aux = p.cross('(t=ti)', '(t=di)')
 
   # TODO: add test to cover voicing with substring assignments
-  voicing = p.cdrewrite(
-      voicing_aux,
-      (sonorant + r_bound),
-      (l_side + sonorant),
-      sigma_star).optimize()
+  voicing = p.cdrewrite(voicing_aux,
+                        (sonorant + c.R_BOUND),
+                        (c.L_SIDE + sonorant + _PH_END),
+                        c.SIGMA_STAR).optimize()
 
   return voicing
 
@@ -54,6 +142,10 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
 
       exporter = exporter_map[token_type]
       exporter['VOICING'] = INTERSONORANT_VOICING
+      exporter['ANUSVARA_ASSIMILATION'] = ANUSVARA_ASSIMILATION
+      exporter['DEFAULT_ANUSVARA_DENTAL'] = DEFAULT_ANUSVARA_DENTAL
+      exporter['DEFAULT_ANUSVARA_LABIAL'] = DEFAULT_ANUSVARA_LABIAL
+      exporter['WF_ANUSVARA_NASALIZATION'] = WF_ANUSVARA_NASALIZATION
 
 
 if __name__ == '__main__':

@@ -16,9 +16,7 @@
 
 import pynini as p
 from pynini.export import multi_grm
-from pynini.lib import byte
-
-sigma_star = byte.BYTE.star
+import nisaba.scripts.brahmic.natural_translit.constants as c
 
 
 def _iso_to_decomposed_typ() -> p.Fst:
@@ -109,19 +107,19 @@ def _composed_typ() -> p.Fst:
                            p.cross('(a)(u)', '(au)'))
 
   compose_diphthong = p.cdrewrite(compose_diphthong_aux,
-                                  '', '', sigma_star).optimize()
+                                  '', '', c.SIGMA_STAR).optimize()
 
   compose_vocalic_aux = (p.cross('(l)(vocal)', '(l_vocal)') |
                          p.cross('(r)(vocal)', '(r_vocal)'))
 
   compose_vocalic = p.cdrewrite(compose_vocalic_aux,
-                                '', '', sigma_star).optimize()
+                                '', '', c.SIGMA_STAR).optimize()
 
   compose_retroflex_vocalic_aux = (p.cross('(l_vocal)(long)', '(ll_vocal)') |
                                    p.cross('(r_vocal)(long)', '(rr_vocal)'))
 
   compose_retroflex_vocalic = p.cdrewrite(compose_retroflex_vocalic_aux,
-                                          '', '', sigma_star).optimize()
+                                          '', '', c.SIGMA_STAR).optimize()
 
   compose_ind_vowel_aux = (p.cross('(ind)(a)', '(a_i)') |
                            p.cross('(ind)(aa)', '(aa_i)') |
@@ -144,7 +142,7 @@ def _composed_typ() -> p.Fst:
                            p.cross('(ind)(rr_vocal)', '(rr_vocal_i)'))
 
   compose_ind_vowel = p.cdrewrite(compose_ind_vowel_aux,
-                                  '', '', sigma_star).optimize()
+                                  '', '', c.SIGMA_STAR).optimize()
 
   compose_aspiration_aux = (p.cross('(b)(asp)', '(bh)') |
                             p.cross('(c)(asp)', '(ch)') |
@@ -159,10 +157,10 @@ def _composed_typ() -> p.Fst:
                             p.cross('(tt)(asp)', '(tth)'))
 
   compose_aspiration = p.cdrewrite(compose_aspiration_aux,
-                                   '', '', sigma_star).optimize()
+                                   '', '', c.SIGMA_STAR).optimize()
 
   compose_candra = p.cdrewrite(p.cross('(m)(candra)', '(cnd)'),
-                               '', '', sigma_star).optimize()
+                               '', '', c.SIGMA_STAR).optimize()
 
   # Malayalam chillu characters
   compose_chillu_aux = (p.cross('(k)(chl)', '(k_chl)') |
@@ -174,14 +172,14 @@ def _composed_typ() -> p.Fst:
                         p.cross('(r)(chl)', '(reph)'))
 
   compose_chillu = p.cdrewrite(compose_chillu_aux,
-                               '', '', sigma_star).optimize()
+                               '', '', c.SIGMA_STAR).optimize()
 
   # Marathi eyelash ra
   compose_eyelash = p.cdrewrite(p.cross('(r)(eye)', '(reye)'),
-                                '', '', sigma_star).optimize()
+                                '', '', c.SIGMA_STAR).optimize()
 
   compose_om = p.cdrewrite(p.cross('(ot)(m)', '(om)'),
-                           '', '', sigma_star).optimize()
+                           '', '', c.SIGMA_STAR).optimize()
 
   return (compose_diphthong @
           compose_vocalic @

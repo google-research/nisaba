@@ -16,16 +16,7 @@
 
 import pynini as p
 from pynini.export import multi_grm
-from pynini.lib import byte
-
 import nisaba.scripts.brahmic.natural_translit.constants as c
-
-sigma_star = byte.BYTE.star
-sep = c.SEPARATOR
-sequence = c.SYMBOL_SEQUENCE
-l_bound = c.LEFT_BOUNDARY
-r_bound = c.RIGHT_BOUNDARY
-asgn = c.ASSIGNMENT_SIGN
 
 
 def _romanize_fine() -> p.Fst:
@@ -80,19 +71,19 @@ def _romanize_fine() -> p.Fst:
                   p.cross('sil', ''))
 
   romanize_first = p.cdrewrite(romanize_aux,
-                               asgn,
-                               sep | r_bound,
-                               sigma_star).optimize()
+                               c.ASSIGN,
+                               c.SEP | c.R_BOUND,
+                               c.SIGMA_STAR).optimize()
 
   romanize_final = p.cdrewrite(romanize_aux,
-                               asgn + sequence + sep,
-                               sep | r_bound,
-                               sigma_star).optimize()
+                               c.ASSIGN + c.SEQUENCE + c.SEP,
+                               c.SEP | c.R_BOUND,
+                               c.SIGMA_STAR).optimize()
 
   return (romanize_first @
           romanize_final).optimize()
 
-ROMANIZE_FINE = _romanize_fine()
+_ROMANIZE_FINE = _romanize_fine()
 
 
 def _romanize_coarse() -> p.Fst:
@@ -105,22 +96,22 @@ def _romanize_coarse() -> p.Fst:
                 p.cross('uu', 'u'))
 
   coarse = p.cdrewrite(coarse_aux,
-                       asgn,
-                       r_bound,
-                       sigma_star).optimize()
+                       c.ASSIGN,
+                       c.R_BOUND,
+                       c.SIGMA_STAR).optimize()
 
   return coarse
 
-ROMANIZE_COARSE = _romanize_coarse()
+_ROMANIZE_COARSE = _romanize_coarse()
 
 
 def _remove_graphemes() -> p.Fst:
   """Removes the left side of the assigment."""
 
-  remove_sequence = p.cdrewrite(p.cross(sequence.star, ''),
-                                l_bound,
-                                asgn,
-                                sigma_star).optimize()
+  remove_sequence = p.cdrewrite(p.cross(c.SEQUENCE.star, ''),
+                                c.L_BOUND,
+                                c.ASSIGN,
+                                c.SIGMA_STAR).optimize()
 
   return remove_sequence
 
@@ -128,29 +119,29 @@ def _remove_graphemes() -> p.Fst:
 def _remove_markers() -> p.Fst:
   """Removes the assigment and boundary markers."""
 
-  signs = sep | asgn | l_bound | r_bound
+  signs = c.SEP | c.ASSIGN | c.L_BOUND | c.R_BOUND
 
   remove_signs = p.cdrewrite(p.cross(signs, ''),
                              '',
                              '',
-                             sigma_star).optimize()
+                             c.SIGMA_STAR).optimize()
 
   return remove_signs
 
-REMOVE_FORMATTING = (_remove_graphemes() @ _remove_markers()).optimize()
+_REMOVE_FORMATTING = (_remove_graphemes() @ _remove_markers()).optimize()
 
 
 def _txn_to_psaf() -> p.Fst:
-  return (ROMANIZE_FINE @
-          REMOVE_FORMATTING).optimize()
+  return (_ROMANIZE_FINE @
+          _REMOVE_FORMATTING).optimize()
 
 TXN_TO_PSAF = _txn_to_psaf()
 
 
 def _txn_to_psac() -> p.Fst:
-  return (ROMANIZE_FINE @
-          ROMANIZE_COARSE @
-          REMOVE_FORMATTING).optimize()
+  return (_ROMANIZE_FINE @
+          _ROMANIZE_COARSE @
+          _REMOVE_FORMATTING).optimize()
 
 TXN_TO_PSAC = _txn_to_psac()
 
