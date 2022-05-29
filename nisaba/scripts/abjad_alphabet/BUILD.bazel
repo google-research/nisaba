@@ -176,6 +176,7 @@ nisaba_grm_regression_test(
 
 py_test(
     name = "fst_properties_test",
+    timeout = "long",
     srcs = ["fst_properties_test.py"],
     data = [
         ":nfc.far",
