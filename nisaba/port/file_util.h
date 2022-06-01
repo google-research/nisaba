@@ -18,7 +18,6 @@
 #define NISABA_PORT_FILE_UTIL_H_
 
 #include <string>
-#include <string_view>
 #include <vector>
 
 #include "absl/status/statusor.h"
@@ -34,22 +33,22 @@ absl::StatusOr<std::string> GetRunfilesResourcePath(absl::string_view path);
 std::string JoinPath(absl::string_view dirname, absl::string_view basename);
 
 // Returns a path to a temporary file given its filename.
-std::string TempFilePath(std::string_view filename);
+std::string TempFilePath(absl::string_view filename);
 
 // Writes temporary text file given its filename and contents. Returns its
 // full path or error.
-absl::StatusOr<std::string> WriteTempTextFile(std::string_view filename,
-                                              std::string_view contents);
+absl::StatusOr<std::string> WriteTempTextFile(absl::string_view filename,
+                                              absl::string_view contents);
 
 // Writes text file given the contents.
-absl::Status WriteTextFile(std::string_view file_path,
-                           std::string_view contents);
+absl::Status WriteTextFile(absl::string_view file_path,
+                           absl::string_view contents);
 
 // Reads binary file into a buffer or returns error.
-absl::StatusOr<std::string> ReadBinaryFile(std::string_view file_path);
+absl::StatusOr<std::string> ReadBinaryFile(absl::string_view file_path);
 
 // Reads text file into a buffer or returns error.
-absl::StatusOr<std::string> ReadTextFile(std::string_view file_path);
+absl::StatusOr<std::string> ReadTextFile(absl::string_view file_path);
 
 // Reads lines from a text file removing the trailing carriage return and line
 // feed characters.

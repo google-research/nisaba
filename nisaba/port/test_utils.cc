@@ -19,6 +19,7 @@
 #include "google/protobuf/stubs/logging.h"
 #include "gtest/gtest.h"
 #include "absl/flags/flag.h"
+#include "absl/strings/string_view.h"
 #include "nisaba/port/file_util.h"
 
 using nisaba::file::GetRunfilesResourcePath;
@@ -27,8 +28,8 @@ using nisaba::file::JoinPath;
 namespace nisaba {
 namespace testing {
 
-std::string TestFilePath(std::string_view dir_name,
-                         std::string_view file_name) {
+std::string TestFilePath(absl::string_view dir_name,
+                         absl::string_view file_name) {
   const auto status = GetRunfilesResourcePath(JoinPath(dir_name, file_name));
   std::filesystem::path model_path;
   if (status.ok()) {

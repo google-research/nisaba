@@ -17,16 +17,17 @@
 #include <iterator>
 
 #include "absl/strings/str_split.h"
+#include "absl/strings/string_view.h"
 #include "utf8/checked.h"
 
 namespace {
-using utf8_iterator = ::utf8::iterator<std::string_view::const_iterator>;
+using utf8_iterator = ::utf8::iterator<absl::string_view::const_iterator>;
 }  // namespace
 
 namespace nisaba {
 namespace utf8 {
 
-std::vector<std::string> StrSplitByChar(std::string_view input) {
+std::vector<std::string> StrSplitByChar(absl::string_view input) {
      if (!::utf8::is_valid(input.begin(), input.end())) {
        return {};  // Refuse to split invalid UTF8 input.
      }
@@ -45,7 +46,7 @@ std::vector<std::string> StrSplitByChar(std::string_view input) {
      return result;
 }
 
-int DecodeUnicodeChar(std::string_view input, char32 *first_char) {
+int DecodeUnicodeChar(absl::string_view input, char32 *first_char) {
      if (input.empty()) {  // Do nothing.
        *first_char = 0;
        return 1;
@@ -65,7 +66,7 @@ int DecodeUnicodeChar(std::string_view input, char32 *first_char) {
      return pos.base() - input.begin();  // Number of bytes.
 }
 
-std::vector<int> StrSplitByCharToUnicode(std::string_view input) {
+std::vector<int> StrSplitByCharToUnicode(absl::string_view input) {
   const std::vector<std::string> input_chars = StrSplitByChar(input);
   std::vector<int> input_codepoints(input_chars.size());
   for (int i = 0; i < input_chars.size(); ++i) {
@@ -74,7 +75,7 @@ std::vector<int> StrSplitByCharToUnicode(std::string_view input) {
   return input_codepoints;
 }
 
-bool DecodeSingleUnicodeChar(std::string_view input, char32 *utf8_value) {
+bool DecodeSingleUnicodeChar(absl::string_view input, char32 *utf8_value) {
   const std::vector<std::string> split_input = StrSplitByChar(input);
   if (split_input.size() != 1) {
     *utf8_value = kBadUTF8Char;

@@ -18,13 +18,15 @@
 #define NISABA_PORT_TEST_UTILS_H_
 
 #include <string>
-#include <string_view>
+
+#include "absl/strings/string_view.h"
 
 namespace nisaba {
 namespace testing {
 
 // Returns path to a file in a given directory under a test directory tree.
-std::string TestFilePath(std::string_view dir_name, std::string_view file_name);
+std::string TestFilePath(absl::string_view dir_name,
+                         absl::string_view file_name);
 
 }  // namespace testing
 }  // namespace nisaba

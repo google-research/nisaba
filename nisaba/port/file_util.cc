@@ -16,10 +16,12 @@
 
 #include <errno.h>
 #include <stdlib.h>
+
 #include <filesystem>
 #include <fstream>
 
 #include "absl/strings/str_cat.h"
+#include "absl/strings/string_view.h"
 #include "tools/cpp/runfiles/runfiles.h"
 
 using ::bazel::tools::cpp::runfiles::Runfiles;
@@ -78,15 +80,15 @@ std::string JoinPath(absl::string_view dirname, absl::string_view basename) {
   }
 }
 
-std::string TempFilePath(std::string_view filename) {
+std::string TempFilePath(absl::string_view filename) {
   const std::filesystem::path tmp_dir =
       std::filesystem::temp_directory_path();
   std::filesystem::path file_path = tmp_dir / filename;
   return file_path.string();
 }
 
-absl::StatusOr<std::string> WriteTempTextFile(std::string_view filename,
-                                              std::string_view contents) {
+absl::StatusOr<std::string> WriteTempTextFile(absl::string_view filename,
+                                              absl::string_view contents) {
   const std::string &path = TempFilePath(filename);
   std::ofstream out(path);
   if (!out) {
@@ -99,26 +101,25 @@ absl::StatusOr<std::string> WriteTempTextFile(std::string_view filename,
   return path;
 }
 
-absl::Status WriteTextFile(std::string_view file_path,
-                           std::string_view contents) {
+absl::Status WriteTextFile(absl::string_view file_path,
+                           absl::string_view contents) {
   std::ofstream output;
   output.open(std::string(file_path));
   if (!output) {
-    return absl::PermissionDeniedError(absl::StrCat("Failed to open: ",
-                                                    std::string(file_path)));
+    return absl::PermissionDeniedError(
+        absl::StrCat("Failed to open: ", file_path));
   }
   output << contents;
   if (!output) {
     return absl::PermissionDeniedError(absl::StrCat(
-        "Failed to write: ", contents.size(), " bytes to ",
-        std::string(file_path)));
+        "Failed to write: ", contents.size(), " bytes to ", file_path));
   }
   return absl::OkStatus();
 }
 
 namespace {
 
-absl::StatusOr<std::string> ReadFile(std::string_view file_path,
+absl::StatusOr<std::string> ReadFile(absl::string_view file_path,
                                      std::ios_base::openmode mode) {
   std::ifstream input;
   // Need to construct std::string explictly below. See:
@@ -143,11 +144,11 @@ absl::StatusOr<std::string> ReadFile(std::string_view file_path,
 
 }  // namespace
 
-absl::StatusOr<std::string> ReadBinaryFile(std::string_view file_path) {
+absl::StatusOr<std::string> ReadBinaryFile(absl::string_view file_path) {
   return ReadFile(file_path, std::ifstream::in | std::ifstream::binary);
 }
 
-absl::StatusOr<std::string> ReadTextFile(std::string_view file_path) {
+absl::StatusOr<std::string> ReadTextFile(absl::string_view file_path) {
   return ReadFile(file_path, std::ifstream::in);
 }
 
