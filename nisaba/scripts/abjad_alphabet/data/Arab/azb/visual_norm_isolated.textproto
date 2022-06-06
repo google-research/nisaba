@@ -15,10 +15,12 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-# Urdu Visual norm rewrite rules for word final position and for isolated
-# characters as well.
+# South Azerbaijani visual norm rewrite rules for isolated
+# Perso-Arabic characters. Word final rewrites are applied for
+# isolated as well. This file lists only additional rewrites for
+# isolated characters.
 
 item {
-  uname: "ALEF MAKSURA" raw: "ى"
-  to_uname: "FARSI YEH" to_raw: "ی"
+  uname: "HEH GOAL" raw: "ہ"
+  to_uname: "HEH" to_raw: "ه"
 }

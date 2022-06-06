@@ -437,3 +437,36 @@ UG	ئابایا	ئابايا
 
 # YEH.
 UG	تورکی	توركى
+
+# ------------------
+# South Azerbaijani
+# ------------------
+
+# HEH WITH YEH ABOVE.
+AZB	گیومهٔ	گیومۀ
+AZB	مؤسسهٔ	مؤسسۀ
+
+# FARSI YEH WITH INVERTED V.
+AZB	کاسیٛب	کاسؽب
+AZB	چاتدیٛ	چاتدؽ
+
+# KEHEH (non-final).
+AZB	ويكيداشلار	ویکیداشلار
+AZB	كيهان		کیهان
+
+# HEH (non-final).
+AZB	ھەمدەم	هەمدەم
+AZB	ھىچ	هىچ
+
+# FARSI YEH (non-final).
+AZB	حوروفاتينا	حوروفاتینا
+AZB	تيکمک	تیکمک
+
+# FARSI YEH (final).
+AZB	شريعتى	شریعتی
+AZB	تايينلرى	تایینلری
+
+# Isolated position.
+AZB	ہ	ه
+AZB	ى	ی
+

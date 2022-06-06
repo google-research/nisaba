@@ -15,10 +15,32 @@
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
 
-# Urdu Visual norm rewrite rules for word final position and for isolated
-# characters as well.
+# South Azerbaijani Visual norm rewrite rules for word initial / medial
+# position.
 
 item {
-  uname: "ALEF MAKSURA" raw: "ى"
+  uname: "KAF" raw: "ك"
+  to_uname: "KEHEH" to_raw: "ک"
+}
+
+item {
+  uname: "HEH DOACHASHMEE" raw: "ھ"
+  to_uname: "HEH" to_raw: "ه"
+}
+
+item {
+  uname: "YEH" raw: "ي"
   to_uname: "FARSI YEH" to_raw: "ی"
 }
+
+# Unattested.
+#item {
+#  uname: "QAF WITH DOT ABOVE" raw: "ڧ"
+#  to_uname: "FEH" to_raw: "ف"
+#}
+
+# Unattested.
+#item {
+#  uname: "NOON GHUNNA" raw: "ں"
+#  to_uname: "NOON" to_raw: "ن"
+#}
