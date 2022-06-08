@@ -19,6 +19,8 @@ import pynini as p
 from pynini.lib import byte
 
 SIGMA_STAR = byte.BYTE.star
+EOS = '[EOS]'
+EPSILON = p.accep('')  # Epsilon, empty string
 LETTERS = p.union('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                   'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                   's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '_')
@@ -28,3 +30,5 @@ R_BOUND = p.accep(')')  # Right boundary of an assignment
 ASSIGN = p.accep('=')  # Grapheme to phoneme or graphemee to translit assignment
 SEQUENCE = p.union(LETTERS.star, SEP.star).star  # A sequence of symbols
 L_SIDE = L_BOUND + SEQUENCE + ASSIGN  # Left side of an assigment
+PH_BEGIN = (ASSIGN | L_BOUND)
+PH_END = (SEP | R_BOUND)
