@@ -41,10 +41,10 @@ def _romanize_fine() -> p.Fst:
                   p.cross('ll', 'l') |
                   p.cross('m', 'm') |
                   p.cross('n', 'n') |
-                  p.cross('ng', 'n') |
+                  p.cross('ng', 'ng') |
                   p.cross('ni', 'n') |
                   p.cross('nn', 'n') |
-                  p.cross('ny', 'n') |
+                  p.cross('ny', 'ny') |
                   p.cross('o', 'o') |
                   p.cross('o_l', 'oo') |
                   p.cross('p', 'p') |

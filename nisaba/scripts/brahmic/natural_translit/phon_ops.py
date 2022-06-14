@@ -37,9 +37,10 @@ def _rw_ph_context(
   would return:
   ```
   p.cdrewrite(p.cross('(ans=nsl)', '(ans=m)'),
-                                        '',
-                                        c.L_SIDE + labial + c.PH_END,
-                                        c.SIGMA_STAR).optimize()
+                      '',
+                      c.L_SIDE + labial + c.PH_END,
+                      c.SIGMA_STAR).optimize()
+  ```
 
   Args:
     gr: grapheme, ans in the example
@@ -170,6 +171,39 @@ def _intersonorant_voicing() -> p.Fst:
 INTERSONORANT_VOICING = _intersonorant_voicing()
 
 
+def _jny_to_gny() -> p.Fst:
+  """jny pronounced as gny."""
+
+  return p.cdrewrite(p.cross('(j=jh)(ny=ny)', '(j,ny=g,ny)'),
+                     '',
+                     '',
+                     c.SIGMA_STAR).optimize()
+
+JNY_TO_GNY = _jny_to_gny()
+
+
+def _jny_to_gy() -> p.Fst:
+  """jny pronounced as gy."""
+
+  return p.cdrewrite(p.cross('(j=jh)(ny=ny)', '(j,ny=g,y)'),
+                     '',
+                     '',
+                     c.SIGMA_STAR).optimize()
+
+JNY_TO_GY = _jny_to_gy()
+
+
+def _jny_to_ny() -> p.Fst:
+  """jny pronounced as ny."""
+
+  return p.cdrewrite(p.cross('(j=jh)(ny=ny)', '(j,ny=ny)'),
+                     '',
+                     '',
+                     c.SIGMA_STAR).optimize()
+
+JNY_TO_NY = _jny_to_ny()
+
+
 def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generates FAR for multilingual phonological operations."""
   for token_type in ('byte', 'utf8'):
@@ -189,6 +223,9 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       exporter['DEFAULT_ANUSVARA_DENTAL'] = DEFAULT_ANUSVARA_DENTAL
       exporter['DEFAULT_ANUSVARA_LABIAL'] = DEFAULT_ANUSVARA_LABIAL
       exporter['FINAL_ANUSVARA_NASALIZATION'] = FINAL_ANUSVARA_NASALIZATION
+      exporter['JNY_TO_GNY'] = JNY_TO_GNY
+      exporter['JNY_TO_GY'] = JNY_TO_GY
+      exporter['JNY_TO_NY'] = JNY_TO_NY
 
 
 if __name__ == '__main__':

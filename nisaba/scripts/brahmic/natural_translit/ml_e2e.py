@@ -32,7 +32,8 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       iso_to_txn = (iso.iso_to_typ() @
                     typ.TYP_TO_TXN @
                     ops.DEFAULT_ANUSVARA_LABIAL @
-                    ops.INTERSONORANT_VOICING)
+                    ops.INTERSONORANT_VOICING @
+                    ops.JNY_TO_NY)
 
       exporter = exporter_map[token_type]
       exporter['ISO_TO_PSAF'] = (

@@ -33,7 +33,8 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
                     typ.TYP_TO_TXN @
                     ops.ANUSVARA_ASSIMILATION @
                     ops.DEFAULT_ANUSVARA_DENTAL @
-                    ops.FINAL_ANUSVARA_NASALIZATION)
+                    ops.FINAL_ANUSVARA_NASALIZATION @
+                    ops.JNY_TO_GY)
 
       exporter = exporter_map[token_type]
       exporter['ISO_TO_PSAF'] = (
