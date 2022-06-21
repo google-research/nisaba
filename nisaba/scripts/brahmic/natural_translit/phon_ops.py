@@ -223,7 +223,6 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       exporter['DEFAULT_ANUSVARA_DENTAL'] = DEFAULT_ANUSVARA_DENTAL
       exporter['DEFAULT_ANUSVARA_LABIAL'] = DEFAULT_ANUSVARA_LABIAL
       exporter['FINAL_ANUSVARA_NASALIZATION'] = FINAL_ANUSVARA_NASALIZATION
-      exporter['JNY_TO_GNY'] = JNY_TO_GNY
       exporter['JNY_TO_GY'] = JNY_TO_GY
       exporter['JNY_TO_NY'] = JNY_TO_NY
 

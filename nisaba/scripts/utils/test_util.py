@@ -221,3 +221,22 @@ class FstRandgenTestCase(absltest.TestCase):
         input_str_fsa = _label_list_to_string_fsa(ilabels)
         output_fst = rewrite.ComposeFsts([input_str_fsa] + fsts)
         assert_function(input_str_fsa, output_fst)
+
+
+class FstTestCase(absltest.TestCase):
+  """Collection of asserts related to string FSTs."""
+
+  def assertFstStrIO(self, fst: pynini.Fst,
+                     input_str: str, expected_str: str) -> None:
+    """Asserts that given FST produces expeted_str for the given input_str.
+
+    Args:
+      fst: FST being tested.
+      input_str: Input string to be suppled to the FST.
+      expected_str: Expected string output from the FST on input_str.
+    """
+
+    input_str_fsa = pynini.accep(input_str)
+    output_fst = rewrite.ComposeFsts([input_str_fsa, fst])
+    actual_output = output_fst.string()
+    self.assertEqual(actual_output, expected_str)
