@@ -75,6 +75,9 @@ class Normalizer {
   absl::Status NormalizeOnly(absl::string_view input,
                              std::string *output) const;
 
+  // Checks if a given fst_path (e.g. a given script) is available.
+  static bool SupportsFst(absl::string_view fst_name);
+
  private:
   Normalizer() = delete;
 

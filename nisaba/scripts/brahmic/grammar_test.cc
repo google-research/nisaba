@@ -102,6 +102,11 @@ TEST_F(GrammarTest, MultiLanguageNormalizeLoadTest) {
   }
 }
 
+TEST(NormalizerTest, SupportsFstTest) {
+  EXPECT_TRUE(Normalizer::SupportsFst("Deva"));
+  EXPECT_FALSE(Normalizer::SupportsFst("NotARealFst"));
+}
+
 }  // namespace
 }  // namespace brahmic
 }  // namespace nisaba

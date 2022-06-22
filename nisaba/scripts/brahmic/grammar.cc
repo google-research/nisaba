@@ -87,5 +87,9 @@ absl::Status Normalizer::NormalizeOnly(absl::string_view input,
   return visual_norm_.Rewrite(input, output);
 }
 
+bool Normalizer::SupportsFst(absl::string_view fst_name) {
+  return Normalizer{fst_name}.Load().ok();
+}
+
 }  // namespace brahmic
 }  // namespace nisaba
