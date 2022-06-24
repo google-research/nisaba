@@ -75,13 +75,9 @@ nisaba_grm_regression_test(
     token_type = "utf8",
 )
 
-nisaba_compile_multi_grm_py(
+py_library(
     name = "phon_ops",
-    outs = {
-        "byte": "phon_ops.far",
-        "utf8": "phon_ops_utf8.far",
-    },
-    visibility = ["//visibility:public"],
+    srcs = ["phon_ops.py"],
     deps = [
         ":constants",
         "@org_opengrm_pynini//pynini",
@@ -93,22 +89,10 @@ py_test(
     srcs = ["phon_ops_test.py"],
     main = "phon_ops_test.py",
     deps = [
-        ":_phon_ops_lib",
+        ":phon_ops",
         "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
     ],
-)
-
-nisaba_grm_regression_test(
-    name = "phon_ops_test",
-    grammar = ":phon_ops",
-)
-
-nisaba_grm_regression_test(
-    name = "phon_ops_utf8_test",
-    grammar = ":phon_ops_utf8",
-    test_file = "testdata:phon_ops.tsv",
-    token_type = "utf8",
 )
 
 nisaba_compile_multi_grm_py(
@@ -145,9 +129,9 @@ nisaba_compile_multi_grm_py(
     visibility = ["//visibility:public"],
     deps = [
         ":_iso2typ_lib",
-        ":_phon_ops_lib",
         ":_txn2nat_lib",
         ":_typ2txn_lib",
+        ":phon_ops",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -173,9 +157,9 @@ nisaba_compile_multi_grm_py(
     visibility = ["//visibility:public"],
     deps = [
         ":_iso2typ_lib",
-        ":_phon_ops_lib",
         ":_txn2nat_lib",
         ":_typ2txn_lib",
+        ":phon_ops",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -201,9 +185,9 @@ nisaba_compile_multi_grm_py(
     visibility = ["//visibility:public"],
     deps = [
         ":_iso2typ_lib",
-        ":_phon_ops_lib",
         ":_txn2nat_lib",
         ":_typ2txn_lib",
+        ":phon_ops",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -229,9 +213,9 @@ nisaba_compile_multi_grm_py(
     visibility = ["//visibility:public"],
     deps = [
         ":_iso2typ_lib",
-        ":_phon_ops_lib",
         ":_txn2nat_lib",
         ":_typ2txn_lib",
+        ":phon_ops",
         "@org_opengrm_pynini//pynini",
     ],
 )

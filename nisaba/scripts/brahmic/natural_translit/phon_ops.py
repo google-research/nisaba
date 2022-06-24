@@ -15,7 +15,6 @@
 """Multilingual phonological operations."""
 
 import pynini as p
-from pynini.export import multi_grm
 import nisaba.scripts.brahmic.natural_translit.constants as c
 
 # TODO: Phonological model
@@ -202,30 +201,3 @@ def _jny_to_ny() -> p.Fst:
                      c.SIGMA_STAR).optimize()
 
 JNY_TO_NY = _jny_to_ny()
-
-
-def generator_main(exporter_map: multi_grm.ExporterMapping):
-  """Generates FAR for multilingual phonological operations."""
-  for token_type in ('byte', 'utf8'):
-    with p.default_token_type(token_type):
-
-      exporter = exporter_map[token_type]
-      exporter['VOICING'] = INTERSONORANT_VOICING
-      exporter['ANUSVARA_ASSIMILATION_LABIAL'] = ANUSVARA_ASSIMILATION_LABIAL
-      exporter['ANUSVARA_ASSIMILATION_DENTAL'] = ANUSVARA_ASSIMILATION_DENTAL
-      exporter[
-          'ANUSVARA_ASSIMILATION_ALVEOLAR'] = ANUSVARA_ASSIMILATION_ALVEOLAR
-      exporter['ANUSVARA_ASSIMILATION_PALATAL'] = ANUSVARA_ASSIMILATION_PALATAL
-      exporter[
-          'ANUSVARA_ASSIMILATION_RETROFLEX'] = ANUSVARA_ASSIMILATION_RETROFLEX
-      exporter['ANUSVARA_ASSIMILATION_VELAR'] = ANUSVARA_ASSIMILATION_VELAR
-      exporter['ANUSVARA_ASSIMILATION'] = ANUSVARA_ASSIMILATION
-      exporter['DEFAULT_ANUSVARA_DENTAL'] = DEFAULT_ANUSVARA_DENTAL
-      exporter['DEFAULT_ANUSVARA_LABIAL'] = DEFAULT_ANUSVARA_LABIAL
-      exporter['FINAL_ANUSVARA_NASALIZATION'] = FINAL_ANUSVARA_NASALIZATION
-      exporter['JNY_TO_GY'] = JNY_TO_GY
-      exporter['JNY_TO_NY'] = JNY_TO_NY
-
-
-if __name__ == '__main__':
-  multi_grm.run(generator_main)
