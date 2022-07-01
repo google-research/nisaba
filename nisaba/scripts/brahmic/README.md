@@ -306,6 +306,20 @@ character. Strictly speaking, religious symbols need not to be transliterated.
 However, as *Om* has a standard phonetic transcription, it is represented as
 `ōm̐`, as an exception to this convention.
 
+## Fixed rule transliteration {#fixed}
+
+This FST converts fixed rule Brahmic romanization to corresponding native text.
+
+By fixed rule romanization, we refer to the set of deterministic rules used
+to unambiguously represent Brahmic scripts using ASCII characters, for input
+purposes. [ITRANS](https://en.wikipedia.org/wiki/ITRANS) for Devanagari and
+[Mozhi](https://sites.google.com/site/cibu/mozhi2) for Malayalam are examples.
+
+The rules defined in the script specific `fixed.tsv` convert the ASCII text to
+[ISO 15919](https://en.wikipedia.org/wiki/ISO_15919) as per above schemes.
+That ISO 15919 output is then converted to respective Brahmic text using
+ISO-to-native conversion defined in [ISO 15919 romanization](#iso).
+
 ## C++ API {#cc}
 
 ### Higher level Grammar and Normalizer Classes

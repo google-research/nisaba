@@ -50,8 +50,12 @@ py_proto_library(
     srcs = ["script_config.proto"],
 )
 
-nisaba_compile_grm_py(
+nisaba_compile_multi_grm_py(
     name = "iso",
+    outs = {
+        "byte": "iso.far",
+        "utf8": "iso_utf8.far",
+    },
     data = [
         "//nisaba/scripts/brahmic/data/{}:{}.tsv".format(script, file_name)
         for script in SCRIPTS
@@ -89,7 +93,11 @@ nisaba_compile_multi_grm_py(
         "byte": "fixed.far",
         "utf8": "fixed_utf8.far",
     },
-    data = [":sigma_utf8.far"] + [
+    data = [
+        ":iso.far",
+        ":iso_utf8.far",
+        ":sigma_utf8.far",
+    ] + [
         "//nisaba/scripts/brahmic/data/{}:fixed.tsv".format(script)
         for script in FIXED_RULE_SCRIPTS
     ],
@@ -219,6 +227,8 @@ py_test(
     data = [
         ":fixed.far",
         ":fixed_utf8.far",
+        ":iso.far",
+        ":iso_utf8.far",
         ":nfc.far",
         ":nfc_utf8.far",
         ":reading_norm.far",

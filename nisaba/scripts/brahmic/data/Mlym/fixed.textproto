@@ -31,16 +31,52 @@ item {
 }
 
 item {
-  raw: "zh"
-  to_uname: "L WITH LINE BELOW" to_raw: "ḻ"
+  raw: "kh"
+  to_uname: ["K", "MODIFIER LETTER SMALL H"] to_raw: "kʰ"
+}
+item {
+  raw: "gh"
+  to_uname: ["G", "MODIFIER LETTER SMALL H"] to_raw: "gʰ"
+}
+item {
+  raw: "ch"
+  to_raw: "c"
+}
+item {
+  raw: "ch"
+  to_uname: ["C", "MODIFIER LETTER SMALL H"] to_raw: "cʰ"
+}
+item {
+  raw: "jh"
+  to_uname: ["J", "MODIFIER LETTER SMALL H"] to_raw: "jʰ"
+}
+item {
+  raw: "Th"
+  to_uname: ["T WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ṭʰ"
+}
+item {
+  raw: "Dh"
+  to_uname: ["D WITH DOT BELOW", "MODIFIER LETTER SMALL H"] to_raw: "ḍʰ"
+}
+item {
+  raw: "dh"
+  to_uname: ["D", "MODIFIER LETTER SMALL H"] to_raw: "dʰ"
+}
+item {
+  raw: "ph"
+  to_uname: ["P", "MODIFIER LETTER SMALL H"] to_raw: "pʰ"
+}
+item {
+  raw: "bh"
+  to_uname: ["B", "MODIFIER LETTER SMALL H"] to_raw: "bʰ"
 }
 item {
   raw: "sh"
   to_uname: "S WITH DOT BELOW" to_raw: "ṣ"
 }
 item {
-  raw: "ch"
-  to_raw: "c"
+  raw: "zh"
+  to_uname: "L WITH LINE BELOW" to_raw: "ḻ"
 }
 
 item {
@@ -112,6 +148,10 @@ item {
 item {
   uname: ["R WITH LINE BELOW", "R WITH LINE BELOW", "H"] raw: "ṟṟh"
   to_raw: "t"
+}
+item {
+  raw: "th"
+  to_uname: ["T", "MODIFIER LETTER SMALL H"] to_raw: "tʰ"
 }
 item {
   uname: ["N", "VERTICAL TILDE", "G"] raw: "nⸯg"
@@ -299,7 +339,7 @@ item {
 }
 item {
   uname: ["N", "VERTICAL TILDE", "R WITH LINE BELOW", "R WITH LINE BELOW"] raw: "nⸯṟṟ"
-  to_uname: ["N", "VERTICAL TILDE", "COMBINING BREVE", "R WITH LINE BELOW"] to_raw: "nⸯ̆ṟ"
+  to_uname: ["N", "VERTICAL TILDE", "BREVE", "R WITH LINE BELOW"] to_raw: "nⸯ˘ṟ"
 }
 
 item {

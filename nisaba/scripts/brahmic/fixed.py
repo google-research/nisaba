@@ -12,17 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-r"""Grammar to convert Brahmic fixed rule romanization to ISO 15919.
+r"""FST to convert fixed rule Brahmic romanization to corresponding native text.
 
 By fixed rule romanization, we refer to the set of deterministic rules used
 to unambiguously represent Brahmic scripts using ASCII characters, for input
 purposes. ITRANS for Devanagari and Mozhi for Malayalam are examples.
 
-The grammar defined here converts the ASCII text to ISO 15919 as per the rules
-of these schemes, coded in script specific fixed.tsv. The conversion
-from ISO 15919 to respective Brahmic text is available through the grammar
-defined in iso.py of this library. This would complete the conversion to Brahmic
-from ASCII as per the respective fixed rule specification.
+The rules defined in the script specific fixed.tsv convert the ASCII text to
+ISO 15919 as per the above schemes. The grammar defined here converts that
+ISO 15919 output to respective Brahmic text using ISO-to-native conversion
+defined in iso.py and associated data files.
 
 Please refer to: https://en.wikipedia.org/wiki/ISO_15919 for ISO.
 
@@ -35,7 +34,7 @@ bazel build -c opt @org_opengrm_thrax//:rewrite-tester \
 cat /tmp/ml-latn-text.txt |
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \
   --far=bazel-bin/nisaba/scripts/brahmic/fixed.far \
-  --rules=MLYM > /tmp/ml-latn-iso-text.txt
+  --rules=MLYM > /tmp/ml-text.txt
 ```
 """
 
@@ -45,19 +44,19 @@ import string
 import pynini
 from pynini.export import multi_grm
 import nisaba.scripts.brahmic.util as u
+from nisaba.scripts.utils import rule
 import nisaba.scripts.utils.char as uc
 import nisaba.scripts.utils.file as uf
-import nisaba.scripts.utils.rule as rule
 
 
 def _fixed_rule_fst(script: str) -> pynini.Fst:
   """Creates an FST that transduces fixed rule romanization to ISO 15919."""
   path = u.SCRIPT_DIR / script / 'fixed.tsv'
-  resource_file = uf.AsResourcePath(path)
-  chars = uc.derive_chars(both_sides=[path], input_side=[])
+  chars = uc.derive_chars(both_sides=[path])
   # ASCII printable characters are pass through.
   # Pynini's symbol generation characters ('[', ']') are avoided.
   sigma = uc.derive_sigma(chars | set(string.printable) - set('[]'))
+  resource_file = uf.AsResourcePath(path)
   return rule.fst_from_cascading_rule_file(resource_file, sigma)
 
 
@@ -67,7 +66,9 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
     with pynini.default_token_type(token_type):
       exporter = exporter_map[token_type]
       for script in u.FIXED_RULE_SCRIPTS:
-        exporter[f'{script.upper()}'] = _fixed_rule_fst(script)
+        iso_fst = u.OpenFstFromBrahmicFar('iso', f'to_{script}', token_type)
+        exporter[f'{script.upper()}'] = (_fixed_rule_fst(script) @
+                                         iso_fst).optimize()
 
 
 if __name__ == '__main__':

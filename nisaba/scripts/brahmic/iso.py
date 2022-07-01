@@ -48,7 +48,7 @@ import os
 from typing import Dict
 
 import pynini
-from pynini.export import grm
+from pynini.export import multi_grm
 from pynini.lib import pynutil
 import nisaba.scripts.brahmic.util as u
 import nisaba.scripts.utils.file as uf
@@ -151,17 +151,20 @@ def _script_to_iso(script: str) -> pynini.Fst:
                         u.SCRIPT_DIR / script / 'virama.tsv')
 
 
-def generator_main(exporter: grm.Exporter):
+def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generate FSTs for ISO conversion of various Brahmic scripts."""
-  script_to_iso_dict: Dict[str, pynini.Fst] = {
-      script: _script_to_iso(script) for script in u.SCRIPTS
-  }
-  for script, from_script in script_to_iso_dict.items():
-    exporter[f'FROM_{script.upper()}'] = from_script
-    exporter[f'TO_{script.upper()}'] = pynini.invert(from_script)
-  exporter['FROM_BRAHMIC'] = ur.Rewrite(
-      pynini.union(*script_to_iso_dict.values()))
+  for token_type in ('byte', 'utf8'):
+    with pynini.default_token_type(token_type):
+      exporter = exporter_map[token_type]
+      script_to_iso_dict: Dict[str, pynini.Fst] = {
+          script: _script_to_iso(script) for script in u.SCRIPTS
+      }
+      for script, from_script in script_to_iso_dict.items():
+        exporter[f'FROM_{script.upper()}'] = from_script
+        exporter[f'TO_{script.upper()}'] = pynini.invert(from_script)
+      exporter['FROM_BRAHMIC'] = ur.Rewrite(
+          pynini.union(*script_to_iso_dict.values()))
 
 
 if __name__ == '__main__':
-  grm.run(generator_main)
+  multi_grm.run(generator_main)

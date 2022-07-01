@@ -67,14 +67,26 @@ class FstPropertiesTest(parameterized.TestCase,
     self.assertFstCompliesWithProperties(fst, prop)
 
   @parameterized.parameters(
+      itertools.product(u.SCRIPTS,
+                        (pynini.ACCESSIBLE,
+                         pynini.COACCESSIBLE,
+                         pynini.CYCLIC,
+                         pynini.NO_EPSILONS),
+                        ('byte', 'utf8'),
+                        ('to', 'from')))
+  def test_iso(self, script: str, prop: pynini.FstProperties, token_type: str,
+               direction: str):
+    fst = u.OpenFstFromBrahmicFar('iso', f'{direction}_{script}', token_type)
+    self.assertFstCompliesWithProperties(fst, prop)
+
+  @parameterized.parameters(
       itertools.product(u.FIXED_RULE_SCRIPTS,
                         (pynini.ACCESSIBLE,
                          pynini.COACCESSIBLE,
                          pynini.CYCLIC,
                          # TODO: Investigate why it is not deterministic
                          # pynini.I_DETERMINISTIC,
-                         pynini.NO_EPSILONS,
-                         pynini.UNWEIGHTED),
+                         pynini.NO_EPSILONS),
                         ('byte', 'utf8')))
   def test_fixed(self,
                  script: str,
