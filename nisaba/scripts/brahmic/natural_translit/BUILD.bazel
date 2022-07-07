@@ -28,29 +28,24 @@ py_library(
     deps = ["@org_opengrm_pynini//pynini/lib:byte"],
 )
 
-nisaba_compile_multi_grm_py(
+py_library(
     name = "iso2typ",
-    outs = {
-        "byte": "iso2typ.far",
-        "utf8": "iso2typ_utf8.far",
-    },
-    visibility = ["//visibility:public"],
+    srcs = ["iso2typ.py"],
     deps = [
         ":constants",
         "@org_opengrm_pynini//pynini",
     ],
 )
 
-nisaba_grm_regression_test(
-    name = "iso2typ_test",
-    grammar = ":iso2typ",
-)
-
-nisaba_grm_regression_test(
-    name = "iso2typ_utf8_test",
-    grammar = ":iso2typ_utf8",
-    test_file = "testdata:iso2typ.tsv",
-    token_type = "utf8",
+py_test(
+    name = "iso2typ_test_py",
+    srcs = ["iso2typ_test.py"],
+    main = "iso2typ_test.py",
+    deps = [
+        ":iso2typ",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
 )
 
 nisaba_compile_multi_grm_py(
@@ -128,9 +123,9 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        ":_iso2typ_lib",
         ":_txn2nat_lib",
         ":_typ2txn_lib",
+        ":iso2typ",
         ":phon_ops",
         "@org_opengrm_pynini//pynini",
     ],
@@ -156,9 +151,9 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        ":_iso2typ_lib",
         ":_txn2nat_lib",
         ":_typ2txn_lib",
+        ":iso2typ",
         ":phon_ops",
         "@org_opengrm_pynini//pynini",
     ],
@@ -184,9 +179,9 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        ":_iso2typ_lib",
         ":_txn2nat_lib",
         ":_typ2txn_lib",
+        ":iso2typ",
         ":phon_ops",
         "@org_opengrm_pynini//pynini",
     ],
@@ -212,9 +207,9 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        ":_iso2typ_lib",
         ":_txn2nat_lib",
         ":_typ2txn_lib",
+        ":iso2typ",
         ":phon_ops",
         "@org_opengrm_pynini//pynini",
     ],

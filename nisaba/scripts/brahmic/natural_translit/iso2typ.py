@@ -15,7 +15,6 @@
 """ISO to typeable string conversion."""
 
 import pynini as p
-from pynini.export import multi_grm
 import nisaba.scripts.brahmic.natural_translit.constants as c
 
 
@@ -98,6 +97,8 @@ def _iso_to_decomposed_typ() -> p.Fst:
                                iso_to_typ_symbol)
 
   return iso_to_decomposed_typ_aux.star.optimize()
+
+ISO_TO_TYP_DECOMPOSED = _iso_to_decomposed_typ()
 
 
 def _composed_typ() -> p.Fst:
@@ -196,16 +197,4 @@ def _composed_typ() -> p.Fst:
 def iso_to_typ() -> p.Fst:
   return (_iso_to_decomposed_typ() @ _composed_typ()).optimize()
 
-
-def generator_main(exporter_map: multi_grm.ExporterMapping):
-  """Generates FAR for language agnostic ISO to typeable string conversion."""
-  for token_type in ('byte', 'utf8'):
-    with p.default_token_type(token_type):
-
-      exporter = exporter_map[token_type]
-      exporter['ISO_TO_TYP_DECOMPOSED'] = _iso_to_decomposed_typ()
-      exporter['ISO_TO_TYP'] = iso_to_typ()
-
-
-if __name__ == '__main__':
-  multi_grm.run(generator_main)
+ISO_TO_TYP = iso_to_typ()
