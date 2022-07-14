@@ -48,26 +48,24 @@ py_test(
     ],
 )
 
-nisaba_compile_multi_grm_py(
+py_library(
     name = "typ2txn",
-    outs = {
-        "byte": "typ2txn.far",
-        "utf8": "typ2txn_utf8.far",
-    },
-    visibility = ["//visibility:public"],
-    deps = ["@org_opengrm_pynini//pynini"],
+    srcs = ["typ2txn.py"],
+    deps = [
+        ":constants",
+        "@org_opengrm_pynini//pynini",
+    ],
 )
 
-nisaba_grm_regression_test(
-    name = "typ2txn_test",
-    grammar = ":typ2txn",
-)
-
-nisaba_grm_regression_test(
-    name = "typ2txn_utf8_test",
-    grammar = ":typ2txn_utf8",
-    test_file = "testdata:typ2txn.tsv",
-    token_type = "utf8",
+py_test(
+    name = "typ2txn_test_py",
+    srcs = ["typ2txn_test.py"],
+    main = "typ2txn_test.py",
+    deps = [
+        ":typ2txn",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
 )
 
 py_library(
@@ -124,9 +122,9 @@ nisaba_compile_multi_grm_py(
     visibility = ["//visibility:public"],
     deps = [
         ":_txn2nat_lib",
-        ":_typ2txn_lib",
         ":iso2typ",
         ":phon_ops",
+        ":typ2txn",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -152,9 +150,9 @@ nisaba_compile_multi_grm_py(
     visibility = ["//visibility:public"],
     deps = [
         ":_txn2nat_lib",
-        ":_typ2txn_lib",
         ":iso2typ",
         ":phon_ops",
+        ":typ2txn",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -180,9 +178,9 @@ nisaba_compile_multi_grm_py(
     visibility = ["//visibility:public"],
     deps = [
         ":_txn2nat_lib",
-        ":_typ2txn_lib",
         ":iso2typ",
         ":phon_ops",
+        ":typ2txn",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -208,9 +206,9 @@ nisaba_compile_multi_grm_py(
     visibility = ["//visibility:public"],
     deps = [
         ":_txn2nat_lib",
-        ":_typ2txn_lib",
         ":iso2typ",
         ":phon_ops",
+        ":typ2txn",
         "@org_opengrm_pynini//pynini",
     ],
 )

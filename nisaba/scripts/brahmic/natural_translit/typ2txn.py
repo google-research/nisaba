@@ -15,7 +15,6 @@
 """South Asian multilingual phoneme assignment."""
 
 import pynini as p
-from pynini.export import multi_grm
 
 
 def _typ_to_txn() -> p.Fst:
@@ -56,7 +55,7 @@ def _typ_to_txn() -> p.Fst:
   assign_phoneme_vocalic = (p.cross('(l_vocal)', '(l_vocal=l,u)') |
                             p.cross('(ll_vocal)', '(ll_vocal=ll,u)') |
                             p.cross('(r_vocal)', '(r_vocal=rt,u)') |
-                            p.cross('(rr_vocal)', '(rr_vocal_i=r,u)') |
+                            p.cross('(rr_vocal)', '(rr_vocal=r,u)') |
                             p.cross('(l_vocal_i)', '(l_vocal_i=l,u)') |
                             p.cross('(ll_vocal_i)', '(ll_vocal_i=ll,u)') |
                             p.cross('(r_vocal_i)', '(r_vocal_i=rt,u)') |
@@ -137,16 +136,3 @@ def _typ_to_txn() -> p.Fst:
           assign_phoneme_om).star.optimize()
 
 TYP_TO_TXN = _typ_to_txn()
-
-
-def generator_main(exporter_map: multi_grm.ExporterMapping):
-  """Generates FAR for ISO char to PSA phoneme assignment."""
-  for token_type in ('byte', 'utf8'):
-    with p.default_token_type(token_type):
-
-      exporter = exporter_map[token_type]
-      exporter['TYP_TO_TXN'] = TYP_TO_TXN
-
-
-if __name__ == '__main__':
-  multi_grm.run(generator_main)
