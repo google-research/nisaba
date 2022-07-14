@@ -54,6 +54,7 @@ py_library(
     deps = [
         ":constants",
         "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/export:multi_grm",
     ],
 )
 
@@ -74,6 +75,7 @@ py_library(
     deps = [
         ":constants",
         "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/export:multi_grm",
     ],
 )
 
