@@ -15,7 +15,7 @@
 """A library for making unit tests that verify FST properties."""
 
 import collections
-from typing import Callable, Iterator, List
+from typing import Callable, Iterator, List, Tuple
 
 import pynini
 from pynini.lib import utf8
@@ -240,3 +240,28 @@ class FstTestCase(absltest.TestCase):
     output_fst = rewrite.ComposeFsts([input_str_fsa, fst])
     actual_output = output_fst.string()
     self.assertEqual(actual_output, expected_str)
+
+  def assertFstStrIoTestCases(
+      self, test_cases: List[Tuple[pynini.Fst, List[Tuple[str, str]]]]) -> None:
+    """Asserts on every test in a list of FST input-ouput testcases.
+
+    Args:
+      test_cases: It is a list of tuples which carry an FST and a list of
+          input / output test string tuples. Example:
+          ```
+          [
+              (ISO_TO_TYP_DECOMPOSED_FST, [
+                  ('a', '(a)'),
+                  ('ā', '(aa)'),
+              ]),
+              (ISO_TO_TYP_FST, [
+                  ('ai', '(ai)'),
+                  ('au', '(au)'),
+              ]),
+          ]
+          ```
+    """
+
+    for fst, test_pairs in test_cases:
+      for test_pair in test_pairs:
+        self.assertFstStrIO(fst, *test_pair)

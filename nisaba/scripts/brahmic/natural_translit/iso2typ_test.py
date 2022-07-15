@@ -19,19 +19,22 @@ from nisaba.scripts.brahmic.natural_translit import iso2typ
 from nisaba.scripts.utils import test_util
 
 
+_TEST_CASES = [
+    (iso2typ.ISO_TO_TYP_DECOMPOSED, [
+        ('a', '(a)'),
+        ('ā', '(aa)'),
+    ]),
+    (iso2typ.ISO_TO_TYP, [
+        ('ai', '(ai)'),
+        ('au', '(au)'),
+    ]),
+]
+
+
 class Iso2TypTest(test_util.FstTestCase):
 
-  def test_typ_a(self):
-    self.assertFstStrIO(
-        iso2typ.ISO_TO_TYP_DECOMPOSED,
-        'a',
-        '(a)')
-
-  def test_typ_aa(self):
-    self.assertFstStrIO(
-        iso2typ.ISO_TO_TYP_DECOMPOSED,
-        'ā',
-        '(aa)')
+  def test_all(self):
+    self.assertFstStrIoTestCases(_TEST_CASES)
 
   def test_typ_ac(self):
     self.assertFstStrIO(
@@ -422,18 +425,6 @@ class Iso2TypTest(test_util.FstTestCase):
         iso2typ.ISO_TO_TYP_DECOMPOSED,
         'inⸯḍya',
         '(i)(n)(chl)(dd)(y)(a)')
-
-  def test_typ_ai(self):
-    self.assertFstStrIO(
-        iso2typ.ISO_TO_TYP,
-        'ai',
-        '(ai)')
-
-  def test_typ_au(self):
-    self.assertFstStrIO(
-        iso2typ.ISO_TO_TYP,
-        'au',
-        '(au)')
 
   def test_typ_l_vocal(self):
     self.assertFstStrIO(
