@@ -15,7 +15,6 @@
 """South Asian multilingual phoneme assignment."""
 
 import pynini as p
-from pynini.export import multi_grm
 
 
 def _typ_to_txn() -> p.Fst:
