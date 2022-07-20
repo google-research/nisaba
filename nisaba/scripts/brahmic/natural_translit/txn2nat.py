@@ -15,7 +15,6 @@
 """Pan-South Asian natural romanization."""
 
 import pynini as p
-from pynini.export import multi_grm
 import nisaba.scripts.brahmic.natural_translit.constants as c
 
 
@@ -144,16 +143,3 @@ def _txn_to_psac() -> p.Fst:
           _REMOVE_FORMATTING).optimize()
 
 TXN_TO_PSAC = _txn_to_psac()
-
-
-def generator_main(exporter_map: multi_grm.ExporterMapping):
-  """Generates FAR for character-phoneme assinment to natural translit."""
-  for token_type in ('byte', 'utf8'):
-    with p.default_token_type(token_type):
-
-      exporter = exporter_map[token_type]
-      exporter['TXN_TO_PSAF'] = TXN_TO_PSAF
-      exporter['TXN_TO_PSAC'] = TXN_TO_PSAC
-
-if __name__ == '__main__':
-  multi_grm.run(generator_main)
