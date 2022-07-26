@@ -124,6 +124,17 @@ nisaba_compile_multi_grm_py(
     ],
 )
 
+py_test(
+    name = "hi_e2e_test_py",
+    srcs = ["hi_e2e_test.py"],
+    main = "hi_e2e_test.py",
+    deps = [
+        ":_hi_e2e_lib",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
 nisaba_grm_regression_test(
     name = "hi_e2e_test",
     grammar = ":hi_e2e",
