@@ -24,24 +24,30 @@ import nisaba.scripts.brahmic.natural_translit.txn2nat as txn
 import nisaba.scripts.brahmic.natural_translit.typ2txn as typ
 
 
+def _iso_to_txn():
+  return (iso.iso_to_typ() @
+          typ.TYP_TO_TXN @
+          ops.DEFAULT_ANUSVARA_LABIAL @
+          ops.INTERSONORANT_VOICING @
+          ops.JNY_TO_NY).optimize()
+
+
+def iso_to_psaf() -> p.Fst:
+  return (_iso_to_txn() @ txn.TXN_TO_PSAF).optimize()
+
+
+def iso_to_psac() -> p.Fst:
+  return (_iso_to_txn() @ txn.TXN_TO_PSAC).optimize()
+
+
 def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generates FAR for natural transliteration for Malayalam."""
   for token_type in ('byte', 'utf8'):
     with p.default_token_type(token_type):
 
-      iso_to_txn = (iso.iso_to_typ() @
-                    typ.TYP_TO_TXN @
-                    ops.DEFAULT_ANUSVARA_LABIAL @
-                    ops.INTERSONORANT_VOICING @
-                    ops.JNY_TO_NY)
-
       exporter = exporter_map[token_type]
-      exporter['ISO_TO_PSAF'] = (
-          iso_to_txn @
-          txn.TXN_TO_PSAF).optimize()
-      exporter['ISO_TO_PSAC'] = (
-          iso_to_txn @
-          txn.TXN_TO_PSAC).optimize()
+      exporter['ISO_TO_PSAF'] = iso_to_psaf()
+      exporter['ISO_TO_PSAC'] = iso_to_psac()
 
 
 if __name__ == '__main__':
