@@ -20,7 +20,7 @@ from nisaba.scripts.utils import test_util
 
 
 _TEST_CASES = [
-    (iso2typ.ISO_TO_TYP_DECOMPOSED, [
+    (iso2typ._iso_to_decomposed_typ, [
         ('a', '(a)'),
         ('ā', '(aa)'),
         ('æ', '(ac)'),
@@ -89,7 +89,7 @@ _TEST_CASES = [
         ('intya', '(i)(n)(t)(y)(a)'),
         ('inⸯḍya', '(i)(n)(chl)(dd)(y)(a)'),
     ]),
-    (iso2typ.ISO_TO_TYP, [
+    (iso2typ.iso_to_typ, [
         ('ai', '(ai)'),
         ('au', '(au)'),
         ('l̥', '(l_vocal)'),

@@ -242,19 +242,21 @@ class FstTestCase(absltest.TestCase):
     self.assertEqual(actual_output, expected_str)
 
   def assertFstStrIoTestCases(
-      self, test_cases: List[Tuple[pynini.Fst, List[Tuple[str, str]]]]) -> None:
+      self,
+      test_cases:
+      List[Tuple[Callable[[], pynini.Fst], List[Tuple[str, str]]]]) -> None:
     """Asserts on every test in a list of FST input-ouput testcases.
 
     Args:
-      test_cases: It is a list of tuples which carry an FST and a list of
-          input / output test string tuples. Example:
+      test_cases: It is a list of tuples which carry an FST builder function
+      and a list of input / output test string tuples. Example:
           ```
           [
-              (ISO_TO_TYP_DECOMPOSED_FST, [
+              (ISO_TO_TYP_DECOMPOSED_FST_BUILDER_FUNCION, [
                   ('a', '(a)'),
                   ('ā', '(aa)'),
               ]),
-              (ISO_TO_TYP_FST, [
+              (ISO_TO_TYP_FST_BUILDER_FUNCION, [
                   ('ai', '(ai)'),
                   ('au', '(au)'),
               ]),
@@ -262,6 +264,8 @@ class FstTestCase(absltest.TestCase):
           ```
     """
 
-    for fst, test_pairs in test_cases:
-      for test_pair in test_pairs:
-        self.assertFstStrIO(fst, *test_pair)
+    for fst_builder, test_pairs in test_cases:
+      for token_type in ("utf8", "byte"):
+        with pynini.default_token_type(token_type):
+          for test_pair in test_pairs:
+            self.assertFstStrIO(fst_builder(), *test_pair)

@@ -138,21 +138,37 @@ def _anusvara_assimilation_velar() -> p.Fst:
 
 ANUSVARA_ASSIMILATION_VELAR = _anusvara_assimilation_velar()
 
-ANUSVARA_ASSIMILATION = (ANUSVARA_ASSIMILATION_LABIAL @
-                         ANUSVARA_ASSIMILATION_DENTAL @
-                         ANUSVARA_ASSIMILATION_ALVEOLAR @
-                         ANUSVARA_ASSIMILATION_PALATAL @
-                         ANUSVARA_ASSIMILATION_RETROFLEX @
-                         ANUSVARA_ASSIMILATION_VELAR).optimize()
+
+def _anusvara_assimilation() -> p.Fst:
+  return (ANUSVARA_ASSIMILATION_LABIAL @
+          ANUSVARA_ASSIMILATION_DENTAL @
+          ANUSVARA_ASSIMILATION_ALVEOLAR @
+          ANUSVARA_ASSIMILATION_PALATAL @
+          ANUSVARA_ASSIMILATION_RETROFLEX @
+          ANUSVARA_ASSIMILATION_VELAR).optimize()
+
+ANUSVARA_ASSIMILATION = _anusvara_assimilation()
+
 
 # Unassimilated anusvara defaults to n.
-DEFAULT_ANUSVARA_DENTAL = _rw_ph_phoneme('ans', 'nsl', 'ni')
+def _default_anusvara_dental() -> p.Fst:
+  return _rw_ph_phoneme('ans', 'nsl', 'ni')
+
+DEFAULT_ANUSVARA_DENTAL = _default_anusvara_dental()
+
 
 # Unassimilated anusvara defaults to m.
-DEFAULT_ANUSVARA_LABIAL = _rw_ph_phoneme('ans', 'nsl', 'm')
+def _default_anusvara_labial() -> p.Fst:
+  return _rw_ph_phoneme('ans', 'nsl', 'm')
+
+DEFAULT_ANUSVARA_LABIAL = _default_anusvara_labial()
+
 
 # Word final anusvara nasalizes the preceding vowel.
-FINAL_ANUSVARA_NASALIZATION = _rw_ph_word_final('ans', _NASAL, 'nsl')
+def _final_anusvara_nasalization() -> p.Fst:
+  return _rw_ph_word_final('ans', _NASAL, 'nsl')
+
+FINAL_ANUSVARA_NASALIZATION = _final_anusvara_nasalization()
 
 
 def _intersonorant_voicing() -> p.Fst:

@@ -19,7 +19,7 @@ from nisaba.scripts.brahmic.natural_translit import typ2txn
 from nisaba.scripts.utils import test_util
 
 _TEST_CASES = [
-    (typ2txn.TYP_TO_TXN, [
+    (typ2txn._typ_to_txn, [
         ('(a)', '(a=a)'),
         ('(aa)', '(aa=a_l)'),
         ('(ac)', '(ac=ae)'),

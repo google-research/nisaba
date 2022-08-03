@@ -19,13 +19,13 @@ from nisaba.scripts.brahmic.natural_translit import te_e2e
 from nisaba.scripts.utils import test_util
 
 _TEST_CASES = [
-    (te_e2e.iso_to_psaf(), [
+    (te_e2e.iso_to_psaf, [
         ('hiṁdi', 'hindi'),
         ('iṁḍiyā', 'indiyaa'),
         ('varṇaṁlō', 'varnamloo'),
         ('pratijña', 'pratignya'),
     ]),
-    (te_e2e.iso_to_psac(), [
+    (te_e2e.iso_to_psac, [
         ('hiṁdī', 'hindi'),
         ('iṁḍiyā', 'indiya'),
         ('varṇaṁlō', 'varnamlo'),

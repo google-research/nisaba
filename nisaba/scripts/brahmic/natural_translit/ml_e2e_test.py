@@ -19,14 +19,14 @@ from nisaba.scripts.brahmic.natural_translit import ml_e2e
 from nisaba.scripts.utils import test_util
 
 _TEST_CASES = [
-    (ml_e2e.iso_to_psaf(), [
+    (ml_e2e.iso_to_psaf, [
         ('hindi', 'hindi'),
         ('intya', 'indya'),
         ('inⸯḍya', 'indya'),
         ('kuṁbhaṁ', 'kumbham'),
         ('ājña', 'aanya'),
     ]),
-    (ml_e2e.iso_to_psac(), [
+    (ml_e2e.iso_to_psac, [
         ('hindi', 'hindi'),
         ('intya', 'indya'),
         ('inⸯḍya', 'indya'),

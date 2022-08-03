@@ -20,7 +20,7 @@ from nisaba.scripts.utils import test_util
 
 
 _TEST_CASES = [
-    (txn2nat.TXN_TO_PSAF, [
+    (txn2nat._txn_to_psaf, [
         ('(a=a)', 'a'),
         ('(aa=a_l)', 'aa'),
         ('(ac=ae)', 'ae'),
@@ -126,7 +126,7 @@ _TEST_CASES = [
         ('(i=i)(n=ni)(t=di)(y=y)(a=a)', 'indya'),
         ('(i=i)(n_chl=ni)(dd=dd)(y=y)(a=a)', 'indya'),
     ]),
-    (txn2nat.TXN_TO_PSAC, [
+    (txn2nat._txn_to_psac, [
         ('(aa=a_l)', 'a'),
         ('(ee=e_l)', 'e'),
         ('(ii=i_l)', 'i'),
