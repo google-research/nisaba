@@ -56,7 +56,9 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       for script in scripts:
         sigma = u.OpenSigma(script, token_type)
         sigma_map[script] = sigma
-        rewrite_map[script] = _reading_norm_fst(u.SCRIPT_DIR, script, sigma)
+        visual_norm = u.OpenFstFromBrahmicFar('visual_norm', script, token_type)
+        reading_norm = _reading_norm_fst(u.SCRIPT_DIR, script, sigma)
+        rewrite_map[script] = rewrite.ComposeFsts([visual_norm, reading_norm])
 
       for script, langs in u.READING_NORM_LANG_SCRIPT_MAP.items():
         for lang in langs:

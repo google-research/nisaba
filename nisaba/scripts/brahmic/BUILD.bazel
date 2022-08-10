@@ -338,6 +338,8 @@ nisaba_compile_multi_grm_py(
     },
     data = [
         ":sigma_utf8.far",
+        ":visual_norm.far",
+        ":visual_norm_utf8.far",
     ] + [
         "//nisaba/scripts/brahmic/data/{}:reading_norm.tsv".format(script)
         for script in READING_NORM_SCRIPTS
@@ -498,7 +500,7 @@ cc_library(
 
 cc_test(
     name = "cc_test",
-    size = "small",
+    size = "medium",
     srcs = ["grammar_test.cc"],
     deps = [
         ":cc",
