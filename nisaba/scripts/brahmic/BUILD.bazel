@@ -514,6 +514,7 @@ filegroup(
    srcs = [
        ":iso.far",
        ":nfc.far",
+       ":reading_norm.far",
        ":visual_norm.far",
        ":wellformed.far",
    ],
