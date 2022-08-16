@@ -37,7 +37,6 @@ from nisaba.scripts.utils import file
 from nisaba.scripts.utils import rewrite
 from nisaba.scripts.utils import rule
 
-
 FLAGS = flags.FLAGS
 _SCRIPT = flags.DEFINE_string('script', '', 'ISO 15924 script tag.')
 _LANG = flags.DEFINE_string('lang', '', 'ISO 639-2/3 language tag.')
@@ -59,17 +58,16 @@ def generator_main(exporter: grm.Exporter):
   lang = _LANG.value
   token_type = _TOKEN_TYPE.value
   with pynini.default_token_type(FLAGS.token_type):
+    # visual_norm = u.OpenFstFromBrahmicFar('visual_norm', script, token_type)
+    # fsts = [visual_norm]
+    fsts = []
     sigma = u.OpenSigma(script, token_type)
     script_reading_norm = _reading_norm_fst(u.SCRIPT_DIR / script, sigma)
-    fsts = [script_reading_norm]
+    fsts += [script_reading_norm]
     if lang:
       lang_reading_norm = _reading_norm_fst(u.SCRIPT_DIR / script / lang, sigma)
       fsts += [lang_reading_norm]
 
-    # TODO: Enable pre-processing with Visual Norm once the timeout issues
-    # are resolved.
-    # visual_norm = u.OpenFstFromBrahmicFar('visual_norm', script, token_type)
-    # fsts = [visual_norm] + fsts
     name = lang if lang else script
     exporter[name.upper()] = rewrite.ComposeFsts(fsts)
 
