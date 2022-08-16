@@ -28,47 +28,50 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 
 import pathlib
 
+from absl import flags
+
 import pynini
-from pynini.export import multi_grm
+from pynini.export import grm
 import nisaba.scripts.brahmic.util as u
 from nisaba.scripts.utils import file
 from nisaba.scripts.utils import rewrite
 from nisaba.scripts.utils import rule
 
 
-def _reading_norm_fst(
-    path: pathlib.Path, tag: str, sigma: pynini.Fst) -> pynini.Fst:
+FLAGS = flags.FLAGS
+_SCRIPT = flags.DEFINE_string('script', '', 'ISO 15924 script tag.')
+_LANG = flags.DEFINE_string('lang', '', 'ISO 639-2/3 language tag.')
+_TOKEN_TYPE = flags.DEFINE_enum('token_type', '', ['byte', 'utf8'],
+                                'Token type: utf8 or byte')
+
+
+def _reading_norm_fst(path: pathlib.Path, sigma: pynini.Fst) -> pynini.Fst:
   default = rewrite.Rewrite('', sigma)
-  filename = path / tag / 'reading_norm.tsv'
+  filename = path / 'reading_norm.tsv'
   reading_rewrite_fst = (rule.fst_from_rule_file(filename, sigma)
                          if file.IsFileExist(filename) else default)
   return reading_rewrite_fst
 
 
-def generator_main(exporter_map: multi_grm.ExporterMapping):
+def generator_main(exporter: grm.Exporter):
   """Generates FSTs for reading normalization of Brahmic scripts."""
-  for token_type in ('byte', 'utf8'):
-    rewrite_map = {}
-    with pynini.default_token_type(token_type):
-      sigma_map = {}
-      scripts = set(u.READING_NORM_SCRIPTS)
-      scripts.update(u.READING_NORM_LANG_SCRIPT_MAP)
-      for script in scripts:
-        sigma = u.OpenSigma(script, token_type)
-        sigma_map[script] = sigma
-        rewrite_map[script] = _reading_norm_fst(u.SCRIPT_DIR, script, sigma)
+  script = _SCRIPT.value
+  lang = _LANG.value
+  token_type = _TOKEN_TYPE.value
+  with pynini.default_token_type(FLAGS.token_type):
+    sigma = u.OpenSigma(script, token_type)
+    script_reading_norm = _reading_norm_fst(u.SCRIPT_DIR / script, sigma)
+    fsts = [script_reading_norm]
+    if lang:
+      lang_reading_norm = _reading_norm_fst(u.SCRIPT_DIR / script / lang, sigma)
+      fsts += [lang_reading_norm]
 
-      for script, langs in u.READING_NORM_LANG_SCRIPT_MAP.items():
-        for lang in langs:
-          sigma = sigma_map[script]
-          rewrite_map[lang] = rewrite.ComposeFsts([
-              rewrite_map[script],
-              _reading_norm_fst(u.SCRIPT_DIR / script, lang, sigma),
-          ])
-
-      exporter = exporter_map[token_type]
-      for name, fst in rewrite_map.items():
-        exporter[name.upper()] = fst
+    # TODO: Enable pre-processing with Visual Norm once the timeout issues
+    # are resolved.
+    # visual_norm = u.OpenFstFromBrahmicFar('visual_norm', script, token_type)
+    # fsts = [visual_norm] + fsts
+    name = lang if lang else script
+    exporter[name.upper()] = rewrite.ComposeFsts(fsts)
 
 if __name__ == '__main__':
-  multi_grm.run(generator_main)
+  grm.run(generator_main)

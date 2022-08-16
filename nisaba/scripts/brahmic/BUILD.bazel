@@ -28,7 +28,6 @@ load(
     "FIXED_RULE_SCRIPTS",
     "LANG_DIRS",
     "READING_NORM_LANGS",
-    "READING_NORM_SCRIPTS",
     "SCRIPTS",
 )
 
@@ -330,44 +329,80 @@ nisaba_grm_regression_test(
     token_type = "utf8",
 )
 
-nisaba_compile_multi_grm_py(
-    name = "reading_norm",
-    outs = {
-        "byte": "reading_norm.far",
-        "utf8": "reading_norm_utf8.far",
-    },
-    data = [
-        ":sigma_utf8.far",
-    ] + [
-        "//nisaba/scripts/brahmic/data/{}:reading_norm.tsv".format(script)
-        for script in READING_NORM_SCRIPTS
-    ] + [
-        "//nisaba/scripts/brahmic/data/{}/{}:reading_norm.tsv".format(script, lang)
-        for script in READING_NORM_LANGS
-        for lang in READING_NORM_LANGS[script]
-    ],
-    visibility = ["//visibility:public"],
-    deps = [
-        ":util",
-        "//nisaba/scripts/utils:file",
-        "//nisaba/scripts/utils:rewrite",
-        "//nisaba/scripts/utils:rule",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
+# Generates separate reading norm FAR files for relevant script, language and token-type values.
+[
+    [
+        # Generates copies of reading_norm.py with different flag value defaults for each
+        # script, language and token-type values. Example: reading_norm.Deva.hi.utf8.py.
+        genrule(
+            name = "make_reading_norm.%s.%s.%s.py" % (script, lang, token_type),
+            srcs = ["reading_norm.py"],
+            outs = ["reading_norm.%s.%s.%s.py" % (script, lang, token_type)],
+            cmd = "sed -r 's/(.script., .)/\\1%s/g' $< | \
+               sed -r 's/(.lang., .)/\\1%s/g' | \
+               sed -r 's/(.token_type., .)/\\1%s/g' > $@" % (script, lang, token_type),
+            visibility = ["//visibility:private"],
+        ),
+        # From scrit, language and token-type specific reading_norm.py generates the corresponding
+        # FAR file. Example: reading_norm.Deva.hi.utf8.far
+        nisaba_compile_grm_py(
+            name = "reading_norm.%s.%s.%s" % (script, lang, token_type),
+            data = [
+                ":sigma_utf8.far",
+                ":visual_norm_utf8.far" if token_type == "utf8" else ":visual_norm.far",
+                ("//nisaba/scripts/brahmic/data/%s/%s:reading_norm.tsv" % (script, lang)).replace("/:", ":"),
+            ],
+            visibility = ["//visibility:public"],
+            deps = [
+                ":util",
+                "//nisaba/scripts/utils:file",
+                "//nisaba/scripts/utils:rewrite",
+                "//nisaba/scripts/utils:rule",
+                "@io_abseil_py//absl/flags",
+                "@org_opengrm_pynini//pynini",
+            ],
+        ),
+    ]
+    for script, lang in READING_NORM_LANGS
+    for token_type in ("byte", "utf8")
+]
 
-nisaba_grm_regression_test(
-    name = "reading_norm_test",
-    grammar = ":reading_norm",
-    token_type = "byte",
-)
+# Reading norm targets for each token-type.
+[
+    [
+        # Generates separate reading norm FAR files for each token-type values, by combining
+        # individual FAR files for that token-type, generated above.
+        genrule(
+            name = "reading_norm_%s" % token_type,
+            srcs = [
+                "reading_norm.%s.%s.%s.far" % (script, lang, token_type)
+                for script, lang in READING_NORM_LANGS
+            ],
+            outs = [("reading_norm_%s.far" % token_type).replace("_byte", "")],
 
-nisaba_grm_regression_test(
-    name = "reading_norm_utf8_test",
-    grammar = ":reading_norm_utf8",
-    test_file = "testdata:reading_norm.tsv",
-    token_type = "utf8",
-)
+            cmd = "$(location @org_openfst//:farextract) $(SRCS) ; \
+               $(location @org_openfst//:farcreate) %s $@" % " ".join(
+                [
+                    lang.upper() if lang else script.upper()
+                    for script, lang in READING_NORM_LANGS
+                ],
+            ),
+            tools = [
+                "@org_openfst//:farcreate",
+                "@org_openfst//:farextract",
+            ],
+            visibility = ["//visibility:private"],
+        ),
+        # Tests token-type specific reading norm FAR files.
+        nisaba_grm_regression_test(
+            name = "reading_norm_%s_test" % token_type,
+            grammar = (":reading_norm_%s" % token_type).replace("_byte", ""),
+            test_file = "testdata:reading_norm.tsv",
+            token_type = token_type,
+        ),
+    ]
+    for token_type in ("byte", "utf8")
+]
 
 nisaba_compile_multi_grm_py(
     name = "wellformed",
@@ -498,7 +533,7 @@ cc_library(
 
 cc_test(
     name = "cc_test",
-    size = "small",
+    size = "medium",
     srcs = ["grammar_test.cc"],
     deps = [
         ":cc",

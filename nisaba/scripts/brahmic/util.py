@@ -103,11 +103,12 @@ LANG_SCRIPT_MAP = {
 
 FIXED_RULE_SCRIPTS = ["Mlym"]
 
-READING_NORM_SCRIPTS = ["Lepc", "Mlym"]
-
-READING_NORM_LANG_SCRIPT_MAP = {
-    "Deva": ["hi"],
-}
+READING_NORM_LANGS = [
+    ("Deva", "hi"),
+    # Following entries are not language-specific
+    ("Lepc", ""),
+    ("Mlym", ""),
+]
 
 FAR_DIR = pathlib.Path("com_google_nisaba/nisaba/scripts/brahmic")
 SCRIPT_DIR = FAR_DIR / "data"
