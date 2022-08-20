@@ -71,7 +71,7 @@ pynini_version = "2.1.5-rc1"
 http_archive(
     name = "org_opengrm_pynini",
     urls = ["https://github.com/agutkin/finite_state/raw/main/pynini-%s.tar.gz" % pynini_version],
-    sha256 = "2ddfa9dc76c7d47b4999f9c59426a79f40e3db480c87ecd307f5d7413e78cb63",
+    sha256 = "11af53c1ab0d1c9e792213e610940ad68b81ef99de8f88aea60ba7db9bc0a231",
     strip_prefix = "pynini-%s" % pynini_version
 )
 
