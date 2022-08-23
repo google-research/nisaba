@@ -278,15 +278,124 @@ SD	ة	ۃ
 # Panjabi
 # -------
 
-# HEH GOAL
-PA	همای	ہمای
-PA	کننده	کنندہ
-PA	شهبازبیضا	شہبازبیضا
-
 # U
 PA	آگوُ	آگۇ
 PA	لاگوُ	لاگۇ
 PA	لگوُ	لگۇ
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+PA	اسح۬	اسخ
+
+# DAL, SMALL HIGH TAH → DDAL
+PA	تہادؕے	تہاڈے
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+PA	کاغد۬	کاغذ
+
+# REH, SMALL HIGH TAH → RREH
+PA	تاراگرؕھ	تاراگڑھ
+
+# REH, SMALL HIGH THREE DOTS → JEH
+PA	ٹیلیورۛن	ٹیلیوژن
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+PA	کار۬ل	کازل
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+PA	کارجسۛالا	کارجشالا
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+PA	تع۬ما	تغما
+
+# NOON, SMALL HIGH TAH → NOON WITH SMALL TAH
+PA	ٹھانؕ	ٹھاݨ
+
+# HEH, HAMZA ABOVE → HEH GOAL WITH HAMZA ABOVE
+PA	جلوهٔ	جلوۂ
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+PA	انوٮٜھوَ	انوبھوَ
+
+# ALEF WITH WAVY HAMZA ABOVE → ALEF WITH HAMZA ABOVE
+PA	ٲَفْرَاد	أَفْرَاد
+
+# ALEF WITH WAVY HAMZA BELOW → ALEF WITH HAMZA BELOW
+PA	ٳن	إن
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+PA	تڡ۬تیشی	تفتیشی
+
+# QAF WITH DOT ABOVE → FEH
+PA	قاڧلہ	قافلہ
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+PA	تبں۬اؤں۬ا	تبناؤنا
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+PA	ادھنیٔم	ادھنئم
+
+# KAF → KEHEH
+PA	كاں	کاں
+
+# YEH → FARSI YEH
+PA	خريد	خرید
+
+# RNOON → TTEH
+PA	ڻَنگیا	ٹَنگیا
+
+# TEH MARBUTA → TEH MARBUTA GOAL
+PA	ة	ۃ
+
+# HEH GOAL WITH HAMZA ABOVE → HEH, HAMZA ABOVE
+PA	ۂ	هٔ
+
+# Normalizations for isolated characters
+
+# HEH → HEH GOAL
+PA	ه	ہ
+
+# TEH MARBUTA → TEH MARBUTA GOAL
+PA	ة	ۃ
+
+# HEH GOAL WITH HAMZA ABOVE → HEH, HAMZA ABOVE
+PA	ۂ	هٔ
+
+# Normalizations at word initial position
+
+# KAF → KEHEH
+PA	كاں	کاں
+
+# YEH → FARSI YEH
+PA	خريد	خرید
+
+# RNOON → TTEH
+PA	ڻَنگیا	ٹَنگیا
+
+# HEH → HEH DOACHASHMEE
+PA	همای	ھمای
+
+# Normalizations at word medial position
+
+# KAF → KEHEH
+PA	نَكّے	نَکّے
+
+# HEH → HEH DOACHASHMEE
+PA	اکهاڑ	اکھاڑ
+PA	شهبازبیضا	شھبازبیضا
+
+# YEH → FARSI YEH
+PA	کيہندي	کیہندي
+
+# NOON GHUNNA → NOON
+PA	رںگ	رنگ
+
+# RNOON → TTEH
+PA	پُڻھیاں	پُٹھیاں
+
+# Normalizations for word final position
+
+# HEH → HEH GOAL
+PA	کننده	کنندہ
 
 # ----------------
 # Kurdish (Sorani)

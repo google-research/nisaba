@@ -30,8 +30,28 @@
 #       - ["YEH BARREE", "HAMZA ABOVE"] -> "YEH BARREE WITH HAMZA ABOVE"
 
 item {
-  uname: "HEH" raw: "ه"
-  to_uname: "HEH GOAL" to_raw: "ہ"
+  uname: ["NOON", "SMALL HIGH TAH"] raw: "نؕ"
+  to_uname: "NOON WITH SMALL TAH" to_raw: "ݨ"
+}
+
+item {
+  uname: ["HEH", "HAMZA ABOVE"] raw: "هٔ"
+  to_uname: "HEH GOAL WITH HAMZA ABOVE" to_raw: "ۂ"
+}
+
+item {
+  uname: "ALEF WITH WAVY HAMZA ABOVE" raw: "ٲ"
+  to_uname: "ALEF WITH HAMZA ABOVE" to_raw: "أ"
+}
+
+item {
+  uname: "ALEF WITH WAVY HAMZA BELOW" raw: "ٳ"
+  to_uname: "ALEF WITH HAMZA BELOW" to_raw: "إ"
+}
+
+item {
+  uname: "QAF WITH DOT ABOVE" raw: "ڧ"
+  to_uname: "FEH" to_raw: "ف"
 }
 
 # Unattested.
@@ -45,53 +65,46 @@ item {
 # ------------------------------------------------------------------------------
 # NOTE: Unattested combinations are commented out below.
 
-# Unattested.
-#item {
-#  uname: ["DOTLESS BEH", "VOWEL SIGN DOT BELOW"] raw: "ٮٜ"
-#  to_uname: "BEH" to_raw: "ب"
-#}
+item {
+  uname: ["DOTLESS BEH", "VOWEL SIGN DOT BELOW"] raw: "ٮٜ"
+  to_uname: "BEH" to_raw: "ب"
+}
 
-# Unattested.
-#item {
-#  uname: ["HAH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ح۬"
-#  to_uname: "KHAH" to_raw: "خ"
-#}
+item {
+  uname: ["HAH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ح۬"
+  to_uname: "KHAH" to_raw: "خ"
+}
 
-# Unattested.
-#item {
-#  uname: ["DAL", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "د۬"
-#  to_uname: "THAL" to_raw: "ذ"
-#}
+item {
+  uname: ["DAL", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "د۬"
+  to_uname: "THAL" to_raw: "ذ"
+}
 
-# Unattested.
-#item {
-#  uname: ["DAL", "SMALL HIGH TAH"] raw: "دؕ"
-#  to_uname: "DDAL" to_raw: "ڈ"
-#}
+item {
+  uname: ["DAL", "SMALL HIGH TAH"] raw: "دؕ"
+  to_uname: "DDAL" to_raw: "ڈ"
+}
 
-# Unattested.
-#item {
-#  uname: ["REH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ر۬"
-#  to_uname: "ZAIN" to_raw: "ز"
-#}
+item {
+  uname: ["REH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ر۬"
+  to_uname: "ZAIN" to_raw: "ز"
+}
 
-# Unattested.
-#item {
-#  uname: ["REH", "SMALL HIGH TAH"] raw: "رؕ"
-#  to_uname: "RREH" to_raw: "ڑ"
-#}
+item {
+  uname: ["REH", "SMALL HIGH TAH"] raw: "رؕ"
+  to_uname: "RREH" to_raw: "ڑ"
+}
 
-# Unattested.
-#item {
-#  uname: ["REH", "SMALL HIGH THREE DOTS"] raw: "رۛ"
-#  to_uname: "JEH" to_raw: "ژ"
-#}
+item {
+  uname: ["REH", "SMALL HIGH THREE DOTS"] raw: "رۛ"
+  to_uname: "JEH" to_raw: "ژ"
+}
 
-# Unattested.
-#item {
-#  uname: ["SEEN", "SMALL HIGH THREE DOTS"] raw: "سۛ"
-#  to_uname: "SHEEN" to_raw: "ش"
-#}
+item {
+  uname: ["SEEN", "SMALL HIGH THREE DOTS"] raw: "سۛ"
+  to_uname: "SHEEN" to_raw: "ش"
+}
+
 
 # Unattested.
 #item {
@@ -99,23 +112,20 @@ item {
 #  to_uname: "DAD" to_raw: "ض"
 #}
 
-# Unattested.
-#item {
-#  uname: ["AIN", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ع۬"
-#  to_uname: "GHAIN" to_raw: "غ"
-#}
+item {
+  uname: ["AIN", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ع۬"
+  to_uname: "GHAIN" to_raw: "غ"
+}
 
-# Unattested.
-#item {
-#  uname: ["DOTLESS FEH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ڡ۬"
-#  to_uname: "FEH" to_raw: "ف"
-#}
+item {
+  uname: ["DOTLESS FEH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ڡ۬"
+  to_uname: "FEH" to_raw: "ف"
+}
 
-# Unattested.
-#item {
-#  uname: ["NOON GHUNNA", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ں۬"
-#  to_uname: "NOON" to_raw: "ن"
-#}
+item {
+  uname: ["NOON GHUNNA", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ں۬"
+  to_uname: "NOON" to_raw: "ن"
+}
 
 # Unattested.
 #item {
@@ -123,8 +133,8 @@ item {
 #  to_uname: "RNOON" to_raw: "ڻ"
 #}
 
-# Unattested.
-#item {
-#  uname: ["FARSI YEH", "HAMZA ABOVE"] raw: "یٔ"
-#  to_uname: "YEH WITH HAMZA ABOVE" to_raw: "ئ"
-#}
+item {
+  uname: ["FARSI YEH", "HAMZA ABOVE"] raw: "یٔ"
+  to_uname: "YEH WITH HAMZA ABOVE" to_raw: "ئ"
+}
+

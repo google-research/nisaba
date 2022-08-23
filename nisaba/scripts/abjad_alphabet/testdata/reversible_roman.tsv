@@ -274,6 +274,8 @@ FROM_ARAB	كٳم	kụ̄m
 TO_ARAB		kụ̄m	كٳم
 FROM_ARAB	ئايكۈنگۈل	y͟'āy̤küngül
 TO_ARAB	y͟'āy̤küngül	ئايكۈنگۈل
+FROM_ARAB	چھݨ	cʰṆ
+TO_ARAB	cʰṆ	چھݨ
 
 # Real string from one Kashmiri scrape.
 FROM_ARAB	قۭمتِیلاشمُشکِلسَخٕتسَخٕتخۄشٕک	qᶯmtiīlāśmuśḱilsak͟hʰ̹tsak͟hʰ̹tk͟họśʰ̹ḱ

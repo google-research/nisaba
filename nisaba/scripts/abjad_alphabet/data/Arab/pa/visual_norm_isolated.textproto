@@ -12,23 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Definitions for Punjabi.
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
 
-load(
-    "//nisaba/scripts/abjad_alphabet:components_tsv.bzl",
-    "components_tsv_local",
-    "components_tsv_local_with_common",
-)
+# Shahmukhi visual norm rewrite rules for isolated Perso-Arabic characters.
+# Word final rewrites are applied for isolated as well. This file lists only
+# additional rewrites for isolated characters.
 
-package(default_visibility = ["//nisaba/scripts/abjad_alphabet:__subpackages__"])
+item {
+  uname: "TEH MARBUTA" raw: "ة"
+  to_uname: "TEH MARBUTA GOAL" to_raw: "ۃ"
+}
 
-licenses(["notice"])
-
-components_tsv_local_with_common(names = ["visual_norm"])
-
-components_tsv_local(names = [
-    "reading_norm",
-    "visual_norm_final_isolated",
-    "visual_norm_isolated",
-    "visual_norm_nonfinal",
-])
+item {
+  uname: "HEH GOAL WITH HAMZA ABOVE" raw: "ۂ"
+  to_uname: ["HEH", "HAMZA ABOVE"] to_raw: "هٔ"
+}

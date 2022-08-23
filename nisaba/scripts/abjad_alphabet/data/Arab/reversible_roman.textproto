@@ -1432,3 +1432,11 @@ item {
   uname: "DOTLESS FEH" raw: "ڡ"
   to_uname: ["F", "MODIFIER LETTER SMALL W"] to_raw: "fʷ"
 }
+
+# As per: https://en.wikipedia.org/wiki/ݨ
+# Additional reference: https://en.wiktionary.org/wiki/ݨ
+# IPA in Balti, Punjabi, etc. are either ŋ or ɳ, however they are used above.
+item {
+  uname: "NOON WITH SMALL TAH" raw: "ݨ"
+  to_uname: "CAPITAL LETTER N WITH DOT BELOW" to_raw: "Ṇ"
+}

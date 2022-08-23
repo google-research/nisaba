@@ -803,6 +803,10 @@ item {  # U+0767
   language: ["srr", "wo"]
 }
 item {  # U+0768
+  letter { uname: "NOON WITH SMALL TAH" raw: "ݨ" }
+  language: ["bft", "pa", "scl", "skr"]
+}
+item {  # U+0769
   letter { uname: "NOON WITH SMALL V" raw: "ݩ" }
   language: ["bft", "skr"]
 }

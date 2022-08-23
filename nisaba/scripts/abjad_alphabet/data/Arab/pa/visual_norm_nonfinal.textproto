@@ -12,23 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Definitions for Punjabi.
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
 
-load(
-    "//nisaba/scripts/abjad_alphabet:components_tsv.bzl",
-    "components_tsv_local",
-    "components_tsv_local_with_common",
-)
+# Shahmukhi Visual norm rewrite rules for word initial / medial position.
 
-package(default_visibility = ["//nisaba/scripts/abjad_alphabet:__subpackages__"])
+item {
+  uname: "KAF" raw: "ك"
+  to_uname: "KEHEH" to_raw: "ک"
+}
 
-licenses(["notice"])
+item {
+  uname: "HEH" raw: "ه"
+  to_uname: "HEH DOACHASHMEE" to_raw: "ھ"
+}
 
-components_tsv_local_with_common(names = ["visual_norm"])
+item {
+  uname: "YEH" raw: "ي"
+  to_uname: "FARSI YEH" to_raw: "ی"
+}
 
-components_tsv_local(names = [
-    "reading_norm",
-    "visual_norm_final_isolated",
-    "visual_norm_isolated",
-    "visual_norm_nonfinal",
-])
+item {
+  uname: "NOON GHUNNA" raw: "ں"
+  to_uname: "NOON" to_raw: "ن"
+}
+
+item {
+  uname: "RNOON" raw: "ڻ"
+  to_uname: "TTEH" to_raw: "ٹ"
+}
