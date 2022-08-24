@@ -43,4 +43,7 @@ item {
   to_uname: "ALEF WITH HAMZA BELOW" to_raw: "إ"
 }
 
-# TODO: Complete.
+item {
+  uname: "YEH" raw: "ي"
+  to_uname: "FARSI YEH" to_raw: "ی"
+}

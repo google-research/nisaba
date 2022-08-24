@@ -101,3 +101,8 @@ item {
   uname: ["HEH", "HAMZA ABOVE"] raw: "هٔ"
   to_uname: "HEH GOAL WITH HAMZA ABOVE" to_raw: "ۂ"
 }
+
+item {
+  uname: "QAF WITH DOT ABOVE" raw: "ڧ"
+  to_uname: "FEH" to_raw: "ف"
+}

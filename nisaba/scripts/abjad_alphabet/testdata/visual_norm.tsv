@@ -77,6 +77,9 @@ UR	وررۛن	ورژن
 UR	شدۀ	شدۂ
 UR	جلوهٔ	جلوۂ
 
+# QAF WITH DOT ABOVE → FEH
+UR	صاڧ	صاف
+
 # Tests for the normalizations at word initial position
 
 # KAF(Arabic) → KEHEH(Urdu).
@@ -137,6 +140,9 @@ UR	ه	ہ
 UR	ى	ی
 UR	ۀ	ۂ
 UR	ة	ۃ
+
+# HEH, HAMZA ABOVE → HEH GOAL WITH HAMZA ABOVE
+UR	هٔ	ۂ
 
 # --------
 # Kashmiri

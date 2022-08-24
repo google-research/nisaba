@@ -13,7 +13,11 @@ UR	صورة	صورۃ
 
 # WAVY HAMZA → HAMZA
 UR	حیثیٲت	حیثیأت
-UR	ٳيميلي	إیمیلي
+UR	ٳيميلي	إیمیلی
+
+# YEH → FARSI YEH
+UR	ہيں	ہیں
+UR	تھي	تھی
 
 # --------
 # Kashmiri

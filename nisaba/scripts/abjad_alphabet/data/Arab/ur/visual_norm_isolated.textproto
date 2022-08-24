@@ -33,3 +33,8 @@ item {
   uname: "HEH WITH YEH ABOVE" raw: "ۀ"
   to_uname: "HEH GOAL WITH HAMZA ABOVE" to_raw: "ۂ"
 }
+
+item {
+  uname: ["HEH", "HAMZA ABOVE"] raw: "هٔ"
+  to_uname: "HEH GOAL WITH HAMZA ABOVE" to_raw: "ۂ"
+}
