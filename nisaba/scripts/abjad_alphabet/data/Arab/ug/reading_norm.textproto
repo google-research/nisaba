@@ -12,23 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Definitions for Uighur.
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+#
+# Reading normalization rewrite rules for Uyghur.
 
-load(
-    "//nisaba/scripts/abjad_alphabet:components_tsv.bzl",
-    "components_tsv_local",
-    "components_tsv_local_with_common",
-)
+uname_prefix: ["ARABIC", "ARABIC LETTER"]
 
-package(default_visibility = ["//nisaba/scripts/abjad_alphabet:__subpackages__"])
-
-licenses(["notice"])
-
-components_tsv_local_with_common(names = ["visual_norm"])
-
-components_tsv_local(names = [
-    "reading_norm",
-    "visual_norm_final_isolated",
-    "visual_norm_isolated",
-    "visual_norm_nonfinal",
-])
+item {
+  uname: "FARSI YEH" raw: "ی"
+  to_uname: "YEH" to_raw: "ي"
+}

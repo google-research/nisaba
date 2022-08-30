@@ -21,8 +21,3 @@ item {
   uname: "HEH" raw: "ه"
   to_uname: "AE" to_raw: "ە"
 }
-
-item {
-  uname: "FARSI YEH" raw: "ی"
-  to_uname: "ALEF MAKSURA" to_raw: "ى"
-}
