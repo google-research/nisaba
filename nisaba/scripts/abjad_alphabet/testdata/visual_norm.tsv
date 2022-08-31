@@ -9,6 +9,64 @@ UR	ﻻ	لا
 FA	ﻻ	لا
 KS	ﻻ	لا
 
+# -----------
+# Arabic(MSA)
+# -----------
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+AR	ح۬سية	خسية
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+AR	إند۬ارٍ	إنذارٍ
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+AR	إور۬ة	إوزة
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+AR	مسۛروع	مشروع
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+AR	المرص۬	المرض
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+AR	تع۬يير	تغيير
+
+# KAF, SMALL HIGH THREE DOTS → NG
+AR	تكۛليت	تڭليت
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+AR	الأرٮٜاح	الأرباح
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+AR	يعرڡ۬	يعرف
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+AR	بيں۬	بين
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+AR	إجلایٔهم	إجلائهم
+
+# Word-initial position.
+
+# FARSI YEH → YEH
+AR	یحدث	يحدث
+
+# Isolated position.
+
+# FEH → QAF WITH DOT ABOVE
+AR	ف	ڧ
+
+# HEH GOAL → HEH
+AR	ہ	ه
+
+# TEH MARBUTA GOAL → TEH MARBUTA
+AR	ۃ	ة
+
+# Word-medial position.
+
+# FARSI YEH → YEH
+AR	طویلة	طويلة
+
 # ----
 # Urdu
 # ----

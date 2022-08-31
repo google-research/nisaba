@@ -1,5 +1,15 @@
 # Reading normalization test data.
 
+# -----------
+# Arabic(MSA)
+# -----------
+
+# TEH WITH THREE DOTS ABOVE DOWNWARDS → TEH
+AR	المعلوماٽ	المعلومات
+
+# FARSI YEH → YEH
+AR	الأخیرة	الأخيرة
+
 # ----
 # Urdu
 # ----

@@ -28,6 +28,7 @@ licenses(["notice"])
 # Script and language codes are used as per IANA registry:
 # https://www.iana.org/assignments/language-subtag-registry
 LANGS = [
+    "ar",
     "azb",
     "ckb",
     "fa",
