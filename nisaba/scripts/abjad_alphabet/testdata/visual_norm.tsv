@@ -414,6 +414,54 @@ CKB	ئیێمه‌	ئیێمە
 CKB	گه‌یشت	گەیشت
 
 # ----------------
+# Pashto
+# ----------------
+
+# HAH, HAMZA ABOVE → HAH WITH HAMZA ABOVE
+PS	بياحٔل	بياځل
+
+# HAH, SMALL HIGH THREE DOTS → HAH WITH THREE DOTS ABOVE
+PS	ترحۛ	ترڅ
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+PS	ابرح۬ازن	ابرخازن
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+PS	ابود۬ر	ابوذر
+
+# REH, SMALL HIGH THREE DOTS → JEH
+PS	تررۛر	ترژر
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+PS	ابور۬يد	ابوزيد
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+PS	اتاکاکسۛی	اتاکاکشی
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+PS	اتحص۬	اتحض
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+PS	بع۬الن	بغالن
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+PS	اؤزٮٜک	اؤزبک
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+PS	بڡ۬ر	بفر
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+PS	بفروں۬و	بفرونو
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+PS	یٔاسانكاريا	ئاسانكاريا
+
+# Isolated position.
+
+# HEH GOAL → HEH
+PS	ہ	ه
+
+# ----------------
 # Persian
 # ----------------
 
