@@ -142,7 +142,7 @@ nisaba_compile_grm_py(
         "//nisaba/scripts/abjad_alphabet/data/Arab/{}:{}.tsv".format(lang, fst)
         for lang in LANGS
         for fst in ["reading_norm"]
-    ] + ["visual_norm.far"],
+    ],
     visibility = ["//visibility:public"],
     deps = [
         ":util",

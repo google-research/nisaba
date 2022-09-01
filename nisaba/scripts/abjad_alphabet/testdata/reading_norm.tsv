@@ -14,10 +14,6 @@ AR	الأخیرة	الأخيرة
 # Urdu
 # ----
 
-# Can do visual norm as well.
-# HEH GOAL WITH HAMZA ABOVE
-UR	ۀ	ۂ
-
 # TEH MARBUTA GOAL
 UR	صورة	صورۃ
 
@@ -74,7 +70,7 @@ SD	حجة	حجۃ
 SD	مشڪوٰة	مشڪوٰۃ
 
 # YEH + SUPERSCRIPT ALEF
-SD	وهى	وھيٰ
+SD	وهى	وہيٰ
 SD	عيسى	عيسيٰ
 
 # YEH
@@ -83,9 +79,9 @@ SD	بجيٽُ	بجيٽُ
 SD	گيزلين	گيزلين
 
 # HEH GOAL
-SD	ڳڙهه	ڳڙھہ
-SD	بهاريءَ	بھاريءَ
-SD	ڳوهه	ڳوھہ
+SD	ڳڙهه	ڳڙہہ
+SD	بهاريءَ	بہاريءَ
+SD	ڳوهه	ڳوہہ
 
 # -------
 # Panjabi
@@ -136,7 +132,7 @@ CKB	خؤشه	خۆشھ
 CKB	ثؤلى	ثۆلى
 
 # HEH + ZWNJ -> AE
-CKB	ره‌زبه‌ر	رەزبەر
+CKB	ره‌زبه‌ر	رھ‌زبھ‌ر
 
 # HEH DOACHASHMEE
 CKB	هەر	ھەر

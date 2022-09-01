@@ -34,22 +34,15 @@ import nisaba.scripts.abjad_alphabet.util as u
 from nisaba.scripts.utils import rule
 
 
-def _open_visual(script_or_lang_code: str,
-                 token_type: pynini.TokenType) -> pynini.Fst:
-  return u.open_fst_from_far('visual_norm', script_or_lang_code, token_type)
-
-
 def generator_main(exporter: grm.Exporter, token_type: pynini.TokenType):
   """FSTs for reading normalization of abjad / alphabet script languages."""
   with pynini.default_token_type(token_type):
     sigma = u.sigma_from_common_data_files()
     for lang in u.LANGS:
-      visual_norm_fst = _open_visual(lang, token_type)
       reading_norm_file = u.LANG_DIR / lang / 'reading_norm.tsv'
       reading_norm_fst = rule.fst_from_rule_file(reading_norm_file, sigma)
       lang = lang.upper()
-      exporter[lang] = pynini.optimize(visual_norm_fst @ reading_norm_fst)
-
+      exporter[lang] = reading_norm_fst
 
 if __name__ == '__main__':
   grm.run(lambda e: generator_main(e, 'byte'))
