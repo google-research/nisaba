@@ -33,11 +33,6 @@
 #       - ["HEH GOAL", "HAMZA ABOVE"] -> "HEH GOAL WITH HAMZA ABOVE"
 #       - ["YEH BARREE", "HAMZA ABOVE"] -> "YEH BARREE WITH HAMZA ABOVE"
 
-item {
-  uname: "HEH" raw: "ه"
-  to_uname: "HEH GOAL" to_raw: "ہ"
-}
-
 # See: http://blog.unicode.org/2009/05/unicode-announcement-new-public-review.html
 item {
   uname: "ALEF WITH WAVY HAMZA BELOW" raw: "ٳ"
@@ -99,86 +94,97 @@ item {
 #  to_uname: "YEH WITH HAMZA ABOVE" to_raw: "ئ"
 #}
 
-# Unattested.
-#item {
-#  uname: ["DOTLESS BEH", "VOWEL SIGN DOT BELOW"] raw: "ٮٜ"
-#  to_uname: "BEH" to_raw: "ب"
-#}
+item {
+ uname: ["DOTLESS BEH", "VOWEL SIGN DOT BELOW"] raw: "ٮٜ"
+ to_uname: "BEH" to_raw: "ب"
+}
 
-# Unattested.
-#item {
-#  uname: ["DOTLESS BEH", "SMALL HIGH TAH"] raw: "ٮؕ"
-#  to_uname: "TTEH" to_raw: "ٹ"
-#}
+item {
+ uname: ["DOTLESS BEH", "SMALL HIGH TAH"] raw: "ٮؕ"
+ to_uname: "TTEH" to_raw: "ٹ"
+}
 
-# Unattested.
-#item {
-#  uname: ["DOTLESS BEH", "SMALL HIGH THREE DOTS"] raw: "ٮۛ"
-#  to_uname: "THEH" to_raw: "ث"
-#}
+item {
+ uname: ["DOTLESS BEH", "SMALL HIGH THREE DOTS"] raw: "ٮۛ"
+ to_uname: "THEH" to_raw: "ث"
+}
 
-# Unattested.
-#item {
-#  uname: ["HAH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ح۬"
-#  to_uname: "KHAH" to_raw: "خ"
-#}
+item {
+ uname: ["HAH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ح۬"
+ to_uname: "KHAH" to_raw: "خ"
+}
 
-# Unattested.
-#item {
-#  uname: ["DAL", "SMALL HIGH TAH"] raw: "دؕ"
-#  to_uname: "DDAL" to_raw: "ڈ"
-#}
+item {
+ uname: ["DAL", "SMALL HIGH TAH"] raw: "دؕ"
+ to_uname: "DDAL" to_raw: "ڈ"
+}
 
-# Unattested.
-#item {
-#  uname: ["DAL", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "د۬"
-#  to_uname: "THAL" to_raw: "ذ"
-#}
+item {
+ uname: ["DAL", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "د۬"
+ to_uname: "THAL" to_raw: "ذ"
+}
 
-# Unattested.
-#item {
-#  uname: ["REH", "SMALL HIGH TAH"] raw: "رؕ"
-#  to_uname: "RREH" to_raw: "ڑ"
-#}
+item {
+ uname: ["REH", "SMALL HIGH TAH"] raw: "رؕ"
+ to_uname: "RREH" to_raw: "ڑ"
+}
 
-# Unattested.
-#item {
-#  uname: ["REH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ر۬"
-#  to_uname: "ZAIN" to_raw: "ز"
-#}
+item {
+ uname: ["REH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ر۬"
+ to_uname: "ZAIN" to_raw: "ز"
+}
 
-# Unattested.
-#item {
-#  uname: ["REH", "SMALL HIGH THREE DOTS"] raw: "رۛ"
-#  to_uname: "JEH" to_raw: "ژ"
-#}
+item {
+ uname: ["REH", "SMALL HIGH THREE DOTS"] raw: "رۛ"
+ to_uname: "JEH" to_raw: "ژ"
+}
 
-# Unattested.
-#item {
-#  uname: ["SEEN", "SMALL HIGH THREE DOTS"] raw: "سۛ"
-#  to_uname: "SHEEN" to_raw: "ش"
-#}
+item {
+ uname: ["SEEN", "SMALL HIGH THREE DOTS"] raw: "سۛ"
+ to_uname: "SHEEN" to_raw: "ش"
+}
 
-# Unattested.
-#item {
-#  uname: ["SAD", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ص۬"
-#  to_uname: "DAD" to_raw: "ض"
-#}
+item {
+ uname: ["SAD", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ص۬"
+ to_uname: "DAD" to_raw: "ض"
+}
 
-# Unattested.
-#item {
-#  uname: ["AIN", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ع۬"
-#  to_uname: "GHAIN" to_raw: "غ"
-#}
+item {
+ uname: ["AIN", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ع۬"
+ to_uname: "GHAIN" to_raw: "غ"
+}
 
-# Unattested.
-#item {
-#  uname: ["DOTLESS FEH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ڡ۬"
-#  to_uname: "FEH" to_raw: "ف"
-#}
+item {
+ uname: ["DOTLESS FEH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ڡ۬"
+ to_uname: "FEH" to_raw: "ف"
+}
 
-# Unattested.
-#item {
-#  uname: ["NOON GHUNNA", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ں۬"
-#  to_uname: "NOON" to_raw: "ن"
-#}
+item {
+ uname: ["NOON GHUNNA", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ں۬"
+ to_uname: "NOON" to_raw: "ن"
+}
+
+item {
+  uname: "ALEF WITH HAMZA ABOVE" raw: "أ"
+  to_uname: "ALEF WITH WAVY HAMZA ABOVE" to_raw: "ٲ"
+}
+
+item {
+  uname: "ALEF WITH HAMZA BELOW" raw: "إ"
+  to_uname: "ALEF WITH WAVY HAMZA BELOW" to_raw: "ٳ"
+}
+
+item {
+  uname: ["WAW", "DAMMA"] raw: "وُ"
+  to_uname: "U" to_raw: "ۇ"
+}
+
+item {
+  uname: ["ALEF MAKSURA", "VOWEL SIGN SMALL V ABOVE"] raw: "ىٚ"
+  to_uname: "YEH WITH SMALL V" to_raw: "ێ"
+}
+
+item {
+  uname: "QAF WITH DOT ABOVE" raw: "ڧ"
+  to_uname: "FEH" to_raw: "ف"
+}

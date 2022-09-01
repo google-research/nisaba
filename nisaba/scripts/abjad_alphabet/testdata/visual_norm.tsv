@@ -224,30 +224,105 @@ KS	فرٔج	فݬج
 KS	پیتݬ	پیتݬ
 KS	کرٔن	کݬن
 
-# OE
+# WAW, VOWEL SIGN SMALL V ABOVE → OE
+KS	اوٚش	اۆش
 KS	ہیوٚل	ہیۆل
 KS	یوٚتام	یۆتام
 KS	گیوٚو	گیۆو
 KS	کوٚر	کۆر
 
-# U
+# WAW, DAMMA → U
+KS	زوُن	زۇن
 KS	یِوُن	یِۇن
 KS	ہووُن	ہوۇن
 KS	گاشراوُن	گاشراۇن
 
-# YEH WITH HAMZA ABOVE
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+KS	مگیٔنھی	مگئنھی
 KS	یٔہے	ئہے
 KS	میٔژ	مئژ
 KS	حکایٔژ	حکائژ
 
-# YEH WITH SMALL V
+# ALEF MAKSURA, VOWEL SIGN SMALL V ABOVE → YEH WITH SMALL V
+KS	زىٚو	زێو
 KS	ہیٚرِم	ہێرِم
 KS	کارریٚلِہ	کاررێلِہ
 KS	ییٚلہ	یێلہ
 KS	کیٚر	کێر
 
 # ALEF + WAVY HAMZA BELOW
-KS	كٳم	كاٟم
+KS	كٳم	کاٟم
+
+# ALEF WITH HAMZA ABOVE → ALEF WITH WAVY HAMZA ABOVE
+KS	أ	ٲ
+
+# ALEF WITH HAMZA BELOW → ALEF WITH WAVY HAMZA BELOW
+KS	كإم	کٳم
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+KS	ناح۬ٲز	ناخٲز
+
+# DAL, SMALL HIGH TAH → DDAL
+KS	بَدؕ	بَڈ
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+KS	ند۬یٖر	نذیٖر
+
+# REH, SMALL HIGH TAH → RREH
+KS	بَرؕان	بَڑان
+
+# REH, SMALL HIGH THREE DOTS → JEH
+KS	بُترٲرۛ	بُترٲژ
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+KS	نر۬اکِرات	نزاکِرات
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+KS	نسۛاندِہی	نشاندِہی
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+KS	بعص۬	بعض
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+KS	بلیع۬	بلیغ
+
+# DOTLESS BEH, SMALL HIGH TAH → TTEH
+KS	بَٮؕ	بَٹ
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+KS	مہاٮٜھارت	مہابھارت
+
+# DOTLESS BEH, SMALL HIGH THREE DOTS → THEH
+KS	میراٮۛ	میراث
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+KS	بَرڡ۬	بَرف
+
+# QAF WITH DOT ABOVE → FEH
+KS	مستعڧی	مستعفی
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+KS	بَٹں۬	بَٹن
+
+
+# Word-initial position.
+
+# KAF → KEHEH
+KS	كٲشِر	کٲشِر
+
+# YEH → FARSI YEH
+KS	يادہ	یادہ
+
+# Word-medial position.
+
+# KAF → KEHEH
+KS	كۄكُر	کۄکُر
+
+# HEH → HEH DOACHASHMEE
+KS	تاراهو	تاراھو
+
+# YEH → FARSI YEH
+KS	بير	بیر
 
 # ------
 # Sindhi
