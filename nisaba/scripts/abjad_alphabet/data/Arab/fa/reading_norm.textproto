@@ -50,3 +50,8 @@ item {
   uname: "WAW WITH HAMZA ABOVE" raw: "ؤ"
   to_uname: "WAW" to_raw: "و"
 }
+
+item {
+  uname: "TEH WITH THREE DOTS ABOVE DOWNWARDS" raw: "ٽ"
+  to_uname: "TEH" to_raw: "ت"
+}

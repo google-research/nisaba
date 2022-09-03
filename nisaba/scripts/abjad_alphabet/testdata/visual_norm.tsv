@@ -606,14 +606,74 @@ FA	ریشەهای	ریشههای
 FA	بەڕۆژه	بهڕۆژه
 FA	اینکە	اینکه
 
-# HEH + HAMZA ABVOVE.
+# HEH, HAMZA ABOVE → HEH GOAL WITH HAMZA ABOVE
+# TODO: Need to verify if this altenate mapping is the right one.
+# FA	هٔ	ۂ
 FA	رشتهٔ	رشتۀ
 FA	تکیهٔ	تکیۀ
 FA	باشندهٔ	باشندۀ
 
-# FARSI YEH + HAMZA ABOVE.
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+FA	آیٔت	آئت
 FA	پروتیٔینی	پروتئینی
 FA	پانتیٔون	پانتئون
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+FA	آباقاح۬ان	آباقاخان
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+FA	آخد۬	آخذ
+
+# REH, SMALL HIGH THREE DOTS → JEH
+FA	آبارۛورش	آباژورش
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+FA	گار۬	گاز
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+FA	آبدارسۛان	آبدارشان
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+FA	آزارص۬ج	آزارضج
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+FA	آقبلاع۬	آقبلاغ
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+FA	آئرٮٜتیک	آئربتیک
+
+# DOTLESS BEH, SMALL HIGH THREE DOTS → THEH
+FA	آبادٮۛبت	آبادثبت
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+FA	آلبوروڡ۬	آلبوروف
+
+# QAF WITH DOT ABOVE → FEH
+FA	ڧقط	فقط
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+FA	آمارتاں۬	آمارتان
+
+# Tests for the normalizations at word-initial position.
+
+# KAF → KEHEH
+FA	كشف	کشف
+
+# YEH → FARSI YEH
+FA	يابنده	یابنده
+
+# Tests for the normalizations at character isolated position.
+
+# HEH GOAL → HEH
+FA	ہ	ه
+
+# Tests for the normalizations at word-medial position.
+
+# KAF → KEHEH
+FA	ليكن	لیکن
+
+# YEH → FARSI YEH
+FA	يابيم	یابیم
 
 # ----------------
 # Malay
