@@ -68,6 +68,76 @@ AR	ۃ	ة
 AR	طویلة	طويلة
 
 # ----
+# Dari
+# ----
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+PRS	اح۬با	اخبا
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+PRS	اخدد۬	اخدذ
+
+# REH, SMALL HIGH THREE DOTS → JEH
+PRS	اسارۛ	اساژ
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+PRS	اخرر۬ان	اخرزان
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+PRS	استسۛا	استشا
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+PRS	استيص۬اح	استیضاح
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+PRS	آقبلاع۬	آقبلاغ
+
+# HEH, HAMZA ABOVE → HEH GOAL WITH HAMZA ABOVE
+PRS	هٔ	ۂ
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+PRS	آٮٜ	آب
+
+# DOTLESS BEH, SMALL HIGH THREE DOTS → THEH
+PRS	أٮۛرکی	أثرکی
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+PRS	اڡ۬اتخر	افاتخر
+
+# QAF WITH DOT ABOVE → FEH
+PRS	ڧاقد	فاقد
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+PRS	آئيں۬	آئین
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+PRS	آبادیٔ	آبادئ
+
+# Tests for the normalizations at word initial position
+
+# KAF → KEHEH
+PRS	كرد	کرد
+
+# YEH → FARSI YEH
+PRS	يافته	یافته
+
+# Tests for the normalizations for characters at isolated position
+
+# HEH → HEH GOAL
+PRS	ه	ہ
+
+# HEH GOAL → HEH
+PRS	ہ	ه
+
+# Tests for the normalizations at word medial position
+
+# KAF → KEHEH
+PRS	مذاكرات	مذاکرات
+
+# YEH → FARSI YEH
+PRS	دايما	دایما
+
+# ----
 # Urdu
 # ----
 
