@@ -40,6 +40,7 @@ LANGS = [
     "sd",
     "ug",
     "ur",
+    "uz",
 ]
 
 nisaba_compile_grm_py(

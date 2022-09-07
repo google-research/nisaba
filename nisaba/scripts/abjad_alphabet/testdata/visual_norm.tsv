@@ -896,3 +896,63 @@ AZB	تايينلرى	تایینلری
 AZB	ہ	ه
 AZB	ى	ی
 
+# -----
+# Uzbek
+# -----
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+UZ	آنرح۬زم	آنرخزم
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+UZ	آنرخر۬م	آنرخزم
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+UZ	قۇسۛ	قۇش
+
+# KAF, SMALL HIGH THREE DOTS → NG
+UZ	دريالارىنىكۛ	دريالارىنىڭ
+
+# WAW, DAMMA → U
+UZ	ئوُلارنىڭ	ئۇلارنىڭ
+
+# WAW, SMALL HIGH THREE DOTS → VE
+UZ	وۛىكىپېدىيادان	ۋىكىپېدىيادان
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+UZ	العرٮٜية	العربية
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+UZ	يوڡ۬	يوف
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+UZ	ماتں۬	ماتن
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+UZ	یٔۇنىڭ	ئۇنىڭ
+
+# At word-initial position
+
+# KEHEH → KAF
+UZ	کاپىتلىزم	كاپىتلىزم
+
+# HEH DOACHASHMEE → HEH
+UZ	ھەر	هەر
+
+# FARSI YEH → YEH
+UZ	یوف	يوف
+
+# When character is isolated
+
+# HEH GOAL → HEH
+UZ	ہ	ه
+
+# At word-medial position
+
+# KEHEH → KAF
+UZ	ۋىکىپېدىيادا	ۋىكىپېدىيادا
+
+# HEH DOACHASHMEE → HEH
+UZ	ساھىفادا	ساهىفادا
+
+# FARSI YEH → YEH
+UZ	دریاسى	درياسى

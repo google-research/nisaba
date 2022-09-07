@@ -1,0 +1,70 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+#
+# Visual norm rewrite rules for Uzbek.
+#
+# See the sources for these transformations in `README.md` in this directory.
+
+item {
+  uname: ["HAH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ح۬"
+  to_uname: "KHAH" to_raw: "خ"
+}
+
+item {
+  uname: ["REH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ر۬"
+  to_uname: "ZAIN" to_raw: "ز"
+}
+
+item {
+  uname: ["SEEN", "SMALL HIGH THREE DOTS"] raw: "سۛ"
+  to_uname: "SHEEN" to_raw: "ش"
+}
+
+item {
+  uname: ["KAF", "SMALL HIGH THREE DOTS"] raw: "كۛ"
+  to_uname: "NG" to_raw: "ڭ"
+}
+
+item {
+  uname: ["WAW", "DAMMA"] raw: "وُ"
+  to_uname: "U" to_raw: "ۇ"
+}
+
+item {
+  uname: ["WAW", "SMALL HIGH THREE DOTS"] raw: "وۛ"
+  to_uname: "VE" to_raw: "ۋ"
+}
+
+item {
+  uname: ["DOTLESS BEH", "VOWEL SIGN DOT BELOW"] raw: "ٮٜ"
+  to_uname: "BEH" to_raw: "ب"
+}
+
+item {
+  uname: ["DOTLESS FEH", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ڡ۬"
+  to_uname: "FEH" to_raw: "ف"
+}
+
+item {
+  uname: ["NOON GHUNNA", "ROUNDED HIGH STOP WITH FILLED CENTRE"] raw: "ں۬"
+  to_uname: "NOON" to_raw: "ن"
+}
+
+item {
+  uname: ["FARSI YEH", "HAMZA ABOVE"] raw: "یٔ"
+  to_uname: "YEH WITH HAMZA ABOVE" to_raw: "ئ"
+}
