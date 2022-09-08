@@ -230,3 +230,23 @@ IPA | txn
 `x ` | ` x`
 `z ` | ` z`
 `ʒ ` | ` zh`
+
+## Citing
+
+If you use this software in a publication, please cite the accompanying
+[paper](http://www.lrec-conf.org/proceedings/lrec2022/pdf/2022.lrec-1.718.pdf) from
+[LREC 2022](https://lrec2022.lrec-conf.org/en/):
+
+```bibtex
+@InProceedings{demirsahin-natural2022,
+  author = {Işın Demirşahin and Cibu Johny and Alexander Gutkin and Brian Roark},
+  title = {Criteria for Useful Automatic Romanization in South Asian Languages},
+  booktitle = {Proceedings of the 13th Conference on Language Resources and Evaluation (LREC 2022)},
+  month = {June},
+  year = {2022},
+  address = {Marseille, France},
+  publisher = {European Language Resources Association (ELRA)},
+  pages = {6662--6673},
+  url= {http://www.lrec-conf.org/proceedings/lrec2022/pdf/2022.lrec-1.718.pdf},
+}
+```
