@@ -508,3 +508,35 @@ Available FARs are:
 1.  Visual Norm: `nisaba/scripts/brahmic/visual_norm.far`
 
 1.  Well-Formed: `nisaba/scripts/brahmic/wellformed.far`
+
+## Citation
+
+If you use this Brahmic component in a publication, please cite the accompanying
+papers:
+
+```bibtex
+@inproceedings{nisaba-eacl2021,
+    title = {Finite-state script normalization and processing utilities: The {N}isaba {B}rahmic library},
+    author = {Cibu Johny and Lawrence Wolf-Sonkin and Alexander Gutkin and Brian Roark},
+    booktitle = {16th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2021): System Demonstrations},
+    address = {[Online], Kyiv, Ukraine},
+    month = apr,
+    year = {2021},
+    pages = {14--23},
+    publisher = {Association for Computational Linguistics},
+    doi = {10.18653/v1/2021.eacl-demos.3},
+    url = {https://www.aclweb.org/anthology/2021.eacl-demos.3},
+}
+
+@inproceedings{nisaba-lrec2022,
+  title	= {Extensions to {B}rahmic script processing within the {N}isaba library: new scripts, languages and utilities},
+  author = {Alexander Gutkin and Cibu Johny and Raiomond Doctor and Lawrence Wolf-Sonkin and Brian Edward Roark},
+  booktitle	= {Proceedings of the 13th Language Resources and Evaluation Conference (LREC)},
+  year = {2022},
+  url = {http://www.lrec-conf.org/proceedings/lrec2022/pdf/2022.lrec-1.692.pdf},
+  pages	= {6450--6460},
+  month = {June},
+  address = {Marseille, France},
+  organization = {European Language Resources Association (ELRA)},
+}
+```
