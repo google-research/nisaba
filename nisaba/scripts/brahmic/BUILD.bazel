@@ -524,8 +524,8 @@ cc_library(
     deps = [
         "//nisaba/port:file_util",
         "//nisaba/port:status_macros",
-        "@com_google_absl//absl/memory",
         "@com_google_absl//absl/status",
+        "@com_google_absl//absl/status:statusor",
         "@com_google_absl//absl/strings",
         "@org_opengrm_thrax//:thrax",
     ],
@@ -539,6 +539,7 @@ cc_test(
         ":cc",
         "//nisaba/port:status-matchers",
         "@com_google_absl//absl/memory",
+        "@com_google_absl//absl/status:statusor",
         "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest_main",
     ],

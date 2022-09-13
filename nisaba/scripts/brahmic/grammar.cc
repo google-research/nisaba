@@ -14,20 +14,64 @@
 
 #include "nisaba/scripts/brahmic/grammar.h"
 
+#include <memory>
+
+#include "thrax/grm-manager.h"
+#include "absl/status/status.h"
+#include "absl/status/statusor.h"
+#include "absl/strings/ascii.h"
 #include "absl/strings/str_cat.h"
 #include "nisaba/port/file_util.h"
 #include "nisaba/port/status_macros.h"
 
 namespace nisaba {
 namespace brahmic {
+namespace {
+
+using ::thrax::GrmManager;  // Intentionally not fully-qualifying.
+
+absl::Status LoadArchive(absl::string_view far_file_path, GrmManager &manager) {
+  const auto far_path = file::GetRunfilesResourcePath(far_file_path);
+  if (!far_path.ok()) return far_path.status();
+
+  if (!manager.LoadArchive(far_path.value())) {
+    return absl::InternalError(
+        absl::StrCat("Failed to load archive from \"", far_path.value(), "\""));
+  }
+  return absl::OkStatus();
+}
+
+absl::StatusOr<GrmManager *> CreateAndLoadManager(
+    const absl::string_view far_name) {
+  auto manager = std::make_unique<GrmManager>();
+  RETURN_IF_ERROR(LoadArchive(MakeFarFilePath(kFarPath, far_name), *manager));
+  return manager.release();
+}
+
+}  // namespace
+
+absl::StatusOr<GrmManager *> LoadVisualNormManager() {
+  return CreateAndLoadManager("visual_norm");
+}
+absl::StatusOr<GrmManager *> LoadWellformedManager() {
+  return CreateAndLoadManager("wellformed");
+}
+
+std::string MakeFarFilePath(absl::string_view far_path,
+                            absl::string_view far_name) {
+  return file::JoinPath(
+      far_path, absl::StrCat(absl::AsciiStrToLower(far_name), kFarExtn));
+}
 
 absl::Status Grammar::Load() {
+  RETURN_IF_ERROR(LoadArchive(far_file_path_, *grm_mgr_));
+  RETURN_IF_ERROR(VerifyLoad());
+  return absl::OkStatus();
+}
+
+absl::Status Grammar::VerifyLoad() {
   const auto far_path = file::GetRunfilesResourcePath(far_file_path_);
   if (!far_path.ok()) return far_path.status();
-  if (!grm_mgr_->LoadArchive(far_path.value())) {
-    return absl::InternalError(absl::StrCat("Failed to load archive from \"",
-                                            far_path.value(), "\""));
-  }
 
   static const std::map<std::string, std::string>& lang_script_map =
       {{"bn", "Beng"}, {"gu", "Gujr"}, {"hi", "Deva"}, {"kn", "Knda"},
@@ -72,6 +116,12 @@ absl::Status Grammar::Accept(absl::string_view input) const {
 absl::Status Normalizer::Load() {
   RETURN_IF_ERROR(visual_norm_.Load());
   RETURN_IF_ERROR(wellformed_.Load());
+  return absl::OkStatus();
+}
+
+absl::Status Normalizer::VerifyLoad() {
+  RETURN_IF_ERROR(visual_norm_.VerifyLoad());
+  RETURN_IF_ERROR(wellformed_.VerifyLoad());
   return absl::OkStatus();
 }
 

@@ -22,11 +22,14 @@
 #include "nisaba/port/status-matchers.h"
 #include "gtest/gtest.h"
 #include "absl/memory/memory.h"
+#include "absl/status/statusor.h"
 #include "absl/strings/string_view.h"
 
 namespace nisaba {
 namespace brahmic {
 namespace {
+
+using ::testing::NotNull;
 
 class GrammarTest : public ::testing::Test {
  public:
@@ -105,6 +108,55 @@ TEST_F(GrammarTest, MultiLanguageNormalizeLoadTest) {
 TEST(NormalizerTest, SupportsFstTest) {
   EXPECT_TRUE(Normalizer::SupportsFst("Deva"));
   EXPECT_FALSE(Normalizer::SupportsFst("NotARealFst"));
+}
+
+TEST(PreLoadedGrammarTest, LoadVisualNormManager) {
+  auto manager = LoadVisualNormManager();
+  ASSERT_OK(manager);
+  ASSERT_THAT(manager.value(), NotNull());
+  EXPECT_OK(Grammar("visual_norm", "deva", *manager).VerifyLoad());
+}
+
+TEST(PreLoadedGrammarTest, LoadWellformedNormManager) {
+  auto manager = LoadWellformedManager();
+  ASSERT_OK(manager);
+  ASSERT_THAT(manager.value(), NotNull());
+  EXPECT_OK(Grammar("wellformed", "deva", *manager).VerifyLoad());
+}
+
+TEST(PreLoadedNormalizerTest, MakeFarFilePath) {
+  EXPECT_EQ(MakeFarFilePath("/foo/bar", "baz"), "/foo/bar/baz.far");
+}
+
+TEST(PreLoadedGrammarTest, GrammarWithPreLoadedManager) {
+  auto manager = LoadWellformedManager();
+  ASSERT_OK(manager);
+  ASSERT_THAT(manager.value(), NotNull());
+  Grammar grammar("wellformed", "deva", *manager);
+  ASSERT_OK(grammar.VerifyLoad());
+
+  EXPECT_OK(grammar.Accept("हिन्दी"));
+  EXPECT_FALSE(grammar.Accept("काु").ok());
+}
+
+TEST(PreLoadedNormalizerTest, NormalizerWithPreLoadedManagers) {
+  auto visual_norm_manager = LoadVisualNormManager();
+  auto wellformed_manager = LoadWellformedManager();
+  ASSERT_OK(visual_norm_manager);
+  ASSERT_THAT(visual_norm_manager.value(), NotNull());
+  ASSERT_OK(wellformed_manager);
+  ASSERT_THAT(wellformed_manager.value(), NotNull());
+
+  Normalizer normalizer("deva", *visual_norm_manager, *wellformed_manager);
+  ASSERT_OK(normalizer.VerifyLoad());
+
+  std::string output;
+  EXPECT_OK(normalizer.Rewrite("गोल्‍डबर्ग", &output));
+  EXPECT_EQ(output, "गोल्डबर्ग");
+  EXPECT_OK(
+      normalizer.NormalizeOnly("गोल्‍डबर्ग", &output));
+  EXPECT_EQ(output, "गोल्डबर्ग");
+  EXPECT_FALSE(normalizer.Rewrite("काु", &output).ok());
 }
 
 }  // namespace
