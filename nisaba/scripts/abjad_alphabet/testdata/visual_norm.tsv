@@ -616,6 +616,63 @@ CKB	جەلەنده‌ر	جەلەندەر
 CKB	ئیێمه‌	ئیێمە
 CKB	گه‌یشت	گەیشت
 
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+CKB	باح۬	باخ
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+CKB	د۬مي	ذمي
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+CKB	رار۬اندنەوە	رازاندنەوە
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+CKB	رسۛانەوە	رشانەوە
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+CKB	الرکص۬	الرکض
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+CKB	آع۬ایی	آغایی
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+CKB	ٮٜاکووریان	باکووریان
+
+# DOTLESS BEH, SMALL HIGH THREE DOTS → THEH
+CKB	باٮۛ	باث
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+CKB	آڡ۬اق	آفاق
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+CKB	باپيره‌ياں۬	باپیرەیان
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+CKB	یٔاسیا	ئاسیا
+
+# Normalizations at word initial position
+
+# KAF → KEHEH
+CKB	كیلۆمەتر	کیلۆمەتر
+
+# YEH → FARSI YEH
+CKB	يارييەکە	یارییەکە
+
+# HEH DOACHASHMEE → HEH
+CKB	ھیچ	هیچ
+
+# Normalizations for isolated characters
+
+# HEH GOAL → HEH
+CKB	ہ	ه
+
+# Normalizations at word medial position
+
+# KAF → KEHEH
+CKB	جارێكی	جارێکی
+
+# YEH → FARSI YEH
+CKB	بريتي	بریتي
+
 # ----------------
 # Pashto
 # ----------------
