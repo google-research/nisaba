@@ -26,8 +26,8 @@ SCRIPT_DIR = FAR_DIR / 'data'
 SCRIPT_NAME = 'Arab'
 
 LANG_DIR = SCRIPT_DIR / SCRIPT_NAME
-LANGS = ('ar', 'azb', 'ckb', 'fa', 'ks', 'ms', 'pa', 'prs', 'ps', 'sd', 'ug',
-         'ur', 'uz')
+LANGS = ('ar', 'azb', 'bal', 'ckb', 'fa', 'ks', 'ms', 'pa', 'prs', 'ps', 'sd',
+         'ug', 'ur', 'uz')
 
 
 def sigma_from_common_data_files() -> pynini.Fst:

@@ -30,6 +30,7 @@ licenses(["notice"])
 LANGS = [
     "ar",
     "azb",
+    "bal",
     "ckb",
     "fa",
     "ks",

@@ -67,6 +67,55 @@ AR	ۃ	ة
 # FARSI YEH → YEH
 AR	طویلة	طويلة
 
+# -------
+# Balochi
+# -------
+
+# DAL, SMALL HIGH TAH → DDAL
+BAL	دؕوک	ڈوک
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+BAL	ر۬ند	زند
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+BAL	سۛپ	شپ
+
+# WAW, ROUNDED HIGH STOP WITH FILLED CENTRE → WAW WITH DOT ABOVE
+BAL	و۬پر	ۏپر
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+BAL	ٮٜل	بل
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+BAL	مں۬	من
+
+# Word-initial position.
+
+# KAF → KEHEH
+BAL	كن	کن
+
+# YEH → FARSI YEH
+BAL	يا	یا
+
+# HEH DOACHASHMEE → HEH
+BAL	ھستیت	هستیت
+
+# Isolated position.
+
+# HEH GOAL → HEH
+BAL	ہ	ه
+
+# Word-medial position.
+
+# KAF → KEHEH
+BAL	علیكم	علیکم
+
+# YEH → FARSI YEH
+BAL	اينت	اینت
+
+# HEH DOACHASHMEE → HEH
+BAL	مھربانی	مهربانی
+
 # ----
 # Dari
 # ----

@@ -9,15 +9,20 @@ transducer (FST) name, it will be all uppercase; example: `UR`. FST Archive
 (FAR) names are all lowercase (e.g., `reversible_roman`). Supported languages
 (sorted by language code):
 
-1.  South Azerbaijani (`azb`)
-1.  Central Kurdish (Sorani) (`ckb`)
-1.  Persian (`fa`)
+1.  Arabic (MSA) (`ar`)
+1.  Balochi (`bal`)
+1.  Dari (`prs`)
 1.  Kashmiri (`ks`)
-1.  Standard Malay (`ms`) (Jawi orthography).
+1.  Pashto (`ps`)
+1.  Persian (`fa`)
 1.  Punjabi (Shahmukhi) (`pa`)
 1.  Sindhi (`sd`)
+1.  Sorani (Central Kurdish) (`ckb`)
+1.  South Azerbaijani (`azb`)
+1.  Standard Malay (Jawi orthography) (`ms`)
 1.  Uighur (`ug`)
 1.  Urdu (`ur`)
+1.  Uzbek (`uz`)
 
 ## Reversible romanization
 
