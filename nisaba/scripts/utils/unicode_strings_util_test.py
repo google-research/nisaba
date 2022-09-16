@@ -55,17 +55,17 @@ class UnicodeStringsUtilTest(absltest.TestCase):
         uname_prefixes=["BRAHMI"], uname=brahmi_unames, raw=brahmi_string))
 
     # The Unicode name sequence mismatches the reference raw string.
-    with self.assertRaisesRegex(ValueError, "mismatch names of the characters"):
+    with self.assertRaisesRegex(ValueError, "uname=.* mismatch with raw"):
       self._proto_entries_to_string(
           uname_prefixes=["BRAHMI"], uname=brahmi_unames + ["LETTER A"],
           raw=brahmi_string)
-    with self.assertRaisesRegex(ValueError, "mismatch names of the characters"):
+    with self.assertRaisesRegex(ValueError, "uname=.* mismatch with raw"):
       self._proto_entries_to_string(
           uname_prefixes=["BRAHMI"], uname=brahmi_unames,
           raw=brahmi_string + "𑀞")
     # Both prefixes resolve different characters.
     with self.assertRaisesRegex(
-        ValueError, "resolves to more than one character"):
+        ValueError, "Above exception is for raw=.'BRAHMI LETTER I'."):
       self._proto_entries_to_string(
           uname_prefixes=["BRAHMI LETTER", "BRAHMI VOWEL SIGN"], uname=["I"],
           raw="𑀇")
@@ -149,9 +149,9 @@ class UnicodeStringsUtilTest(absltest.TestCase):
                          uname=["X"], to_uname=["Y"])
 
     # Check equivalence of raw and uname fields on either side.
-    with self.assertRaisesRegex(ValueError, "mismatch names of the characters"):
+    with self.assertRaisesRegex(ValueError, "uname=.* mismatch with raw"):
       self._convert_item(uname_prefixes=latin_prefix, raw="abc", uname=["X"])
-    with self.assertRaisesRegex(ValueError, "mismatch names of the characters"):
+    with self.assertRaisesRegex(ValueError, "uname=.* mismatch with raw"):
       self._convert_item(uname_prefixes=latin_prefix,
                          raw="___", to_raw="abc", to_uname=["X"])
 

@@ -132,107 +132,107 @@ item {  # U+0620
 }
 item {  # U+0621
   letter { uname: "HAMZA" raw: "ء" }
-  language: ["ar", "fa", "pa", "sd", "ur"]
+  language: ["ar", "bal", "fa", "ms", "pa", "prs", "sd", "ur", "uz"]
 }
 item {  # U+0622
   letter { uname: "ALEF WITH MADDA ABOVE" raw: "آ" }
-  language: ["ar", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ur"]
 }
 item {  # U+0623
   letter { uname: "ALEF WITH HAMZA ABOVE" raw: "أ" }
-  language: ["ar", "fa", "ms", "trw"]
+  language: ["ar", "fa", "ks", "ms", "pa", "prs", "ps", "sd", "trw", "ur"]
 }
 item {  # U+0624
   letter { uname: "WAW WITH HAMZA ABOVE" raw: "ؤ" }
-  language: ["ar", "fa", "ms", "ur"]
+  language: ["ar", "az", "fa", "ks", "ms", "pa", "prs", "sd", "ur"]
 }
 item {  # U+0625
   letter { uname: "ALEF WITH HAMZA BELOW" raw: "إ" }
-  language: ["ar", "ks", "ms"]
+  language: ["ar", "ks", "ms", "pa", "ur"]
 }
 item {  # U+0626
   letter { uname: "YEH WITH HAMZA ABOVE" raw: "ئ" }
-  language: ["ar", "ms", "ps", "sd", "ur"]
+  language: ["ar", "az", "ckb", "fa", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0627
   letter { uname: "ALEF" raw: "ا" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0628
   letter { uname: "BEH" raw: "ب" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0629
   letter { uname: "TEH MARBUTA" raw: "ة" }
-  language: ["ar", "fa", "ms", "ur"]
+  language: ["ar", "fa", "ms", "pa", "prs", "ug", "ur"]
 }
 item {  # U+062A
   letter { uname: "TEH" raw: "ت" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+062B
   letter { uname: "THEH" raw: "ث" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ms", "pa", "prs", "ps", "sd", "ur"]
 }
 item {  # U+062C
   letter { uname: "JEEM" raw: "ج" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+062D
   letter { uname: "HAH" raw: "ح" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ur", "uz"]
 }
 item {  # U+062E
   letter { uname: "KHAH" raw: "خ" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+062F
   letter { uname: "DAL" raw: "د" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0630
   letter { uname: "THAL" raw: "ذ" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ms", "pa", "prs", "ps", "sd", "ug", "ur"]
 }
 item {  # U+0631
   letter { uname: "REH" raw: "ر" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0632
   letter { uname: "ZAIN" raw: "ز" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0633
   letter { uname: "SEEN" raw: "س" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0634
   letter { uname: "SHEEN" raw: "ش" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0635
   letter { uname: "SAD" raw: "ص" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ms", "pa", "prs", "ps", "sd", "ur"]
 }
 item {  # U+0636
   letter { uname: "DAD" raw: "ض" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ms", "pa", "prs", "ps", "sd", "ur"]
 }
 item {  # U+0637
   letter { uname: "TAH" raw: "ط" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ms", "pa", "prs", "ps", "sd", "ur"]
 }
 item {  # U+0638
   letter { uname: "ZAH" raw: "ظ" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ms", "pa", "prs", "ps", "sd", "ur"]
 }
 item {  # U+0639
   letter { uname: "AIN" raw: "ع" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur"]
 }
 item {  # U+063A
   letter { uname: "GHAIN" raw: "غ" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+063D
   letter { uname: "FARSI YEH WITH INVERTED V" raw: "ؽ" }
@@ -240,95 +240,95 @@ item {  # U+063D
 }
 item {  # U+0641
   letter { uname: "FEH" raw: "ف" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0642
   letter { uname: "QAF" raw: "ق" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0643
   letter { uname: "KAF" raw: "ك" }
-  language: "ar"
+  language: ["ar", "ps", "ug", "ur", "uz"]
 }
 item {  # U+0644
   letter { uname: "LAM" raw: "ل" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0645
   letter { uname: "MEEM" raw: "م" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0646
   letter { uname: "NOON" raw: "ن" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0647
   letter { uname: "HEH" raw: "ه" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ur", "uz"]
 }
 item {  # U+0648
   letter { uname: "WAW" raw: "و" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0649
   letter { uname: "ALEF MAKSURA" raw: "ى" }
-  language: ["ar", "bal", "fa", "ks", "ms", "pa", "sd", "ur"]
+  language: ["ar", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "sd", "ug", "ur", "uz"]
 }
 item {  # U+064A
   letter { uname: "YEH" raw: "ي" }
-  language: ["ar", "bal", "ks", "ms", "pa", "ps", "sd", "ur"]
+  language: ["ar", "bal", "ks", "ms", "pa", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+064B
-  letter { uname: "FATHATAN" raw: "ً"}
-  language: ["ar", "fa", "ur"]
+  letter { uname: "FATHATAN" raw: "ً" }
+  language: ["ar", "fa", "pa", "prs", "ur"]
 }
 item {  # U+064C
   letter { uname: "DAMMATAN" raw: "ٌ" }
-  language: ["ar", "ur"]
+  language: ["ar", "fa", "pa", "prs", "ur"]
 }
 item {  # U+064D
   letter { uname: "KASRATAN" raw: "ٍ" }
-  language: "ar"
+  language: ["ar", "fa", "pa", "prs", "ur"]
 }
 item {  # U+064E
   letter { uname: "FATHA" raw: "َ" }
-  language: ["ar", "fa", "ks", "sd", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ms", "pa", "prs", "ps", "sd", "ug", "ur"]
 }
 item {  # U+064F
   letter { uname: "DAMMA" raw: "ُ" }
-  language: ["ar", "fa", "ks", "sd", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ms", "pa", "prs", "ps", "sd", "ug", "ur"]
 }
 item {  # U+0650
   letter { uname: "KASRA" raw: "ِ" }
-  language: ["ar", "fa", "ks", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ms", "pa", "prs", "ps", "sd", "ug", "ur"]
 }
 item {  # U+0651
   letter { uname: "SHADDA" raw: "ّ" }
-  language: ["ar", "fa", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ms", "pa", "prs", "ps", "sd", "ur"]
 }
 item {  # U+0652
   letter { uname: "SUKUN" raw: "ْ" }
-  language: ["ar", "fa", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ms", "pa", "prs", "ps", "ur"]
 }
 item {  # U+0653
   letter { uname: "MADDAH ABOVE" }
-  language: ["fa", "ps", "ur"]
+  language: ["ar", "az", "bal", "fa", "ks", "ms", "pa", "prs", "ps", "sd", "ur"]
 }
 item {  # U+0654
   letter { uname: "HAMZA ABOVE" }
-  language: ["fa", "ur"]
+  language: ["ar", "fa", "ks", "pa", "prs", "sd", "ug", "ur"]
 }
 item {  # U+0655
   letter { uname: "HAMZA BELOW" raw: "ٕ" }
-  language: ["ks", "ur"]
+  language: ["ar", "fa", "ks", "pa", "prs", "sd", "ur"]
 }
 item {  # U+0656
   letter { uname: "SUBSCRIPT ALEF" raw: "ٖ" }
-  language: "ur"
+  language: ["ar", "ks", "pa", "ur"]
 }
 item {  # U+0657
   letter { uname: "INVERTED DAMMA" raw: "ٗ" }
-  language: "sd"
+  language: ["ar", "ks", "pa", "sd", "ur"]
 }
 item {  # U+0658
   letter { uname: "MARK NOON GHUNNA" raw: "٘" }
@@ -336,22 +336,22 @@ item {  # U+0658
 }
 item {  # U+0659
   letter { uname: "ZWARAKAY" raw: "ٙ" }
-  language: "ku"
+  language: ["ku", "ps"]
 }
 item {  # U+065A
-  letter { uname: "VOWEL SIGN SMALL V ABOVE"  raw: "ٚ" }
-  language: "ks"
+  letter { uname: "VOWEL SIGN SMALL V ABOVE" }
+  language: ["bal", "ks"]
 }
 item {  # U+065B
-  letter { uname: "VOWEL SIGN INVERTED SMALL V ABOVE"  raw: "ٛ" }
+  letter { uname: "VOWEL SIGN INVERTED SMALL V ABOVE" raw: "ٛ" }
   language: "tk"
 }
 item {  # U+065C
-  letter { uname: "VOWEL SIGN DOT BELOW"  raw: "ٜ" }
+  letter { uname: "VOWEL SIGN DOT BELOW" raw: "ٜ" }
   language: "ta"
 }
 item {  # U+065F
-  letter { uname: "WAVY HAMZA BELOW"  raw: "ٟ" }
+  letter { uname: "WAVY HAMZA BELOW" raw: "ٟ" }
   language: "ks"
 }
 item {  # U+066E
@@ -360,11 +360,11 @@ item {  # U+066E
 }
 item {  # U+0670
   letter { uname: "SUPERSCRIPT ALEF" raw: "ٰ" }
-  language: ["fa", "ur"]
+  language: ["ar", "bal", "fa", "pa", "ur"]
 }
 item {  # U+0671
   letter { uname: "ALEF WASLA" raw: "ٱ" }
-  language: ["az", "tk"]
+  language: ["ar", "az", "tk"]
 }
 item {  # U+0672
   letter { uname: "ALEF WITH WAVY HAMZA ABOVE" raw: "ٲ" }
@@ -393,7 +393,7 @@ item {  # U+0677
 }
 item {  # U+0678
   letter { uname: "HIGH HAMZA YEH" raw: "ٸ" }
-  language: "kk"
+  language: ["kk", "ps"]
 }
 item {  # U+0679
   letter { uname: "TTEH" raw: "ٹ" }
@@ -405,11 +405,11 @@ item {  # U+067A
 }
 item {  # U+067B
   letter { uname: "BEEH" raw: "ٻ" }
-  language: ["skr", "sd"]
+  language: ["sd", "skr"]
 }
 item {  # U+067C
   letter { uname: "TEH WITH RING" raw: "ټ" }
-  language: "ps"
+  language: ["bal", "ps"]
 }
 item {  # U+067D
   letter { uname: "TEH WITH THREE DOTS ABOVE DOWNWARDS" raw: "ٽ" }
@@ -417,11 +417,11 @@ item {  # U+067D
 }
 item {  # U+067E
   letter { uname: "PEH" raw: "پ" }
-  language: ["bal", "fa", "ks", "pa", "sd", "ur"]
+  language: ["az", "bal", "ckb", "fa", "ks", "ku", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+067F
   letter { uname: "TEHEH" raw: "ٿ" }
-  language: "sd"
+  language: ["bal", "sd"]
 }
 item {  # U+0680
   letter { uname: "BEHEH" raw: "ڀ" }
@@ -429,7 +429,7 @@ item {  # U+0680
 }
 item {  # U+0681
   letter { uname: "HAH WITH HAMZA ABOVE" raw: "ځ" }
-  language: ["ps", "khw"]
+  language: ["khw", "ps"]
 }
 # For the status of `HAH WITH TWO DOTS VERTICAL ABOVE` (U+0682, "ڂ") and its
 # possible use in the old Pashto orthographies please see the discussion in:
@@ -446,11 +446,11 @@ item {  # U+0684
 }
 item {  # U+0685
   letter { uname: "HAH WITH THREE DOTS ABOVE" raw: "څ" }
-  language: ["bsk", "gwc", "khw", "mvy", "ps", "trw", "wo"]
+  language: ["bsk", "gwc", "khw", "mvy", "ps", "trw", "ug", "wo"]
 }
 item {  # U+0686
   letter { uname: "TCHEH" raw: "چ" }
-  language: ["bal", "fa", "ks", "pa", "sd", "ur"]
+  language: ["az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ug", "ur", "uz"]
 }
 item {  # U+0687
   letter { uname: "TCHEHEH" raw: "ڇ" }
@@ -462,7 +462,7 @@ item {  # U+0688
 }
 item {  # U+0689
   letter { uname: "DAL WITH RING" raw: "ډ" }
-  language: "ps"
+  language: ["bal", "ps"]
 }
 item {  # U+068A
   letter { uname: "DAL WITH DOT BELOW" raw: "ڊ" }
@@ -494,15 +494,15 @@ item {  # U+0691
 # TODO: Check `REH WITH SMALL V` (U+0692, `ڒ`).
 item {  # U+0693
   letter { uname: "REH WITH RING" raw: "ړ" }
-  language: "ps"
+  language: ["bal", "ps"]
 }
 item {  # U+0694
   letter { uname: "REH WITH DOT BELOW" raw: "ڔ" }
-  language: ["ml", "ta"]
+  language: ["bal", "ml", "ta"]
 }
 item {  # U+0695
   letter { uname: "REH WITH SMALL V BELOW" raw: "ڕ" }
-  language: "ku"
+  language: ["ckb", "ku"]
 }
 item {  # U+0696
   letter { uname: "REH WITH DOT BELOW AND DOT ABOVE" raw: "ږ" }
@@ -515,7 +515,7 @@ item {  # U+0697
 }
 item {  # U+0698
   letter { uname: "JEH" raw: "ژ" }
-  language: ["bal", "ks", "ps", "pa", "skr", "ur"]
+  language: ["az", "bal", "ckb", "fa", "ks", "ku", "pa", "prs", "ps", "skr", "ug", "ur", "uz"]
 }
 item {  # U+0699
   letter { uname: "REH WITH FOUR DOTS ABOVE" raw: "ڙ" }
@@ -526,7 +526,10 @@ item {  # U+069A
   language: ["ps", "wbl"]
 }
 # TODO: Check `SEEN WITH THREE DOTS BELOW` (U+069B, `ڛ`).
-# TODO: Check `SEEN WITH THREE DOTS BELOW AND THREE DOTS ABOVE` (U+069C, `ڜ`).
+item {  # U+069C
+  letter { uname: "SEEN WITH THREE DOTS BELOW AND THREE DOTS ABOVE" raw: "ڜ" }
+  language: "ar"
+}
 # TODO: Check `SAD WITH TWO DOTS BELOW` (U+069D, `ڝ`).
 # TODO: Check `SAD WITH THREE DOTS ABOVE` (U+069E, `ڞ`).
 item {  # U+069F
@@ -547,7 +550,6 @@ item {  # U+06A1
   letter { uname: "DOTLESS FEH" raw: "ڡ" }
   language: "ady"
 }
-# TODO: Check `DOTLESS FEH` (U+06A1, `ڡ`).
 item {  # U+06A2
   letter { uname: "FEH WITH DOT MOVED BELOW" raw: "ڢ" }
   language: ["ff", "ha"]
@@ -558,7 +560,7 @@ item {  # U+06A3
 }
 item {  # U+06A4
   letter { uname: "VEH" raw: "ڤ" }
-  language: ["ku", "ms"]
+  language: ["ar", "ckb", "ku", "ms"]
 }
 item {  # U+06A5
   letter { uname: "FEH WITH THREE DOTS BELOW" raw: "ڥ" }
@@ -570,15 +572,15 @@ item {  # U+06A6
 }
 item {  # U+06A7
   letter { uname: "QAF WITH DOT ABOVE" raw: "ڧ" }
-  language: ["bm", "ha", "mfg", "tmh"]
+  language: ["ar", "bm", "ha", "mfg", "tmh"]
 }
 item {  # U+06A8
   letter { uname: "QAF WITH THREE DOTS ABOVE" raw: "ڨ" }
-  language: ["aao", "aeb", "arq", "ary", "ayl", "khw", "mey"]
+  language: ["aao", "aeb", "ar", "arq", "ary", "ayl", "khw", "mey"]
 }
 item {  # U+06A9
   letter { uname: "KEHEH" raw: "ک" }
-  language: ["bal", "ms", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "ms", "pa", "prs", "ps", "sd", "ur"]
 }
 item {  # U+06AA
   letter { uname: "SWASH KAF" raw: "ڪ" }
@@ -591,7 +593,7 @@ item {  # U+06AB
 # TODO: Check `KAF WITH DOT ABOVE` (U+06AC, `ڬ`).
 item {  # U+06AD
   letter { uname: "NG" raw: "ڭ" }
-  language: ["kk", "ky", "ota", "ug"]
+  language: ["ar", "kk", "ky", "ota", "ug", "uz", "wbl"]
 }
 item {  # U+06AE
   letter { uname: "KAF WITH THREE DOTS BELOW" raw: "ڮ" }
@@ -599,7 +601,7 @@ item {  # U+06AE
 }
 item {  # U+06AF
   letter { uname: "GAF" raw: "گ" }
-  language: ["bal", "fa", "pa", "sd", "ur"]
+  language: ["ar", "az", "bal", "ckb", "fa", "ks", "ku", "pa", "prs", "ps", "sd", "ug", "ur", "uz", "wbl"]
 }
 item {  # U+06B0
   letter { uname: "GAF WITH RING" raw: "ڰ" }
@@ -616,11 +618,11 @@ item {  # U+06B3
 }
 item {  # U+06B4
   letter { uname: "GAF WITH THREE DOTS ABOVE" raw: "ڴ" }
-  language: "ar"
+  language: ["ar", "az"]
 }
 item {  # U+06B5
   letter { uname: "LAM WITH SMALL V" raw: "ڵ" }
-  language: ["ckb", "khw", "ku", "aee", "glh", "psh", "psi"]
+  language: ["aee", "ckb", "glh", "khw", "ku", "psh", "psi"]
 }
 # TODO: Check `LAM WITH DOT ABOVE` (U+06B6, `ڶ`).
 # TODO: Check `LAM WITH THREE DOTS ABOVE` (U+06B7, `ڷ`).
@@ -631,11 +633,11 @@ item {  # U+06B9
 }
 item {  # U+06BA
   letter { uname: "NOON GHUNNA" raw: "ں" }
-  language: ["ks", "pa", "ur"]
+  language: ["bal", "ks", "pa", "ps", "ur"]
 }
 item {  # U+06BB
   letter { uname: "RNOON" raw: "ڻ" }
-  language: ["bal", "hnd", "hno", "skr", "sd"]
+  language: ["bal", "hnd", "hno", "sd", "skr"]
 }
 item {  # U+06BC
   letter { uname: "NOON WITH RING" raw: "ڼ" }
@@ -647,7 +649,7 @@ item {  # U+06BD
 }
 item {  # U+06BE
   letter { uname: "HEH DOACHASHMEE" raw: "ھ" }
-  language: ["sd", "skr", "pa", "ur"]
+  language: ["bal", "ckb", "ks", "ku", "pa", "sd", "skr", "ug", "ur", "uz"]
 }
 item {  # U+06BF
   letter { uname: "TCHEH WITH DOT ABOVE" raw: "ڿ" }
@@ -655,16 +657,16 @@ item {  # U+06BF
 }
 item {  # U+06C0
   letter { uname: "HEH WITH YEH ABOVE" raw: "ۀ" }
-  language: "ku"
+  language: ["ckb", "ku", "ps"]
   region: "TD"
 }
 item {  # U+06C1
   letter { uname: "HEH GOAL" raw: "ہ" }
-  language: ["pa", "sd", "skr", "ur"]
+  language: ["bal", "ks", "pa", "sd", "skr", "ur"]
 }
 item {  # U+06C2
   letter { uname: "HEH GOAL WITH HAMZA ABOVE" raw: "ۂ" }
-  language: "ur"
+  language: ["ks", "pa", "ur"]
 }
 item {  # U+06C3
   letter { uname: "TEH MARBUTA GOAL" raw: "ۃ" }
@@ -680,25 +682,28 @@ item {  # U+06C5
 }
 item {  # U+06C6
   letter { uname: "OE" raw: "ۆ" }
-  language: ["az", "bej", "kk", "ks", "ku", "ug"]
+  language: ["az", "bej", "ckb", "kk", "ks", "ku", "ug"]
 }
 item {  # U+06C7
   letter { uname: "U" raw: "ۇ" }
-  language: "kk"
+  language: ["az", "kk", "ug", "uz"]
 }
 item {  # U+06C8
   letter { uname: "YU" raw: "ۈ" }
   language: "ug"
 }
 # TODO: Check `KIRGHIZ YU` (U+06C9, `ۉ`).
-# TODO: Check `WAW WITH TWO DOTS ABOVE` (U+06CA, `ۊ`).
+item {  # U+06CA
+  letter { uname: "WAW WITH TWO DOTS ABOVE" raw: "ۊ" }
+  language: ["ckb", "ku"]
+}
 item {  # U+06CB
   letter { uname: "VE" raw: "ۋ" }
-  language: ["kk", "ky", "ug"]
+  language: ["kk", "ky", "ug", "uz"]
 }
 item {  # U+06CC
   letter { uname: "FARSI YEH" raw: "ی" }
-  language: ["fa", "prs", "ur"]
+  language: ["az", "bal", "ckb", "fa", "ks", "ku", "pa", "prs", "ps", "ur"]
 }
 item {  # U+06CD
   letter { uname: "YEH WITH TAIL" raw: "ۍ" }
@@ -706,15 +711,15 @@ item {  # U+06CD
 }
 item {  # U+06CE
   letter { uname: "YEH WITH SMALL V" raw: "ێ" }
-  language: ["az", "ku"]
+  language: ["az", "ckb", "ku"]
 }
 item {  # U+06CF
   letter { uname: "WAW WITH DOT ABOVE" raw: "ۏ" }
-  language: "ms"
+  language: ["bal", "ms"]
 }
 item {  # U+06D0
   letter { uname: "E" raw: "ې" }
-  language: "ps"
+  language: ["ps", "ug", "uz"]
 }
 item {  # U+06D1
   letter { uname: "YEH WITH THREE DOTS BELOW" raw: "ۑ" }
@@ -722,15 +727,15 @@ item {  # U+06D1
 }
 item {  # U+06D2
   letter { uname: "YEH BARREE" raw: "ے" }
-  language: "ur"
+  language: ["bal", "pa", "ps", "ur"]
 }
 item {  # U+06D3
   letter { uname: "YEH BARREE WITH HAMZA ABOVE" raw: "ۓ" }
-  language: "ur"
+  language: ["pa", "ps", "ur"]
 }
 item {  # U+06D5
   letter { uname: "AE" raw: "ە" }
-  language: ["kk", "ku", "ky", "ug"]
+  language: ["ckb", "kk", "ku", "ky", "ug"]
 }
 item {  # U+06E1
   letter { uname: "SMALL HIGH DOTLESS HEAD OF KHAH" raw: "ۡ" }
@@ -770,7 +775,7 @@ item {  # U+0752
 }
 item {  # U+0754
   letter { uname: "BEH WITH TWO DOTS BELOW AND DOT ABOVE" raw: "ݔ" }
-  language: "bm"
+  language: ["bal", "bm"]
 }
 item {  # U+0756
   letter { uname: "BEH WITH SMALL V" raw: "ݖ" }
@@ -780,7 +785,7 @@ item {  # U+0756
 }
 item {  # U+0758
   letter { uname: "HAH WITH THREE DOTS POINTING UPWARDS BELOW" raw: "ݘ" }
-  language: ["dje", "ms"]  # Unclear about Malay.
+  language: ["dje", "ms"]
 }
 item {  # U+0760
   letter { uname: "FEH WITH TWO DOTS BELOW" raw: "ݠ" }
@@ -873,6 +878,10 @@ item {  # U+08A8
 item {  # U+08A9
   letter { uname: "YEH WITH TWO DOTS BELOW AND DOT ABOVE" raw: "ࢩ" }
   language: "ff"
+}
+item {  # U+08B2
+  letter { uname: "ZAIN WITH INVERTED V ABOVE" raw: "ࢲ" }
+  language: "ar"
 }
 item {  # U+08B3
   letter { uname: "AIN WITH THREE DOTS BELOW" raw: "ࢳ" }

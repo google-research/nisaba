@@ -52,8 +52,9 @@ class LetterLanguagesRomanizationTest(absltest.TestCase):
     romanizable_but_orphan_chars = romanizable_chars - language_chars
     unromanizable_char = language_chars - romanizable_chars
 
-    self.assertEmpty(unromanizable_char)
-    self.assertEmpty(romanizable_but_orphan_chars)
+    self.assertEmpty(unromanizable_char, 'These characters miss romanization.')
+    self.assertEmpty(romanizable_but_orphan_chars,
+                     'These characters are not used for any language.')
 
   def test_language_chars_for_reversibile_romanization(self):
     """Make sure each letter_language character is romanizable reliably."""

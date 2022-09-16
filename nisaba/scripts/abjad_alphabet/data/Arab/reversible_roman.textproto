@@ -236,6 +236,12 @@ item {
   to_raw: "z"
 }
 
+# Constructed
+item {
+  uname: "ZAIN WITH INVERTED V ABOVE" raw: "ࢲ"
+  to_raw: "ẑ"
+}
+
 # 233-3: z
 # LC-ur, LC-fa, LC-ar: zh
 item {
@@ -957,6 +963,14 @@ item {
   to_raw: "ẍ"
 }
 
+# IPA-wbl: ʂ
+# Wiktionary: č
+# Wiktionary-wbl: ŝ
+item {
+  uname: "SEEN WITH THREE DOTS BELOW AND THREE DOTS ABOVE" raw: "ڜ"
+  to_raw: "ŝ"
+}
+
 # Constructed
 # IPA-ha: tsʼ, sʼ
 # Wiktionary-ha: ts
@@ -1086,6 +1100,13 @@ item {
 item {
   uname: "WAW WITH DOT ABOVE" raw: "ۏ"
   to_raw: "v̇"
+}
+
+# Constructed
+# Wiktionary-sdh: ü
+item {
+  uname: "WAW WITH TWO DOTS ABOVE" raw: "ۊ"
+  to_raw: "v̈"
 }
 
 # IPA-ps: ɪ

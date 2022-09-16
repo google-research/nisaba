@@ -92,19 +92,19 @@ def proto_entries_to_string(uname_prefixes: Sequence[str],
   if raw and not uname:
     return raw
 
-  test_str: str = None
-  if uname and raw:
-    # Use the raw string as a sanity check to compare with the values in uname.
-    test_str = raw
+  raw_ch_names: List[str] = [unicodedata.name(c) for c in raw]
+  try:
+    uname_str, uname_ch_names = _names_to_string(uname_prefixes, uname)
+  except ValueError as ex:
+    if raw_ch_names:
+      raise ValueError(f'Above exception is for raw={raw_ch_names}') from ex
+    else:
+      raise ex
 
-  source_str, char_names = _names_to_string(uname_prefixes, uname)
-
-  if test_str and source_str != test_str:
+  if raw and uname_str != raw:
     # Name lookup may throw ValueError as well.
-    test_names = [unicodedata.name(c) for c in test_str]
-    raise ValueError('`uname` field (%s) mismatch names of the characters '
-                     'in the `raw` field (%s)' % (char_names, test_names))
-  return source_str
+    raise ValueError(f'uname={uname_ch_names} mismatch with raw={raw_ch_names}')
+  return uname_str
 
 
 def convert_item(

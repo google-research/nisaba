@@ -77,16 +77,17 @@ class LetterLanguagesIntegrityTest(absltest.TestCase):
       for code in item.language:
         # The language code should be in ISO 639 format and consists of
         # two letters for ISO 639-1 languages and three letters otherwise.
-        self.assertLess(1, len(code))
-        self.assertGreater(4, len(code))
-        self.assertTrue(code.islower(), f'Line {i}: Language code should be '
-                        'lower-case')
+        self.assertTrue(code, f'Empty language code in item {item}.')
+        self.assertGreater(4, len(code),
+                           f'`{code}` is too long a language code.')
+        self.assertTrue(code.islower(), f'Language code `{code}` should be '
+                        'lower-case.')
         if len(code) == 3:
           lang = pycountry.languages.get(alpha_3=code)
           self.assertTrue(lang, f'Failed to find language for code {code}')
           if hasattr(lang, 'alpha_2'):
             self.fail(f'Letter {i}: Please use two-letter code `{lang.alpha_2}`'
-                      f' instead of `{lang.alpha_3}` for {lang.name}')
+                      f' instead of `{lang.alpha_3}` for {lang.name} ({code})')
         else:
           lang = pycountry.languages.get(alpha_2=code)
           self.assertTrue(lang, f'Failed to find language for code {code}')
