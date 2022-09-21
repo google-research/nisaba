@@ -15,131 +15,83 @@
 """Multilingual phonological operations."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.constants as c
-
-# TODO: Phonological model
-_NASAL = p.union('m', 'n', 'ni', 'ng', 'nn', 'ny', 'nsl')
-
-
-def _rw_ph_context(
-    gr, in_ph, out_ph, post_str=c.EPSILON, pre_str=c.EPSILON) -> p.Fst:
-  """Rewrites the phoneme assigned to a grapheme in context.
-
-  In an alignment (gr=ph_in), changes the assigned phoneme, resulting in
-  (gr=ph_out), based on the context such as post-nasal or word final.
-
-  Following call
-
-  ```
-  _rw_ph_context('ans', 'nsl', 'm', pre_str=labial)
-  ```
-  would return:
-  ```
-  p.cdrewrite(p.cross('(ans=nsl)', '(ans=m)'),
-                      '',
-                      c.L_SIDE + labial + c.PH_END,
-                      c.SIGMA_STAR).optimize()
-  ```
-
-  Args:
-    gr: grapheme, ans in the example
-    in_ph: input phoneme, nsl in the example
-    out_ph: output phoneme, m in the example
-    post_str: preceeding context, eg. if nasal, the rule is post-nasal
-    pre_str: following context, eg. if labial, the rule is pre-labial
-
-  Returns:
-    Rewrite rule FST.
-  """
-
-  in_algn = c.L_BOUND + gr + c.ASSIGN + in_ph + c.R_BOUND
-  out_algn = c.L_BOUND + gr + c.ASSIGN + out_ph + c.R_BOUND
-
-  return p.cdrewrite(p.cross(in_algn, out_algn),
-                     post_str,
-                     pre_str,
-                     c.SIGMA_STAR).optimize()
+import nisaba.scripts.brahmic.natural_translit.grapheme_inventory as gr
+import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
+import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
+import nisaba.scripts.brahmic.natural_translit.util as u
 
 
-def _rw_ph_phoneme(
-    gr, in_ph, out_ph, post_ph=c.EPSILON, pre_ph=c.EPSILON) -> p.Fst:
-  """_rw_ph_context special case, context is defined by phonemes.
-
-  Sample argument is 'ans' instead of c.L_SIDE + ans + c.PH_END
-
-  Args:
-    gr: grapheme, ans in the example
-    in_ph: input phoneme, nsl in the example
-    out_ph: output phoneme, m in the example
-    post_ph: preceeding phoneme, eg. if nasal, the rule is post-nasal
-    pre_ph: following phoneme, eg. if labial, the rule is pre-labial
-
-  Returns:
-    Rewrite rule FST.
-  """
-
-  post_str = c.EPSILON
-  pre_str = c.EPSILON
-  if post_ph is not c.EPSILON:
-    post_str = c.PH_BEGIN + post_ph + c.R_BOUND
-  if pre_ph is not c.EPSILON:
-    pre_str = c.L_SIDE + pre_ph + c.PH_END
-  return _rw_ph_context(gr, in_ph, out_ph, post_str, pre_str)
+# Anusvara place of articulation assimilation functions
 
 
-def _rw_ph_word_final(gr, in_ph, out_ph, post_ph=c.EPSILON) -> p.Fst:
-  """_rw_ph_context special case, preceeding phoneme, following eos."""
-
-  post_str = c.EPSILON
-  if post_ph is not c.EPSILON:
-    post_str = c.PH_BEGIN + post_ph + c.R_BOUND
-  return _rw_ph_context(gr, in_ph, out_ph, post_str, c.EOS)
-
-
-## Anusvara place of articulation assimilation functions
 def _anusvara_assimilation_labial() -> p.Fst:
-  labial = p.union('b', 'm', 'p')
-  return _rw_ph_phoneme('ans', 'nsl', 'm', pre_ph=labial)
+  """Anusvara assimilates to {m} before labials."""
+  return rw.reassign(
+      gr.ANS,
+      ph.NSL,
+      ph.M,
+      following=ph.LABIAL).optimize()
 
 ANUSVARA_ASSIMILATION_LABIAL = _anusvara_assimilation_labial()
 
 
 def _anusvara_assimilation_dental() -> p.Fst:
-  dental = p.union('di', 'ni', 'ti')
-  return _rw_ph_phoneme('ans', 'nsl', 'ni', pre_ph=dental)
+  """Anusvara assimilates to {ni} before dentals."""
+  return rw.reassign(
+      gr.ANS,
+      ph.NSL,
+      ph.NI,
+      following=ph.DENTAL).optimize()
 
 ANUSVARA_ASSIMILATION_DENTAL = _anusvara_assimilation_dental()
 
 
 def _anusvara_assimilation_alveolar() -> p.Fst:
-  alveolar = p.union('t', 'd', 'n')
-  return _rw_ph_phoneme('ans', 'nsl', 'n', pre_ph=alveolar)
+  """Anusvara assimilates to {n} before alveolars."""
+  return rw.reassign(
+      gr.ANS,
+      ph.NSL,
+      ph.N,
+      following=ph.ALVEOLAR).optimize()
 
 ANUSVARA_ASSIMILATION_ALVEOLAR = _anusvara_assimilation_alveolar()
 
 
 def _anusvara_assimilation_palatal() -> p.Fst:
-  palatal = p.union('y', 'ny')
-  return _rw_ph_phoneme('ans', 'nsl', 'ny', pre_ph=palatal)
+  """Anusvara assimilates to {ny} before palatals."""
+  return rw.reassign(
+      gr.ANS,
+      ph.NSL,
+      ph.NY,
+      following=ph.PALATAL).optimize()
 
 ANUSVARA_ASSIMILATION_PALATAL = _anusvara_assimilation_palatal()
 
 
 def _anusvara_assimilation_retroflex() -> p.Fst:
-  retroflex = p.union('dd', 'nn', 'tt')
-  return _rw_ph_phoneme('ans', 'nsl', 'nn', pre_ph=retroflex)
+  """Anusvara assimilates to {nn} before retroflexes."""
+  return rw.reassign(
+      gr.ANS,
+      ph.NSL,
+      ph.NN,
+      following=ph.RETROFLEX).optimize()
 
 ANUSVARA_ASSIMILATION_RETROFLEX = _anusvara_assimilation_retroflex()
 
 
 def _anusvara_assimilation_velar() -> p.Fst:
-  velar = p.union('g', 'ng', 'k')
-  return _rw_ph_phoneme('ans', 'nsl', 'ng', pre_ph=velar)
+  """Anusvara assimilates to {ng} before velars."""
+  return rw.reassign(
+      gr.ANS,
+      ph.NSL,
+      ph.NG,
+      following=ph.VELAR).optimize()
 
 ANUSVARA_ASSIMILATION_VELAR = _anusvara_assimilation_velar()
 
 
 def _anusvara_assimilation() -> p.Fst:
+  """Composes all anusvara place assimilations."""
   return (ANUSVARA_ASSIMILATION_LABIAL @
           ANUSVARA_ASSIMILATION_DENTAL @
           ANUSVARA_ASSIMILATION_ALVEOLAR @
@@ -150,70 +102,71 @@ def _anusvara_assimilation() -> p.Fst:
 ANUSVARA_ASSIMILATION = _anusvara_assimilation()
 
 
-# Unassimilated anusvara defaults to n.
 def _default_anusvara_dental() -> p.Fst:
-  return _rw_ph_phoneme('ans', 'nsl', 'ni')
+  """Unassimilated anusvara defaults to n."""
+  return rw.reassign(gr.ANS, ph.NSL, ph.NI).optimize()
 
 DEFAULT_ANUSVARA_DENTAL = _default_anusvara_dental()
 
 
-# Unassimilated anusvara defaults to m.
 def _default_anusvara_labial() -> p.Fst:
-  return _rw_ph_phoneme('ans', 'nsl', 'm')
+  """Unassimilated anusvara defaults to m."""
+  return rw.reassign(gr.ANS, ph.NSL, ph.M).optimize()
 
 DEFAULT_ANUSVARA_LABIAL = _default_anusvara_labial()
 
 
-# Word final anusvara nasalizes the preceding vowel.
 def _final_anusvara_nasalization() -> p.Fst:
-  return _rw_ph_word_final('ans', _NASAL, 'nsl')
+  """Word final anusvara nasalizes the preceding vowel."""
+  return rw.reassign_word_final(gr.ANS, ph.NASAL, ph.NSL).optimize()
 
 FINAL_ANUSVARA_NASALIZATION = _final_anusvara_nasalization()
 
+VOICING_OP = p.union(
+    p.cross(ph.CH, ph.JH),
+    p.cross(ph.K, ph.G),
+    p.cross(ph.P, ph.B),
+    p.cross(ph.T, ph.D),
+    p.cross(ph.TI, ph.DI),
+    p.cross(ph.TT, ph.DD)).optimize()
 
-def _intersonorant_voicing() -> p.Fst:
-  """Voicing between vowels, approximants, and nasals."""
 
-  vowel = p.union('a', 'a_l', 'ae',
-                  'e', 'e_l',
-                  'i', 'i_l',
-                  'o', 'o_l',
-                  'u', 'u_l')
-  approximant = p.accep('y')
-  sonorant = p.union(vowel, _NASAL, approximant)
-  return _rw_ph_phoneme('t', 'ti', 'di', sonorant, sonorant)
-
-INTERSONORANT_VOICING = _intersonorant_voicing()
+def voicing(
+    preceding: p.FstLike,
+    following: p.FstLike,
+    preceding_modifier: p.FstLike = u.EPSILON,
+    following_modifier: p.FstLike = u.EPSILON) -> p.Fst:
+  """Voicing. See rewrite_by_operation for argument details."""
+  return rw.rewrite_by_operation(
+      VOICING_OP,
+      preceding,
+      following,
+      preceding_modifier,
+      following_modifier).optimize()
 
 
 def _jny_to_gny() -> p.Fst:
   """jny pronounced as gny."""
-
-  return p.cdrewrite(p.cross('(j=jh)(ny=ny)', '(j,ny=g,ny)'),
-                     '',
-                     '',
-                     c.SIGMA_STAR).optimize()
+  return rw.rewrite(
+      u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
+      u.align(gr.J + gr.NY, ph.G + ph.NY)).optimize()
 
 JNY_TO_GNY = _jny_to_gny()
 
 
 def _jny_to_gy() -> p.Fst:
   """jny pronounced as gy."""
-
-  return p.cdrewrite(p.cross('(j=jh)(ny=ny)', '(j,ny=g,y)'),
-                     '',
-                     '',
-                     c.SIGMA_STAR).optimize()
+  return rw.rewrite(
+      u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
+      u.align(gr.J + gr.NY, ph.G + ph.Y)).optimize()
 
 JNY_TO_GY = _jny_to_gy()
 
 
 def _jny_to_ny() -> p.Fst:
   """jny pronounced as ny."""
-
-  return p.cdrewrite(p.cross('(j=jh)(ny=ny)', '(j,ny=ny)'),
-                     '',
-                     '',
-                     c.SIGMA_STAR).optimize()
+  return rw.rewrite(
+      u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
+      u.align(gr.J + gr.NY, ph.NY)).optimize()
 
 JNY_TO_NY = _jny_to_ny()

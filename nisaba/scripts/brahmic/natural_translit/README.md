@@ -1,48 +1,59 @@
 # Natural Transliteration for Brahmic Scripts
 
-## typ representation and iso2typ grammar
-`typ` is an internal, typable representation for ISO characters.
+This collection of [OpenGrm Pynini](http://www.opengrm.org/twiki/bin/view/GRM/Pynini) grammars takes the [ISO 15919](https://en.wikipedia.org/wiki/ISO_15919) transliteration of a Brahmic script that is normalized and converted by the [Nisaba Brahmic library](https://github.com/google-research/nisaba/tree/main/nisaba/nisaba/scripts/brahmic/README.md), and converts it to a Latin transliteration based on language specific pronunciation. For example, the natural transliteration of the same ISO string `apa` would be `ap` in Hindi, and `aba` in Malayalam.
+
+The natural transliteration grammars use internal notations that only contain extended ASCII characters for ease of input. All substrings are enclosed in type specific, asymmetrical boundary marks. `< >` donates a [grapheme](#typ-representation-and-grapheme-inventory), `{ }` donates a [phoneme](#txn-representation-and-phoneme-inventory), and `“ ”` donates a [transliteration](#transliteration-strings-and-transliteration-inventory) substring.
+
+## typ representation and grapheme_inventory
+`typ` is an internal typable representation for ISO characters. `typ` strings are enclosed in less than and greater than signs.
 
 **Examples**
 
-* `ā` -> `aa`
-* `ṭ` -> `tt`
-* `nⸯ` -> `n_chl`
+* `ā` -> `<aa>`
+* `ṭ` -> `<tt>`
+* `nⸯ` -> `<n_chl>`
 
-See [ISO to typ table](#iso-to-typ-mapping) for current symbol coverage.
+[`grapheme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/brahmic/natural_translit/grapheme_inventory.py) is a library that contains the `typ`-ISO mapping and forms the `typ` symbols.
 
-`iso2typ` grammar rewrites an ISO strings as a series of typ characters.
+## iso2typ grammar
+
+`iso2typ` grammar rewrites an ISO string as a series of `typ` characters.
 
 **Example**
 
-* `āṭānⸯ` -> `(aa)(tt)(aa)(n_chl)`
+* `āṭānⸯ` -> `<aa><tt><aa><n_chl>`
 
-## txn representation and typ2txn grammar
+## txn representation and phoneme_inventory
 
-`txn` is an internal, high coverage, typable representation for multilingual
-phoneme inventories.
-
-**Examples**
-
-* `aː` -> `a_l`
-* `ʈ` -> `tt`
-* `n̪` -> `ni`
-
-Nasality and aspiration are featurised for phoneme inventory parsimony, and are represented as `nsl` and `asp` respectively.
+`txn` is an internal, high coverage, typable representation for multilingual phoneme inventories. `txn` strings are enclosed in curly brackets.
 
 **Examples**
 
-* `õː` -> `o_l,nsl`
-* `ᵐb` -> `nsl,b`
-* `bʰ` -> `b,asp`
+* `aː` -> `{a_l}`
+* `ʈ` -> `{tt}`
+* `n̪` -> `{ni}`
 
-See [IPA to txn table](#ipa-to-txn-mapping) for symbols covering the unified South Asian phoneme inventory presented in [Demirsahin et al. (2018)](https://research.google/pubs/pub47341/).
+Nasality and aspiration are featurised for phoneme inventory parsimony, and are represented as `{nsl}` and `{asp}` respectively.
 
-`typ2txn` grammar assigns a naive ortography to phonology mapping. The format is `(<typ_graphemes>=<txn_phonemes>)`.
+**Examples**
+
+* `õː` -> `{o_l}{nsl}`
+* `ᵐb` -> `{nsl}{b}`
+* `bʰ` -> `{b}{asp}`
+
+[`phoneme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/brahmic/natural_translit/phoneme_inventory.py) is a library that contains the `txn`-[IPA](https://www.internationalphoneticassociation.org/content/ipa-chart) mapping and forms the `txn` symbols covering the unified South Asian phoneme inventory presented in [Demirsahin et al. (2018)](https://research.google/pubs/pub47341/).
+
+## typ2txn grammar
+
+`typ2txn` grammar assigns a naive orthography to phonology mapping prior to the phonological operations. The format of an assignment is `(<typ_graphemes>={txn_phonemes})`.
 
 **Example**
 
-* `(aa)(tt)(aa)(n_chl)` -> `(aa=a_l)(tt=tt)(aa=a_l)(n_chl=ni)`
+* `<aa><tt><aa><n_chl>` -> `(<aa>={a_l})(<tt>={tt})(<aa>={a_l})(<n_chl>={ni})`
+
+## Transliteration strings and transliteration_inventory
+
+Transliteration strings are enclosed in double quotation marks. This allows for keeping track of grapheme-transliteration alignments and disambiguates strings like `'ai'` as `'“ai”'` `'“a”“i”'`.
 
 ## phon_ops grammar
 
@@ -50,7 +61,7 @@ See [IPA to txn table](#ipa-to-txn-mapping) for symbols covering the unified Sou
 
 **Example**: Malayalam voicing
 
-* `(aa=a_l)(tt=tt)(aa=a_l)(n_chl=ni)` -> `(aa=a_l)(tt=dd)(aa=a_l)(n_chl=ni)`
+* `(<aa>={a_l})(<tt>={tt})(<aa>={a_l})(<n_chl>={ni})` -> `(<aa>={a_l})(<tt>={dd})(<aa>={a_l})(<n_chl>={ni})`
 
 ## txn2nat grammar
 
@@ -60,176 +71,62 @@ See [IPA to txn table](#ipa-to-txn-mapping) for symbols covering the unified Sou
 
 **Example**
 
-* `(aa=a_l)(tt=dd)(aa=a_l)(n_chl=ni)` -> `aadaan`
+* `(<aa>={a_l})(<tt>={dd})(<aa>={a_l})(<n_chl>={ni})` ->
+
+ `(<aa>=“aa”)(<tt>=“d”)(<aa>=“aa”)(<n_chl>=“n”)` ->
+
+   `aadaan`
 
 *PSAC*: Coarse grained Pan South Asian representation.
 
 **Example**
 
-* `(aa=a_l)(tt=dd)(aa=a_l)(n_chl=ni)` -> `adan`
+* `(<aa>={a_l})(<tt>={dd})(<aa>={a_l})(<n_chl>={ni})` ->
+
+ `(<aa>=“a”)(<tt>=“d”)(<aa>=“a”)(<n_chl>=“n”)` ->
+
+   `aadaan`
 
 *NAT*: Regional natural transliteration.
 
 **Example**
 
-* `(aa=a_l)(tt=dd)(aa=a_l)(n_chl=ni)` -> `aadan`
+* `(<aa>={a_l})(<tt>={dd})(<aa>={a_l})(<n_chl>={ni})` ->
 
-## Tables
+ `(<aa>=“aa”)(<tt>=“d”)(<aa>=“a”)(<n_chl>=“n”)` ->
 
-### ISO to typ mapping
+   `aadaan`
 
-ISO | typ
------- | ------
-`’` | `avg`
-`+` | `zwj`
-`\|` | `zwn`
-`ˑ` | `nkt`
-`a` | `a`
-`ā` | `aa`
-`æ` | `ac`
-`ai` | `ai`
-`au` | `au`
-`b` | `b`
-`bʰ` | `bh`
-`c` | `c`
-`cʰ` | `ch`
-`d` | `d`
-`ḍ` | `dd`
-`dʰ` | `dh`
-`ḍʰ` | `ddh`
-`e` | `e`
-`ê` | `ec`
-`ē` | `ee`
-`f` | `f`
-`g` | `g`
-`ġ` | `gg`
-`gʰ` | `gh`
-`h` | `h`
-`ḥ` | `vis`
-`ḫ` | `upadh`
-`ẖ` | `jihva`
-`i` | `i`
-`ī` | `ii`
-`j` | `j`
-`jʰ` | `jh`
-`k` | `k`
-`kʰ` | `kh`
-`kⸯ` | `k_chl`
-`l` | `l`
-`ḷ` | `ll`
-`l̥` | `l_vocal`
-`l̥̄` | `ll_vocal`
-`ḻ` | `lr`
-`lⸯ` | `l_chl`
-`ḷⸯ` | `ll_chl`
-`m` | `m`
-`ṁ` | `ans`
-`m̐` | `cnd`
-`n` | `n`
-`ñ` | `ny`
-`ṅ` | `ng`
-`ṇ` | `nn`
-`ṉ` | `na`
-`nⸯ` | `n_chl`
-`ṇⸯ` | `nn_chl`
-`o` | `o`
-`ô` | `oc`
-`ō` | `oo`
-`õm` | `om`
-`p` | `p`
-`pʰ` | `ph`
-`q` | `q`
-`r` | `r`
-`r̆` | `reye`
-`ṛ` | `rd`
-`r̥` | `r_vocal`
-`r̥̄` | `rr_vocal`
-`ṟ` | `rr`
-`ṛʰ` | `rdh`
-`rⸯ` | `reph`
-`ṟⸯ` | `rr_chl`
-`s` | `s`
-`ś` | `sh`
-`ṣ` | `ss`
-`t` | `t`
-`ṭ` | `tt`
-`ṯ` | `ta`
-`tʰ` | `th`
-`ṭʰ` | `tth`
-`u` | `u`
-`ū` | `uu`
-`v` | `v`
-`x` | `x`
-`y` | `y`
-`ẏ` | `yy`
-`z` | `z`
+## e2e grammars
 
-### IPA to txn mapping
+These are end-to-end grammars for individual languages.
 
-IPA | txn
------- | ------
-`~ ` | ` nsl`
-`ʰ ` | ` asp`
-`a ` | ` a`
-`aː ` | ` a_l`
-`æ ` | ` ae`
-`æː ` | ` ae_l`
-`e ` | ` e`
-`e̯ ` | ` e_g`
-`eː ` | ` e_l`
-`ə ` | ` @`
-`əː ` | ` @_l`
-`ɛ ` | ` eh`
-`ɛː ` | ` eh_l`
-`i ` | ` i`
-`i̯ ` | ` i_g`
-`iː ` | ` i_l`
-`o ` | ` o`
-`o̯ ` | ` o_g`
-`oː ` | ` o_l`
-`ɔ ` | ` oh`
-`ɔː ` | ` oh_l`
-`u ` | ` u`
-`u̯ ` | ` u_g`
-`uː ` | ` u_l`
-`b ` | ` b`
-`d ` | ` d`
-`d̪ ` | ` di`
-`dz ` | ` dz`
-`dʒ ` | ` jh`
-`ɖ ` | ` dd`
-`f ` | ` f`
-`ɡ ` | ` g`
-`ɣ ` | ` xa`
-`h ` | ` h`
-`j ` | ` y`
-`k ` | ` k`
-`l ` | ` l`
-`ɭ ` | ` ll`
-`m ` | ` m`
-`n ` | ` n`
-`n̪ ` | ` ni`
-`ɲ ` | ` ny`
-`ɳ ` | ` nn`
-`ŋ ` | ` ng`
-`p ` | ` p`
-`q ` | ` q`
-`r ` | ` r`
-`ɻ ` | ` rru`
-`ɽ ` | ` rr`
-`ɾ ` | ` rt`
-`s ` | ` s`
-`ʂ ` | ` ss`
-`ʃ ` | ` sh`
-`t ` | ` t`
-`t̪ ` | ` ti`
-`ts ` | ` ts`
-`tʃ ` | ` ch`
-`ʈ ` | ` tt`
-`ʋ ` | ` vu`
-`x ` | ` x`
-`z ` | ` z`
-`ʒ ` | ` zh`
+**Example**
+
+* `hi_e2e`: End-to-end grammar for Hindi
+
+* `ml_e2e`: End-to-end grammar for Malayalam
+
+End-to-end grammars compose the relevant fsts from grammars and pass arguments to functions where necessary.
+
+**Example**
+
+* `voicing` is a phon_ops function that takes the preceding and following phonological context as arguments. The ml_e2e grammar passes the arguments `ph.VOWEL, ph.NASAL, ph.APPROXIMANT` for the phonological context, so that voicing happens between vowels, nasals, and approximants.
+
+```
+_VOICING = ops.voicing(
+    p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),  # Preceding context
+    p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),  # Following context
+    following_modifier=ph.ASP)  # Modifiers that don't block the operation, such as aspiration.
+```
+
+## util library
+
+This library holds most common constants such as SIGMA_STAR and boundary signs for enclosing different types of strings, as well as basic operations for aligning and assigning strings.
+
+## rewrite_functions library
+
+This library contains common rewrite functions shared across grammars, which modify an alignment dependent on the context.
 
 ## Citing
 

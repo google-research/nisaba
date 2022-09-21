@@ -15,131 +15,97 @@
 """Pan-South Asian natural romanization."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.constants as c
+import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
+import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
+import nisaba.scripts.brahmic.natural_translit.transliteration_inventory as tr
+import nisaba.scripts.brahmic.natural_translit.util as u
 
 
-def _romanize_fine() -> p.Fst:
+def _rewrite_txn_to_psaf() -> p.Fst:
   """Fine-grained Pan South Asian romanization."""
-  romanize_aux = (p.cross('a', 'a') |
-                  p.cross('a_l', 'aa') |
-                  p.cross('ae', 'ae') |
-                  p.cross('b', 'b') |
-                  p.cross('ch', 'ch') |
-                  p.cross('dd', 'd') |
-                  p.cross('di', 'd') |
-                  p.cross('e', 'e') |
-                  p.cross('e_l', 'ee') |
-                  p.cross('f', 'f') |
-                  p.cross('g', 'g') |
-                  p.cross('h', 'h') |
-                  p.cross('i', 'i') |
-                  p.cross('i_l', 'ii') |
-                  p.cross('jh', 'j') |
-                  p.cross('k', 'k') |
-                  p.cross('l', 'l') |
-                  p.cross('ll', 'l') |
-                  p.cross('m', 'm') |
-                  p.cross('n', 'n') |
-                  p.cross('ng', 'ng') |
-                  p.cross('ni', 'n') |
-                  p.cross('nn', 'n') |
-                  p.cross('ny', 'ny') |
-                  p.cross('o', 'o') |
-                  p.cross('o_l', 'oo') |
-                  p.cross('p', 'p') |
-                  p.cross('q', 'k') |
-                  p.cross('r', 'r') |
-                  p.cross('rrt', 'rd') |
-                  p.cross('rru', 'zh') |
-                  p.cross('rt', 'r') |
-                  p.cross('s', 's') |
-                  p.cross('sh', 'sh') |
-                  p.cross('ss', 'sh') |
-                  p.cross('t', 't') |
-                  p.cross('ti', 't') |
-                  p.cross('tt', 't') |
-                  p.cross('u', 'u') |
-                  p.cross('u_l', 'uu') |
-                  p.cross('vu', 'v') |
-                  p.cross('x', 'kh') |
-                  p.cross('xa', 'g') |
-                  p.cross('y', 'y') |
-                  p.cross('z', 'z') |
-                  p.cross('asp', 'h') |
-                  p.cross('nsl', 'n') |
-                  p.cross('sil', ''))
 
-  romanize_first = p.cdrewrite(romanize_aux,
-                               c.ASSIGN,
-                               c.SEP | c.R_BOUND,
-                               c.SIGMA_STAR).optimize()
+  txn_to_psaf = p.union(
+      p.cross(ph.A, tr.A),
+      p.cross(ph.A_L, tr.AA),
+      p.cross(ph.AE, tr.AE),
+      p.cross(ph.B, tr.B),
+      p.cross(ph.CH, tr.CH),
+      p.cross(ph.DD, tr.D),
+      p.cross(ph.DI, tr.D),
+      p.cross(ph.E, tr.E),
+      p.cross(ph.E_L, tr.EE),
+      p.cross(ph.F, tr.F),
+      p.cross(ph.G, tr.G),
+      p.cross(ph.H, tr.H),
+      p.cross(ph.I, tr.I),
+      p.cross(ph.I_L, tr.II),
+      p.cross(ph.JH, tr.J),
+      p.cross(ph.K, tr.K),
+      p.cross(ph.L, tr.L),
+      p.cross(ph.LL, tr.L),
+      p.cross(ph.M, tr.M),
+      p.cross(ph.N, tr.N),
+      p.cross(ph.NG, tr.NG),
+      p.cross(ph.NI, tr.N),
+      p.cross(ph.NN, tr.N),
+      p.cross(ph.NY, tr.NY),
+      p.cross(ph.O, tr.O),
+      p.cross(ph.O_L, tr.OO),
+      p.cross(ph.P, tr.P),
+      p.cross(ph.Q, tr.K),
+      p.cross(ph.R, tr.R),
+      p.cross(ph.RRT, tr.RD),
+      p.cross(ph.RRU, tr.ZH),
+      p.cross(ph.RT, tr.R),
+      p.cross(ph.S, tr.S),
+      p.cross(ph.SH, tr.SH),
+      p.cross(ph.SS, tr.SH),
+      p.cross(ph.T, tr.T),
+      p.cross(ph.TI, tr.T),
+      p.cross(ph.TT, tr.T),
+      p.cross(ph.U, tr.U),
+      p.cross(ph.U_L, tr.UU),
+      p.cross(ph.VU, tr.V),
+      p.cross(ph.X, tr.KH),
+      p.cross(ph.XA, tr.G),
+      p.cross(ph.Y, tr.Y),
+      p.cross(ph.Z, tr.Z),
+      p.cross(ph.ASP, tr.H),
+      p.cross(ph.NSL, tr.N),
+      p.cross(ph.SIL, u.EPSILON),
+      p.cross(ph.SCHWA, tr.A)).optimize()
 
-  romanize_final = p.cdrewrite(romanize_aux,
-                               c.ASSIGN + c.SEQUENCE + c.SEP,
-                               c.SEP | c.R_BOUND,
-                               c.SIGMA_STAR).optimize()
+  return rw.rewrite_by_operation(txn_to_psaf).optimize()
 
-  return (romanize_first @
-          romanize_final).optimize()
-
-_ROMANIZE_FINE = _romanize_fine()
+_REWRITE_TXN_TO_PSAF = _rewrite_txn_to_psaf()
 
 
-def _romanize_coarse() -> p.Fst:
+def _psaf_to_psac() -> p.Fst:
   """Coarse-grained Pan South Asian romanization."""
 
-  coarse_aux = (p.cross('aa', 'a') |
-                p.cross('ee', 'e') |
-                p.cross('ii', 'i') |
-                p.cross('oo', 'o') |
-                p.cross('uu', 'u'))
+  psaf_to_psac = p.union(
+      p.cross(tr.AA, tr.A),
+      p.cross(tr.EE, tr.E),
+      p.cross(tr.II, tr.I),
+      p.cross(tr.OO, tr.O),
+      p.cross(tr.UU, tr.U)).optimize()
 
-  coarse = p.cdrewrite(coarse_aux,
-                       c.ASSIGN,
-                       c.R_BOUND,
-                       c.SIGMA_STAR).optimize()
+  return rw.rewrite_by_operation(psaf_to_psac).optimize()
 
-  return coarse
+_PSAF_TO_PSAC = _psaf_to_psac()
 
-_ROMANIZE_COARSE = _romanize_coarse()
-
-
-def _remove_graphemes() -> p.Fst:
-  """Removes the left side of the assigment."""
-
-  remove_sequence = p.cdrewrite(p.cross(c.SEQUENCE.star, ''),
-                                c.L_BOUND,
-                                c.ASSIGN,
-                                c.SIGMA_STAR).optimize()
-
-  return remove_sequence
-
-
-def _remove_markers() -> p.Fst:
-  """Removes the assigment and boundary markers."""
-
-  signs = c.SEP | c.ASSIGN | c.L_BOUND | c.R_BOUND
-
-  remove_signs = p.cdrewrite(p.cross(signs, ''),
-                             '',
-                             '',
-                             c.SIGMA_STAR).optimize()
-
-  return remove_signs
-
-_REMOVE_FORMATTING = (_remove_graphemes() @ _remove_markers()).optimize()
+_STRIP = (rw.extract_right_side() @ rw.delete(u.TR_BOUND)).optimize()
 
 
 def _txn_to_psaf() -> p.Fst:
-  return (_ROMANIZE_FINE @
-          _REMOVE_FORMATTING).optimize()
+  """Converts txn to PSAF and outputs only translit strings."""
+  return (_REWRITE_TXN_TO_PSAF @ _STRIP).optimize()
 
 TXN_TO_PSAF = _txn_to_psaf()
 
 
 def _txn_to_psac() -> p.Fst:
-  return (_ROMANIZE_FINE @
-          _ROMANIZE_COARSE @
-          _REMOVE_FORMATTING).optimize()
+  """Converts txn to PSAC and outputs only translit strings."""
+  return (_REWRITE_TXN_TO_PSAF @ _PSAF_TO_PSAC @ _STRIP).optimize()
 
 TXN_TO_PSAC = _txn_to_psac()

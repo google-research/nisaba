@@ -23,16 +23,59 @@ package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 licenses(["notice"])
 
 py_library(
-    name = "constants",
-    srcs = ["constants.py"],
-    deps = ["@org_opengrm_pynini//pynini/lib:byte"],
+    name = "util",
+    srcs = ["util.py"],
+    deps = [
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:byte",
+    ],
+)
+
+py_library(
+    name = "grapheme_inventory",
+    srcs = ["grapheme_inventory.py"],
+    deps = [
+        ":util",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "phoneme_inventory",
+    srcs = ["phoneme_inventory.py"],
+    deps = [
+        ":util",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "transliteration_inventory",
+    srcs = ["transliteration_inventory.py"],
+    deps = [
+        ":util",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "rewrite_functions",
+    srcs = ["rewrite_functions.py"],
+    deps = [
+        ":grapheme_inventory",
+        ":phoneme_inventory",
+        ":transliteration_inventory",
+        ":util",
+        "@org_opengrm_pynini//pynini",
+    ],
 )
 
 py_library(
     name = "iso2typ",
     srcs = ["iso2typ.py"],
     deps = [
-        ":constants",
+        ":grapheme_inventory",
+        ":util",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -43,6 +86,7 @@ py_test(
     main = "iso2typ_test.py",
     deps = [
         ":iso2typ",
+        ":rewrite_functions",
         "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
     ],
@@ -52,7 +96,9 @@ py_library(
     name = "typ2txn",
     srcs = ["typ2txn.py"],
     deps = [
-        ":constants",
+        ":grapheme_inventory",
+        ":phoneme_inventory",
+        ":util",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -72,7 +118,10 @@ py_library(
     name = "phon_ops",
     srcs = ["phon_ops.py"],
     deps = [
-        ":constants",
+        ":grapheme_inventory",
+        ":phoneme_inventory",
+        ":rewrite_functions",
+        ":util",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -92,7 +141,10 @@ py_library(
     name = "txn2nat",
     srcs = ["txn2nat.py"],
     deps = [
-        ":constants",
+        ":phoneme_inventory",
+        ":rewrite_functions",
+        ":transliteration_inventory",
+        ":util",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -196,6 +248,7 @@ nisaba_compile_multi_grm_py(
     deps = [
         ":iso2typ",
         ":phon_ops",
+        ":phoneme_inventory",
         ":txn2nat",
         ":typ2txn",
         "@org_opengrm_pynini//pynini",

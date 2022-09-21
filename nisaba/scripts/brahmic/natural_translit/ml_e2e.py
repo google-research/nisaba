@@ -17,26 +17,35 @@
 
 import pynini as p
 from pynini.export import multi_grm
-
 import nisaba.scripts.brahmic.natural_translit.iso2typ as iso
 import nisaba.scripts.brahmic.natural_translit.phon_ops as ops
+import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
 import nisaba.scripts.brahmic.natural_translit.txn2nat as txn
 import nisaba.scripts.brahmic.natural_translit.typ2txn as typ
 
 
-def _iso_to_txn():
+_VOICING = ops.voicing(
+    p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),
+    p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),
+    following_modifier=ph.ASP)
+
+
+def _iso_to_txn() -> p.Fst:
+  """Composes the fsts from ISO characters to final txn pronunciation."""
   return (iso.iso_to_typ() @
           typ.TYP_TO_TXN @
           ops.DEFAULT_ANUSVARA_LABIAL @
-          ops.INTERSONORANT_VOICING @
+          _VOICING @
           ops.JNY_TO_NY).optimize()
 
 
 def iso_to_psaf() -> p.Fst:
+  """Pan-South Asian fine grained transliteration."""
   return (_iso_to_txn() @ txn.TXN_TO_PSAF).optimize()
 
 
 def iso_to_psac() -> p.Fst:
+  """Pan-South Asian coarse grained transliteration."""
   return (_iso_to_txn() @ txn.TXN_TO_PSAC).optimize()
 
 

@@ -15,86 +15,93 @@
 """ISO to typeable string conversion."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.constants as c
+import nisaba.scripts.brahmic.natural_translit.grapheme_inventory as gr
+import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
 
 
 def _iso_to_decomposed_typ() -> p.Fst:
   """ISO to typable fst."""
 
-  iso_to_typ_vowel = (p.cross('a', '(a)') |
-                      p.cross('ā', '(aa)') |
-                      p.cross('æ', '(ac)') |
-                      p.cross('e', '(e)') |
-                      p.cross('ē', '(ee)') |
-                      p.cross('ê', '(ec)') |
-                      p.cross('i', '(i)') |
-                      p.cross('ī', '(ii)') |
-                      p.cross('o', '(o)') |
-                      p.cross('ō', '(oo)') |
-                      p.cross('ô', '(oc)') |
-                      p.cross('õ', '(ot)') |
-                      p.cross('u', '(u)') |
-                      p.cross('ū', '(uu)'))
+  iso_to_typ_vowel = p.union(
+      p.cross(gr.A_ISO, gr.A),
+      p.cross(gr.AA_ISO, gr.AA),
+      p.cross(gr.AC_ISO, gr.AC),
+      p.cross(gr.E_ISO, gr.E),
+      p.cross(gr.EE_ISO, gr.EE),
+      p.cross(gr.EC_ISO, gr.EC),
+      p.cross(gr.I_ISO, gr.I),
+      p.cross(gr.II_ISO, gr.II),
+      p.cross(gr.O_ISO, gr.O),
+      p.cross(gr.OO_ISO, gr.OO),
+      p.cross(gr.OC_ISO, gr.OC),
+      p.cross(gr.OT_ISO, gr.OT),
+      p.cross(gr.U_ISO, gr.U),
+      p.cross(gr.UU_ISO, gr.UU)).optimize()
 
-  iso_to_typ_consonant = (p.cross('b', '(b)') |
-                          p.cross('c', '(c)') |
-                          p.cross('d', '(d)') |
-                          p.cross('ḍ', '(dd)') |
-                          p.cross('f', '(f)') |
-                          p.cross('g', '(g)') |
-                          p.cross('ġ', '(gg)') |
-                          p.cross('h', '(h)') |
-                          p.cross('j', '(j)') |
-                          p.cross('k', '(k)') |
-                          p.cross('l', '(l)') |
-                          p.cross('ḷ', '(ll)') |
-                          p.cross('ḻ', '(lr)') |
-                          p.cross('m', '(m)') |
-                          p.cross('n', '(n)') |
-                          p.cross('ñ', '(ny)') |
-                          p.cross('ṅ', '(ng)') |
-                          p.cross('ṇ', '(nn)') |
-                          p.cross('ṉ', '(na)') |
-                          p.cross('p', '(p)') |
-                          p.cross('q', '(q)') |
-                          p.cross('r', '(r)') |
-                          p.cross('ṛ', '(rd)') |
-                          p.cross('ṟ', '(rr)') |
-                          p.cross('s', '(s)') |
-                          p.cross('ś', '(sh)') |
-                          p.cross('ṣ', '(ss)') |
-                          p.cross('t', '(t)') |
-                          p.cross('ṭ', '(tt)') |
-                          p.cross('ṯ', '(ta)') |
-                          p.cross('v', '(v)') |
-                          p.cross('x', '(x)') |
-                          p.cross('y', '(y)') |
-                          p.cross('ẏ', '(yy)') |
-                          p.cross('z', '(z)'))
+  iso_to_typ_consonant = p.union(
+      p.cross(gr.B_ISO, gr.B),
+      p.cross(gr.C_ISO, gr.C),
+      p.cross(gr.D_ISO, gr.D),
+      p.cross(gr.DD_ISO, gr.DD),
+      p.cross(gr.F_ISO, gr.F),
+      p.cross(gr.G_ISO, gr.G),
+      p.cross(gr.GG_ISO, gr.GG),
+      p.cross(gr.H_ISO, gr.H),
+      p.cross(gr.J_ISO, gr.J),
+      p.cross(gr.K_ISO, gr.K),
+      p.cross(gr.L_ISO, gr.L),
+      p.cross(gr.LL_ISO, gr.LL),
+      p.cross(gr.LR_ISO, gr.LR),
+      p.cross(gr.M_ISO, gr.M),
+      p.cross(gr.N_ISO, gr.N),
+      p.cross(gr.NY_ISO, gr.NY),
+      p.cross(gr.NG_ISO, gr.NG),
+      p.cross(gr.NN_ISO, gr.NN),
+      p.cross(gr.NA_ISO, gr.NA),
+      p.cross(gr.P_ISO, gr.P),
+      p.cross(gr.Q_ISO, gr.Q),
+      p.cross(gr.R_ISO, gr.R),
+      p.cross(gr.RD_ISO, gr.RD),
+      p.cross(gr.RR_ISO, gr.RR),
+      p.cross(gr.S_ISO, gr.S),
+      p.cross(gr.SH_ISO, gr.SH),
+      p.cross(gr.SS_ISO, gr.SS),
+      p.cross(gr.T_ISO, gr.T),
+      p.cross(gr.TT_ISO, gr.TT),
+      p.cross(gr.TA_ISO, gr.TA),
+      p.cross(gr.V_ISO, gr.V),
+      p.cross(gr.X_ISO, gr.X),
+      p.cross(gr.Y_ISO, gr.Y),
+      p.cross(gr.YY_ISO, gr.YY),
+      p.cross(gr.Z_ISO, gr.Z)).optimize()
 
-  iso_to_typ_coda = (p.cross('’', '(avg)') |  # avagraha
-                     p.cross('ˑ', '(nkt)') |  # nukta
-                     p.cross('ḥ', '(vis)') |  # visarga
-                     p.cross('ṁ', '(ans)') |  # anusvara
-                     p.cross('̐', '(candra)') |  # candrabindu
-                     p.cross('ḫ', '(upadh)') |  # upadhmaniya
-                     p.cross('ẖ', '(jihva)'))  # jihvamuliya
+  iso_to_typ_coda = p.union(
+      p.cross(gr.AVG_ISO, gr.AVG),
+      p.cross(gr.NKT_ISO, gr.NKT),
+      p.cross(gr.VIS_ISO, gr.VIS),
+      p.cross(gr.ANS_ISO, gr.ANS),
+      p.cross(gr.CND_DIA_ISO, gr.CND_DIA),
+      p.cross(gr.UPADH_ISO, gr.UPADH),
+      p.cross(gr.JIHVA_ISO, gr.JIHVA)).optimize()
 
-  iso_to_typ_modifier = (p.cross('ʰ', '(asp)') |  # aspiration
-                         p.cross('̥', '(vocal)') |  # vocalic
-                         p.cross('̄', '(long)') |
-                         p.cross('ⸯ', '(chl)') |  # chillu
-                         p.cross('̆', '(eye)'))  # eyelash
+  iso_to_typ_modifier = p.union(
+      p.cross(gr.ASP_ISO, gr.ASP),
+      p.cross(gr.VCL_ISO, gr.VCL),
+      p.cross(gr.LONG_ISO, gr.LONG),
+      p.cross(gr.CHL_ISO, gr.CHL),
+      p.cross(gr.EYE_ISO, gr.EYE)).optimize()
 
-  iso_to_typ_symbol = (p.cross('.', '(ind)') |  # independent vowel
-                       p.cross('+', '(zwj)') |  # zero width joiner
-                       p.cross('|', '(zwn)'))  # zero width non-joiner
+  iso_to_typ_symbol = p.union(
+      p.cross(gr.IND_ISO, gr.IND),
+      p.cross(gr.ZWJ_ISO, gr.ZWJ),
+      p.cross(gr.ZWN_ISO, gr.ZWN)).optimize()
 
-  iso_to_decomposed_typ_aux = (iso_to_typ_vowel |
-                               iso_to_typ_consonant |
-                               iso_to_typ_coda |
-                               iso_to_typ_modifier |
-                               iso_to_typ_symbol)
+  iso_to_decomposed_typ_aux = p.union(
+      iso_to_typ_vowel,
+      iso_to_typ_consonant,
+      iso_to_typ_coda,
+      iso_to_typ_modifier,
+      iso_to_typ_symbol).optimize()
 
   return iso_to_decomposed_typ_aux.star.optimize()
 
@@ -104,83 +111,80 @@ ISO_TO_TYP_DECOMPOSED = _iso_to_decomposed_typ()
 def _composed_typ() -> p.Fst:
   """Maps multiple ISO characters to single native characters."""
 
-  compose_diphthong_aux = (p.cross('(a)(i)', '(ai)') |
-                           p.cross('(a)(u)', '(au)'))
+  diphthong_aux = p.union(
+      p.cross(gr.A + gr.I, gr.AI),
+      p.cross(gr.A + gr.U, gr.AU)).optimize()
 
-  compose_diphthong = p.cdrewrite(compose_diphthong_aux,
-                                  '', '', c.SIGMA_STAR).optimize()
+  compose_diphthong = rw.rewrite_by_operation(diphthong_aux)
 
-  compose_vocalic_aux = (p.cross('(l)(vocal)', '(l_vocal)') |
-                         p.cross('(r)(vocal)', '(r_vocal)'))
+  vocalic_aux = p.union(
+      p.cross(gr.L + gr.VCL, gr.L_VCL),
+      p.cross(gr.R + gr.VCL, gr.R_VCL)).optimize()
 
-  compose_vocalic = p.cdrewrite(compose_vocalic_aux,
-                                '', '', c.SIGMA_STAR).optimize()
+  compose_vocalic = rw.rewrite_by_operation(vocalic_aux)
 
-  compose_retroflex_vocalic_aux = (p.cross('(l_vocal)(long)', '(ll_vocal)') |
-                                   p.cross('(r_vocal)(long)', '(rr_vocal)'))
+  retroflex_vocalic_aux = p.union(
+      p.cross(gr.L_VCL + gr.LONG, gr.LL_VCL),
+      p.cross(gr.R_VCL + gr.LONG, gr.RR_VCL)).optimize()
 
-  compose_retroflex_vocalic = p.cdrewrite(compose_retroflex_vocalic_aux,
-                                          '', '', c.SIGMA_STAR).optimize()
+  compose_retroflex_vocalic = rw.rewrite_by_operation(retroflex_vocalic_aux)
 
-  compose_ind_vowel_aux = (p.cross('(ind)(a)', '(a_i)') |
-                           p.cross('(ind)(aa)', '(aa_i)') |
-                           p.cross('(ind)(ac)', '(ac_i)') |
-                           p.cross('(ind)(e)', '(e_i)') |
-                           p.cross('(ind)(ee)', '(ee_i)') |
-                           p.cross('(ind)(ec)', '(ec_i)') |
-                           p.cross('(ind)(i)', '(i_i)') |
-                           p.cross('(ind)(ii)', '(ii_i)') |
-                           p.cross('(ind)(o)', '(o_i)') |
-                           p.cross('(ind)(oo)', '(oo_i)') |
-                           p.cross('(ind)(oc)', '(oc_i)') |
-                           p.cross('(ind)(u)', '(u_i)') |
-                           p.cross('(ind)(uu)', '(uu_i)') |
-                           p.cross('(ind)(ai)', '(ai_i)') |
-                           p.cross('(ind)(au)', '(au_i)') |
-                           p.cross('(ind)(l_vocal)', '(l_vocal_i)') |
-                           p.cross('(ind)(ll_vocal)', '(ll_vocal_i)') |
-                           p.cross('(ind)(r_vocal)', '(r_vocal_i)') |
-                           p.cross('(ind)(rr_vocal)', '(rr_vocal_i)'))
+  ind_vowel_aux = p.union(
+      p.cross(gr.IND + gr.A, gr.A_I),
+      p.cross(gr.IND + gr.AA, gr.AA_I),
+      p.cross(gr.IND + gr.AC, gr.AC_I),
+      p.cross(gr.IND + gr.E, gr.E_I),
+      p.cross(gr.IND + gr.EE, gr.EE_I),
+      p.cross(gr.IND + gr.EC, gr.EC_I),
+      p.cross(gr.IND + gr.I, gr.I_I),
+      p.cross(gr.IND + gr.II, gr.II_I),
+      p.cross(gr.IND + gr.O, gr.O_I),
+      p.cross(gr.IND + gr.OO, gr.OO_I),
+      p.cross(gr.IND + gr.OC, gr.OC_I),
+      p.cross(gr.IND + gr.U, gr.U_I),
+      p.cross(gr.IND + gr.UU, gr.UU_I),
+      p.cross(gr.IND + gr.AI, gr.AI_I),
+      p.cross(gr.IND + gr.AU, gr.AU_I),
+      p.cross(gr.IND + gr.L_VCL, gr.L_VCL_I),
+      p.cross(gr.IND + gr.LL_VCL, gr.LL_VCL_I),
+      p.cross(gr.IND + gr.R_VCL, gr.R_VCL_I),
+      p.cross(gr.IND + gr.RR_VCL, gr.RR_VCL_I)).optimize()
 
-  compose_ind_vowel = p.cdrewrite(compose_ind_vowel_aux,
-                                  '', '', c.SIGMA_STAR).optimize()
+  compose_ind_vowel = rw.rewrite_by_operation(ind_vowel_aux)
 
-  compose_aspiration_aux = (p.cross('(b)(asp)', '(bh)') |
-                            p.cross('(c)(asp)', '(ch)') |
-                            p.cross('(d)(asp)', '(dh)') |
-                            p.cross('(dd)(asp)', '(ddh)') |
-                            p.cross('(g)(asp)', '(gh)') |
-                            p.cross('(j)(asp)', '(jh)') |
-                            p.cross('(k)(asp)', '(kh)') |
-                            p.cross('(p)(asp)', '(ph)') |
-                            p.cross('(rd)(asp)', '(rdh)') |
-                            p.cross('(t)(asp)', '(th)') |
-                            p.cross('(tt)(asp)', '(tth)'))
+  aspiration_aux = p.union(
+      p.cross(gr.B + gr.ASP, gr.BH),
+      p.cross(gr.C + gr.ASP, gr.CH),
+      p.cross(gr.D + gr.ASP, gr.DH),
+      p.cross(gr.DD + gr.ASP, gr.DDH),
+      p.cross(gr.G + gr.ASP, gr.GH),
+      p.cross(gr.J + gr.ASP, gr.JH),
+      p.cross(gr.K + gr.ASP, gr.KH),
+      p.cross(gr.P + gr.ASP, gr.PH),
+      p.cross(gr.RD + gr.ASP, gr.RDH),
+      p.cross(gr.T + gr.ASP, gr.TH),
+      p.cross(gr.TT + gr.ASP, gr.TTH)).optimize()
 
-  compose_aspiration = p.cdrewrite(compose_aspiration_aux,
-                                   '', '', c.SIGMA_STAR).optimize()
+  compose_aspiration = rw.rewrite_by_operation(aspiration_aux)
 
-  compose_candra = p.cdrewrite(p.cross('(m)(candra)', '(cnd)'),
-                               '', '', c.SIGMA_STAR).optimize()
+  compose_candra = rw.rewrite(gr.M + gr.CND_DIA, gr.CND)
 
   # Malayalam chillu characters
-  compose_chillu_aux = (p.cross('(k)(chl)', '(k_chl)') |
-                        p.cross('(l)(chl)', '(l_chl)') |
-                        p.cross('(ll)(chl)', '(ll_chl)') |
-                        p.cross('(n)(chl)', '(n_chl)') |
-                        p.cross('(nn)(chl)', '(nn_chl)') |
-                        p.cross('(rr)(chl)', '(rr_chl)') |
-                        p.cross('(r)(chl)', '(reph)'))
+  chillu_aux = p.union(
+      p.cross(gr.K + gr.CHL, gr.K_CHL),
+      p.cross(gr.L + gr.CHL, gr.L_CHL),
+      p.cross(gr.LL + gr.CHL, gr.LL_CHL),
+      p.cross(gr.N + gr.CHL, gr.N_CHL),
+      p.cross(gr.NN + gr.CHL, gr.NN_CHL),
+      p.cross(gr.RR + gr.CHL, gr.RR_CHL),
+      p.cross(gr.R + gr.CHL, gr.REPH)).optimize()
 
-  compose_chillu = p.cdrewrite(compose_chillu_aux,
-                               '', '', c.SIGMA_STAR).optimize()
+  compose_chillu = rw.rewrite_by_operation(chillu_aux)
 
   # Marathi eyelash ra
-  compose_eyelash = p.cdrewrite(p.cross('(r)(eye)', '(reye)'),
-                                '', '', c.SIGMA_STAR).optimize()
+  compose_eyelash = rw.rewrite(gr.R + gr.EYE, gr.R_EYE)
 
-  compose_om = p.cdrewrite(p.cross('(ot)(m)', '(om)'),
-                           '', '', c.SIGMA_STAR).optimize()
+  compose_om = rw.rewrite(gr.OT + gr.M, gr.OM)
 
   return (compose_diphthong @
           compose_vocalic @
@@ -193,7 +197,6 @@ def _composed_typ() -> p.Fst:
           compose_om).optimize()
 
 
-# TODO: Convert to constant
 def iso_to_typ() -> p.Fst:
   return (_iso_to_decomposed_typ() @ _composed_typ()).optimize()
 
