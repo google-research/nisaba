@@ -75,6 +75,7 @@ py_library(
     srcs = ["iso2typ.py"],
     deps = [
         ":grapheme_inventory",
+        ":rewrite_functions",
         ":util",
         "@org_opengrm_pynini//pynini",
     ],
@@ -86,7 +87,6 @@ py_test(
     main = "iso2typ_test.py",
     deps = [
         ":iso2typ",
-        ":rewrite_functions",
         "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
     ],

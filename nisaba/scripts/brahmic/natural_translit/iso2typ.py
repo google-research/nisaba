@@ -96,108 +96,101 @@ def _iso_to_decomposed_typ() -> p.Fst:
       p.cross(gr.ZWJ_ISO, gr.ZWJ),
       p.cross(gr.ZWN_ISO, gr.ZWN)).optimize()
 
-  iso_to_decomposed_typ_aux = p.union(
+  return p.union(
       iso_to_typ_vowel,
       iso_to_typ_consonant,
       iso_to_typ_coda,
       iso_to_typ_modifier,
-      iso_to_typ_symbol).optimize()
+      iso_to_typ_symbol).star.optimize()
 
-  return iso_to_decomposed_typ_aux.star.optimize()
+# Compose multiple ISO characters to single native characters.
 
-ISO_TO_TYP_DECOMPOSED = _iso_to_decomposed_typ()
+_COMPOSE_DIPHTHONG_OP = p.union(
+    p.cross(gr.A + gr.I, gr.AI),
+    p.cross(gr.A + gr.U, gr.AU)).optimize()
 
+_COMPOSE_DIPHTHONG = rw.rewrite_by_operation(_COMPOSE_DIPHTHONG_OP).optimize()
 
-def _composed_typ() -> p.Fst:
-  """Maps multiple ISO characters to single native characters."""
+_COMPOSE_VOCALIC_OP = p.union(
+    p.cross(gr.L + gr.VCL, gr.L_VCL),
+    p.cross(gr.R + gr.VCL, gr.R_VCL)).optimize()
 
-  diphthong_aux = p.union(
-      p.cross(gr.A + gr.I, gr.AI),
-      p.cross(gr.A + gr.U, gr.AU)).optimize()
+_COMPOSE_VOCALIC = rw.rewrite_by_operation(_COMPOSE_VOCALIC_OP).optimize()
 
-  compose_diphthong = rw.rewrite_by_operation(diphthong_aux)
+_COMPOSE_RETROFLEX_OP = p.union(
+    p.cross(gr.L_VCL + gr.LONG, gr.LL_VCL),
+    p.cross(gr.R_VCL + gr.LONG, gr.RR_VCL)).optimize()
 
-  vocalic_aux = p.union(
-      p.cross(gr.L + gr.VCL, gr.L_VCL),
-      p.cross(gr.R + gr.VCL, gr.R_VCL)).optimize()
+_COMPOSE_RETROFLEX = rw.rewrite_by_operation(_COMPOSE_RETROFLEX_OP).optimize()
 
-  compose_vocalic = rw.rewrite_by_operation(vocalic_aux)
+_COMPOSE_IND_VOWEL_OP = p.union(
+    p.cross(gr.IND + gr.A, gr.A_I),
+    p.cross(gr.IND + gr.AA, gr.AA_I),
+    p.cross(gr.IND + gr.AC, gr.AC_I),
+    p.cross(gr.IND + gr.E, gr.E_I),
+    p.cross(gr.IND + gr.EE, gr.EE_I),
+    p.cross(gr.IND + gr.EC, gr.EC_I),
+    p.cross(gr.IND + gr.I, gr.I_I),
+    p.cross(gr.IND + gr.II, gr.II_I),
+    p.cross(gr.IND + gr.O, gr.O_I),
+    p.cross(gr.IND + gr.OO, gr.OO_I),
+    p.cross(gr.IND + gr.OC, gr.OC_I),
+    p.cross(gr.IND + gr.U, gr.U_I),
+    p.cross(gr.IND + gr.UU, gr.UU_I),
+    p.cross(gr.IND + gr.AI, gr.AI_I),
+    p.cross(gr.IND + gr.AU, gr.AU_I),
+    p.cross(gr.IND + gr.L_VCL, gr.L_VCL_I),
+    p.cross(gr.IND + gr.LL_VCL, gr.LL_VCL_I),
+    p.cross(gr.IND + gr.R_VCL, gr.R_VCL_I),
+    p.cross(gr.IND + gr.RR_VCL, gr.RR_VCL_I)).optimize()
 
-  retroflex_vocalic_aux = p.union(
-      p.cross(gr.L_VCL + gr.LONG, gr.LL_VCL),
-      p.cross(gr.R_VCL + gr.LONG, gr.RR_VCL)).optimize()
+_COMPOSE_IND_VOWEL = rw.rewrite_by_operation(_COMPOSE_IND_VOWEL_OP).optimize()
 
-  compose_retroflex_vocalic = rw.rewrite_by_operation(retroflex_vocalic_aux)
+_COMPOSE_ASPIRATION_OP = p.union(
+    p.cross(gr.B + gr.ASP, gr.BH),
+    p.cross(gr.C + gr.ASP, gr.CH),
+    p.cross(gr.D + gr.ASP, gr.DH),
+    p.cross(gr.DD + gr.ASP, gr.DDH),
+    p.cross(gr.G + gr.ASP, gr.GH),
+    p.cross(gr.J + gr.ASP, gr.JH),
+    p.cross(gr.K + gr.ASP, gr.KH),
+    p.cross(gr.P + gr.ASP, gr.PH),
+    p.cross(gr.RD + gr.ASP, gr.RDH),
+    p.cross(gr.T + gr.ASP, gr.TH),
+    p.cross(gr.TT + gr.ASP, gr.TTH)).optimize()
 
-  ind_vowel_aux = p.union(
-      p.cross(gr.IND + gr.A, gr.A_I),
-      p.cross(gr.IND + gr.AA, gr.AA_I),
-      p.cross(gr.IND + gr.AC, gr.AC_I),
-      p.cross(gr.IND + gr.E, gr.E_I),
-      p.cross(gr.IND + gr.EE, gr.EE_I),
-      p.cross(gr.IND + gr.EC, gr.EC_I),
-      p.cross(gr.IND + gr.I, gr.I_I),
-      p.cross(gr.IND + gr.II, gr.II_I),
-      p.cross(gr.IND + gr.O, gr.O_I),
-      p.cross(gr.IND + gr.OO, gr.OO_I),
-      p.cross(gr.IND + gr.OC, gr.OC_I),
-      p.cross(gr.IND + gr.U, gr.U_I),
-      p.cross(gr.IND + gr.UU, gr.UU_I),
-      p.cross(gr.IND + gr.AI, gr.AI_I),
-      p.cross(gr.IND + gr.AU, gr.AU_I),
-      p.cross(gr.IND + gr.L_VCL, gr.L_VCL_I),
-      p.cross(gr.IND + gr.LL_VCL, gr.LL_VCL_I),
-      p.cross(gr.IND + gr.R_VCL, gr.R_VCL_I),
-      p.cross(gr.IND + gr.RR_VCL, gr.RR_VCL_I)).optimize()
+_COMPOSE_ASPIRATION = rw.rewrite_by_operation(_COMPOSE_ASPIRATION_OP).optimize()
 
-  compose_ind_vowel = rw.rewrite_by_operation(ind_vowel_aux)
+_COMPOSE_CANDRA = rw.rewrite(gr.M + gr.CND_DIA, gr.CND).optimize()
 
-  aspiration_aux = p.union(
-      p.cross(gr.B + gr.ASP, gr.BH),
-      p.cross(gr.C + gr.ASP, gr.CH),
-      p.cross(gr.D + gr.ASP, gr.DH),
-      p.cross(gr.DD + gr.ASP, gr.DDH),
-      p.cross(gr.G + gr.ASP, gr.GH),
-      p.cross(gr.J + gr.ASP, gr.JH),
-      p.cross(gr.K + gr.ASP, gr.KH),
-      p.cross(gr.P + gr.ASP, gr.PH),
-      p.cross(gr.RD + gr.ASP, gr.RDH),
-      p.cross(gr.T + gr.ASP, gr.TH),
-      p.cross(gr.TT + gr.ASP, gr.TTH)).optimize()
+# Malayalam chillu characters
+_COMPOSE_CHILLU_OP = p.union(
+    p.cross(gr.K + gr.CHL, gr.K_CHL),
+    p.cross(gr.L + gr.CHL, gr.L_CHL),
+    p.cross(gr.LL + gr.CHL, gr.LL_CHL),
+    p.cross(gr.N + gr.CHL, gr.N_CHL),
+    p.cross(gr.NN + gr.CHL, gr.NN_CHL),
+    p.cross(gr.RR + gr.CHL, gr.RR_CHL),
+    p.cross(gr.R + gr.CHL, gr.REPH)).optimize()
 
-  compose_aspiration = rw.rewrite_by_operation(aspiration_aux)
+_COMPOSE_CHILLU = rw.rewrite_by_operation(_COMPOSE_CHILLU_OP).optimize()
 
-  compose_candra = rw.rewrite(gr.M + gr.CND_DIA, gr.CND)
+# Marathi eyelash ra
+_COMPOSE_EYELASH = rw.rewrite(gr.R + gr.EYE, gr.R_EYE).optimize()
 
-  # Malayalam chillu characters
-  chillu_aux = p.union(
-      p.cross(gr.K + gr.CHL, gr.K_CHL),
-      p.cross(gr.L + gr.CHL, gr.L_CHL),
-      p.cross(gr.LL + gr.CHL, gr.LL_CHL),
-      p.cross(gr.N + gr.CHL, gr.N_CHL),
-      p.cross(gr.NN + gr.CHL, gr.NN_CHL),
-      p.cross(gr.RR + gr.CHL, gr.RR_CHL),
-      p.cross(gr.R + gr.CHL, gr.REPH)).optimize()
+_COMPOSE_OM = rw.rewrite(gr.OT + gr.M, gr.OM).optimize()
 
-  compose_chillu = rw.rewrite_by_operation(chillu_aux)
-
-  # Marathi eyelash ra
-  compose_eyelash = rw.rewrite(gr.R + gr.EYE, gr.R_EYE)
-
-  compose_om = rw.rewrite(gr.OT + gr.M, gr.OM)
-
-  return (compose_diphthong @
-          compose_vocalic @
-          compose_retroflex_vocalic @
-          compose_ind_vowel @
-          compose_aspiration @
-          compose_candra @
-          compose_chillu @
-          compose_eyelash @
-          compose_om).optimize()
+_COMPOSE_TYP = (
+    _COMPOSE_DIPHTHONG @
+    _COMPOSE_VOCALIC @
+    _COMPOSE_RETROFLEX @
+    _COMPOSE_IND_VOWEL @
+    _COMPOSE_ASPIRATION @
+    _COMPOSE_CANDRA @
+    _COMPOSE_CHILLU @
+    _COMPOSE_EYELASH @
+    _COMPOSE_OM).optimize()
 
 
 def iso_to_typ() -> p.Fst:
-  return (_iso_to_decomposed_typ() @ _composed_typ()).optimize()
-
-ISO_TO_TYP = iso_to_typ()
+  return (_iso_to_decomposed_typ() @ _COMPOSE_TYP).optimize()

@@ -89,12 +89,6 @@ _TEST_CASES = [
         ('intya', '<i><n><t><y><a>'),
         ('inⸯḍya', '<i><n><chl><dd><y><a>'),
     ]),
-    (iso2typ._composed_typ, [
-        ('<a><i>', '<ai>'),
-        ('<a><u>', '<au>'),
-        ('<ind><a>', '<a_i>'),
-        ('<ind><aa>', '<aa_i>'),
-    ]),
     (iso2typ.iso_to_typ, [
         ('ai', '<ai>'),
         ('au', '<au>'),
