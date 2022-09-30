@@ -18,7 +18,7 @@ To try for Urdu:
 
 ```shell
 ABJAD_ALPHABET_DIR=nisaba/scripts/abjad_alphabet
-bazel build -c opt @org_opengrm_thrax//:rewrite-tester \
+bazel build -c opt nlp/grm/language:rewrite-tester \
   ${ABJAD_ALPHABET_DIR}:reversible_roman
 
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \

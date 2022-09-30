@@ -17,7 +17,7 @@ r"""Grammar for visual norm of major Brahmic script texts.
 To try each rule:
 
 ```sh
-bazel build -c opt @org_opengrm_thrax//:rewrite-tester \
+bazel build -c opt nlp/grm/language:rewrite-tester \
                    nisaba/scripts/brahmic:visual_norm
 
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \
