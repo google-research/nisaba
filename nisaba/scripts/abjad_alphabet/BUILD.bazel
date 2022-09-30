@@ -18,6 +18,7 @@ load(
     "//nisaba/scripts/utils:grammars.bzl",
     "nisaba_compile_grm_py",
     "nisaba_compile_multi_grm_py",
+    "nisaba_compile_script_lang_multi_grm_py",
     "nisaba_grm_regression_test",
 )
 
@@ -43,6 +44,8 @@ LANGS = [
     "ur",
     "uz",
 ]
+
+NORM_SCRIPT_LANGS = [("Arab", lang) for lang in LANGS]
 
 nisaba_compile_grm_py(
     name = "reversible_roman",
@@ -95,89 +98,43 @@ nisaba_grm_regression_test(
     token_type = "utf8",
 )
 
-nisaba_compile_multi_grm_py(
+nisaba_compile_script_lang_multi_grm_py(
     name = "visual_norm",
-    outs = {
-        "byte": "visual_norm.far",
-        "utf8": "visual_norm_utf8.far",
-    },
-    data = [
-        "//nisaba/scripts/abjad_alphabet/data/Arab:{}.tsv".format(fst)
-        for fst in [
-            "nfc",
-            "presentation_forms",
-        ]
-    ] + [
-        "//nisaba/scripts/abjad_alphabet/data/Arab/{}:{}.tsv".format(lang, fst)
-        for lang in LANGS
-        for fst in [
-            "visual_norm",
-            "visual_norm_final_isolated",
-            "visual_norm_isolated",
-            "visual_norm_nonfinal",
-        ]
+    data_per_lang = [
+        "visual_norm_final_isolated",
+        "visual_norm_isolated",
+        "visual_norm_nonfinal",
     ],
-    visibility = ["//visibility:public"],
+    data_per_script = [
+        "nfc",
+        "presentation_forms",
+    ],
+    family = "abjad_alphabet",
+    script_langs = NORM_SCRIPT_LANGS,
     deps = [
         ":util",
         "//nisaba/scripts/utils:file",
         "//nisaba/scripts/utils:rewrite",
         "//nisaba/scripts/utils:rule",
+        "@io_abseil_py//absl/flags",
         "@org_opengrm_pynini//pynini",
     ],
 )
 
-nisaba_grm_regression_test(
-    name = "visual_norm_test",
-    grammar = ":visual_norm",
-)
-
-nisaba_grm_regression_test(
-    name = "visual_norm_utf8_test",
-    grammar = ":visual_norm_utf8",
-    test_file = "testdata:visual_norm.tsv",
-    token_type = "utf8",
-)
-
-nisaba_compile_grm_py(
+nisaba_compile_script_lang_multi_grm_py(
     name = "reading_norm",
-    data = [
-        "//nisaba/scripts/abjad_alphabet/data/Arab/{}:{}.tsv".format(lang, fst)
-        for lang in LANGS
-        for fst in ["reading_norm"]
+    data_per_script = [
+        "nfc",
+        "presentation_forms",
     ],
-    visibility = ["//visibility:public"],
+    family = "abjad_alphabet",
+    script_langs = NORM_SCRIPT_LANGS,
     deps = [
         ":util",
         "//nisaba/scripts/utils:rule",
+        "@io_abseil_py//absl/flags",
         "@org_opengrm_pynini//pynini",
     ],
-)
-
-nisaba_compile_grm_py(
-    name = "reading_norm_utf8",
-    data = [
-        "//nisaba/scripts/abjad_alphabet/data/Arab/{}:{}.tsv".format(lang, fst)
-        for lang in LANGS
-        for fst in ["reading_norm"]
-    ] + ["visual_norm_utf8.far"],
-    visibility = ["//visibility:public"],
-    deps = [
-        ":_reading_norm_lib",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-nisaba_grm_regression_test(
-    name = "reading_norm_test",
-    grammar = ":reading_norm",
-)
-
-nisaba_grm_regression_test(
-    name = "reading_norm_utf8_test",
-    grammar = ":reading_norm_utf8",
-    test_file = "testdata:reading_norm.tsv",
-    token_type = "utf8",
 )
 
 py_test(

@@ -28,21 +28,30 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 ```
 """
 
+from absl import flags
+
 import pynini
 from pynini.export import grm
 import nisaba.scripts.abjad_alphabet.util as u
 from nisaba.scripts.utils import rule
 
 
-def generator_main(exporter: grm.Exporter, token_type: pynini.TokenType):
+FLAGS = flags.FLAGS
+_LANG = flags.DEFINE_string('lang', '', 'ISO 639-2/3 language tag.')
+_TOKEN_TYPE = flags.DEFINE_enum('token_type', '', ['byte', 'utf8'],
+                                'Token type: utf8 or byte')
+
+
+def generator_main(exporter: grm.Exporter):
   """FSTs for reading normalization of abjad / alphabet script languages."""
-  with pynini.default_token_type(token_type):
+  lang = _LANG.value
+  token_type = _TOKEN_TYPE.value
+  with pynini.default_token_type(token_type):  # pytype: disable=wrong-arg-types
     sigma = u.sigma_from_common_data_files()
-    for lang in u.LANGS:
-      reading_norm_file = u.LANG_DIR / lang / 'reading_norm.tsv'
-      reading_norm_fst = rule.fst_from_rule_file(reading_norm_file, sigma)
-      lang = lang.upper()
-      exporter[lang] = reading_norm_fst
+    reading_norm_file = u.LANG_DIR / lang / 'reading_norm.tsv'
+    reading_norm_fst = rule.fst_from_rule_file(reading_norm_file, sigma)
+    lang = lang.upper()
+    exporter[lang] = reading_norm_fst
 
 if __name__ == '__main__':
-  grm.run(lambda e: generator_main(e, 'byte'))
+  grm.run(generator_main)

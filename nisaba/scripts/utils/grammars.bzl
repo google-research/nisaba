@@ -128,3 +128,108 @@ def nisaba_grm_regression_test(
         ],
         **kwds
     )
+
+def nisaba_compile_script_lang_multi_grm_py(
+        family,
+        name,
+        script_langs,
+        data = [],
+        data_per_lang = [],
+        data_per_script = [],
+        deps = []):
+    """Generates multiple FAR and test targets for given script and language pairs.
+
+    The source file used is <name>.py and corresponding testdata/<name>.tsv as
+    the test file. From these this rule generates following targets:
+    <name>.far (for byte token type)
+    <name>_utf8.far
+    <name>_test
+    <name>_utf8_test
+
+    <name>.py Expects 3 optional flags, 'token_type', 'script' and 'lang' and
+    generates FAR file for this combination. Its dependencies and data files are
+    listed in 'data', 'data_per_lang' and 'data_per_script' parameters.
+
+    Args:
+        name: Name of this rule, dictating the the source and test files and
+              the generated FAR and test targets.
+        data: The language or script agnostic part of the data parameter for
+              <name>.py compilation.
+        data_per_script: The script specific part of the data parameter for
+                         <name>.py compilation.
+        data_per_lang: The language specific part of the data parameter for
+                       <name>.py compilation.
+        family: The container directory name indicating the script family
+                (e.g., 'brahmic').
+        script_langs: Script-langauge tuples contributing to this build.
+        deps: Deps for the <name>.py compilation.
+    """
+    for token_type in ("byte", "utf8"):
+        name_token_type = ("%s_%s" % (name, token_type)).replace("_byte", "")
+        for script, lang in script_langs:
+            # Generates copies of the .py with different flag value defaults for each
+            # script, language and token-type values.
+            # Example: reading_norm_utf8.Deva.hi.py.
+            out_py_file = "%s.%s.%s.py" % (name_token_type, script, lang)
+            native.genrule(
+                name = "make_%s" % out_py_file,
+                srcs = ["%s.py" % name],
+                outs = [out_py_file],
+                cmd = "sed -r 's/(.script., .)/\\1%s/g' $< | \
+                   sed -r 's/(.lang., .)/\\1%s/g' | \
+                   sed -r 's/(.token_type., .)/\\1%s/g' > $@" % (script, lang, token_type),
+                visibility = ["//visibility:private"],
+            )
+
+            # From script, language and token-type specific generated py file,
+            # generates the corresponding FAR file.
+            # Example: reading_norm_utf8.Deva.hi.far
+            data_dir = "//nisaba/scripts/%s/data" % family
+            script_dir = "%s/%s" % (data_dir, script)
+            lang_dir = "%s/%s" % (script_dir, lang)
+            nisaba_compile_grm_py(
+                name = "%s.%s.%s" % (name_token_type, script, lang),
+                data = data + [
+                    ("%s:%s.tsv" % (lang_dir, entry)).replace("/:", ":")
+                    for entry in data_per_lang + [name]
+                ] + [
+                    "%s:%s.tsv" % (script_dir, entry)
+                    for entry in data_per_script
+                ],
+                visibility = ["//visibility:public"],
+                deps = deps,
+            )
+
+        # Aggreated FAR file targets for each token-type.
+        # Generates separate reading norm FAR files for each token-type values,
+        # by combining individual FAR files for that token-type,
+        # generated above.
+        native.genrule(
+            name = name_token_type,
+            srcs = [
+                "%s.%s.%s.far" % (name_token_type, script, lang)
+                for script, lang in script_langs
+            ],
+            outs = ["%s.far" % name_token_type],
+
+            cmd = "$(location @org_openfst//:farextract) $(SRCS) ; \
+               $(location @org_openfst//:farcreate) %s $@" % " ".join(
+                [
+                    lang.upper() if lang else script.upper()
+                    for script, lang in script_langs
+                ],
+            ),
+            tools = [
+                "@org_openfst//:farcreate",
+                "@org_openfst//:farextract",
+            ],
+            visibility = ["//visibility:private"],
+        )
+
+        # Tests token-type specific FAR files.
+        nisaba_grm_regression_test(
+            name = "%s_test" % name_token_type,
+            grammar = ":%s" % name_token_type,
+            test_file = "testdata:%s.tsv" % name,
+            token_type = token_type,
+        )

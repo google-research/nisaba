@@ -12,29 +12,37 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 r"""Visual normalization grammar for abjad / alphabet script languages.
 
 To try for Urdu:
 
 ```sh
 bazel build -c opt @org_opengrm_thrax//:rewrite-tester \
-  nisaba/scripts/abjad_alphabet:visual_norm
+  nisaba/scripts/abjad_alphabet:visual_norm_byte
 
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \
   --far \
-    bazel-bin/nisaba/scripts/abjad_alphabet/visual_norm.far \
+    bazel-bin/nisaba/scripts/abjad_alphabet/visual_norm_byte.far \
   --rules=UR \
   < /tmp/urdu_word_list.txt
 ```
 """
+
 from typing import List
 
+from absl import flags
 import pynini
-from pynini.export import multi_grm
+from pynini.export import grm
 import nisaba.scripts.abjad_alphabet.util as u
 from nisaba.scripts.utils import rewrite
 from nisaba.scripts.utils import rule
 import nisaba.scripts.utils.file as uf
+
+FLAGS = flags.FLAGS
+_LANG = flags.DEFINE_string('lang', '', 'ISO 639-2/3 language tag.')
+_TOKEN_TYPE = flags.DEFINE_enum('token_type', '', ['byte', 'utf8'],
+                                'Token type: utf8 or byte')
 
 
 def lang_fsts(lang: str, sigma: pynini.Fst) -> List[pynini.Fst]:
@@ -66,21 +74,20 @@ def lang_fsts(lang: str, sigma: pynini.Fst) -> List[pynini.Fst]:
   ]
 
 
-def generator_main(exporter_map: multi_grm.ExporterMapping):
+def generator_main(exporter: grm.Exporter):
   """FSTs for visual normalization of abjad / alphabet script languages."""
-  for token_type in ('byte', 'utf8'):
-    with pynini.default_token_type(token_type):
-      sigma = u.sigma_from_common_data_files()
-      presentation_forms_rewrite = rule.fst_from_rule_file(
-          u.LANG_DIR / 'presentation_forms.tsv', sigma)
-      nfc_rewrite = rule.fst_from_rule_file(u.LANG_DIR / 'nfc.tsv', sigma)
-      script_fst = rewrite.ComposeFsts(
-          [presentation_forms_rewrite, nfc_rewrite])
-      exporter = exporter_map[token_type]
-      for lang in u.LANGS:
-        exporter[lang.upper()] = rewrite.ComposeFsts(
-            [script_fst] + lang_fsts(lang, sigma))
+  lang = _LANG.value
+  token_type = _TOKEN_TYPE.value
+  with pynini.default_token_type(token_type):  # pytype: disable=wrong-arg-types
+    sigma = u.sigma_from_common_data_files()
+    presentation_forms_rewrite = rule.fst_from_rule_file(
+        u.LANG_DIR / 'presentation_forms.tsv', sigma)
+    nfc_rewrite = rule.fst_from_rule_file(u.LANG_DIR / 'nfc.tsv', sigma)
+    script_fst = rewrite.ComposeFsts(
+        [presentation_forms_rewrite, nfc_rewrite])
+    exporter[lang.upper()] = rewrite.ComposeFsts(
+        [script_fst] + lang_fsts(lang, sigma))
 
 
 if __name__ == '__main__':
-  multi_grm.run(generator_main)
+  grm.run(generator_main)
