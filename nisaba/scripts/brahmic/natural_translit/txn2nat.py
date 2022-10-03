@@ -15,10 +15,17 @@
 """Pan-South Asian natural romanization."""
 
 import pynini as p
+import nisaba.scripts.brahmic.natural_translit.grapheme_inventory as gr
 import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
 import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
 import nisaba.scripts.brahmic.natural_translit.transliteration_inventory as tr
 import nisaba.scripts.brahmic.natural_translit.util as u
+
+# Palatal and velar assimilated anusvara is transliterated as “n”.
+_NON_LABIAL_ANUSVARA = rw.reassign(
+    gr.ANS,
+    p.union(ph.NG, ph.NY),
+    tr.N)
 
 
 def _rewrite_txn_to_psaf() -> p.Fst:
@@ -77,7 +84,8 @@ def _rewrite_txn_to_psaf() -> p.Fst:
 
   return rw.rewrite_by_operation(txn_to_psaf)
 
-_REWRITE_TXN_TO_PSAF = _rewrite_txn_to_psaf()
+_REWRITE_TXN_TO_PSAF = (_NON_LABIAL_ANUSVARA @
+                        _rewrite_txn_to_psaf()).optimize()
 
 
 def _psaf_to_psac() -> p.Fst:

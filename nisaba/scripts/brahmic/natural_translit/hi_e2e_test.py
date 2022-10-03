@@ -27,12 +27,14 @@ _TEST_CASES = [
         ('caṁbā', 'chambaa'),
         ('haḍḍiyōṁ', 'haddiyoon'),
         ('ajñāna', 'agyaana'),
+        ('jhāṁkī', 'jhaankii'),
     ]),
     (hi_e2e.iso_to_psac, [
         ('hiṁdī', 'hindi'),
         ('hindī', 'hindi'),
         ('iṁḍiyā', 'indiya'),
         ('ajñāna', 'agyana'),
+        ('jhāṁkī', 'jhanki'),
     ]),
 ]
 

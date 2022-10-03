@@ -141,6 +141,7 @@ py_library(
     name = "txn2nat",
     srcs = ["txn2nat.py"],
     deps = [
+        ":grapheme_inventory",
         ":phoneme_inventory",
         ":rewrite_functions",
         ":transliteration_inventory",
