@@ -28,7 +28,7 @@ EPSILON: pynini.Fst = pynini.accep("").optimize()
 
 def AsResourcePath(filename: os.PathLike) -> os.PathLike:
   filename = os.fspath(filename)
-  return runfiles.Create().Rlocation(filename)
+  return pathlib.Path(runfiles.Create().Rlocation(filename))
 
 
 def IsFileExist(filename: os.PathLike) -> bool:
