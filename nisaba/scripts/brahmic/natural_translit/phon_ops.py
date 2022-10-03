@@ -30,7 +30,7 @@ def _anusvara_assimilation_labial() -> p.Fst:
       gr.ANS,
       ph.NSL,
       ph.M,
-      following=ph.LABIAL).optimize()
+      following=ph.LABIAL)
 
 ANUSVARA_ASSIMILATION_LABIAL = _anusvara_assimilation_labial()
 
@@ -41,7 +41,7 @@ def _anusvara_assimilation_dental() -> p.Fst:
       gr.ANS,
       ph.NSL,
       ph.NI,
-      following=ph.DENTAL).optimize()
+      following=ph.DENTAL)
 
 ANUSVARA_ASSIMILATION_DENTAL = _anusvara_assimilation_dental()
 
@@ -52,7 +52,7 @@ def _anusvara_assimilation_alveolar() -> p.Fst:
       gr.ANS,
       ph.NSL,
       ph.N,
-      following=ph.ALVEOLAR).optimize()
+      following=ph.ALVEOLAR)
 
 ANUSVARA_ASSIMILATION_ALVEOLAR = _anusvara_assimilation_alveolar()
 
@@ -63,7 +63,7 @@ def _anusvara_assimilation_palatal() -> p.Fst:
       gr.ANS,
       ph.NSL,
       ph.NY,
-      following=ph.PALATAL).optimize()
+      following=ph.PALATAL)
 
 ANUSVARA_ASSIMILATION_PALATAL = _anusvara_assimilation_palatal()
 
@@ -74,7 +74,7 @@ def _anusvara_assimilation_retroflex() -> p.Fst:
       gr.ANS,
       ph.NSL,
       ph.NN,
-      following=ph.RETROFLEX).optimize()
+      following=ph.RETROFLEX)
 
 ANUSVARA_ASSIMILATION_RETROFLEX = _anusvara_assimilation_retroflex()
 
@@ -85,7 +85,7 @@ def _anusvara_assimilation_velar() -> p.Fst:
       gr.ANS,
       ph.NSL,
       ph.NG,
-      following=ph.VELAR).optimize()
+      following=ph.VELAR)
 
 ANUSVARA_ASSIMILATION_VELAR = _anusvara_assimilation_velar()
 
@@ -104,21 +104,21 @@ ANUSVARA_ASSIMILATION = _anusvara_assimilation()
 
 def _default_anusvara_dental() -> p.Fst:
   """Unassimilated anusvara defaults to n."""
-  return rw.reassign(gr.ANS, ph.NSL, ph.NI).optimize()
+  return rw.reassign(gr.ANS, ph.NSL, ph.NI)
 
 DEFAULT_ANUSVARA_DENTAL = _default_anusvara_dental()
 
 
 def _default_anusvara_labial() -> p.Fst:
   """Unassimilated anusvara defaults to m."""
-  return rw.reassign(gr.ANS, ph.NSL, ph.M).optimize()
+  return rw.reassign(gr.ANS, ph.NSL, ph.M)
 
 DEFAULT_ANUSVARA_LABIAL = _default_anusvara_labial()
 
 
 def _final_anusvara_nasalization() -> p.Fst:
   """Word final anusvara nasalizes the preceding vowel."""
-  return rw.reassign_word_final(gr.ANS, ph.NASAL, ph.NSL).optimize()
+  return rw.reassign_word_final(gr.ANS, ph.NASAL, ph.NSL)
 
 FINAL_ANUSVARA_NASALIZATION = _final_anusvara_nasalization()
 
@@ -142,14 +142,14 @@ def voicing(
       preceding,
       following,
       preceding_modifier,
-      following_modifier).optimize()
+      following_modifier)
 
 
 def _jny_to_gny() -> p.Fst:
   """jny pronounced as gny."""
   return rw.rewrite(
       u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
-      u.align(gr.J + gr.NY, ph.G + ph.NY)).optimize()
+      u.align(gr.J + gr.NY, ph.G + ph.NY))
 
 JNY_TO_GNY = _jny_to_gny()
 
@@ -158,7 +158,7 @@ def _jny_to_gy() -> p.Fst:
   """jny pronounced as gy."""
   return rw.rewrite(
       u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
-      u.align(gr.J + gr.NY, ph.G + ph.Y)).optimize()
+      u.align(gr.J + gr.NY, ph.G + ph.Y))
 
 JNY_TO_GY = _jny_to_gy()
 
@@ -167,6 +167,6 @@ def _jny_to_ny() -> p.Fst:
   """jny pronounced as ny."""
   return rw.rewrite(
       u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
-      u.align(gr.J + gr.NY, ph.NY)).optimize()
+      u.align(gr.J + gr.NY, ph.NY))
 
 JNY_TO_NY = _jny_to_ny()

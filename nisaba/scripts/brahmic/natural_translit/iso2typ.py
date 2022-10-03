@@ -109,19 +109,19 @@ _COMPOSE_DIPHTHONG_OP = p.union(
     p.cross(gr.A + gr.I, gr.AI),
     p.cross(gr.A + gr.U, gr.AU)).optimize()
 
-_COMPOSE_DIPHTHONG = rw.rewrite_by_operation(_COMPOSE_DIPHTHONG_OP).optimize()
+_COMPOSE_DIPHTHONG = rw.rewrite_by_operation(_COMPOSE_DIPHTHONG_OP)
 
 _COMPOSE_VOCALIC_OP = p.union(
     p.cross(gr.L + gr.VCL, gr.L_VCL),
     p.cross(gr.R + gr.VCL, gr.R_VCL)).optimize()
 
-_COMPOSE_VOCALIC = rw.rewrite_by_operation(_COMPOSE_VOCALIC_OP).optimize()
+_COMPOSE_VOCALIC = rw.rewrite_by_operation(_COMPOSE_VOCALIC_OP)
 
 _COMPOSE_RETROFLEX_OP = p.union(
     p.cross(gr.L_VCL + gr.LONG, gr.LL_VCL),
     p.cross(gr.R_VCL + gr.LONG, gr.RR_VCL)).optimize()
 
-_COMPOSE_RETROFLEX = rw.rewrite_by_operation(_COMPOSE_RETROFLEX_OP).optimize()
+_COMPOSE_RETROFLEX = rw.rewrite_by_operation(_COMPOSE_RETROFLEX_OP)
 
 _COMPOSE_IND_VOWEL_OP = p.union(
     p.cross(gr.IND + gr.A, gr.A_I),
@@ -144,7 +144,7 @@ _COMPOSE_IND_VOWEL_OP = p.union(
     p.cross(gr.IND + gr.R_VCL, gr.R_VCL_I),
     p.cross(gr.IND + gr.RR_VCL, gr.RR_VCL_I)).optimize()
 
-_COMPOSE_IND_VOWEL = rw.rewrite_by_operation(_COMPOSE_IND_VOWEL_OP).optimize()
+_COMPOSE_IND_VOWEL = rw.rewrite_by_operation(_COMPOSE_IND_VOWEL_OP)
 
 _COMPOSE_ASPIRATION_OP = p.union(
     p.cross(gr.B + gr.ASP, gr.BH),
@@ -159,9 +159,9 @@ _COMPOSE_ASPIRATION_OP = p.union(
     p.cross(gr.T + gr.ASP, gr.TH),
     p.cross(gr.TT + gr.ASP, gr.TTH)).optimize()
 
-_COMPOSE_ASPIRATION = rw.rewrite_by_operation(_COMPOSE_ASPIRATION_OP).optimize()
+_COMPOSE_ASPIRATION = rw.rewrite_by_operation(_COMPOSE_ASPIRATION_OP)
 
-_COMPOSE_CANDRA = rw.rewrite(gr.M + gr.CND_DIA, gr.CND).optimize()
+_COMPOSE_CANDRA = rw.rewrite(gr.M + gr.CND_DIA, gr.CND)
 
 # Malayalam chillu characters
 _COMPOSE_CHILLU_OP = p.union(
@@ -173,12 +173,12 @@ _COMPOSE_CHILLU_OP = p.union(
     p.cross(gr.RR + gr.CHL, gr.RR_CHL),
     p.cross(gr.R + gr.CHL, gr.REPH)).optimize()
 
-_COMPOSE_CHILLU = rw.rewrite_by_operation(_COMPOSE_CHILLU_OP).optimize()
+_COMPOSE_CHILLU = rw.rewrite_by_operation(_COMPOSE_CHILLU_OP)
 
 # Marathi eyelash ra
-_COMPOSE_EYELASH = rw.rewrite(gr.R + gr.EYE, gr.R_EYE).optimize()
+_COMPOSE_EYELASH = rw.rewrite(gr.R + gr.EYE, gr.R_EYE)
 
-_COMPOSE_OM = rw.rewrite(gr.OT + gr.M, gr.OM).optimize()
+_COMPOSE_OM = rw.rewrite(gr.OT + gr.M, gr.OM)
 
 _COMPOSE_TYP = (
     _COMPOSE_DIPHTHONG @

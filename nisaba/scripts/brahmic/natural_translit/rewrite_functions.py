@@ -22,21 +22,21 @@ import nisaba.scripts.brahmic.natural_translit.transliteration_inventory as tr
 import nisaba.scripts.brahmic.natural_translit.util as u
 
 # Left side of an alignment
-L_SIDE = (u.AL_L + gr.GRAPHEMES + u.ALIGN_SIGN).optimize()
+L_SIDE = (u.AL_L + gr.GRAPHEMES + u.ALIGN_SIGN)
 
 # Right side of an alignment
 R_SIDE = (u.ALIGN_SIGN +
-          p.union(ph.PHONEMES, tr.TRANSLITS).optimize()
-          + u.AL_R).optimize()
+          p.union(ph.PHONEMES, tr.TRANSLITS)
+          + u.AL_R)
 
 # The symbol sequence between a symbol and the next right side symbol.
-NEXT_R = p.union(u.EPSILON, L_SIDE, u.AL_R + L_SIDE).optimize()
+NEXT_R = p.union(u.EPSILON, L_SIDE, u.AL_R + L_SIDE)
 
 # Beginning of word
-BOW = p.union(u.BOS, u.BOS + u.AL_L, u.BOS + L_SIDE).optimize()
+BOW = p.union(u.BOS, u.BOS + u.AL_L, u.BOS + L_SIDE)
 
 # End of word
-EOW = p.union(u.EOS, u.AL_R + u.EOS).optimize()
+EOW = p.union(u.EOS, u.AL_R + u.EOS)
 
 
 def preceding_context(
@@ -77,7 +77,7 @@ def preceding_context(
   """
   return p.union(
       preceding,
-      preceding + modifiers.star.optimize() + NEXT_R).optimize()
+      preceding + modifiers.star + NEXT_R)
 
 
 def following_context(
@@ -118,7 +118,7 @@ def following_context(
   """
   return p.union(
       following,
-      NEXT_R + following + modifiers.star.optimize()).optimize()
+      NEXT_R + following + modifiers.star)
 
 
 def rewrite(
@@ -178,7 +178,7 @@ def rewrite_by_operation(
       p.union(..., p.cross('{ti}', '{di}'), ...),
       p.union('{a}', '{a}{glide}', ...),
       p.union('{a}', '{asp}{a}', ...),
-      u.BYTE_STAR).optimize()
+      u.BYTE_STAR)
 
   """
   return p.cdrewrite(
@@ -222,13 +222,13 @@ def rewrite_by_context(
       p.cross('{schwa}', '{ec}'),
       p.union('{m}', '{m})(GRAPHEMES=', ...),
       p.union('{m}', ')(GRAPHEMES={m}', ...),,
-      u.BYTE_STAR).optimize())
+      u.BYTE_STAR))
 
   """
   return rewrite(
       p.cross(old, new),
       preceding_context(preceding, preceding_modifier),
-      following_context(following, following_modifier)).optimize()
+      following_context(following, following_modifier))
 
 
 def rewrite_word_initial(
@@ -242,7 +242,7 @@ def rewrite_word_initial(
       new,
       BOW,
       following,
-      following_modifier=modifier).optimize()
+      following_modifier=modifier)
 
 
 def rewrite_word_final(
@@ -256,7 +256,7 @@ def rewrite_word_final(
       new,
       preceding,
       EOW,
-      modifier).optimize()
+      modifier)
 
 
 def realign(
@@ -266,7 +266,7 @@ def realign(
   """Changes the right side assignment of a specified left side."""
   return p.cross(
       u.align(left_side, old),
-      u.align(left_side, new)).optimize()
+      u.align(left_side, new))
 
 
 def reassign(
@@ -300,7 +300,7 @@ def reassign(
       gr.ANS,
       ph.NSL,
       ph.M,
-      following=ph.LABIAL).optimize()
+      following=ph.LABIAL)
 
   ```
   would return:
@@ -309,13 +309,13 @@ def reassign(
       p.cross('(<ans>={nsl})', '(<ans>={m})'),
       '',
       p.union('{m}', ')(GRAPHEMES={m}', ...),,
-      u.BYTE_STAR).optimize())
+      u.BYTE_STAR))
 
   """
   return rewrite_by_operation(
       realign(left_side, old, new),
       preceding_context(preceding, preceding_modifier),
-      following_context(following, following_modifier)).optimize()
+      following_context(following, following_modifier))
 
 
 def reassign_word_initial(
@@ -329,7 +329,7 @@ def reassign_word_initial(
       realign(left_side, old, new),
       BOW,
       following,
-      following_modifier=modifier).optimize()
+      following_modifier=modifier)
 
 
 def reassign_word_final(
@@ -343,7 +343,7 @@ def reassign_word_final(
       realign(left_side, old, new),
       preceding,
       EOW,
-      modifier).optimize()
+      modifier)
 
 
 def delete(
@@ -355,9 +355,9 @@ def delete(
       syms,
       u.EPSILON,
       preceding,
-      following).optimize()
+      following)
 
 
 def extract_right_side() -> p.Fst:
   """Removes everything other than the right side symbols."""
-  return delete(p.union(L_SIDE, u.AL_R).optimize()).optimize()
+  return delete(p.union(L_SIDE, u.AL_R))

@@ -75,7 +75,7 @@ def _rewrite_txn_to_psaf() -> p.Fst:
       p.cross(ph.SIL, u.EPSILON),
       p.cross(ph.SCHWA, tr.A)).optimize()
 
-  return rw.rewrite_by_operation(txn_to_psaf).optimize()
+  return rw.rewrite_by_operation(txn_to_psaf)
 
 _REWRITE_TXN_TO_PSAF = _rewrite_txn_to_psaf()
 
@@ -90,7 +90,7 @@ def _psaf_to_psac() -> p.Fst:
       p.cross(tr.OO, tr.O),
       p.cross(tr.UU, tr.U)).optimize()
 
-  return rw.rewrite_by_operation(psaf_to_psac).optimize()
+  return rw.rewrite_by_operation(psaf_to_psac)
 
 _PSAF_TO_PSAC = _psaf_to_psac()
 
