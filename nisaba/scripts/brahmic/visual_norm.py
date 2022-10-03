@@ -28,8 +28,9 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 import os
 from typing import List
 
+from absl import flags
 import pynini
-from pynini.export import multi_grm
+from pynini.export import grm
 from pynini.lib import pynutil
 import nisaba.scripts.brahmic.char_util as cu
 import nisaba.scripts.brahmic.util as u
@@ -37,6 +38,12 @@ from nisaba.scripts.utils import rule
 import nisaba.scripts.utils.char as uc
 import nisaba.scripts.utils.file as uf
 import nisaba.scripts.utils.rewrite as ur
+
+FLAGS = flags.FLAGS
+_SCRIPT = flags.DEFINE_string('script', '', 'ISO 15924 script tag.')
+_LANG = flags.DEFINE_string('lang', '', 'ISO 639-2/3 language tag.')
+_TOKEN_TYPE = flags.DEFINE_enum('token_type', '', ['byte', 'utf8'],
+                                'Token type: utf8 or byte')
 
 
 
@@ -90,42 +97,39 @@ def open_nfc(script_code: str, token_type: str) -> pynini.Fst:
   return u.OpenFstFromBrahmicFar('nfc', script_code, token_type)
 
 
-def generator_main(exporter_map: multi_grm.ExporterMapping):
+def generator_main(exporter: grm.Exporter):
   """Generates FSTs for visual normalization of Brahmic scripts."""
-  for token_type in ('byte', 'utf8'):
-    rewrite_map = {}
-    with pynini.default_token_type(token_type):
-      sigma_map = {}
-      for script in u.SCRIPTS:
-        sigma = u.OpenSigma(script, token_type)
-        sigma_map[script] = sigma
-        dedup = cu.dedup_marks_fst(script, sigma)
-        nfc = open_nfc(script, token_type)
-        rewrite_map[script] = ur.ComposeFsts(
-            [nfc, dedup] + core_visual_norm_fsts(
-                u.SCRIPT_DIR / script / 'visual_rewrite.tsv',
-                u.SCRIPT_DIR / script / 'preserve.tsv',
-                u.SCRIPT_DIR / script / 'consonant.tsv',
-                sigma))
+  script = _SCRIPT.value
+  lang = _LANG.value
+  token_type = _TOKEN_TYPE.value
+  script_dir = u.SCRIPT_DIR / script
 
-      for script, langs in u.LANG_SCRIPT_MAP.items():
-        for lang in langs:
-          sigma = sigma_map[script]
-          consonant_map = uf.StringFile(u.SCRIPT_DIR / script / 'consonant.tsv')
-          consonant = pynini.project(consonant_map, 'input')
+  with pynini.default_token_type(token_type):  # pytype: disable=wrong-arg-types
+    sigma = u.OpenSigma(script, token_type)
+    dedup = cu.dedup_marks_fst(script, sigma)
+    nfc = open_nfc(script, token_type)
+    script_fst = ur.ComposeFsts(
+        [nfc, dedup] + core_visual_norm_fsts(
+            script_dir / 'visual_rewrite.tsv',
+            script_dir / 'preserve.tsv',
+            script_dir / 'consonant.tsv',
+            sigma))
 
-          before_cons = uf.StringFile(
-              u.SCRIPT_DIR / script / lang / 'before_consonant.tsv')
-          rewrite_before_cons = ur.Rewrite(before_cons, sigma, right=consonant)
-          after_cons = uf.StringFile(
-              u.SCRIPT_DIR / script / lang / 'after_consonant.tsv')
-          rewrite_after_cons = ur.Rewrite(after_cons, sigma, left=consonant)
-          rewrite_map[lang] = ur.ComposeFsts([
-              rewrite_map[script], rewrite_before_cons, rewrite_after_cons])
+    if not lang:
+      exporter[script.upper()] = script_fst
+    else:
+      consonant_map = uf.StringFile(script_dir / 'consonant.tsv')
+      consonant = pynini.project(consonant_map, 'input')
 
-      exporter = exporter_map[token_type]
-      for name, fst in rewrite_map.items():
-        exporter[name.upper()] = fst
+      lang_dir = script_dir / lang
+      before_cons = uf.StringFile(lang_dir / 'before_consonant.tsv')
+      rewrite_before_cons = ur.Rewrite(before_cons, sigma, right=consonant)
+      after_cons = uf.StringFile(lang_dir / 'after_consonant.tsv')
+      rewrite_after_cons = ur.Rewrite(after_cons, sigma, left=consonant)
+      lang_fst = ur.ComposeFsts([
+          script_fst, rewrite_before_cons, rewrite_after_cons])
+      exporter[lang.upper()] = lang_fst
+
 
 if __name__ == '__main__':
-  multi_grm.run(generator_main)
+  grm.run(generator_main)

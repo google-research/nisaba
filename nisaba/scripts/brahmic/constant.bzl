@@ -39,11 +39,10 @@ SCRIPTS = [
     "Tirh",
 ]
 
-LANG_DIRS = {
-    "Beng": ["as", "bn"],
-}
-
-FIXED_RULE_SCRIPTS = ["Mlym"]
+VISUAL_NORM_LANGS = [
+    ("Beng", "as"),
+    ("Beng", "bn"),
+]
 
 READING_NORM_LANGS = [
     ("Deva", "hi"),
@@ -51,3 +50,5 @@ READING_NORM_LANGS = [
     ("Lepc", ""),
     ("Mlym", ""),
 ]
+
+FIXED_RULE_SCRIPTS = ["Mlym"]

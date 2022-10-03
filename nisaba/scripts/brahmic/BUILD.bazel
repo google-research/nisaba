@@ -27,9 +27,9 @@ load(
 load(
     "//nisaba/scripts/brahmic:constant.bzl",
     "FIXED_RULE_SCRIPTS",
-    "LANG_DIRS",
     "READING_NORM_LANGS",
     "SCRIPTS",
+    "VISUAL_NORM_LANGS",
 )
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
@@ -277,33 +277,27 @@ py_test(
     ],
 )
 
-nisaba_compile_multi_grm_py(
+nisaba_compile_script_lang_multi_grm_py(
     name = "visual_norm",
-    outs = {
-        "byte": "visual_norm.far",
-        "utf8": "visual_norm_utf8.far",
-    },
     data = [
         ":nfc.far",
         ":nfc_utf8.far",
         ":sigma_utf8.far",
-    ] + [
-        "//nisaba/scripts/brahmic/data/{}:{}.tsv".format(script, file_name)
-        for script in SCRIPTS
-        for file_name in [
-            "consonant",
-            "preserve",
-            "visual_rewrite",
-        ]
-    ] + [
-        "//nisaba/scripts/brahmic/data/{}/{}:{}.tsv".format(script, lang, file_name)
-        for script in LANG_DIRS
-        for lang in LANG_DIRS[script]
-        for file_name in [
-            "after_consonant",
-            "before_consonant",
-        ]
     ],
+    data_per_lang = [
+        "after_consonant",
+        "before_consonant",
+    ],
+    data_per_script = [
+        "consonant",
+        "preserve",
+        "visual_rewrite",
+    ],
+    family = "brahmic",
+    script_langs = [
+        (script, "")
+        for script in SCRIPTS
+    ] + VISUAL_NORM_LANGS,
     visibility = ["//visibility:public"],
     deps = [
         ":char_util",
@@ -312,27 +306,17 @@ nisaba_compile_multi_grm_py(
         "//nisaba/scripts/utils:file",
         "//nisaba/scripts/utils:rewrite",
         "//nisaba/scripts/utils:rule",
+        "@io_abseil_py//absl/flags",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:pynutil",
     ],
 )
 
-nisaba_grm_regression_test(
-    name = "visual_norm_test",
-    grammar = ":visual_norm",
-    token_type = "byte",
-)
-
-nisaba_grm_regression_test(
-    name = "visual_norm_utf8_test",
-    grammar = ":visual_norm_utf8",
-    test_file = "testdata:visual_norm.tsv",
-    token_type = "utf8",
-)
-
 nisaba_compile_script_lang_multi_grm_py(
     name = "reading_norm",
     data = ["sigma_utf8.far"],
+    data_per_lang = ["reading_norm"],
+    data_per_script = ["reading_norm"],
     family = "brahmic",
     script_langs = READING_NORM_LANGS,
     deps = [

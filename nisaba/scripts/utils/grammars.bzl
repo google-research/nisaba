@@ -136,7 +136,8 @@ def nisaba_compile_script_lang_multi_grm_py(
         data = [],
         data_per_lang = [],
         data_per_script = [],
-        deps = []):
+        deps = [],
+        **kwds):
     """Generates multiple FAR and test targets for given script and language pairs.
 
     The source file used is <name>.py and corresponding testdata/<name>.tsv as
@@ -163,7 +164,9 @@ def nisaba_compile_script_lang_multi_grm_py(
                 (e.g., 'brahmic').
         script_langs: Script-langauge tuples contributing to this build.
         deps: Deps for the <name>.py compilation.
+        **kwds: Additional attributes for FAR file targets, e.g., visibility.
     """
+    script_langs = sorted(script_langs, key = lambda x: "".join([x[1], x[0]]).lower())
     for token_type in ("byte", "utf8"):
         name_token_type = ("%s_%s" % (name, token_type)).replace("_byte", "")
         for script, lang in script_langs:
@@ -190,8 +193,9 @@ def nisaba_compile_script_lang_multi_grm_py(
             nisaba_compile_grm_py(
                 name = "%s.%s.%s" % (name_token_type, script, lang),
                 data = data + [
-                    ("%s:%s.tsv" % (lang_dir, entry)).replace("/:", ":")
-                    for entry in data_per_lang + [name]
+                    "%s:%s.tsv" % (lang_dir, entry)
+                    for entry in data_per_lang
+                    if lang
                 ] + [
                     "%s:%s.tsv" % (script_dir, entry)
                     for entry in data_per_script
@@ -223,7 +227,7 @@ def nisaba_compile_script_lang_multi_grm_py(
                 "@org_openfst//:farcreate",
                 "@org_openfst//:farextract",
             ],
-            visibility = ["//visibility:private"],
+            **kwds
         )
 
         # Tests token-type specific FAR files.

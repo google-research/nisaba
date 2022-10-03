@@ -97,10 +97,6 @@ SCRIPTS = [
     "Tirh",
 ]
 
-LANG_SCRIPT_MAP = {
-    "Beng": ["as", "bn"]
-}
-
 FIXED_RULE_SCRIPTS = ["Mlym"]
 
 READING_NORM_LANGS = [
