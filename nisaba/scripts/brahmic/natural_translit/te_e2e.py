@@ -19,6 +19,7 @@ import pynini as p
 from pynini.export import multi_grm
 import nisaba.scripts.brahmic.natural_translit.iso2typ as iso
 import nisaba.scripts.brahmic.natural_translit.phon_ops as ops
+import nisaba.scripts.brahmic.natural_translit.txn2ipa as ipa
 import nisaba.scripts.brahmic.natural_translit.txn2nat as txn
 import nisaba.scripts.brahmic.natural_translit.typ2txn as typ
 
@@ -42,6 +43,11 @@ def iso_to_psac() -> p.Fst:
   return (_iso_to_txn() @ txn.TXN_TO_PSAC).optimize()
 
 
+def iso_to_ipa() -> p.Fst:
+  """Pronunciation in IPA."""
+  return (_iso_to_txn() @ ipa.txn_to_ipa()).optimize()
+
+
 def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generates FAR for natural transliteration for Telugu."""
   for token_type in ('byte', 'utf8'):
@@ -50,6 +56,7 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       exporter = exporter_map[token_type]
       exporter['ISO_TO_PSAF'] = iso_to_psaf()
       exporter['ISO_TO_PSAC'] = iso_to_psac()
+      exporter['ISO_TO_IPA'] = iso_to_ipa()
 
 
 if __name__ == '__main__':

@@ -20,7 +20,7 @@ from nisaba.scripts.utils import test_util
 
 _TEST_CASES = [
     (te_e2e.iso_to_psaf, [
-        ('hiṁdi', 'hindi'),
+        ('hiṁdī', 'hindii'),
         ('iṁḍiyā', 'indiyaa'),
         ('varṇaṁlō', 'varnamloo'),
         ('pratijña', 'pratignya'),
@@ -29,6 +29,11 @@ _TEST_CASES = [
         ('hiṁdī', 'hindi'),
         ('iṁḍiyā', 'indiya'),
         ('varṇaṁlō', 'varnamlo'),
+    ]),
+    (te_e2e.iso_to_ipa, [
+        ('hiṁdī', 'hin̪d̪iː'),
+        ('iṁḍiyā', 'iɳɖijaː'),
+        ('varṇaṁlō', 'ʋaɾɳamloː'),
     ]),
 ]
 

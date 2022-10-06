@@ -98,6 +98,7 @@ py_library(
     deps = [
         ":grapheme_inventory",
         ":phoneme_inventory",
+        ":rewrite_functions",
         ":util",
         "@org_opengrm_pynini//pynini",
     ],
@@ -192,6 +193,7 @@ nisaba_compile_multi_grm_py(
     deps = [
         ":iso2typ",
         ":phon_ops",
+        ":txn2ipa",
         ":txn2nat",
         ":typ2txn",
         "@org_opengrm_pynini//pynini",
@@ -231,6 +233,7 @@ nisaba_compile_multi_grm_py(
     deps = [
         ":iso2typ",
         ":phon_ops",
+        ":txn2ipa",
         ":txn2nat",
         ":typ2txn",
         "@org_opengrm_pynini//pynini",
@@ -271,6 +274,7 @@ nisaba_compile_multi_grm_py(
         ":iso2typ",
         ":phon_ops",
         ":phoneme_inventory",
+        ":txn2ipa",
         ":txn2nat",
         ":typ2txn",
         "@org_opengrm_pynini//pynini",
@@ -310,6 +314,7 @@ nisaba_compile_multi_grm_py(
     deps = [
         ":iso2typ",
         ":phon_ops",
+        ":txn2ipa",
         ":txn2nat",
         ":typ2txn",
         "@org_opengrm_pynini//pynini",

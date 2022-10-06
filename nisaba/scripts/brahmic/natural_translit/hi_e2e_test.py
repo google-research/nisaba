@@ -36,6 +36,13 @@ _TEST_CASES = [
         ('ajñāna', 'agyana'),
         ('jhāṁkī', 'jhanki'),
     ]),
+    (hi_e2e.iso_to_ipa, [
+        ('hiṁdī', 'hin̪d̪iː'),
+        ('hindī', 'hin̪d̪iː'),
+        ('iṁḍiyā', 'iɳɖijaː'),
+        ('ajñāna', 'aɡjaːn̪a'),
+        ('jʰāṁkī', 'd͡ʒʰaːŋkiː'),
+    ]),
 ]
 
 

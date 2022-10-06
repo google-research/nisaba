@@ -17,6 +17,7 @@
 import pynini as p
 import nisaba.scripts.brahmic.natural_translit.grapheme_inventory as gr
 import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
+import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
 import nisaba.scripts.brahmic.natural_translit.util as u
 
 _ASSIGN_VOWEL = p.union(
@@ -150,3 +151,5 @@ def _typ_to_txn() -> p.Fst:
       ).star.optimize()
 
 TYP_TO_TXN = _typ_to_txn()
+
+TAP_TO_TRILL = rw.reassign(gr.R, ph.RT, ph.R)

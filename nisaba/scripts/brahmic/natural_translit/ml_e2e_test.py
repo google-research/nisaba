@@ -32,6 +32,11 @@ _TEST_CASES = [
         ('inⸯḍya', 'indya'),
         ('ājña', 'anya'),
     ]),
+    (ml_e2e.iso_to_ipa, [
+        ('hindi', 'hin̪d̪i'),
+        ('intya', 'in̪d̪ja'),
+        ('ājña', 'aːɲa'),
+    ]),
 ]
 
 

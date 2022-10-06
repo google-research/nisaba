@@ -30,6 +30,12 @@ _TEST_CASES = [
         ('iṁḍiyā', 'indiya'),
         ('jñāna', 'gnyana'),
     ]),
+    (kn_e2e.iso_to_ipa, [
+        ('hiṁdi', 'hin̪d̪i'),
+        ('iṁḍiyā', 'iɳɖijaː'),
+        ('jñāna', 'ɡɲaːn̪a'),
+        ('sīre', 'siːre')
+    ]),
 ]
 
 
