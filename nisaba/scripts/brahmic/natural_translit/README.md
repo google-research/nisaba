@@ -7,13 +7,13 @@ The natural transliteration grammars use internal notations that only contain ex
 ## typ representation and grapheme_inventory
 `typ` is an internal typable representation for ISO characters. `typ` strings are enclosed in less than and greater than signs.
 
+[`grapheme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/brahmic/natural_translit/grapheme_inventory.py) is a library that contains the `typ`-ISO mapping and forms the `typ` symbols.
+
 **Examples**
 
 * `ā` -> `<aa>`
 * `ṭ` -> `<tt>`
 * `nⸯ` -> `<n_chl>`
-
-[`grapheme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/brahmic/natural_translit/grapheme_inventory.py) is a library that contains the `typ`-ISO mapping and forms the `typ` symbols.
 
 ## iso2typ grammar
 
@@ -26,6 +26,8 @@ The natural transliteration grammars use internal notations that only contain ex
 ## txn representation and phoneme_inventory
 
 `txn` is an internal, high coverage, typable representation for multilingual phoneme inventories. `txn` strings are enclosed in curly brackets.
+
+[`phoneme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/brahmic/natural_translit/phoneme_inventory.py) is a library that contains the `txn`-[IPA](https://www.internationalphoneticassociation.org/content/ipa-chart) mapping and forms the `txn` symbols covering the unified South Asian phoneme inventory presented in [Demirsahin et al. (2018)](https://research.google/pubs/pub47341/).
 
 **Examples**
 
@@ -40,8 +42,6 @@ Nasality and aspiration are featurised for phoneme inventory parsimony, and are 
 * `õː` -> `{o_l}{nsl}`
 * `ᵐb` -> `{nsl}{b}`
 * `bʰ` -> `{b}{asp}`
-
-[`phoneme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/brahmic/natural_translit/phoneme_inventory.py) is a library that contains the `txn`-[IPA](https://www.internationalphoneticassociation.org/content/ipa-chart) mapping and forms the `txn` symbols covering the unified South Asian phoneme inventory presented in [Demirsahin et al. (2018)](https://research.google/pubs/pub47341/).
 
 ## typ2txn grammar
 
@@ -96,6 +96,18 @@ Transliteration strings are enclosed in double quotation marks. This allows for 
  `(<aa>=“aa”)(<tt>=“d”)(<aa>=“a”)(<n_chl>=“n”)` ->
 
    `aadaan`
+
+## txn2ipa grammar
+
+`txn2ipa` grammar converts the `txn` pronunciation to IPA using the mapping in the [`phoneme_inventory`](#txn-representation-and-phoneme-inventory).
+
+**Example**
+
+* `(<aa>={a_l})(<tt>={dd})(<aa>={a_l})(<n_chl>={ni})` ->
+
+ `(<aa>=aː)(<tt>=ɖ)(<aa>=aː)(<n_chl>=n)` ->
+
+   `aːɖaːn`
 
 ## e2e grammars
 

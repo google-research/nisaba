@@ -125,7 +125,8 @@ def rewrite(
     old: p.FstLike,
     new: p.FstLike,
     preceding: p.FstLike = u.EPSILON,
-    following: p.FstLike = u.EPSILON) -> p.Fst:
+    following: p.FstLike = u.EPSILON,
+    sigma: p.FstLike = u.BYTE_STAR) -> p.Fst:
   """A shorthand for generic rewrites.
 
   Args:
@@ -133,6 +134,7 @@ def rewrite(
     new: Output of the rewrite.
     preceding: Preceding context of the rewrite.
     following: Following context of the rewrite.
+    sigma: The set of characters which the operation will be carried over.
 
   Returns:
     Rewrite Fst.
@@ -142,7 +144,7 @@ def rewrite(
       p.cross(old, new),
       preceding,
       following,
-      u.BYTE_STAR).optimize()
+      sigma).optimize()
 
 
 def rewrite_by_operation(
@@ -150,7 +152,8 @@ def rewrite_by_operation(
     preceding: p.FstLike = u.EPSILON,
     following: p.FstLike = u.EPSILON,
     preceding_modifier: p.FstLike = u.EPSILON,
-    following_modifier: p.FstLike = u.EPSILON) -> p.Fst:
+    following_modifier: p.FstLike = u.EPSILON,
+    sigma: p.FstLike = u.BYTE_STAR) -> p.Fst:
   """A rewrite fst that uses a predefined operation as input.
 
   Args:
@@ -159,6 +162,7 @@ def rewrite_by_operation(
     following: Following right side context.
     preceding_modifier: Preceding modifier that doesn't block the operation.
     following_modifier: Following modifier that doesn't block the operation.
+    sigma: The set of characters which the operation will be carried over.
 
   Returns:
     Rewrite fst.
@@ -185,7 +189,7 @@ def rewrite_by_operation(
       operation,
       preceding_context(preceding, preceding_modifier),
       following_context(following, following_modifier),
-      u.BYTE_STAR).optimize()
+      sigma).optimize()
 
 
 def rewrite_by_context(
@@ -349,15 +353,18 @@ def reassign_word_final(
 def delete(
     syms: p.FstLike,
     preceding: p.FstLike = u.EPSILON,
-    following: p.FstLike = u.EPSILON) -> p.Fst:
+    following: p.FstLike = u.EPSILON,
+    sigma: p.FstLike = u.BYTE_STAR) -> p.Fst:
   """Deletes symbols."""
   return rewrite(
       syms,
       u.EPSILON,
       preceding,
-      following)
+      following,
+      sigma)
 
 
-def extract_right_side() -> p.Fst:
+def extract_right_side(
+    sigma: p.FstLike = u.BYTE_STAR) -> p.Fst:
   """Removes everything other than the right side symbols."""
-  return delete(p.union(L_SIDE, u.AL_R))
+  return delete(p.union(L_SIDE, u.AL_R), sigma=sigma)

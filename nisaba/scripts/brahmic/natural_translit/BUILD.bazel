@@ -161,6 +161,27 @@ py_test(
     ],
 )
 
+py_library(
+    name = "txn2ipa",
+    srcs = ["txn2ipa.py"],
+    deps = [
+        ":phoneme_inventory",
+        ":rewrite_functions",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "txn2ipa_test_py",
+    srcs = ["txn2ipa_test.py"],
+    main = "txn2ipa_test.py",
+    deps = [
+        ":txn2ipa",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
 nisaba_compile_multi_grm_py(
     name = "hi_e2e",
     outs = {

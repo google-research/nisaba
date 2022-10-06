@@ -50,6 +50,7 @@ def _enclose(sym: str) -> p.Fst():
 
 # IPA mapping
 
+SCHWA_IPA = 'ə'
 EC_IPA = 'ə'
 EC_L_IPA = 'əː'
 A_IPA = 'a'
@@ -68,6 +69,16 @@ OH_IPA = 'ɔ'
 OH_L_IPA = 'ɔː'
 U_IPA = 'u'
 U_L_IPA = 'uː'
+B_IPA = 'b'
+CH_IPA = 't͡ʃ'
+D_IPA = 'd'
+DD_IPA = 'ɖ'
+DI_IPA = 'd̪'
+F_IPA = 'f'
+G_IPA = 'ɡ'
+H_IPA = 'h'
+JH_IPA = 'd͡ʒ'
+K_IPA = 'k'
 L_IPA = 'l'
 LL_IPA = 'ɭ'
 M_IPA = 'm'
@@ -93,10 +104,14 @@ X_IPA = 'x'
 XA_IPA = 'ɣ'
 Y_IPA = 'j'
 Z_IPA = 'z'
+ZH_IPA = 'ʒ'
 ASP_IPA = 'ʰ'
 GLIDE_IPA = '̯'
 NSL_IPA = '~'
 SIL_IPA = ''
+COMBINE_IPA = '͡'
+LONG_IPA = 'ː'
+FRONT_IPA = '̪'  # Combining bridge below ( ̪ )
 
 # txn phonemes
 
@@ -205,3 +220,18 @@ PHONEME = p.union(ASP, GLIDE, NSL, VCL, SIL,
                   X, XA, Y, Z, SCHWA).optimize()
 
 PHONEMES = PHONEME.star.optimize()
+
+
+def _ipa_utf8_characters() -> p.Fst:
+  """UTF-8 IPA symbols."""
+  return p.union(
+      EC_IPA, EH_IPA, OH_IPA, DD_IPA, G_IPA, LL_IPA,
+      NG_IPA, NY_IPA, NN_IPA, RRT_IPA, RRU_IPA, RT_IPA,
+      SH_IPA, SH_IPA, SS_IPA, ZH_IPA, TT_IPA, VU_IPA, XA_IPA,
+      LONG_IPA, GLIDE_IPA, FRONT_IPA, COMBINE_IPA, ASP_IPA
+      ).optimize()
+
+
+def sigma_star() -> p.Fst:
+  """Add utf8 IPA symbols to sigma_star."""
+  return p.union(u.byte.BYTE, _ipa_utf8_characters()).star.optimize()
