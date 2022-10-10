@@ -126,6 +126,11 @@ VCL = _enclose('vcl')
 
 SIL = _enclose('sil')
 
+VOWEL_MODS = p.union(GLIDE, NSL).optimize()
+CONSONANT_MODS = p.union(ASP, VCL).optimize()
+
+MODS = p.union(VOWEL_MODS, CONSONANT_MODS).optimize()
+
 # Vowels
 
 EC = _enclose('ec')
@@ -186,8 +191,12 @@ XA = _enclose('xa')
 Y = _enclose('y')
 Z = _enclose('z')
 
-VOWEL_SHORT = p.union(EC, A, AE, E, EH, I, O, OH, U, SCHWA).optimize()
-VOWEL_LONG = p.union(EC_L, A_L, AE_L, E_L, EH_L, I_L, O_L, OH_L, U_L).optimize()
+VOWEL_SHORT = (
+    p.union(EC, A, AE, E, EH, I, O, OH, U, SCHWA).optimize() +
+    VOWEL_MODS.star.optimize())
+VOWEL_LONG = (
+    p.union(EC_L, A_L, AE_L, E_L, EH_L, I_L, O_L, OH_L, U_L).optimize() +
+    VOWEL_MODS.star)
 VOWEL = p.union(VOWEL_SHORT, VOWEL_LONG).optimize()
 
 LABIAL = p.union(B, M, P).optimize()
@@ -198,15 +207,39 @@ RETROFLEX = p.union(DD, NN, TT).optimize()
 VELAR = p.union(G, NG, K).optimize()
 NASAL = p.union(M, N, NI, NG, NN, NY, NSL).optimize()
 
-STOP = p.union(P, B,
-               TI, DI,
-               T, D,
-               TT, DD,
-               K, G).optimize()
+STOP_UNASP = p.union(
+    P, B,
+    TI, DI,
+    T, D,
+    TT, DD,
+    K, G, Q).optimize()
 
-AFFRICATE = p.union(CH, JH).optimize()
+STOP_ASP = STOP_UNASP + ASP
 
-APPROXIMANT = p.union(Y).optimize()
+STOP = p.union(STOP_UNASP, STOP_ASP).optimize()
+
+FRICATIVE = p.union(F, S, Z, SH, SS, X, XA, H).optimize()
+
+SIBILANT = p.union(S, Z, SH, SS).optimize()
+
+AFFRICATE_UNASP = p.union(CH, JH).optimize()
+
+AFFRICATE_ASP = AFFRICATE_UNASP + ASP
+
+AFFRICATE = p.union(AFFRICATE_UNASP, AFFRICATE_ASP).optimize()
+
+VOICED = p.union(B, DI, D, DD, G, JH, F, Z).optimize() + ASP.ques
+
+APPROXIMANT = p.union(VU, RRU, Y).optimize()
+
+RHOTIC = p.union(R, RT, RRT, RRU).optimize()
+
+LATERAL = p.union(L, LL).optimize()
+
+LIQUID = p.union(RHOTIC, LATERAL).optimize()
+
+CONSONANT = p.union(NASAL, STOP, FRICATIVE, AFFRICATE,
+                    APPROXIMANT, LIQUID).optimize()
 
 PHONEME = p.union(ASP, GLIDE, NSL, VCL, SIL,
                   EC, EC_L, A, A_L, AE, AE_L,
@@ -220,18 +253,3 @@ PHONEME = p.union(ASP, GLIDE, NSL, VCL, SIL,
                   X, XA, Y, Z, SCHWA).optimize()
 
 PHONEMES = PHONEME.star.optimize()
-
-
-def _ipa_utf8_characters() -> p.Fst:
-  """UTF-8 IPA symbols."""
-  return p.union(
-      EC_IPA, EH_IPA, OH_IPA, DD_IPA, G_IPA, LL_IPA,
-      NG_IPA, NY_IPA, NN_IPA, RRT_IPA, RRU_IPA, RT_IPA,
-      SH_IPA, SH_IPA, SS_IPA, ZH_IPA, TT_IPA, VU_IPA, XA_IPA,
-      LONG_IPA, GLIDE_IPA, FRONT_IPA, COMBINE_IPA, ASP_IPA
-      ).optimize()
-
-
-def sigma_star() -> p.Fst:
-  """Add utf8 IPA symbols to sigma_star."""
-  return p.union(u.byte.BYTE, _ipa_utf8_characters()).star.optimize()

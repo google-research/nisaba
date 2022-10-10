@@ -26,7 +26,7 @@ import nisaba.scripts.brahmic.natural_translit.util as u
 
 def _anusvara_assimilation_labial() -> p.Fst:
   """Anusvara assimilates to {m} before labials."""
-  return rw.reassign(
+  return rw.reassign_by_context(
       gr.ANS,
       ph.NSL,
       ph.M,
@@ -37,7 +37,7 @@ ANUSVARA_ASSIMILATION_LABIAL = _anusvara_assimilation_labial()
 
 def _anusvara_assimilation_dental() -> p.Fst:
   """Anusvara assimilates to {ni} before dentals."""
-  return rw.reassign(
+  return rw.reassign_by_context(
       gr.ANS,
       ph.NSL,
       ph.NI,
@@ -48,7 +48,7 @@ ANUSVARA_ASSIMILATION_DENTAL = _anusvara_assimilation_dental()
 
 def _anusvara_assimilation_alveolar() -> p.Fst:
   """Anusvara assimilates to {n} before alveolars."""
-  return rw.reassign(
+  return rw.reassign_by_context(
       gr.ANS,
       ph.NSL,
       ph.N,
@@ -59,7 +59,7 @@ ANUSVARA_ASSIMILATION_ALVEOLAR = _anusvara_assimilation_alveolar()
 
 def _anusvara_assimilation_palatal() -> p.Fst:
   """Anusvara assimilates to {ny} before palatals."""
-  return rw.reassign(
+  return rw.reassign_by_context(
       gr.ANS,
       ph.NSL,
       ph.NY,
@@ -70,7 +70,7 @@ ANUSVARA_ASSIMILATION_PALATAL = _anusvara_assimilation_palatal()
 
 def _anusvara_assimilation_retroflex() -> p.Fst:
   """Anusvara assimilates to {nn} before retroflexes."""
-  return rw.reassign(
+  return rw.reassign_by_context(
       gr.ANS,
       ph.NSL,
       ph.NN,
@@ -81,7 +81,7 @@ ANUSVARA_ASSIMILATION_RETROFLEX = _anusvara_assimilation_retroflex()
 
 def _anusvara_assimilation_velar() -> p.Fst:
   """Anusvara assimilates to {ng} before velars."""
-  return rw.reassign(
+  return rw.reassign_by_context(
       gr.ANS,
       ph.NSL,
       ph.NG,
@@ -122,6 +122,8 @@ def _final_anusvara_nasalization() -> p.Fst:
 
 FINAL_ANUSVARA_NASALIZATION = _final_anusvara_nasalization()
 
+# Voicing
+
 VOICING_OP = p.union(
     p.cross(ph.CH, ph.JH),
     p.cross(ph.K, ph.G),
@@ -133,23 +135,21 @@ VOICING_OP = p.union(
 
 def voicing(
     preceding: p.FstLike,
-    following: p.FstLike,
-    preceding_modifier: p.FstLike = u.EPSILON,
-    following_modifier: p.FstLike = u.EPSILON) -> p.Fst:
+    following: p.FstLike) -> p.Fst:
   """Voicing. See rewrite_by_operation for argument details."""
-  return rw.rewrite_by_operation(
+  return rw.rewrite_operation_by_context(
       VOICING_OP,
       preceding,
-      following,
-      preceding_modifier,
-      following_modifier)
+      following)
+
+# JNY clusters
 
 
 def _jny_to_gny() -> p.Fst:
   """jny pronounced as gny."""
   return rw.rewrite(
       u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
-      u.align(gr.J + gr.NY, ph.G + ph.NY))
+      u.align(gr.J, ph.G) + u.align(gr.NY, ph.NY))
 
 JNY_TO_GNY = _jny_to_gny()
 
@@ -158,7 +158,7 @@ def _jny_to_gy() -> p.Fst:
   """jny pronounced as gy."""
   return rw.rewrite(
       u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
-      u.align(gr.J + gr.NY, ph.G + ph.Y))
+      u.align(gr.J, ph.G) + u.align(gr.NY, ph.Y))
 
 JNY_TO_GY = _jny_to_gy()
 
@@ -167,6 +167,6 @@ def _jny_to_ny() -> p.Fst:
   """jny pronounced as ny."""
   return rw.rewrite(
       u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
-      u.align(gr.J + gr.NY, ph.NY))
+      u.align(gr.J, ph.SIL) + u.align(gr.NY, ph.NY))
 
 JNY_TO_NY = _jny_to_ny()

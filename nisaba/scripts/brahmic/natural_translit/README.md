@@ -45,11 +45,11 @@ Nasality and aspiration are featurised for phoneme inventory parsimony, and are 
 
 ## typ2txn grammar
 
-`typ2txn` grammar assigns a naive orthography to phonology mapping prior to the phonological operations. The format of an assignment is `(<typ_graphemes>={txn_phonemes})`.
+`typ2txn` grammar assigns a naive orthography to phonology mapping prior to the phonological operations. The format of an assignment is `<typ_graphemes>{txn_phonemes}`.
 
 **Example**
 
-* `<aa><tt><aa><n_chl>` -> `(<aa>={a_l})(<tt>={tt})(<aa>={a_l})(<n_chl>={ni})`
+* `<aa><tt><aa><n_chl>` -> `<aa>{a_l}<tt>{tt}<aa>{a_l}<n_chl>{ni}`
 
 ## Transliteration strings and transliteration_inventory
 
@@ -61,7 +61,7 @@ Transliteration strings are enclosed in double quotation marks. This allows for 
 
 **Example**: Malayalam voicing
 
-* `(<aa>={a_l})(<tt>={tt})(<aa>={a_l})(<n_chl>={ni})` -> `(<aa>={a_l})(<tt>={dd})(<aa>={a_l})(<n_chl>={ni})`
+* `<aa>{a_l}<tt>{tt}<aa>{a_l}<n_chl>{ni}` -> `<aa>{a_l}<tt>{dd}<aa>{a_l}<n_chl>{ni}`
 
 ## txn2nat grammar
 
@@ -71,9 +71,9 @@ Transliteration strings are enclosed in double quotation marks. This allows for 
 
 **Example**
 
-* `(<aa>={a_l})(<tt>={dd})(<aa>={a_l})(<n_chl>={ni})` ->
+* `<aa>{a_l}<tt>{dd}<aa>{a_l}<n_chl>{ni}` ->
 
- `(<aa>=“aa”)(<tt>=“d”)(<aa>=“aa”)(<n_chl>=“n”)` ->
+ `<aa>“aa”<tt>“d”<aa>“aa”<n_chl>“n”` ->
 
    `aadaan`
 
@@ -81,9 +81,9 @@ Transliteration strings are enclosed in double quotation marks. This allows for 
 
 **Example**
 
-* `(<aa>={a_l})(<tt>={dd})(<aa>={a_l})(<n_chl>={ni})` ->
+* `<aa>{a_l}<tt>{dd}<aa>{a_l}<n_chl>{ni}` ->
 
- `(<aa>=“a”)(<tt>=“d”)(<aa>=“a”)(<n_chl>=“n”)` ->
+ `<aa>“a”<tt>“d”<aa>“a”<n_chl>“n”` ->
 
    `aadaan`
 
@@ -91,9 +91,9 @@ Transliteration strings are enclosed in double quotation marks. This allows for 
 
 **Example**
 
-* `(<aa>={a_l})(<tt>={dd})(<aa>={a_l})(<n_chl>={ni})` ->
+* `<aa>{a_l}<tt>{dd}<aa>{a_l}<n_chl>{ni}` ->
 
- `(<aa>=“aa”)(<tt>=“d”)(<aa>=“a”)(<n_chl>=“n”)` ->
+ `<aa>“aa”<tt>“d”<aa>“a”<n_chl>“n”` ->
 
    `aadaan`
 
@@ -103,9 +103,9 @@ Transliteration strings are enclosed in double quotation marks. This allows for 
 
 **Example**
 
-* `(<aa>={a_l})(<tt>={dd})(<aa>={a_l})(<n_chl>={ni})` ->
+* `<aa>{a_l}<tt>{dd}<aa>{a_l}<n_chl>{ni}` ->
 
- `(<aa>=aː)(<tt>=ɖ)(<aa>=aː)(<n_chl>=n)` ->
+ `<aa>aː<tt>ɖ<aa>aː<n_chl>n` ->
 
    `aːɖaːn`
 
@@ -128,8 +128,9 @@ End-to-end grammars compose the relevant fsts from grammars and pass arguments t
 ```
 _VOICING = ops.voicing(
     p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),  # Preceding context
-    p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),  # Following context
-    following_modifier=ph.ASP)  # Modifiers that don't block the operation, such as aspiration.
+    rw.concat_r(
+        ph.ASP.ques,
+        p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT)).optimize())  # Following context
 ```
 
 ## util library

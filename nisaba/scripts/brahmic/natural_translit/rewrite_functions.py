@@ -21,120 +21,86 @@ import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
 import nisaba.scripts.brahmic.natural_translit.transliteration_inventory as tr
 import nisaba.scripts.brahmic.natural_translit.util as u
 
-# Left side of an alignment
-L_SIDE = (u.AL_L + gr.GRAPHEMES + u.ALIGN_SIGN)
+# Right side of an alignment can be phonemes or transliteration strings.
+R_SYMS = p.union(ph.PHONEMES, tr.TRANSLITS).optimize()
 
-# Right side of an alignment
-R_SIDE = (u.ALIGN_SIGN +
-          p.union(ph.PHONEMES, tr.TRANSLITS)
-          + u.AL_R)
+SYMS = p.union(gr.GRAPHEMES, R_SYMS).optimize()
 
-# The symbol sequence between a symbol and the next right side symbol.
-NEXT_R = p.union(u.EPSILON, L_SIDE, u.AL_R + L_SIDE)
+# The sequence between any string any other string in the immediately preceding
+# or following alignment that doesn't block an operation
+SKIP = R_SYMS.ques + gr.GRAPHEMES.ques
 
 # Beginning of word
-BOW = p.union(u.BOS, u.BOS + u.AL_L, u.BOS + L_SIDE)
+BOW = u.BOS + gr.GRAPHEMES.ques
 
 # End of word
-EOW = p.union(u.EOS, u.AL_R + u.EOS)
+EOW = R_SYMS.ques + u.EOS
 
 
-def preceding_context(
-    preceding: p.FstLike,
-    modifiers: p.FstLike = u.EPSILON) -> p.Fst:
-  """The preceding context for a rewrite.
+def concat_r(
+    right_1: p.FstLike,
+    right_2: p.FstLike) -> p.Fst:
+  """Concatanate right side symbols across multiple alignments.
 
-  The preceding context can be an alignment, a position, or a symbol and the
-  modifiers that doesn't block the operation. The symbols and the modifiers
-  can be in the same alignment or in the immediately preceding alignment.
+  Current number of args is 2, but will be increased as needed.
 
   Args:
-    preceding: Symbols necessary for the operation.
-    modifiers: Modifiers that doesn't block the operation.
+    right_1: First right side.
+    right_2: Second right side.
 
   Returns:
-    Preceding context Fst for a rewrite Fst.
-
-  Eg: Voicing requires a vowel to the right. For the following examples
-  (<a>={a})(<t>={ti})
-  (<a_g>={a}{glide})(<t>={ti})
-  (<a><t>={a}{ti})
-  (<a_g><t>={a}{glide}{ti})
-
-  Following call
+      Following call
 
   ```
-  preceding_context(ph.VOWEL, ph.GLIDE)
+  concat_r(ph.A, ph.B)
   ```
   would return:
-  ```
-  p.union('{a}',
-          '{a}{glide}',
-          '{a})(GRAPHEMES=',
-          '{a}{glide})(GRAPHEMES='
-          ...)
-
+  p.union(
+      '{a}{b}',
+      '{a}gr.GRAPHEMES{b}',
+      ...
+  )
   """
-  return p.union(
-      preceding,
-      preceding + modifiers.star + NEXT_R)
+
+  return right_1 + gr.GRAPHEMES.ques + right_2
 
 
-def following_context(
-    following: p.FstLike,
-    modifiers: p.FstLike = u.EPSILON) -> p.Fst:
-  """The following symbol for a rewrite.
+def concat_l(
+    left_1: p.FstLike,
+    left_2: p.FstLike) -> p.Fst:
+  """Concatanate left side symbols across multiple alignments.
 
-  The preceding context can be an alignment, a position, or a symbol and the
-  modifiers that doesn't block the operation. The symbols and the modifiers
-  can be in the same alignment or in the immediately following alignment.
+  Current number of args is 2, but will be increased as needed.
 
   Args:
-    following: Symbols necessary for the operation.
-    modifiers: Modifiers that doesn't block the operation.
+    left_1: First argument.
+    left_2: Second argument.
 
   Returns:
-    Following context Fst for a rewrite Fst.
-
-  Eg: Voicing requires a vowel to the left. For the following examples
-  (<t>={ti})(<a>={a})
-  (<t><asp>={ti}{asp})(<a>={a})
-  (<t><a>={ti}{a})
-  (<t><asp><a>={ti}{asp}{a})
-
-  Following call
+      Following call
 
   ```
-  following_context(ph.VOWEL, ph.ASP)
+  concat_l(gr.A, gr.B)
   ```
   would return:
-  ```
-  p.union('{a}',
-          '{asp}{a}',
-          ')(GRAPHEMES={a}',
-          ')(GRAPHEMES={asp}{a}'
-          ...)
-
+  p.union(
+      '<a><b>',
+      '<a>ph.PHONEMES<b>',
+      ...
+  )
   """
-  return p.union(
-      following,
-      NEXT_R + following + modifiers.star)
+
+  return left_1 + R_SYMS.ques + left_2
 
 
 def rewrite(
     old: p.FstLike,
-    new: p.FstLike,
-    preceding: p.FstLike = u.EPSILON,
-    following: p.FstLike = u.EPSILON,
-    sigma: p.FstLike = u.BYTE_STAR) -> p.Fst:
-  """A shorthand for generic rewrites.
+    new: p.FstLike) -> p.Fst:
+  """A shorthand for generic rewrites with no context.
 
   Args:
     old: Input of the rewrite.
     new: Output of the rewrite.
-    preceding: Preceding context of the rewrite.
-    following: Following context of the rewrite.
-    sigma: The set of characters which the operation will be carried over.
 
   Returns:
     Rewrite Fst.
@@ -142,63 +108,16 @@ def rewrite(
   """
   return p.cdrewrite(
       p.cross(old, new),
-      preceding,
-      following,
-      sigma).optimize()
-
-
-def rewrite_by_operation(
-    operation: p.Fst,
-    preceding: p.FstLike = u.EPSILON,
-    following: p.FstLike = u.EPSILON,
-    preceding_modifier: p.FstLike = u.EPSILON,
-    following_modifier: p.FstLike = u.EPSILON,
-    sigma: p.FstLike = u.BYTE_STAR) -> p.Fst:
-  """A rewrite fst that uses a predefined operation as input.
-
-  Args:
-    operation: An operation that yields p.cross() functions.
-    preceding: Preceding right side context.
-    following: Following right side context.
-    preceding_modifier: Preceding modifier that doesn't block the operation.
-    following_modifier: Following modifier that doesn't block the operation.
-    sigma: The set of characters which the operation will be carried over.
-
-  Returns:
-    Rewrite fst.
-
-  Eg. Voicing rewrites are predefined.
-  VOICING _OP= p.union(..., p.cross(ph.TI, ph.DI), ...)
-
-  Following call
-
-  ```
-  rewrite_by_operation(VOICING_OP, ph.VOWEL, ph.VOWEL, ph.GLIDE, ph.ASP)
-
-  ```
-  would return:
-  ```
-  p.cdrewrite(
-      p.union(..., p.cross('{ti}', '{di}'), ...),
-      p.union('{a}', '{a}{glide}', ...),
-      p.union('{a}', '{asp}{a}', ...),
-      u.BYTE_STAR)
-
-  """
-  return p.cdrewrite(
-      operation,
-      preceding_context(preceding, preceding_modifier),
-      following_context(following, following_modifier),
-      sigma).optimize()
+      u.EPSILON,
+      u.EPSILON,
+      u.BYTE_STAR).optimize()
 
 
 def rewrite_by_context(
     old: p.FstLike,
     new: p.FstLike,
     preceding: p.FstLike = u.EPSILON,
-    following: p.FstLike = u.EPSILON,
-    preceding_modifier: p.FstLike = u.EPSILON,
-    following_modifier: p.FstLike = u.EPSILON) -> p.Fst:
+    following: p.FstLike = u.EPSILON) -> p.Fst:
   """Rewrites the right side of an alignment based on right side contexts.
 
   Args:
@@ -206,8 +125,6 @@ def rewrite_by_context(
     new: Output of the rewrite.
     preceding: Preceding right side context.
     following: Following right side context.
-    preceding_modifier: Preceding modifier that doesn't block the operation.
-    following_modifier: Following modifier that doesn't block the operation.
 
   Returns:
     Rewrite fst.
@@ -224,43 +141,88 @@ def rewrite_by_context(
   ```
   p.cdrewrite(
       p.cross('{schwa}', '{ec}'),
-      p.union('{m}', '{m})(GRAPHEMES=', ...),
-      p.union('{m}', ')(GRAPHEMES={m}', ...),,
+      p.union('{m}', '{m}gr.GRAPHEMES', ...),
+      p.union('{m}', 'gr.GRAPHEMES{m}', ...),,
       u.BYTE_STAR))
 
   """
-  return rewrite(
+  return p.cdrewrite(
       p.cross(old, new),
-      preceding_context(preceding, preceding_modifier),
-      following_context(following, following_modifier))
+      preceding + SKIP,
+      SKIP + following,
+      u.BYTE_STAR).optimize()
+
+
+def rewrite_operation(operation: p.Fst) -> p.Fst:
+  """Rewrite using a pre-defined operation without context."""
+  return p.cdrewrite(
+      operation,
+      u.EPSILON,
+      u.EPSILON,
+      u.BYTE_STAR).optimize()
+
+
+def rewrite_operation_by_context(
+    operation: p.Fst,
+    preceding: p.FstLike = u.EPSILON,
+    following: p.FstLike = u.EPSILON) -> p.Fst:
+  """A rewrite fst that uses a predefined operation as input.
+
+  Args:
+    operation: An operation that yields p.cross() functions.
+    preceding: Preceding right side context.
+    following: Following right side context.
+
+  Returns:
+    Rewrite fst.
+
+  Eg. Voicing rewrites are predefined.
+  VOICING _OP= p.union(..., p.cross(ph.TI, ph.DI), ...)
+
+  Following call
+
+  ```
+  rewrite_operation_by_context(VOICING_OP, ph.VOWEL, ph.VOWEL)
+
+  ```
+  would return:
+  ```
+  p.cdrewrite(
+      p.union(..., p.cross('{ti}', '{di}'), ...),
+      p.union('{a}', '{a}{nsl}', '{a}{glide}', '{e}', '{e}{nsl}'...),
+      p.union('{a}', '{a}{nsl}', '{a}{glide}', '{e}', '{e}{nsl}'...),
+      u.BYTE_STAR)
+
+  """
+  return p.cdrewrite(
+      operation,
+      preceding + SKIP,
+      SKIP + following,
+      u.BYTE_STAR).optimize()
 
 
 def rewrite_word_initial(
     old: p.FstLike,
     new: p.FstLike,
-    following: p.FstLike = u.EPSILON,
-    modifier: p.FstLike = u.EPSILON) -> p.Fst:
+    following: p.FstLike = u.EPSILON) -> p.Fst:
   """Rewrites with preceding = beginning of word."""
   return rewrite_by_context(
       old,
       new,
       BOW,
-      following,
-      following_modifier=modifier)
+      following)
 
 
 def rewrite_word_final(
     old: p.FstLike,
     new: p.FstLike,
-    preceding: p.FstLike = u.EPSILON,
-    modifier: p.FstLike = u.EPSILON) -> p.Fst:
+    preceding: p.FstLike = u.EPSILON) -> p.Fst:
   """Rewrites with following = beginning of word."""
   return rewrite_by_context(
       old,
       new,
       preceding,
-      EOW,
-      modifier)
+      EOW)
 
 
 def realign(
@@ -276,11 +238,17 @@ def realign(
 def reassign(
     left_side: p.FstLike,
     old: p.FstLike,
+    new: p.FstLike) -> p.Fst:
+  """Changes the right side assignment of a specified left side."""
+  return rewrite_operation(realign(left_side, old, new))
+
+
+def reassign_by_context(
+    left_side: p.FstLike,
+    old: p.FstLike,
     new: p.FstLike,
     preceding: p.FstLike = u.EPSILON,
-    following: p.FstLike = u.EPSILON,
-    preceding_modifier: p.FstLike = u.EPSILON,
-    following_modifier: p.FstLike = u.EPSILON) -> p.Fst:
+    following: p.FstLike = u.EPSILON) -> p.Fst:
   """Changes the right side assignment of a specified left side.
 
   Args:
@@ -289,8 +257,6 @@ def reassign(
     new: Output of the rewrite.
     preceding: Preceding right side context.
     following: Following right side context.
-    preceding_modifier: Preceding modifier that doesn't block the operation.
-    following_modifier: Following modifier that doesn't block the operation.
 
   Returns:
     Rewrite fst.
@@ -300,7 +266,7 @@ def reassign(
   Following call
 
   ```
-  reassign(
+  reassign_by_context(
       gr.ANS,
       ph.NSL,
       ph.M,
@@ -310,61 +276,58 @@ def reassign(
   would return:
   ```
   p.cdrewrite(
-      p.cross('(<ans>={nsl})', '(<ans>={m})'),
+      p.cross('<ans>{nsl}', '<ans>{m}'),
       '',
-      p.union('{m}', ')(GRAPHEMES={m}', ...),,
+      p.union('{m}', 'gr.GRAPHEMES{m}', ...),,
       u.BYTE_STAR))
 
   """
-  return rewrite_by_operation(
+  return rewrite_operation_by_context(
       realign(left_side, old, new),
-      preceding_context(preceding, preceding_modifier),
-      following_context(following, following_modifier))
+      preceding,
+      following)
 
 
 def reassign_word_initial(
     left_side: p.FstLike,
     old: p.FstLike,
     new: p.FstLike,
-    following: p.FstLike = u.EPSILON,
-    modifier: p.FstLike = u.EPSILON) -> p.Fst:
+    following: p.FstLike = u.EPSILON) -> p.Fst:
   """Reassigns with preceding = beginning of word."""
-  return rewrite_by_operation(
-      realign(left_side, old, new),
+  return reassign_by_context(
+      left_side,
+      old,
+      new,
       BOW,
-      following,
-      following_modifier=modifier)
+      following)
 
 
 def reassign_word_final(
     left_side: p.FstLike,
     old: p.FstLike,
     new: p.FstLike,
-    preceding: p.FstLike = u.EPSILON,
-    modifier: p.FstLike = u.EPSILON) -> p.Fst:
+    preceding: p.FstLike = u.EPSILON) -> p.Fst:
   """Reassigns with following = beginning of word."""
-  return rewrite_by_operation(
-      realign(left_side, old, new),
+  return reassign_by_context(
+      left_side,
+      old,
+      new,
       preceding,
-      EOW,
-      modifier)
+      EOW)
 
 
 def delete(
     syms: p.FstLike,
     preceding: p.FstLike = u.EPSILON,
-    following: p.FstLike = u.EPSILON,
-    sigma: p.FstLike = u.BYTE_STAR) -> p.Fst:
+    following: p.FstLike = u.EPSILON) -> p.Fst:
   """Deletes symbols."""
-  return rewrite(
+  return rewrite_by_context(
       syms,
       u.EPSILON,
       preceding,
-      following,
-      sigma)
+      following)
 
 
-def extract_right_side(
-    sigma: p.FstLike = u.BYTE_STAR) -> p.Fst:
+def extract_right_side() -> p.Fst:
   """Removes everything other than the right side symbols."""
-  return delete(p.union(L_SIDE, u.AL_R), sigma=sigma)
+  return rewrite(gr.GRAPHEMES, u.EPSILON)

@@ -80,10 +80,10 @@ def _rewrite_txn_to_ipa() -> p.Fst:
       p.cross(ph.SIL, ph.SIL_IPA),
       p.cross(ph.SCHWA, ph.SCHWA_IPA)).optimize()
 
-  return rw.rewrite_by_operation(txn_to_ipa_op, sigma=ph.sigma_star())
+  return txn_to_ipa_op.star.optimize()
 
 
 def txn_to_ipa() -> p.Fst:
   """Converts txn to IPA and outputs only transcription strings."""
-  return (_rewrite_txn_to_ipa() @
-          rw.extract_right_side(sigma=ph.sigma_star())).optimize()
+  return (rw.extract_right_side()
+          @ _rewrite_txn_to_ipa()).optimize()

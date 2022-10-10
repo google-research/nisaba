@@ -137,10 +137,15 @@ U = _enclose('u')
 UU = _enclose('uu')
 AI = _enclose('ai')
 AU = _enclose('au')
+L_VCL = _enclose('l_vcl')
+LL_VCL = _enclose('ll_vcl')
+R_VCL = _enclose('r_vcl')
+RR_VCL = _enclose('rr_vcl')
 
 VOWEL_S = p.union(
     A, AA, AC, E, EE, EC, I, II,
-    O, OO, OC, OT, U, UU, AI, AU).optimize()
+    O, OO, OC, OT, U, UU, AI, AU,
+    L_VCL, LL_VCL, R_VCL, RR_VCL).optimize()
 
 # Independent vowels
 
@@ -159,33 +164,20 @@ U_I = _enclose('u_i')
 UU_I = _enclose('uu_i')
 AI_I = _enclose('ai_i')
 AU_I = _enclose('au_i')
-
-
-VOWEL_I = p.union(
-    A_I, AA_I, AC_I, E_I, EE_I, EC_I, I_I, II_I,
-    O_I, OO_I, OC_I, U_I, UU_I, AI_I, AU_I).optimize()
-
-# Vocalic
-
-# Vocalic vowel signs
-
-L_VCL = _enclose('l_vcl')
-LL_VCL = _enclose('ll_vcl')
-R_VCL = _enclose('r_vcl')
-RR_VCL = _enclose('rr_vcl')
-
-VOWEL_V = p.union(L_VCL, LL_VCL, R_VCL, RR_VCL).optimize()
-
-# Independent vocalic vowels
-
 L_VCL_I = _enclose('l_vcl_i')
 LL_VCL_I = _enclose('ll_vcl_i')
 R_VCL_I = _enclose('r_vcl_i')
 RR_VCL_I = _enclose('rr_vcl_i')
 
-VOWEL_V_I = p.union(L_VCL_I, LL_VCL_I, R_VCL_I, RR_VCL_I).optimize()
 
-VOWEL = p.union(VOWEL_S, VOWEL_I, VOWEL_V, VOWEL_V_I).optimize()
+VOWEL_I = p.union(
+    A_I, AA_I, AC_I, E_I, EE_I, EC_I, I_I, II_I,
+    O_I, OO_I, OC_I, U_I, UU_I, AI_I, AU_I,
+    L_VCL_I, LL_VCL_I, R_VCL_I, RR_VCL_I).optimize()
+
+VOWEL = p.union(VOWEL_S, VOWEL_I).optimize()
+
+# Consonants
 
 # Consonants with inherent vowel
 

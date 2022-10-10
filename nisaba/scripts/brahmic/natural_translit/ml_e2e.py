@@ -20,6 +20,7 @@ from pynini.export import multi_grm
 import nisaba.scripts.brahmic.natural_translit.iso2typ as iso
 import nisaba.scripts.brahmic.natural_translit.phon_ops as ops
 import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
+import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
 import nisaba.scripts.brahmic.natural_translit.txn2ipa as ipa
 import nisaba.scripts.brahmic.natural_translit.txn2nat as txn
 import nisaba.scripts.brahmic.natural_translit.typ2txn as typ
@@ -27,8 +28,9 @@ import nisaba.scripts.brahmic.natural_translit.typ2txn as typ
 
 _VOICING = ops.voicing(
     p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),
-    p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),
-    following_modifier=ph.ASP)
+    rw.concat_r(
+        ph.ASP.ques,
+        p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT)).optimize())
 
 
 def _iso_to_txn() -> p.Fst:

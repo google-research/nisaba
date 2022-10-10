@@ -36,6 +36,7 @@ _TEST_CASES = [
         ('hindi', 'hin̪d̪i'),
         ('intya', 'in̪d̪ja'),
         ('ājña', 'aːɲa'),
+        ('akʰa', 'aɡʰa'),
     ]),
 ]
 
