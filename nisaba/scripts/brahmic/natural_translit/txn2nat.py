@@ -41,6 +41,7 @@ def _rewrite_txn_to_psaf() -> p.Fst:
       p.cross(ph.DI, tr.D),
       p.cross(ph.E, tr.E),
       p.cross(ph.E_L, tr.EE),
+      p.cross(ph.EC, tr.A),
       p.cross(ph.F, tr.F),
       p.cross(ph.G, tr.G),
       p.cross(ph.H, tr.H),
@@ -80,7 +81,7 @@ def _rewrite_txn_to_psaf() -> p.Fst:
       p.cross(ph.ASP, tr.H),
       p.cross(ph.NSL, tr.N),
       p.cross(ph.SIL, u.EPSILON),
-      p.cross(ph.SCHWA, tr.A)).optimize()
+      p.cross(ph.SCHWA, u.EPSILON)).optimize()
 
   return rw.rewrite_operation(txn_to_psaf)
 

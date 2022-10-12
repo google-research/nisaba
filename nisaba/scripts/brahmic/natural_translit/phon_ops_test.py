@@ -47,6 +47,9 @@ _TEST_CASES = [
     (phon_ops._final_anusvara_nasalization, [
         ('<a>{a}<ans>{ni}', '<a>{a}<ans>{nsl}'),
     ]),
+    (phon_ops._default_schwa_a, [
+        ('(<b>={b})(<a>={sch})', '(<b>={b})(<a>={a})'),
+    ]),
     (phon_ops._jny_to_gny, [
         ('<j>{jh}<ny>{ny}', '<j>{g}<ny>{ny}'),
     ]),

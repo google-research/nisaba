@@ -17,6 +17,7 @@
 import pynini as p
 import nisaba.scripts.brahmic.natural_translit.grapheme_inventory as gr
 import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
+import nisaba.scripts.brahmic.natural_translit.util as u
 
 
 def _iso_to_decomposed_typ() -> p.Fst:
@@ -146,7 +147,10 @@ _COMPOSE_IND_VOWEL_OP = p.union(
 
 _COMPOSE_IND_VOWEL = rw.rewrite_operation(_COMPOSE_IND_VOWEL_OP)
 
-_COMPOSE_IND_A = rw.rewrite_word_initial(gr.A, gr.A_I)
+_COMPOSE_IND_A = p.cdrewrite(p.cross(gr.A, gr.A_I),
+                             u.BOS,
+                             u.EPSILON,
+                             u.BYTE_STAR)
 
 _COMPOSE_ASPIRATION_OP = p.union(
     p.cross(gr.B + gr.ASP, gr.BH),

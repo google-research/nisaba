@@ -20,7 +20,6 @@ import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
 import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
 import nisaba.scripts.brahmic.natural_translit.util as u
 
-
 # Anusvara place of articulation assimilation functions
 
 
@@ -121,6 +120,121 @@ def _final_anusvara_nasalization() -> p.Fst:
   return rw.reassign_word_final(gr.ANS, ph.NASAL, ph.NSL)
 
 FINAL_ANUSVARA_NASALIZATION = _final_anusvara_nasalization()
+
+# Vocalic liquids
+
+
+def _vocalic(vocalic: p.FstLike) -> p.Fst:
+  return rw.rewrite(ph.VCL, vocalic)
+
+DEFAULT_VOCALIC_I = _vocalic(ph.I)
+
+DEFAULT_VOCALIC_U = _vocalic(ph.U)
+
+# Schwa handling
+
+
+def _default_schwa(schwa: p.FstLike) -> p.Fst:
+  return rw.rewrite(ph.SCHWA, schwa)
+
+
+def _default_schwa_a() -> p.Fst:
+  """All schwa is pronounced as {a}."""
+  return _default_schwa(ph.A)
+
+DEFAULT_SCHWA_A = _default_schwa_a()
+
+
+def _vocal_schwa(
+    schwa: p.FstLike,
+    preceding: p.FstLike = u.EPSILON,
+    following: p.FstLike = u.EPSILON) -> p.Fst:
+
+  return rw.rewrite_by_context(
+      ph.SCHWA,
+      schwa,
+      preceding,
+      following)
+
+
+def _silent_schwa(
+    preceding: p.FstLike = u.EPSILON,
+    following: p.FstLike = u.EPSILON) -> p.Fst:
+
+  return rw.rewrite_by_context(
+      ph.SCHWA,
+      ph.SIL,
+      preceding,
+      following)
+
+
+def _schwa_before_coda_grapheme(schwa: p.FstLike) -> p.Fst:
+  """Pronounce schwa before diacritics."""
+  return _vocal_schwa(
+      schwa,
+      following=gr.CODA
+  )
+
+
+def _schwa_after_coda_grapheme(schwa: p.FstLike) -> p.Fst:
+  """Pronounce schwa before diacritics."""
+  return _vocal_schwa(
+      schwa,
+      gr.CODA + rw.SKIP + ph.CONSONANT
+  )
+
+_HEAVY_CODA_C = rw.concat_r(ph.VOWEL, ph.CONSONANT)
+
+_VERY_HEAVY_CODA_C = rw.concat_r(ph.VOWEL_LONG, ph.CONSONANT)
+
+_CONSONANT_ONSET = rw.concat_r(ph.CONSONANT, ph.VOWEL)
+
+
+def _legal_onset(onset_cl: p.FstLike) -> p.Fst:
+  return rw.concat_r(
+      p.union(ph.CONSONANT, onset_cl).optimize(),
+      ph.VOWEL
+      ).optimize()
+
+
+def _very_heavy_coda(coda_cl: p.FstLike) -> p.Fst:
+  """Very heavy coda."""
+  return p.union(
+      _VERY_HEAVY_CODA_C,
+      rw.concat_r(ph.VOWEL, coda_cl)
+      ).optimize()
+
+
+def _legal_coda(coda_cl: p.FstLike) -> p.Fst:
+  return p.union(
+      _HEAVY_CODA_C,
+      _very_heavy_coda(coda_cl)).optimize()
+
+
+def _schwa_eow(coda_cl) -> p.Fst:
+  return _silent_schwa(
+      _legal_coda(coda_cl),
+      u.EOS)
+
+
+def _schwa_deletion(onset_cl, coda_cl) -> p.Fst:
+  return _silent_schwa(
+      _legal_coda(coda_cl),
+      _legal_onset(onset_cl))
+
+
+def process_schwa(
+    schwa: p.FstLike,
+    onset_cl: p.FstLike = u.EPSILON,
+    coda_cl: p.FstLike = u.EPSILON
+    ) -> p.Fst:
+  """Compose fsts for schwa handling."""
+  return (
+      _schwa_before_coda_grapheme(schwa) @
+      _schwa_eow(coda_cl) @
+      _schwa_deletion(onset_cl, coda_cl) @
+      _vocal_schwa(schwa)
+      ).optimize()
 
 # Voicing
 

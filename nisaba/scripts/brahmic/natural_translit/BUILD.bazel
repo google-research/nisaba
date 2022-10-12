@@ -193,6 +193,8 @@ nisaba_compile_multi_grm_py(
     deps = [
         ":iso2typ",
         ":phon_ops",
+        ":phoneme_inventory",
+        ":rewrite_functions",
         ":txn2ipa",
         ":txn2nat",
         ":typ2txn",

@@ -21,6 +21,7 @@ from nisaba.scripts.utils import test_util
 
 _TEST_CASES = [
     (txn2ipa.txn_to_ipa, [
+        ('<a>{sch}', '0'),
         ('<a>{ec}', 'ə'),
         ('<a>{a}', 'a'),
         ('<aa>{a_l}', 'aː'),
@@ -70,9 +71,12 @@ _TEST_CASES = [
         ('<y>{y}', 'j'),
         ('<z>{z}', 'z'),
         ('<kh>{k}{asp}', 'kʰ'),
+        ('<kh>{g}{asp}', 'ɡʰ'),
         ('<ans>{nsl}', '~'),
         ('<om>{o_l}{m}', 'oːm'),
         ('<h>{h}<i>{i}<ans>{ni}<d>{di}<ii>{i_l}', 'hin̪d̪iː'),
+        ('<i>{i}<n_chl>{ni}<dd>{dd}<y>{y}<a>{sch}',
+         'in̪ɖj0'),
     ]),
 ]
 

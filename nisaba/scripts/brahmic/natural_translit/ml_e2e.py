@@ -25,7 +25,6 @@ import nisaba.scripts.brahmic.natural_translit.txn2ipa as ipa
 import nisaba.scripts.brahmic.natural_translit.txn2nat as txn
 import nisaba.scripts.brahmic.natural_translit.typ2txn as typ
 
-
 _VOICING = ops.voicing(
     p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),
     rw.concat_r(
@@ -37,6 +36,7 @@ def _iso_to_txn() -> p.Fst:
   """Composes the fsts from ISO characters to final txn pronunciation."""
   return (iso.iso_to_typ() @
           typ.TYP_TO_TXN @
+          ops.DEFAULT_SCHWA_A @
           ops.ANUSVARA_ASSIMILATION @
           ops.DEFAULT_ANUSVARA_LABIAL @
           _VOICING @

@@ -50,7 +50,7 @@ def _enclose(sym: str) -> p.Fst():
 
 # IPA mapping
 
-SCHWA_IPA = 'ə'
+SCHWA_IPA = '0'
 EC_IPA = 'ə'
 EC_L_IPA = 'əː'
 A_IPA = 'a'
@@ -151,7 +151,7 @@ OH = _enclose('oh')
 OH_L = _enclose('oh_l')
 U = _enclose('u')
 U_L = _enclose('u_l')
-SCHWA = _enclose('schwa')
+SCHWA = _enclose('sch')
 
 # Consonants
 
@@ -192,7 +192,7 @@ Y = _enclose('y')
 Z = _enclose('z')
 
 VOWEL_SHORT = (
-    p.union(EC, A, AE, E, EH, I, O, OH, U, SCHWA).optimize() +
+    p.union(SCHWA, EC, A, AE, E, EH, I, O, OH, U).optimize() +
     VOWEL_MODS.star.optimize())
 VOWEL_LONG = (
     p.union(EC_L, A_L, AE_L, E_L, EH_L, I_L, O_L, OH_L, U_L).optimize() +

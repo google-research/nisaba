@@ -21,7 +21,7 @@ import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
 import nisaba.scripts.brahmic.natural_translit.util as u
 
 _ASSIGN_VOWEL = p.union(
-    u.assign(gr.A, ph.A),
+    u.assign(gr.A, ph.SCHWA),
     u.assign(gr.AA, ph.A_L),
     u.assign(gr.AC, ph.AE),
     u.assign(gr.AI, ph.AE),

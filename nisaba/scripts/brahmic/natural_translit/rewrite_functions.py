@@ -22,13 +22,14 @@ import nisaba.scripts.brahmic.natural_translit.transliteration_inventory as tr
 import nisaba.scripts.brahmic.natural_translit.util as u
 
 # Right side of an alignment can be phonemes or transliteration strings.
-R_SYMS = p.union(ph.PHONEMES, tr.TRANSLITS).optimize()
+R_SYM = p.union(ph.PHONEME, tr.TRANSLIT).optimize()
+R_SYMS = R_SYM.star.optimize()
 
 SYMS = p.union(gr.GRAPHEMES, R_SYMS).optimize()
 
 # The sequence between any string any other string in the immediately preceding
 # or following alignment that doesn't block an operation
-SKIP = R_SYMS.ques + gr.GRAPHEMES.ques
+SKIP = (p.union(R_SYM.plus + gr.GRAPHEMES, gr.GRAPHEME.plus)).ques
 
 # Beginning of word
 BOW = u.BOS + gr.GRAPHEMES.ques
