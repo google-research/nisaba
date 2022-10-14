@@ -200,17 +200,6 @@ nisaba_compile_multi_grm_py(
     ],
 )
 
-py_test(
-    name = "hi_e2e_test_py",
-    srcs = ["hi_e2e_test.py"],
-    main = "hi_e2e_test.py",
-    deps = [
-        ":_hi_e2e_lib",
-        "//nisaba/scripts/utils:test_util",
-        "@io_abseil_py//absl/testing:absltest",
-    ],
-)
-
 nisaba_grm_regression_test(
     name = "hi_e2e_test",
     grammar = ":hi_e2e",
@@ -237,17 +226,6 @@ nisaba_compile_multi_grm_py(
         ":txn2nat",
         ":typ2txn",
         "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_test(
-    name = "kn_e2e_test_py",
-    srcs = ["kn_e2e_test.py"],
-    main = "kn_e2e_test.py",
-    deps = [
-        ":_kn_e2e_lib",
-        "//nisaba/scripts/utils:test_util",
-        "@io_abseil_py//absl/testing:absltest",
     ],
 )
 
@@ -287,17 +265,6 @@ nisaba_grm_regression_test(
     grammar = ":ml_e2e",
 )
 
-py_test(
-    name = "ml_e2e_test_py",
-    srcs = ["ml_e2e_test.py"],
-    main = "ml_e2e_test.py",
-    deps = [
-        ":_ml_e2e_lib",
-        "//nisaba/scripts/utils:test_util",
-        "@io_abseil_py//absl/testing:absltest",
-    ],
-)
-
 nisaba_grm_regression_test(
     name = "ml_e2e_utf8_test",
     grammar = ":ml_e2e_utf8",
@@ -319,17 +286,6 @@ nisaba_compile_multi_grm_py(
         ":txn2nat",
         ":typ2txn",
         "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_test(
-    name = "te_e2e_test_py",
-    srcs = ["te_e2e_test.py"],
-    main = "te_e2e_test.py",
-    deps = [
-        ":_te_e2e_lib",
-        "//nisaba/scripts/utils:test_util",
-        "@io_abseil_py//absl/testing:absltest",
     ],
 )
 
