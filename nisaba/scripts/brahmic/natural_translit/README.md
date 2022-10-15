@@ -157,6 +157,6 @@ If you use this software in a publication, please cite the accompanying
   address = {Marseille, France},
   publisher = {European Language Resources Association (ELRA)},
   pages = {6662--6673},
-  url= {http://www.lrec-conf.org/proceedings/lrec2022/pdf/2022.lrec-1.718.pdf},
+  url = {https://aclanthology.org/2022.lrec-1.718},
 }
 ```

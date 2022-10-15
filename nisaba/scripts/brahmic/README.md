@@ -533,7 +533,7 @@ papers:
   author = {Alexander Gutkin and Cibu Johny and Raiomond Doctor and Lawrence Wolf-Sonkin and Brian Edward Roark},
   booktitle	= {Proceedings of the 13th Language Resources and Evaluation Conference (LREC)},
   year = {2022},
-  url = {http://www.lrec-conf.org/proceedings/lrec2022/pdf/2022.lrec-1.692.pdf},
+  url = {https://aclanthology.org/2022.lrec-1.692},
   pages	= {6450--6460},
   month = {June},
   address = {Marseille, France},
