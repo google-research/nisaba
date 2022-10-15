@@ -85,5 +85,5 @@ def _rewrite_txn_to_ipa() -> p.Fst:
 
 def txn_to_ipa() -> p.Fst:
   """Converts txn to IPA and outputs only transcription strings."""
-  return (rw.extract_right_side()
-          @ _rewrite_txn_to_ipa()).optimize()
+  return (rw.EXTRACT_RIGHT_SIDE @
+          _rewrite_txn_to_ipa()).optimize()

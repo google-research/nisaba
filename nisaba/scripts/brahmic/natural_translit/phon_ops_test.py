@@ -20,7 +20,7 @@ from nisaba.scripts.utils import test_util
 
 
 _TEST_CASES = [
-    (phon_ops._anusvara_assimilation, [
+    (lambda: phon_ops.ANUSVARA_ASSIMILATION, [
         ('<a>{a}<ans>{nsl}<b>{b}<aa>{a_l}',
          '<a>{a}<ans>{m}<b>{b}<aa>{a_l}'),
         ('<a>{a}<ans>{nsl}<d>{di}<aa>{a_l}',
@@ -36,24 +36,21 @@ _TEST_CASES = [
         ('<a>{a}<ans>{nsl}<s>{s}<aa>{a_l}',
          '<a>{a}<ans>{nsl}<s>{s}<aa>{a_l}'),
     ]),
-    (phon_ops._default_anusvara_dental, [
-        ('<a>{a}<ans>{nsl}<s>{s}<aa>{a_l}',
-         '<a>{a}<ans>{ni}<s>{s}<aa>{a_l}'),
-    ]),
-    (phon_ops._default_anusvara_labial, [
+    (lambda: phon_ops.DEFAULT_ANUSVARA_LABIAL, [
         ('<a>{a}<ans>{nsl}<s>{s}<aa>{a_l}',
          '<a>{a}<ans>{m}<s>{s}<aa>{a_l}'),
     ]),
-    (phon_ops._final_anusvara_nasalization, [
-        ('<a>{a}<ans>{ni}', '<a>{a}<ans>{nsl}'),
+    (lambda: phon_ops.DEFAULT_ANUSVARA_DENTAL, [
+        ('<a>{a}<ans>{nsl}<s>{s}<aa>{a_l}',
+         '<a>{a}<ans>{ni}<s>{s}<aa>{a_l}'),
     ]),
-    (phon_ops._jny_to_gny, [
+    (lambda: phon_ops.JNY_TO_GNY, [
         ('<j>{jh}<ny>{ny}', '<j>{g}<ny>{ny}'),
     ]),
-    (phon_ops._jny_to_gy, [
+    (lambda: phon_ops.JNY_TO_GY, [
         ('<j>{jh}<ny>{ny}', '<j>{g}<ny>{y}'),
     ]),
-    (phon_ops._jny_to_ny, [
+    (lambda: phon_ops.JNY_TO_NY, [
         ('<j>{jh}<ny>{ny}', '<j>{sil}<ny>{ny}'),
     ]),
 ]

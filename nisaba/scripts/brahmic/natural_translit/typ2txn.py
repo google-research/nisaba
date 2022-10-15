@@ -138,18 +138,14 @@ _ASSIGN_CODA = p.union(
 
 _ASSIGN_OM = u.assign(gr.OM, ph.O_L + ph.M)
 
-
-def _typ_to_txn() -> p.Fst:
-  """Naive grapheme to phoneme assignment."""
-  return p.union(
-      _ASSIGN_VOWEL,
-      _ASSIGN_VOCALIC,
-      _ASSIGN_CONSONANT,
-      _ASSIGN_ASPIRATED,
-      _ASSIGN_CODA,
-      _ASSIGN_OM
-      ).star.optimize()
-
-TYP_TO_TXN = _typ_to_txn()
+# Naive grapheme to phoneme assignment.
+TYP_TO_TXN = p.union(
+    _ASSIGN_VOWEL,
+    _ASSIGN_VOCALIC,
+    _ASSIGN_CONSONANT,
+    _ASSIGN_ASPIRATED,
+    _ASSIGN_CODA,
+    _ASSIGN_OM
+    ).star.optimize()
 
 TAP_TO_TRILL = rw.reassign(gr.R, ph.RT, ph.R)

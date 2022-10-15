@@ -24,103 +24,67 @@ import nisaba.scripts.brahmic.natural_translit.util as u
 # Anusvara place of articulation assimilation functions
 
 
-def _anusvara_assimilation_labial() -> p.Fst:
-  """Anusvara assimilates to {m} before labials."""
+def _assign_anusvara(
+    phoneme: p.FstLike,
+    place: p.FstLike = u.EPSILON) -> p.Fst:
+  """Pronunciation of anusvara.
+
+  Anusvara is mapped to nasalisation by default. The pronunciation of it
+  can change across languages and it can be assimilated to the place of
+  articulation of the following phoneme.
+
+  Args:
+    phoneme: Pronuncation of <ans>.
+    place: Following phoneme.
+
+  Returns:
+    Rewrite fst.
+
+  Following call:
+  ```
+  _assign_anusvara(ph.M, ph.LABIAL)
+
+  ```
+  would return:
+  ```
+  p.cdrewrite(
+      p.cross('<ans>{nsl}', '<ans>{m}')
+      '',
+      p.union(ph.M, ph.P, ph.B),
+      u.BYTE_STAR)
+
+  """
   return rw.reassign_by_context(
       gr.ANS,
       ph.NSL,
-      ph.M,
-      following=ph.LABIAL)
+      phoneme,
+      following=place)
 
-ANUSVARA_ASSIMILATION_LABIAL = _anusvara_assimilation_labial()
+DEFAULT_ANUSVARA_LABIAL = _assign_anusvara(ph.M)
 
+DEFAULT_ANUSVARA_DENTAL = _assign_anusvara(ph.NI)
 
-def _anusvara_assimilation_dental() -> p.Fst:
-  """Anusvara assimilates to {ni} before dentals."""
-  return rw.reassign_by_context(
-      gr.ANS,
-      ph.NSL,
-      ph.NI,
-      following=ph.DENTAL)
+ANUSVARA_ASSIMILATION_LABIAL = _assign_anusvara(ph.M, ph.LABIAL)
 
-ANUSVARA_ASSIMILATION_DENTAL = _anusvara_assimilation_dental()
+ANUSVARA_ASSIMILATION_DENTAL = _assign_anusvara(ph.NI, ph.DENTAL)
 
+ANUSVARA_ASSIMILATION_ALVEOLAR = _assign_anusvara(ph.N, ph.ALVEOLAR)
 
-def _anusvara_assimilation_alveolar() -> p.Fst:
-  """Anusvara assimilates to {n} before alveolars."""
-  return rw.reassign_by_context(
-      gr.ANS,
-      ph.NSL,
-      ph.N,
-      following=ph.ALVEOLAR)
+ANUSVARA_ASSIMILATION_PALATAL = _assign_anusvara(ph.NY, ph.PALATAL)
 
-ANUSVARA_ASSIMILATION_ALVEOLAR = _anusvara_assimilation_alveolar()
+ANUSVARA_ASSIMILATION_RETROFLEX = _assign_anusvara(ph.NN, ph.RETROFLEX)
 
+ANUSVARA_ASSIMILATION_VELAR = _assign_anusvara(ph.NG, ph.VELAR)
 
-def _anusvara_assimilation_palatal() -> p.Fst:
-  """Anusvara assimilates to {ny} before palatals."""
-  return rw.reassign_by_context(
-      gr.ANS,
-      ph.NSL,
-      ph.NY,
-      following=ph.PALATAL)
+FINAL_ANUSVARA_NASALIZATION = rw.reassign_word_final(gr.ANS, ph.NASAL, ph.NSL)
 
-ANUSVARA_ASSIMILATION_PALATAL = _anusvara_assimilation_palatal()
-
-
-def _anusvara_assimilation_retroflex() -> p.Fst:
-  """Anusvara assimilates to {nn} before retroflexes."""
-  return rw.reassign_by_context(
-      gr.ANS,
-      ph.NSL,
-      ph.NN,
-      following=ph.RETROFLEX)
-
-ANUSVARA_ASSIMILATION_RETROFLEX = _anusvara_assimilation_retroflex()
-
-
-def _anusvara_assimilation_velar() -> p.Fst:
-  """Anusvara assimilates to {ng} before velars."""
-  return rw.reassign_by_context(
-      gr.ANS,
-      ph.NSL,
-      ph.NG,
-      following=ph.VELAR)
-
-ANUSVARA_ASSIMILATION_VELAR = _anusvara_assimilation_velar()
-
-
-def _anusvara_assimilation() -> p.Fst:
-  """Composes all anusvara place assimilations."""
-  return (ANUSVARA_ASSIMILATION_LABIAL @
-          ANUSVARA_ASSIMILATION_DENTAL @
-          ANUSVARA_ASSIMILATION_ALVEOLAR @
-          ANUSVARA_ASSIMILATION_PALATAL @
-          ANUSVARA_ASSIMILATION_RETROFLEX @
-          ANUSVARA_ASSIMILATION_VELAR).optimize()
-
-ANUSVARA_ASSIMILATION = _anusvara_assimilation()
-
-
-def _default_anusvara_dental() -> p.Fst:
-  """Unassimilated anusvara defaults to n."""
-  return rw.reassign(gr.ANS, ph.NSL, ph.NI)
-
-DEFAULT_ANUSVARA_DENTAL = _default_anusvara_dental()
-
-
-def _default_anusvara_labial() -> p.Fst:
-  """Unassimilated anusvara defaults to m."""
-  return rw.reassign(gr.ANS, ph.NSL, ph.M)
-
-DEFAULT_ANUSVARA_LABIAL = _default_anusvara_labial()
-
-
-def _final_anusvara_nasalization() -> p.Fst:
-  """Word final anusvara nasalizes the preceding vowel."""
-  return rw.reassign_word_final(gr.ANS, ph.NASAL, ph.NSL)
-
-FINAL_ANUSVARA_NASALIZATION = _final_anusvara_nasalization()
+# Composes anusvara assimilation for all places of articulation.
+ANUSVARA_ASSIMILATION = (ANUSVARA_ASSIMILATION_LABIAL @
+                         ANUSVARA_ASSIMILATION_DENTAL @
+                         ANUSVARA_ASSIMILATION_ALVEOLAR @
+                         ANUSVARA_ASSIMILATION_PALATAL @
+                         ANUSVARA_ASSIMILATION_RETROFLEX @
+                         ANUSVARA_ASSIMILATION_VELAR).optimize()
 
 # Voicing
 
@@ -145,28 +109,40 @@ def voicing(
 # JNY clusters
 
 
-def _jny_to_gny() -> p.Fst:
-  """jny pronounced as gny."""
+def _rewrite_jny(
+    j: p.FstLike,
+    ny: p.FstLike) -> p.Fst:
+  """Jny cluster rewrites.
+
+  Jny clusters are pronounced and transliterated differently across languages.
+
+  Args:
+    j: Pronuncation of grapheme <j>.
+    ny: Pronuncation of grapheme <ny>
+
+  Returns:
+    Rewrite fst.
+
+  Following call:
+  ```
+  _rewrite_jny(ph.G, ph.Y)
+
+  ```
+  would return:
+  ```
+  p.cdrewrite(
+      p.cross('<j>{jh}<ny>{ny}', '<j>{g}<ny>{y}')
+      '',
+      '',
+      u.BYTE_STAR)
+
+  """
   return rw.rewrite(
       u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
-      u.align(gr.J, ph.G) + u.align(gr.NY, ph.NY))
+      u.align(gr.J, j) + u.align(gr.NY, ny))
 
-JNY_TO_GNY = _jny_to_gny()
+JNY_TO_GNY = _rewrite_jny(ph.G, ph.NY)
 
+JNY_TO_GY = _rewrite_jny(ph.G, ph.Y)
 
-def _jny_to_gy() -> p.Fst:
-  """jny pronounced as gy."""
-  return rw.rewrite(
-      u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
-      u.align(gr.J, ph.G) + u.align(gr.NY, ph.Y))
-
-JNY_TO_GY = _jny_to_gy()
-
-
-def _jny_to_ny() -> p.Fst:
-  """jny pronounced as ny."""
-  return rw.rewrite(
-      u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
-      u.align(gr.J, ph.SIL) + u.align(gr.NY, ph.NY))
-
-JNY_TO_NY = _jny_to_ny()
+JNY_TO_NY = _rewrite_jny(ph.SIL, ph.NY)

@@ -328,6 +328,12 @@ def delete(
       following)
 
 
-def extract_right_side() -> p.Fst:
-  """Removes everything other than the right side symbols."""
-  return rewrite(gr.GRAPHEMES, u.EPSILON)
+# Removes graphemes and returns a sequence of phonemes or translit substrings.
+EXTRACT_RIGHT_SIDE = rewrite(gr.GRAPHEMES, u.EPSILON)
+
+
+def strip_right_side(syms: p.FstLike) -> p.Fst:
+  """Removes graphemes and right side boundaries and returns output string."""
+  return (EXTRACT_RIGHT_SIDE @
+          delete(syms)
+          ).optimize()
