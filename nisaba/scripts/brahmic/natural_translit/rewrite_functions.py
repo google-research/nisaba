@@ -22,19 +22,23 @@ import nisaba.scripts.brahmic.natural_translit.transliteration_inventory as tr
 import nisaba.scripts.brahmic.natural_translit.util as u
 
 # Right side of an alignment can be phonemes or transliteration strings.
+R_SYM = p.union(ph.PHONEME, tr.TRANSLIT).optimize()
 R_SYMS = p.union(ph.PHONEMES, tr.TRANSLITS).optimize()
 
 SYMS = p.union(gr.GRAPHEMES, R_SYMS).optimize()
 
-# The sequence between any string any other string in the immediately preceding
-# or following alignment that doesn't block an operation
-SKIP = R_SYMS.ques + gr.GRAPHEMES.ques
+# Skip sequences to look at either the adjacent symbol, the closest left or
+# right side symbol of an adjacent alignment.
+SKIP_LEFT_SIDE = (gr.GRAPHEME.plus + u.ALIGN_SIGN).ques
+SKIP_RIGHT_SIDE = (u.ALIGN_SIGN + R_SYM.plus).ques
+SKIP = p.union(SKIP_LEFT_SIDE, SKIP_RIGHT_SIDE).ques
+
 
 # Beginning of word
-BOW = u.BOS + gr.GRAPHEMES.ques
+BOW = u.BOS + SKIP_LEFT_SIDE.ques
 
 # End of word
-EOW = R_SYMS.ques + u.EOS
+EOW = SKIP_RIGHT_SIDE.ques + u.EOS
 
 
 def concat_r(
@@ -62,7 +66,7 @@ def concat_r(
   )
   """
 
-  return right_1 + gr.GRAPHEMES.ques + right_2
+  return right_1 + SKIP_LEFT_SIDE.ques + right_2
 
 
 def concat_l(
@@ -90,7 +94,7 @@ def concat_l(
   )
   """
 
-  return left_1 + R_SYMS.ques + left_2
+  return left_1 + SKIP_RIGHT_SIDE + left_2
 
 
 def rewrite(
@@ -329,7 +333,7 @@ def delete(
 
 
 # Removes graphemes and returns a sequence of phonemes or translit substrings.
-EXTRACT_RIGHT_SIDE = rewrite(gr.GRAPHEMES, u.EPSILON)
+EXTRACT_RIGHT_SIDE = rewrite(p.union(gr.GRAPHEMES, u.ALIGN_SIGN), u.EPSILON)
 
 
 def strip_right_side(syms: p.FstLike) -> p.Fst:

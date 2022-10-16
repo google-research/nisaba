@@ -21,37 +21,37 @@ from nisaba.scripts.utils import test_util
 
 _TEST_CASES = [
     (lambda: phon_ops.ANUSVARA_ASSIMILATION, [
-        ('<a>{a}<ans>{nsl}<b>{b}<aa>{a_l}',
-         '<a>{a}<ans>{m}<b>{b}<aa>{a_l}'),
-        ('<a>{a}<ans>{nsl}<d>{di}<aa>{a_l}',
-         '<a>{a}<ans>{ni}<d>{di}<aa>{a_l}'),
-        ('<a>{a}<ans>{nsl}<d>{d}<aa>{a_l}',
-         '<a>{a}<ans>{n}<d>{d}<aa>{a_l}'),
-        ('<a>{a}<ans>{nsl}<y>{y}<aa>{a_l}',
-         '<a>{a}<ans>{ny}<y>{y}<aa>{a_l}'),
-        ('<a>{a}<ans>{nsl}<dd>{dd}<aa>{a_l}',
-         '<a>{a}<ans>{nn}<dd>{dd}<aa>{a_l}'),
-        ('<a>{a}<ans>{nsl}<g>{g}<aa>{a_l}',
-         '<a>{a}<ans>{ng}<g>{g}<aa>{a_l}'),
-        ('<a>{a}<ans>{nsl}<s>{s}<aa>{a_l}',
-         '<a>{a}<ans>{nsl}<s>{s}<aa>{a_l}'),
+        ('<a>={a}<ans>={nsl}<b>={b}<aa>={a_l}',
+         '<a>={a}<ans>={m}<b>={b}<aa>={a_l}'),
+        ('<a>={a}<ans>={nsl}<d>={di}<aa>={a_l}',
+         '<a>={a}<ans>={ni}<d>={di}<aa>={a_l}'),
+        ('<a>={a}<ans>={nsl}<d>={d}<aa>={a_l}',
+         '<a>={a}<ans>={n}<d>={d}<aa>={a_l}'),
+        ('<a>={a}<ans>={nsl}<y>={y}<aa>={a_l}',
+         '<a>={a}<ans>={ny}<y>={y}<aa>={a_l}'),
+        ('<a>={a}<ans>={nsl}<dd>={dd}<aa>={a_l}',
+         '<a>={a}<ans>={nn}<dd>={dd}<aa>={a_l}'),
+        ('<a>={a}<ans>={nsl}<g>={g}<aa>={a_l}',
+         '<a>={a}<ans>={ng}<g>={g}<aa>={a_l}'),
+        ('<a>={a}<ans>={nsl}<s>={s}<aa>={a_l}',
+         '<a>={a}<ans>={nsl}<s>={s}<aa>={a_l}'),
     ]),
     (lambda: phon_ops.DEFAULT_ANUSVARA_LABIAL, [
-        ('<a>{a}<ans>{nsl}<s>{s}<aa>{a_l}',
-         '<a>{a}<ans>{m}<s>{s}<aa>{a_l}'),
+        ('<a>={a}<ans>={nsl}<s>={s}<aa>={a_l}',
+         '<a>={a}<ans>={m}<s>={s}<aa>={a_l}'),
     ]),
     (lambda: phon_ops.DEFAULT_ANUSVARA_DENTAL, [
-        ('<a>{a}<ans>{nsl}<s>{s}<aa>{a_l}',
-         '<a>{a}<ans>{ni}<s>{s}<aa>{a_l}'),
+        ('<a>={a}<ans>={nsl}<s>={s}<aa>={a_l}',
+         '<a>={a}<ans>={ni}<s>={s}<aa>={a_l}'),
     ]),
     (lambda: phon_ops.JNY_TO_GNY, [
-        ('<j>{jh}<ny>{ny}', '<j>{g}<ny>{ny}'),
+        ('<j>={jh}<ny>={ny}', '<j>={g}<ny>={ny}'),
     ]),
     (lambda: phon_ops.JNY_TO_GY, [
-        ('<j>{jh}<ny>{ny}', '<j>{g}<ny>{y}'),
+        ('<j>={jh}<ny>={ny}', '<j>={g}<ny>={y}'),
     ]),
     (lambda: phon_ops.JNY_TO_NY, [
-        ('<j>{jh}<ny>{ny}', '<j>{sil}<ny>{ny}'),
+        ('<j>={jh}<ny>={ny}', '<j>={sil}<ny>={ny}'),
     ]),
 ]
 

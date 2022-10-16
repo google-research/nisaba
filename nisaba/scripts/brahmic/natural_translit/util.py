@@ -31,6 +31,7 @@ PH_BOUND = p.union(PH_L, PH_R).optimize()
 TR_L = p.accep('“')  # Translit left boundary (left double quote)
 TR_R = p.accep('”')  # Translit right boundary (right double quote)
 TR_BOUND = p.union(TR_L, TR_R).optimize()
+ALIGN_SIGN = p.accep('=')  # Substring alignment
 
 
 def enclose(
@@ -43,7 +44,7 @@ def enclose(
 
 def align(left_side: p.FstLike, right_side: p.FstLike) -> p.Fst:
   """Alignment structure (left_side=right_side)."""
-  return left_side + right_side
+  return left_side + ALIGN_SIGN + right_side
 
 
 def assign(left_side: p.FstLike, right_side: p.FstLike) -> p.Fst:
