@@ -148,4 +148,4 @@ TYP_TO_TXN = p.union(
     _ASSIGN_OM
     ).star.optimize()
 
-TAP_TO_TRILL = rw.reassign(gr.R, ph.RT, ph.R)
+TAP_TO_TRILL = rw.rewrite(ph.RT, ph.R)

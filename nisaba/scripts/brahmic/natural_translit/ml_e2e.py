@@ -37,6 +37,7 @@ def _iso_to_txn() -> p.Fst:
   """Composes the fsts from ISO characters to final txn pronunciation."""
   return (iso.iso_to_typ() @
           typ.TYP_TO_TXN @
+          ops.VOCALIC_EC @
           ops.ANUSVARA_ASSIMILATION @
           ops.DEFAULT_ANUSVARA_LABIAL @
           _VOICING @
@@ -45,7 +46,9 @@ def _iso_to_txn() -> p.Fst:
 
 def iso_to_psaf() -> p.Fst:
   """Pan-South Asian fine grained transliteration."""
-  return (_iso_to_txn() @ txn.TXN_TO_PSAF).optimize()
+  return (_iso_to_txn() @
+          txn.VOCALIC_TR_I @
+          txn.TXN_TO_PSAF).optimize()
 
 
 def iso_to_psac() -> p.Fst:

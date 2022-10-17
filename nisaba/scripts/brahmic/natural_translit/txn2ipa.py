@@ -78,6 +78,7 @@ def _rewrite_txn_to_ipa() -> p.Fst:
       p.cross(ph.ASP, ph.ASP_IPA),
       p.cross(ph.NSL, ph.NSL_IPA),
       p.cross(ph.SIL, ph.SIL_IPA),
+      p.cross(ph.VCL, ph.SYLLABIC),
       p.cross(ph.SCHWA, ph.SCHWA_IPA)).optimize()
 
   return txn_to_ipa_op.star.optimize()

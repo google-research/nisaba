@@ -20,6 +20,18 @@ import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
 import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
 import nisaba.scripts.brahmic.natural_translit.util as u
 
+# Vocalic liquids
+
+
+def _vocalic(vcl: p.FstLike) -> p.Fst:
+  """Pronunciation of the vowel part of the vocalic Rs and Ls."""
+  return rw.rewrite(ph.VCL, vcl)
+
+VOCALIC_I = _vocalic(ph.I)
+
+VOCALIC_U = _vocalic(ph.U)
+
+VOCALIC_EC = _vocalic(ph.EC)
 
 # Anusvara place of articulation assimilation functions
 

@@ -175,6 +175,10 @@ VOWEL_I = p.union(
     O_I, OO_I, OC_I, U_I, UU_I, AI_I, AU_I,
     L_VCL_I, LL_VCL_I, R_VCL_I, RR_VCL_I).optimize()
 
+VOCALICS = p.union(
+    L_VCL, LL_VCL, R_VCL, RR_VCL,
+    L_VCL_I, LL_VCL_I, R_VCL_I, RR_VCL_I).optimize()
+
 VOWEL = p.union(VOWEL_S, VOWEL_I).optimize()
 
 # Consonants

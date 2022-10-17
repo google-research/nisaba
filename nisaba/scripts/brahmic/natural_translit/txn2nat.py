@@ -29,6 +29,16 @@ _NON_LABIAL_ANUSVARA = rw.reassign(
     p.union(ph.NG, ph.NY),
     tr.N)
 
+
+def _transliterate_vocalic(vcl_tr: p.FstLike) -> p.Fst:
+  """Transliterates all vowels in vocalics as “vcl_tr”."""
+  return rw.rewrite_by_context(
+      p.union(ph.VOWEL, ph.VCL),
+      vcl_tr,
+      gr.VOCALICS)
+
+VOCALIC_TR_I = _transliterate_vocalic(tr.I)
+
 # Fine-grained Pan South Asian romanization.
 TXN_TO_PSAF_OP = p.union(
     p.cross(ph.A, tr.A),
@@ -80,7 +90,8 @@ TXN_TO_PSAF_OP = p.union(
     p.cross(ph.ASP, tr.H),
     p.cross(ph.NSL, tr.N),
     p.cross(ph.SIL, u.EPSILON),
-    p.cross(ph.SCHWA, u.EPSILON)
+    p.cross(ph.SCHWA, u.EPSILON),
+    p.cross(ph.VCL, tr.I)
     ).optimize()
 
 _MAP_TXN_TO_PSAF = (_NON_LABIAL_ANUSVARA @

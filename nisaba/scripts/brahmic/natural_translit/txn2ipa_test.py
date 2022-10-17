@@ -72,6 +72,7 @@ _TEST_CASES = [
         ('<kh>={k}{asp}', 'kʰ'),
         ('<ans>={nsl}', '~'),
         ('<om>={o_l}{m}', 'oːm'),
+        ('<r_vcl>={rt}{vcl}', 'ɾ̍'),
         ('<h>={h}<i>={i}<ans>={ni}<d>={di}<ii>={i_l}', 'hin̪d̪iː'),
     ]),
 ]

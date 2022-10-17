@@ -23,20 +23,23 @@ consonant, etc), manner (nasal, stop, etc) and the place of articulation
 
 IPA - txn mapping
 
-'ə' : {ec}         'ɔ'  : {oh}        'l': {l}           's': {s}
-'əː': {ec_l}       'ɔː' : {oh_l}      'ɭ': {ll}          'ʃ': {sh}
-'a' : {a}          'u'  : {u}         'm': {m}           'ʂ': {ss}
-'aː': {a_l}        'uː' : {u_l}       'n': {n}           't': {t}
-'æ' : {ae}         'b'  : {b}         'ŋ': {ng}          't̪': {ti}
-'æː': {ae_l}       't͡ʃ': {ch}        'n̪': {ni}          'ʈ': {tt}
-'e' : {e}          'd'  : {d}         'ɳ': {nn}          'ʋ': {vu}
-'eː': {e_l}        'ɖ'  : {dd}        'ɲ': {ny}          'x': {x}
-'ɛ' : {eh}         'd̪'  : {di}        'p': {p}           'ɣ': {xa}
-'ɛː': {eh_l}       'f'  : {f}         'q': {q}           'j': {y}
-'i' : {i}          'ɡ'  : {g}         'r': {r}           'z': {z}
-'iː': {i_l}        'h'  : {h}         'ɽ': {rrt}         'ʰ': {asp}
-'o' : {o}          'd͡ʒ': {jh}        'ɻ': {rru}         '̯' : {glide}
-'oː': {o_l}        'k'  : {k}         'ɾ': {rt}          '~': {nsl}
+'ə'   : {ec}       'əː'  : {ec_l}     'a' : {a}          'aː' : {a_l}
+'æ'   : {ae}       'æː'  : {ae_l}	    'e' : {e}          'eː' : {e_l}
+'ɛ'   : {eh}       'ɛː'  : {eh_l}	    'i' : {i}          'iː' : {i_l}
+'o'   : {o}        'oː'  : {o_l}      'ɔ' : {oh}         'ɔː' : {oh_l}
+'u'   : {u}        'uː'  : {u_l}
+
+'b'   : {b}        't͡ʃ' : {ch}       'd' : {d}           'ɖ' : {dd}
+'d̪'   : {di}       'f'   : {f}        'ɡ' : {g}           'h' : {h}
+'d͡ʒ' : {jh}       'k'   : {k}        'l' : {l}           'ɭ' : {ll}
+'m'   : {m}        'n'   : {n}        'ŋ' : {ng}          'n̪' : {ni}
+'ɳ'   : {nn}       'ɲ'   : {ny}       'p' : {p}           'q' : {q}
+'r'   : {r}        'ɽ'   : {rrt}      'ɻ' : {rru}         'ɾ' : {rt}
+'s'   : {s}        'ʃ'   : {sh}       'ʂ' : {ss}          't' : {t}
+'t̪'   : {ti}       'ʈ'   : {tt}       'ʋ' : {vu}          'x' : {x}
+'ɣ'   : {xa}       'j'   : {y}        'z' : {z}
+
+'ʰ'   : {asp}        '̯ ' : {glide}    '~' : {nsl}         '̍ ' : {syl}
 
 """
 
@@ -106,12 +109,10 @@ Y_IPA = 'j'
 Z_IPA = 'z'
 ZH_IPA = 'ʒ'
 ASP_IPA = 'ʰ'
-GLIDE_IPA = '̯'
 NSL_IPA = '~'
 SIL_IPA = ''
-COMBINE_IPA = '͡'
-LONG_IPA = 'ː'
-FRONT_IPA = '̪'  # Combining bridge below ( ̪ )
+GLIDE_IPA = '̯'  # Combining inverted breve below ( ̯ ) U+032F
+SYLLABIC = '̍'  # Combining vertical line above ( ̍ ) U+030D
 
 # txn phonemes
 

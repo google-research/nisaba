@@ -123,6 +123,7 @@ _TEST_CASES = [
         ('<cnd>={ni}', 'n'),
         ('<upadh>={h}', 'h'),
         ('<jihva>={h}', 'h'),
+        ('<r_vcl>={rt}{vcl}', 'ri'),
         ('<avg><y><a><ans>={sil}{y}{a}{ni}', 'yan'),
         ('<h>={h}<i>={i}<ans>={ni}<d>={di}<ii>={i_l}', 'hindii'),
         ('<h>={h}<i>={i}<n>={ni}<d>={di}<ii>={i_l}', 'hindii'),
