@@ -64,13 +64,13 @@ class GrammarTest : public ::testing::Test {
 
  protected:
   void SetUp() override {
-    rewriter_ = absl::make_unique<Grammar>("ISO", "FROM_DEVA");
+    rewriter_ = std::make_unique<Grammar>("ISO", "FROM_DEVA");
     ASSERT_OK(rewriter_->Load());
 
-    accepter_ = absl::make_unique<Grammar>("WellFormed", "Deva");
+    accepter_ = std::make_unique<Grammar>("WellFormed", "Deva");
     ASSERT_OK(accepter_->Load());
 
-    normalizer_ = absl::make_unique<Normalizer>("Deva");
+    normalizer_ = std::make_unique<Normalizer>("Deva");
     ASSERT_OK(normalizer_->Load());
   }
 
@@ -100,7 +100,7 @@ TEST_F(GrammarTest, MultiLanguageNormalizeLoadTest) {
     "bn", "gu", "hi", "kn", "ml", "mr", "or", "pa", "si", "ta", "te" };
   std::vector<std::unique_ptr<Normalizer>> normalizers(languages.size());
   for (int i = 0; i < normalizers.size(); ++i) {
-    normalizers[i] = absl::make_unique<Normalizer>(languages[i]);
+    normalizers[i] = std::make_unique<Normalizer>(languages[i]);
     EXPECT_OK(normalizers[i]->Load());
   }
 }
