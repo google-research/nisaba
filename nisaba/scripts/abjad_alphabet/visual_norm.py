@@ -34,6 +34,7 @@ from typing import List
 from absl import flags
 import pynini
 from pynini.export import grm
+from nisaba.scripts.abjad_alphabet import visual_norm_common
 import nisaba.scripts.abjad_alphabet.util as u
 from nisaba.scripts.utils import rewrite
 from nisaba.scripts.utils import rule
@@ -80,13 +81,10 @@ def generator_main(exporter: grm.Exporter):
   token_type = _TOKEN_TYPE.value
   with pynini.default_token_type(token_type):  # pytype: disable=wrong-arg-types
     sigma = u.sigma_from_common_data_files()
-    presentation_forms_rewrite = rule.fst_from_rule_file(
-        u.LANG_DIR / 'presentation_forms.tsv', sigma)
-    nfc_rewrite = rule.fst_from_rule_file(u.LANG_DIR / 'nfc.tsv', sigma)
-    script_fst = rewrite.ComposeFsts(
-        [presentation_forms_rewrite, nfc_rewrite])
-    exporter[lang.upper()] = rewrite.ComposeFsts(
-        [script_fst] + lang_fsts(lang, sigma))
+    common_fsts = visual_norm_common.script_common_fsts(
+        sigma, prefix=('presentation_forms',))
+    per_lang_fsts = lang_fsts(lang, sigma)
+    exporter[lang.upper()] = rewrite.ComposeFsts(common_fsts + per_lang_fsts)
 
 
 if __name__ == '__main__':

@@ -9,7 +9,7 @@ FROM_ARAB	عضوُ	ʻẓʉ
 FROM_ARAB	عضۇ	ʻẓʉ
 TO_ARAB		ʻẓʉ	عضۇ
 
-# NFC + visual normalization applied prior to romanization.`
+# NFC + visual normalization applied prior to romanization.
 FROM_ARAB	آپ	ʼ͟āp
 FROM_ARAB	آپ	ʼ͟āp
 TO_ARAB	ʼ͟āp	آپ
@@ -17,6 +17,13 @@ TO_ARAB	āᵐ͗p	آپ
 FROM_ARAB	ٸةًَ	Ÿẗa͟na
 TO_ARAB		Ÿẗaa͟n	ٸةًَ
 TO_ARAB		Ÿẗa͟na	ٸةًَ
+
+# TODO: Following presentation forms tests to included their handling can
+# be supported without timeouts in round-trip tests.
+
+# Presentation normalization applied prior to romanization.
+# FROM_ARAB	ﻻ	lā
+# TO_ARAB	lā	لا
 
 FROM_ARAB	آب	ʼ͟āb
 TO_ARAB	ʼ͟āb	آب

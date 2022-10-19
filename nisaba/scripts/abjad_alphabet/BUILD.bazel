@@ -50,14 +50,15 @@ NORM_SCRIPT_LANGS = [("Arab", lang) for lang in LANGS]
 nisaba_compile_grm_py(
     name = "reversible_roman",
     data = [
-        "//nisaba/scripts/abjad_alphabet/data/Arab:nfc.tsv",
         "//nisaba/scripts/abjad_alphabet/data/Arab:reversible_roman.tsv",
         "//nisaba/scripts/abjad_alphabet/data/Arab/common:visual_norm.tsv",
     ],
     visibility = ["//visibility:public"],
     deps = [
         ":util",
+        ":visual_norm_common",
         "//nisaba/scripts/utils:file",
+        "//nisaba/scripts/utils:rewrite",
         "//nisaba/scripts/utils:rule",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:byte",
@@ -98,6 +99,21 @@ nisaba_grm_regression_test(
     token_type = "utf8",
 )
 
+py_library(
+    name = "visual_norm_common",
+    srcs = ["visual_norm_common.py"],
+    data = [
+        "//nisaba/scripts/abjad_alphabet/data/Arab:nfc.tsv",
+        "//nisaba/scripts/abjad_alphabet/data/Arab:presentation_forms.tsv",
+        "//nisaba/scripts/abjad_alphabet/data/Arab/common:visual_norm.tsv",
+    ],
+    deps = [
+        ":util",
+        "//nisaba/scripts/utils:rule",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
 nisaba_compile_script_lang_multi_grm_py(
     name = "visual_norm",
     data_per_lang = [
@@ -105,14 +121,11 @@ nisaba_compile_script_lang_multi_grm_py(
         "visual_norm_isolated",
         "visual_norm_nonfinal",
     ],
-    data_per_script = [
-        "nfc",
-        "presentation_forms",
-    ],
     family = "abjad_alphabet",
     script_langs = NORM_SCRIPT_LANGS,
     deps = [
         ":util",
+        ":visual_norm_common",
         "//nisaba/scripts/utils:file",
         "//nisaba/scripts/utils:rewrite",
         "//nisaba/scripts/utils:rule",

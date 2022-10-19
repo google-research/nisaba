@@ -31,32 +31,26 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 import pynini
 from pynini.export import grm
 from pynini.lib import byte
-import nisaba.scripts.abjad_alphabet.util as u
-import nisaba.scripts.utils.file as f
-import nisaba.scripts.utils.rule as rule
+from nisaba.scripts.abjad_alphabet import util
+from nisaba.scripts.abjad_alphabet import visual_norm_common
+from nisaba.scripts.utils import file
+from nisaba.scripts.utils import rewrite
+from nisaba.scripts.utils import rule
 
 
 def generator_main(exporter: grm.Exporter):
   """FSTs for language-agnostic reversible romanization of abjad/alphabets."""
-  # Construct NFC transducer - it is different from the standalone FST
-  # transducer in that it allows letters that are not abjad / alphabet.
-  nfc_file = u.LANG_DIR / 'nfc.tsv'
-  nfc_fst = rule.fst_from_rule_file(nfc_file, byte.BYTE)
-
-  # Build language-agnostic visual normalization transducer.
-  visual_norm_file = u.LANG_DIR / 'common' / 'visual_norm.tsv'
-  visual_norm_fst = rule.fst_from_rule_file(visual_norm_file, byte.BYTE)
-
-  # Compile romanisation transducer. In the Latin direction we apply NFC and
-  # visual normalization first. No visual normalization is required in the
-  # opposite direction.
-  roman_mapping_file = u.LANG_DIR / 'reversible_roman.tsv'
-  roman_fst = rule.fst_from_rule_file(roman_mapping_file, byte.BYTE)
-  exporter['FROM_ARAB'] = pynini.optimize(
-      nfc_fst @ visual_norm_fst @ roman_fst)
+  # Compile romanisation transducer. In the direction to Latin, NFC and then
+  # visual normalization are applied. They are not required in the opposite
+  # direction.
+  sigma = byte.BYTE
+  script_common_fsts = visual_norm_common.script_common_fsts(sigma)
+  roman_mapping_file = util.LANG_DIR / 'reversible_roman.tsv'
+  roman_fst = rule.fst_from_rule_file(roman_mapping_file, sigma)
+  exporter['FROM_ARAB'] = rewrite.ComposeFsts(script_common_fsts + [roman_fst])
 
   # Transforming Latin to native is simpler.
-  roman_strings = f.StringFile(roman_mapping_file)
+  roman_strings = file.StringFile(roman_mapping_file)
   roman_inv_fst = pynini.invert(roman_strings).star
   exporter['TO_ARAB'] = roman_inv_fst.optimize()
 
