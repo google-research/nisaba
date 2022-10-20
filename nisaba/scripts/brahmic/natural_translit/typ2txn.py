@@ -21,7 +21,7 @@ import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
 import nisaba.scripts.brahmic.natural_translit.util as u
 
 _ASSIGN_VOWEL = p.union(
-    u.assign(gr.A, ph.A),
+    u.assign(gr.A, ph.SCHWA),
     u.assign(gr.AA, ph.A_L),
     u.assign(gr.AC, ph.AE),
     u.assign(gr.AI, ph.AE),
@@ -149,3 +149,5 @@ TYP_TO_TXN = p.union(
     ).star.optimize()
 
 TAP_TO_TRILL = rw.rewrite(ph.RT, ph.R)
+
+A_TO_EC = rw.rewrite(ph.A, ph.EC)

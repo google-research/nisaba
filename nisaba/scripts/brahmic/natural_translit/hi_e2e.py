@@ -19,17 +19,61 @@ import pynini as p
 from pynini.export import multi_grm
 import nisaba.scripts.brahmic.natural_translit.iso2typ as iso
 import nisaba.scripts.brahmic.natural_translit.phon_ops as ops
+import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
+import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
 import nisaba.scripts.brahmic.natural_translit.txn2ipa as ipa
 import nisaba.scripts.brahmic.natural_translit.txn2nat as txn
 import nisaba.scripts.brahmic.natural_translit.typ2txn as typ
+
+_ONSET_CL = p.union(
+    rw.concat_r(
+        ph.K,
+        ph.SH),
+    rw.concat_r(
+        ph.S,
+        p.union(ph.T + ph.ASP.ques, ph.RT, ph.NI, ph.Y, ph.VU).optimize()),
+    rw.concat_r(
+        p.union(ph.VU, ph.NI),
+        ph.Y),
+    rw.concat_r(
+        p.union(ph.K, ph.P, ph.G, ph.DI, ph.SH).optimize(),
+        ph.RT)
+    ).optimize()
+
+
+_CODA_CL = p.union(
+    rw.concat_r(
+        ph.CONSONANT,
+        ph.STOP
+    ),
+    rw.concat_r(ph.VOICED,
+                ph.NASAL),
+    rw.concat_r(
+        p.difference(ph.FRICATIVE, ph.H),
+        p.difference(ph.NASAL, ph.M)),
+    rw.concat_r(
+        ph.SIBILANT,
+        ph.M),
+    rw.concat_r(
+        p.union(ph.LIQUID, ph.NASAL),
+        ph.NASAL),
+    rw.concat_r(
+        ph.RHOTIC,
+        ph.RHOTIC)
+    ).optimize()
+
+_PROCESS_SCHWA = ops.process_schwa(_ONSET_CL, _CODA_CL)
 
 
 def _iso_to_txn() -> p.Fst:
   """Composes the fsts from ISO characters to final txn pronunciation."""
   return (iso.iso_to_typ() @
           typ.TYP_TO_TXN @
+          typ.A_TO_EC @
           ops.VOCALIC_I @
           ops.ANUSVARA_ASSIMILATION @
+          _PROCESS_SCHWA @
+          ops.SCHWA_EC @
           ops.DEFAULT_ANUSVARA_DENTAL @
           ops.FINAL_ANUSVARA_NASALIZATION @
           ops.JNY_TO_GY).optimize()

@@ -30,6 +30,7 @@ def _iso_to_txn() -> p.Fst:
           typ.TYP_TO_TXN @
           typ.TAP_TO_TRILL @
           ops.VOCALIC_U @
+          ops.SCHWA_A @
           ops.ANUSVARA_ASSIMILATION @
           ops.DEFAULT_ANUSVARA_LABIAL @
           ops.JNY_TO_GNY).optimize()

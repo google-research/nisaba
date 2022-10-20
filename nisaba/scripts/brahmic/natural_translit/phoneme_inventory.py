@@ -152,7 +152,8 @@ OH = _enclose('oh')
 OH_L = _enclose('oh_l')
 U = _enclose('u')
 U_L = _enclose('u_l')
-SCHWA = _enclose('schwa')
+SCHWA = _enclose('sch')  # unassigned inherent vowel
+VCL_SCHWA = _enclose('@')  # pronounced schwa
 
 # Consonants
 
@@ -206,7 +207,7 @@ ALVEOLAR = p.union(D, N, T).optimize()
 PALATAL = p.union(Y, NY).optimize()
 RETROFLEX = p.union(DD, NN, TT).optimize()
 VELAR = p.union(G, NG, K).optimize()
-NASAL = p.union(M, N, NI, NG, NN, NY, NSL).optimize()
+NASAL = p.union(M, N, NI, NG, NN, NY).optimize()
 
 STOP_UNASP = p.union(
     P, B,
@@ -233,7 +234,7 @@ VOICED = p.union(B, DI, D, DD, G, JH, F, Z).optimize() + ASP.ques
 
 APPROXIMANT = p.union(VU, RRU, Y).optimize()
 
-RHOTIC = p.union(R, RT, RRT, RRU).optimize()
+RHOTIC = p.union(R, RT, RRT, RRU).optimize() + ASP.ques
 
 LATERAL = p.union(L, LL).optimize()
 

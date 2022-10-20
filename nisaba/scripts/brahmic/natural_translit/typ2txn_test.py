@@ -20,7 +20,7 @@ from nisaba.scripts.utils import test_util
 
 _TEST_CASES = [
     (lambda: typ2txn.TYP_TO_TXN, [
-        ('<a>', '<a>={a}'),
+        ('<a>', '<a>={sch}'),
         ('<aa>', '<aa>={a_l}'),
         ('<ac>', '<ac>={ae}'),
         ('<ai>', '<ai>={ae}'),
@@ -128,9 +128,9 @@ _TEST_CASES = [
         ('<i><ans><dd><i><y><aa>',
          '<i>={i}<ans>={nsl}<dd>={dd}<i>={i}<y>={y}<aa>={a_l}'),
         ('<i><n><t><y><a>',
-         '<i>={i}<n>={ni}<t>={ti}<y>={y}<a>={a}'),
+         '<i>={i}<n>={ni}<t>={ti}<y>={y}<a>={sch}'),
         ('<i><n_chl><dd><y><a>',
-         '<i>={i}<n_chl>={ni}<dd>={dd}<y>={y}<a>={a}'),
+         '<i>={i}<n_chl>={ni}<dd>={dd}<y>={y}<a>={sch}'),
     ]),
 ]
 
