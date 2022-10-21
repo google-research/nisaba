@@ -46,10 +46,6 @@ item {
   to_uname: "SUBSCRIPT SMALL LETTER H" to_raw: "ₕ"
 }
 item {
-  uname: "NUKTA" raw: "਼"
-  to_uname: "HALF TRIANGULAR COLON" to_raw: "ˑ"
-}
-item {
   uname: "YAKASH" raw: "ੵ"
   to_uname: ["Y", "COMBINING BREVE"] to_raw: "y̆"
 }

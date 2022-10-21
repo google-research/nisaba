@@ -45,16 +45,18 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 """
 
 import os
-from typing import Dict
+from typing import Tuple
 
-import pynini
+import pynini as p
 from pynini.export import multi_grm
-from pynini.lib import pynutil
-import nisaba.scripts.brahmic.util as u
-import nisaba.scripts.utils.file as uf
-import nisaba.scripts.utils.rewrite as ur
+from pynini.lib import pynutil as pu
+from nisaba.scripts.brahmic import util as u
+from nisaba.scripts.utils import file as f
+from nisaba.scripts.utils import rewrite as rw
 
 
+
+# Public version of does not accept type subscript on os.PathLike, yet.
 def brahmic_to_iso(consonant_file: os.PathLike,
                    inherent_vowel_file: os.PathLike,
                    vowel_sign_file: os.PathLike,
@@ -64,7 +66,8 @@ def brahmic_to_iso(consonant_file: os.PathLike,
                    dead_consonant_file: os.PathLike,
                    standalone_file: os.PathLike,
                    subjoined_consonant_file: os.PathLike,
-                   virama_file: os.PathLike) -> pynini.Fst:
+                   virama_file: os.PathLike) -> p.Fst:
+
   """Creates an FST that transduces a Brahmic script to ISO 15919.
 
   Args:
@@ -92,28 +95,28 @@ def brahmic_to_iso(consonant_file: os.PathLike,
   Returns:
     Brahmic script to ISO FST.
   """
-  core_consonant = uf.StringFile(consonant_file)
-  inherent_vowel = uf.StringFile(inherent_vowel_file)
-  vowel_sign = uf.StringFile(vowel_sign_file)
-  vowel = uf.StringFile(vowel_file)
-  vowel_length_sign = uf.StringFile(vowel_length_sign_file)
-  coda = uf.StringFile(coda_file)
-  dead_consonant = uf.StringFile(dead_consonant_file)
-  standalone = uf.StringFile(standalone_file)
-  subjoined_consonant = uf.StringFile(subjoined_consonant_file)
-  virama = uf.StringFile(virama_file)
+  core_consonant = f.StringFile(consonant_file)
+  inherent_vowel = f.StringFile(inherent_vowel_file)
+  vowel_sign = f.StringFile(vowel_sign_file)
+  vowel = f.StringFile(vowel_file)
+  vowel_length_sign = f.StringFile(vowel_length_sign_file)
+  coda = f.StringFile(coda_file)
+  dead_consonant = f.StringFile(dead_consonant_file)
+  standalone = f.StringFile(standalone_file)
+  subjoined_consonant = f.StringFile(subjoined_consonant_file)
+  virama = f.StringFile(virama_file)
 
-  common_symbol = uf.StringFile(u.SCRIPT_DIR / 'common' / 'symbol.tsv')
+  common_symbol = f.StringFile(u.SCRIPT_DIR / 'common' / 'symbol.tsv')
 
-  ins_inherent = pynutil.insert(inherent_vowel)
-  ins_dash = pynutil.insert('-')
-  ins_dot = pynutil.insert('.')
-  del_virama = pynutil.delete(virama)
-  virama_mark = pynini.cross(virama, '˘')
+  ins_inherent = pu.insert(inherent_vowel)
+  ins_dash = pu.insert('-')
+  ins_dot = pu.insert('.')
+  del_virama = pu.delete(virama)
+  virama_mark = p.cross(virama, '˘')
 
-  low_priority_epsilon = pynini.accep('', weight=1)
-  consonant = core_consonant + uf.QuesSafe(subjoined_consonant)
-  convert_to_iso = pynini.union(
+  low_priority_epsilon = p.accep('', weight=1)
+  consonant = core_consonant + f.QuesSafe(subjoined_consonant)
+  convert_to_iso = p.union(
       consonant + vowel_sign,
       consonant + ins_inherent + low_priority_epsilon,
       consonant + del_virama + low_priority_epsilon,
@@ -135,35 +138,41 @@ def brahmic_to_iso(consonant_file: os.PathLike,
       consonant + del_virama + (ins_dot + vowel).plus,
       consonant + ins_inherent + (ins_dot + vowel).plus)
 
-  return pynini.optimize(convert_to_iso.star)
+  return p.optimize(convert_to_iso.star)
 
 
-def _script_to_iso(script: str) -> pynini.Fst:
-  return brahmic_to_iso(u.SCRIPT_DIR / script / 'consonant.tsv',
-                        u.SCRIPT_DIR / script / 'inherent_vowel.tsv',
-                        u.SCRIPT_DIR / script / 'vowel_sign.tsv',
-                        u.SCRIPT_DIR / script / 'vowel.tsv',
-                        u.SCRIPT_DIR / script / 'vowel_length_sign.tsv',
-                        u.SCRIPT_DIR / script / 'coda.tsv',
-                        u.SCRIPT_DIR / script / 'dead_consonant.tsv',
-                        u.SCRIPT_DIR / script / 'standalone.tsv',
-                        u.SCRIPT_DIR / script / 'subjoined_consonant.tsv',
-                        u.SCRIPT_DIR / script / 'virama.tsv')
+def _script_fsts(script: str, token_type: str) -> Tuple[p.Fst, p.Fst]:
+  """Creates FSTs to convert between script and ISO."""
+  from_script = brahmic_to_iso(
+      u.SCRIPT_DIR / script / 'consonant.tsv',
+      u.SCRIPT_DIR / script / 'inherent_vowel.tsv',
+      u.SCRIPT_DIR / script / 'vowel_sign.tsv',
+      u.SCRIPT_DIR / script / 'vowel.tsv',
+      u.SCRIPT_DIR / script / 'vowel_length_sign.tsv',
+      u.SCRIPT_DIR / script / 'coda.tsv',
+      u.SCRIPT_DIR / script / 'dead_consonant.tsv',
+      u.SCRIPT_DIR / script / 'standalone.tsv',
+      u.SCRIPT_DIR / script / 'subjoined_consonant.tsv',
+      u.SCRIPT_DIR / script / 'virama.tsv')
+  to_script = p.invert(from_script)
+  nfc = u.OpenFstFromBrahmicFar('nfc', script, token_type)
+  from_script = rw.ComposeFsts([nfc, from_script])
+  return (from_script, to_script)
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generate FSTs for ISO conversion of various Brahmic scripts."""
   for token_type in ('byte', 'utf8'):
-    with pynini.default_token_type(token_type):
+    with p.default_token_type(token_type):
       exporter = exporter_map[token_type]
-      script_to_iso_dict: Dict[str, pynini.Fst] = {
-          script: _script_to_iso(script) for script in u.SCRIPTS
-      }
-      for script, from_script in script_to_iso_dict.items():
-        exporter[f'FROM_{script.upper()}'] = from_script
-        exporter[f'TO_{script.upper()}'] = pynini.invert(from_script)
-      exporter['FROM_BRAHMIC'] = ur.Rewrite(
-          pynini.union(*script_to_iso_dict.values()))
+      from_script_fsts = []
+      for script in u.SCRIPTS:
+        from_script, to_script = _script_fsts(script, token_type)
+        from_script_fsts += [from_script]
+        script = script.upper()
+        exporter[f'FROM_{script}'] = from_script
+        exporter[f'TO_{script}'] = to_script
+      exporter['FROM_BRAHMIC'] = rw.Rewrite(p.union(*from_script_fsts))
 
 
 if __name__ == '__main__':

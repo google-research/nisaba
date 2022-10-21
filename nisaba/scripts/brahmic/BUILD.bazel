@@ -57,6 +57,9 @@ nisaba_compile_multi_grm_py(
         "utf8": "iso_utf8.far",
     },
     data = [
+        ":nfc.far",
+        ":nfc_utf8.far",
+    ] + [
         "//nisaba/scripts/brahmic/data/{}:{}.tsv".format(script, file_name)
         for script in SCRIPTS
         for file_name in [
