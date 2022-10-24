@@ -320,6 +320,111 @@ def reassign_word_final(
       EOW)
 
 
+def reassign_adjacent_alignments(
+    left_1: p.FstLike,
+    old_right_1: p.FstLike,
+    new_right_1: p.FstLike,
+    left_2: p.FstLike,
+    old_right_2: p.FstLike,
+    new_right_2: p.FstLike) -> p.Fst:
+  """Assigns new right sides to two adjacent alignments.
+
+  Args:
+    left_1: Left side of the first alignment.
+    old_right_1: Old right side of the first alignment.
+    new_right_1: New right side of the first alignment.
+    left_2: Left side of the second alignment.
+    old_right_2: Old right side of the second alignment.
+    new_right_2: New right side of the second alignment.
+
+  Returns:
+    Rewrite Fst.
+
+  Eg. <j><ny> is pronounced {g}{y}
+
+  Following call
+
+  ```
+  reassign_adjacent_alignments(
+      gr.J, ph.JH, ph.G,
+      gr.NY, ph.NY, ph.Y)
+  ```
+
+  Would return
+
+  ```
+  p.cdrewrite(
+      p.cross('<j>={jh}<ny>={ny}', '<j>={g}<ny>={y}'),
+      '',
+      '',
+      u.BYTE_STAR)).optimize()
+  ```
+  """
+  return rewrite(
+      u.align(left_1, old_right_1) + u.align(left_2, old_right_2),
+      u.align(left_1, new_right_1) + u.align(left_2, new_right_2))
+
+
+def merge(
+    left_1: p.FstLike,
+    right_1: p.FstLike,
+    left_2: p.FstLike,
+    right_2: p.FstLike,
+    new_right: p.FstLike = u.EPSILON) -> p.Fst:
+  """Merge and optionally assign a new right side to two alignments.
+
+  Args:
+    left_1: Left side of the first alignment.
+    right_1: Right side of the first alignment.
+    left_2: Left side of the second alignment.
+    right_2: Right side of the second alignment.
+    new_right: Right side of the merged alignment.
+
+  Returns:
+    Rewrite Fst.
+
+  Eg. <c>={ch}<ch>={ch}{asp} is transliterated "chh"
+
+  Following call
+
+  ```
+  merge(
+      gr.C, tr.CH,
+      gr.CH, tr.CH + tr.H,
+      tr.CH + tr.H)
+  ```
+
+  Would return
+
+  ```
+  p.cdrewrite(
+      p.cross('<c>="ch"<ch>="ch""h"', '<c><ch>="ch""h"'),
+      '',
+      '',
+      u.BYTE_STAR)).optimize()
+  ```
+
+  """
+  right_side = new_right
+  if new_right == u.EPSILON:
+    right_side = right_1 + right_2
+
+  return rewrite(
+      u.align(left_1, right_1) + u.align(left_2, right_2),
+      u.align(left_1 + left_2, right_side))
+
+
+def reduce_repetition(
+    left: p.FstLike,
+    right: p.FstLike,
+    new_right: p.FstLike = u.EPSILON) -> p.Fst:
+  """Merges repeated alignments and reduces or changes the right side."""
+  right_side = new_right
+  if right_side == u.EPSILON:
+    right_side = right
+  return merge(left, right, left, right, right_side)
+
+
 def delete(
     syms: p.FstLike,
     preceding: p.FstLike = u.EPSILON,

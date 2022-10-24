@@ -76,7 +76,8 @@ def _iso_to_txn() -> p.Fst:
           ops.SCHWA_EC @
           ops.DEFAULT_ANUSVARA_DENTAL @
           ops.FINAL_ANUSVARA_NASALIZATION @
-          ops.JNY_TO_GY).optimize()
+          ops.JNY_TO_GY @
+          ops.PHPH_TO_FF).optimize()
 
 
 def iso_to_psaf() -> p.Fst:
@@ -94,6 +95,20 @@ def iso_to_ipa() -> p.Fst:
   return (_iso_to_txn() @ ipa.txn_to_ipa()).optimize()
 
 
+def iso_to_nat() -> p.Fst:
+  """Natural transliteration."""
+  return (_iso_to_txn() @
+          txn.SIBV_TO_SIBW @
+          txn.MAP_TO_PSA @
+          txn.CONFLATE_LONG_VOWEL@
+          txn.AA_WI @
+          txn.CC_TO_CCH @
+          txn.CCH_TO_CHH @
+          txn.SSSS_TO_SSH @
+          txn.SHSH_TO_SSH @
+          txn.STRIP).optimize()
+
+
 def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generates FAR for natural transliteration."""
   for token_type in ('byte', 'utf8'):
@@ -103,6 +118,7 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       exporter['ISO_TO_PSAF'] = iso_to_psaf()
       exporter['ISO_TO_PSAC'] = iso_to_psac()
       exporter['ISO_TO_IPA'] = iso_to_ipa()
+      exporter['ISO_TO_NAT'] = iso_to_nat()
 
 
 if __name__ == '__main__':

@@ -79,6 +79,7 @@ X = _enclose('x')
 Y = _enclose('y')
 Z = _enclose('z')
 ZH = _enclose('zh')
+DEL = _enclose(u.EPSILON)
 
 TRANSLIT = p.union(A, AA, AE, B, C, CH, D, E, EE,
                    F, G, H, I, II, J, K, KH, L, M,

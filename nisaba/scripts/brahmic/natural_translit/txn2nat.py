@@ -21,9 +21,21 @@ import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
 import nisaba.scripts.brahmic.natural_translit.transliteration_inventory as tr
 import nisaba.scripts.brahmic.natural_translit.util as u
 
-_STRIP = rw.strip_right_side(u.TR_BOUND)
+STRIP = rw.strip_right_side(u.TR_BOUND)
 
-# Palatal and velar assimilated anusvara is transliterated as “n”.
+## Natural translit rules that take phonemes as arguments
+
+# <v> is "w" after {s}, {ss}, and {sh}.
+SIBV_TO_SIBW = rw.reassign_by_context(
+    gr.V,
+    ph.VU,
+    tr.W,
+    ph.SIBILANT)
+
+
+## Pan South Asian Rules
+
+# Palatal and velar assimilated anusvara is transliterated as "n".
 _NON_LABIAL_ANUSVARA = rw.reassign(
     gr.ANS,
     p.union(ph.NG, ph.NY),
@@ -31,7 +43,7 @@ _NON_LABIAL_ANUSVARA = rw.reassign(
 
 
 def _transliterate_vocalic(vcl_tr: p.FstLike) -> p.Fst:
-  """Transliterates all vowels in vocalics as “vcl_tr”."""
+  """Transliterates all vowels in vocalics as vcl_tr."""
   return rw.rewrite_by_context(
       p.union(ph.VOWEL, ph.VCL),
       vcl_tr,
@@ -39,8 +51,8 @@ def _transliterate_vocalic(vcl_tr: p.FstLike) -> p.Fst:
 
 VOCALIC_TR_I = _transliterate_vocalic(tr.I)
 
-# Fine-grained Pan South Asian romanization.
-TXN_TO_PSAF_OP = p.union(
+# txn to Pan South Asian translit mapping.
+_TXN_TO_PSA = p.union(
     p.cross(ph.A, tr.A),
     p.cross(ph.A_L, tr.AA),
     p.cross(ph.AE, tr.AE),
@@ -89,20 +101,22 @@ TXN_TO_PSAF_OP = p.union(
     p.cross(ph.Z, tr.Z),
     p.cross(ph.ASP, tr.H),
     p.cross(ph.NSL, tr.N),
-    p.cross(ph.SIL, u.EPSILON),
-    p.cross(ph.SCHWA, u.EPSILON),
+    p.cross(ph.SIL, tr.DEL),
+    p.cross(ph.SCHWA, tr.DEL),
     p.cross(ph.VCL, tr.I)
     ).optimize()
 
-_MAP_TXN_TO_PSAF = (_NON_LABIAL_ANUSVARA @
-                    rw.rewrite_operation(TXN_TO_PSAF_OP)
-                    ).optimize()
+MAP_TO_PSA = (_NON_LABIAL_ANUSVARA @
+              rw.rewrite_operation(_TXN_TO_PSA)
+              ).optimize()
 
 # Converts txn to PSAF and outputs only translit strings.
-TXN_TO_PSAF = (_MAP_TXN_TO_PSAF @ _STRIP).optimize()
+TXN_TO_PSAF = (MAP_TO_PSA @ STRIP).optimize()
 
-# Conflates substrings for coarse-grained Pan South Asian romanization.
-_PSAF_TO_PSAC_OP = p.union(
+## Post PSA-mapping rules for PSAC and natural translit.
+
+# Long vowels are transliterated as their short counterparts.
+CONFLATE_LONG_VOWEL_OP = p.union(
     p.cross(tr.AA, tr.A),
     p.cross(tr.EE, tr.E),
     p.cross(tr.II, tr.I),
@@ -110,7 +124,56 @@ _PSAF_TO_PSAC_OP = p.union(
     p.cross(tr.UU, tr.U)
     ).optimize()
 
-_PSAF_TO_PSAC = rw.rewrite_operation(_PSAF_TO_PSAC_OP)
+CONFLATE_LONG_VOWEL = rw.rewrite_operation(CONFLATE_LONG_VOWEL_OP)
+
+# Word initial <aa> is "aa".
+# Apply after long vowel conflation to prevent overwriting.
+AA_WI = rw.reassign_word_initial(
+    gr.AA,
+    tr.A,
+    tr.AA)
+
+# Rules for two-letter geminates.
+# PSAC uses the most reduced form in every contexts.
+# NAT depends on language and context.
+# TODO: Generalise and compress this rule set.
+
+# <c><c> is "ch"
+CC_TO_CH = rw.reduce_repetition(gr.C, tr.CH)
+
+# <c><c> is "cch"
+CC_TO_CCH = rw.reduce_repetition(gr.C, tr.CH, tr.C + tr.CH)
+
+# <c><ch> is "ch"
+CCH_TO_CH = rw.merge(
+    gr.C, tr.CH,
+    gr.CH, tr.CH + tr.H,
+    tr.CH)
+
+# <c><ch> is "chh"
+CCH_TO_CHH = rw.merge(
+    gr.C, tr.CH,
+    gr.CH, tr.CH + tr.H,
+    tr.CH + tr.H)
+
+# <ss><ss> is "sh"
+SSSS_TO_SH = rw.reduce_repetition(gr.SS, tr.SH)
+
+# <ss><ss> is "ssh"
+SSSS_TO_SSH = rw.reduce_repetition(gr.SS, tr.SH, tr.S + tr.SH)
+
+# <ss><ss> is "sh"
+SHSH_TO_SH = rw.reduce_repetition(gr.SH, tr.SH)
+
+# <ss><ss> is "ssh"
+SHSH_TO_SSH = rw.reduce_repetition(gr.SH, tr.SH, tr.S + tr.SH)
+
 
 # Converts txn to PSAC and outputs only translit strings.
-TXN_TO_PSAC = (_MAP_TXN_TO_PSAF @ _PSAF_TO_PSAC @ _STRIP).optimize()
+TXN_TO_PSAC = (MAP_TO_PSA @
+               CONFLATE_LONG_VOWEL @
+               CC_TO_CH @
+               CCH_TO_CH @
+               SSSS_TO_SH @
+               SHSH_TO_SH @
+               STRIP).optimize()

@@ -269,37 +269,19 @@ def voicing(
 def _rewrite_jny(
     j: p.FstLike,
     ny: p.FstLike) -> p.Fst:
-  """Jny cluster rewrites.
-
-  Jny clusters are pronounced and transliterated differently across languages.
-
-  Args:
-    j: Pronuncation of grapheme <j>.
-    ny: Pronuncation of grapheme <ny>
-
-  Returns:
-    Rewrite fst.
-
-  Following call:
-  ```
-  _rewrite_jny(ph.G, ph.Y)
-
-  ```
-  would return:
-  ```
-  p.cdrewrite(
-      p.cross('<j>{jh}<ny>{ny}', '<j>{g}<ny>{y}')
-      '',
-      '',
-      u.BYTE_STAR)
-
-  """
-  return rw.rewrite(
-      u.align(gr.J, ph.JH) + u.align(gr.NY, ph.NY),
-      u.align(gr.J, j) + u.align(gr.NY, ny))
+  """Jny clusters are pronounced differently across languages."""
+  return rw.reassign_adjacent_alignments(
+      gr.J, ph.JH, j,
+      gr.NY, ph.NY, ny)
 
 JNY_TO_GNY = _rewrite_jny(ph.G, ph.NY)
 
 JNY_TO_GY = _rewrite_jny(ph.G, ph.Y)
 
 JNY_TO_NY = _rewrite_jny(ph.SIL, ph.NY)
+
+# <ph><ph> pronounced {f}{f}. Should only occur in Perso-Arabic words.
+# TODO: Move this when there is a Perso-Arabic module.
+PHPH_TO_FF = rw.reassign_adjacent_alignments(
+    gr.PH, ph.P + ph.ASP, ph.F,
+    gr.PH, ph.P + ph.ASP, ph.F,)
