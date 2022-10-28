@@ -655,9 +655,9 @@ PA	پُڻھیاں	پُٹھیاں
 # HEH → HEH GOAL
 PA	کننده	کنندہ
 
-# ----------------
-# Kurdish (Sorani)
-# ----------------
+# ------------------------
+# Central Kurdish (Sorani)
+# ------------------------
 # TODO: Double-check that these are indeed Kurdish (rather than
 # Persian) words.
 
@@ -718,6 +718,9 @@ CKB	ہ	ه
 
 # KAF → KEHEH
 CKB	جارێكی	جارێکی
+
+# HEH DOACHASHMEE → HEH
+CKB	تەنھا	تەنها
 
 # YEH → FARSI YEH
 CKB	بريتي	بریتي
