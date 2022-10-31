@@ -698,6 +698,12 @@ CKB	باپيره‌ياں۬	باپیرەیان
 # FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
 CKB	یٔاسیا	ئاسیا
 
+# HEH + ZWNJ -> AE
+CKB	ره‌زبه‌ر	رەزبەر
+
+# HEH DOACHASHMEE → HEH
+CKB	ھەر	هەر
+
 # Normalizations at word initial position
 
 # KAF → KEHEH

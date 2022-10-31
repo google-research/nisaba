@@ -143,14 +143,8 @@ CKB	یةحیا	یەحیا
 
 # OE
 CKB	دؤخة	دۆخە
-CKB	خؤشه	خۆشھ
+CKB	خؤشه	خۆشه
 CKB	ثؤلى	ثۆلى
-
-# HEH + ZWNJ -> AE
-CKB	ره‌زبه‌ر	رھ‌زبھ‌ر
-
-# HEH DOACHASHMEE
-CKB	هەر	ھەر
 
 # TEH WITH THREE DOTS ABOVE DOWNWARDS → TEH
 CKB	الكويٽية	الکویتیە

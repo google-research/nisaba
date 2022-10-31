@@ -71,12 +71,6 @@ item {
 
 # Source: Ahmadi (2020).
 item {
-  uname: "HEH" raw: "ه"
-  to_uname: "HEH DOACHASHMEE" to_raw: "ھ"
-}
-
-# Source: Ahmadi (2020).
-item {
   uname: "WAW WITH HAMZA ABOVE" raw: "ؤ"
   to_uname: "OE" to_raw: "ۆ"
 }
