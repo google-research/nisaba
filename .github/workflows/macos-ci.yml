@@ -16,18 +16,18 @@ jobs:
     runs-on: macos-latest
     env:
       BAZEL: bazelisk-darwin-amd64
-      CC: gcc-10
-      CXX: g++-10
+      CC: gcc
+      CXX: g++
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Update environment variables
       run: |
         echo "USER=${USER}" >> ${GITHUB_ENV}
 
     - name: Mount bazel cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         # See https://docs.bazel.build/versions/master/output_directories.html
         path: /private/var/tmp/_bazel_${{ env.USER }}
