@@ -15,7 +15,7 @@
 """ISO to typeable string conversion."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.grapheme_inventory as gr
+import nisaba.scripts.brahmic.natural_translit.iso_inventory as gr
 import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
 
 

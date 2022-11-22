@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Tests for txn2nat."""
+"""Tests for iso2ltn_ops."""
 
 from absl.testing import absltest
-from nisaba.scripts.brahmic.natural_translit import txn2nat
+from nisaba.scripts.brahmic.natural_translit import iso2ltn_ops
 from nisaba.scripts.utils import test_util
 
 
 _TEST_CASES = [
-    (lambda: txn2nat.TXN_TO_PSAF, [
+    (lambda: iso2ltn_ops.TXN_TO_PSAF, [
         ('<a>={a}', 'a'),
         ('<aa>={a_l}', 'aa'),
         ('<ac>={ae}', 'ae'),
@@ -133,7 +133,7 @@ _TEST_CASES = [
         ('<i>={i}<n>={ni}<t>={di}<y>={y}<a>={a}', 'indya'),
         ('<i>={i}<n_chl>={ni}<dd>={dd}<y>={y}<a>={a}', 'indya'),
         ]),
-    (lambda: txn2nat.TXN_TO_PSAC, [
+    (lambda: iso2ltn_ops.TXN_TO_PSAC, [
         ('<aa>={a_l}', 'a'),
         ('<ee>={e_l}', 'e'),
         ('<ii>={i_l}', 'i'),
@@ -154,7 +154,7 @@ _TEST_CASES = [
 ]
 
 
-class Txn2NatTest(test_util.FstTestCase):
+class Iso2LtnOpsTest(test_util.FstTestCase):
 
   def test_all(self):
     self.assertFstStrIoTestCases(_TEST_CASES)

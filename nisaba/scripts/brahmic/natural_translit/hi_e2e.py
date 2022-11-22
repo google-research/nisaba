@@ -17,13 +17,13 @@
 
 import pynini as p
 from pynini.export import multi_grm
-import nisaba.scripts.brahmic.natural_translit.iso2typ as iso
-import nisaba.scripts.brahmic.natural_translit.phon_ops as ops
+from nisaba.scripts.brahmic.natural_translit import iso2ltn_ops
+from nisaba.scripts.brahmic.natural_translit import iso2txn
+from nisaba.scripts.brahmic.natural_translit import iso2txn_ops
+from nisaba.scripts.brahmic.natural_translit import txn2ipa
+from nisaba.scripts.brahmic.natural_translit import txn2ltn
 import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
 import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
-import nisaba.scripts.brahmic.natural_translit.txn2ipa as ipa
-import nisaba.scripts.brahmic.natural_translit.txn2nat as txn
-import nisaba.scripts.brahmic.natural_translit.typ2txn as typ
 
 _ONSET_CL = p.union(
     rw.concat_r(
@@ -62,51 +62,50 @@ _CODA_CL = p.union(
         ph.RHOTIC)
     ).optimize()
 
-_PROCESS_SCHWA = ops.process_schwa(_ONSET_CL, _CODA_CL)
+_PROCESS_SCHWA = iso2txn_ops.process_schwa(_ONSET_CL, _CODA_CL)
 
 
 def _iso_to_txn() -> p.Fst:
   """Composes the fsts from ISO characters to final txn pronunciation."""
-  return (iso.iso_to_typ() @
-          typ.TYP_TO_TXN @
-          typ.A_TO_EC @
-          ops.VOCALIC_I @
-          ops.ANUSVARA_ASSIMILATION @
+  return (iso2txn.iso_to_txn() @
+          iso2txn_ops.A_TO_EC @
+          iso2txn_ops.VOCALIC_I @
+          iso2txn_ops.ANUSVARA_ASSIMILATION @
           _PROCESS_SCHWA @
-          ops.SCHWA_EC @
-          ops.DEFAULT_ANUSVARA_DENTAL @
-          ops.FINAL_ANUSVARA_NASALIZATION @
-          ops.JNY_TO_GY @
-          ops.PHPH_TO_FF).optimize()
+          iso2txn_ops.SCHWA_EC @
+          iso2txn_ops.DEFAULT_ANUSVARA_DENTAL @
+          iso2txn_ops.FINAL_ANUSVARA_NASALIZATION @
+          iso2txn_ops.JNY_TO_GY @
+          iso2txn_ops.PHPH_TO_FF).optimize()
 
 
 def iso_to_psaf() -> p.Fst:
   """Pan-South Asian fine grained transliteration."""
-  return (_iso_to_txn() @ txn.TXN_TO_PSAF).optimize()
+  return (_iso_to_txn() @ iso2ltn_ops.TXN_TO_PSAF).optimize()
 
 
 def iso_to_psac() -> p.Fst:
   """Pan-South Asian coarse grained transliteration."""
-  return (_iso_to_txn() @ txn.TXN_TO_PSAC).optimize()
+  return (_iso_to_txn() @ iso2ltn_ops.TXN_TO_PSAC).optimize()
 
 
 def iso_to_ipa() -> p.Fst:
   """Pronunciation in IPA."""
-  return (_iso_to_txn() @ ipa.txn_to_ipa()).optimize()
+  return (_iso_to_txn() @ txn2ipa.txn_to_ipa()).optimize()
 
 
 def iso_to_nat() -> p.Fst:
   """Natural transliteration."""
   return (_iso_to_txn() @
-          txn.SIBV_TO_SIBW @
-          txn.MAP_TO_PSA @
-          txn.CONFLATE_LONG_VOWEL@
-          txn.AA_WI @
-          txn.CC_TO_CCH @
-          txn.CCH_TO_CHH @
-          txn.SSSS_TO_SSH @
-          txn.SHSH_TO_SSH @
-          txn.STRIP).optimize()
+          iso2ltn_ops.SIBV_TO_SIBW @
+          iso2ltn_ops.AA_WI @
+          iso2ltn_ops.TXN_TO_PSA_COMMON @
+          txn2ltn.MAP_VOWEL_IGNORE_LENGTH @
+          iso2ltn_ops.CC_TO_CCH @
+          iso2ltn_ops.CCH_TO_CHH @
+          iso2ltn_ops.SSSS_TO_SSH @
+          iso2ltn_ops.SHSH_TO_SSH @
+          txn2ltn.STRIP).optimize()
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):

@@ -32,8 +32,8 @@ py_library(
 )
 
 py_library(
-    name = "grapheme_inventory",
-    srcs = ["grapheme_inventory.py"],
+    name = "iso_inventory",
+    srcs = ["iso_inventory.py"],
     deps = [
         ":util",
         "@org_opengrm_pynini//pynini",
@@ -50,8 +50,8 @@ py_library(
 )
 
 py_library(
-    name = "transliteration_inventory",
-    srcs = ["transliteration_inventory.py"],
+    name = "ltn_inventory",
+    srcs = ["ltn_inventory.py"],
     deps = [
         ":util",
         "@org_opengrm_pynini//pynini",
@@ -62,9 +62,9 @@ py_library(
     name = "rewrite_functions",
     srcs = ["rewrite_functions.py"],
     deps = [
-        ":grapheme_inventory",
+        ":iso_inventory",
+        ":ltn_inventory",
         ":phoneme_inventory",
-        ":transliteration_inventory",
         ":util",
         "@org_opengrm_pynini//pynini",
     ],
@@ -74,9 +74,8 @@ py_library(
     name = "iso2typ",
     srcs = ["iso2typ.py"],
     deps = [
-        ":grapheme_inventory",
+        ":iso_inventory",
         ":rewrite_functions",
-        ":util",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -93,23 +92,23 @@ py_test(
 )
 
 py_library(
-    name = "typ2txn",
-    srcs = ["typ2txn.py"],
+    name = "iso2txn",
+    srcs = ["iso2txn.py"],
     deps = [
-        ":grapheme_inventory",
+        ":iso2typ",
+        ":iso_inventory",
         ":phoneme_inventory",
-        ":rewrite_functions",
         ":util",
         "@org_opengrm_pynini//pynini",
     ],
 )
 
 py_test(
-    name = "typ2txn_test_py",
-    srcs = ["typ2txn_test.py"],
-    main = "typ2txn_test.py",
+    name = "iso2txn_test_py",
+    srcs = ["iso2txn_test.py"],
+    main = "iso2txn_test.py",
     deps = [
-        ":typ2txn",
+        ":iso2txn",
         "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
     ],
@@ -119,7 +118,18 @@ py_library(
     name = "phon_ops",
     srcs = ["phon_ops.py"],
     deps = [
-        ":grapheme_inventory",
+        ":phoneme_inventory",
+        ":rewrite_functions",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "iso2txn_ops",
+    srcs = ["iso2txn_ops.py"],
+    deps = [
+        ":iso_inventory",
+        ":phon_ops",
         ":phoneme_inventory",
         ":rewrite_functions",
         ":util",
@@ -128,35 +138,49 @@ py_library(
 )
 
 py_test(
-    name = "phon_ops_test_py",
-    srcs = ["phon_ops_test.py"],
-    main = "phon_ops_test.py",
+    name = "iso2txn_ops_test_py",
+    srcs = ["iso2txn_ops_test.py"],
+    main = "iso2txn_ops_test.py",
     deps = [
-        ":phon_ops",
+        ":iso2txn_ops",
         "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
     ],
 )
 
 py_library(
-    name = "txn2nat",
-    srcs = ["txn2nat.py"],
+    name = "txn2ltn",
+    srcs = ["txn2ltn.py"],
     deps = [
-        ":grapheme_inventory",
+        ":iso_inventory",
+        ":ltn_inventory",
         ":phoneme_inventory",
         ":rewrite_functions",
-        ":transliteration_inventory",
+        ":util",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "iso2ltn_ops",
+    srcs = ["iso2ltn_ops.py"],
+    deps = [
+        ":iso_inventory",
+        ":phon_ops",
+        ":phoneme_inventory",
+        ":rewrite_functions",
+        ":txn2ltn",
         ":util",
         "@org_opengrm_pynini//pynini",
     ],
 )
 
 py_test(
-    name = "txn2nat_test_py",
-    srcs = ["txn2nat_test.py"],
-    main = "txn2nat_test.py",
+    name = "iso2ltn_ops_test_py",
+    srcs = ["iso2ltn_ops_test.py"],
+    main = "iso2ltn_ops_test.py",
     deps = [
-        ":txn2nat",
+        ":iso2ltn_ops",
         "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
     ],
@@ -191,13 +215,13 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        ":iso2typ",
-        ":phon_ops",
+        ":iso2ltn_ops",
+        ":iso2txn",
+        ":iso2txn_ops",
         ":phoneme_inventory",
         ":rewrite_functions",
         ":txn2ipa",
-        ":txn2nat",
-        ":typ2txn",
+        ":txn2ltn",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -222,11 +246,10 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        ":iso2typ",
-        ":phon_ops",
+        ":iso2ltn_ops",
+        ":iso2txn",
+        ":iso2txn_ops",
         ":txn2ipa",
-        ":txn2nat",
-        ":typ2txn",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -251,13 +274,13 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        ":iso2typ",
+        ":iso2ltn_ops",
+        ":iso2txn",
+        ":iso2txn_ops",
         ":phon_ops",
         ":phoneme_inventory",
         ":rewrite_functions",
         ":txn2ipa",
-        ":txn2nat",
-        ":typ2txn",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -282,11 +305,10 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        ":iso2typ",
-        ":phon_ops",
+        ":iso2ltn_ops",
+        ":iso2txn",
+        ":iso2txn_ops",
         ":txn2ipa",
-        ":txn2nat",
-        ":typ2txn",
         "@org_opengrm_pynini//pynini",
     ],
 )

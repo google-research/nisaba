@@ -2,12 +2,12 @@
 
 This collection of [OpenGrm Pynini](http://www.opengrm.org/twiki/bin/view/GRM/Pynini) grammars takes the [ISO 15919](https://en.wikipedia.org/wiki/ISO_15919) transliteration of a Brahmic script that is normalized and converted by the [Nisaba Brahmic library](https://github.com/google-research/nisaba/tree/main/nisaba/nisaba/scripts/brahmic/README.md), and converts it to a Latin transliteration based on language specific pronunciation. For example, the natural transliteration of the same ISO string `apa` would be `ap` in Hindi, and `aba` in Malayalam.
 
-The natural transliteration grammars use internal notations that only contain extended ASCII characters for ease of input. All substrings are enclosed in type specific, asymmetrical boundary marks. `< >` donates a [grapheme](#typ-representation-and-grapheme-inventory), `{ }` donates a [phoneme](#txn-representation-and-phoneme-inventory), and `“ ”` donates a [transliteration](#transliteration-strings-and-transliteration-inventory) substring.
+The natural transliteration grammars use internal notations that only contain extended ASCII characters for ease of input. All substrings are enclosed in type specific, asymmetrical boundary marks. `< >` donates a [grapheme](#typ-representation-and-iso-inventory), `{ }` donates a [phoneme](#txn-representation-and-phoneme-inventory), and `“ ”` donates a [transliteration](#transliteration-strings-and-ltn-inventory) substring.
 
-## typ representation and grapheme_inventory
+## typ representation and iso_inventory
 `typ` is an internal typable representation for ISO characters. `typ` strings are enclosed in less than and greater than signs.
 
-[`grapheme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/brahmic/natural_translit/grapheme_inventory.py) is a library that contains the `typ`-ISO mapping and forms the `typ` symbols.
+[`iso_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/brahmic/natural_translit/iso_inventory.py) is a library that contains the `typ`-ISO mapping and forms the `typ` symbols.
 
 **Examples**
 
@@ -43,59 +43,59 @@ Nasality and aspiration are featurised for phoneme inventory parsimony, and are 
 * `ᵐb` -> `{nsl}{b}`
 * `bʰ` -> `{b}{asp}`
 
-## typ2txn grammar
+## iso2txn grammars
 
-`typ2txn` grammar assigns a naive orthography to phonology mapping prior to the phonological operations. The format of an assignment is `<typ_graphemes>{txn_phonemes}`.
+`iso2txn` grammar assigns a naive orthography to phonology mapping for iso graphemes prior to the phonological operations. The format of an assignment is `<iso_graphemes>{txn_phonemes}`.
 
 **Example**
 
-* `<aa><tt><aa><n_chl>` -> `<aa>{a_l}<tt>{tt}<aa>{a_l}<n_chl>{ni}`
+* `<aa><tt><aa><n_chl>` -> `<aa>={a_l}<tt>={tt}<aa>={a_l}<n_chl>={ni}`
 
-## Transliteration strings and transliteration_inventory
+`iso2txn_ops` grammar contains phonological operations that depend on the iso graphemes that are on the left side of the alignment, and therefore don't fit the language agnostic phonological operations in the `phon_ops` grammar.
+
+## Transliteration strings and ltn_inventory
 
 Transliteration strings are enclosed in double quotation marks. This allows for keeping track of grapheme-transliteration alignments and disambiguates strings like `'ai'` as `'“ai”'` `'“a”“i”'`.
 
+`ltn_inventory` is a library that contains the latin transliteration substrings.
+
 ## phon_ops grammar
 
-`phon_ops` grammar applies the phonological operations on the pronunciation side.
+`phon_ops` grammar contains common phonological operations on the pronunciation side, independent of the source language or script.
 
 **Example**: Malayalam voicing
 
-* `<aa>{a_l}<tt>{tt}<aa>{a_l}<n_chl>{ni}` -> `<aa>{a_l}<tt>{dd}<aa>{a_l}<n_chl>{ni}`
+* `<aa>={a_l}<tt>={tt}<aa>={a_l}<n_chl>={ni}` -> `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={ni}`
 
-## txn2nat grammar
+## txn2ltn and iso2ltn_ops grammars
 
-`txn2nat` grammar outputs three different types of pronunciation informed transliteration.
+`txn2ltn` grammar contains a default txn pronunciation romanization.
 
-*PSAF*: Fine grained Pan South Asian representation.
+`iso2ltn_ops` grammar contains romanization rules that depend on the iso graphemes that are on the left side of the alignment. In addition to providing rules for the language specific natural transliteration rules imported by the end to end grammar of each language, it has two Pan South Asian romanization outputs.
 
-**Example**
-
-* `<aa>{a_l}<tt>{dd}<aa>{a_l}<n_chl>{ni}` ->
-
- `<aa>“aa”<tt>“d”<aa>“aa”<n_chl>“n”` ->
-
-   `aadaan`
-
-*PSAC*: Coarse grained Pan South Asian representation.
+**PSAF**: Fine grained Pan South Asian representation. Fine grained in this context means that for characters that have more than one conventional transliteration, it uses the most informative one. For example, long vowels can be transliterated as one or two characters. PSAF uses the two character version to retain the vowel length information.
 
 **Example**
 
-* `<aa>{a_l}<tt>{dd}<aa>{a_l}<n_chl>{ni}` ->
+* `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={ni}` ->
 
- `<aa>“a”<tt>“d”<aa>“a”<n_chl>“n”` ->
+ `<aa>=“aa”<tt>=“d”<aa>=“aa”<n_chl>=“n”` ->
 
    `aadaan`
 
-*NAT*: Regional natural transliteration.
+In this format different spellings of the same word in one language are likely to have closer romanizations, but they may differ across languages. For example, two Hindi spellings of the word "hindi", `hiṁdī` and `hindī` in ISO, will retain the long vowel ii and have the same PSAF, `hindii`. Whereas the Malayalam spelling of the same word will have a different PSAF `hindi` because the word ends with a short vowel in the native spelling, `hindi` in ISO.
+
+**PSAC**: Coarse grained Pan South Asian representation. Coarse grained in this context means that PSAC conflates some transliteration substrings in order to simplify the romanization as much as possible. Fine details such as vowel length are lost in this format.
 
 **Example**
 
-* `<aa>{a_l}<tt>{dd}<aa>{a_l}<n_chl>{ni}` ->
+* `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={ni}` ->
 
- `<aa>“aa”<tt>“d”<aa>“a”<n_chl>“n”` ->
+ `<aa>=“a”<tt>=“d”<aa>=“a”<n_chl>=“n”` ->
 
    `aadaan`
+
+Discarding finer details makes it possible to have much closer PSAC romanizations of the same word across languages. For example, PSAC for "hindi" will be `hindi` for both Hindi and Malayalam, regardless of the vowel length in the source language.
 
 ## txn2ipa grammar
 
@@ -132,6 +132,20 @@ _VOICING = ops.voicing(
         ph.ASP.ques,
         p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT)).optimize())  # Following context
 ```
+
+Natural transliteration, which aims to capture the romanization of the source language by the users, is composed in the end to end grammar of the specific language. For example, the users of a language might prefer to use a long aa at the beginning of a word, but shorten it in other positions.
+
+**NAT**: Regional natural transliteration.
+
+**Example**
+
+* `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={ni}` ->
+
+ `<aa>“aa”<tt>“d”<aa>“a”<n_chl>“n”` ->
+
+   `aadan`
+
+The natural transliteration of the same word might differ for each language and might include conventions that don't directly match the pronunciation of the word in the conventional sense. For example, some languages might favour using `ee` for a long i or `oo` for a long u, while in other languages `ee` could only mean a long e. The guideline for the natural transliteration grammars is to approximate the most conventional way the users of that language in the appropriate context. For example, if the ISO string `ēpʰabī.ā.ī` will be `eephbiiaaii` in PSAF and `ephbiai` in PSAC, but the natural romanization could be `FBI` if it's the native spelling of the English acronym FBI and it's the way most users would romanize it.
 
 ## util library
 

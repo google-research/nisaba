@@ -16,14 +16,14 @@
 """Common rewrite functions."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.grapheme_inventory as gr
+import nisaba.scripts.brahmic.natural_translit.iso_inventory as gr
+import nisaba.scripts.brahmic.natural_translit.ltn_inventory as lt
 import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
-import nisaba.scripts.brahmic.natural_translit.transliteration_inventory as tr
 import nisaba.scripts.brahmic.natural_translit.util as u
 
 # Right side of an alignment can be phonemes or transliteration strings.
-R_SYM = p.union(ph.PHONEME, tr.TRANSLIT).optimize()
-R_SYMS = p.union(ph.PHONEMES, tr.TRANSLITS).optimize()
+R_SYM = p.union(ph.PHONEME, lt.TRANSLIT).optimize()
+R_SYMS = p.union(ph.PHONEMES, lt.TRANSLITS).optimize()
 
 SYMS = p.union(gr.GRAPHEMES, R_SYMS).optimize()
 
@@ -389,9 +389,9 @@ def merge(
 
   ```
   merge(
-      gr.C, tr.CH,
-      gr.CH, tr.CH + tr.H,
-      tr.CH + tr.H)
+      gr.C, lt.CH,
+      gr.CH, lt.CH + lt.H,
+      lt.CH + lt.H)
   ```
 
   Would return

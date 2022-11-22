@@ -15,9 +15,9 @@
 """South Asian multilingual phoneme assignment."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.grapheme_inventory as gr
+from nisaba.scripts.brahmic.natural_translit import iso2typ
+import nisaba.scripts.brahmic.natural_translit.iso_inventory as gr
 import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
-import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
 import nisaba.scripts.brahmic.natural_translit.util as u
 
 _ASSIGN_VOWEL = p.union(
@@ -148,6 +148,7 @@ TYP_TO_TXN = p.union(
     _ASSIGN_OM
     ).star.optimize()
 
-TAP_TO_TRILL = rw.rewrite(ph.RT, ph.R)
 
-A_TO_EC = rw.rewrite(ph.A, ph.EC)
+def iso_to_txn() -> p.Fst:
+  """ISO graphemes to txn pronunciation."""
+  return (iso2typ.iso_to_typ() @ TYP_TO_TXN).optimize()

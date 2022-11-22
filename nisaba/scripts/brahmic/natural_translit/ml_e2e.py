@@ -17,16 +17,15 @@
 
 import pynini as p
 from pynini.export import multi_grm
-import nisaba.scripts.brahmic.natural_translit.iso2typ as iso
-import nisaba.scripts.brahmic.natural_translit.phon_ops as ops
+from nisaba.scripts.brahmic.natural_translit import iso2ltn_ops
+from nisaba.scripts.brahmic.natural_translit import iso2txn
+from nisaba.scripts.brahmic.natural_translit import iso2txn_ops
+from nisaba.scripts.brahmic.natural_translit import phon_ops
+from nisaba.scripts.brahmic.natural_translit import txn2ipa
 import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
 import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
-import nisaba.scripts.brahmic.natural_translit.txn2ipa as ipa
-import nisaba.scripts.brahmic.natural_translit.txn2nat as txn
-import nisaba.scripts.brahmic.natural_translit.typ2txn as typ
 
-
-_VOICING = ops.voicing(
+_VOICING = phon_ops.voicing(
     p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),
     rw.concat_r(
         ph.ASP.ques,
@@ -35,31 +34,30 @@ _VOICING = ops.voicing(
 
 def _iso_to_txn() -> p.Fst:
   """Composes the fsts from ISO characters to final txn pronunciation."""
-  return (iso.iso_to_typ() @
-          typ.TYP_TO_TXN @
-          ops.VOCALIC_EC @
-          ops.SCHWA_A @
-          ops.ANUSVARA_ASSIMILATION @
-          ops.DEFAULT_ANUSVARA_LABIAL @
+  return (iso2txn.iso_to_txn() @
+          iso2txn_ops.VOCALIC_EC @
+          iso2txn_ops.SCHWA_A @
+          iso2txn_ops.ANUSVARA_ASSIMILATION @
+          iso2txn_ops.DEFAULT_ANUSVARA_LABIAL @
           _VOICING @
-          ops.JNY_TO_NY).optimize()
+          iso2txn_ops.JNY_TO_NY).optimize()
 
 
 def iso_to_psaf() -> p.Fst:
   """Pan-South Asian fine grained transliteration."""
   return (_iso_to_txn() @
-          txn.VOCALIC_TR_I @
-          txn.TXN_TO_PSAF).optimize()
+          iso2ltn_ops.VOCALIC_TR_I @
+          iso2ltn_ops.TXN_TO_PSAF).optimize()
 
 
 def iso_to_psac() -> p.Fst:
   """Pan-South Asian coarse grained transliteration."""
-  return (_iso_to_txn() @ txn.TXN_TO_PSAC).optimize()
+  return (_iso_to_txn() @ iso2ltn_ops.TXN_TO_PSAC).optimize()
 
 
 def iso_to_ipa() -> p.Fst:
   """Pronunciation in IPA."""
-  return (_iso_to_txn() @ ipa.txn_to_ipa()).optimize()
+  return (_iso_to_txn() @ txn2ipa.txn_to_ipa()).optimize()
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):

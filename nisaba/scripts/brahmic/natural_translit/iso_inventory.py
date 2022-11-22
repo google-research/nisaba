@@ -26,7 +26,7 @@ ISO - typ mapping
 'æ': <ac>          'f': <f>           'q': <q>           'ˑ': <nkt>
 'e': <e>           'g': <g>           'r': <r>           'ḥ': <vis>
 'ē': <ee>          'ġ': <gg>          'ṛ': <rd>          'ṁ': <ans>
-'ê': <ec>          'h': <h>           'ṟ': <rr>          '̐' : <cnd-dia>
+'ê': <ec>          'h': <h>           'ṟ': <rr>          '̐' : <cnd_dia>
 'i': <i>           'j': <j>           's': <s>           'ḫ': <upadh>
 'ī': <ii>          'k': <k>           'ś': <sh>          'ẖ': <jihva>
 'o': <o>           'l': <l>           'ṣ': <ss>          'ʰ': <asp>

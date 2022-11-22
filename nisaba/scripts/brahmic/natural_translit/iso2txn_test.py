@@ -15,11 +15,11 @@
 """Tests for typ2txn."""
 
 from absl.testing import absltest
-from nisaba.scripts.brahmic.natural_translit import typ2txn
+from nisaba.scripts.brahmic.natural_translit import iso2txn
 from nisaba.scripts.utils import test_util
 
 _TEST_CASES = [
-    (lambda: typ2txn.TYP_TO_TXN, [
+    (lambda: iso2txn.TYP_TO_TXN, [
         ('<a>', '<a>={sch}'),
         ('<aa>', '<aa>={a_l}'),
         ('<ac>', '<ac>={ae}'),

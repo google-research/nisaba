@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Tests for phon_ops."""
+"""Tests for iso2txn_ops."""
 
 from absl.testing import absltest
-from nisaba.scripts.brahmic.natural_translit import phon_ops
+from nisaba.scripts.brahmic.natural_translit import iso2txn_ops
 from nisaba.scripts.utils import test_util
 
 
 _TEST_CASES = [
-    (lambda: phon_ops.ANUSVARA_ASSIMILATION, [
+    (lambda: iso2txn_ops.ANUSVARA_ASSIMILATION, [
         ('<a>={a}<ans>={nsl}<b>={b}<aa>={a_l}',
          '<a>={a}<ans>={m}<b>={b}<aa>={a_l}'),
         ('<a>={a}<ans>={nsl}<d>={di}<aa>={a_l}',
@@ -36,27 +36,27 @@ _TEST_CASES = [
         ('<a>={a}<ans>={nsl}<s>={s}<aa>={a_l}',
          '<a>={a}<ans>={nsl}<s>={s}<aa>={a_l}'),
     ]),
-    (lambda: phon_ops.DEFAULT_ANUSVARA_LABIAL, [
+    (lambda: iso2txn_ops.DEFAULT_ANUSVARA_LABIAL, [
         ('<a>={a}<ans>={nsl}<s>={s}<aa>={a_l}',
          '<a>={a}<ans>={m}<s>={s}<aa>={a_l}'),
     ]),
-    (lambda: phon_ops.DEFAULT_ANUSVARA_DENTAL, [
+    (lambda: iso2txn_ops.DEFAULT_ANUSVARA_DENTAL, [
         ('<a>={a}<ans>={nsl}<s>={s}<aa>={a_l}',
          '<a>={a}<ans>={ni}<s>={s}<aa>={a_l}'),
     ]),
-    (lambda: phon_ops.JNY_TO_GNY, [
+    (lambda: iso2txn_ops.JNY_TO_GNY, [
         ('<j>={jh}<ny>={ny}', '<j>={g}<ny>={ny}'),
     ]),
-    (lambda: phon_ops.JNY_TO_GY, [
+    (lambda: iso2txn_ops.JNY_TO_GY, [
         ('<j>={jh}<ny>={ny}', '<j>={g}<ny>={y}'),
     ]),
-    (lambda: phon_ops.JNY_TO_NY, [
+    (lambda: iso2txn_ops.JNY_TO_NY, [
         ('<j>={jh}<ny>={ny}', '<j>={sil}<ny>={ny}'),
     ]),
 ]
 
 
-class PhonOpsTest(test_util.FstTestCase):
+class Iso2TxnOpsTest(test_util.FstTestCase):
 
   def test_all(self):
     self.assertFstStrIoTestCases(_TEST_CASES)
