@@ -15,10 +15,10 @@
 """South Asian multilingual phoneme assignment."""
 
 import pynini as p
-from nisaba.scripts.brahmic.natural_translit import iso2typ
-import nisaba.scripts.brahmic.natural_translit.iso_inventory as gr
-import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
-import nisaba.scripts.brahmic.natural_translit.util as u
+from nisaba.scripts.brahmic.natural_translit.brahmic import iso2typ
+import nisaba.scripts.brahmic.natural_translit.brahmic.iso_inventory as gr
+import nisaba.scripts.brahmic.natural_translit.common.util as u
+import nisaba.scripts.brahmic.natural_translit.phonology.phoneme_inventory as ph
 
 _ASSIGN_VOWEL = p.union(
     u.assign(gr.A, ph.SCHWA),

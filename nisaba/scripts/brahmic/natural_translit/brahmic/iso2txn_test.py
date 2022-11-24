@@ -15,7 +15,7 @@
 """Tests for typ2txn."""
 
 from absl.testing import absltest
-from nisaba.scripts.brahmic.natural_translit import iso2txn
+from nisaba.scripts.brahmic.natural_translit.brahmic import iso2txn
 from nisaba.scripts.utils import test_util
 
 _TEST_CASES = [

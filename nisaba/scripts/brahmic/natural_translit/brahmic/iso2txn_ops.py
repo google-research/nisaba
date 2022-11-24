@@ -15,11 +15,11 @@
 """Phonological operations that depend on iso graphemes."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.iso_inventory as gr
-import nisaba.scripts.brahmic.natural_translit.phon_ops as ops
-import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
-import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
-import nisaba.scripts.brahmic.natural_translit.util as u
+from nisaba.scripts.brahmic.natural_translit.brahmic import iso_inventory as gr
+from nisaba.scripts.brahmic.natural_translit.common import rewrite_functions as rw
+from nisaba.scripts.brahmic.natural_translit.common import util as u
+from nisaba.scripts.brahmic.natural_translit.phonology import phoneme_inventory as ph
+from nisaba.scripts.brahmic.natural_translit.phonology.operations import syllable as syl
 
 # Vocalic liquids
 
@@ -81,15 +81,15 @@ _SCHWA_AFTER_IY = _vocal_schwa(rw.concat_r(p.union(ph.I, ph.I_L), ph.Y))
 def _schwa_eow(coda_cl) -> p.Fst:
   """Deletes the word final schwa if it's preceded by a legal coda."""
   return _silent_schwa(
-      ops.legal_coda(coda_cl),
+      syl.legal_coda(coda_cl),
       u.EOS)
 
 
 def _schwa_between_syllables(onset_cl, coda_cl) -> p.Fst:
   """Deletes schwa between two well-formed syllables."""
   return _silent_schwa(
-      ops.legal_coda(coda_cl),
-      ops.legal_onset(onset_cl))
+      syl.legal_coda(coda_cl),
+      syl.legal_onset(onset_cl))
 
 
 def process_schwa(

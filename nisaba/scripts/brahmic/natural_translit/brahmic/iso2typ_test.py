@@ -15,7 +15,7 @@
 """Tests for iso2typ."""
 
 from absl.testing import absltest
-from nisaba.scripts.brahmic.natural_translit import iso2typ
+from nisaba.scripts.brahmic.natural_translit.brahmic import iso2typ
 from nisaba.scripts.utils import test_util
 
 

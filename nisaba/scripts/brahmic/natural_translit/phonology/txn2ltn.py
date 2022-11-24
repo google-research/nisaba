@@ -15,10 +15,10 @@
 """txn pronunciation romanization."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.ltn_inventory as tr
-import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
-import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
-import nisaba.scripts.brahmic.natural_translit.util as u
+import nisaba.scripts.brahmic.natural_translit.common.rewrite_functions as rw
+import nisaba.scripts.brahmic.natural_translit.common.util as u
+import nisaba.scripts.brahmic.natural_translit.latin.ltn_inventory as tr
+import nisaba.scripts.brahmic.natural_translit.phonology.phoneme_inventory as ph
 
 STRIP = rw.strip_right_side(u.TR_BOUND)
 

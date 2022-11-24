@@ -15,11 +15,11 @@
 """Romanization rules that depend on iso graphemes."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.iso_inventory as gr
-import nisaba.scripts.brahmic.natural_translit.ltn_inventory as tr
-import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
-import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
-import nisaba.scripts.brahmic.natural_translit.txn2ltn as ltn
+from nisaba.scripts.brahmic.natural_translit.brahmic import iso_inventory as gr
+from nisaba.scripts.brahmic.natural_translit.common import rewrite_functions as rw
+from nisaba.scripts.brahmic.natural_translit.latin import ltn_inventory as tr
+from nisaba.scripts.brahmic.natural_translit.phonology import phoneme_inventory as ph
+from nisaba.scripts.brahmic.natural_translit.phonology import txn2ltn
 
 ## Rules to apply before txn to ltn mappings
 
@@ -93,23 +93,23 @@ SHSH_TO_SSH = rw.reduce_repetition(gr.SH, tr.SH, tr.S + tr.SH)
 # Compose common rules for romanization
 TXN_TO_PSA_COMMON = (
     _NON_LABIAL_ANUSVARA @
-    ltn.MAP_VOWEL_SHORT @
-    ltn.MAP_CONSONANT @
-    ltn.MAP_FEATURE
+    txn2ltn.MAP_VOWEL_SHORT @
+    txn2ltn.MAP_CONSONANT @
+    txn2ltn.MAP_FEATURE
     ).optimize()
 
 
 TXN_TO_PSAF = (
     TXN_TO_PSA_COMMON @
-    ltn.MAP_VOWEL_LONG @
-    ltn.STRIP
+    txn2ltn.MAP_VOWEL_LONG @
+    txn2ltn.STRIP
     ).optimize()
 
 # Converts txn to PSAC and outputs only translit strings.
 TXN_TO_PSAC = (TXN_TO_PSA_COMMON @
-               ltn.MAP_VOWEL_IGNORE_LENGTH @
+               txn2ltn.MAP_VOWEL_IGNORE_LENGTH @
                CC_TO_CH @
                CCH_TO_CH @
                SSSS_TO_SH @
                SHSH_TO_SH @
-               ltn.STRIP).optimize()
+               txn2ltn.STRIP).optimize()

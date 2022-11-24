@@ -29,10 +29,14 @@ For example, the ambiguous string 'au' is represented using the tr symbols:
 An operation that changes the transliteration of the phoneme {au}
 from “au” to “o” only applies to “au” substrings and not “a”“u” sequences.
 
+Currently ltn only has tranliteration symbols as all existing grammars involving
+ltn are romanization grammars. When the source script is ltn the grammars will
+use ltn graphemes enclosed in < >.
+
 """
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.util as u
+import nisaba.scripts.brahmic.natural_translit.common.util as u
 
 
 def _enclose(sym: str) -> p.Fst:

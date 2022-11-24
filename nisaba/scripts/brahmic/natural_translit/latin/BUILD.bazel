@@ -12,6 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
+package(default_visibility = [
+    "//nisaba/scripts/brahmic/natural_translit:__subpackages__",
+])
 
 licenses(["notice"])
+
+py_library(
+    name = "ltn_inventory",
+    srcs = ["ltn_inventory.py"],
+    deps = [
+        "//nisaba/scripts/brahmic/natural_translit/common:util",
+        "@org_opengrm_pynini//pynini",
+    ],
+)

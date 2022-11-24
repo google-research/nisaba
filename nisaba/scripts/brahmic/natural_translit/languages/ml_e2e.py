@@ -13,29 +13,41 @@
 # limitations under the License.
 
 # Lint as: python3
-"""End-to-end natural transliteration for Telugu."""
+"""End-to-end natural transliteration for Malayalam."""
 
 import pynini as p
 from pynini.export import multi_grm
-from nisaba.scripts.brahmic.natural_translit import iso2ltn_ops
-from nisaba.scripts.brahmic.natural_translit import iso2txn
-from nisaba.scripts.brahmic.natural_translit import iso2txn_ops
-from nisaba.scripts.brahmic.natural_translit import txn2ipa
+from nisaba.scripts.brahmic.natural_translit.brahmic import iso2ltn_ops
+from nisaba.scripts.brahmic.natural_translit.brahmic import iso2txn
+from nisaba.scripts.brahmic.natural_translit.brahmic import iso2txn_ops
+import nisaba.scripts.brahmic.natural_translit.common.rewrite_functions as rw
+from nisaba.scripts.brahmic.natural_translit.phonology import phoneme_inventory as ph
+from nisaba.scripts.brahmic.natural_translit.phonology import txn2ipa
+from nisaba.scripts.brahmic.natural_translit.phonology.operations import voicing
+
+_VOICING = voicing.voicing(
+    p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),
+    rw.concat_r(
+        ph.ASP.ques,
+        p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT)).optimize())
 
 
 def _iso_to_txn() -> p.Fst:
   """Composes the fsts from ISO characters to final txn pronunciation."""
   return (iso2txn.iso_to_txn() @
-          iso2txn_ops.VOCALIC_U @
+          iso2txn_ops.VOCALIC_EC @
           iso2txn_ops.SCHWA_A @
           iso2txn_ops.ANUSVARA_ASSIMILATION @
           iso2txn_ops.DEFAULT_ANUSVARA_LABIAL @
-          iso2txn_ops.JNY_TO_GNY).optimize()
+          _VOICING @
+          iso2txn_ops.JNY_TO_NY).optimize()
 
 
 def iso_to_psaf() -> p.Fst:
   """Pan-South Asian fine grained transliteration."""
-  return (_iso_to_txn() @ iso2ltn_ops.TXN_TO_PSAF).optimize()
+  return (_iso_to_txn() @
+          iso2ltn_ops.VOCALIC_TR_I @
+          iso2ltn_ops.TXN_TO_PSAF).optimize()
 
 
 def iso_to_psac() -> p.Fst:
@@ -49,7 +61,7 @@ def iso_to_ipa() -> p.Fst:
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
-  """Generates FAR for natural transliteration for Telugu."""
+  """Generates FAR for natural transliteration for Malayalam."""
   for token_type in ('byte', 'utf8'):
     with p.default_token_type(token_type):
 

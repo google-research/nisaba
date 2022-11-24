@@ -16,7 +16,7 @@
 
 from absl.testing import absltest
 
-from nisaba.scripts.brahmic.natural_translit import txn2ipa
+from nisaba.scripts.brahmic.natural_translit.phonology import txn2ipa
 from nisaba.scripts.utils import test_util
 
 _TEST_CASES = [

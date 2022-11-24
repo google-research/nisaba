@@ -15,8 +15,8 @@
 """IPA pronunciation output."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
-import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
+import nisaba.scripts.brahmic.natural_translit.common.rewrite_functions as rw
+import nisaba.scripts.brahmic.natural_translit.phonology.phoneme_inventory as ph
 
 
 def _rewrite_txn_to_ipa() -> p.Fst:

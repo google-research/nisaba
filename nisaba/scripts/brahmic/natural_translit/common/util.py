@@ -22,6 +22,7 @@ BYTE_STAR = byte.BYTE.star.optimize()
 BOS = p.accep('[BOS]')  # Beginning of string
 EOS = p.accep('[EOS]')  # End of string
 EPSILON = p.accep('')  # Epsilon, empty string
+USC = p.accep('_')
 GR_L = p.accep('<')  # Grapheme left boundary
 GR_R = p.accep('>')  # Grapheme right boundary
 GR_BOUND = p.union(GR_L, GR_R).optimize()
@@ -40,6 +41,14 @@ def enclose(
     right_boundary: p.FstLike) -> p.Fst:
   """Encloses a string in the boundary symbols of the relevant type."""
   return left_boundary + string + right_boundary
+
+SYM = p.union(byte.ALPHA, USC).star.optimize()
+GRAPHEME = enclose(SYM, GR_L, GR_R)
+GRAPHEMES = GRAPHEME.star.optimize()
+PHONEME = enclose(SYM, PH_L, PH_R)
+PHONEMES = PHONEME.star.optimize()
+TRANSLIT = enclose(SYM, TR_L, TR_R)
+TRANSLITS = TRANSLIT.star.optimize()
 
 
 def align(left_side: p.FstLike, right_side: p.FstLike) -> p.Fst:

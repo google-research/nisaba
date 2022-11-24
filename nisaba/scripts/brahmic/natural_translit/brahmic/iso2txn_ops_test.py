@@ -15,7 +15,7 @@
 """Tests for iso2txn_ops."""
 
 from absl.testing import absltest
-from nisaba.scripts.brahmic.natural_translit import iso2txn_ops
+from nisaba.scripts.brahmic.natural_translit.brahmic import iso2txn_ops
 from nisaba.scripts.utils import test_util
 
 

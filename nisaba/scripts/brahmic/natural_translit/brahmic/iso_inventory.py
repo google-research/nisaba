@@ -41,7 +41,7 @@ ISO - typ mapping
 """
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.util as u
+import nisaba.scripts.brahmic.natural_translit.common.util as u
 
 
 def _enclose(sym: str) -> p.Fst():

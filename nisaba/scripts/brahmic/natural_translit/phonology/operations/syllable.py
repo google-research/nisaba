@@ -15,8 +15,8 @@
 """Multilingual phonological operations."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
-import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
+import nisaba.scripts.brahmic.natural_translit.common.rewrite_functions as rw
+import nisaba.scripts.brahmic.natural_translit.phonology.phoneme_inventory as ph
 
 
 def legal_onset(onset_cl: p.FstLike) -> p.Fst:
@@ -78,24 +78,3 @@ def legal_coda(coda_cl: p.FstLike) -> p.Fst:
   )
   """
   return rw.concat_r(ph.VOWEL, p.union(ph.CONSONANT, coda_cl).optimize().ques)
-
-# Voicing
-
-VOICING_OP = p.union(
-    p.cross(ph.CH, ph.JH),
-    p.cross(ph.K, ph.G),
-    p.cross(ph.P, ph.B),
-    p.cross(ph.T, ph.D),
-    p.cross(ph.TI, ph.DI),
-    p.cross(ph.TT, ph.DD)).optimize()
-
-
-def voicing(
-    preceding: p.FstLike,
-    following: p.FstLike) -> p.Fst:
-  """Voicing. See rewrite_by_operation for argument details."""
-  return rw.rewrite_operation_by_context(
-      VOICING_OP,
-      preceding,
-      following)
-

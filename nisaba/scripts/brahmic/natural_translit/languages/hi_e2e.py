@@ -17,13 +17,13 @@
 
 import pynini as p
 from pynini.export import multi_grm
-from nisaba.scripts.brahmic.natural_translit import iso2ltn_ops
-from nisaba.scripts.brahmic.natural_translit import iso2txn
-from nisaba.scripts.brahmic.natural_translit import iso2txn_ops
-from nisaba.scripts.brahmic.natural_translit import txn2ipa
-from nisaba.scripts.brahmic.natural_translit import txn2ltn
-import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
-import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
+from nisaba.scripts.brahmic.natural_translit.brahmic import iso2ltn_ops
+from nisaba.scripts.brahmic.natural_translit.brahmic import iso2txn
+from nisaba.scripts.brahmic.natural_translit.brahmic import iso2txn_ops
+import nisaba.scripts.brahmic.natural_translit.common.rewrite_functions as rw
+from nisaba.scripts.brahmic.natural_translit.phonology import phoneme_inventory as ph
+from nisaba.scripts.brahmic.natural_translit.phonology import txn2ipa
+from nisaba.scripts.brahmic.natural_translit.phonology import txn2ltn
 
 _ONSET_CL = p.union(
     rw.concat_r(

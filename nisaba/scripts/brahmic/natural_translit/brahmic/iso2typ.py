@@ -15,8 +15,8 @@
 """ISO to typeable string conversion."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.iso_inventory as gr
-import nisaba.scripts.brahmic.natural_translit.rewrite_functions as rw
+import nisaba.scripts.brahmic.natural_translit.brahmic.iso_inventory as gr
+import nisaba.scripts.brahmic.natural_translit.common.rewrite_functions as rw
 
 
 def _iso_to_decomposed_typ() -> p.Fst:

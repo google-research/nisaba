@@ -16,20 +16,17 @@
 """Common rewrite functions."""
 
 import pynini as p
-import nisaba.scripts.brahmic.natural_translit.iso_inventory as gr
-import nisaba.scripts.brahmic.natural_translit.ltn_inventory as lt
-import nisaba.scripts.brahmic.natural_translit.phoneme_inventory as ph
-import nisaba.scripts.brahmic.natural_translit.util as u
+from nisaba.scripts.brahmic.natural_translit.common import util as u
 
 # Right side of an alignment can be phonemes or transliteration strings.
-R_SYM = p.union(ph.PHONEME, lt.TRANSLIT).optimize()
-R_SYMS = p.union(ph.PHONEMES, lt.TRANSLITS).optimize()
+R_SYM = p.union(u.PHONEME, u.TRANSLIT).optimize()
+R_SYMS = p.union(u.PHONEMES, u.TRANSLITS).optimize()
 
-SYMS = p.union(gr.GRAPHEMES, R_SYMS).optimize()
+SYMS = p.union(u.GRAPHEMES, R_SYMS).optimize()
 
 # Skip sequences to look at either the adjacent symbol, the closest left or
 # right side symbol of an adjacent alignment.
-SKIP_LEFT_SIDE = (gr.GRAPHEME.plus + u.ALIGN_SIGN).ques
+SKIP_LEFT_SIDE = (u.GRAPHEME.plus + u.ALIGN_SIGN).ques
 SKIP_RIGHT_SIDE = (u.ALIGN_SIGN + R_SYM.plus).ques
 SKIP = p.union(SKIP_LEFT_SIDE, SKIP_RIGHT_SIDE).ques
 
@@ -438,7 +435,7 @@ def delete(
 
 
 # Removes graphemes and returns a sequence of phonemes or translit substrings.
-EXTRACT_RIGHT_SIDE = rewrite(p.union(gr.GRAPHEMES, u.ALIGN_SIGN), u.EPSILON)
+EXTRACT_RIGHT_SIDE = delete(p.union(u.GRAPHEMES, u.ALIGN_SIGN))
 
 
 def strip_right_side(syms: p.FstLike) -> p.Fst:
