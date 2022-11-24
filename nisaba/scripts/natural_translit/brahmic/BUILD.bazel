@@ -1,0 +1,124 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""Resources for Brahmic scripts.
+   Input format is ISO strings following the specifications of nisaba/scripts/brahmic:iso"""
+
+package(default_visibility = [
+    "//nisaba/scripts/natural_translit/brahmic:__subpackages__",
+    "//nisaba/scripts/natural_translit/languages:__subpackages__",
+])
+
+licenses(["notice"])
+
+py_library(
+    name = "iso_inventory",
+    srcs = ["iso_inventory.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/common:util",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "iso2typ",
+    srcs = ["iso2typ.py"],
+    deps = [
+        ":iso_inventory",
+        "//nisaba/scripts/natural_translit/common:rewrite_functions",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "iso2typ_test_py",
+    srcs = ["iso2typ_test.py"],
+    main = "iso2typ_test.py",
+    deps = [
+        ":iso2typ",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "iso2txn",
+    srcs = ["iso2txn.py"],
+    deps = [
+        ":iso2typ",
+        ":iso_inventory",
+        "//nisaba/scripts/natural_translit/common:util",
+        "//nisaba/scripts/natural_translit/phonology:phoneme_inventory",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "iso2txn_test_py",
+    srcs = ["iso2txn_test.py"],
+    main = "iso2txn_test.py",
+    deps = [
+        ":iso2txn",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "iso2txn_ops",
+    srcs = ["iso2txn_ops.py"],
+    deps = [
+        ":iso_inventory",
+        "//nisaba/scripts/natural_translit/common:rewrite_functions",
+        "//nisaba/scripts/natural_translit/common:util",
+        "//nisaba/scripts/natural_translit/phonology:phoneme_inventory",
+        "//nisaba/scripts/natural_translit/phonology/operations:syllable",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "iso2txn_ops_test_py",
+    srcs = ["iso2txn_ops_test.py"],
+    main = "iso2txn_ops_test.py",
+    deps = [
+        ":iso2txn_ops",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "iso2ltn_ops",
+    srcs = ["iso2ltn_ops.py"],
+    deps = [
+        ":iso_inventory",
+        "//nisaba/scripts/natural_translit/common:rewrite_functions",
+        "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/phonology:phoneme_inventory",
+        "//nisaba/scripts/natural_translit/phonology:txn2ltn",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "iso2ltn_ops_test_py",
+    srcs = ["iso2ltn_ops_test.py"],
+    main = "iso2ltn_ops_test.py",
+    deps = [
+        ":iso2ltn_ops",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
