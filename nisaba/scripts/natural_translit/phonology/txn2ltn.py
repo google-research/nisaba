@@ -54,15 +54,20 @@ VOWEL_IGNORE_LENGTH = p.union(
 
 MAP_VOWEL_IGNORE_LENGTH = rw.rewrite_operation(VOWEL_IGNORE_LENGTH)
 
+AFFRICATE = p.union(
+    p.cross(ph.DZH, tr.J),
+    p.cross(ph.TSH, tr.CH),
+).optimize()
+
 CONSONANT = p.union(
     p.cross(ph.B, tr.B),
-    p.cross(ph.CH, tr.CH),
+    p.cross(ph.TSH, tr.CH),
     p.cross(ph.DD, tr.D),
     p.cross(ph.DI, tr.D),
     p.cross(ph.F, tr.F),
     p.cross(ph.G, tr.G),
     p.cross(ph.H, tr.H),
-    p.cross(ph.JH, tr.J),
+    p.cross(ph.DZH, tr.J),
     p.cross(ph.K, tr.K),
     p.cross(ph.L, tr.L),
     p.cross(ph.LL, tr.L),
@@ -85,20 +90,21 @@ CONSONANT = p.union(
     p.cross(ph.TI, tr.T),
     p.cross(ph.TT, tr.T),
     p.cross(ph.VU, tr.V),
-    p.cross(ph.X, tr.KH),
-    p.cross(ph.XA, tr.G),
+    p.cross(ph.KH, tr.KH),
+    p.cross(ph.GH, tr.G),
     p.cross(ph.Y, tr.Y),
     p.cross(ph.Z, tr.Z)
     ).optimize()
 
-MAP_CONSONANT = rw.rewrite_operation(CONSONANT)
+MAP_CONSONANT = (rw.rewrite_operation(AFFRICATE) @
+                 rw.rewrite_operation(CONSONANT)).optimize()
 
 FEATURE = p.union(
     p.cross(ph.ASP, tr.H),
     p.cross(ph.NSL, tr.N),
     p.cross(ph.SIL, tr.DEL),
     p.cross(ph.SCHWA, tr.DEL),
-    p.cross(ph.VCL, tr.I)
+    p.cross(ph.SYL, tr.I)
     ).optimize()
 
 MAP_FEATURE = rw.rewrite_operation(FEATURE)

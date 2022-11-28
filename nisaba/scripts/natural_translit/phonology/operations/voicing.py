@@ -21,7 +21,7 @@ import nisaba.scripts.natural_translit.phonology.phoneme_inventory as ph
 # Voicing
 
 VOICING_OP = p.union(
-    p.cross(ph.CH, ph.JH),
+    p.cross(ph.TSH, ph.DZH),
     p.cross(ph.K, ph.G),
     p.cross(ph.P, ph.B),
     p.cross(ph.T, ph.D),

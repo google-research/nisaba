@@ -23,6 +23,7 @@ BOS = p.accep('[BOS]')  # Beginning of string
 EOS = p.accep('[EOS]')  # End of string
 EPSILON = p.accep('')  # Epsilon, empty string
 USC = p.accep('_')
+PLUS = p.accep('+')
 GR_L = p.accep('<')  # Grapheme left boundary
 GR_R = p.accep('>')  # Grapheme right boundary
 GR_BOUND = p.union(GR_L, GR_R).optimize()
@@ -42,7 +43,7 @@ def enclose(
   """Encloses a string in the boundary symbols of the relevant type."""
   return left_boundary + string + right_boundary
 
-SYM = p.union(byte.ALPHA, USC).star.optimize()
+SYM = p.union(byte.ALPHA, USC, PLUS).star.optimize()
 GRAPHEME = enclose(SYM, GR_L, GR_R)
 GRAPHEMES = GRAPHEME.star.optimize()
 PHONEME = enclose(SYM, PH_L, PH_R)

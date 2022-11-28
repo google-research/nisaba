@@ -55,26 +55,26 @@ _ASSIGN_VOWEL = p.union(
 
 # Vocalic characters are assigned a consonant followed by a vowel
 _ASSIGN_VOCALIC = p.union(
-    u.assign(gr.L_VCL, ph.L + ph.VCL),
-    u.assign(gr.LL_VCL, ph.LL + ph.VCL),
-    u.assign(gr.R_VCL, ph.RT + ph.VCL),
-    u.assign(gr.RR_VCL, ph.R + ph.VCL),
-    u.assign(gr.L_VCL_I, ph.L + ph.VCL),
-    u.assign(gr.LL_VCL_I, ph.LL + ph.VCL),
-    u.assign(gr.R_VCL_I, ph.RT + ph.VCL),
-    u.assign(gr.RR_VCL_I, ph.R + ph.VCL)
+    u.assign(gr.L_VCL, ph.L + ph.SYL),
+    u.assign(gr.LL_VCL, ph.LL + ph.SYL),
+    u.assign(gr.R_VCL, ph.RT + ph.SYL),
+    u.assign(gr.RR_VCL, ph.R + ph.SYL),
+    u.assign(gr.L_VCL_I, ph.L + ph.SYL),
+    u.assign(gr.LL_VCL_I, ph.LL + ph.SYL),
+    u.assign(gr.R_VCL_I, ph.RT + ph.SYL),
+    u.assign(gr.RR_VCL_I, ph.R + ph.SYL)
     ).optimize()
 
 _ASSIGN_CONSONANT = p.union(
     u.assign(gr.B, ph.B),
-    u.assign(gr.C, ph.CH),
+    u.assign(gr.C, ph.TSH),
     u.assign(gr.D, ph.DI),
     u.assign(gr.DD, ph.DD),
     u.assign(gr.F, ph.F),
     u.assign(gr.G, ph.G),
-    u.assign(gr.GG, ph.XA),
+    u.assign(gr.GG, ph.GH),
     u.assign(gr.H, ph.H),
-    u.assign(gr.J, ph.JH),
+    u.assign(gr.J, ph.DZH),
     u.assign(gr.K, ph.K),
     u.assign(gr.L, ph.L),
     u.assign(gr.LL, ph.L),
@@ -97,7 +97,7 @@ _ASSIGN_CONSONANT = p.union(
     u.assign(gr.TT, ph.TT),
     u.assign(gr.TA, ph.T),
     u.assign(gr.V, ph.VU),
-    u.assign(gr.X, ph.X),
+    u.assign(gr.X, ph.KH),
     u.assign(gr.Y, ph.Y),
     u.assign(gr.Z, ph.Z),
     u.assign(gr.K_CHL, ph.K),
@@ -114,11 +114,11 @@ _ASSIGN_CONSONANT = p.union(
 # followed by an aspirated release.
 _ASSIGN_ASPIRATED = p.union(
     u.assign(gr.BH, ph.B + ph.ASP),
-    u.assign(gr.CH, ph.CH + ph.ASP),
+    u.assign(gr.CH, ph.TSH + ph.ASP),
     u.assign(gr.DH, ph.DI + ph.ASP),
     u.assign(gr.DDH, ph.DD + ph.ASP),
     u.assign(gr.GH, ph.G + ph.ASP),
-    u.assign(gr.JH, ph.JH + ph.ASP),
+    u.assign(gr.JH, ph.DZH + ph.ASP),
     u.assign(gr.KH, ph.K + ph.ASP),
     u.assign(gr.PH, ph.P + ph.ASP),
     u.assign(gr.RDH, ph.RRT + ph.ASP),

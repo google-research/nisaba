@@ -35,13 +35,21 @@ The natural transliteration grammars use internal notations that only contain ex
 * `ʈ` -> `{tt}`
 * `n̪` -> `{ni}`
 
-Nasality and aspiration are featurised for phoneme inventory parsimony, and are represented as `{nsl}` and `{asp}` respectively.
+For parsimony, txn uses a featurised representation for  diphthongs, affricates,
+coarticulation, secondary articulation and features like phonation. Where a sequence of symbols need to be disambiguated, eg, a phoneme
+sequence vs diphthong or affricate, or distinguishing between nasalization that
+affects the whole phoneme vs. prenasalization and nasal release,
+the combining symbol {+} is used.
 
 **Examples**
 
-* `õː` -> `{o_l}{nsl}`
-* `ᵐb` -> `{nsl}{b}`
-* `bʰ` -> `{b}{asp}`
+* `aɪ`  -> `{a}{+}{i}` (diphthong)
+* `t͡ʃ` -> `{t}{+}{sh}` (affricate)
+* `d͡b` -> `{d}{+}{b}` (coarticulation)
+* `ᵐb` -> `{N}{+}{b}` (pre-nasalization)
+* `dⁿ` -> `{b}{+}{N}` (nasal release)
+* `õː` -> `{o_l}{N}` (nasalized vowel)
+* `bʰ` -> `{b}{H}` (aspiration / breathy voice)
 
 ## iso2txn grammars
 

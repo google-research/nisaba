@@ -26,7 +26,7 @@ from nisaba.scripts.natural_translit.phonology.operations import syllable as syl
 
 def _vocalic(vcl: p.FstLike) -> p.Fst:
   """Pronunciation of the vowel part of the vocalic Rs and Ls."""
-  return rw.rewrite(ph.VCL, vcl)
+  return rw.rewrite(ph.SYL, vcl)
 
 VOCALIC_I = _vocalic(ph.I)
 
@@ -131,7 +131,7 @@ def _assign_anusvara(
   would return:
   ```
   p.cdrewrite(
-      p.cross('<ans>{nsl}', '<ans>{m}')
+      p.cross('<ans>{N}', '<ans>{m}')
       '',
       p.union(ph.M, ph.P, ph.B),
       u.BYTE_STAR)
@@ -177,7 +177,7 @@ def _rewrite_jny(
     ny: p.FstLike) -> p.Fst:
   """Jny clusters are pronounced differently across languages."""
   return rw.reassign_adjacent_alignments(
-      gr.J, ph.JH, j,
+      gr.J, ph.DZH, j,
       gr.NY, ph.NY, ny)
 
 JNY_TO_GNY = _rewrite_jny(ph.G, ph.NY)

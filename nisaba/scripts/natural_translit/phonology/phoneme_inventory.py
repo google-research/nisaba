@@ -29,17 +29,18 @@ IPA - txn mapping
 'o'   : {o}        'oː'  : {o_l}      'ɔ' : {oh}         'ɔː' : {oh_l}
 'u'   : {u}        'uː'  : {u_l}
 
-'b'   : {b}        't͡ʃ' : {ch}       'd' : {d}           'ɖ' : {dd}
+'b'   : {b}        't͡ʃ' : {t}{+}{sh} 'd' : {d}           'ɖ' : {dd}
 'd̪'   : {di}       'f'   : {f}        'ɡ' : {g}           'h' : {h}
-'d͡ʒ' : {jh}       'k'   : {k}        'l' : {l}           'ɭ' : {ll}
+'d͡ʒ' : {d}{+}{zh} 'k'   : {k}        'l' : {l}           'ɭ' : {ll}
 'm'   : {m}        'n'   : {n}        'ŋ' : {ng}          'n̪' : {ni}
 'ɳ'   : {nn}       'ɲ'   : {ny}       'p' : {p}           'q' : {q}
 'r'   : {r}        'ɽ'   : {rrt}      'ɻ' : {rru}         'ɾ' : {rt}
 's'   : {s}        'ʃ'   : {sh}       'ʂ' : {ss}          't' : {t}
-'t̪'   : {ti}       'ʈ'   : {tt}       'ʋ' : {vu}          'x' : {x}
-'ɣ'   : {xa}       'j'   : {y}        'z' : {z}
+'t̪'   : {ti}       'ʈ'   : {tt}       'ʋ' : {vu}          'x' : {kh}
+'ɣ'   : {gh}       'j'   : {y}        'z' : {z}           'ʒ' : {zh}
 
-'ʰ'   : {asp}        '̯ ' : {glide}    '~' : {nsl}         '̍ ' : {syl}
+'ʰ'   : {H}        '~'   : {N}        '̍ ' : {V}
+'͡'   : {+}
 
 """
 
@@ -73,14 +74,14 @@ OH_L_IPA = 'ɔː'
 U_IPA = 'u'
 U_L_IPA = 'uː'
 B_IPA = 'b'
-CH_IPA = 't͡ʃ'
+TSH_IPA = 't͡ʃ'
 D_IPA = 'd'
 DD_IPA = 'ɖ'
 DI_IPA = 'd̪'
 F_IPA = 'f'
 G_IPA = 'ɡ'
 H_IPA = 'h'
-JH_IPA = 'd͡ʒ'
+DZH_IPA = 'd͡ʒ'
 K_IPA = 'k'
 L_IPA = 'l'
 LL_IPA = 'ɭ'
@@ -103,8 +104,8 @@ T_IPA = 't'
 TI_IPA = 't̪'
 TT_IPA = 'ʈ'
 VU_IPA = 'ʋ'
-X_IPA = 'x'
-XA_IPA = 'ɣ'
+KH_IPA = 'x'
+GH_IPA = 'ɣ'
 Y_IPA = 'j'
 Z_IPA = 'z'
 ZH_IPA = 'ʒ'
@@ -112,25 +113,27 @@ ASP_IPA = 'ʰ'
 NSL_IPA = '~'
 SIL_IPA = ''
 GLIDE_IPA = '̯'  # Combining inverted breve below ( ̯ ) U+032F
-SYLLABIC = '̍'  # Combining vertical line above ( ̍ ) U+030D
+SYL_IPA = '̍'  # Combining vertical line above ( ̍ ) U+030D
+CMB_IPA = '͡'
 
 # txn phonemes
 
 # Modifiers
 
-ASP = _enclose('asp')
+ASP = _enclose('H')
 GLIDE = _enclose('glide')
-NSL = _enclose('nsl')
-VCL = _enclose('vcl')
+NSL = _enclose('N')
+SYL = _enclose('V')
+CMB = _enclose('+')
 
 # Silence
 
 SIL = _enclose('sil')
 
 VOWEL_MODS = p.union(GLIDE, NSL).optimize()
-CONSONANT_MODS = p.union(ASP, VCL).optimize()
+CONSONANT_MODS = p.union(ASP, SYL).optimize()
 
-MODS = p.union(VOWEL_MODS, CONSONANT_MODS).optimize()
+MODS = p.union(VOWEL_MODS, CONSONANT_MODS, CMB).optimize()
 
 # Vowels
 
@@ -158,14 +161,12 @@ VCL_SCHWA = _enclose('@')  # pronounced schwa
 # Consonants
 
 B = _enclose('b')
-CH = _enclose('ch')
 D = _enclose('d')
 DD = _enclose('dd')
 DI = _enclose('di')
 F = _enclose('f')
 G = _enclose('g')
 H = _enclose('h')
-JH = _enclose('jh')
 K = _enclose('k')
 L = _enclose('l')
 LL = _enclose('ll')
@@ -188,10 +189,14 @@ T = _enclose('t')
 TI = _enclose('ti')
 TT = _enclose('tt')
 VU = _enclose('vu')
-X = _enclose('x')
-XA = _enclose('xa')
+KH = _enclose('kh')
+GH = _enclose('gh')
 Y = _enclose('y')
 Z = _enclose('z')
+ZH = _enclose('zh')
+
+TSH = T + CMB + SH
+DZH = D + CMB + ZH
 
 VOWEL_SHORT = (
     p.union(EC, A, AE, E, EH, I, O, OH, U, SCHWA).optimize() +
@@ -220,17 +225,17 @@ STOP_ASP = STOP_UNASP + ASP
 
 STOP = p.union(STOP_UNASP, STOP_ASP).optimize()
 
-FRICATIVE = p.union(F, S, Z, SH, SS, X, XA, H).optimize()
+FRICATIVE = p.union(F, S, Z, SH, SS, KH, GH, H).optimize()
 
 SIBILANT = p.union(S, Z, SH, SS).optimize()
 
-AFFRICATE_UNASP = p.union(CH, JH).optimize()
+AFFRICATE_UNASP = p.union(TSH, DZH).optimize()
 
 AFFRICATE_ASP = AFFRICATE_UNASP + ASP
 
 AFFRICATE = p.union(AFFRICATE_UNASP, AFFRICATE_ASP).optimize()
 
-VOICED = p.union(B, DI, D, DD, G, JH, F, Z).optimize() + ASP.ques
+VOICED = p.union(B, DI, D, DD, G, DZH, F, Z).optimize() + ASP.ques
 
 APPROXIMANT = p.union(VU, RRU, Y).optimize()
 
@@ -243,15 +248,15 @@ LIQUID = p.union(RHOTIC, LATERAL).optimize()
 CONSONANT = p.union(NASAL, STOP, FRICATIVE, AFFRICATE,
                     APPROXIMANT, LIQUID).optimize()
 
-PHONEME = p.union(ASP, GLIDE, NSL, VCL, SIL,
+PHONEME = p.union(ASP, GLIDE, NSL, SYL, SIL,
                   EC, EC_L, A, A_L, AE, AE_L,
                   E, E_L, EH, EH_L, I, I_L,
                   O, O_L, OH, OH_L, U, U_L,
-                  B, CH, D, DD, DI, F, G, H,
-                  JH, K, L, LL, M,
+                  B, TSH, D, DD, DI, F, G, H,
+                  DZH, K, L, LL, M,
                   N, NG, NI, NN, NY,
                   P, Q, R, RRT, RRU, RT,
                   S, SH, SS, T, TI, TT, VU,
-                  X, XA, Y, Z, SCHWA).optimize()
+                  KH, GH, Y, Z, SCHWA).optimize()
 
 PHONEMES = PHONEME.star.optimize()

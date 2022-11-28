@@ -41,7 +41,7 @@ _NON_LABIAL_ANUSVARA = rw.reassign(
 def _transliterate_vocalic(vcl_tr: p.FstLike) -> p.Fst:
   """Transliterates all vowels in vocalics as vcl_tr."""
   return rw.rewrite_by_context(
-      p.union(ph.VOWEL, ph.VCL),
+      p.union(ph.VOWEL, ph.SYL),
       vcl_tr,
       gr.VOCALICS)
 
