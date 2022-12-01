@@ -51,7 +51,7 @@ nisaba_compile_grm_py(
     name = "reversible_roman",
     data = [
         "//nisaba/scripts/abjad_alphabet/data/Arab:reversible_roman.tsv",
-        "//nisaba/scripts/abjad_alphabet/data/Arab/common:visual_norm.tsv",
+        "//nisaba/scripts/abjad_alphabet/data/Arab:visual_norm.tsv",
     ],
     visibility = ["//visibility:public"],
     deps = [
@@ -105,7 +105,7 @@ py_library(
     data = [
         "//nisaba/scripts/abjad_alphabet/data/Arab:nfc.tsv",
         "//nisaba/scripts/abjad_alphabet/data/Arab:presentation_forms.tsv",
-        "//nisaba/scripts/abjad_alphabet/data/Arab/common:visual_norm.tsv",
+        "//nisaba/scripts/abjad_alphabet/data/Arab:visual_norm.tsv",
     ],
     deps = [
         ":util",

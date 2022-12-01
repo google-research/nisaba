@@ -74,7 +74,7 @@ nisaba_compile_multi_grm_py(
             "vowel_length_sign",
             "vowel_sign",
         ]
-    ] + ["//nisaba/scripts/brahmic/data/common:symbol.tsv"],
+    ] + ["//nisaba/scripts/brahmic/data:symbol.tsv"],
     visibility = ["//visibility:public"],
     deps = [
         ":util",

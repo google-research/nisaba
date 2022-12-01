@@ -106,7 +106,7 @@ def brahmic_to_iso(consonant_file: os.PathLike,
   subjoined_consonant = f.StringFile(subjoined_consonant_file)
   virama = f.StringFile(virama_file)
 
-  common_symbol = f.StringFile(u.SCRIPT_DIR / 'common' / 'symbol.tsv')
+  common_symbol = f.StringFile(u.SCRIPT_DIR / 'symbol.tsv')
 
   ins_inherent = pu.insert(inherent_vowel)
   ins_dash = pu.insert('-')

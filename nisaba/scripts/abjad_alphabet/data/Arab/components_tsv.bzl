@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Rules to convert Unicode string protos for Brahmic to Pynini TSV format."""
+"""Rules to convert Unicode string protos to Pynini TSV format."""
 
 load(
     "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
@@ -23,9 +23,14 @@ load(
     _empty_components_tsv = "empty_components_tsv",
 )
 
-_COMMON_ARGS = {"common_dir": "//nisaba/scripts/brahmic/data/common"}
+_COMMON_DIR = "//nisaba/scripts/abjad_alphabet/data/Arab"
+
+_COMMON_ARGS = {
+    "common_dir": _COMMON_DIR,
+    "uname_prefix_from": _COMMON_DIR,
+}
 
 empty_components_tsv = _empty_components_tsv
-components_tsv_local = _components_tsv_local
+components_tsv_local = add_args_to_fn(_components_tsv_local, {"uname_prefix_from": _COMMON_DIR})
 components_tsv_local_with_common = add_args_to_fn(_components_tsv_local_with_common, _COMMON_ARGS)
 components_tsv_from_common = add_args_to_fn(_components_tsv_from_common, _COMMON_ARGS)

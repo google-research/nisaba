@@ -15,7 +15,7 @@
 # Definitions for Uzbek.
 
 load(
-    "//nisaba/scripts/abjad_alphabet:components_tsv.bzl",
+    "//nisaba/scripts/abjad_alphabet/data/Arab:components_tsv.bzl",
     "components_tsv_local",
     "components_tsv_local_with_common",
     "empty_components_tsv",

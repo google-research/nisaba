@@ -14,7 +14,7 @@
 
 # Language definitions for Bengali(Bangla).
 
-load("//nisaba/scripts/brahmic:components_tsv.bzl", "components_tsv_local")
+load("//nisaba/scripts/brahmic/data:components_tsv.bzl", "components_tsv_local")
 
 package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
 

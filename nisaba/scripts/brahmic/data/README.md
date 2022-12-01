@@ -86,7 +86,12 @@ for Bangla in Bengali script are located in `Beng/bn` directory.
 1.  `vowel.textproto`: Language-specific independent vowel listing. These
     entries are included in romanization and well-formedness transducers.
 
-## Common directory
+## Common files
+
+The files under the parent directory `scripts/brahmic/data/script` contain
+shared parts of the data files for the scripts under. Since these are shared
+parts, they cannot have the fields `raw` and `uname_prefix` as they are usually
+script specific.
 
 1.  `symbol.textproto`: Symbols common to all scripts. Examples: `ZWJ(U+200D)`
     and `ZWNJ(U+200C)`

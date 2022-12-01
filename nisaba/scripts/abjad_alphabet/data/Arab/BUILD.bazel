@@ -12,10 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Language-agnostic definitions for Arabic script.
+# Language-agnostic or common components for Arabic script languages.
 
 load("//nisaba/scripts/utils:letter_languages.bzl", "setup_letter_languages")
-load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "component_tsv")
+load(
+    "//nisaba/scripts/utils:unicode_strings_to_tsv.bzl",
+    "component_tsv",
+    "components_tsv_local",
+)
 
 package(default_visibility = ["//nisaba/scripts/abjad_alphabet:__subpackages__"])
 
@@ -41,3 +45,5 @@ component_tsv(
     name = "presentation_forms",
     text_protos = [":presentation_forms.textproto"],
 )
+
+components_tsv_local(names = ["visual_norm"])

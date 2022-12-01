@@ -22,4 +22,4 @@ from nisaba.scripts.utils import rule
 
 def script_common_fsts(sigma: pynini.Fst, prefix=()) -> List[pynini.Fst]:
   return [rule.fst_from_rule_file(util.LANG_DIR / (component + '.tsv'), sigma)
-          for component in prefix + ('nfc', 'common/visual_norm')]
+          for component in prefix + ('nfc', 'visual_norm')]

@@ -15,7 +15,7 @@
 # Thaana script definitions.
 
 load(
-    "//nisaba/scripts/brahmic:components_tsv.bzl",
+    "//nisaba/scripts/brahmic/data:components_tsv.bzl",
     "components_tsv_local",
     "empty_components_tsv",
 )

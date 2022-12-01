@@ -16,7 +16,7 @@
 
 load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "component_tsv")
 load(
-    "//nisaba/scripts/brahmic:components_tsv.bzl",
+    "//nisaba/scripts/brahmic/data:components_tsv.bzl",
     "components_tsv_from_common",
     "components_tsv_local",
     "components_tsv_local_with_common",
