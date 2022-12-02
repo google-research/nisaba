@@ -19,7 +19,7 @@ C++. Currently supported script families:
 
 *   Brahmic scripts ([documentation](nisaba/scripts/brahmic/README.md)).
 *   Alphabets and *abjads* ([documentation](nisaba/scripts/abjad_alphabet/README.md)).
-*   Natural transliteration for Brahmic scripts ([documentation](scripts/natural_translit/README.md)).
+*   Natural transliteration for Brahmic scripts ([documentation](nisaba/scripts/natural_translit/README.md)).
 
 Nisaba primarily relies on [OpenGrm Pynini](http://pynini.opengrm.org/), which
 is a Python toolkit for finite-state grammar development. OpenGrm Pynini, like
