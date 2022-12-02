@@ -48,10 +48,6 @@ import pynini as p
 import nisaba.scripts.natural_translit.common.util as u
 
 
-def _enclose(sym: str) -> p.Fst():
-  """Encloses txn symbols in '{' and '}'."""
-  return u.enclose(sym, u.PH_L, u.PH_R)
-
 # IPA mapping
 
 SCHWA_IPA = 'ə'
@@ -120,15 +116,15 @@ CMB_IPA = '͡'
 
 # Modifiers
 
-ASP = _enclose('H')
-GLIDE = _enclose('glide')
-NSL = _enclose('N')
-SYL = _enclose('V')
-CMB = _enclose('+')
+ASP = u.enclose_phoneme('H')
+GLIDE = u.enclose_phoneme('glide')
+NSL = u.enclose_phoneme('N')
+SYL = u.enclose_phoneme('V')
+CMB = u.enclose_phoneme('+')
 
 # Silence
 
-SIL = _enclose('sil')
+SIL = u.enclose_phoneme('sil')
 
 VOWEL_MODS = p.union(GLIDE, NSL).optimize()
 CONSONANT_MODS = p.union(ASP, SYL).optimize()
@@ -137,63 +133,63 @@ MODS = p.union(VOWEL_MODS, CONSONANT_MODS, CMB).optimize()
 
 # Vowels
 
-EC = _enclose('ec')
-EC_L = _enclose('ec_l')
-A = _enclose('a')
-A_L = _enclose('a_l')
-AE = _enclose('ae')
-AE_L = _enclose('ae_l')
-E = _enclose('e')
-E_L = _enclose('e_l')
-EH = _enclose('eh')
-EH_L = _enclose('eh_l')
-I = _enclose('i')
-I_L = _enclose('i_l')
-O = _enclose('o')
-O_L = _enclose('o_l')
-OH = _enclose('oh')
-OH_L = _enclose('oh_l')
-U = _enclose('u')
-U_L = _enclose('u_l')
-SCHWA = _enclose('sch')  # unassigned inherent vowel
-VCL_SCHWA = _enclose('@')  # pronounced schwa
+EC = u.enclose_phoneme('ec')
+EC_L = u.enclose_phoneme('ec_l')
+A = u.enclose_phoneme('a')
+A_L = u.enclose_phoneme('a_l')
+AE = u.enclose_phoneme('ae')
+AE_L = u.enclose_phoneme('ae_l')
+E = u.enclose_phoneme('e')
+E_L = u.enclose_phoneme('e_l')
+EH = u.enclose_phoneme('eh')
+EH_L = u.enclose_phoneme('eh_l')
+I = u.enclose_phoneme('i')
+I_L = u.enclose_phoneme('i_l')
+O = u.enclose_phoneme('o')
+O_L = u.enclose_phoneme('o_l')
+OH = u.enclose_phoneme('oh')
+OH_L = u.enclose_phoneme('oh_l')
+U = u.enclose_phoneme('u')
+U_L = u.enclose_phoneme('u_l')
+SCHWA = u.enclose_phoneme('sch')  # unassigned inherent vowel
+VCL_SCHWA = u.enclose_phoneme('@')  # pronounced schwa
 
 # Consonants
 
-B = _enclose('b')
-D = _enclose('d')
-DD = _enclose('dd')
-DI = _enclose('di')
-F = _enclose('f')
-G = _enclose('g')
-H = _enclose('h')
-K = _enclose('k')
-L = _enclose('l')
-LL = _enclose('ll')
-M = _enclose('m')
-N = _enclose('n')
-NG = _enclose('ng')
-NI = _enclose('ni')
-NN = _enclose('nn')
-NY = _enclose('ny')
-P = _enclose('p')
-Q = _enclose('q')
-R = _enclose('r')
-RRT = _enclose('rrt')
-RRU = _enclose('rru')
-RT = _enclose('rt')
-S = _enclose('s')
-SH = _enclose('sh')
-SS = _enclose('ss')
-T = _enclose('t')
-TI = _enclose('ti')
-TT = _enclose('tt')
-VU = _enclose('vu')
-KH = _enclose('kh')
-GH = _enclose('gh')
-Y = _enclose('y')
-Z = _enclose('z')
-ZH = _enclose('zh')
+B = u.enclose_phoneme('b')
+D = u.enclose_phoneme('d')
+DD = u.enclose_phoneme('dd')
+DI = u.enclose_phoneme('di')
+F = u.enclose_phoneme('f')
+G = u.enclose_phoneme('g')
+H = u.enclose_phoneme('h')
+K = u.enclose_phoneme('k')
+L = u.enclose_phoneme('l')
+LL = u.enclose_phoneme('ll')
+M = u.enclose_phoneme('m')
+N = u.enclose_phoneme('n')
+NG = u.enclose_phoneme('ng')
+NI = u.enclose_phoneme('ni')
+NN = u.enclose_phoneme('nn')
+NY = u.enclose_phoneme('ny')
+P = u.enclose_phoneme('p')
+Q = u.enclose_phoneme('q')
+R = u.enclose_phoneme('r')
+RRT = u.enclose_phoneme('rrt')
+RRU = u.enclose_phoneme('rru')
+RT = u.enclose_phoneme('rt')
+S = u.enclose_phoneme('s')
+SH = u.enclose_phoneme('sh')
+SS = u.enclose_phoneme('ss')
+T = u.enclose_phoneme('t')
+TI = u.enclose_phoneme('ti')
+TT = u.enclose_phoneme('tt')
+VU = u.enclose_phoneme('vu')
+KH = u.enclose_phoneme('kh')
+GH = u.enclose_phoneme('gh')
+Y = u.enclose_phoneme('y')
+Z = u.enclose_phoneme('z')
+ZH = u.enclose_phoneme('zh')
 
 TSH = T + CMB + SH
 DZH = D + CMB + ZH

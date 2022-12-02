@@ -18,37 +18,78 @@
 import pynini as p
 from pynini.lib import byte
 
+# Constants
+
+# Default sigma for rewrites that don't involve UTF-8 characters.
 BYTE_STAR = byte.BYTE.star.optimize()
-BOS = p.accep('[BOS]')  # Beginning of string
-EOS = p.accep('[EOS]')  # End of string
-EPSILON = p.accep('')  # Epsilon, empty string
-USC = p.accep('_')
-PLUS = p.accep('+')
-GR_L = p.accep('<')  # Grapheme left boundary
-GR_R = p.accep('>')  # Grapheme right boundary
-GR_BOUND = p.union(GR_L, GR_R).optimize()
-PH_L = p.accep('{')  # Phoneme left boundary
-PH_R = p.accep('}')  # Phoneme right boundary
-PH_BOUND = p.union(PH_L, PH_R).optimize()
-TR_L = p.accep('“')  # Translit left boundary (left double quote)
-TR_R = p.accep('”')  # Translit right boundary (right double quote)
-TR_BOUND = p.union(TR_L, TR_R).optimize()
-ALIGN_SIGN = p.accep('=')  # Substring alignment
+
+# String literals
+
+BOS_STR = '[BOS]'  # Beginning of string
+EOS_STR = '[EOS]'  # End of string
+EMPTY_STR = ''
+UNDERSCORE = '_'
+PLUS = '+'
+LESS_THAN = '<'
+GREATER_THAN = '>'
+CURLY_L = '{'
+CURLY_R = '}'
+DBL_QUOTE_L = '“'  # U+201C
+DBL_QUOTE_R = '”'  # U+201D
+EQUAL = '='
+
+# Acceptors
+
+BOS = p.accep(BOS_STR)
+EOS = p.accep(EOS_STR)
+EPSILON = p.accep(EMPTY_STR)
+AFFIX = p.accep(UNDERSCORE)
+COMBINE = p.accep(PLUS)
+GR_L = p.accep(LESS_THAN)  # Grapheme left boundary
+GR_R = p.accep(GREATER_THAN)  # Grapheme right boundary
+GR_B = [GR_L, GR_R]
+GR_BOUND = p.union(*GR_B).optimize()
+PH_L = p.accep(CURLY_L)  # Phoneme left boundary
+PH_R = p.accep(CURLY_R)  # Phoneme right boundary
+PH_B = [PH_L, PH_R]
+PH_BOUND = p.union(*PH_B).optimize()
+TR_L = p.accep(DBL_QUOTE_L)  # Translit left boundary
+TR_R = p.accep(DBL_QUOTE_R)  # Translit right boundary
+TR_B = [TR_L, TR_R]
+TR_BOUND = p.union(*TR_B).optimize()
+ALIGN_SIGN = p.accep(EQUAL)  # Substring alignment
+
+# Functions
 
 
-def enclose(
-    string: p.FstLike,
+def _enclose(
+    base: p.FstLike,
     left_boundary: p.FstLike,
     right_boundary: p.FstLike) -> p.Fst:
-  """Encloses a string in the boundary symbols of the relevant type."""
-  return left_boundary + string + right_boundary
+  """Encloses a string with the boundary symbols of the relevant type."""
+  return left_boundary + base + right_boundary
 
-SYM = p.union(byte.ALPHA, USC, PLUS).star.optimize()
-GRAPHEME = enclose(SYM, GR_L, GR_R)
+
+def enclose_grapheme(base: p.FstLike) -> p.Fst:
+  """Encloses a string with grapheme boundaries."""
+  return _enclose(base, *GR_B)
+
+
+def enclose_phoneme(base: p.FstLike) -> p.Fst:
+  """Encloses a string with phoneme boundaries."""
+  return _enclose(base, *PH_B)
+
+
+def enclose_translit(base: p.FstLike) -> p.Fst:
+  """Encloses a string with translit boundaries."""
+  return _enclose(base, *TR_B)
+
+SYM = p.union(byte.ALPHA, AFFIX, COMBINE).star.optimize()
+GRAPHEME = enclose_grapheme(SYM)
 GRAPHEMES = GRAPHEME.star.optimize()
-PHONEME = enclose(SYM, PH_L, PH_R)
+PHONEME = enclose_phoneme(SYM)
 PHONEMES = PHONEME.star.optimize()
-TRANSLIT = enclose(SYM, TR_L, TR_R)
+TRANSLIT = enclose_translit(SYM)
 TRANSLITS = TRANSLIT.star.optimize()
 
 
