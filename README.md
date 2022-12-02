@@ -17,8 +17,9 @@ normalization, well-formedness, transliteration and NFC normalization of various
 scripts from South Asia and beyond. Nisaba provides these APIs in Python and
 C++. Currently supported script families:
 
-*   Brahmic scripts (detailed [documentation](nisaba/scripts/brahmic/README.md)).
-*   Alphabets and *abjads* (detailed [documentation](nisaba/scripts/abjad_alphabet/README.md)).
+*   Brahmic scripts ([documentation](nisaba/scripts/brahmic/README.md)).
+*   Alphabets and *abjads* ([documentation](nisaba/scripts/abjad_alphabet/README.md)).
+*   Natural transliteration for Brahmic scripts ([documentation](scripts/natural_translit/README.md)).
 
 Nisaba primarily relies on [OpenGrm Pynini](http://pynini.opengrm.org/), which
 is a Python toolkit for finite-state grammar development. OpenGrm Pynini, like
