@@ -22,6 +22,10 @@ import functools
 import nisaba.scripts.utils.file as uf
 
 
+class FstInputError(ValueError):
+  pass
+
+
 class Far:
   """Far object created from a .far file.
 
@@ -55,7 +59,8 @@ class Far:
         # So they need to be escaped for unmanaged strings.
         return pynini.shortestpath(pynini.escape(text) @ self._fst).string()
       except pynini.FstOpError as error:
-        raise ValueError(f'{error} on the string (between quotes): `{text}`')
+        raise FstInputError(
+            f'{error} on the string (between quotes): `{text}`') from error
 
     def AcceptText(self, text: str) -> bool:
       """Accept or reject the given string using the FST.
@@ -77,7 +82,7 @@ class Far:
       lattice = text @ self._fst
       return lattice.start() != pynini.NO_STATE_ID
 
-  def __init__(self, path_to_far: os.PathLike) -> None:
+  def __init__(self, path_to_far: os.PathLike[str]) -> None:
     self._path_to_far = path_to_far
 
   # NOTE: Due to a pytype inconvenience with memoize.Memoize, this users of this
