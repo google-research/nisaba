@@ -153,7 +153,7 @@ Natural transliteration, which aims to capture the romanization of the source la
 
    `aadan`
 
-The natural transliteration of the same word might differ for each language and might include conventions that don't directly match the pronunciation of the word in the conventional sense. For example, some languages might favour using `ee` for a long i or `oo` for a long u, while in other languages `ee` could only mean a long e. The guideline for the natural transliteration grammars is to approximate the most conventional way the users of that language in the appropriate context. For example, if the ISO string `ēpʰabī.ā.ī` will be `eephbiiaaii` in PSAF and `ephbiai` in PSAC, but the natural romanization could be `FBI` if it's the native spelling of the English acronym FBI and it's the way most users would romanize it.
+The natural transliteration of the same word might differ for each language and might include conventions that don't directly match the pronunciation of the word in the conventional sense. For example, some languages might favour using `ee` for a long i or `oo` for a long u, while in other languages `ee` could only mean a long e. The guideline for the natural transliteration grammars is to approximate the most conventional way the users of that language in the appropriate context. For example, if the ISO string `ēpʰabī.ā.ī` will be `eephbiiaaii` in PSAF and `ephbiai` in PSAC, but the natural romanization could be `FBI` if it's the native spelling of the English acronym FBI and it's the way most users would romanize it. This acronym conversion is handled by the `typ2acr` grammar.
 
 ## util library
 

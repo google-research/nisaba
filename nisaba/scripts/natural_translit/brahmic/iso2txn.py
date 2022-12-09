@@ -24,6 +24,8 @@ _ASSIGN_VOWEL = p.union(
     u.assign(gr.A, ph.SCHWA),
     u.assign(gr.AA, ph.A_L),
     u.assign(gr.AC, ph.AE),
+    u.assign(gr.AN, ph.A),
+    u.assign(gr.AAN, ph.A_L),
     u.assign(gr.AI, ph.AE),
     u.assign(gr.AU, ph.O_L),
     u.assign(gr.E, ph.E),

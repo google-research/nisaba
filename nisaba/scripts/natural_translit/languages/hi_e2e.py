@@ -20,7 +20,8 @@ from pynini.export import multi_grm
 from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
 from nisaba.scripts.natural_translit.brahmic import iso2txn
 from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
-import nisaba.scripts.natural_translit.common.rewrite_functions as rw
+from nisaba.scripts.natural_translit.brahmic.acronym import typ2acr
+from nisaba.scripts.natural_translit.common import rewrite_functions as rw
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 from nisaba.scripts.natural_translit.phonology import txn2ipa
 from nisaba.scripts.natural_translit.phonology import txn2ltn
@@ -65,18 +66,22 @@ _CODA_CL = p.union(
 _PROCESS_SCHWA = iso2txn_ops.process_schwa(_ONSET_CL, _CODA_CL)
 
 
+_TXN_OPS = (
+    iso2txn_ops.A_TO_EC @
+    iso2txn_ops.VOCALIC_I @
+    iso2txn_ops.ANUSVARA_ASSIMILATION @
+    _PROCESS_SCHWA @
+    iso2txn_ops.SCHWA_EC @
+    iso2txn_ops.DEFAULT_ANUSVARA_DENTAL @
+    iso2txn_ops.FINAL_ANUSVARA_NASALIZATION @
+    iso2txn_ops.JNY_TO_GY @
+    iso2txn_ops.PHPH_TO_FF
+).optimize()
+
+
 def _iso_to_txn() -> p.Fst:
   """Composes the fsts from ISO characters to final txn pronunciation."""
-  return (iso2txn.iso_to_txn() @
-          iso2txn_ops.A_TO_EC @
-          iso2txn_ops.VOCALIC_I @
-          iso2txn_ops.ANUSVARA_ASSIMILATION @
-          _PROCESS_SCHWA @
-          iso2txn_ops.SCHWA_EC @
-          iso2txn_ops.DEFAULT_ANUSVARA_DENTAL @
-          iso2txn_ops.FINAL_ANUSVARA_NASALIZATION @
-          iso2txn_ops.JNY_TO_GY @
-          iso2txn_ops.PHPH_TO_FF).optimize()
+  return (iso2txn.iso_to_txn() @ _TXN_OPS).optimize()
 
 
 def iso_to_psaf() -> p.Fst:
@@ -96,7 +101,9 @@ def iso_to_ipa() -> p.Fst:
 
 def iso_to_nat() -> p.Fst:
   """Natural transliteration."""
-  return (_iso_to_txn() @
+  return (iso2txn.iso_to_txn() @
+          typ2acr.HI_ACR_TYP_TO_TR @
+          _TXN_OPS @
           iso2ltn_ops.SIBV_TO_SIBW @
           iso2ltn_ops.AA_WI @
           iso2ltn_ops.TXN_TO_PSA_COMMON @

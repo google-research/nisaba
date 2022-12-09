@@ -49,7 +49,7 @@ VOCALIC_TR_I = _transliterate_vocalic(tr.I)
 
 # Word initial <aa> is "aa".
 AA_WI = rw.reassign_word_initial(
-    gr.AA,
+    gr.AA_I,
     ph.A_L,
     tr.AA)
 

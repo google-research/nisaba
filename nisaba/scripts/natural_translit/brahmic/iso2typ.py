@@ -15,8 +15,9 @@
 """ISO to typeable string conversion."""
 
 import pynini as p
-import nisaba.scripts.natural_translit.brahmic.iso_inventory as gr
-import nisaba.scripts.natural_translit.common.rewrite_functions as rw
+from nisaba.scripts.natural_translit.brahmic import iso_inventory as gr
+from nisaba.scripts.natural_translit.common import rewrite_functions as rw
+from nisaba.scripts.natural_translit.common import util as u
 
 
 def _iso_to_decomposed_typ() -> p.Fst:
@@ -26,6 +27,7 @@ def _iso_to_decomposed_typ() -> p.Fst:
       p.cross(gr.A_ISO, gr.A),
       p.cross(gr.AA_ISO, gr.AA),
       p.cross(gr.AC_ISO, gr.AC),
+      p.cross(gr.AN_ISO, gr.AN),
       p.cross(gr.E_ISO, gr.E),
       p.cross(gr.EE_ISO, gr.EE),
       p.cross(gr.EC_ISO, gr.EC),
@@ -123,30 +125,34 @@ _COMPOSE_RETROFLEX_OP = p.union(
 
 _COMPOSE_RETROFLEX = rw.rewrite_operation(_COMPOSE_RETROFLEX_OP)
 
-_COMPOSE_IND_VOWEL_OP = p.union(
-    p.cross(gr.IND + gr.A, gr.A_I),
-    p.cross(gr.IND + gr.AA, gr.AA_I),
-    p.cross(gr.IND + gr.AC, gr.AC_I),
-    p.cross(gr.IND + gr.E, gr.E_I),
-    p.cross(gr.IND + gr.EE, gr.EE_I),
-    p.cross(gr.IND + gr.EC, gr.EC_I),
-    p.cross(gr.IND + gr.I, gr.I_I),
-    p.cross(gr.IND + gr.II, gr.II_I),
-    p.cross(gr.IND + gr.O, gr.O_I),
-    p.cross(gr.IND + gr.OO, gr.OO_I),
-    p.cross(gr.IND + gr.OC, gr.OC_I),
-    p.cross(gr.IND + gr.U, gr.U_I),
-    p.cross(gr.IND + gr.UU, gr.UU_I),
-    p.cross(gr.IND + gr.AI, gr.AI_I),
-    p.cross(gr.IND + gr.AU, gr.AU_I),
-    p.cross(gr.IND + gr.L_VCL, gr.L_VCL_I),
-    p.cross(gr.IND + gr.LL_VCL, gr.LL_VCL_I),
-    p.cross(gr.IND + gr.R_VCL, gr.R_VCL_I),
-    p.cross(gr.IND + gr.RR_VCL, gr.RR_VCL_I)).optimize()
+_IND_VOWEL_OP = p.union(
+    p.cross(gr.A, gr.A_I),
+    p.cross(gr.AA, gr.AA_I),
+    p.cross(gr.AC, gr.AC_I),
+    p.cross(gr.E, gr.E_I),
+    p.cross(gr.EE, gr.EE_I),
+    p.cross(gr.EC, gr.EC_I),
+    p.cross(gr.I, gr.I_I),
+    p.cross(gr.II, gr.II_I),
+    p.cross(gr.O, gr.O_I),
+    p.cross(gr.OO, gr.OO_I),
+    p.cross(gr.OC, gr.OC_I),
+    p.cross(gr.U, gr.U_I),
+    p.cross(gr.UU, gr.UU_I),
+    p.cross(gr.AI, gr.AI_I),
+    p.cross(gr.AU, gr.AU_I),
+    p.cross(gr.L_VCL, gr.L_VCL_I),
+    p.cross(gr.LL_VCL, gr.LL_VCL_I),
+    p.cross(gr.R_VCL, gr.R_VCL_I),
+    p.cross(gr.RR_VCL, gr.RR_VCL_I)).optimize()
 
-_COMPOSE_IND_VOWEL = rw.rewrite_operation(_COMPOSE_IND_VOWEL_OP)
+_COMPOSE_IND_VOWEL = rw.rewrite_operation_by_context(
+    _IND_VOWEL_OP,
+    p.union(u.BOS, gr.IND))
 
-_COMPOSE_IND_A = rw.rewrite_word_initial(gr.A, gr.A_I)
+_DELETE_IND = rw.delete(gr.IND)
+
+_COMPOSE_AAN = rw.rewrite(gr.AN + gr.LONG, gr.AAN)
 
 _COMPOSE_ASPIRATION_OP = p.union(
     p.cross(gr.B + gr.ASP, gr.BH),
@@ -187,7 +193,8 @@ _COMPOSE_TYP = (
     _COMPOSE_VOCALIC @
     _COMPOSE_RETROFLEX @
     _COMPOSE_IND_VOWEL @
-    _COMPOSE_IND_A @
+    _DELETE_IND @
+    _COMPOSE_AAN @
     _COMPOSE_ASPIRATION @
     _COMPOSE_CANDRA @
     _COMPOSE_CHILLU @

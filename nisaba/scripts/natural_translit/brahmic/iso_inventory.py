@@ -37,6 +37,7 @@ ISO - typ mapping
 'ū': <uu>          'ñ': <ny>          'x': <x>           '.': <ind>
 'b': <b>           'ṅ': <ng>          'y': <y>           '+': <zwj>
 'c': <c>           'ṇ': <nn>          'ẏ': <yy>          '|': <zwn>
+'ạ': <an>
 
 """
 
@@ -49,6 +50,7 @@ import nisaba.scripts.natural_translit.common.util as u
 A_ISO = 'a'
 AA_ISO = 'ā'
 AC_ISO = 'æ'
+AN_ISO = 'ạ'
 E_ISO = 'e'
 EE_ISO = 'ē'
 EC_ISO = 'ê'
@@ -120,6 +122,8 @@ ZWN_ISO = '|'
 A = u.enclose_grapheme('a')
 AA = u.enclose_grapheme('aa')
 AC = u.enclose_grapheme('ac')
+AN = u.enclose_grapheme('an')
+AAN = u.enclose_grapheme('aan')
 E = u.enclose_grapheme('e')
 EE = u.enclose_grapheme('ee')
 EC = u.enclose_grapheme('ec')
@@ -139,7 +143,7 @@ R_VCL = u.enclose_grapheme('r_vcl')
 RR_VCL = u.enclose_grapheme('rr_vcl')
 
 VOWEL_S = p.union(
-    A, AA, AC, E, EE, EC, I, II,
+    A, AA, AC, AN, AAN, E, EE, EC, I, II,
     O, OO, OC, OT, U, UU, AI, AU,
     L_VCL, LL_VCL, R_VCL, RR_VCL).optimize()
 

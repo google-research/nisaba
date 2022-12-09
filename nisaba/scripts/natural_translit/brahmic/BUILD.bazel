@@ -37,6 +37,7 @@ py_library(
     deps = [
         ":iso_inventory",
         "//nisaba/scripts/natural_translit/common:rewrite_functions",
+        "//nisaba/scripts/natural_translit/common:util",
         "@org_opengrm_pynini//pynini",
     ],
 )

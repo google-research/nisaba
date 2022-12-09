@@ -81,9 +81,47 @@ Z = u.enclose_translit('z')
 ZH = u.enclose_translit('zh')
 DEL = u.enclose_translit(u.EPSILON)
 
-TRANSLIT = p.union(A, AA, AE, B, C, CH, D, E, EE,
-                   F, G, H, I, II, J, K, KH, L, M,
-                   N, NG, NY, O, OO, P, Q, R, RD, S, SH,
-                   T, TH, U, UU, V, W, Y, Z, ZH).optimize()
+A_UPPER = u.enclose_translit('A')
+B_UPPER = u.enclose_translit('B')
+C_UPPER = u.enclose_translit('C')
+D_UPPER = u.enclose_translit('D')
+E_UPPER = u.enclose_translit('E')
+F_UPPER = u.enclose_translit('F')
+G_UPPER = u.enclose_translit('G')
+H_UPPER = u.enclose_translit('H')
+I_UPPER = u.enclose_translit('I')
+J_UPPER = u.enclose_translit('J')
+K_UPPER = u.enclose_translit('K')
+L_UPPER = u.enclose_translit('L')
+M_UPPER = u.enclose_translit('M')
+N_UPPER = u.enclose_translit('N')
+O_UPPER = u.enclose_translit('O')
+P_UPPER = u.enclose_translit('P')
+Q_UPPER = u.enclose_translit('Q')
+R_UPPER = u.enclose_translit('R')
+S_UPPER = u.enclose_translit('S')
+T_UPPER = u.enclose_translit('T')
+U_UPPER = u.enclose_translit('U')
+V_UPPER = u.enclose_translit('V')
+W_UPPER = u.enclose_translit('W')
+X_UPPER = u.enclose_translit('X')
+Y_UPPER = u.enclose_translit('Y')
+Z_UPPER = u.enclose_translit('Z')
+
+TRANSLIT_LOWER = p.union(
+    A, AA, AE, B, C, CH, D, E, EE,
+    F, G, H, I, II, J, K, KH, L, M,
+    N, NG, NY, O, OO, P, Q, R, RD, S, SH,
+    T, TH, U, UU, V, W, Y, Z, ZH).optimize()
+
+TRANSLIT_UPPER = p.union(
+    A_UPPER, B_UPPER, C_UPPER, D_UPPER, E_UPPER, F_UPPER, G_UPPER,
+    H_UPPER, I_UPPER, J_UPPER, K_UPPER, L_UPPER, M_UPPER, N_UPPER,
+    O_UPPER, P_UPPER, Q_UPPER, R_UPPER, S_UPPER, T_UPPER, U_UPPER,
+    V_UPPER, W_UPPER, X_UPPER, Y_UPPER, Z_UPPER).optimize()
+
+TRANSLIT = p.union(TRANSLIT_LOWER, TRANSLIT_UPPER).optimize()
 
 TRANSLITS = TRANSLIT.star.optimize()
+
+EN_LETTERS = TRANSLIT_UPPER.star.optimize()
