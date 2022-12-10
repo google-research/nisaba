@@ -27,41 +27,51 @@ from nisaba.scripts.natural_translit.phonology import txn2ipa
 from nisaba.scripts.natural_translit.phonology import txn2ltn
 
 _ONSET_CL = p.union(
-    rw.concat_r(
-        ph.K,
-        ph.SH),
-    rw.concat_r(
-        ph.S,
-        p.union(ph.T + ph.ASP.ques, ph.RT, ph.NI, ph.Y, ph.VU).optimize()),
-    rw.concat_r(
-        p.union(ph.VU, ph.NI),
-        ph.Y),
-    rw.concat_r(
-        p.union(ph.K, ph.P, ph.G, ph.DI, ph.SH).optimize(),
-        ph.RT)
-    ).optimize()
+    rw.concat_r([
+        [ph.K],
+        [ph.SH],
+    ]),
+    rw.concat_r([
+        [ph.S],
+        [ph.T + ph.ASP.ques, ph.RT, ph.NI, ph.Y, ph.VU],
+    ]),
+    rw.concat_r([
+        [ph.VU, ph.NI],
+        [ph.Y],
+    ]),
+    rw.concat_r([
+        [ph.K, ph.P, ph.G, ph.DI, ph.SH],
+        [ph.RT],
+    ])
+).optimize()
 
 
 _CODA_CL = p.union(
-    rw.concat_r(
-        ph.CONSONANT,
-        ph.STOP
-    ),
-    rw.concat_r(ph.VOICED,
-                ph.NASAL),
-    rw.concat_r(
-        p.difference(ph.FRICATIVE, ph.H),
-        p.difference(ph.NASAL, ph.M)),
-    rw.concat_r(
-        ph.SIBILANT,
-        ph.M),
-    rw.concat_r(
-        p.union(ph.LIQUID, ph.NASAL),
-        ph.NASAL),
-    rw.concat_r(
-        ph.RHOTIC,
-        ph.RHOTIC)
-    ).optimize()
+    rw.concat_r([
+        [ph.CONSONANT],
+        [ph.STOP],
+    ]),
+    rw.concat_r([
+        [ph.VOICED],
+        [ph.NASAL],
+    ]),
+    rw.concat_r([
+        [ph.FRICATIVE - ph.H],
+        [ph.NASAL - ph.M],
+    ]),
+    rw.concat_r([
+        [ph.SIBILANT],
+        [ph.M],
+    ]),
+    rw.concat_r([
+        [ph.LIQUID, ph.NASAL],
+        [ph.NASAL],
+    ]),
+    rw.concat_r([
+        [ph.RHOTIC],
+        [ph.RHOTIC],
+    ]),
+).optimize()
 
 _PROCESS_SCHWA = iso2txn_ops.process_schwa(_ONSET_CL, _CODA_CL)
 

@@ -16,72 +16,54 @@
 """Common rewrite functions."""
 
 import pynini as p
+from nisaba.scripts.natural_translit.common import list_util as l
 from nisaba.scripts.natural_translit.common import util as u
 
-# Right side of an alignment can be phonemes or transliteration strings.
-R_SYM = p.union(u.PHONEME, u.TRANSLIT).optimize()
-R_SYMS = p.union(u.PHONEMES, u.TRANSLITS).optimize()
 
-SYMS = p.union(u.GRAPHEMES, R_SYMS).optimize()
-
-# Skip sequences to look at either the adjacent symbol, the closest left or
-# right side symbol of an adjacent alignment.
-SKIP_LEFT_SIDE = (u.GRAPHEME.plus + u.ALIGN_SIGN).ques
-SKIP_RIGHT_SIDE = (u.ALIGN_SIGN + R_SYM.plus).ques
-SKIP = p.union(SKIP_LEFT_SIDE, SKIP_RIGHT_SIDE).ques
-
-
-# Beginning of word
-BOW = u.BOS + SKIP_LEFT_SIDE.ques
-
-# End of word
-EOW = SKIP_RIGHT_SIDE.ques + u.EOS
-
-
-def concat_r(
-    right_1: p.FstLike,
-    right_2: p.FstLike) -> p.Fst:
+def concat_r(right_list: [[p.FstLike]]) -> p.Fst:
   """Concatanate right side symbols across multiple alignments.
 
-  Current number of args is 2, but will be increased as needed.
-
   Args:
-    right_1: First right side.
-    right_2: Second right side.
+    right_list: list of lists for the right side symbols to be concatenated
 
   Returns:
       Following call
 
   ```
-  concat_r(ph.A, ph.B)
+  concat_r([
+      [ph.A],
+      [ph.B],
+  ])
   ```
-  would return:
+  will return:
+  ```
   p.union(
       '{a}{b}',
       '{a}gr.GRAPHEMES{b}',
       ...
   )
+  ```
   """
+  right_sides = u.EPSILON
+  for right_side in right_list:
+    right_sides = right_sides + u.SKIP_LEFT_SIDE.ques + l.unite(right_side)
+  return right_sides
 
-  return right_1 + SKIP_LEFT_SIDE.ques + right_2
 
-
-def concat_l(
-    left_1: p.FstLike,
-    left_2: p.FstLike) -> p.Fst:
+def concat_l(left_list: [[p.FstLike]]) -> p.Fst:
   """Concatanate left side symbols across multiple alignments.
 
-  Current number of args is 2, but will be increased as needed.
-
   Args:
-    left_1: First argument.
-    left_2: Second argument.
+    left_list: list of lists for the right side symbols to be concatenated
 
   Returns:
       Following call
 
   ```
-  concat_l(gr.A, gr.B)
+  concat_l([
+      [gr.A],
+      [gr.B],
+  ])
   ```
   would return:
   p.union(
@@ -90,8 +72,10 @@ def concat_l(
       ...
   )
   """
-
-  return left_1 + SKIP_RIGHT_SIDE + left_2
+  left_sides = u.EPSILON
+  for left_side in left_list:
+    left_sides = left_sides + u.SKIP_RIGHT_SIDE.ques + l.unite(left_side)
+  return left_sides
 
 
 def rewrite(
@@ -149,8 +133,8 @@ def rewrite_by_context(
   """
   return p.cdrewrite(
       p.cross(old, new),
-      preceding + SKIP,
-      SKIP + following,
+      preceding + u.SKIP,
+      u.SKIP + following,
       u.BYTE_STAR).optimize()
 
 
@@ -197,8 +181,8 @@ def rewrite_operation_by_context(
   """
   return p.cdrewrite(
       operation,
-      preceding + SKIP,
-      SKIP + following,
+      preceding + u.SKIP,
+      u.SKIP + following,
       u.BYTE_STAR).optimize()
 
 
@@ -210,7 +194,7 @@ def rewrite_word_initial(
   return rewrite_by_context(
       old,
       new,
-      BOW,
+      u.BOW,
       following)
 
 
@@ -223,7 +207,7 @@ def rewrite_word_final(
       old,
       new,
       preceding,
-      EOW)
+      u.EOW)
 
 
 def realign(
@@ -299,7 +283,7 @@ def reassign_word_initial(
       left_side,
       old,
       new,
-      BOW,
+      u.BOW,
       following)
 
 
@@ -314,7 +298,7 @@ def reassign_word_final(
       old,
       new,
       preceding,
-      EOW)
+      u.EOW)
 
 
 def reassign_adjacent_alignments(

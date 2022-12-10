@@ -92,6 +92,22 @@ PHONEMES = PHONEME.star.optimize()
 TRANSLIT = enclose_translit(SYM)
 TRANSLITS = TRANSLIT.star.optimize()
 
+# Right side of an alignment can be phonemes or transliteration strings.
+R_SYM = p.union(PHONEME, TRANSLIT).optimize()
+R_SYMS = p.union(PHONEMES, TRANSLITS).optimize()
+SYMS = p.union(GRAPHEMES, R_SYMS).optimize()
+
+# Skip sequences to look at either the adjacent symbol, the closest left or
+# right side symbol of an adjacent alignment.
+SKIP_LEFT_SIDE = (GRAPHEME.plus + ALIGN_SIGN).ques
+SKIP_RIGHT_SIDE = (ALIGN_SIGN + R_SYM.plus).ques
+SKIP = p.union(SKIP_LEFT_SIDE, SKIP_RIGHT_SIDE).ques
+
+# Beginning of word
+BOW = BOS + SKIP_LEFT_SIDE.ques
+  # End of word
+EOW = SKIP_RIGHT_SIDE.ques + EOS
+
 
 def align(left_side: p.FstLike, right_side: p.FstLike) -> p.Fst:
   """Alignment structure (left_side=right_side)."""

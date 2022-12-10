@@ -36,6 +36,7 @@ py_library(
     srcs = ["iso2typ.py"],
     deps = [
         ":iso_inventory",
+        "//nisaba/scripts/natural_translit/common:list_util",
         "//nisaba/scripts/natural_translit/common:rewrite_functions",
         "//nisaba/scripts/natural_translit/common:util",
         "@org_opengrm_pynini//pynini",

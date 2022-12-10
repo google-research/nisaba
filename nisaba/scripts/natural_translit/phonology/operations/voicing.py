@@ -15,18 +15,20 @@
 """Multilingual phonological operations."""
 
 import pynini as p
-import nisaba.scripts.natural_translit.common.rewrite_functions as rw
-import nisaba.scripts.natural_translit.phonology.phoneme_inventory as ph
+from nisaba.scripts.natural_translit.common import list_util as l
+from nisaba.scripts.natural_translit.common import rewrite_functions as rw
+from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 
 # Voicing
 
-VOICING_OP = p.union(
-    p.cross(ph.TSH, ph.DZH),
-    p.cross(ph.K, ph.G),
-    p.cross(ph.P, ph.B),
-    p.cross(ph.T, ph.D),
-    p.cross(ph.TI, ph.DI),
-    p.cross(ph.TT, ph.DD)).optimize()
+VOICING_OP = l.unite_pcross([
+    [[ph.TSH], ph.DZH],
+    [[ph.K], ph.G],
+    [[ph.P], ph.B],
+    [[ph.T], ph.D],
+    [[ph.TI], ph.DI],
+    [[ph.TT], ph.DD],
+])
 
 
 def voicing(

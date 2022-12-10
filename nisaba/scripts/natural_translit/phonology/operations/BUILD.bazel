@@ -22,6 +22,7 @@ py_library(
     name = "voicing",
     srcs = ["voicing.py"],
     deps = [
+        "//nisaba/scripts/natural_translit/common:list_util",
         "//nisaba/scripts/natural_translit/common:rewrite_functions",
         "//nisaba/scripts/natural_translit/phonology:phoneme_inventory",
         "@org_opengrm_pynini//pynini",
@@ -32,6 +33,7 @@ py_library(
     name = "syllable",
     srcs = ["syllable.py"],
     deps = [
+        "//nisaba/scripts/natural_translit/common:list_util",
         "//nisaba/scripts/natural_translit/common:rewrite_functions",
         "//nisaba/scripts/natural_translit/phonology:phoneme_inventory",
         "@org_opengrm_pynini//pynini",

@@ -28,9 +28,19 @@ py_library(
 )
 
 py_library(
+    name = "list_util",
+    srcs = ["list_util.py"],
+    deps = [
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:byte",
+    ],
+)
+
+py_library(
     name = "rewrite_functions",
     srcs = ["rewrite_functions.py"],
     deps = [
+        ":list_util",
         ":util",
         "@org_opengrm_pynini//pynini",
     ],

@@ -75,7 +75,7 @@ _SCHWA_BEFORE_CODA = _vocal_schwa(following=gr.CODA)
 _SCHWA_BEFORE_IND_VOWEL = _vocal_schwa(following=gr.VOWEL_I)
 
 # Schwa is pronounced after {i}{y} and {i_l}{y}
-_SCHWA_AFTER_IY = _vocal_schwa(rw.concat_r(p.union(ph.I, ph.I_L), ph.Y))
+_SCHWA_AFTER_IY = _vocal_schwa(rw.concat_r([[ph.I, ph.I_L], [ph.Y]]))
 
 
 def _schwa_eow(coda_cl) -> p.Fst:

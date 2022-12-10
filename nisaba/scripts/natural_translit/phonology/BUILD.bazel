@@ -34,6 +34,7 @@ py_library(
     srcs = ["txn2ipa.py"],
     deps = [
         ":phoneme_inventory",
+        "//nisaba/scripts/natural_translit/common:list_util",
         "//nisaba/scripts/natural_translit/common:rewrite_functions",
         "@org_opengrm_pynini//pynini",
     ],
@@ -55,9 +56,9 @@ py_library(
     srcs = ["txn2ltn.py"],
     deps = [
         ":phoneme_inventory",
+        "//nisaba/scripts/natural_translit/common:list_util",
         "//nisaba/scripts/natural_translit/common:rewrite_functions",
         "//nisaba/scripts/natural_translit/common:util",
         "//nisaba/scripts/natural_translit/latin:ltn_inventory",
-        "@org_opengrm_pynini//pynini",
     ],
 )

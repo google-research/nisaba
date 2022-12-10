@@ -15,8 +15,9 @@
 """Multilingual phonological operations."""
 
 import pynini as p
-import nisaba.scripts.natural_translit.common.rewrite_functions as rw
-import nisaba.scripts.natural_translit.phonology.phoneme_inventory as ph
+from nisaba.scripts.natural_translit.common import list_util as l
+from nisaba.scripts.natural_translit.common import rewrite_functions as rw
+from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 
 
 def legal_onset(onset_cl: p.FstLike) -> p.Fst:
@@ -32,7 +33,12 @@ def legal_onset(onset_cl: p.FstLike) -> p.Fst:
   Returns:
     Following call:
   ```
-  _legal_onset(rw.concat(ph.STOP, ph.RHOTIC))
+  _legal_onset(
+      rw.concat([
+          [ph.STOP],
+          [ph.RHOTIC]
+      ])
+  )
 
   ```
   would return:
@@ -47,7 +53,10 @@ def legal_onset(onset_cl: p.FstLike) -> p.Fst:
       ...
   )
   """
-  return rw.concat_r(p.union(ph.CONSONANT, onset_cl).optimize(), ph.VOWEL)
+  return rw.concat_r([
+      [ph.CONSONANT, onset_cl],
+      [ph.VOWEL]
+      ])
 
 
 def legal_coda(coda_cl: p.FstLike) -> p.Fst:
@@ -62,7 +71,12 @@ def legal_coda(coda_cl: p.FstLike) -> p.Fst:
   Returns:
     Following call:
   ```
-  _legal_coda(rw.concat(ph.RHOTIC, ph.STOP))
+  _legal_coda(
+      rw.concat([
+          [ph.RHOTIC],
+          [ph.STOP]
+      ])
+  )
 
   ```
   would return:
@@ -77,4 +91,7 @@ def legal_coda(coda_cl: p.FstLike) -> p.Fst:
       ...
   )
   """
-  return rw.concat_r(ph.VOWEL, p.union(ph.CONSONANT, coda_cl).optimize().ques)
+  return rw.concat_r([
+      [ph.VOWEL],
+      l.ques([ph.CONSONANT, coda_cl]),
+      ])
