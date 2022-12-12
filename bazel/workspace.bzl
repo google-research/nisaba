@@ -27,12 +27,8 @@ def _clean_dep(dep):
     """
     return str(Label(dep))
 
-def nisaba_public_repositories(name = ""):
-    """All external dependencies for Nisaba builds in downstream projects.
-
-    Args:
-      name: Name of the rule.
-    """
+def nisaba_public_repositories():
+    """All external dependencies for Nisaba builds in downstream projects."""
 
     # -------------------------------------------------------------------------
     # utfcpp: The low-level UTF8 handling library. See
@@ -52,11 +48,11 @@ def nisaba_public_repositories(name = ""):
     # OpenGrm N-Gram: See
     #   http://www.openfst.org/twiki/bin/view/GRM/NGramLibrary
     # -------------------------------------------------------------------------
-    opengrm_ngram_version = "1.3.14-rc1"
+    opengrm_ngram_version = "1.3.14-rc2"
 
     http_archive(
         name = "org_opengrm_ngram",
         urls = ["https://github.com/agutkin/finite_state/raw/main/ngram-%s.tar.gz" % opengrm_ngram_version],
-        sha256 = "0822b88e4cd333638c0539a1f831898306fb01ade60bfa28fa567c9fb501975c",
+        sha256 = "a919a1226c3826e3474914c15f2b54c3792615e56f477c27ff4a17a59d915981",
         strip_prefix = "ngram-%s" % opengrm_ngram_version,
     )
