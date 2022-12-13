@@ -26,8 +26,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # Google protocol buffers. See
 #    https://github.com/protocolbuffers/protobuf
 # -------------------------------------------------------------------------
-protobuf_version = "3.19.4"
-protobuf_sha256 = "3bd7828aa5af4b13b99c191e8b1e884ebfa9ad371b0ce264605d347f135d2568"
+
+protobuf_version = "3.20.3"
+protobuf_sha256 = "9c0fd39c7a08dff543c643f0f4baf081988129a411b977a07c46221793605638"
 
 http_archive(
     name = "com_google_protobuf",
@@ -53,12 +54,12 @@ http_archive(
 # grammar manipulation. See
 #    http://www.opengrm.org/twiki/bin/view/GRM/Thrax
 # -------------------------------------------------------------------------
-thrax_version = "1.3.7-rc1"
+thrax_version = "1.3.7-rc2"
 
 http_archive(
     name = "org_opengrm_thrax",
     urls = ["https://github.com/agutkin/finite_state/raw/main/thrax-%s.tar.gz" % thrax_version],
-    sha256 = "8708b4822ed12d6ab35b6177436e0fec6e041259df7b6f7949f0bc46ad23285b",
+    sha256 = "08b80255c08e548ce5e7cc96bcc9139df17d6cf2cf8c283c66abbaa9333df4d5",
     strip_prefix = "thrax-%s" % thrax_version,
 )
 
@@ -66,12 +67,12 @@ http_archive(
 # Pynini: See
 #    http://www.opengrm.org/twiki/bin/view/GRM/Pynini
 # -------------------------------------------------------------------------
-pynini_version = "2.1.5-rc1"
+pynini_version = "2.1.5-rc2"
 
 http_archive(
     name = "org_opengrm_pynini",
     urls = ["https://github.com/agutkin/finite_state/raw/main/pynini-%s.tar.gz" % pynini_version],
-    sha256 = "11af53c1ab0d1c9e792213e610940ad68b81ef99de8f88aea60ba7db9bc0a231",
+    sha256 = "8d3d66e663dc280c9ccd7af04ae7ddfc4f4e1b4d0395dbe45d585f8b0dd5c26d",
     strip_prefix = "pynini-%s" % pynini_version
 )
 
@@ -83,14 +84,11 @@ pynini_repositories()
 # External Python packages.
 # -------------------------------------------------------------------------
 
-rules_python_version = "0.6.0"
-
 http_archive(
     name = "rules_python",
-    url = "https://github.com/bazelbuild/rules_python/archive/%s.tar.gz" % (
-        rules_python_version),
-    strip_prefix = "rules_python-%s" % rules_python_version,
-    sha256 = "a30abdfc7126d497a7698c29c46ea9901c6392d6ed315171a6df5ce433aa4502",
+    sha256 = "b593d13bb43c94ce94b483c2858e53a9b811f6f10e1e0eedc61073bd90e58d9c",
+    strip_prefix = "rules_python-0.12.0",
+    url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/0.12.0.tar.gz",
 )
 
 # Python external packages installation.

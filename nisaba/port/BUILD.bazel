@@ -27,6 +27,7 @@ cc_library(
     name = "unicode_properties",
     srcs = ["unicode_properties.cc"],
     hdrs = ["unicode_properties.h"],
+    linkstatic = True,
     deps = ["@com_google_absl//absl/container:flat_hash_set"],
 )
 
@@ -34,6 +35,7 @@ cc_library(
    name = "utf8_delimiters",
    srcs = ["utf8_delimiters.cc"],
    hdrs = ["utf8_delimiters.h"],
+   linkstatic = True,
    deps = [
        ":unicode_properties",
        "@com_google_absl//absl/container:flat_hash_set",
@@ -45,6 +47,7 @@ cc_library(
 cc_test(
    name = "utf8_delimiters_test",
    srcs = ["utf8_delimiters_test.cc"],
+   linkstatic = True,
    deps = [
        ":utf8_delimiters",
        "@com_google_googletest//:gtest_main",
@@ -79,6 +82,7 @@ cc_library(
     srcs = ["utf8_util.cc"],
     hdrs = ["utf8_util.h"],
     visibility = ["//visibility:public"],
+    linkstatic = True,
     deps = [
         ":utf8_delimiters",
         "@com_google_protobuf//:protobuf",
@@ -91,6 +95,7 @@ cc_library(
 cc_test(
     name = "utf8_util_test",
     srcs = ["utf8_util_test.cc"],
+    linkstatic = True,
     deps = [
         ":unicode_properties",
         ":utf8_util",
@@ -105,6 +110,7 @@ cc_library(
     srcs = ["file_util.cc"],
     hdrs = ["file_util.h"],
     visibility = ["//visibility:public"],
+    linkstatic = True,
     deps = [
         "@bazel_tools//tools/cpp/runfiles",
         "@com_google_absl//absl/status:statusor",
@@ -115,6 +121,7 @@ cc_library(
 cc_test(
     name = "file_util_test",
     srcs = ["file_util_test.cc"],
+    linkstatic = True,
     deps = [
         ":file_util",
         "//nisaba/port:status-matchers",
@@ -135,6 +142,7 @@ cc_test(
    name = "thread_pool_test",
    srcs = ["thread_pool_test.cc"],
    visibility = ["//visibility:public"],
+   linkstatic = True,
    deps = [
        ":thread_pool",
        "@com_google_absl//absl/base:core_headers",
@@ -149,6 +157,7 @@ cc_library(
     srcs = ["test_utils.cc"],
     hdrs = ["test_utils.h"],
     visibility = ["//visibility:public"],
+    linkstatic = True,
     deps = [
         ":file_util",
         "//nisaba/port:integral_types",
@@ -170,6 +179,7 @@ cc_library(
 cc_test(
     name = "timer_test",
     srcs = ["timer_test.cc"],
+    linkstatic = True,
     deps = [
         ":timer",
         "//nisaba/port:status-matchers",
