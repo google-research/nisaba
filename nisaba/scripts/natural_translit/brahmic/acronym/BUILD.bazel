@@ -24,9 +24,10 @@ py_library(
     srcs = ["typ2acr.py"],
     deps = [
         "//nisaba/scripts/natural_translit/brahmic:iso_inventory",
-        "//nisaba/scripts/natural_translit/common:rewrite_functions",
-        "//nisaba/scripts/natural_translit/common:util",
         "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/utils:alignment",
+        "//nisaba/scripts/natural_translit/utils:list_op",
+        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
         "@org_opengrm_pynini//pynini",
     ],
 )

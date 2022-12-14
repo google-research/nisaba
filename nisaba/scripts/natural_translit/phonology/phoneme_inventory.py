@@ -44,9 +44,8 @@ IPA - txn mapping
 
 """
 
-import pynini as p
-import nisaba.scripts.natural_translit.common.util as u
-
+from nisaba.scripts.natural_translit.utils import alignment as al
+from nisaba.scripts.natural_translit.utils import list_op as ls
 
 # IPA mapping
 
@@ -116,143 +115,139 @@ CMB_IPA = '͡'
 
 # Modifiers
 
-ASP = u.enclose_phoneme('H')
-GLIDE = u.enclose_phoneme('glide')
-NSL = u.enclose_phoneme('N')
-SYL = u.enclose_phoneme('V')
-CMB = u.enclose_phoneme('+')
+ASP = al.enclose_phoneme('H')
+GLIDE = al.enclose_phoneme('glide')
+NSL = al.enclose_phoneme('N')
+SYL = al.enclose_phoneme('V')
+CMB = al.enclose_phoneme('+')
 
 # Silence
 
-SIL = u.enclose_phoneme('sil')
+SIL = al.enclose_phoneme('sil')
 
-VOWEL_MODS = p.union(GLIDE, NSL).optimize()
-CONSONANT_MODS = p.union(ASP, SYL).optimize()
+VOWEL_MODS = ls.union_opt(GLIDE, NSL)
+CONSONANT_MODS = ls.union_opt(ASP, SYL)
 
-MODS = p.union(VOWEL_MODS, CONSONANT_MODS, CMB).optimize()
+MODS = ls.union_opt(VOWEL_MODS, CONSONANT_MODS, CMB)
 
 # Vowels
 
-EC = u.enclose_phoneme('ec')
-EC_L = u.enclose_phoneme('ec_l')
-A = u.enclose_phoneme('a')
-A_L = u.enclose_phoneme('a_l')
-AE = u.enclose_phoneme('ae')
-AE_L = u.enclose_phoneme('ae_l')
-E = u.enclose_phoneme('e')
-E_L = u.enclose_phoneme('e_l')
-EH = u.enclose_phoneme('eh')
-EH_L = u.enclose_phoneme('eh_l')
-I = u.enclose_phoneme('i')
-I_L = u.enclose_phoneme('i_l')
-O = u.enclose_phoneme('o')
-O_L = u.enclose_phoneme('o_l')
-OH = u.enclose_phoneme('oh')
-OH_L = u.enclose_phoneme('oh_l')
-U = u.enclose_phoneme('u')
-U_L = u.enclose_phoneme('u_l')
-SCHWA = u.enclose_phoneme('sch')  # unassigned inherent vowel
-VCL_SCHWA = u.enclose_phoneme('@')  # pronounced schwa
+EC = al.enclose_phoneme('ec')
+EC_L = al.enclose_phoneme('ec_l')
+A = al.enclose_phoneme('a')
+A_L = al.enclose_phoneme('a_l')
+AE = al.enclose_phoneme('ae')
+AE_L = al.enclose_phoneme('ae_l')
+E = al.enclose_phoneme('e')
+E_L = al.enclose_phoneme('e_l')
+EH = al.enclose_phoneme('eh')
+EH_L = al.enclose_phoneme('eh_l')
+I = al.enclose_phoneme('i')
+I_L = al.enclose_phoneme('i_l')
+O = al.enclose_phoneme('o')
+O_L = al.enclose_phoneme('o_l')
+OH = al.enclose_phoneme('oh')
+OH_L = al.enclose_phoneme('oh_l')
+U = al.enclose_phoneme('u')
+U_L = al.enclose_phoneme('u_l')
+SCHWA = al.enclose_phoneme('sch')  # unassigned inherent vowel
+VCL_SCHWA = al.enclose_phoneme('@')  # pronounced schwa
 
 # Consonants
 
-B = u.enclose_phoneme('b')
-D = u.enclose_phoneme('d')
-DD = u.enclose_phoneme('dd')
-DI = u.enclose_phoneme('di')
-F = u.enclose_phoneme('f')
-G = u.enclose_phoneme('g')
-H = u.enclose_phoneme('h')
-K = u.enclose_phoneme('k')
-L = u.enclose_phoneme('l')
-LL = u.enclose_phoneme('ll')
-M = u.enclose_phoneme('m')
-N = u.enclose_phoneme('n')
-NG = u.enclose_phoneme('ng')
-NI = u.enclose_phoneme('ni')
-NN = u.enclose_phoneme('nn')
-NY = u.enclose_phoneme('ny')
-P = u.enclose_phoneme('p')
-Q = u.enclose_phoneme('q')
-R = u.enclose_phoneme('r')
-RRT = u.enclose_phoneme('rrt')
-RRU = u.enclose_phoneme('rru')
-RT = u.enclose_phoneme('rt')
-S = u.enclose_phoneme('s')
-SH = u.enclose_phoneme('sh')
-SS = u.enclose_phoneme('ss')
-T = u.enclose_phoneme('t')
-TI = u.enclose_phoneme('ti')
-TT = u.enclose_phoneme('tt')
-VU = u.enclose_phoneme('vu')
-KH = u.enclose_phoneme('kh')
-GH = u.enclose_phoneme('gh')
-Y = u.enclose_phoneme('y')
-Z = u.enclose_phoneme('z')
-ZH = u.enclose_phoneme('zh')
+B = al.enclose_phoneme('b')
+D = al.enclose_phoneme('d')
+DD = al.enclose_phoneme('dd')
+DI = al.enclose_phoneme('di')
+F = al.enclose_phoneme('f')
+G = al.enclose_phoneme('g')
+H = al.enclose_phoneme('h')
+K = al.enclose_phoneme('k')
+L = al.enclose_phoneme('l')
+LL = al.enclose_phoneme('ll')
+M = al.enclose_phoneme('m')
+N = al.enclose_phoneme('n')
+NG = al.enclose_phoneme('ng')
+NI = al.enclose_phoneme('ni')
+NN = al.enclose_phoneme('nn')
+NY = al.enclose_phoneme('ny')
+P = al.enclose_phoneme('p')
+Q = al.enclose_phoneme('q')
+R = al.enclose_phoneme('r')
+RRT = al.enclose_phoneme('rrt')
+RRU = al.enclose_phoneme('rru')
+RT = al.enclose_phoneme('rt')
+S = al.enclose_phoneme('s')
+SH = al.enclose_phoneme('sh')
+SS = al.enclose_phoneme('ss')
+T = al.enclose_phoneme('t')
+TI = al.enclose_phoneme('ti')
+TT = al.enclose_phoneme('tt')
+VU = al.enclose_phoneme('vu')
+KH = al.enclose_phoneme('kh')
+GH = al.enclose_phoneme('gh')
+Y = al.enclose_phoneme('y')
+Z = al.enclose_phoneme('z')
+ZH = al.enclose_phoneme('zh')
 
 TSH = T + CMB + SH
 DZH = D + CMB + ZH
 
 VOWEL_SHORT = (
-    p.union(EC, A, AE, E, EH, I, O, OH, U, SCHWA).optimize() +
-    VOWEL_MODS.star.optimize())
+    ls.union_opt(EC, A, AE, E, EH, I, O, OH, U, SCHWA) +
+    ls.star_opt(VOWEL_MODS))
+
 VOWEL_LONG = (
-    p.union(EC_L, A_L, AE_L, E_L, EH_L, I_L, O_L, OH_L, U_L).optimize() +
-    VOWEL_MODS.star)
-VOWEL = p.union(VOWEL_SHORT, VOWEL_LONG).optimize()
+    ls.union_opt(EC_L, A_L, AE_L, E_L, EH_L, I_L, O_L, OH_L, U_L) +
+    ls.star_opt(VOWEL_MODS))
+VOWEL = ls.union_opt(VOWEL_SHORT, VOWEL_LONG)
 
-LABIAL = p.union(B, M, P).optimize()
-DENTAL = p.union(DI, NI, TI).optimize()
-ALVEOLAR = p.union(D, N, T).optimize()
-PALATAL = p.union(Y, NY).optimize()
-RETROFLEX = p.union(DD, NN, TT).optimize()
-VELAR = p.union(G, NG, K).optimize()
-NASAL = p.union(M, N, NI, NG, NN, NY).optimize()
+LABIAL = ls.union_opt(B, M, P)
+DENTAL = ls.union_opt(DI, NI, TI)
+ALVEOLAR = ls.union_opt(D, N, T)
+PALATAL = ls.union_opt(Y, NY)
+RETROFLEX = ls.union_opt(DD, NN, TT)
+VELAR = ls.union_opt(G, NG, K)
+NASAL = ls.union_opt(M, N, NI, NG, NN, NY)
 
-STOP_UNASP = p.union(
+STOP_UNASP = ls.union_opt(
     P, B,
     TI, DI,
     T, D,
     TT, DD,
-    K, G, Q).optimize()
+    K, G, Q)
 
 STOP_ASP = STOP_UNASP + ASP
 
-STOP = p.union(STOP_UNASP, STOP_ASP).optimize()
+STOP = ls.union_opt(STOP_UNASP, STOP_ASP)
 
-FRICATIVE = p.union(F, S, Z, SH, SS, KH, GH, H).optimize()
+FRICATIVE = ls.union_opt(F, S, Z, SH, SS, KH, GH, H)
 
-SIBILANT = p.union(S, Z, SH, SS).optimize()
+SIBILANT = ls.union_opt(S, Z, SH, SS)
 
-AFFRICATE_UNASP = p.union(TSH, DZH).optimize()
+AFFRICATE_UNASP = ls.union_opt(TSH, DZH)
 
 AFFRICATE_ASP = AFFRICATE_UNASP + ASP
 
-AFFRICATE = p.union(AFFRICATE_UNASP, AFFRICATE_ASP).optimize()
+AFFRICATE = ls.union_opt(AFFRICATE_UNASP, AFFRICATE_ASP)
 
-VOICED = p.union(B, DI, D, DD, G, DZH, F, Z).optimize() + ASP.ques
+VOICED = ls.union_opt(B, DI, D, DD, G, DZH, F, Z) + ASP.ques
 
-APPROXIMANT = p.union(VU, RRU, Y).optimize()
+APPROXIMANT = ls.union_opt(VU, RRU, Y)
 
-RHOTIC = p.union(R, RT, RRT, RRU).optimize() + ASP.ques
+RHOTIC = ls.union_opt(R, RT, RRT, RRU) + ASP.ques
 
-LATERAL = p.union(L, LL).optimize()
+LATERAL = ls.union_opt(L, LL)
 
-LIQUID = p.union(RHOTIC, LATERAL).optimize()
+LIQUID = ls.union_opt(RHOTIC, LATERAL)
 
-CONSONANT = p.union(NASAL, STOP, FRICATIVE, AFFRICATE,
-                    APPROXIMANT, LIQUID).optimize()
+CONSONANT = ls.union_opt(NASAL, STOP, FRICATIVE, AFFRICATE, APPROXIMANT, LIQUID)
 
-PHONEME = p.union(ASP, GLIDE, NSL, SYL, SIL,
-                  EC, EC_L, A, A_L, AE, AE_L,
-                  E, E_L, EH, EH_L, I, I_L,
-                  O, O_L, OH, OH_L, U, U_L,
-                  B, TSH, D, DD, DI, F, G, H,
-                  DZH, K, L, LL, M,
-                  N, NG, NI, NN, NY,
-                  P, Q, R, RRT, RRU, RT,
-                  S, SH, SS, T, TI, TT, VU,
-                  KH, GH, Y, Z, SCHWA).optimize()
+PHONEME = ls.union_opt(
+    ASP, GLIDE, NSL, SYL, SIL, EC, EC_L, A, A_L, AE, AE_L, E,
+    E_L, EH, EH_L, I, I_L, O, O_L, OH, OH_L, U, U_L, B, TSH,
+    D, DD, DI, F, G, H, DZH, K, L, LL, M, N, NG, NI, NN, NY,
+    P, Q, R, RRT, RRU, RT, S, SH, SS, T, TI, TT, VU, KH, GH,
+    Y, Z, SCHWA)
 
-PHONEMES = PHONEME.star.optimize()
+PHONEMES = ls.star_opt(PHONEME)

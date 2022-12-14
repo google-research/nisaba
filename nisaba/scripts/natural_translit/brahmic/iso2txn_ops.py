@@ -16,10 +16,12 @@
 
 import pynini as p
 from nisaba.scripts.natural_translit.brahmic import iso_inventory as gr
-from nisaba.scripts.natural_translit.common import rewrite_functions as rw
-from nisaba.scripts.natural_translit.common import util as u
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 from nisaba.scripts.natural_translit.phonology.operations import syllable as syl
+from nisaba.scripts.natural_translit.utils import alignment as al
+from nisaba.scripts.natural_translit.utils import concat as cc
+from nisaba.scripts.natural_translit.utils import list_op as ls
+from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 # Vocalic liquids
 
@@ -38,8 +40,8 @@ VOCALIC_EC = _vocalic(ph.EC)
 
 
 def _default_schwa(schwa: p.FstLike) -> p.Fst:
-  """Pronounces unassigned schwas as the default phoneme for the langauge."""
-  return rw.rewrite(p.union(ph.SCHWA, ph.VCL_SCHWA), schwa)
+  """Pronounces unassigned schwas as the default phoneme for the language."""
+  return rw.rewrite(ls.union_opt(ph.SCHWA, ph.VCL_SCHWA), schwa)
 
 SCHWA_A = _default_schwa(ph.A)
 
@@ -47,11 +49,11 @@ SCHWA_EC = _default_schwa(ph.EC)
 
 
 def _vocal_schwa(
-    preceding: p.FstLike = u.EPSILON,
-    following: p.FstLike = u.EPSILON) -> p.Fst:
+    preceding: p.FstLike = al.EPSILON,
+    following: p.FstLike = al.EPSILON) -> p.Fst:
   """Pronounces schwa depending on the context."""
 
-  return rw.rewrite_by_context(
+  return rw.rewrite(
       ph.SCHWA,
       ph.VCL_SCHWA,
       preceding,
@@ -59,11 +61,11 @@ def _vocal_schwa(
 
 
 def _silent_schwa(
-    preceding: p.FstLike = u.EPSILON,
-    following: p.FstLike = u.EPSILON) -> p.Fst:
+    preceding: p.FstLike = al.EPSILON,
+    following: p.FstLike = al.EPSILON) -> p.Fst:
   """Deletes schwa depending on the context."""
 
-  return rw.rewrite_by_context(
+  return rw.rewrite(
       ph.SCHWA,
       ph.SIL,
       preceding,
@@ -75,14 +77,14 @@ _SCHWA_BEFORE_CODA = _vocal_schwa(following=gr.CODA)
 _SCHWA_BEFORE_IND_VOWEL = _vocal_schwa(following=gr.VOWEL_I)
 
 # Schwa is pronounced after {i}{y} and {i_l}{y}
-_SCHWA_AFTER_IY = _vocal_schwa(rw.concat_r(p.union(ph.I, ph.I_L), ph.Y))
+_SCHWA_AFTER_IY = _vocal_schwa(cc.concat_r(ls.union_opt(ph.I, ph.I_L), ph.Y))
 
 
 def _schwa_eow(coda_cl) -> p.Fst:
   """Deletes the word final schwa if it's preceded by a legal coda."""
   return _silent_schwa(
       syl.legal_coda(coda_cl),
-      u.EOS)
+      al.EOS)
 
 
 def _schwa_between_syllables(onset_cl, coda_cl) -> p.Fst:
@@ -93,8 +95,8 @@ def _schwa_between_syllables(onset_cl, coda_cl) -> p.Fst:
 
 
 def process_schwa(
-    onset_cl: p.FstLike = u.EPSILON,
-    coda_cl: p.FstLike = u.EPSILON
+    onset_cl: p.FstLike = al.EPSILON,
+    coda_cl: p.FstLike = al.EPSILON
     ) -> p.Fst:
   """Compose fsts for schwa handling."""
   return (
@@ -109,7 +111,7 @@ def process_schwa(
 
 def _assign_anusvara(
     phoneme: p.FstLike,
-    place: p.FstLike = u.EPSILON) -> p.Fst:
+    place: p.FstLike = al.EPSILON) -> p.Fst:
   """Pronunciation of anusvara.
 
   Anusvara is mapped to nasalisation by default. The pronunciation of it
@@ -126,18 +128,17 @@ def _assign_anusvara(
   Following call:
   ```
   _assign_anusvara(ph.M, ph.LABIAL)
-
   ```
-  would return:
+  will return:
   ```
   p.cdrewrite(
       p.cross('<ans>{N}', '<ans>{m}')
       '',
       p.union(ph.M, ph.P, ph.B),
-      u.BYTE_STAR)
-
+      al.BYTE_STAR)
+  ```
   """
-  return rw.reassign_by_context(
+  return rw.reassign(
       gr.ANS,
       ph.NSL,
       phoneme,

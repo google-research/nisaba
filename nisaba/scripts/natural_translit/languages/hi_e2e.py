@@ -21,47 +21,28 @@ from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
 from nisaba.scripts.natural_translit.brahmic import iso2txn
 from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
 from nisaba.scripts.natural_translit.brahmic.acronym import typ2acr
-from nisaba.scripts.natural_translit.common import rewrite_functions as rw
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 from nisaba.scripts.natural_translit.phonology import txn2ipa
 from nisaba.scripts.natural_translit.phonology import txn2ltn
+from nisaba.scripts.natural_translit.utils import concat as cc
+from nisaba.scripts.natural_translit.utils import list_op as ls
 
-_ONSET_CL = p.union(
-    rw.concat_r(
-        ph.K,
-        ph.SH),
-    rw.concat_r(
-        ph.S,
-        p.union(ph.T + ph.ASP.ques, ph.RT, ph.NI, ph.Y, ph.VU).optimize()),
-    rw.concat_r(
-        p.union(ph.VU, ph.NI),
-        ph.Y),
-    rw.concat_r(
-        p.union(ph.K, ph.P, ph.G, ph.DI, ph.SH).optimize(),
-        ph.RT)
-    ).optimize()
+_ONSET_CL = ls.union_opt(
+    cc.concat_r(ph.K, ph.SH),
+    cc.concat_r(ph.S, ls.union_opt(ph.T, ph.RT, ph.NI, ph.Y, ph.VU)),
+    cc.concat_r(ls.union_opt(ph.VU, ph.NI), ph.Y),
+    cc.concat_r(ls.union_opt(ph.K, ph.P, ph.G, ph.DI, ph.SH), ph.RT)
+)
 
 
-_CODA_CL = p.union(
-    rw.concat_r(
-        ph.CONSONANT,
-        ph.STOP
-    ),
-    rw.concat_r(ph.VOICED,
-                ph.NASAL),
-    rw.concat_r(
-        p.difference(ph.FRICATIVE, ph.H),
-        p.difference(ph.NASAL, ph.M)),
-    rw.concat_r(
-        ph.SIBILANT,
-        ph.M),
-    rw.concat_r(
-        p.union(ph.LIQUID, ph.NASAL),
-        ph.NASAL),
-    rw.concat_r(
-        ph.RHOTIC,
-        ph.RHOTIC)
-    ).optimize()
+_CODA_CL = ls.union_opt(
+    cc.concat_r(ph.CONSONANT, ph.STOP),
+    cc.concat_r(ph.VOICED, ph.NASAL),
+    cc.concat_r((ph.FRICATIVE - ph.H), (ph.NASAL - ph.M)),
+    cc.concat_r(ph.SIBILANT, ph.M),
+    cc.concat_r(ls.union_opt(ph.LIQUID, ph.NASAL), ph.NASAL),
+    cc.concat_r(ph.RHOTIC, ph.RHOTIC)
+)
 
 _PROCESS_SCHWA = iso2txn_ops.process_schwa(_ONSET_CL, _CODA_CL)
 

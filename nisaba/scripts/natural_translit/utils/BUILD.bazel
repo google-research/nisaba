@@ -19,9 +19,18 @@ package(default_visibility = [
 licenses(["notice"])
 
 py_library(
-    name = "util",
-    srcs = ["util.py"],
+    name = "list_op",
+    srcs = ["list_op.py"],
     deps = [
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "alignment",
+    srcs = ["alignment.py"],
+    deps = [
+        ":list_op",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:byte",
     ],
@@ -31,7 +40,17 @@ py_library(
     name = "rewrite_functions",
     srcs = ["rewrite_functions.py"],
     deps = [
-        ":util",
+        ":alignment",
+        ":list_op",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "concat",
+    srcs = ["concat.py"],
+    deps = [
+        ":alignment",
         "@org_opengrm_pynini//pynini",
     ],
 )

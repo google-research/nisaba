@@ -22,7 +22,7 @@ py_library(
     name = "ltn_inventory",
     srcs = ["ltn_inventory.py"],
     deps = [
-        "//nisaba/scripts/natural_translit/common:util",
-        "@org_opengrm_pynini//pynini",
+        "//nisaba/scripts/natural_translit/utils:alignment",
+        "//nisaba/scripts/natural_translit/utils:list_op",
     ],
 )

@@ -20,16 +20,16 @@ from pynini.export import multi_grm
 from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
 from nisaba.scripts.natural_translit.brahmic import iso2txn
 from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
-import nisaba.scripts.natural_translit.common.rewrite_functions as rw
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 from nisaba.scripts.natural_translit.phonology import txn2ipa
 from nisaba.scripts.natural_translit.phonology.operations import voicing
+from nisaba.scripts.natural_translit.utils import concat as cc
+from nisaba.scripts.natural_translit.utils import list_op as ls
 
 _VOICING = voicing.voicing(
-    p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),
-    rw.concat_r(
-        ph.ASP.ques,
-        p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT)).optimize())
+    ls.union_opt(ph.VOWEL, ph.NASAL, ph.APPROXIMANT),
+    cc.concat_r(ph.ASP.ques, ls.union_opt(ph.VOWEL, ph.NASAL, ph.APPROXIMANT))
+)
 
 
 def _iso_to_txn() -> p.Fst:

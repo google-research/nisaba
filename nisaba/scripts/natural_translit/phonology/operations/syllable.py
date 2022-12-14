@@ -15,8 +15,9 @@
 """Multilingual phonological operations."""
 
 import pynini as p
-import nisaba.scripts.natural_translit.common.rewrite_functions as rw
-import nisaba.scripts.natural_translit.phonology.phoneme_inventory as ph
+from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
+from nisaba.scripts.natural_translit.utils import concat as cc
+from nisaba.scripts.natural_translit.utils import list_op as ls
 
 
 def legal_onset(onset_cl: p.FstLike) -> p.Fst:
@@ -30,12 +31,13 @@ def legal_onset(onset_cl: p.FstLike) -> p.Fst:
     onset_cl: Permitted onset consonant clusters for the language.
 
   Returns:
-    Following call:
-  ```
-  _legal_onset(rw.concat(ph.STOP, ph.RHOTIC))
+    Rewrite fst.
 
+  Following call:
   ```
-  would return:
+  _legal_onset(cc.concat_r(ph.STOP, ph.RHOTIC))
+  ```
+  will return:
   ```
   p.union(
       '{b}{a}',
@@ -46,8 +48,9 @@ def legal_onset(onset_cl: p.FstLike) -> p.Fst:
       '{b}gr.GRAPHEMES{r}gr.GRAPHEMES{a}'
       ...
   )
+  ```
   """
-  return rw.concat_r(p.union(ph.CONSONANT, onset_cl).optimize(), ph.VOWEL)
+  return cc.concat_r(ls.union_opt(ph.CONSONANT, onset_cl), ph.VOWEL)
 
 
 def legal_coda(coda_cl: p.FstLike) -> p.Fst:
@@ -60,12 +63,13 @@ def legal_coda(coda_cl: p.FstLike) -> p.Fst:
     coda_cl: Permitted coda consonant clusters for the language.
 
   Returns:
-    Following call:
-  ```
-  _legal_coda(rw.concat(ph.RHOTIC, ph.STOP))
+    Rewrite fst.
 
+  Following call:
   ```
-  would return:
+  _legal_coda(cc.concat_r(ph.RHOTIC, ph.STOP))
+  ```
+  will return:
   ```
   p.union(
       '{a}',
@@ -76,5 +80,6 @@ def legal_coda(coda_cl: p.FstLike) -> p.Fst:
       '{a}gr.GRAPHEMES{r}gr.GRAPHEMES{b}'
       ...
   )
+  ```
   """
-  return rw.concat_r(ph.VOWEL, p.union(ph.CONSONANT, coda_cl).optimize().ques)
+  return cc.concat_r(ph.VOWEL, ls.union_opt(ph.CONSONANT, coda_cl).ques)

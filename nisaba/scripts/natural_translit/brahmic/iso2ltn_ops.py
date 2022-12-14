@@ -16,15 +16,16 @@
 
 import pynini as p
 from nisaba.scripts.natural_translit.brahmic import iso_inventory as gr
-from nisaba.scripts.natural_translit.common import rewrite_functions as rw
 from nisaba.scripts.natural_translit.latin import ltn_inventory as tr
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 from nisaba.scripts.natural_translit.phonology import txn2ltn
+from nisaba.scripts.natural_translit.utils import list_op as ls
+from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 ## Rules to apply before txn to ltn mappings
 
 # <v> is "w" after {s}, {ss}, and {sh}.
-SIBV_TO_SIBW = rw.reassign_by_context(
+SIBV_TO_SIBW = rw.reassign(
     gr.V,
     ph.VU,
     tr.W,
@@ -34,14 +35,14 @@ SIBV_TO_SIBW = rw.reassign_by_context(
 # Palatal and velar assimilated anusvara is transliterated as "n".
 _NON_LABIAL_ANUSVARA = rw.reassign(
     gr.ANS,
-    p.union(ph.NG, ph.NY),
+    ls.union_opt(ph.NG, ph.NY),
     tr.N)
 
 
 def _transliterate_vocalic(vcl_tr: p.FstLike) -> p.Fst:
   """Transliterates all vowels in vocalics as vcl_tr."""
-  return rw.rewrite_by_context(
-      p.union(ph.VOWEL, ph.SYL),
+  return rw.rewrite(
+      ls.union_opt(ph.VOWEL, ph.SYL),
       vcl_tr,
       gr.VOCALICS)
 

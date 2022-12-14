@@ -14,97 +14,98 @@
 
 """txn pronunciation romanization."""
 
-import pynini as p
-import nisaba.scripts.natural_translit.common.rewrite_functions as rw
-import nisaba.scripts.natural_translit.common.util as u
-import nisaba.scripts.natural_translit.latin.ltn_inventory as tr
-import nisaba.scripts.natural_translit.phonology.phoneme_inventory as ph
+from nisaba.scripts.natural_translit.latin import ltn_inventory as tr
+from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
+from nisaba.scripts.natural_translit.utils import alignment as al
+from nisaba.scripts.natural_translit.utils import list_op as ls
+from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
-STRIP = rw.strip_right_side(u.TR_BOUND)
 
-VOWEL_SHORT = p.union(
-    p.cross(ph.A, tr.A),
-    p.cross(ph.AE, tr.AE),
-    p.cross(ph.E, tr.E),
-    p.cross(ph.EC, tr.A),
-    p.cross(ph.I, tr.I),
-    p.cross(ph.O, tr.O),
-    p.cross(ph.U, tr.U),
-    ).optimize()
+STRIP = rw.strip_right_side(al.TR_BOUND)
 
-MAP_VOWEL_SHORT = rw.rewrite_operation(VOWEL_SHORT)
+VOWEL_SHORT = ls.cross_union([
+    [ph.A, tr.A],
+    [ph.AE, tr.AE],
+    [ph.E, tr.E],
+    [ph.EC, tr.A],
+    [ph.I, tr.I],
+    [ph.O, tr.O],
+    [ph.U, tr.U],
+])
 
-VOWEL_LONG = p.union(
-    p.cross(ph.A_L, tr.AA),
-    p.cross(ph.E_L, tr.EE),
-    p.cross(ph.I_L, tr.II),
-    p.cross(ph.O_L, tr.OO),
-    p.cross(ph.U_L, tr.UU),
-    ).optimize()
+MAP_VOWEL_SHORT = rw.rewrite_op(VOWEL_SHORT)
 
-MAP_VOWEL_LONG = rw.rewrite_operation(VOWEL_LONG)
+VOWEL_LONG = ls.cross_union([
+    [ph.A_L, tr.AA],
+    [ph.E_L, tr.EE],
+    [ph.I_L, tr.II],
+    [ph.O_L, tr.OO],
+    [ph.U_L, tr.UU],
+])
 
-VOWEL_IGNORE_LENGTH = p.union(
-    p.cross(ph.A_L, tr.A),
-    p.cross(ph.E_L, tr.E),
-    p.cross(ph.I_L, tr.I),
-    p.cross(ph.O_L, tr.O),
-    p.cross(ph.U_L, tr.U),
-    ).optimize()
+MAP_VOWEL_LONG = rw.rewrite_op(VOWEL_LONG)
 
-MAP_VOWEL_IGNORE_LENGTH = rw.rewrite_operation(VOWEL_IGNORE_LENGTH)
+VOWEL_IGNORE_LENGTH = ls.cross_union([
+    [ph.A_L, tr.A],
+    [ph.E_L, tr.E],
+    [ph.I_L, tr.I],
+    [ph.O_L, tr.O],
+    [ph.U_L, tr.U],
+])
 
-AFFRICATE = p.union(
-    p.cross(ph.DZH, tr.J),
-    p.cross(ph.TSH, tr.CH),
-).optimize()
+MAP_VOWEL_IGNORE_LENGTH = rw.rewrite_op(VOWEL_IGNORE_LENGTH)
 
-CONSONANT = p.union(
-    p.cross(ph.B, tr.B),
-    p.cross(ph.TSH, tr.CH),
-    p.cross(ph.DD, tr.D),
-    p.cross(ph.DI, tr.D),
-    p.cross(ph.F, tr.F),
-    p.cross(ph.G, tr.G),
-    p.cross(ph.H, tr.H),
-    p.cross(ph.DZH, tr.J),
-    p.cross(ph.K, tr.K),
-    p.cross(ph.L, tr.L),
-    p.cross(ph.LL, tr.L),
-    p.cross(ph.M, tr.M),
-    p.cross(ph.N, tr.N),
-    p.cross(ph.NG, tr.NG),
-    p.cross(ph.NI, tr.N),
-    p.cross(ph.NN, tr.N),
-    p.cross(ph.NY, tr.NY),
-    p.cross(ph.P, tr.P),
-    p.cross(ph.Q, tr.K),
-    p.cross(ph.R, tr.R),
-    p.cross(ph.RRT, tr.RD),
-    p.cross(ph.RRU, tr.ZH),
-    p.cross(ph.RT, tr.R),
-    p.cross(ph.S, tr.S),
-    p.cross(ph.SH, tr.SH),
-    p.cross(ph.SS, tr.SH),
-    p.cross(ph.T, tr.T),
-    p.cross(ph.TI, tr.T),
-    p.cross(ph.TT, tr.T),
-    p.cross(ph.VU, tr.V),
-    p.cross(ph.KH, tr.KH),
-    p.cross(ph.GH, tr.G),
-    p.cross(ph.Y, tr.Y),
-    p.cross(ph.Z, tr.Z)
-    ).optimize()
+AFFRICATE = ls.cross_union([
+    [ph.DZH, tr.J],
+    [ph.TSH, tr.CH],
+])
 
-MAP_CONSONANT = (rw.rewrite_operation(AFFRICATE) @
-                 rw.rewrite_operation(CONSONANT)).optimize()
+CONSONANT = ls.cross_union([
+    [ph.B, tr.B],
+    [ph.TSH, tr.CH],
+    [ph.DD, tr.D],
+    [ph.DI, tr.D],
+    [ph.F, tr.F],
+    [ph.G, tr.G],
+    [ph.H, tr.H],
+    [ph.DZH, tr.J],
+    [ph.K, tr.K],
+    [ph.L, tr.L],
+    [ph.LL, tr.L],
+    [ph.M, tr.M],
+    [ph.N, tr.N],
+    [ph.NG, tr.NG],
+    [ph.NI, tr.N],
+    [ph.NN, tr.N],
+    [ph.NY, tr.NY],
+    [ph.P, tr.P],
+    [ph.Q, tr.K],
+    [ph.R, tr.R],
+    [ph.RRT, tr.RD],
+    [ph.RRU, tr.ZH],
+    [ph.RT, tr.R],
+    [ph.S, tr.S],
+    [ph.SH, tr.SH],
+    [ph.SS, tr.SH],
+    [ph.T, tr.T],
+    [ph.TI, tr.T],
+    [ph.TT, tr.T],
+    [ph.VU, tr.V],
+    [ph.KH, tr.KH],
+    [ph.GH, tr.G],
+    [ph.Y, tr.Y],
+    [ph.Z, tr.Z],
+])
 
-FEATURE = p.union(
-    p.cross(ph.ASP, tr.H),
-    p.cross(ph.NSL, tr.N),
-    p.cross(ph.SIL, tr.DEL),
-    p.cross(ph.SCHWA, tr.DEL),
-    p.cross(ph.SYL, tr.I)
-    ).optimize()
+MAP_CONSONANT = (rw.rewrite_op(AFFRICATE) @
+                 rw.rewrite_op(CONSONANT)).optimize()
 
-MAP_FEATURE = rw.rewrite_operation(FEATURE)
+FEATURE = ls.cross_union([
+    [ph.ASP, tr.H],
+    [ph.NSL, tr.N],
+    [ph.SIL, tr.DEL],
+    [ph.SCHWA, tr.DEL],
+    [ph.SYL, tr.I],
+])
+
+MAP_FEATURE = rw.rewrite_op(FEATURE)

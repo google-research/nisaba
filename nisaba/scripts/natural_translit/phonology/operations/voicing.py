@@ -15,25 +15,27 @@
 """Multilingual phonological operations."""
 
 import pynini as p
-import nisaba.scripts.natural_translit.common.rewrite_functions as rw
-import nisaba.scripts.natural_translit.phonology.phoneme_inventory as ph
+from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
+from nisaba.scripts.natural_translit.utils import list_op as ls
+from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 # Voicing
 
-VOICING_OP = p.union(
-    p.cross(ph.TSH, ph.DZH),
-    p.cross(ph.K, ph.G),
-    p.cross(ph.P, ph.B),
-    p.cross(ph.T, ph.D),
-    p.cross(ph.TI, ph.DI),
-    p.cross(ph.TT, ph.DD)).optimize()
+VOICING_OP = ls.cross_union([
+    [ph.TSH, ph.DZH],
+    [ph.K, ph.G],
+    [ph.P, ph.B],
+    [ph.T, ph.D],
+    [ph.TI, ph.DI],
+    [ph.TT, ph.DD]
+])
 
 
 def voicing(
     preceding: p.FstLike,
     following: p.FstLike) -> p.Fst:
   """Voicing. See rewrite_by_operation for argument details."""
-  return rw.rewrite_operation_by_context(
+  return rw.rewrite_op(
       VOICING_OP,
       preceding,
       following)

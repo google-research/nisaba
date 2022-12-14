@@ -41,8 +41,8 @@ ISO - typ mapping
 
 """
 
-import pynini as p
-import nisaba.scripts.natural_translit.common.util as u
+from nisaba.scripts.natural_translit.utils import alignment as al
+from nisaba.scripts.natural_translit.utils import list_op as ls
 
 
 # ISO mapping
@@ -119,178 +119,177 @@ ZWN_ISO = '|'
 
 # Inherent vowel and combining vowel signs
 
-A = u.enclose_grapheme('a')
-AA = u.enclose_grapheme('aa')
-AC = u.enclose_grapheme('ac')
-AN = u.enclose_grapheme('an')
-AAN = u.enclose_grapheme('aan')
-E = u.enclose_grapheme('e')
-EE = u.enclose_grapheme('ee')
-EC = u.enclose_grapheme('ec')
-I = u.enclose_grapheme('i')
-II = u.enclose_grapheme('ii')
-O = u.enclose_grapheme('o')
-OO = u.enclose_grapheme('oo')
-OC = u.enclose_grapheme('oc')
-OT = u.enclose_grapheme('ot')
-U = u.enclose_grapheme('u')
-UU = u.enclose_grapheme('uu')
-AI = u.enclose_grapheme('ai')
-AU = u.enclose_grapheme('au')
-L_VCL = u.enclose_grapheme('l_vcl')
-LL_VCL = u.enclose_grapheme('ll_vcl')
-R_VCL = u.enclose_grapheme('r_vcl')
-RR_VCL = u.enclose_grapheme('rr_vcl')
+A = al.enclose_grapheme('a')
+AA = al.enclose_grapheme('aa')
+AC = al.enclose_grapheme('ac')
+AN = al.enclose_grapheme('an')
+AAN = al.enclose_grapheme('aan')
+E = al.enclose_grapheme('e')
+EE = al.enclose_grapheme('ee')
+EC = al.enclose_grapheme('ec')
+I = al.enclose_grapheme('i')
+II = al.enclose_grapheme('ii')
+O = al.enclose_grapheme('o')
+OO = al.enclose_grapheme('oo')
+OC = al.enclose_grapheme('oc')
+OT = al.enclose_grapheme('ot')
+U = al.enclose_grapheme('u')
+UU = al.enclose_grapheme('uu')
+AI = al.enclose_grapheme('ai')
+AU = al.enclose_grapheme('au')
+L_VCL = al.enclose_grapheme('l_vcl')
+LL_VCL = al.enclose_grapheme('ll_vcl')
+R_VCL = al.enclose_grapheme('r_vcl')
+RR_VCL = al.enclose_grapheme('rr_vcl')
 
-VOWEL_S = p.union(
+VOWEL_S = ls.union_opt(
     A, AA, AC, AN, AAN, E, EE, EC, I, II,
     O, OO, OC, OT, U, UU, AI, AU,
-    L_VCL, LL_VCL, R_VCL, RR_VCL).optimize()
+    L_VCL, LL_VCL, R_VCL, RR_VCL)
 
 # Independent vowels
 
-A_I = u.enclose_grapheme('a_i')
-AA_I = u.enclose_grapheme('aa_i')
-AC_I = u.enclose_grapheme('ac_i')
-E_I = u.enclose_grapheme('e_i')
-EE_I = u.enclose_grapheme('ee_i')
-EC_I = u.enclose_grapheme('ec_i')
-I_I = u.enclose_grapheme('i_i')
-II_I = u.enclose_grapheme('ii_i')
-O_I = u.enclose_grapheme('o_i')
-OO_I = u.enclose_grapheme('oo_i')
-OC_I = u.enclose_grapheme('oc_i')
-U_I = u.enclose_grapheme('u_i')
-UU_I = u.enclose_grapheme('uu_i')
-AI_I = u.enclose_grapheme('ai_i')
-AU_I = u.enclose_grapheme('au_i')
-L_VCL_I = u.enclose_grapheme('l_vcl_i')
-LL_VCL_I = u.enclose_grapheme('ll_vcl_i')
-R_VCL_I = u.enclose_grapheme('r_vcl_i')
-RR_VCL_I = u.enclose_grapheme('rr_vcl_i')
+A_I = al.enclose_grapheme('a_i')
+AA_I = al.enclose_grapheme('aa_i')
+AC_I = al.enclose_grapheme('ac_i')
+E_I = al.enclose_grapheme('e_i')
+EE_I = al.enclose_grapheme('ee_i')
+EC_I = al.enclose_grapheme('ec_i')
+I_I = al.enclose_grapheme('i_i')
+II_I = al.enclose_grapheme('ii_i')
+O_I = al.enclose_grapheme('o_i')
+OO_I = al.enclose_grapheme('oo_i')
+OC_I = al.enclose_grapheme('oc_i')
+U_I = al.enclose_grapheme('u_i')
+UU_I = al.enclose_grapheme('uu_i')
+AI_I = al.enclose_grapheme('ai_i')
+AU_I = al.enclose_grapheme('au_i')
+L_VCL_I = al.enclose_grapheme('l_vcl_i')
+LL_VCL_I = al.enclose_grapheme('ll_vcl_i')
+R_VCL_I = al.enclose_grapheme('r_vcl_i')
+RR_VCL_I = al.enclose_grapheme('rr_vcl_i')
 
 
-VOWEL_I = p.union(
+VOWEL_I = ls.union_opt(
     A_I, AA_I, AC_I, E_I, EE_I, EC_I, I_I, II_I,
     O_I, OO_I, OC_I, U_I, UU_I, AI_I, AU_I,
-    L_VCL_I, LL_VCL_I, R_VCL_I, RR_VCL_I).optimize()
+    L_VCL_I, LL_VCL_I, R_VCL_I, RR_VCL_I)
 
-VOCALICS = p.union(
+VOCALICS = ls.union_opt(
     L_VCL, LL_VCL, R_VCL, RR_VCL,
-    L_VCL_I, LL_VCL_I, R_VCL_I, RR_VCL_I).optimize()
+    L_VCL_I, LL_VCL_I, R_VCL_I, RR_VCL_I)
 
-VOWEL = p.union(VOWEL_S, VOWEL_I).optimize()
+VOWEL = ls.union_opt(VOWEL_S, VOWEL_I)
 
 # Consonants
 
 # Consonants with inherent vowel
 
-B = u.enclose_grapheme('b')
-BH = u.enclose_grapheme('bh')
-C = u.enclose_grapheme('c')
-CH = u.enclose_grapheme('ch')
-D = u.enclose_grapheme('d')
-DH = u.enclose_grapheme('dh')
-DD = u.enclose_grapheme('dd')
-DDH = u.enclose_grapheme('ddh')
-F = u.enclose_grapheme('f')
-G = u.enclose_grapheme('g')
-GH = u.enclose_grapheme('gh')
-GG = u.enclose_grapheme('gg')
-H = u.enclose_grapheme('h')
-J = u.enclose_grapheme('j')
-JH = u.enclose_grapheme('jh')
-K = u.enclose_grapheme('k')
-KH = u.enclose_grapheme('kh')
-L = u.enclose_grapheme('l')
-LL = u.enclose_grapheme('ll')
-LR = u.enclose_grapheme('lr')
-M = u.enclose_grapheme('m')
-N = u.enclose_grapheme('n')
-NY = u.enclose_grapheme('ny')
-NG = u.enclose_grapheme('ng')
-NN = u.enclose_grapheme('nn')
-NA = u.enclose_grapheme('na')
-P = u.enclose_grapheme('p')
-PH = u.enclose_grapheme('ph')
-Q = u.enclose_grapheme('q')
-R = u.enclose_grapheme('r')
-RD = u.enclose_grapheme('rd')
-RDH = u.enclose_grapheme('rdh')
-RR = u.enclose_grapheme('rr')
-S = u.enclose_grapheme('s')
-SH = u.enclose_grapheme('sh')
-SS = u.enclose_grapheme('ss')
-T = u.enclose_grapheme('t')
-TH = u.enclose_grapheme('th')
-TT = u.enclose_grapheme('tt')
-TTH = u.enclose_grapheme('tth')
-TA = u.enclose_grapheme('ta')
-V = u.enclose_grapheme('v')
-X = u.enclose_grapheme('x')
-Y = u.enclose_grapheme('y')
-YY = u.enclose_grapheme('yy')
-Z = u.enclose_grapheme('z')
+B = al.enclose_grapheme('b')
+BH = al.enclose_grapheme('bh')
+C = al.enclose_grapheme('c')
+CH = al.enclose_grapheme('ch')
+D = al.enclose_grapheme('d')
+DH = al.enclose_grapheme('dh')
+DD = al.enclose_grapheme('dd')
+DDH = al.enclose_grapheme('ddh')
+F = al.enclose_grapheme('f')
+G = al.enclose_grapheme('g')
+GH = al.enclose_grapheme('gh')
+GG = al.enclose_grapheme('gg')
+H = al.enclose_grapheme('h')
+J = al.enclose_grapheme('j')
+JH = al.enclose_grapheme('jh')
+K = al.enclose_grapheme('k')
+KH = al.enclose_grapheme('kh')
+L = al.enclose_grapheme('l')
+LL = al.enclose_grapheme('ll')
+LR = al.enclose_grapheme('lr')
+M = al.enclose_grapheme('m')
+N = al.enclose_grapheme('n')
+NY = al.enclose_grapheme('ny')
+NG = al.enclose_grapheme('ng')
+NN = al.enclose_grapheme('nn')
+NA = al.enclose_grapheme('na')
+P = al.enclose_grapheme('p')
+PH = al.enclose_grapheme('ph')
+Q = al.enclose_grapheme('q')
+R = al.enclose_grapheme('r')
+RD = al.enclose_grapheme('rd')
+RDH = al.enclose_grapheme('rdh')
+RR = al.enclose_grapheme('rr')
+S = al.enclose_grapheme('s')
+SH = al.enclose_grapheme('sh')
+SS = al.enclose_grapheme('ss')
+T = al.enclose_grapheme('t')
+TH = al.enclose_grapheme('th')
+TT = al.enclose_grapheme('tt')
+TTH = al.enclose_grapheme('tth')
+TA = al.enclose_grapheme('ta')
+V = al.enclose_grapheme('v')
+X = al.enclose_grapheme('x')
+Y = al.enclose_grapheme('y')
+YY = al.enclose_grapheme('yy')
+Z = al.enclose_grapheme('z')
 
-CONSONANT_INH = p.union(
+CONSONANT_INH = ls.union_opt(
     B, BH, C, CH, D, DH, DD, DDH,
     F, G, GH, GG, H, J, JH, K, KH,
     L, LL, LR, M, N, NY, NG, NN, NA,
     P, PH, Q, R, RD, RDH, RR, S, SH, SS,
-    T, TH, TT, TTH, TA, V, X, Y, YY, Z).optimize()
-
+    T, TH, TT, TTH, TA, V, X, Y, YY, Z)
 # Chillu consonants
 
-K_CHL = u.enclose_grapheme('k_chl')
-L_CHL = u.enclose_grapheme('l_chl')
-LL_CHL = u.enclose_grapheme('ll_chl')
-N_CHL = u.enclose_grapheme('n_chl')
-NN_CHL = u.enclose_grapheme('nn_chl')
-RR_CHL = u.enclose_grapheme('rr_chl')
-REPH = u.enclose_grapheme('reph')
+K_CHL = al.enclose_grapheme('k_chl')
+L_CHL = al.enclose_grapheme('l_chl')
+LL_CHL = al.enclose_grapheme('ll_chl')
+N_CHL = al.enclose_grapheme('n_chl')
+NN_CHL = al.enclose_grapheme('nn_chl')
+RR_CHL = al.enclose_grapheme('rr_chl')
+REPH = al.enclose_grapheme('reph')
 
-CHILLU = p.union(K_CHL, L_CHL, LL_CHL, N_CHL, NN_CHL, RR_CHL, REPH).optimize()
+CHILLU = ls.union_opt(K_CHL, L_CHL, LL_CHL, N_CHL, NN_CHL, RR_CHL, REPH)
 
-CONSONANT = p.union(CONSONANT_INH, CHILLU).optimize()
+CONSONANT = ls.union_opt(CONSONANT_INH, CHILLU)
 
 # Coda
 
-AVG = u.enclose_grapheme('avg')
-NKT = u.enclose_grapheme('nkt')
-VIS = u.enclose_grapheme('vis')
-ANS = u.enclose_grapheme('ans')
-CND = u.enclose_grapheme('cnd')
-UPADH = u.enclose_grapheme('upadh')
-JIHVA = u.enclose_grapheme('jihva')
+AVG = al.enclose_grapheme('avg')
+NKT = al.enclose_grapheme('nkt')
+VIS = al.enclose_grapheme('vis')
+ANS = al.enclose_grapheme('ans')
+CND = al.enclose_grapheme('cnd')
+UPADH = al.enclose_grapheme('upadh')
+JIHVA = al.enclose_grapheme('jihva')
 
-CODA = p.union(AVG, NKT, VIS, ANS, CND, UPADH, JIHVA).optimize()
+CODA = ls.union_opt(AVG, NKT, VIS, ANS, CND, UPADH, JIHVA)
 
 # Eyelash
 
-R_EYE = u.enclose_grapheme('r_eye')
+R_EYE = al.enclose_grapheme('r_eye')
 
 # Om
 
-OM = u.enclose_grapheme('om')
+OM = al.enclose_grapheme('om')
 
 # Modifiers
 
-ASP = u.enclose_grapheme('asp')
-VCL = u.enclose_grapheme('vcl')
-LONG = u.enclose_grapheme('long')
-CHL = u.enclose_grapheme('chl')
-CND_DIA = u.enclose_grapheme('cnd_dia')
-EYE = u.enclose_grapheme('eye')
+ASP = al.enclose_grapheme('asp')
+VCL = al.enclose_grapheme('vcl')
+LONG = al.enclose_grapheme('long')
+CHL = al.enclose_grapheme('chl')
+CND_DIA = al.enclose_grapheme('cnd_dia')
+EYE = al.enclose_grapheme('eye')
 
-MOD = p.union(ASP, VCL, LONG, CHL, CND_DIA, EYE).optimize()
+MOD = ls.union_opt(ASP, VCL, LONG, CHL, CND_DIA, EYE)
 
 # Symbols
 
-IND = u.enclose_grapheme('ind')
-ZWJ = u.enclose_grapheme('zwj')
-ZWN = u.enclose_grapheme('zwn')
+IND = al.enclose_grapheme('ind')
+ZWJ = al.enclose_grapheme('zwj')
+ZWN = al.enclose_grapheme('zwn')
 
-SYM = p.union(IND, ZWJ, ZWN).optimize()
+SYM = ls.union_opt(IND, ZWJ, ZWN)
 
-GRAPHEME = p.union(VOWEL, CONSONANT, CODA, R_EYE, OM, MOD, SYM).optimize()
-GRAPHEMES = GRAPHEME.star.optimize()
+GRAPHEME = ls.union_opt(VOWEL, CONSONANT, CODA, R_EYE, OM, MOD, SYM)
+GRAPHEMES = ls.star_opt(GRAPHEME)

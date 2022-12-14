@@ -13,15 +13,16 @@
 # limitations under the License.
 
 # Lint as: python3
-"""Common constants and symbol and alignment forming functions."""
+"""Alignment forming functions and constants."""
 
 import pynini as p
 from pynini.lib import byte
+from nisaba.scripts.natural_translit.utils import list_op as ls
 
 # Constants
 
-# Default sigma for rewrites that don't involve UTF-8 characters.
-BYTE_STAR = byte.BYTE.star.optimize()
+# Default sigma for rewrites that don't involve UTF-8 character
+BYTE_STAR = ls.star_opt(byte.BYTE)
 
 # String literals
 
@@ -48,15 +49,15 @@ COMBINE = p.accep(PLUS)
 GR_L = p.accep(LESS_THAN)  # Grapheme left boundary
 GR_R = p.accep(GREATER_THAN)  # Grapheme right boundary
 GR_B = [GR_L, GR_R]
-GR_BOUND = p.union(*GR_B).optimize()
+GR_BOUND = ls.union_opt(*GR_B)
 PH_L = p.accep(CURLY_L)  # Phoneme left boundary
 PH_R = p.accep(CURLY_R)  # Phoneme right boundary
 PH_B = [PH_L, PH_R]
-PH_BOUND = p.union(*PH_B).optimize()
+PH_BOUND = ls.union_opt(*PH_B)
 TR_L = p.accep(DBL_QUOTE_L)  # Translit left boundary
 TR_R = p.accep(DBL_QUOTE_R)  # Translit right boundary
 TR_B = [TR_L, TR_R]
-TR_BOUND = p.union(*TR_B).optimize()
+TR_BOUND = ls.union_opt(*TR_B)
 ALIGN_SIGN = p.accep(EQUAL)  # Substring alignment
 
 # Functions
@@ -84,20 +85,51 @@ def enclose_translit(base: p.FstLike) -> p.Fst:
   """Encloses a string with translit boundaries."""
   return _enclose(base, *TR_B)
 
-SYM = p.union(byte.ALPHA, AFFIX, COMBINE).star.optimize()
-GRAPHEME = enclose_grapheme(SYM)
-GRAPHEMES = GRAPHEME.star.optimize()
-PHONEME = enclose_phoneme(SYM)
-PHONEMES = PHONEME.star.optimize()
-TRANSLIT = enclose_translit(SYM)
-TRANSLITS = TRANSLIT.star.optimize()
-
 
 def align(left_side: p.FstLike, right_side: p.FstLike) -> p.Fst:
   """Alignment structure (left_side=right_side)."""
   return left_side + ALIGN_SIGN + right_side
 
 
+def realign(
+    left_side: p.FstLike,
+    old: p.FstLike,
+    new: p.FstLike) -> p.Fst:
+  """Changes the right side assignment of a specified left side."""
+  return p.cross(
+      align(left_side, old),
+      align(left_side, new))
+
+
 def assign(left_side: p.FstLike, right_side: p.FstLike) -> p.Fst:
   """Takes left side, returns an alignment of left and right sides."""
   return p.cross(left_side, align(left_side, right_side))
+
+SYM = ls.union_star(byte.ALPHA, AFFIX, COMBINE)
+GRAPHEME = enclose_grapheme(SYM)
+GRAPHEMES = ls.star_opt(GRAPHEME)
+PHONEME = enclose_phoneme(SYM)
+PHONEMES = ls.star_opt(PHONEME)
+TRANSLIT = enclose_translit(SYM)
+TRANSLITS = ls.star_opt(TRANSLIT)
+
+# Right side of an alignment can be phonemes or transliteration string
+R_SYM = ls.union_star(PHONEME, TRANSLIT)
+R_SYMS = ls.union_star(PHONEMES, TRANSLITS)
+
+SYMS = ls.union_opt(GRAPHEMES, R_SYMS)
+
+# Skip sequences to look at either the adjacent symbol, the closest left or
+# right side symbol of an adjacent alignment.
+SKIP_LEFT_SIDE = (GRAPHEME.plus + ALIGN_SIGN).ques
+SKIP_RIGHT_SIDE = (ALIGN_SIGN + R_SYM.plus).ques
+SKIP = ls.union_opt(SKIP_LEFT_SIDE, SKIP_RIGHT_SIDE).ques
+
+
+# Beginning of word
+BOW = BOS + SKIP_LEFT_SIDE.ques
+
+# End of word
+EOW = SKIP_RIGHT_SIDE.ques + EOS
+
+
