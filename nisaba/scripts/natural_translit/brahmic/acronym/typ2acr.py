@@ -15,11 +15,14 @@
 """ISO to acronym conversion."""
 
 import pynini as p
-from nisaba.scripts.natural_translit.brahmic import iso_inventory as gr
-from nisaba.scripts.natural_translit.latin import ltn_inventory as tr
+from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
+from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
+
+gr = iso.GRAPHEME_INVENTORY
+tr = ltn.TRANSLIT_INVENTORY
 
 
 def _letter(graphemes: [p.Fst]) -> p.Fst:
@@ -84,35 +87,35 @@ _LETTERS = ls.union_star(
     _X_EKSA, _Y_VA_I, _Z_JZEDA)
 
 HI_ACRONYM_SET = ls.cross_union([
-    [_A_E, tr.A_UPPER],
-    [_B_BI, tr.B_UPPER],
-    [_C_SI, tr.C_UPPER],
-    [_D_DDI, tr.D_UPPER],
-    [_E_I, tr.E_UPPER],
-    [_F_EFPHA, tr.F_UPPER],
-    [_G_JI, tr.G_UPPER],
-    [_H_ECA, tr.H_UPPER],
-    [_I_A_I, tr.I_UPPER],
-    [_J_JE, tr.J_UPPER],
-    [_K_KE, tr.K_UPPER],
-    [_L_ELA, tr.L_UPPER],
-    [_M_EMA, tr.M_UPPER],
-    [_N_ENA, tr.N_UPPER],
-    [_O_O, tr.O_UPPER],
-    [_P_PI, tr.P_UPPER],
-    [_Q_KYU, tr.Q_UPPER],
-    [_R_ARA, tr.R_UPPER],
-    [_S_ESA, tr.S_UPPER],
-    [_T_TTI, tr.T_UPPER],
-    [_U_YU, tr.U_UPPER],
-    [_V_VI, tr.V_UPPER],
-    [_W_DDABLU, tr.W_UPPER],
-    [_W_DDABLYU, tr.W_UPPER],
-    [_W_DDABALYU, tr.W_UPPER],
-    [_W_DDABLAYU, tr.W_UPPER],
-    [_X_EKSA, tr.X_UPPER],
-    [_Y_VA_I, tr.Y_UPPER],
-    [_Z_JZEDA, tr.Z_UPPER],
+    [_A_E, tr.A_UC],
+    [_B_BI, tr.B_UC],
+    [_C_SI, tr.C_UC],
+    [_D_DDI, tr.D_UC],
+    [_E_I, tr.E_UC],
+    [_F_EFPHA, tr.F_UC],
+    [_G_JI, tr.G_UC],
+    [_H_ECA, tr.H_UC],
+    [_I_A_I, tr.I_UC],
+    [_J_JE, tr.J_UC],
+    [_K_KE, tr.K_UC],
+    [_L_ELA, tr.L_UC],
+    [_M_EMA, tr.M_UC],
+    [_N_ENA, tr.N_UC],
+    [_O_O, tr.O_UC],
+    [_P_PI, tr.P_UC],
+    [_Q_KYU, tr.Q_UC],
+    [_R_ARA, tr.R_UC],
+    [_S_ESA, tr.S_UC],
+    [_T_TTI, tr.T_UC],
+    [_U_YU, tr.U_UC],
+    [_V_VI, tr.V_UC],
+    [_W_DDABLU, tr.W_UC],
+    [_W_DDABLYU, tr.W_UC],
+    [_W_DDABALYU, tr.W_UC],
+    [_W_DDABLAYU, tr.W_UC],
+    [_X_EKSA, tr.X_UC],
+    [_Y_VA_I, tr.Y_UC],
+    [_Z_JZEDA, tr.Z_UC],
 ])
 
 HI_ACR_TYP_TO_TR = rw.rewrite_op(
@@ -120,4 +123,4 @@ HI_ACR_TYP_TO_TR = rw.rewrite_op(
     al.BOS + tr.EN_LETTERS,
     _LETTERS + al.EOS)
 
-HI_ACR_TYP_TO_LTN = HI_ACR_TYP_TO_TR @ rw.delete(al.TR_BOUND)
+HI_ACR_TYP_TO_LTN = HI_ACR_TYP_TO_TR @ ltn.print_only_ltn()

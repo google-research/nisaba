@@ -4,23 +4,70 @@ This collection of [OpenGrm Pynini](http://www.opengrm.org/twiki/bin/view/GRM/Py
 
 The natural transliteration grammars use internal notations that only contain extended ASCII characters for ease of input. All substrings are enclosed in type specific, asymmetrical boundary marks. `< >` donates a [grapheme](#typ-representation-and-iso-inventory), `{ }` donates a [phoneme](#txn-representation-and-phoneme-inventory), and `“ ”` donates a [transliteration](#transliteration-strings-and-ltn-inventory) substring.
 
-## typ representation and iso_inventory
-`typ` is an internal typable representation for ISO characters. `typ` strings are enclosed in less than and greater than signs.
+## typ representation and script inventories
+The characters of a script is defined as a `Char` with the following
+attributes:
 
-[`iso_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/brahmic/natural_translit/iso_inventory.py) is a library that contains the `typ`-ISO mapping and forms the `typ` symbols.
+**alias:** A string that will be used to refer to the character in grammars. For
+example, if the alias of a character is 'A', in the grammar file this character
+will be referred to as `gr.A` or `tr.A`. The default value is the uppercase of
+`typ` as this is the most common case.
+
+**typ:** An internal, byte-only string to represent the character.
+
+**gr:** `typ` enclosed in `< >`. It is used to represent the characters of the
+source script.
+
+**tr:** `typ` enclosed in `“ ”`. It is used to represent the characters of the
+target script.
+
+**glyph:** The glyph of the character in the original script.
+
+**ph:** A default pronunciation assignment for the character. ph is optional.
+
+**cmp:** Graphemes of the parts for composite characters.
+
+tr and gr are the underlying representations for the rewrite rules. For
+example, rules with `gr.A` apply to `<a>`, and rules with `tr.A` apply to `“a”`.
+
+Conventions for assigning a `typ` to a character:
+
+* `typ` of ASCII characters are the same as the letter.
+
+* `typ` of non-ASCII characters are a sequence of lowercase letters.
+
+* `typ` of the uppercase letters have `_uc` suffix.
+
+* `typ` of substrings have `s_` prefix.
+
+  **Example:**
+
+             | a         | u         | ä         | Ä         | s_au      |
+   ----------|:---------:|:---------:|:---------:|:---------:|:---------:|
+   **alias** | A         | U         | AU        | A_UC      | S_AU      |
+   **typ**   | a         | u         | au        | au_uc     | s_au      |
+   **gr**    | `<a>`     | `<u>`     | `<au>`    | `<au_uc>` | `<s_au>`  |
+   **tr**    | `“a”`     | `“u”`     | `“au”`    | `“a_uc”`  | `“s_au”`  |
+   **glyph** | a         | u         | ä         | Ä         | au        |
+   **ph**    | ph.A      | ph.U      | ph.E      | ph.E      | ph.AU     |
+
+This scheme disambiguates substrings for grammars. For example, a rule that
+changes the transliteration of the diphthong `ph.AU` from 'au' to 'o' only
+applies to `“s_au”` substrings and not `“au”` or `“a”“u”`.
+
+[`iso_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic/iso_inventory.py) is a library that contains the `typ`-ISO mapping and makes `Char` for ISO characters.
+
+[`ltn_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/latin/ltn_inventory.py) is a library that makes `Char` for Latin script characters and transliteration substrings for romanization grammars.
+
+## iso2typ grammar
+
+`iso2typ` grammar rewrites an ISO string as a series of `typ` characters.
 
 **Examples**
 
 * `ā` -> `<aa>`
 * `ṭ` -> `<tt>`
 * `nⸯ` -> `<n_chl>`
-
-## iso2typ grammar
-
-`iso2typ` grammar rewrites an ISO string as a series of `typ` characters.
-
-**Example**
-
 * `āṭānⸯ` -> `<aa><tt><aa><n_chl>`
 
 ## txn representation and phoneme_inventory
@@ -53,19 +100,13 @@ the combining symbol {+} is used.
 
 ## iso2txn grammars
 
-`iso2txn` grammar assigns a naive orthography to phonology mapping for iso graphemes prior to the phonological operations. The format of an assignment is `<iso_graphemes>{txn_phonemes}`.
+`iso2txn` grammar assigns a naive orthography to phonology mapping for iso graphemes prior to the phonological operations. The format of an assignment is `<iso_graphemes>={txn_phonemes}`.
 
 **Example**
 
 * `<aa><tt><aa><n_chl>` -> `<aa>={a_l}<tt>={tt}<aa>={a_l}<n_chl>={ni}`
 
 `iso2txn_ops` grammar contains phonological operations that depend on the iso graphemes that are on the left side of the alignment, and therefore don't fit the language agnostic phonological operations in the `phon_ops` grammar.
-
-## Transliteration strings and ltn_inventory
-
-Transliteration strings are enclosed in double quotation marks. This allows for keeping track of grapheme-transliteration alignments and disambiguates strings like `'ai'` as `'“ai”'` `'“a”“i”'`.
-
-`ltn_inventory` is a library that contains the latin transliteration substrings.
 
 ## phon_ops grammar
 

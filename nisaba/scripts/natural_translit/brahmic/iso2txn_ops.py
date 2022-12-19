@@ -15,13 +15,15 @@
 """Phonological operations that depend on iso graphemes."""
 
 import pynini as p
-from nisaba.scripts.natural_translit.brahmic import iso_inventory as gr
+from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 from nisaba.scripts.natural_translit.phonology.operations import syllable as syl
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import concat as cc
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
+
+gr = iso.GRAPHEME_INVENTORY
 
 # Vocalic liquids
 
