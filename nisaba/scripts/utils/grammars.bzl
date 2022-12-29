@@ -14,12 +14,12 @@
 
 """Starlark utilities for dealing with Pynini targets."""
 
-load("@org_opengrm_thrax//:src/bazel/regression_test_build_defs.bzl", "grm_regression_test")
 load(
     "@org_opengrm_pynini//pynini/export:grm_py_build_defs.bzl",
     "compile_grm_py",
     "compile_multi_grm_py",
 )
+load("//speech/fst/testing:build_defs.bzl", "grm_textproto_test")
 
 # FST type for compile_grm_py and compile_multi_grm_py; depend on
 # //nisaba/scripts/utils:fst_types to read such FSTs.
@@ -82,50 +82,28 @@ def nisaba_compile_multi_grm_py(
         **kwds
     )
 
-def nisaba_grm_regression_test(
+def nisaba_grm_textproto_test(
         name,
-        grammar = None,
-        test_file = None,
-        size = "small",
-        test_file_target = None,
-        test_file_path = None,
-        far_file_target = None,
+        textproto = None,
         token_type = "byte",
         extra_deps = [],
         **kwds):
-    """Generates a regression test for the specified grammar.
+    """Generates a textproto test for the specified grammar.
 
     Args:
       name: The BUILD rule name, this should generally include a _test suffix.
-      grammar: The rule defining the compiled grammar. If absent,
-               <current package>:<name - '_test'>_sstable is used.
-      test_file: A file containing test data in the format expected by
-                 regression_test.cc. If absent, testdata/<name - '_test'>.tsv
-                 is used.
-      size: Size of the test, e.g. "large".
-      test_file_target: Path to the target which contains testdata files.
-                        This should be set together with test_file_path parameter.
-      test_file_path: Path to the grammar testdata file.
-                      This should be set together with test_file_target parameter.
-      far_file_target: The target of the FAR file to test. If absent, <grammar>.far
-                      is used.
-      token_type: TokenType to use when parsing the text examples that are to
-                be composed with rule FSTs in the FAR. One of 'byte' or 'utf8'.
-      extra_deps: Extra dependencies list.
-      **kwds: Attributes passed to the underlying cc_test rule.
+      textproto: The textproto location, if you don't want it to be automatically inferred.
+      token_type: Token type (one of "byte", "utf8").
+      extra_deps: Extra attributes passed to the underlying cc_test rule.
+      **kwds: Attributes passed to the underlying rule.
     """
-    grm_regression_test(
+    grm_textproto_test(
         name = name,
-        grammar = grammar,
-        test_file = test_file,
-        testdata_packaged = True,
-        size = size,
-        test_file_target = test_file_target,
-        test_file_path = test_file_path,
-        far_file_target = far_file_target,
+        textproto = textproto,
         token_type = token_type,
-        extra_deps = extra_deps + [
+        extra_deps = [
         ],
+        test_one_top_rewrite = True,
         **kwds
     )
 
@@ -230,10 +208,12 @@ def nisaba_compile_script_lang_multi_grm_py(
             **kwds
         )
 
+        # FIXME
         # Tests token-type specific FAR files.
-        nisaba_grm_regression_test(
-            name = "%s_test" % name_token_type,
-            grammar = ":%s" % name_token_type,
-            test_file = "testdata:%s.tsv" % name,
-            token_type = token_type,
-        )
+        #nisaba_grm_textproto_test(
+        #    name = "%s_test" % name_token_type,
+        #    grammar = ":%s" % name_token_type,
+        #    test_file = "testdata:%s.tsv" % name,
+        #    token_type = token_type,
+        #    test_one_top_rewrite = True,
+        #)

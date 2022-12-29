@@ -22,7 +22,7 @@ load(
     "nisaba_compile_grm_py",
     "nisaba_compile_multi_grm_py",
     "nisaba_compile_script_lang_multi_grm_py",
-    "nisaba_grm_regression_test",
+    "nisaba_grm_textproto_test",
 )
 load(
     "//nisaba/scripts/brahmic:constant.bzl",
@@ -85,7 +85,7 @@ nisaba_compile_multi_grm_py(
     ],
 )
 
-nisaba_grm_regression_test(
+nisaba_grm_textproto_test(
     name = "iso_test",
     grammar = ":iso",
 )
@@ -114,7 +114,7 @@ nisaba_compile_multi_grm_py(
     ],
 )
 
-nisaba_grm_regression_test(
+nisaba_grm_textproto_test(
     name = "fixed_test",
     grammar = ":fixed",
     token_type = "byte",
@@ -140,16 +140,17 @@ nisaba_compile_multi_grm_py(
     ],
 )
 
-nisaba_grm_regression_test(
+nisaba_grm_textproto_test(
     name = "nfc_test",
     grammar = ":nfc",
+    textproto = "testdata/nfc.textproto",
     token_type = "byte",
 )
 
-nisaba_grm_regression_test(
+nisaba_grm_textproto_test(
     name = "nfc_utf8_test",
     grammar = ":nfc_utf8",
-    test_file = "testdata:nfc.tsv",
+    textproto = "testdata/nfc.textproto",
     token_type = "utf8",
 )
 
@@ -363,16 +364,17 @@ nisaba_compile_multi_grm_py(
     ],
 )
 
-nisaba_grm_regression_test(
+nisaba_grm_textproto_test(
     name = "wellformed_test",
     grammar = ":wellformed",
+    textproto = "testdata/wellformed.textproto",
     token_type = "byte",
 )
 
-nisaba_grm_regression_test(
+nisaba_grm_textproto_test(
     name = "wellformed_utf8_test",
     grammar = ":wellformed_utf8",
-    test_file = "testdata:wellformed.tsv",
+    textproto = "testdata/wellformed.textproto",
     token_type = "utf8",
 )
 
@@ -472,6 +474,11 @@ cc_test(
         "@com_google_googletest//:gtest_main",
     ],
 )
+
+exports_files([
+    "testdata/reading_norm.tsv",
+    "testdata/visual_norm.tsv",
+])
 
 filegroup(
    name = "far_files",

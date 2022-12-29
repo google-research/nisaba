@@ -1,0 +1,431 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: speech/fst/testing/testdata.proto
+# proto-message: Rewrites
+rewrite {
+  rule: "MLYM"
+  input: "ala"
+  output: "അല"
+}
+rewrite {
+  rule: "MLYM"
+  input: "aala"
+  output: "ആല"
+}
+rewrite {
+  rule: "MLYM"
+  input: "ila"
+  output: "ഇല"
+}
+rewrite {
+  rule: "MLYM"
+  input: "iLa"
+  output: "ഇള"
+}
+rewrite {
+  rule: "MLYM"
+  input: "izha"
+  output: "ഇഴ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "iirra"
+  output: "ഈറ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "uma"
+  output: "ഉമ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "uuma"
+  output: "ഊമ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "Rthu"
+  output: "ഋതു"
+}
+rewrite {
+  rule: "MLYM"
+  input: "RRnn"
+  output: "ൠന്ന്"
+}
+rewrite {
+  rule: "MLYM"
+  input: "eli"
+  output: "എലി"
+}
+rewrite {
+  rule: "MLYM"
+  input: "Elam"
+  output: "ഏലം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "aikyam"
+  output: "ഐക്യം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "oru"
+  output: "ഒരു"
+}
+rewrite {
+  rule: "MLYM"
+  input: "Oram"
+  output: "ഓരം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "aushadham"
+  output: "ഔഷധം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "kathha"
+  output: "കഥ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "kala"
+  output: "കല"
+}
+rewrite {
+  rule: "MLYM"
+  input: "garam"
+  output: "ഗരം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "ngyaavuu"
+  output: "ങ്യാവൂ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "charam"
+  output: "ചരം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "chhaaya"
+  output: "ഛായ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "jalam"
+  output: "ജലം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "jhaansi"
+  output: "ഝാൻസി"
+}
+rewrite {
+  rule: "MLYM"
+  input: "njaan"
+  output: "ഞാൻ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "Tippu"
+  output: "ടിപ്പു"
+}
+rewrite {
+  rule: "MLYM"
+  input: "Dappi"
+  output: "ഡപ്പി"
+}
+rewrite {
+  rule: "MLYM"
+  input: "thaththa"
+  output: "തത്ത"
+}
+rewrite {
+  rule: "MLYM"
+  input: "daya"
+  output: "ദയ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "duHkham"
+  output: "ദുഃഖം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "dRDham"
+  output: "ദൃഢം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "dhanam"
+  output: "ധനം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "nakham"
+  output: "നഖം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "nann~"
+  output: "നന്ന്"
+}
+rewrite {
+  rule: "MLYM"
+  input: "pala"
+  output: "പല"
+}
+rewrite {
+  rule: "MLYM"
+  input: "parra"
+  output: "പറ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "paaTham"
+  output: "പാഠം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "paata"
+  output: "പാറ്റ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "phalam"
+  output: "ഫലം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "balam"
+  output: "ബലം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "bhayam"
+  output: "ഭയം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "maNam"
+  output: "മണം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "mayam"
+  output: "മയം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "mEgham"
+  output: "മേഘം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "yathi"
+  output: "യതി"
+}
+rewrite {
+  rule: "MLYM"
+  input: "raNT"
+  output: "രണ്ട്"
+}
+rewrite {
+  rule: "MLYM"
+  input: "latha"
+  output: "ലത"
+}
+rewrite {
+  rule: "MLYM"
+  input: "varam"
+  output: "വരം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "Saram"
+  output: "ശരം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "shaaram"
+  output: "ഷാരം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "saaram"
+  output: "സാരം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "haaram"
+  output: "ഹാരം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "maNTa"
+  output: "മണ്ട"
+}
+rewrite {
+  rule: "MLYM"
+  input: "kuNThitham"
+  output: "കുണ്ഠിതം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "paaNDu"
+  output: "പാണ്ഡു"
+}
+rewrite {
+  rule: "MLYM"
+  input: "kaNDham"
+  output: "കണ്ഢം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "kaNN"
+  output: "കണ്ണ്"
+}
+rewrite {
+  rule: "MLYM"
+  input: "veNma"
+  output: "വെണ്മ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "naaNyam"
+  output: "നാണ്യം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "kaNvan"
+  output: "കണ്വൻ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "thantha"
+  output: "തന്ത"
+}
+rewrite {
+  rule: "MLYM"
+  input: "paanthhan"
+  output: "പാന്ഥൻ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "nandi"
+  output: "നന്ദി"
+}
+rewrite {
+  rule: "MLYM"
+  input: "andhan"
+  output: "അന്ധൻ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "pinne"
+  output: "പിന്നെ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "nanma"
+  output: "നന്മ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "anyam"
+  output: "അന്യം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "nrasthhi"
+  output: "ന്രസ്ഥി"
+}
+rewrite {
+  rule: "MLYM"
+  input: "anvayam"
+  output: "അന്വയം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "kampam"
+  output: "കമ്പം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "amma"
+  output: "അമ്മ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "ramyam"
+  output: "രമ്യം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "kamram"
+  output: "കമ്രം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "amlam"
+  output: "അമ്ലം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "bhaarya"
+  output: "ഭാര്യ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "alpam"
+  output: "അല്പം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "kalmasham"
+  output: "കല്മഷം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "ahalya"
+  output: "അഹല്യ"
+}
+rewrite {
+  rule: "MLYM"
+  input: "vilvaadri"
+  output: "വില്വാദ്രി"
+}
+rewrite {
+  rule: "MLYM"
+  input: "illa"
+  output: "ഇല്ല"
+}
+rewrite {
+  rule: "MLYM"
+  input: "jaaLyam"
+  output: "ജാള്യം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "uLLa"
+  output: "ഉള്ള"
+}
+rewrite {
+  rule: "MLYM"
+  input: "ente"
+  output: "എൻ്റെ"
+}

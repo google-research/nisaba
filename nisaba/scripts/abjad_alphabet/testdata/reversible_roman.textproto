@@ -1,0 +1,1321 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: speech/fst/testing/testdata.proto
+# proto-message: Rewrites
+rewrite {
+  comment: "Currently, test strings are gathered from ALA-LC (Urdu) specification. TODO: Add test strings from rest of the languages as well. Out of script characters are pass through"
+  rule: "FROM_ARAB"
+  input: "Abæ آب"
+  output: "Abæ ʼ͟āb"
+}
+rewrite {
+  comment: "Visual normalization applied prior to romanization (Urdu U)."
+  rule: "FROM_ARAB"
+  input: "عضوُ"
+  output: "ʻẓʉ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "عضۇ"
+  output: "ʻẓʉ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: ""
+  output: ""
+}
+rewrite {
+  comment: "NFC + visual normalization applied prior to romanization."
+  rule: "FROM_ARAB"
+  input: "آپ"
+  output: "ʼ͟āp"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "آپ"
+  output: "ʼ͟āp"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ʼ͟āp"
+  output: "آپ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "āᵐ͗p"
+  output: "آپ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ٸةًَ"
+  output: "Ÿẗa͟na"
+}
+rewrite {
+  comment: "TODO: Following presentation forms tests to included their handling can be supported without timeouts in round-trip tests. Presentation normalization applied prior to romanization. FROM_ARAB\tﻻ\tlā TO_ARAB\tlā\tلا"
+  rule: "FROM_ARAB"
+  input: "آب"
+  output: "ʼ͟āb"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ʼ͟āb"
+  output: "آب"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ابو"
+  output: "ābʊ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ābʊ"
+  output: "ابو"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "اچها"
+  output: "āchā"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "āchā"
+  output: "اچها"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "اردو"
+  output: "ārdʊ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ārdʊ"
+  output: "اردو"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "اردوے"
+  output: "ārdʊy͟i"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ārdʊy͟i"
+  output: "اردوے"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "اسباب"
+  output: "āsbāb"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "āsbāb"
+  output: "اسباب"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "استانۀ"
+  output: "āstānə"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "āstānə"
+  output: "استانۀ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "اسکول"
+  output: "āsḱʊl"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "āsḱʊl"
+  output: "اسکول"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "الآداب"
+  output: "ālʼ͟ādāb"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ālʼ͟ādāb"
+  output: "الآداب"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "الرحمان"
+  output: "ālrḥmān"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ālrḥmān"
+  output: "الرحمان"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "الرحمن"
+  output: "ālrḥmn"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ālrḥmn"
+  output: "الرحمن"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "الرشید"
+  output: "ālrśīd"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ālrśīd"
+  output: "الرشید"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "السجل"
+  output: "ālsjl"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ālsjl"
+  output: "السجل"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "العزیز"
+  output: "ālʻzīz"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ālʻzīz"
+  output: "العزیز"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "الفضل"
+  output: "ālfẓl"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ālfẓl"
+  output: "الفضل"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "القران"
+  output: "ālqrān"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ālqrān"
+  output: "القران"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "القرنین"
+  output: "ālqrnīn"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ālqrnīn"
+  output: "القرنین"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "انگلستان"
+  output: "ānglstān"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ānglstān"
+  output: "انگلستان"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "اور"
+  output: "āʊr"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "āʊr"
+  output: "اور"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "اوس"
+  output: "āʊs"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "āʊs"
+  output: "اوس"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "اوّل"
+  output: "āʊːl"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "āʊːl"
+  output: "اوّل"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ایران"
+  output: "āīrān"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "āīrān"
+  output: "ایران"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ایوان"
+  output: "āīʊān"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "āīʊān"
+  output: "ایوان"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "باغ"
+  output: "bāg͟h"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "bāg͟h"
+  output: "باغ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "بچّه"
+  output: "bcːh"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "bcːh"
+  output: "بچّه"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "بزرگ"
+  output: "bzrg"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "bzrg"
+  output: "بزرگ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "بهائی"
+  output: "bhāy͟\'ī"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "bhāy͟\'ī"
+  output: "بهائی"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "بیل"
+  output: "bīl"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "bīl"
+  output: "بیل"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "پائین"
+  output: "pāy͟\'īn"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "pāy͟\'īn"
+  output: "پائین"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "پای"
+  output: "pāī"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "pāī"
+  output: "پای"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "پهول"
+  output: "phʊl"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "phʊl"
+  output: "پهول"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "تاریخ"
+  output: "tārīk͟h"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "tārīk͟h"
+  output: "تاریخ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "تصویر"
+  output: "tṣʊīr"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "tṣʊīr"
+  output: "تصویر"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "تو"
+  output: "tʊ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "tʊ"
+  output: "تو"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "جاڻ"
+  output: "jāṇ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "jāṇ"
+  output: "جاڻ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "جناب"
+  output: "jnāb"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "jnāb"
+  output: "جناب"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "جهاں"
+  output: "jhāṉ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "jhāṉ"
+  output: "جهاں"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "چچّا"
+  output: "ccːā"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ccːā"
+  output: "چچّا"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "چون"
+  output: "cʊn"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "cʊn"
+  output: "چون"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "حکمة"
+  output: "ḥḱmẗ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ḥḱmẗ"
+  output: "حکمة"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "حکمت"
+  output: "ḥḱmt"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ḥḱmt"
+  output: "حکمت"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "خانه"
+  output: "k͟hānh"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "k͟hānh"
+  output: "خانه"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "خانۀ"
+  output: "k͟hānə"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "k͟hānə"
+  output: "خانۀ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "خرّم"
+  output: "k͟hrːm"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "k͟hrːm"
+  output: "خرّم"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "خلفاء"
+  output: "k͟hlfāʼ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "k͟hlfāʼ"
+  output: "خلفاء"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "خواستن"
+  output: "k͟hʊāstn"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "k͟hʊāstn"
+  output: "خواستن"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "خود"
+  output: "k͟hʊd"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "k͟hʊd"
+  output: "خود"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "خويش"
+  output: "k͟hʊy̤ś"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "k͟hʊy̤ś"
+  output: "خويش"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "خیّام"
+  output: "k͟hīːām"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "k͟hīːām"
+  output: "خیّام"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "دانا"
+  output: "dānā"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "dānā"
+  output: "دانا"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "دریاآبادی"
+  output: "drīāʼ͟ābādī"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "drīāʼ͟ābādī"
+  output: "دریاآبادی"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "دریاے"
+  output: "drīāy͟i"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "drīāy͟i"
+  output: "دریاے"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "دعوىٰ"
+  output: "dʻʊyᵃ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "dʻʊyᵃ"
+  output: "دعوىٰ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "دوا"
+  output: "dʊā"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "dʊā"
+  output: "دوا"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "دور"
+  output: "dʊr"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "dʊr"
+  output: "دور"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "دوست"
+  output: "dʊst"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "dʊst"
+  output: "دوست"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ديو"
+  output: "dy̤ʊ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "dy̤ʊ"
+  output: "ديو"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "دیا"
+  output: "dīā"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "dīā"
+  output: "دیا"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ذو"
+  output: "ẕʊ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ẕʊ"
+  output: "ذو"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "راج"
+  output: "rāj"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "rāj"
+  output: "راج"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ری"
+  output: "rī"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "rī"
+  output: "ری"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "زبان"
+  output: "zbān"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "zbān"
+  output: "زبان"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "زکریّا"
+  output: "zḱrīːā"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "zḱrīːā"
+  output: "زکریّا"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "سرو"
+  output: "srʊ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "srʊ"
+  output: "سرو"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "سیاست"
+  output: "sīāst"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "sīāst"
+  output: "سیاست"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "سیاه"
+  output: "sīāh"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "sīāh"
+  output: "سیاه"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "سیّد"
+  output: "sīːd"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "sīːd"
+  output: "سیّد"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "سے"
+  output: "sy͟i"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "sy͟i"
+  output: "سے"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "شور"
+  output: "śʊr"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "śʊr"
+  output: "شور"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "شیر"
+  output: "śīr"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "śīr"
+  output: "شیر"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "صاحب"
+  output: "ṣāḥb"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ṣāḥb"
+  output: "صاحب"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "عبد"
+  output: "ʻbd"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ʻbd"
+  output: "عبد"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "عقبی"
+  output: "ʻqbī"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ʻqbī"
+  output: "عقبی"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "عملاً"
+  output: "ʻmlāa͟n"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ʻmlāa͟n"
+  output: "عملاً"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "فردوسی"
+  output: "frdʊsī"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "frdʊsī"
+  output: "فردوسی"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "فضل"
+  output: "fẓl"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "fẓl"
+  output: "فضل"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "فورًا"
+  output: "fʊra͟nā"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "fʊra͟nā"
+  output: "فورًا"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "قالئ"
+  output: "qāly͟\'"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "qāly͟\'"
+  output: "قالئ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "قالی"
+  output: "qālī"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "qālī"
+  output: "قالی"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "قرآن"
+  output: "qrʼ͟ān"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "qrʼ͟ān"
+  output: "قرآن"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "قُوّة"
+  output: "quʊːẗ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "quʊːẗ"
+  output: "قُوّة"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "قوّت"
+  output: "qʊːt"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "qʊːt"
+  output: "قوّت"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "قومی"
+  output: "qʊmī"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "qʊmī"
+  output: "قومی"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "قوّه"
+  output: "qʊːh"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "qʊːh"
+  output: "قوّه"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "کرنا"
+  output: "ḱrnā"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ḱrnā"
+  output: "کرنا"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "کلیة"
+  output: "ḱlīẗ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ḱlīẗ"
+  output: "کلیة"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "که"
+  output: "ḱh"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ḱh"
+  output: "که"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "کهٹّا"
+  output: "ḱhṭːā"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ḱhṭːā"
+  output: "کهٹّا"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "گاه"
+  output: "gāh"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "gāh"
+  output: "گاه"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "گردآورنده"
+  output: "grdʼ͟āʊrndh"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "grdʼ͟āʊrndh"
+  output: "گردآورنده"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "گلدسته"
+  output: "gldsth"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "gldsth"
+  output: "گلدسته"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "گورنمنٹ"
+  output: "gʊrnmnṭ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "gʊrnmnṭ"
+  output: "گورنمنٹ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "لئے"
+  output: "ly͟\'y͟i"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ly͟\'y͟i"
+  output: "لئے"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "لڑکے"
+  output: "lṛḱy͟i"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "lṛḱy͟i"
+  output: "لڑکے"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "مآثر"
+  output: "mʼ͟ās̱r"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "mʼ͟ās̱r"
+  output: "مآثر"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "مؤثر"
+  output: "mu͑s̱r"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "mu͑s̱r"
+  output: "مؤثر"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "مؤمن"
+  output: "mu͑mn"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "mu͑mn"
+  output: "مؤمن"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ماسٹر"
+  output: "māsṭr"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "māsṭr"
+  output: "ماسٹر"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "مال"
+  output: "māl"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "māl"
+  output: "مال"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "مرآت"
+  output: "mrʼ͟āt"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "mrʼ͟āt"
+  output: "مرآت"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "مصطفیَ"
+  output: "mṣt̤fīa"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "mṣt̤fīa"
+  output: "مصطفیَ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "معلی"
+  output: "mʻlī"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "mʻlī"
+  output: "معلی"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "مکهه"
+  output: "mḱhh"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "mḱhh"
+  output: "مکهه"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "مکّهی"
+  output: "mḱːhī"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "mḱːhī"
+  output: "مکّهی"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ملکۀ"
+  output: "mlḱə"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "mlḱə"
+  output: "ملکۀ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "میدان"
+  output: "mīdān"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "mīdān"
+  output: "میدان"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "نشریّات"
+  output: "nśrīːāt"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "nśrīːāt"
+  output: "نشریّات"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "نیوا"
+  output: "nīʊā"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "nīʊā"
+  output: "نیوا"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "هائی"
+  output: "hāy͟\'ī"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "hāy͟\'ī"
+  output: "هائی"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "هم"
+  output: "hm"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "hm"
+  output: "هم"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "هندوستان"
+  output: "hndʊstān"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "hndʊstān"
+  output: "هندوستان"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "هیڈ"
+  output: "hīḍ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "hīḍ"
+  output: "هیڈ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "هے"
+  output: "hy͟i"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "hy͟i"
+  output: "هے"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "وجود"
+  output: "ʊjʊd"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ʊjʊd"
+  output: "وجود"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ورزش"
+  output: "ʊrzś"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "ʊrzś"
+  output: "ورزش"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "یار"
+  output: "īār"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "īār"
+  output: "یار"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "فوریهٔ"
+  output: "fʊrīhʰ͗"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "fʊrīhʰ͗"
+  output: "فوریهٔ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "خطأ"
+  output: "k͟ht̤ʾa"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "k͟ht̤ʾa"
+  output: "خطأ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "نقطۂ"
+  output: "nqt̤ʾh̤"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "nqt̤ʾh̤"
+  output: "نقطۂ"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "حٷظخٜىٌ"
+  output: "ḥŮz̤k͟h̞yu͟n"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ننٲٜ"
+  output: "nnạ̞̄"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "هخؽٍ"
+  output: "hk͟hʎi͟n"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ٱلمُدَرِّسِ"
+  output: "ælmudariːsi"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "رحمةالله"
+  output: "rḥmẗāllh"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "عليه"
+  output: "ʻly̤h"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "قۭمتی"
+  output: "qᶯmtī"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "كٳم"
+  output: "kụ̄m"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "ئايكۈنگۈل"
+  output: "y͟\'āy̤küngül"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "y͟\'āy̤küngül"
+  output: "ئايكۈنگۈل"
+}
+rewrite {
+  rule: "FROM_ARAB"
+  input: "چھݨ"
+  output: "cʰṆ"
+}
+rewrite {
+  rule: "TO_ARAB"
+  input: "cʰṆ"
+  output: "چھݨ"
+}
+rewrite {
+  comment: "Real string from one Kashmiri scrape."
+  rule: "FROM_ARAB"
+  input: "قۭمتِیلاشمُشکِلسَخٕتسَخٕتخۄشٕک"
+  output: "qᶯmtiīlāśmuśḱilsak͟hʰ̹tsak͟hʰ̹tk͟họśʰ̹ḱ"
+}
