@@ -130,7 +130,8 @@ TEST(Utf8UtilTest, BreakingVsNonBreakingWhitespaceSplit) {
     const std::string input_text = "a" + no_delim + "b";
     const std::vector<absl::string_view> toks = absl::StrSplit(
         input_text, Utf8WhitespaceDelimiter(), absl::SkipEmpty());
-    ASSERT_EQ(1, toks.size()) << "Expected non-breaking char: " << u32_char;
+    ASSERT_EQ(1, toks.size()) << "Expected non-breaking char: " << std::hex
+                              << static_cast<uint32_t>(u32_char);
     EXPECT_EQ(toks[0], input_text);
   }
 
@@ -141,7 +142,8 @@ TEST(Utf8UtilTest, BreakingVsNonBreakingWhitespaceSplit) {
     const std::string input_text = "a" + delim + "b";
     const std::vector<absl::string_view> toks = absl::StrSplit(
         input_text, Utf8WhitespaceDelimiter(), absl::SkipEmpty());
-    ASSERT_EQ(2, toks.size()) << "Expected breaking char: " << u32_char;
+    ASSERT_EQ(2, toks.size()) << "Expected breaking char: " << std::hex
+                              << static_cast<uint32_t>(u32_char);
     EXPECT_EQ(toks[0], "a");
     EXPECT_EQ(toks[1], "b");
   }
