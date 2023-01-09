@@ -13,114 +13,47 @@
 # limitations under the License.
 
 # Lint as: python3
-"""Transliteration inventory.
+"""Latin inventory.
 
-tr is an internal representation of transliteration strings. A tr string has
-the same character sequence as the corresponding latin transliteration string
-enclosed in “ ”. This allows for keeping track of grapheme-transliteration
-alignments and disambiguates substrings.
-
-For example, the ambiguous string 'au' is represented using the tr symbols:
-
-'a' : “a”
-'u' : “u”
-'au': “au”
-
-An operation that changes the transliteration of the phoneme {au}
-from “au” to “o” only applies to “au” substrings and not “a”“u” sequences.
-
-Currently ltn only has tranliteration symbols as all existing grammars involving
-ltn are romanization grammars. When the source script is ltn the grammars will
-use ltn graphemes enclosed in < >.
+Currently only ASCII characters are used in grammars, therefore the typ and
+glyph of the Chars are identical.
 
 """
 
-from nisaba.scripts.natural_translit.utils import alignment as al
+import pynini as p
+from nisaba.scripts.natural_translit.script import char as c
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
-A = al.enclose_translit('a')
-AA = al.enclose_translit('aa')
-AE = al.enclose_translit('ae')
-B = al.enclose_translit('b')
-C = al.enclose_translit('c')
-CH = al.enclose_translit('ch')
-D = al.enclose_translit('d')
-E = al.enclose_translit('e')
-EE = al.enclose_translit('ee')
-F = al.enclose_translit('f')
-G = al.enclose_translit('g')
-H = al.enclose_translit('h')
-I = al.enclose_translit('i')
-II = al.enclose_translit('ii')
-J = al.enclose_translit('j')
-K = al.enclose_translit('k')
-KH = al.enclose_translit('kh')
-L = al.enclose_translit('l')
-M = al.enclose_translit('m')
-N = al.enclose_translit('n')
-NG = al.enclose_translit('ng')
-NY = al.enclose_translit('ny')
-O = al.enclose_translit('o')
-OO = al.enclose_translit('oo')
-P = al.enclose_translit('p')
-Q = al.enclose_translit('q')
-R = al.enclose_translit('r')
-RD = al.enclose_translit('rd')
-S = al.enclose_translit('s')
-SH = al.enclose_translit('sh')
-T = al.enclose_translit('t')
-TH = al.enclose_translit('th')
-U = al.enclose_translit('u')
-UU = al.enclose_translit('uu')
-V = al.enclose_translit('v')
-W = al.enclose_translit('w')
-X = al.enclose_translit('x')
-Y = al.enclose_translit('y')
-Z = al.enclose_translit('z')
-ZH = al.enclose_translit('zh')
-DEL = al.enclose_translit(al.EPSILON)
+# Latin script characters
 
-A_UPPER = al.enclose_translit('A')
-B_UPPER = al.enclose_translit('B')
-C_UPPER = al.enclose_translit('C')
-D_UPPER = al.enclose_translit('D')
-E_UPPER = al.enclose_translit('E')
-F_UPPER = al.enclose_translit('F')
-G_UPPER = al.enclose_translit('G')
-H_UPPER = al.enclose_translit('H')
-I_UPPER = al.enclose_translit('I')
-J_UPPER = al.enclose_translit('J')
-K_UPPER = al.enclose_translit('K')
-L_UPPER = al.enclose_translit('L')
-M_UPPER = al.enclose_translit('M')
-N_UPPER = al.enclose_translit('N')
-O_UPPER = al.enclose_translit('O')
-P_UPPER = al.enclose_translit('P')
-Q_UPPER = al.enclose_translit('Q')
-R_UPPER = al.enclose_translit('R')
-S_UPPER = al.enclose_translit('S')
-T_UPPER = al.enclose_translit('T')
-U_UPPER = al.enclose_translit('U')
-V_UPPER = al.enclose_translit('V')
-W_UPPER = al.enclose_translit('W')
-X_UPPER = al.enclose_translit('X')
-Y_UPPER = al.enclose_translit('Y')
-Z_UPPER = al.enclose_translit('Z')
 
-TRANSLIT_LOWER = ls.union_opt(
-    A, AA, AE, B, C, CH, D, E, EE,
-    F, G, H, I, II, J, K, KH, L, M,
-    N, NG, NY, O, OO, P, Q, R, RD, S, SH,
-    T, TH, U, UU, V, W, Y, Z, ZH)
+def make_ascii_char(glyph: str) -> c.Char:
+  return c.make_char(glyph, glyph)
 
-TRANSLIT_UPPER = ls.union_opt(
-    A_UPPER, B_UPPER, C_UPPER, D_UPPER, E_UPPER, F_UPPER, G_UPPER,
-    H_UPPER, I_UPPER, J_UPPER, K_UPPER, L_UPPER, M_UPPER, N_UPPER,
-    O_UPPER, P_UPPER, Q_UPPER, R_UPPER, S_UPPER, T_UPPER, U_UPPER,
-    V_UPPER, W_UPPER, X_UPPER, Y_UPPER, Z_UPPER)
 
-TRANSLIT = ls.union_opt(TRANSLIT_LOWER, TRANSLIT_UPPER)
+ASCII_CHAR = ls.apply_foreach(make_ascii_char, [
+    ['a'], ['b'], ['c'], ['d'], ['e'], ['f'], ['g'], ['h'], ['i'],
+    ['j'], ['k'], ['l'], ['m'], ['n'], ['o'], ['p'], ['q'], ['r'],
+    ['s'], ['t'], ['u'], ['v'], ['w'], ['x'], ['y'], ['z'],
+])
 
-TRANSLITS = ls.star_opt(TRANSLIT)
+ASCII_UC = c.uppercase_list(ASCII_CHAR)
 
-EN_LETTERS = ls.star_opt(TRANSLIT_UPPER)
+
+SUBSTRING = ls.apply_foreach(c.make_substring, [
+    ['aa'], ['ae'], ['ch'], ['ee'], ['ii'], ['kh'], ['ng'],
+    ['ny'], ['oo'], ['rd'], ['sh'], ['th'], ['uu'], ['zh'],
+])
+
+DEL = [c.make_char('', '', alias='DEL')]
+
+EN_LETTERS = c.store_tr_star('EN_LETTERS', ASCII_UC)
+
+CHARS = ASCII_CHAR + ASCII_UC + SUBSTRING + DEL
+TRANSLIT_INVENTORY = c.tr_inventory(CHARS, [EN_LETTERS])
+
+
+def print_only_ltn() -> p.Fst:
+  return c.print_only_glyph(CHARS)
+
+

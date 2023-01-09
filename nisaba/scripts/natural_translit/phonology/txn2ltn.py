@@ -14,18 +14,16 @@
 
 """txn pronunciation romanization."""
 
-from nisaba.scripts.natural_translit.latin import ltn_inventory as tr
+from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
-from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
-
-STRIP = rw.strip_right_side(al.TR_BOUND)
+tr = ltn.TRANSLIT_INVENTORY
 
 VOWEL_SHORT = ls.cross_union([
     [ph.A, tr.A],
-    [ph.AE, tr.AE],
+    [ph.AE, tr.S_AE],
     [ph.E, tr.E],
     [ph.EC, tr.A],
     [ph.I, tr.I],
@@ -36,11 +34,11 @@ VOWEL_SHORT = ls.cross_union([
 MAP_VOWEL_SHORT = rw.rewrite_op(VOWEL_SHORT)
 
 VOWEL_LONG = ls.cross_union([
-    [ph.A_L, tr.AA],
-    [ph.E_L, tr.EE],
-    [ph.I_L, tr.II],
-    [ph.O_L, tr.OO],
-    [ph.U_L, tr.UU],
+    [ph.A_L, tr.S_AA],
+    [ph.E_L, tr.S_EE],
+    [ph.I_L, tr.S_II],
+    [ph.O_L, tr.S_OO],
+    [ph.U_L, tr.S_UU],
 ])
 
 MAP_VOWEL_LONG = rw.rewrite_op(VOWEL_LONG)
@@ -57,41 +55,39 @@ MAP_VOWEL_IGNORE_LENGTH = rw.rewrite_op(VOWEL_IGNORE_LENGTH)
 
 AFFRICATE = ls.cross_union([
     [ph.DZH, tr.J],
-    [ph.TSH, tr.CH],
+    [ph.TSH, tr.S_CH],
 ])
 
 CONSONANT = ls.cross_union([
     [ph.B, tr.B],
-    [ph.TSH, tr.CH],
     [ph.DD, tr.D],
     [ph.DI, tr.D],
     [ph.F, tr.F],
     [ph.G, tr.G],
     [ph.H, tr.H],
-    [ph.DZH, tr.J],
     [ph.K, tr.K],
     [ph.L, tr.L],
     [ph.LL, tr.L],
     [ph.M, tr.M],
     [ph.N, tr.N],
-    [ph.NG, tr.NG],
+    [ph.NG, tr.S_NG],
     [ph.NI, tr.N],
     [ph.NN, tr.N],
-    [ph.NY, tr.NY],
+    [ph.NY, tr.S_NY],
     [ph.P, tr.P],
     [ph.Q, tr.K],
     [ph.R, tr.R],
-    [ph.RRT, tr.RD],
-    [ph.RRU, tr.ZH],
+    [ph.RRT, tr.S_RD],
+    [ph.RRU, tr.S_ZH],
     [ph.RT, tr.R],
     [ph.S, tr.S],
-    [ph.SH, tr.SH],
-    [ph.SS, tr.SH],
+    [ph.SH, tr.S_SH],
+    [ph.SS, tr.S_SH],
     [ph.T, tr.T],
     [ph.TI, tr.T],
     [ph.TT, tr.T],
     [ph.VU, tr.V],
-    [ph.KH, tr.KH],
+    [ph.KH, tr.S_KH],
     [ph.GH, tr.G],
     [ph.Y, tr.Y],
     [ph.Z, tr.Z],

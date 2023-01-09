@@ -36,6 +36,7 @@ nisaba_compile_multi_grm_py(
         "//nisaba/scripts/natural_translit/brahmic:iso2txn",
         "//nisaba/scripts/natural_translit/brahmic:iso2txn_ops",
         "//nisaba/scripts/natural_translit/brahmic/acronym:typ2acr",
+        "//nisaba/scripts/natural_translit/latin:ltn_inventory",
         "//nisaba/scripts/natural_translit/phonology:phoneme_inventory",
         "//nisaba/scripts/natural_translit/phonology:txn2ipa",
         "//nisaba/scripts/natural_translit/phonology:txn2ltn",

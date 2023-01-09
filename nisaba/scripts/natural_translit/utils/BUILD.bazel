@@ -27,6 +27,14 @@ py_library(
 )
 
 py_library(
+    name = "inventory",
+    srcs = ["inventory.py"],
+    deps = [
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
     name = "alignment",
     srcs = ["alignment.py"],
     deps = [

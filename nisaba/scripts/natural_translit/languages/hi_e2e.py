@@ -21,6 +21,7 @@ from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
 from nisaba.scripts.natural_translit.brahmic import iso2txn
 from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
 from nisaba.scripts.natural_translit.brahmic.acronym import typ2acr
+from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 from nisaba.scripts.natural_translit.phonology import txn2ipa
 from nisaba.scripts.natural_translit.phonology import txn2ltn
@@ -93,7 +94,7 @@ def iso_to_nat() -> p.Fst:
           iso2ltn_ops.CCH_TO_CHH @
           iso2ltn_ops.SSSS_TO_SSH @
           iso2ltn_ops.SHSH_TO_SSH @
-          txn2ltn.STRIP).optimize()
+          ltn.print_only_ltn()).optimize()
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):

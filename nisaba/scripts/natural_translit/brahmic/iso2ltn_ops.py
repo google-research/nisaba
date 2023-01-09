@@ -15,12 +15,15 @@
 """Romanization rules that depend on iso graphemes."""
 
 import pynini as p
-from nisaba.scripts.natural_translit.brahmic import iso_inventory as gr
-from nisaba.scripts.natural_translit.latin import ltn_inventory as tr
+from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
+from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 from nisaba.scripts.natural_translit.phonology import txn2ltn
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
+
+gr = iso.GRAPHEME_INVENTORY
+tr = ltn.TRANSLIT_INVENTORY
 
 ## Rules to apply before txn to ltn mappings
 
@@ -44,7 +47,7 @@ def _transliterate_vocalic(vcl_tr: p.FstLike) -> p.Fst:
   return rw.rewrite(
       ls.union_opt(ph.VOWEL, ph.SYL),
       vcl_tr,
-      gr.VOCALICS)
+      gr.VOCALIC)
 
 VOCALIC_TR_I = _transliterate_vocalic(tr.I)
 
@@ -52,7 +55,7 @@ VOCALIC_TR_I = _transliterate_vocalic(tr.I)
 AA_WI = rw.reassign_word_initial(
     gr.AA_I,
     ph.A_L,
-    tr.AA)
+    tr.S_AA)
 
 # Rules for two-letter geminates.
 # PSAC uses the most reduced form in every contexts.
@@ -60,34 +63,34 @@ AA_WI = rw.reassign_word_initial(
 # TODO: Generalise and compress this rule set.
 
 # <c><c> is "ch"
-CC_TO_CH = rw.reduce_repetition(gr.C, tr.CH)
+CC_TO_CH = rw.reduce_repetition(gr.C, tr.S_CH)
 
 # <c><c> is "cch"
-CC_TO_CCH = rw.reduce_repetition(gr.C, tr.CH, tr.C + tr.CH)
+CC_TO_CCH = rw.reduce_repetition(gr.C, tr.S_CH, tr.C + tr.S_CH)
 
 # <c><ch> is "ch"
 CCH_TO_CH = rw.merge(
-    gr.C, tr.CH,
-    gr.CH, tr.CH + tr.H,
-    tr.CH)
+    gr.C, tr.S_CH,
+    gr.CH, tr.S_CH + tr.H,
+    tr.S_CH)
 
 # <c><ch> is "chh"
 CCH_TO_CHH = rw.merge(
-    gr.C, tr.CH,
-    gr.CH, tr.CH + tr.H,
-    tr.CH + tr.H)
+    gr.C, tr.S_CH,
+    gr.CH, tr.S_CH + tr.H,
+    tr.S_CH + tr.H)
 
 # <ss><ss> is "sh"
-SSSS_TO_SH = rw.reduce_repetition(gr.SS, tr.SH)
+SSSS_TO_SH = rw.reduce_repetition(gr.SS, tr.S_SH)
 
 # <ss><ss> is "ssh"
-SSSS_TO_SSH = rw.reduce_repetition(gr.SS, tr.SH, tr.S + tr.SH)
+SSSS_TO_SSH = rw.reduce_repetition(gr.SS, tr.S_SH, tr.S + tr.S_SH)
 
 # <ss><ss> is "sh"
-SHSH_TO_SH = rw.reduce_repetition(gr.SH, tr.SH)
+SHSH_TO_SH = rw.reduce_repetition(gr.SH, tr.S_SH)
 
 # <ss><ss> is "ssh"
-SHSH_TO_SSH = rw.reduce_repetition(gr.SH, tr.SH, tr.S + tr.SH)
+SHSH_TO_SSH = rw.reduce_repetition(gr.SH, tr.S_SH, tr.S + tr.S_SH)
 
 # Converts txn to PSAF and outputs only translit strings.
 
@@ -103,7 +106,7 @@ TXN_TO_PSA_COMMON = (
 TXN_TO_PSAF = (
     TXN_TO_PSA_COMMON @
     txn2ltn.MAP_VOWEL_LONG @
-    txn2ltn.STRIP
+    ltn.print_only_ltn()
     ).optimize()
 
 # Converts txn to PSAC and outputs only translit strings.
@@ -113,4 +116,4 @@ TXN_TO_PSAC = (TXN_TO_PSA_COMMON @
                CCH_TO_CH @
                SSSS_TO_SH @
                SHSH_TO_SH @
-               txn2ltn.STRIP).optimize()
+               ltn.print_only_ltn()).optimize()
