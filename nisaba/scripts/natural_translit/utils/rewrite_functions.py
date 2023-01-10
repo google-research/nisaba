@@ -15,22 +15,22 @@
 # Lint as: python3
 """Common rewrite functions."""
 
-import pynini as p
+import pynini as pyn
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
 
 def rewrite_op(
-    operation: p.Fst,
-    preceding: p.FstLike = al.EPSILON,
-    following: p.FstLike = al.EPSILON) -> p.Fst:
+    operation: pyn.Fst,
+    preceding: pyn.FstLike = al.EPSILON,
+    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """A rewrite fst that uses a predefined operation as input.
 
   If the context is specified, adds SKIP sequence to look at the adjacent
   alignments.
 
   Args:
-    operation: An operation that yields p.cross() functions.
+    operation: An operation that yields pyn.cross() functions.
     preceding: Preceding context.
     following: Following context.
 
@@ -43,10 +43,10 @@ def rewrite_op(
   ```
   will return:
   ```
-  p.cdrewrite(
-      p.union(..., p.cross('{ti}', '{di}'), ...),
-      p.union('{a}', '{a}{nsl}', '{a}{glide}', '{e}', '{e}{nsl}'...),
-      p.union('{a}', '{a}{nsl}', '{a}{glide}', '{e}', '{e}{nsl}'...),
+  pyn.cdrewrite(
+      pyn.union(..., pyn.cross('{ti}', '{di}'), ...),
+      pyn.union('{a}', '{a}{nsl}', '{a}{glide}', '{e}', '{e}{nsl}'...),
+      pyn.union('{a}', '{a}{nsl}', '{a}{glide}', '{e}', '{e}{nsl}'...),
       al.BYTE_STAR)
   ```
   """
@@ -56,7 +56,7 @@ def rewrite_op(
     preceding_context = preceding + al.SKIP
   if following is not al.EPSILON:
     following_context = al.SKIP + following
-  return p.cdrewrite(
+  return pyn.cdrewrite(
       operation,
       preceding_context,
       following_context,
@@ -64,21 +64,21 @@ def rewrite_op(
 
 
 def rewrite(
-    old: p.FstLike,
-    new: p.FstLike,
-    preceding: p.FstLike = al.EPSILON,
-    following: p.FstLike = al.EPSILON) -> p.Fst:
-  """Rewrite operation where the operation is a single p.cross."""
+    old: pyn.FstLike,
+    new: pyn.FstLike,
+    preceding: pyn.FstLike = al.EPSILON,
+    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
+  """Rewrite operation where the operation is a single pyn.cross."""
   return rewrite_op(
-      p.cross(old, new),
+      pyn.cross(old, new),
       preceding,
       following)
 
 
 def rewrite_word_initial(
-    old: p.FstLike,
-    new: p.FstLike,
-    following: p.FstLike = al.EPSILON) -> p.Fst:
+    old: pyn.FstLike,
+    new: pyn.FstLike,
+    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Rewrites with preceding = beginning of word."""
   return rewrite(
       old,
@@ -88,9 +88,9 @@ def rewrite_word_initial(
 
 
 def rewrite_word_final(
-    old: p.FstLike,
-    new: p.FstLike,
-    preceding: p.FstLike = al.EPSILON) -> p.Fst:
+    old: pyn.FstLike,
+    new: pyn.FstLike,
+    preceding: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Rewrites with following = beginning of word."""
   return rewrite(
       old,
@@ -100,11 +100,11 @@ def rewrite_word_final(
 
 
 def reassign(
-    left_side: p.FstLike,
-    old: p.FstLike,
-    new: p.FstLike,
-    preceding: p.FstLike = al.EPSILON,
-    following: p.FstLike = al.EPSILON) -> p.Fst:
+    left_side: pyn.FstLike,
+    old: pyn.FstLike,
+    new: pyn.FstLike,
+    preceding: pyn.FstLike = al.EPSILON,
+    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Changes the right side assignment of a specified left side.
 
   Args:
@@ -127,10 +127,10 @@ def reassign(
   ```
   will return:
   ```
-  p.cdrewrite(
-      p.cross('<ans>{nsl}', '<ans>{m}'),
+  pyn.cdrewrite(
+      pyn.cross('<ans>{nsl}', '<ans>{m}'),
       '',
-      p.union('{m}', 'gr.GRAPHEMES{m}', ...),,
+      pyn.union('{m}', 'gr.GRAPHEMES{m}', ...),,
       al.BYTE_STAR))
   ```
   """
@@ -141,10 +141,10 @@ def reassign(
 
 
 def reassign_word_initial(
-    left_side: p.FstLike,
-    old: p.FstLike,
-    new: p.FstLike,
-    following: p.FstLike = al.EPSILON) -> p.Fst:
+    left_side: pyn.FstLike,
+    old: pyn.FstLike,
+    new: pyn.FstLike,
+    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Reassigns with preceding = beginning of word."""
   return reassign(
       left_side,
@@ -155,10 +155,10 @@ def reassign_word_initial(
 
 
 def reassign_word_final(
-    left_side: p.FstLike,
-    old: p.FstLike,
-    new: p.FstLike,
-    preceding: p.FstLike = al.EPSILON) -> p.Fst:
+    left_side: pyn.FstLike,
+    old: pyn.FstLike,
+    new: pyn.FstLike,
+    preceding: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Reassigns with following = beginning of word."""
   return reassign(
       left_side,
@@ -169,12 +169,12 @@ def reassign_word_final(
 
 
 def reassign_adjacent_alignments(
-    left_1: p.FstLike,
-    old_right_1: p.FstLike,
-    new_right_1: p.FstLike,
-    left_2: p.FstLike,
-    old_right_2: p.FstLike,
-    new_right_2: p.FstLike) -> p.Fst:
+    left_1: pyn.FstLike,
+    old_right_1: pyn.FstLike,
+    new_right_1: pyn.FstLike,
+    left_2: pyn.FstLike,
+    old_right_2: pyn.FstLike,
+    new_right_2: pyn.FstLike) -> pyn.Fst:
   """Assigns new right sides to two adjacent alignments.
 
   Args:
@@ -196,8 +196,8 @@ def reassign_adjacent_alignments(
   ```
   will return:
   ```
-  p.cdrewrite(
-      p.cross('<j>={jh}<ny>={ny}', '<j>={g}<ny>={y}'),
+  pyn.cdrewrite(
+      pyn.cross('<j>={jh}<ny>={ny}', '<j>={g}<ny>={y}'),
       '',
       '',
       al.BYTE_STAR)).optimize()
@@ -209,11 +209,11 @@ def reassign_adjacent_alignments(
 
 
 def merge(
-    left_1: p.FstLike,
-    right_1: p.FstLike,
-    left_2: p.FstLike,
-    right_2: p.FstLike,
-    new_right: p.FstLike = al.EPSILON) -> p.Fst:
+    left_1: pyn.FstLike,
+    right_1: pyn.FstLike,
+    left_2: pyn.FstLike,
+    right_2: pyn.FstLike,
+    new_right: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Merge and optionally assign a new right side to two alignments.
 
   Args:
@@ -235,8 +235,8 @@ def merge(
   ```
   will return:
   ```
-  p.cdrewrite(
-      p.cross('<c>="ch"<ch>="ch""h"', '<c><ch>="ch""h"'),
+  pyn.cdrewrite(
+      pyn.cross('<c>="ch"<ch>="ch""h"', '<c><ch>="ch""h"'),
       '',
       '',
       al.BYTE_STAR)).optimize()
@@ -252,9 +252,9 @@ def merge(
 
 
 def reduce_repetition(
-    left: p.FstLike,
-    right: p.FstLike,
-    new_right: p.FstLike = al.EPSILON) -> p.Fst:
+    left: pyn.FstLike,
+    right: pyn.FstLike,
+    new_right: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Merges repeated alignments and reduces or changes the right side."""
   right_side = new_right
   if right_side == al.EPSILON:
@@ -263,9 +263,9 @@ def reduce_repetition(
 
 
 def delete(
-    syms: p.FstLike,
-    preceding: p.FstLike = al.EPSILON,
-    following: p.FstLike = al.EPSILON) -> p.Fst:
+    syms: pyn.FstLike,
+    preceding: pyn.FstLike = al.EPSILON,
+    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Deletes symbols."""
   return rewrite(
       syms,
@@ -278,7 +278,7 @@ def delete(
 EXTRACT_RIGHT_SIDE = delete(ls.union_opt(al.GRAPHEMES, al.ALIGN_SIGN))
 
 
-def strip_right_side(syms: p.FstLike) -> p.Fst:
+def strip_right_side(syms: pyn.FstLike) -> pyn.Fst:
   """Removes graphemes and right side boundaries and returns output string."""
   return (EXTRACT_RIGHT_SIDE @
           delete(syms)

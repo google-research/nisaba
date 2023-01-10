@@ -176,10 +176,10 @@ End-to-end grammars compose the relevant fsts from grammars and pass arguments t
 
 ```
 _VOICING = ops.voicing(
-    p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),  # Preceding context
+    pyn.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),  # Preceding context
     rw.concat_r(
         ph.ASP.ques,
-        p.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT)).optimize())  # Following context
+        pyn.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT)).optimize())  # Following context
 ```
 
 Natural transliteration, which aims to capture the romanization of the source language by the users, is composed in the end to end grammar of the specific language. For example, the users of a language might prefer to use a long aa at the beginning of a word, but shorten it in other positions.

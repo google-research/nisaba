@@ -14,13 +14,13 @@
 
 """Multilingual phonological operations."""
 
-import pynini as p
+import pynini as pyn
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 from nisaba.scripts.natural_translit.utils import concat as cc
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
 
-def legal_onset(onset_cl: p.FstLike) -> p.Fst:
+def legal_onset(onset_cl: pyn.FstLike) -> pyn.Fst:
   """Legal onset.
 
   A syllable can start with a consonant, a permitted consonant cluster followed
@@ -39,7 +39,7 @@ def legal_onset(onset_cl: p.FstLike) -> p.Fst:
   ```
   will return:
   ```
-  p.union(
+  pyn.union(
       '{b}{a}',
       '{b}gr.GRAPHEMES{a}',
       ...
@@ -53,7 +53,7 @@ def legal_onset(onset_cl: p.FstLike) -> p.Fst:
   return cc.concat_r(ls.union_opt(ph.CONSONANT, onset_cl), ph.VOWEL)
 
 
-def legal_coda(coda_cl: p.FstLike) -> p.Fst:
+def legal_coda(coda_cl: pyn.FstLike) -> pyn.Fst:
   """Legal coda.
 
   A syllable can end with a just a vowel, or a vowel followed by a consonant or
@@ -71,7 +71,7 @@ def legal_coda(coda_cl: p.FstLike) -> p.Fst:
   ```
   will return:
   ```
-  p.union(
+  pyn.union(
       '{a}',
       '{a_l}',
       ...

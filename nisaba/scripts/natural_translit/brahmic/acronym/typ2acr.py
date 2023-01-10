@@ -14,7 +14,7 @@
 
 """ISO to acronym conversion."""
 
-import pynini as p
+import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.utils import alignment as al
@@ -25,7 +25,7 @@ gr = iso.GRAPHEME_INVENTORY
 tr = ltn.TRANSLIT_INVENTORY
 
 
-def _letter(graphemes: [p.Fst]) -> p.Fst:
+def _letter(graphemes: [pyn.Fst]) -> pyn.Fst:
   """Concatenate graphemes ignoring the right side of the alignments."""
   spelling = al.EPSILON
   for grapheme in graphemes:

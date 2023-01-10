@@ -15,7 +15,7 @@
 """Char building functions."""
 
 import collections
-import pynini as p
+import pynini as pyn
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import list_op as ls
@@ -28,9 +28,9 @@ Char = collections.namedtuple(
 def make_char(
     typ: str,
     glyph: str,
-    ph: p.Fst = al.EPSILON,
+    ph: pyn.Fst = al.EPSILON,
     alias: str = al.EMPTY_STR,
-    cmp: p.Fst = None) -> Char:
+    cmp: pyn.Fst = None) -> Char:
   """Makes a Char with the default alias typ in uppercase.
 
   Args:
@@ -87,7 +87,7 @@ def make_substring(substring: str) -> Char:
 def make_composite_char(
     chars: [Char],
     typ: str,
-    ph: p.Fst = al.EPSILON,
+    ph: pyn.Fst = al.EPSILON,
     alias: str = al.EMPTY_STR) -> Char:
   """Makes a new Char from a list of Chars and keeps their grs in the cmp.
 
@@ -117,7 +117,7 @@ def make_composite_char(
   return make_char(typ, glyph, ph, alias, gr)
 
 
-def compose_from_gr(char_list: [Char]) -> p.Fst:
+def compose_from_gr(char_list: [Char]) -> pyn.Fst:
   """Composes a list of Chars from the graphemes of their components.
 
   Args:
@@ -132,25 +132,25 @@ def compose_from_gr(char_list: [Char]) -> p.Fst:
   ```
   will return:
   ```
-  p.cdrewrite(
-      p.union(
-          p.cross('<l><vcl>', '<l_vcl>'),
-          p.cross('<r><vcl>', '<r_vcl>')
+  pyn.cdrewrite(
+      pyn.union(
+          pyn.cross('<l><vcl>', '<l_vcl>'),
+          pyn.cross('<r><vcl>', '<r_vcl>')
       )
   )
   ```
   """
-  cross_list = [p.cross(char.cmp, char.gr) for char in char_list]
+  cross_list = [pyn.cross(char.cmp, char.gr) for char in char_list]
   return rw.rewrite_op(ls.union_opt(*cross_list))
 
 # Functions for listing the .gr or .tr fields of a list of Chars.
 
 
-def gr_list(char_list: [Char]) -> [p.Fst]:
+def gr_list(char_list: [Char]) -> [pyn.Fst]:
   return [char.gr for char in char_list]
 
 
-def tr_list(char_list: [Char]) -> [p.Fst]:
+def tr_list(char_list: [Char]) -> [pyn.Fst]:
   return [char.tr for char in char_list]
 
 # Functions for storing lists of fields for functions like
@@ -209,15 +209,15 @@ def tr_inventory(
 # Functions for reading and printing glyphs
 
 
-def read_glyph(char_list: [Char]) -> p.Fst:
-  glyph_to_gr = [p.cross(char.glyph, char.gr) for char in char_list]
+def read_glyph(char_list: [Char]) -> pyn.Fst:
+  glyph_to_gr = [pyn.cross(char.glyph, char.gr) for char in char_list]
   return ls.union_star(*glyph_to_gr)
 
 
-def print_glyph(char_list: [Char]) -> p.Fst:
-  tr_to_glyph = [p.cross(char.tr, char.glyph) for char in char_list]
+def print_glyph(char_list: [Char]) -> pyn.Fst:
+  tr_to_glyph = [pyn.cross(char.tr, char.glyph) for char in char_list]
   return ls.union_star(*tr_to_glyph)
 
 
-def print_only_glyph(char_list: [Char]) -> p.Fst:
+def print_only_glyph(char_list: [Char]) -> pyn.Fst:
   return (rw.EXTRACT_RIGHT_SIDE @ print_glyph(char_list)).optimize()

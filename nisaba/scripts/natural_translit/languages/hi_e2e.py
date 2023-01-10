@@ -15,7 +15,7 @@
 # Lint as: python3
 """End-to-end natural transliteration for Hindi."""
 
-import pynini as p
+import pynini as pyn
 from pynini.export import multi_grm
 from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
 from nisaba.scripts.natural_translit.brahmic import iso2txn
@@ -61,27 +61,27 @@ _TXN_OPS = (
 ).optimize()
 
 
-def _iso_to_txn() -> p.Fst:
+def _iso_to_txn() -> pyn.Fst:
   """Composes the fsts from ISO characters to final txn pronunciation."""
   return (iso2txn.iso_to_txn() @ _TXN_OPS).optimize()
 
 
-def iso_to_psaf() -> p.Fst:
+def iso_to_psaf() -> pyn.Fst:
   """Pan-South Asian fine grained transliteration."""
   return (_iso_to_txn() @ iso2ltn_ops.TXN_TO_PSAF).optimize()
 
 
-def iso_to_psac() -> p.Fst:
+def iso_to_psac() -> pyn.Fst:
   """Pan-South Asian coarse grained transliteration."""
   return (_iso_to_txn() @ iso2ltn_ops.TXN_TO_PSAC).optimize()
 
 
-def iso_to_ipa() -> p.Fst:
+def iso_to_ipa() -> pyn.Fst:
   """Pronunciation in IPA."""
   return (_iso_to_txn() @ txn2ipa.txn_to_ipa()).optimize()
 
 
-def iso_to_nat() -> p.Fst:
+def iso_to_nat() -> pyn.Fst:
   """Natural transliteration."""
   return (iso2txn.iso_to_txn() @
           typ2acr.HI_ACR_TYP_TO_TR @
@@ -100,7 +100,7 @@ def iso_to_nat() -> p.Fst:
 def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generates FAR for natural transliteration."""
   for token_type in ('byte', 'utf8'):
-    with p.default_token_type(token_type):
+    with pyn.default_token_type(token_type):
 
       exporter = exporter_map[token_type]
       exporter['ISO_TO_PSAF'] = iso_to_psaf()

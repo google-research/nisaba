@@ -34,12 +34,12 @@
 
 import collections
 from typing import Union, List
-import pynini as p
+import pynini as pyn
 
 Store = collections.namedtuple(
     'Store', ['alias', 'content'])
 
-Storable = Union[collections.namedtuple, List, p.FstLike]
+Storable = Union[collections.namedtuple, List, pyn.FstLike]
 
 
 def store_as(

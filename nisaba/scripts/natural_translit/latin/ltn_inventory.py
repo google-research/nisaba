@@ -20,7 +20,7 @@ glyph of the Chars are identical.
 
 """
 
-import pynini as p
+import pynini as pyn
 from nisaba.scripts.natural_translit.script import char as c
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
@@ -53,7 +53,7 @@ CHARS = ASCII_CHAR + ASCII_UC + SUBSTRING + DEL
 TRANSLIT_INVENTORY = c.tr_inventory(CHARS, [EN_LETTERS])
 
 
-def print_only_ltn() -> p.Fst:
+def print_only_ltn() -> pyn.Fst:
   return c.print_only_glyph(CHARS)
 
 

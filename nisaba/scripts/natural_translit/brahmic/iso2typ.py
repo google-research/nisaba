@@ -14,7 +14,7 @@
 
 """ISO to typeable string conversion."""
 
-import pynini as p
+import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
 from nisaba.scripts.natural_translit.script import char as c
 from nisaba.scripts.natural_translit.utils import alignment as al
@@ -23,7 +23,7 @@ from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 gr = iso.GRAPHEME_INVENTORY
 
 
-def _iso_to_decomposed_typ() -> p.Fst:
+def _iso_to_decomposed_typ() -> pyn.Fst:
   """ISO to typable fst."""
   return c.read_glyph(iso.SINGLE_POINT)
 
@@ -54,5 +54,5 @@ _COMPOSE_TYP = (
 ).optimize()
 
 
-def iso_to_typ() -> p.Fst:
+def iso_to_typ() -> pyn.Fst:
   return (_iso_to_decomposed_typ() @ _COMPOSE_TYP).optimize()

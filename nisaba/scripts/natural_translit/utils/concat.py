@@ -15,13 +15,13 @@
 # Lint as: python3
 """Common rewrite functions."""
 
-import pynini as p
+import pynini as pyn
 from nisaba.scripts.natural_translit.utils import alignment as al
 
 
 def concat_r(
-    right_1: p.FstLike,
-    right_2: p.FstLike) -> p.Fst:
+    right_1: pyn.FstLike,
+    right_2: pyn.FstLike) -> pyn.Fst:
   """Concatanate right side symbols across multiple alignments.
 
   Current number of args is 2, but will be increased as needed.
@@ -39,7 +39,7 @@ def concat_r(
   ```
   will return:
   ```
-  p.union(
+  pyn.union(
       '{a}{b}',
       '{a}gr.GRAPHEMES{b}',
       ...
@@ -50,8 +50,8 @@ def concat_r(
 
 
 def concat_l(
-    left_1: p.FstLike,
-    left_2: p.FstLike) -> p.Fst:
+    left_1: pyn.FstLike,
+    left_2: pyn.FstLike) -> pyn.Fst:
   """Concatanate left side symbols across multiple alignments.
 
   Current number of args is 2, but will be increased as needed.
@@ -69,7 +69,7 @@ def concat_l(
   ```
   will return:
   ```
-  p.union(
+  pyn.union(
       '<a><b>',
       '<a>ph.PHONEMES<b>',
       ...

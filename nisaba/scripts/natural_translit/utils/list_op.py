@@ -16,28 +16,28 @@
 """Common constants and symbol and alignment forming functions."""
 
 from typing import Callable, List, Tuple
-import pynini as p
+import pynini as pyn
 
 # Shorthands for optimized union and star.
 
 
-def star_opt(fst: p.Fst) -> p.Fst:
+def star_opt(fst: pyn.Fst) -> pyn.Fst:
   return fst.star.optimize()
 
 
-def union_opt(*fsts) -> p.Fst:
-  return p.union(*fsts).optimize()
+def union_opt(*fsts) -> pyn.Fst:
+  return pyn.union(*fsts).optimize()
 
 
-def union_star(*fsts) -> p.Fst:
-  return star_opt(p.union(*fsts))
+def union_star(*fsts) -> pyn.Fst:
+  return star_opt(pyn.union(*fsts))
 
 # List, union_of and star over functions and argument lists.
 
 
 def apply_foreach(
-    func, arg_list: Tuple[Callable[[], p.Fst], List[List[p.Fst]]]
-    ) -> List[p.Fst]:
+    func, arg_list: Tuple[Callable[[], pyn.Fst], List[List[pyn.Fst]]]
+    ) -> List[pyn.Fst]:
   """Lists the returns of a function from a list of arguments.
 
   Args:
@@ -68,27 +68,27 @@ def apply_foreach(
 
 
 def apply_union(
-    func, arg_list: Tuple[Callable[[], p.Fst], List[List[p.Fst]]]
-    ) -> p.Fst:
+    func, arg_list: Tuple[Callable[[], pyn.Fst], List[List[pyn.Fst]]]
+    ) -> pyn.Fst:
   return union_opt(*apply_foreach(func, arg_list))
 
 
 def apply_union_star(
-    func, arg_list: Tuple[Callable[[], p.Fst], List[List[p.Fst]]]
-    ) -> p.Fst:
+    func, arg_list: Tuple[Callable[[], pyn.Fst], List[List[pyn.Fst]]]
+    ) -> pyn.Fst:
   return star_opt(apply_union(func, arg_list))
 
-# Special cases where the function is a simple p.cross(old, new)
+# Special cases where the function is a simple pyn.cross(old, new)
 
 
 def cross_union(
-    arg_list: List[Tuple[p.Fst, p.Fst]]
-    ) -> p.Fst:
-  """Shorthand for p.union(p.cross(x, y), p.cross(y, z),...)"""
-  return union_opt(*apply_foreach(p.cross, arg_list))
+    arg_list: List[Tuple[pyn.Fst, pyn.Fst]]
+    ) -> pyn.Fst:
+  """Shorthand for pyn.union(pyn.cross(x, y), pyn.cross(y, z),...)"""
+  return union_opt(*apply_foreach(pyn.cross, arg_list))
 
 
 def cross_union_star(
-    arg_list: List[Tuple[p.Fst, p.Fst]]
-    ) -> p.Fst:
+    arg_list: List[Tuple[pyn.Fst, pyn.Fst]]
+    ) -> pyn.Fst:
   return star_opt(cross_union(arg_list))

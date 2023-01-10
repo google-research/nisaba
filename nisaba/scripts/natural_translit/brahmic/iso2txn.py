@@ -14,7 +14,7 @@
 
 """South Asian multilingual phoneme assignment."""
 
-import pynini as p
+import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import iso2typ
 from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
 from nisaba.scripts.natural_translit.utils import alignment as al
@@ -23,6 +23,6 @@ from nisaba.scripts.natural_translit.utils import list_op as ls
 TYP_TO_TXN = ls.union_star(*[al.assign(char.gr, char.ph) for char in iso.CHAR])
 
 
-def iso_to_txn() -> p.Fst:
+def iso_to_txn() -> pyn.Fst:
   """ISO graphemes to txn pronunciation."""
   return (iso2typ.iso_to_typ() @ TYP_TO_TXN).optimize()

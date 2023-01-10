@@ -14,7 +14,7 @@
 
 """Romanization rules that depend on iso graphemes."""
 
-import pynini as p
+import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
@@ -42,7 +42,7 @@ _NON_LABIAL_ANUSVARA = rw.reassign(
     tr.N)
 
 
-def _transliterate_vocalic(vcl_tr: p.FstLike) -> p.Fst:
+def _transliterate_vocalic(vcl_tr: pyn.FstLike) -> pyn.Fst:
   """Transliterates all vowels in vocalics as vcl_tr."""
   return rw.rewrite(
       ls.union_opt(ph.VOWEL, ph.SYL),

@@ -14,7 +14,7 @@
 
 """Multilingual phonological operations."""
 
-import pynini as p
+import pynini as pyn
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
@@ -32,8 +32,8 @@ VOICING_OP = ls.cross_union([
 
 
 def voicing(
-    preceding: p.FstLike,
-    following: p.FstLike) -> p.Fst:
+    preceding: pyn.FstLike,
+    following: pyn.FstLike) -> pyn.Fst:
   """Voicing. See rewrite_by_operation for argument details."""
   return rw.rewrite_op(
       VOICING_OP,

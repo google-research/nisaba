@@ -15,7 +15,7 @@
 # Lint as: python3
 """Alignment forming functions and constants."""
 
-import pynini as p
+import pynini as pyn
 from pynini.lib import byte
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
@@ -41,69 +41,69 @@ EQUAL = '='
 
 # Acceptors
 
-BOS = p.accep(BOS_STR)
-EOS = p.accep(EOS_STR)
-EPSILON = p.accep(EMPTY_STR)
-AFFIX = p.accep(UNDERSCORE)
-COMBINE = p.accep(PLUS)
-GR_L = p.accep(LESS_THAN)  # Grapheme left boundary
-GR_R = p.accep(GREATER_THAN)  # Grapheme right boundary
+BOS = pyn.accep(BOS_STR)
+EOS = pyn.accep(EOS_STR)
+EPSILON = pyn.accep(EMPTY_STR)
+AFFIX = pyn.accep(UNDERSCORE)
+COMBINE = pyn.accep(PLUS)
+GR_L = pyn.accep(LESS_THAN)  # Grapheme left boundary
+GR_R = pyn.accep(GREATER_THAN)  # Grapheme right boundary
 GR_B = [GR_L, GR_R]
 GR_BOUND = ls.union_opt(*GR_B)
-PH_L = p.accep(CURLY_L)  # Phoneme left boundary
-PH_R = p.accep(CURLY_R)  # Phoneme right boundary
+PH_L = pyn.accep(CURLY_L)  # Phoneme left boundary
+PH_R = pyn.accep(CURLY_R)  # Phoneme right boundary
 PH_B = [PH_L, PH_R]
 PH_BOUND = ls.union_opt(*PH_B)
-TR_L = p.accep(DBL_QUOTE_L)  # Translit left boundary
-TR_R = p.accep(DBL_QUOTE_R)  # Translit right boundary
+TR_L = pyn.accep(DBL_QUOTE_L)  # Translit left boundary
+TR_R = pyn.accep(DBL_QUOTE_R)  # Translit right boundary
 TR_B = [TR_L, TR_R]
 TR_BOUND = ls.union_opt(*TR_B)
-ALIGN_SIGN = p.accep(EQUAL)  # Substring alignment
+ALIGN_SIGN = pyn.accep(EQUAL)  # Substring alignment
 
 # Functions
 
 
 def _enclose(
-    base: p.FstLike,
-    left_boundary: p.FstLike,
-    right_boundary: p.FstLike) -> p.Fst:
+    base: pyn.FstLike,
+    left_boundary: pyn.FstLike,
+    right_boundary: pyn.FstLike) -> pyn.Fst:
   """Encloses a string with the boundary symbols of the relevant type."""
   return left_boundary + base + right_boundary
 
 
-def enclose_grapheme(base: p.FstLike) -> p.Fst:
+def enclose_grapheme(base: pyn.FstLike) -> pyn.Fst:
   """Encloses a string with grapheme boundaries."""
   return _enclose(base, *GR_B)
 
 
-def enclose_phoneme(base: p.FstLike) -> p.Fst:
+def enclose_phoneme(base: pyn.FstLike) -> pyn.Fst:
   """Encloses a string with phoneme boundaries."""
   return _enclose(base, *PH_B)
 
 
-def enclose_translit(base: p.FstLike) -> p.Fst:
+def enclose_translit(base: pyn.FstLike) -> pyn.Fst:
   """Encloses a string with translit boundaries."""
   return _enclose(base, *TR_B)
 
 
-def align(left_side: p.FstLike, right_side: p.FstLike) -> p.Fst:
+def align(left_side: pyn.FstLike, right_side: pyn.FstLike) -> pyn.Fst:
   """Alignment structure (left_side=right_side)."""
   return left_side + ALIGN_SIGN + right_side
 
 
 def realign(
-    left_side: p.FstLike,
-    old: p.FstLike,
-    new: p.FstLike) -> p.Fst:
+    left_side: pyn.FstLike,
+    old: pyn.FstLike,
+    new: pyn.FstLike) -> pyn.Fst:
   """Changes the right side assignment of a specified left side."""
-  return p.cross(
+  return pyn.cross(
       align(left_side, old),
       align(left_side, new))
 
 
-def assign(left_side: p.FstLike, right_side: p.FstLike) -> p.Fst:
+def assign(left_side: pyn.FstLike, right_side: pyn.FstLike) -> pyn.Fst:
   """Takes left side, returns an alignment of left and right sides."""
-  return p.cross(left_side, align(left_side, right_side))
+  return pyn.cross(left_side, align(left_side, right_side))
 
 SYM = ls.union_star(byte.ALPHA, AFFIX, COMBINE)
 GRAPHEME = enclose_grapheme(SYM)

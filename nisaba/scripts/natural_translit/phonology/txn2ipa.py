@@ -14,13 +14,13 @@
 
 """IPA pronunciation output."""
 
-import pynini as p
+import pynini as pyn
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 
-def _rewrite_txn_to_ipa() -> p.Fst:
+def _rewrite_txn_to_ipa() -> pyn.Fst:
   """Internal txn representation to IPA output."""
   return ls.cross_union_star([
       [ph.A, ph.A_IPA],
@@ -83,7 +83,7 @@ def _rewrite_txn_to_ipa() -> p.Fst:
   ])
 
 
-def txn_to_ipa() -> p.Fst:
+def txn_to_ipa() -> pyn.Fst:
   """Converts txn to IPA and outputs only transcription strings."""
   return (rw.EXTRACT_RIGHT_SIDE @
           _rewrite_txn_to_ipa()).optimize()
