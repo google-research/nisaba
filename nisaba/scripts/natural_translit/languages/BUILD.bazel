@@ -15,7 +15,7 @@
 load(
     "//nisaba/scripts/utils:grammars.bzl",
     "nisaba_compile_multi_grm_py",
-    "nisaba_grm_regression_test",
+    "nisaba_grm_textproto_test",
 )
 
 package(default_visibility = [
@@ -46,18 +46,6 @@ nisaba_compile_multi_grm_py(
     ],
 )
 
-nisaba_grm_regression_test(
-    name = "hi_e2e_test",
-    grammar = ":hi_e2e",
-)
-
-nisaba_grm_regression_test(
-    name = "hi_e2e_utf8_test",
-    grammar = ":hi_e2e_utf8",
-    test_file = "testdata:hi_e2e.tsv",
-    token_type = "utf8",
-)
-
 nisaba_compile_multi_grm_py(
     name = "kn_e2e",
     outs = {
@@ -72,18 +60,6 @@ nisaba_compile_multi_grm_py(
         "//nisaba/scripts/natural_translit/phonology:txn2ipa",
         "@org_opengrm_pynini//pynini",
     ],
-)
-
-nisaba_grm_regression_test(
-    name = "kn_e2e_test",
-    grammar = ":kn_e2e",
-)
-
-nisaba_grm_regression_test(
-    name = "kn_e2e_utf8_test",
-    grammar = ":kn_e2e_utf8",
-    test_file = "testdata:kn_e2e.tsv",
-    token_type = "utf8",
 )
 
 nisaba_compile_multi_grm_py(
@@ -106,18 +82,6 @@ nisaba_compile_multi_grm_py(
     ],
 )
 
-nisaba_grm_regression_test(
-    name = "ml_e2e_test",
-    grammar = ":ml_e2e",
-)
-
-nisaba_grm_regression_test(
-    name = "ml_e2e_utf8_test",
-    grammar = ":ml_e2e_utf8",
-    test_file = "testdata:ml_e2e.tsv",
-    token_type = "utf8",
-)
-
 nisaba_compile_multi_grm_py(
     name = "te_e2e",
     outs = {
@@ -134,14 +98,27 @@ nisaba_compile_multi_grm_py(
     ],
 )
 
-nisaba_grm_regression_test(
-    name = "te_e2e_test",
-    grammar = ":te_e2e",
-)
+LANGUAGES = [
+    "hi",
+    "kn",
+    "ml",
+    "te",
+]
 
-nisaba_grm_regression_test(
-    name = "te_e2e_utf8_test",
-    grammar = ":te_e2e_utf8",
-    test_file = "testdata:te_e2e.tsv",
-    token_type = "utf8",
-)
+# Ordinary byte tests.
+[
+    nisaba_grm_textproto_test(
+        name = "%s_e2e_test" % language,
+    )
+    for language in LANGUAGES
+]
+
+# UTF-8 tests.
+[
+    nisaba_grm_textproto_test(
+        name = "%s_e2e_utf8_test" % language,
+        textproto = "testdata/%s_e2e.textproto" % language,
+        token_type = "utf8",
+    )
+    for language in LANGUAGES
+]

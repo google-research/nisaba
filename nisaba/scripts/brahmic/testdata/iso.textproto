@@ -1,0 +1,2361 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: speech/fst/testing/testdata.proto
+# proto-message: Rewrites
+rewrite {
+  rule: "FROM_BENG"
+  input: "ব্রাহ্মীকে"
+  output: "brāhmīkē"
+}
+rewrite {
+  rule: "TO_BENG"
+  input: "brāhmīkē"
+  output: "ব্রাহ্মীকে"
+}
+rewrite {
+  comment: "sat-Beng specific <SIGN AA, NUKTA>"
+  rule: "FROM_BENG"
+  input: "গিদরা়"
+  output: "gidarạ̄"
+}
+rewrite {
+  rule: "TO_BENG"
+  input: "gidarạ̄"
+  output: "গিদরা়"
+}
+rewrite {
+  rule: "FROM_DEVA"
+  input: "ब्राह्मिक"
+  output: "brāhmika"
+}
+rewrite {
+  rule: "TO_DEVA"
+  input: "brāhmika"
+  output: "ब्राह्मिक"
+}
+rewrite {
+  rule: "FROM_GUJR"
+  input: "બ્રાહ્મીક"
+  output: "brāhmīka"
+}
+rewrite {
+  rule: "TO_GUJR"
+  input: "brāhmīka"
+  output: "બ્રાહ્મીક"
+}
+rewrite {
+  rule: "FROM_GURU"
+  input: "ਬ੍ਰਾਹਮਿਕ"
+  output: "brāhamika"
+}
+rewrite {
+  rule: "TO_GURU"
+  input: "brāhamika"
+  output: "ਬ੍ਰਾਹਮਿਕ"
+}
+rewrite {
+  rule: "FROM_KNDA"
+  input: "ಬ್ರಾಹ್ಮಿಕ್"
+  output: "brāhmik"
+}
+rewrite {
+  rule: "TO_KNDA"
+  input: "brāhmik"
+  output: "ಬ್ರಾಹ್ಮಿಕ್"
+}
+rewrite {
+  rule: "FROM_MLYM"
+  input: "ബ്രാഹ്മിക്"
+  output: "brāhmik"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "brāhmik"
+  output: "ബ്രാഹ്മിക്"
+}
+rewrite {
+  rule: "FROM_ORYA"
+  input: "ବ୍ରାହ୍ମୀସି"
+  output: "brāhmīsi"
+}
+rewrite {
+  rule: "TO_ORYA"
+  input: "brāhmīsi"
+  output: "ବ୍ରାହ୍ମୀସି"
+}
+rewrite {
+  rule: "FROM_SINH"
+  input: "බ්රාහ්මික්"
+  output: "brāhmik"
+}
+rewrite {
+  rule: "FROM_SINH"
+  input: "සිංහල"
+  output: "siṁhala"
+}
+rewrite {
+  rule: "TO_SINH"
+  input: "brāhmik"
+  output: "බ්රාහ්මික්"
+}
+rewrite {
+  rule: "FROM_TAML"
+  input: "பிராமிக்"
+  output: "pirāmik"
+}
+rewrite {
+  rule: "TO_TAML"
+  input: "pirāmik"
+  output: "பிராமிக்"
+}
+rewrite {
+  rule: "FROM_TELU"
+  input: "బ్రహ్మికి"
+  output: "brahmiki"
+}
+rewrite {
+  rule: "TO_TELU"
+  input: "brahmiki"
+  output: "బ్రహ్మికి"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "ব্রাহ্মীকে"
+  output: "brāhmīkē"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "ब्राह्मिक"
+  output: "brāhmika"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "अधे़ड"
+  output: "adʰēˑḍa"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "ॲलन"
+  output: "ælana"
+}
+rewrite {
+  comment: "Out of script characters are pass through"
+  rule: "FROM_BRAHMIC"
+  input: "Abæ ॲलन"
+  output: "Abæ ælana"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "ാം"
+  output: "-āṁ"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "മൂൺ"
+  output: "mūṇⸯ"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "ൻ്റെ"
+  output: "nⸯ˘ṟe"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "ത്തു്"
+  output: "ttu˘"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "ഡൈ്വ"
+  output: "ḍai˘va"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "അ്"
+  output: "a˘"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "ക"
+  output: "ka"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "മ്അ"
+  output: "m.a"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "ന്അ"
+  output: "n.a"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "ക്‌ക"
+  output: "k|ka"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "കൌ"
+  output: "kau̯"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "രംഗ"
+  output: "raṁga"
+}
+rewrite {
+  comment: "Bengali foreign word transliteration"
+  rule: "FROM_BRAHMIC"
+  input: "র‍্যাল"
+  output: "rỹāla"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "বৈচিত্র‍্যে"
+  output: "baicitrỹē"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "অ্যাড"
+  output: "æḍa"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "এ্যালজিও"
+  output: "êlaji.ō"
+}
+rewrite {
+  comment: "Kannada foreign vowel transliteration"
+  rule: "FROM_BRAHMIC"
+  input: "ಆ್ಯಪ್"
+  output: "æp"
+}
+rewrite {
+  rule: "TO_KNDA"
+  input: "æp"
+  output: "ಆ್ಯಪ್"
+}
+rewrite {
+  comment: "Reversible notation for adjoining vowels:"
+  rule: "FROM_BRAHMIC"
+  input: "आईईईई"
+  output: "ā.ī.ī.ī.ī"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "आईडीबीआई"
+  output: "ā.īḍībī.ā.ī"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "കഇഇഇ"
+  output: "ka.i.i.i"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "ക്ഇഇഇ"
+  output: "k.i.i.i"
+}
+rewrite {
+  comment: "Rewrite of aspirated consonants:"
+  rule: "FROM_BRAHMIC"
+  input: "घऔ"
+  output: "gʰa.au"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "गहाउ"
+  output: "gahā.u"
+}
+rewrite {
+  rule: "TO_DEVA"
+  input: "gʰa.au"
+  output: "घऔ"
+}
+rewrite {
+  rule: "TO_DEVA"
+  input: "gahā.u"
+  output: "गहाउ"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "-āṁ"
+  output: "ാം"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "mūṇⸯ"
+  output: "മൂൺ"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "nⸯ˘ṟe"
+  output: "ൻ്റെ"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "ttu˘"
+  output: "ത്തു്"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "ḍai˘va"
+  output: "ഡൈ്വ"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "a˘"
+  output: "അ്"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "m.a"
+  output: "മ്അ"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "ka"
+  output: "ക"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "k|ka"
+  output: "ക്‌ക"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "kau̯"
+  output: "കൌ"
+}
+rewrite {
+  comment: "Rewrite only Brahmic characters if they are mixed with Latin."
+  rule: "FROM_BRAHMIC"
+  input: "AघऔB"
+  output: "Agʰa.auB"
+}
+rewrite {
+  comment: "Test Devanagari Eyelash Ra modern encoding and legacy encoding"
+  rule: "FROM_BRAHMIC"
+  input: "दऱ्या"
+  output: "dar̆yā"
+}
+rewrite {
+  rule: "FROM_BRAHMIC"
+  input: "दर्‍या"
+  output: "dar+yā"
+}
+rewrite {
+  comment: "Chillus/Khanta TA with a preceding Virama"
+  rule: "FROM_MLYM"
+  input: "കെയ്ൻ"
+  output: "keynⸯ"
+}
+rewrite {
+  rule: "FROM_BENG"
+  input: "বেন্ডনর্ৎস"
+  output: "bēnḍanartⸯsa"
+}
+rewrite {
+  comment: "Kokborok specific examples: For vowel letter aw"
+  rule: "FROM_BENG"
+  input: "অৗইকৗ"
+  output: "a͟w.ikă"
+}
+rewrite {
+  comment: "For vowel letter ua"
+  rule: "FROM_BENG"
+  input: "কম্পিউারে"
+  output: "kampi.u͟arē"
+}
+rewrite {
+  comment: "Santali specific examples: আৗ for ᱟᱹ"
+  rule: "FROM_BENG"
+  input: "আৗডী"
+  output: "ăḍī"
+}
+rewrite {
+  rule: "FROM_BENG"
+  input: "তাহৗন"
+  output: "tāhăna"
+}
+rewrite {
+  rule: "FROM_BENG"
+  input: "কৗল"
+  output: "kăla"
+}
+rewrite {
+  comment: "অঁ for ᱚᱸ"
+  rule: "FROM_BENG"
+  input: "মৗঁঝী"
+  output: "măm̐jʰī"
+}
+rewrite {
+  rule: "FROM_BENG"
+  input: "মৗঁর্ডী"
+  output: "măm̐rḍī"
+}
+rewrite {
+  rule: "FROM_BENG"
+  input: "মৗঁইজিউই"
+  output: "măm̐iji.u.i"
+}
+rewrite {
+  rule: "FROM_BENG"
+  input: "নিঃহৗঁত"
+  output: "niḥhăm̐ta"
+}
+rewrite {
+  comment: "------------------------------------------------------------------------------ Meetei Mayek (Manipuri): ------------------------------------------------------------------------------"
+  rule: "FROM_MTEI"
+  input: "ꯑꯩꯅ"
+  output: "aina"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯀꯣꯛ"
+  output: "kōkⸯ"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯁꯝ"
+  output: "samⸯ"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯑꯇꯤꯌꯥ"
+  output: "atīyā"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯆꯤꯟ"
+  output: "cʰīnⸯ"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯒ꯭ꯂꯥꯁ"
+  output: "glāsa"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯀꯐꯣꯢ"
+  output: "kapʰōiⸯ"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯀꯨꯁꯨꯝꯂꯩ"
+  output: "kūsūmⸯlai"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯀꯦꯇꯨꯀꯤ"
+  output: "kētūkī"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯀꯦꯇꯦꯀꯤ"
+  output: "kētēkī"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯀꯣꯝꯂꯥ"
+  output: "kōmⸯlā"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯁꯤꯡ"
+  output: "sīṅⸯ"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯂꯩꯁꯥꯕꯤ"
+  output: "laisābī"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯃꯌꯥꯡꯇꯣꯟ"
+  output: "mayāṅⸯtōnⸯ"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯃꯦꯊꯤ"
+  output: "mētʰī"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯄꯨꯗꯤꯅꯥ"
+  output: "pūdīnā"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯅꯨꯁꯤꯍꯤꯗꯥꯛ"
+  output: "nūsīhīdākⸯ"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯆꯝꯄ꯭ꯔꯥ"
+  output: "cʰamⸯprā"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯇꯨꯜꯁꯤꯄꯝꯕꯤ"
+  output: "tūlⸯsīpamⸯbī"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯌꯥꯢꯉꯪ"
+  output: "yāiⸯṅaṁ"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯍꯩꯅꯧ"
+  output: "hainau"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯎꯁꯤꯡꯁꯥ"
+  output: "usīṅⸯsā"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯑꯗꯨꯔꯒꯨꯂꯥꯕ"
+  output: "adūragūlāba"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯒꯨꯂꯥꯕ"
+  output: "gūlāba"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯖꯥꯢꯐꯜ"
+  output: "jāiⸯpʰalⸯ"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯀꯥꯡ"
+  output: "kāṅⸯ"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯀꯥ꯬ꯉ"
+  output: "kā^ṅa"
+}
+rewrite {
+  rule: "FROM_MTEI"
+  input: "ꯂꯦꯡꯖꯨꯝ"
+  output: "lēṅⸯjūmⸯ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "aina"
+  output: "ꯑꯩꯅ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "kōkⸯ"
+  output: "ꯀꯣꯛ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "samⸯ"
+  output: "ꯁꯝ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "atīyā"
+  output: "ꯑꯇꯤꯌꯥ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "cʰīnⸯ"
+  output: "ꯆꯤꯟ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "glāsa"
+  output: "ꯒ꯭ꯂꯥꯁ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "kapʰōiⸯ"
+  output: "ꯀꯐꯣꯢ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "kūsūmⸯlai"
+  output: "ꯀꯨꯁꯨꯝꯂꯩ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "kētūkī"
+  output: "ꯀꯦꯇꯨꯀꯤ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "kētēkī"
+  output: "ꯀꯦꯇꯦꯀꯤ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "kōmⸯlā"
+  output: "ꯀꯣꯝꯂꯥ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "sīṅⸯ"
+  output: "ꯁꯤꯡ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "laisābī"
+  output: "ꯂꯩꯁꯥꯕꯤ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "mayāṅⸯtōnⸯ"
+  output: "ꯃꯌꯥꯡꯇꯣꯟ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "mētʰī"
+  output: "ꯃꯦꯊꯤ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "pūdīnā"
+  output: "ꯄꯨꯗꯤꯅꯥ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "nūsīhīdākⸯ"
+  output: "ꯅꯨꯁꯤꯍꯤꯗꯥꯛ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "cʰamⸯprā"
+  output: "ꯆꯝꯄ꯭ꯔꯥ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "tūlⸯsīpamⸯbī"
+  output: "ꯇꯨꯜꯁꯤꯄꯝꯕꯤ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "yāiⸯṅaṁ"
+  output: "ꯌꯥꯢꯉꯪ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "hainau"
+  output: "ꯍꯩꯅꯧ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "usīṅⸯsā"
+  output: "ꯎꯁꯤꯡꯁꯥ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "adūragūlāba"
+  output: "ꯑꯗꯨꯔꯒꯨꯂꯥꯕ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "gūlāba"
+  output: "ꯒꯨꯂꯥꯕ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "jāiⸯpʰalⸯ"
+  output: "ꯖꯥꯢꯐꯜ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "lēṅⸯjūmⸯ"
+  output: "ꯂꯦꯡꯖꯨꯝ"
+}
+rewrite {
+  rule: "TO_MTEI"
+  input: "kā^ṅa"
+  output: "ꯀꯥ꯬ꯉ"
+}
+rewrite {
+  comment: "------------------------------------------------------------------------------ Baybayin (Tagalog). ------------------------------------------------------------------------------"
+  rule: "FROM_TGLG"
+  input: "ᜀᜋ"
+  output: "ama"
+}
+rewrite {
+  rule: "FROM_TGLG"
+  input: "ᜋᜅ"
+  output: "maṅa"
+}
+rewrite {
+  rule: "FROM_TGLG"
+  input: "ᜁᜀᜇ᜔ᜌ"
+  output: "i.adya"
+}
+rewrite {
+  rule: "FROM_TGLG"
+  input: "ᜐᜓᜋᜐᜎᜅᜒᜆ᜔"
+  output: "sumasalaṅit"
+}
+rewrite {
+  rule: "FROM_TGLG"
+  input: "ᜃ"
+  output: "ka"
+}
+rewrite {
+  rule: "FROM_TGLG"
+  input: "ᜐᜋ᜔ᜊᜑᜒᜈ᜔"
+  output: "sambahin"
+}
+rewrite {
+  rule: "FROM_TGLG"
+  input: "ᜋᜉᜐᜀᜋᜒᜈ᜔"
+  output: "mapasa.amin"
+}
+rewrite {
+  rule: "FROM_TGLG"
+  input: "ᜉᜄ᜔ᜉᜉᜆᜏᜇ᜔"
+  output: "pagpapatawad"
+}
+rewrite {
+  rule: "FROM_TGLG"
+  input: "ᜋᜃᜃᜎᜒᜃᜐᜈ᜔"
+  output: "makakalikasan"
+}
+rewrite {
+  rule: "TO_TGLG"
+  input: "ama"
+  output: "ᜀᜋ"
+}
+rewrite {
+  rule: "TO_TGLG"
+  input: "maṅa"
+  output: "ᜋᜅ"
+}
+rewrite {
+  rule: "TO_TGLG"
+  input: "i.adya"
+  output: "ᜁᜀᜇ᜔ᜌ"
+}
+rewrite {
+  rule: "TO_TGLG"
+  input: "sumasalaṅit"
+  output: "ᜐᜓᜋᜐᜎᜅᜒᜆ᜔"
+}
+rewrite {
+  rule: "TO_TGLG"
+  input: "ka"
+  output: "ᜃ"
+}
+rewrite {
+  rule: "TO_TGLG"
+  input: "sambahin"
+  output: "ᜐᜋ᜔ᜊᜑᜒᜈ᜔"
+}
+rewrite {
+  rule: "TO_TGLG"
+  input: "mapasa.amin"
+  output: "ᜋᜉᜐᜀᜋᜒᜈ᜔"
+}
+rewrite {
+  rule: "TO_TGLG"
+  input: "pagpapatawad"
+  output: "ᜉᜄ᜔ᜉᜉᜆᜏᜇ᜔"
+}
+rewrite {
+  rule: "TO_TGLG"
+  input: "makakalikasan"
+  output: "ᜋᜃᜃᜎᜒᜃᜐᜈ᜔"
+}
+rewrite {
+  comment: "------------------------------------------------------------------------------ Lontara (Buginese). ------------------------------------------------------------------------------"
+  rule: "FROM_BUGI"
+  input: "ᨅᨗᨕᨚᨒᨚᨁᨗ"
+  output: "bi.ologi"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨊᨕᨔᨛᨂᨗᨈᨚ"
+  output: "na.asæŋito"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨔᨕᨗᨊᨔ"
+  output: "sa.inasa"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨀᨚᨆᨘᨊᨗᨈᨔ"
+  output: "komunitasa"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨔᨙᨉᨗᨔᨙᨉᨗ"
+  output: "sedisedi"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨕᨔᨗᨒᨚᨑᨗᨂᨛ"
+  output: "asiloriŋæ"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨔᨗᨅᨓ"
+  output: "sibawa"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨐᨙ"
+  output: "ye"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨑᨗᨕᨙᨅᨘ"
+  output: "ri.ebu"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨆᨕᨙᨁ"
+  output: "ma.ega"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨕᨄᨛᨒᨗᨀᨔᨗ"
+  output: "apælikasi"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨓᨗᨀᨗᨄᨙᨉᨗᨕ"
+  output: "wikipedi.a"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨕᨙᨔᨗᨀᨚᨒᨚᨄᨙᨉᨗ"
+  output: "esikolopedi"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨔᨛᨊᨗ"
+  output: "sæni"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨆᨘᨒᨘᨈᨗᨆᨙᨉᨗᨐ"
+  output: "mulutimediya"
+}
+rewrite {
+  rule: "FROM_BUGI"
+  input: "ᨕᨛᨃ"
+  output: "æŋka"
+}
+rewrite {
+  rule: "TO_BUGI"
+  input: ""
+  output: ""
+}
+rewrite {
+  comment: "------------------------------------------------------------------------------ Newa (Pracalit). ------------------------------------------------------------------------------"
+  rule: "FROM_NEWA"
+  input: "𑐨𑐵𑐫𑑂"
+  output: "bʰāy"
+}
+rewrite {
+  rule: "FROM_NEWA"
+  input: "𑐣𑐾𑐰𑐵𑑅"
+  output: "nēwāḥ"
+}
+rewrite {
+  rule: "FROM_NEWA"
+  input: "𑐣𑐾𑐥𑐵𑐮"
+  output: "nēpāla"
+}
+rewrite {
+  rule: "FROM_NEWA"
+  input: "𑐧𑐶𑐮𑐫𑑂"
+  output: "bilay"
+}
+rewrite {
+  rule: "FROM_NEWA"
+  input: "𑐥𑑂𑐬𑐔𑐮𑐶𑐟"
+  output: "pracalita"
+}
+rewrite {
+  rule: "FROM_NEWA"
+  input: "𑐀𑑄𑐐𑑂𑐬𑐖𑐟𑐫𑐾𑐳𑑄"
+  output: "aṁgrajatayēsaṁ"
+}
+rewrite {
+  rule: "FROM_NEWA"
+  input: "𑐀𑐣𑑂𑐟𑐬𑐩𑐴𑐵𑐡𑐾𑐱𑐷𑐫"
+  output: "antaramahādēśīya"
+}
+rewrite {
+  rule: "FROM_NEWA"
+  input: "𑐴𑐮𑐶𑐩𑐫𑐵"
+  output: "halimayā"
+}
+rewrite {
+  rule: "FROM_NEWA"
+  input: "𑐠𑐣𑐫𑐵𑐐𑐸"
+  output: "tʰanayāgu"
+}
+rewrite {
+  rule: "FROM_NEWA"
+  input: "𑐖𑐣𑐳𑑄𑐏𑑂𑐫𑐵"
+  output: "janasaṁkʰyā"
+}
+rewrite {
+  rule: "TO_NEWA"
+  input: "bʰāy"
+  output: "𑐨𑐵𑐫𑑂"
+}
+rewrite {
+  rule: "TO_NEWA"
+  input: "nēwāḥ"
+  output: "𑐣𑐾𑐰𑐵𑑅"
+}
+rewrite {
+  rule: "TO_NEWA"
+  input: "nēpāla"
+  output: "𑐣𑐾𑐥𑐵𑐮"
+}
+rewrite {
+  rule: "TO_NEWA"
+  input: "bilay"
+  output: "𑐧𑐶𑐮𑐫𑑂"
+}
+rewrite {
+  rule: "TO_NEWA"
+  input: "pracalita"
+  output: "𑐥𑑂𑐬𑐔𑐮𑐶𑐟"
+}
+rewrite {
+  rule: "TO_NEWA"
+  input: "aṁgrajatayēsaṁ"
+  output: "𑐀𑑄𑐐𑑂𑐬𑐖𑐟𑐫𑐾𑐳𑑄"
+}
+rewrite {
+  rule: "TO_NEWA"
+  input: "antaramahādēśīya"
+  output: "𑐀𑐣𑑂𑐟𑐬𑐩𑐴𑐵𑐡𑐾𑐱𑐷𑐫"
+}
+rewrite {
+  rule: "TO_NEWA"
+  input: "halimayā"
+  output: "𑐴𑐮𑐶𑐩𑐫𑐵"
+}
+rewrite {
+  rule: "TO_NEWA"
+  input: "tʰanayāgu"
+  output: "𑐠𑐣𑐫𑐵𑐐𑐸"
+}
+rewrite {
+  rule: "TO_NEWA"
+  input: "janasaṁkʰyā"
+  output: "𑐖𑐣𑐳𑑄𑐏𑑂𑐫𑐵"
+}
+rewrite {
+  comment: "------------------------------------------------------------------------------ Thaana. ------------------------------------------------------------------------------"
+  rule: "FROM_THAA"
+  input: "ތާނަ"
+  output: "tāna"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ކަނޑު"
+  output: "kaⁿḍu"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ބައްޓެއް"
+  output: "baẖṭeẖ"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "އެންމެ"
+  output: "enme"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ފައް"
+  output: "faẖ"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ދަނަހަ"
+  output: "danaha"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ދިވެހި"
+  output: "divehi"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "އަދި"
+  output: "adi"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ތެރޭގައި"
+  output: "terēga.i"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ނަމަވެސް"
+  output: "namaves"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ގޮތުގައި"
+  output: "gotuga.i"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ހުރެއެވެ"
+  output: "hure.eve"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ސަބަބުން"
+  output: "sababun"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ރައްޔިތުންގެ"
+  output: "raẖyitunge"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "އެހެންކަމުން"
+  output: "ehenkamun"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ސަލާމް"
+  output: "salām"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ޝިކާރަވެރީންނެވެ"
+  output: "sʰikāraverīnneve"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ރާއްޖޭގެ"
+  output: "rāẖjēge"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ނުވަތަ"
+  output: "nuvata"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "މުޙައްމަދު"
+  output: "muḥaẖmadu"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ދިވެހިރާއްޖޭގައި"
+  output: "divehirāẖjēga.i"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ނަޔާޗާންދު"
+  output: "nayācāndu"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ކާނޭޝަންމާގެ"
+  output: "kānēsʰanmāge"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ކަޝްމީރު"
+  output: "kasʰmīru"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ކަޝްމީރުގާރްޑަން"
+  output: "kasʰmīrugārḍan"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "މެރިންގޯލްޑް"
+  output: "meringōlḍ"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ޓްރެންކްއިލްވިލާ"
+  output: "ṭrenk.ilvilā"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ދާރުލްސަލާމް"
+  output: "dārulsalām"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ދަންވަރު"
+  output: "danvaru"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "މެންދަން"
+  output: "mendan"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "އިއްޔެ"
+  output: "iẖye"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ބަންދުކޮށްފަ"
+  output: "bandukośfa"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ކޮށްޕާލާ"
+  output: "kośpālā"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ބައްދަލުވީތީ"
+  output: "baẖdaluvītī"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "އައްސަލާމު"
+  output: "aẖsalāmu"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ޝުކުރިއްޔާ"
+  output: "sʰukuriẖyā"
+}
+rewrite {
+  rule: "FROM_THAA"
+  input: "ވަންނަ"
+  output: "vanna"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "tāna"
+  output: "ތާނަ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "kaⁿḍu"
+  output: "ކަނޑު"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "baẖṭeẖ"
+  output: "ބައްޓެއް"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "enme"
+  output: "އެންމެ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "faẖ"
+  output: "ފައް"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "danaha"
+  output: "ދަނަހަ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "divehi"
+  output: "ދިވެހި"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "adi"
+  output: "އަދި"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "terēga.i"
+  output: "ތެރޭގައި"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "namaves"
+  output: "ނަމަވެސް"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "gotuga.i"
+  output: "ގޮތުގައި"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "hure.eve"
+  output: "ހުރެއެވެ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "sababun"
+  output: "ސަބަބުން"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "raẖyitunge"
+  output: "ރައްޔިތުންގެ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "ehenkamun"
+  output: "އެހެންކަމުން"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "salām"
+  output: "ސަލާމް"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "sʰikāraverīnneve"
+  output: "ޝިކާރަވެރީންނެވެ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "rāẖjēge"
+  output: "ރާއްޖޭގެ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "nuvata"
+  output: "ނުވަތަ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "muḥaẖmadu"
+  output: "މުޙައްމަދު"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "divehirāẖjēga.i"
+  output: "ދިވެހިރާއްޖޭގައި"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "nayācāndu"
+  output: "ނަޔާޗާންދު"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "kānēsʰanmāge"
+  output: "ކާނޭޝަންމާގެ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "meringōlḍ"
+  output: "މެރިންގޯލްޑް"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "ṭrenk.ilvilā"
+  output: "ޓްރެންކްއިލްވިލާ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "dārulsalām"
+  output: "ދާރުލްސަލާމް"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "kasʰmīru"
+  output: "ކަޝްމީރު"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "kasʰmīrugārḍan"
+  output: "ކަޝްމީރުގާރްޑަން"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "mendan"
+  output: "މެންދަން"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "danvaru"
+  output: "ދަންވަރު"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "iẖye"
+  output: "އިއްޔެ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "bandukośfa"
+  output: "ބަންދުކޮށްފަ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "kośpālā"
+  output: "ކޮށްޕާލާ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "baẖdaluvītī"
+  output: "ބައްދަލުވީތީ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "sʰukuriẖyā"
+  output: "ޝުކުރިއްޔާ"
+}
+rewrite {
+  rule: "TO_THAA"
+  input: "vanna"
+  output: "ވަންނަ"
+}
+rewrite {
+  comment: "Some Dhivehi words found online violate the `SUKUN` principle in consonant clusters. The following word `ކަޝްމީރުގާރްޑަން` cannot be rewritten by our grammar to the expected form `kasʰmīrugārḍan` because `SUKUN` is missing between `r` and `ḍ`. The correctly behaving forms of the same can be found above."
+  rule: "FROM_THAA"
+  input: "ކަޝްމީރުގާރޑަން"
+}
+rewrite {
+  comment: "----------------------------------------------------------------------------- Limbu. -----------------------------------------------------------------------------"
+  rule: "FROM_LIMB"
+  input: "ᤛᤧᤘᤠᤖᤥ"
+  output: "sewārō"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤜᤠᤍᤠᤱᤔᤠᤛᤣ"
+  output: "hādāṇ̇māsē"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤕᤠᤰᤌᤢᤱᤐᤠᤴ"
+  output: "yāḳtʰuṇ̇pāṇ"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤘᤡᤁᤡᤐᤡᤍᤡᤕᤠ"
+  output: "wikipidiyā"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤗᤠᤶᤎᤠᤁᤠ"
+  output: "lāṃdʰākā"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤒᤎᤠᤀᤢᤏᤠᤁᤠ"
+  output: "badʰā.unākā"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤜᤧᤰᤁᤩᤠᤱ"
+  output: "heḳkỵāṇ̇"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤂᤧᤴ"
+  output: "kʰeṇ"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤀᤡᤱᤃᤠ᤹"
+  output: "iṇ̇gāḥ"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤁᤖ"
+  output: "kara"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤏᤡᤱᤘᤠ᤹ᤑᤢᤔᤠᤱᤅᤡᤸᤗᤧ"
+  output: "niṇ̇wāḥpʰumāṇ̇ṅiḷle"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤜᤧᤰᤁᤣ᤺ᤸᤗᤧ"
+  output: "heḳkē\'ḷle"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤑᤠ᤹ᤀᤠᤱ"
+  output: "pʰāḥāṇ̇"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤑᤠ᤹ᤃᤪ"
+  output: "pʰāḥgṛa"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤂᤪᤡᤛ᤻ᤋᤖᤧ"
+  output: "kʰṛistare"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤐᤋᤪᤢᤛᤧᤴ"
+  output: "patṛuseṇ"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤀᤡᤛᤪᤠᤀᤡᤗᤡᤜᤠ᤹ᤖᤧ"
+  output: "isṛā.ilihāḥre"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤁᤢᤛ᤻ᤛᤠ᤺"
+  output: "kussā\'"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤂᤪᤡᤛ᤻ᤋᤧᤴ"
+  output: "kʰṛisteṇ"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤀᤢ᤺ᤳᤋᤢᤛᤡᤀᤠᤱ"
+  output: "u\'ṭtusi.āṇ̇"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤋᤠᤱᤛᤧᤵᤋᤛᤡ᤹ᤖᤥᤥ"
+  output: "tāṇ̇seṕtasiḥrō-ō"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤛᤠᤶᤕᤥᤥᤛᤠᤵᤗᤠ᤺ᤸᤗᤧᤴ"
+  output: "sāṃyō-ōsāṕlā\'ḷleṇ"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤀᤡ᤺ᤵᤔᤏᤠᤒᤠᤏᤢ᤺ᤸᤗᤧᤀᤠᤱ"
+  output: "i\'ṕmanābānu\'ḷle.āṇ̇"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤀᤠᤱ"
+  output: "āṇ̇"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤁᤧᤔᤠ᤹ᤰᤂᤡᤴᤏᤢ"
+  output: "kemāḥḳkʰiṇnu"
+}
+rewrite {
+  rule: "FROM_LIMB"
+  input: "ᤕᤢ᤹᤺ᤀᤠ"
+  output: "yuḥ\'ā"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "sewārō"
+  output: "ᤛᤧᤘᤠᤖᤥ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "hādāṇ̇māsē"
+  output: "ᤜᤠᤍᤠᤱᤔᤠᤛᤣ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "yāḳtʰuṇ̇pāṇ"
+  output: "ᤕᤠᤰᤌᤢᤱᤐᤠᤴ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "wikipidiyā"
+  output: "ᤘᤡᤁᤡᤐᤡᤍᤡᤕᤠ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "lāṃdʰākā"
+  output: "ᤗᤠᤶᤎᤠᤁᤠ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "badʰā.unākā"
+  output: "ᤒᤎᤠᤀᤢᤏᤠᤁᤠ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "heḳkỵāṇ̇"
+  output: "ᤜᤧᤰᤁᤩᤠᤱ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "kʰeṇ"
+  output: "ᤂᤧᤴ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "iṇ̇gāḥ"
+  output: "ᤀᤡᤱᤃᤠ᤹"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "kara"
+  output: "ᤁᤖ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "niṇ̇wāḥpʰumāṇ̇ṅiḷle"
+  output: "ᤏᤡᤱᤘᤠ᤹ᤑᤢᤔᤠᤱᤅᤡᤸᤗᤧ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "heḳkē\'ḷle"
+  output: "ᤜᤧᤰᤁᤣ᤺ᤸᤗᤧ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "pʰāḥāṇ̇"
+  output: "ᤑᤠ᤹ᤀᤠᤱ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "pʰāḥgṛa"
+  output: "ᤑᤠ᤹ᤃᤪ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "patṛuseṇ"
+  output: "ᤐᤋᤪᤢᤛᤧᤴ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "kʰṛistare"
+  output: "ᤂᤪᤡᤛ᤻ᤋᤖᤧ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "kʰṛisteṇ"
+  output: "ᤂᤪᤡᤛ᤻ᤋᤧᤴ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "kussā\'"
+  output: "ᤁᤢᤛ᤻ᤛᤠ᤺"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "isṛā.ilihāḥre"
+  output: "ᤀᤡᤛᤪᤠᤀᤡᤗᤡᤜᤠ᤹ᤖᤧ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "u\'ṭtusi.āṇ̇"
+  output: "ᤀᤢ᤺ᤳᤋᤢᤛᤡᤀᤠᤱ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "tāṇ̇seṕtasiḥrō-ō"
+  output: "ᤋᤠᤱᤛᤧᤵᤋᤛᤡ᤹ᤖᤥᤥ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "sāṃyō-ōsāṕlā\'ḷleṇ"
+  output: "ᤛᤠᤶᤕᤥᤥᤛᤠᤵᤗᤠ᤺ᤸᤗᤧᤴ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "i\'ṕmanābānu\'ḷle.āṇ̇"
+  output: "ᤀᤡ᤺ᤵᤔᤏᤠᤒᤠᤏᤢ᤺ᤸᤗᤧᤀᤠᤱ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "āṇ̇"
+  output: "ᤀᤠᤱ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "kemāḥḳkʰiṇnu"
+  output: "ᤁᤧᤔᤠ᤹ᤰᤂᤡᤴᤏᤢ"
+}
+rewrite {
+  rule: "TO_LIMB"
+  input: "yuḥ\'ā"
+  output: "ᤕᤢ᤹᤺ᤀᤠ"
+}
+rewrite {
+  comment: "----------------------------------------------------------------------------- Lepcha. -----------------------------------------------------------------------------"
+  rule: "FROM_LEPC"
+  input: "ᰛᰩᰵᰛᰧᰵᰶ"
+  output: "rōṇ̇riṇ̇\'"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰀᰠᰪ"
+  output: "kasu"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰃᰨ"
+  output: "go"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰝᰪᰌᰨ"
+  output: "hudo"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰀᰦᰉᰧᰶ"
+  output: "kāñi\'"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰝᰪᰉᰧᰶ"
+  output: "huñi\'"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰣᰦᰚᰫ"
+  output: "āyū"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰠᰶᰛᰤᰨᰮ"
+  output: "sa\'rỵom`"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰠᰶᰜᰩᰭ"
+  output: "sa\'lōk`"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰠᰝᰪ"
+  output: "sahu"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰠᰜᰧ"
+  output: "sali"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰀᰬᰜᰧᰮᰓᰧ"
+  output: "kelim`bi"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰊᰪᰵᰀᰤᰴ"
+  output: "tuṇ̇kỵaṅ"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰣᰚᰬᰵᰊᰤᰨᰯ"
+  output: "ayeṇ̇tỵol`"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰃᰤᰬᰰᰣᰤᰨᰭᰎᰴ"
+  output: "gỵen`aȳok`paṅ"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰊᰣᰤᰪᰀᰪᰱ"
+  output: "taaȳukup`"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰎᰬᰣᰤᰨᰭ"
+  output: "peaȳok`"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰠᰣᰤᰨᰭ"
+  output: "saaȳok`"
+}
+rewrite {
+  rule: "FROM_LEPC"
+  input: "ᰣᰤᰨᰭᰛᰬ"
+  output: "aȳok`re"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "rōṇ̇riṇ̇\'"
+  output: "ᰛᰩᰵᰛᰧᰵᰶ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "kasu"
+  output: "ᰀᰠᰪ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "go"
+  output: "ᰃᰨ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "hudo"
+  output: "ᰝᰪᰌᰨ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "kāñi\'"
+  output: "ᰀᰦᰉᰧᰶ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "huñi\'"
+  output: "ᰝᰪᰉᰧᰶ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "āyū"
+  output: "ᰣᰦᰚᰫ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "sa\'rỵom`"
+  output: "ᰠᰶᰛᰤᰨᰮ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "sa\'lōk`"
+  output: "ᰠᰶᰜᰩᰭ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "sahu"
+  output: "ᰠᰝᰪ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "sali"
+  output: "ᰠᰜᰧ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "kelim`bi"
+  output: "ᰀᰬᰜᰧᰮᰓᰧ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "tuṇ̇kỵaṅ"
+  output: "ᰊᰪᰵᰀᰤᰴ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "ayeṇ̇tỵol`"
+  output: "ᰣᰚᰬᰵᰊᰤᰨᰯ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "gỵen`aȳok`paṅ"
+  output: "ᰃᰤᰬᰰᰣᰤᰨᰭᰎᰴ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "taaȳukup`"
+  output: "ᰊᰣᰤᰪᰀᰪᰱ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "peaȳok`"
+  output: "ᰎᰬᰣᰤᰨᰭ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "saaȳok`"
+  output: "ᰠᰣᰤᰨᰭ"
+}
+rewrite {
+  rule: "TO_LEPC"
+  input: "aȳok`re"
+  output: "ᰣᰤᰨᰭᰛᰬ"
+}
+rewrite {
+  comment: "----------------------------------------------------------------------------- Syloti Nagri. -----------------------------------------------------------------------------"
+  rule: "FROM_SYLO"
+  input: "ꠍꠤꠟꠐꠤ"
+  output: "cʰiloṭi"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠗꠥꠝꠣ"
+  output: "dʰuma"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠀꠉꠥꠁꠘ"
+  output: "agu.ino"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠚꠣꠅꠞꠤꠟꠤꠍꠤ"
+  output: "pʰa.orilicʰi"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠚꠣꠅꠞꠤꠟꠣꠁꠍꠁꠘ"
+  output: "pʰa.orila.icʰo.ino"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠟꠦꠙꠐꠤꠘ"
+  output: "lepoṭino"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠐꠣꠐ꠆ꠐꠤ"
+  output: "ṭaṭṭi"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠛꠣꠞꠤꠘꠖꠣ"
+  output: "barinoda"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠍꠦꠁꠍ"
+  output: "cʰe.icʰo"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠞꠣꠘꠖꠣꠊꠞ"
+  output: "ranodagʰoro"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠃꠘꠖꠣꠟ"
+  output: "unodalo"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠢꠥꠞꠥꠔꠣꠁꠘ"
+  output: "huruta.ino"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠛꠣꠁꠌ꠆ꠌꠣꠁꠘ"
+  output: "ba.icca.ino"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠇꠁꠘ꠆ꠘꠣ"
+  output: "ko.inna"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠚꠥꠠꠤ"
+  output: "pʰur̆i"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠚꠥꠀ"
+  output: "pʰu.a"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠉꠤꠀꠘꠞ"
+  output: "gi.anoro"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠅꠁꠟꠣꠝ"
+  output: "o.ilamo"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠔꠤꠞꠝꠤꠖꠤ"
+  output: "tiromidi"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠍꠃꠇꠣꠝ"
+  output: "cʰo.ukamo"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠢꠦꠅꠕ"
+  output: "he.otʰo"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠇꠣꠟꠣꠁꠘꠎꠤ"
+  output: "kala.inoji"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠛꠤꠀꠘ"
+  output: "bi.ano"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠡꠇꠣꠟ"
+  output: "sokalo"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠖꠥꠙꠁꠞ"
+  output: "dupo.iro"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "cʰiloṭi"
+  output: "ꠍꠤꠟꠐꠤ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "dʰuma"
+  output: "ꠗꠥꠝꠣ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "agu.ino"
+  output: "ꠀꠉꠥꠁꠘ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "pʰa.orilicʰi"
+  output: "ꠚꠣꠅꠞꠤꠟꠤꠍꠤ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "pʰa.orila.icʰo.ino"
+  output: "ꠚꠣꠅꠞꠤꠟꠣꠁꠍꠁꠘ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "lepoṭino"
+  output: "ꠟꠦꠙꠐꠤꠘ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "ṭaṭṭi"
+  output: "ꠐꠣꠐ꠆ꠐꠤ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "barinoda"
+  output: "ꠛꠣꠞꠤꠘꠖꠣ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "cʰe.icʰo"
+  output: "ꠍꠦꠁꠍ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "ranodagʰoro"
+  output: "ꠞꠣꠘꠖꠣꠊꠞ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "unodalo"
+  output: "ꠃꠘꠖꠣꠟ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "huruta.ino"
+  output: "ꠢꠥꠞꠥꠔꠣꠁꠘ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "ba.icca.ino"
+  output: "ꠛꠣꠁꠌ꠆ꠌꠣꠁꠘ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "ko.inna"
+  output: "ꠇꠁꠘ꠆ꠘꠣ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "pʰur̆i"
+  output: "ꠚꠥꠠꠤ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "pʰu.a"
+  output: "ꠚꠥꠀ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "gi.anoro"
+  output: "ꠉꠤꠀꠘꠞ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "o.ilamo"
+  output: "ꠅꠁꠟꠣꠝ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "tiromidi"
+  output: "ꠔꠤꠞꠝꠤꠖꠤ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "cʰo.ukamo"
+  output: "ꠍꠃꠇꠣꠝ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "he.otʰo"
+  output: "ꠢꠦꠅꠕ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "kala.inoji"
+  output: "ꠇꠣꠟꠣꠁꠘꠎꠤ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "bi.ano"
+  output: "ꠛꠤꠀꠘ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "sokalo"
+  output: "ꠡꠇꠣꠟ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "dupo.iro"
+  output: "ꠖꠥꠙꠁꠞ"
+}
+rewrite {
+  comment: "<HASANTA>."
+  rule: "FROM_SYLO"
+  input: "ꠀꠁꠌ꠆ꠍꠣ"
+  output: "a.iccʰa"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠄꠘ꠆ꠕꠘꠤ"
+  output: "entʰoni"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠈ꠆ꠟꠣꠛ"
+  output: "kʰlabo"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠔꠥꠞ꠆ꠛ"
+  output: "turbo"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠚ꠆ꠞꠌꠣꠞ"
+  output: "pʰrocaro"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠡꠥꠞ꠆ꠎꠧ"
+  output: "surjō"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "a.iccʰa"
+  output: "ꠀꠁꠌ꠆ꠍꠣ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "entʰoni"
+  output: "ꠄꠘ꠆ꠕꠘꠤ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "kʰlabo"
+  output: "ꠈ꠆ꠟꠣꠛ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "turbo"
+  output: "ꠔꠥꠞ꠆ꠛ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "pʰrocaro"
+  output: "ꠚ꠆ꠞꠌꠣꠞ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "surjō"
+  output: "ꠡꠥꠞ꠆ꠎꠧ"
+}
+rewrite {
+  comment: "<DVISVARA>."
+  rule: "FROM_SYLO"
+  input: "ꠖꠥꠂꠚꠥꠞ"
+  output: "duipʰuro"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠢꠂ"
+  output: "hoi"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠉꠣꠂ"
+  output: "gai"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠇꠂꠟꠣꠝ"
+  output: "koilamo"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠈꠣꠂꠟꠣꠝ"
+  output: "kʰailamo"
+}
+rewrite {
+  rule: "FROM_SYLO"
+  input: "ꠅꠂꠘ"
+  output: "oino"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "duipʰuro"
+  output: "ꠖꠥꠂꠚꠥꠞ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "hoi"
+  output: "ꠢꠂ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "gai"
+  output: "ꠉꠣꠂ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "koilamo"
+  output: "ꠇꠂꠟꠣꠝ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "kʰailamo"
+  output: "ꠈꠣꠂꠟꠣꠝ"
+}
+rewrite {
+  rule: "TO_SYLO"
+  input: "oino"
+  output: "ꠅꠂꠘ"
+}
+rewrite {
+  comment: "----------------------------------------------------------------------------- Tirhuta. -----------------------------------------------------------------------------"
+  rule: "FROM_TIRH"
+  input: "𑒞𑒱𑒩𑒯𑒳𑒞𑒰"
+  output: "tirahutā"
+}
+rewrite {
+  rule: "FROM_TIRH"
+  input: "𑒧𑒻𑒟𑒱𑒪𑒲"
+  output: "maitʰilī"
+}
+rewrite {
+  rule: "FROM_TIRH"
+  input: "𑒥𑒻𑒮𑒰𑒐"
+  output: "baisākʰa"
+}
+rewrite {
+  rule: "FROM_TIRH"
+  input: "𑒖𑒹𑒚"
+  output: "jēṭʰa"
+}
+rewrite {
+  rule: "FROM_TIRH"
+  input: "𑒁𑒮𑒰𑒜𑓃"
+  output: "asāṛʰa"
+}
+rewrite {
+  rule: "FROM_TIRH"
+  input: "𑒦𑒰𑒠𑒼"
+  output: "bʰādō"
+}
+rewrite {
+  rule: "FROM_TIRH"
+  input: "𑒏𑒰𑒞𑒱𑒏"
+  output: "kātika"
+}
+rewrite {
+  rule: "TO_TIRH"
+  input: "tirahutā"
+  output: "𑒞𑒱𑒩𑒯𑒳𑒞𑒰"
+}
+rewrite {
+  rule: "TO_TIRH"
+  input: "maitʰilī"
+  output: "𑒧𑒻𑒟𑒱𑒪𑒲"
+}
+rewrite {
+  rule: "TO_TIRH"
+  input: "baisākʰa"
+  output: "𑒥𑒻𑒮𑒰𑒐"
+}
+rewrite {
+  rule: "TO_TIRH"
+  input: "jēṭʰa"
+  output: "𑒖𑒹𑒚"
+}
+rewrite {
+  rule: "TO_TIRH"
+  input: "asāṛʰa"
+  output: "𑒁𑒮𑒰𑒜𑓃"
+}
+rewrite {
+  rule: "TO_TIRH"
+  input: "bʰādō"
+  output: "𑒦𑒰𑒠𑒼"
+}
+rewrite {
+  rule: "TO_TIRH"
+  input: "kātika"
+  output: "𑒏𑒰𑒞𑒱𑒏"
+}
+rewrite {
+  comment: "----------------------------------------------------------------------------- Takri. -----------------------------------------------------------------------------"
+  rule: "FROM_TAKR"
+  input: "𑚔𑚭𑚊𑚤𑚯"
+  output: "ṭākarī"
+}
+rewrite {
+  rule: "FROM_TAKR"
+  input: "𑚔𑚭𑚫𑚊𑚤𑚯"
+  output: "ṭāṁkarī"
+}
+rewrite {
+  rule: "FROM_TAKR"
+  input: "𑚢𑚶𑚩𑚨"
+  output: "mhasa"
+}
+rewrite {
+  rule: "FROM_TAKR"
+  input: "𑚊𑚶𑚩𑚥"
+  output: "khala"
+}
+rewrite {
+  rule: "FROM_TAKR"
+  input: "𑚙𑚭𑚫"
+  output: "tāṁ"
+}
+rewrite {
+  rule: "FROM_TAKR"
+  input: "𑚎𑚭"
+  output: "ṅā"
+}
+rewrite {
+  rule: "FROM_TAKR"
+  input: "𑚀𑚫𑚙𑚭𑚊𑚶𑚋𑚤𑚯"
+  output: "aṁtākkʰarī"
+}
+rewrite {
+  rule: "FROM_TAKR"
+  input: "𑚩𑚴𑚥𑚶𑚪𑚤"
+  output: "hōlṟara"
+}
+rewrite {
+  rule: "FROM_TAKR"
+  input: "𑚩𑚳𑚫𑚖𑚠𑚭𑚥"
+  output: "haiṁḍabāla"
+}
+rewrite {
+  rule: "FROM_TAKR"
+  input: "𑚩𑚮𑚢𑚭𑚏𑚥"
+  output: "himācala"
+}
+rewrite {
+  rule: "FROM_TAKR"
+  input: "𑚨𑚶𑚚𑚭𑚞𑚝𑚭"
+  output: "stʰāpanā"
+}
+rewrite {
+  rule: "FROM_TAKR"
+  input: "𑚨𑚶𑚔𑚯𑚦𑚲𑚫𑚨𑚝"
+  output: "sṭīvēṁsana"
+}
+rewrite {
+  rule: "TO_TAKR"
+  input: "ṭākarī"
+  output: "𑚔𑚭𑚊𑚤𑚯"
+}
+rewrite {
+  rule: "TO_TAKR"
+  input: "ṭāṁkarī"
+  output: "𑚔𑚭𑚫𑚊𑚤𑚯"
+}
+rewrite {
+  rule: "TO_TAKR"
+  input: "mhasa"
+  output: "𑚢𑚶𑚩𑚨"
+}
+rewrite {
+  rule: "TO_TAKR"
+  input: "khala"
+  output: "𑚊𑚶𑚩𑚥"
+}
+rewrite {
+  rule: "TO_TAKR"
+  input: "tāṁ"
+  output: "𑚙𑚭𑚫"
+}
+rewrite {
+  rule: "TO_TAKR"
+  input: "ṅā"
+  output: "𑚎𑚭"
+}
+rewrite {
+  rule: "TO_TAKR"
+  input: "aṁtākkʰarī"
+  output: "𑚀𑚫𑚙𑚭𑚊𑚶𑚋𑚤𑚯"
+}
+rewrite {
+  rule: "TO_TAKR"
+  input: "hōlṟara"
+  output: "𑚩𑚴𑚥𑚶𑚪𑚤"
+}
+rewrite {
+  rule: "TO_TAKR"
+  input: "haiṁḍabāla"
+  output: "𑚩𑚳𑚫𑚖𑚠𑚭𑚥"
+}
+rewrite {
+  rule: "TO_TAKR"
+  input: "himācala"
+  output: "𑚩𑚮𑚢𑚭𑚏𑚥"
+}
+rewrite {
+  rule: "TO_TAKR"
+  input: "stʰāpanā"
+  output: "𑚨𑚶𑚚𑚭𑚞𑚝𑚭"
+}
+rewrite {
+  rule: "TO_TAKR"
+  input: "sṭīvēṁsana"
+  output: "𑚨𑚶𑚔𑚯𑚦𑚲𑚫𑚨𑚝"
+}

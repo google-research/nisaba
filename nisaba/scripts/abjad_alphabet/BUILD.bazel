@@ -19,7 +19,7 @@ load(
     "nisaba_compile_grm_py",
     "nisaba_compile_multi_grm_py",
     "nisaba_compile_script_lang_multi_grm_py",
-    "nisaba_grm_regression_test",
+    "nisaba_grm_textproto_test",
 )
 
 package(default_visibility = ["//nisaba/scripts/abjad_alphabet:__subpackages__"])
@@ -65,9 +65,10 @@ nisaba_compile_grm_py(
     ],
 )
 
-nisaba_grm_regression_test(
+nisaba_grm_textproto_test(
     name = "reversible_roman_test",
     grammar = ":reversible_roman",
+    textproto = "testdata/reversible_roman.textproto",
 )
 
 nisaba_compile_multi_grm_py(
@@ -87,15 +88,17 @@ nisaba_compile_multi_grm_py(
     ],
 )
 
-nisaba_grm_regression_test(
+nisaba_grm_textproto_test(
     name = "nfc_test",
     grammar = ":nfc",
+    textproto = "testdata/nfc.textproto",
+    token_type = "byte",
 )
 
-nisaba_grm_regression_test(
+nisaba_grm_textproto_test(
     name = "nfc_utf8_test",
     grammar = ":nfc_utf8",
-    test_file = "testdata:nfc.tsv",
+    textproto = "testdata/nfc.textproto",
     token_type = "utf8",
 )
 

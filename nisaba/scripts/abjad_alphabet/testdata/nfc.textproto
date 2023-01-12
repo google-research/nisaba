@@ -1,0 +1,205 @@
+# Copyright 2022 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: speech/fst/testing/testdata.proto
+# proto-message: Rewrites
+rewrite {
+  comment: "Unit tests for NFC of abjad / alphabet script languages. ALEF WITH MADDA ABOVE"
+  rule: "ARAB"
+  input: "آپ"
+  output: "آپ"
+}
+rewrite {
+  rule: "ARAB"
+  input: "درآمد"
+  output: "درآمد"
+}
+rewrite {
+  comment: "ALEF WITH HAMZA ABOVE"
+  rule: "ARAB"
+  input: "غالبأ"
+  output: "غالبأ"
+}
+rewrite {
+  comment: "ALEF WITH HAMZA BELOW"
+  rule: "ARAB"
+  input: "علإ"
+  output: "علإ"
+}
+rewrite {
+  rule: "ARAB"
+  input: "علإمژ"
+  output: "علإمژ"
+}
+rewrite {
+  rule: "ARAB"
+  input: "الإبراهيم"
+  output: "الإبراهيم"
+}
+rewrite {
+  comment: "WAW WITH HAMZA ABOVE"
+  rule: "ARAB"
+  input: "بناؤ"
+  output: "بناؤ"
+}
+rewrite {
+  comment: "ARABIC LETTER HEH GOAL WITH HAMZA ABOVE"
+  rule: "ARAB"
+  input: "نقطۂ"
+  output: "نقطۂ"
+}
+rewrite {
+  comment: "ARABIC LETTER YEH BARREE WITH HAMZA ABOVE"
+  rule: "ARAB"
+  input: "کۓ"
+  output: "کۓ"
+}
+rewrite {
+  comment: "ALEF MADDAH + HAMZA BELOW -> ALEF HAMZA BELOW + MADDAH"
+  rule: "ARAB"
+  input: "إٓئیکن"
+  output: "إٓئیکن"
+}
+rewrite {
+  comment: "ALEF + SUPERSCRIPT ALEF + MADDHA -> ALEF MADDHA + SUPERSCRIPT ALEF"
+  rule: "ARAB"
+  input: "آٰئی"
+  output: "آٰئی"
+}
+rewrite {
+  comment: "Pass-through deprecated letter: ALEF WITH WAVY HAMZA BELOW"
+  rule: "ARAB"
+  input: "كٳم"
+  output: "كٳم"
+}
+rewrite {
+  comment: "Keeping multiple combining marks on a letter in the canonical order TODO: Change this example input to SHADDA, SHADDA, FATHA, FATHA. This is not currently supported as SHADDA, FATHA reordering is applied only once that generates SHADDA, FATHA, SHADDA, FATHA which is not fully NFC\'ed."
+  rule: "ARAB"
+  input: "تعذََّّر"
+  output: "تعذََّّر"
+}
+rewrite {
+  comment: "FATHA, SHADDA"
+  rule: "ARAB"
+  input: "مصمَّم"
+  output: "مصمَّم"
+}
+rewrite {
+  comment: "FATHA, KASRA"
+  rule: "ARAB"
+  input: "ہَِیں"
+  output: "ہَِیں"
+}
+rewrite {
+  comment: "FATHA, DAMMA"
+  rule: "ARAB"
+  input: "گَُراني"
+  output: "گَُراني"
+}
+rewrite {
+  comment: "FATHA, SHADDA, KASRA"
+  rule: "ARAB"
+  input: "غيَِّر"
+  output: "غيَِّر"
+}
+rewrite {
+  comment: "FATHATAN, FATHA"
+  rule: "ARAB"
+  input: "تلقائيًَا"
+  output: "تلقائيًَا"
+}
+rewrite {
+  comment: "FATHATAN, KASRA"
+  rule: "ARAB"
+  input: "حاليًِا"
+  output: "حاليًِا"
+}
+rewrite {
+  comment: "FATHATAN, KASRATAN"
+  rule: "ARAB"
+  input: "نهمًٍه"
+  output: "نهمًٍه"
+}
+rewrite {
+  comment: "FATHATAN, SHADDA"
+  rule: "ARAB"
+  input: "ردًّا"
+  output: "ردًّا"
+}
+rewrite {
+  comment: "KASRA, SHADDA"
+  rule: "ARAB"
+  input: "حدِّد"
+  output: "حدِّد"
+}
+rewrite {
+  comment: "KASRA, SMALL HIGH TAH"
+  rule: "ARAB"
+  input: "اِؕس"
+  output: "اِؕس"
+}
+rewrite {
+  comment: "KASRA, SUKUN"
+  rule: "ARAB"
+  input: "يُمِْكِنُنِي"
+  output: "يُمِْكِنُنِي"
+}
+rewrite {
+  comment: "KASRATAN, SHADDA"
+  rule: "ARAB"
+  input: "بأيٍّ"
+  output: "بأيٍّ"
+}
+rewrite {
+  comment: "KASRATAN, KASRA"
+  rule: "ARAB"
+  input: "جارٍِ"
+  output: "جارٍِ"
+}
+rewrite {
+  comment: "KASRATAN, FATHA"
+  rule: "ARAB"
+  input: "حدٍَ"
+  output: "حدٍَ"
+}
+rewrite {
+  comment: "DAMMATAN, DAMMA"
+  rule: "ARAB"
+  input: "التحقٌُّق"
+  output: "التحقٌُّق"
+}
+rewrite {
+  comment: "DAMMATAN, SHADDA"
+  rule: "ARAB"
+  input: "كلٌّ"
+  output: "كلٌّ"
+}
+rewrite {
+  comment: "DAMMA, SMALL HIGH DOTLESS HEAD OF KHAH"
+  rule: "ARAB"
+  input: "ٿاُۡ"
+  output: "ٿاُۡ"
+}
+rewrite {
+  comment: "DAMMA, SHADDA"
+  rule: "ARAB"
+  input: "توفُّر"
+  output: "توفُّر"
+}
+rewrite {
+  comment: "SHADDA, SUKUN"
+  rule: "ARAB"
+  input: "نظاميّْ"
+  output: "نظاميّْ"
+}
