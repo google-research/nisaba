@@ -104,7 +104,7 @@ the combining symbol {+} is used.
 
 **Example**
 
-* `<aa><tt><aa><n_chl>` -> `<aa>={a_l}<tt>={tt}<aa>={a_l}<n_chl>={ni}`
+* `<aa><tt><aa><n_chl>` -> `<aa>={a_l}<tt>={tt}<aa>={a_l}<n_chl>={n}`
 
 `iso2txn_ops` grammar contains phonological operations that depend on the iso graphemes that are on the left side of the alignment, and therefore don't fit the language agnostic phonological operations in the `phon_ops` grammar.
 
@@ -114,7 +114,7 @@ the combining symbol {+} is used.
 
 **Example**: Malayalam voicing
 
-* `<aa>={a_l}<tt>={tt}<aa>={a_l}<n_chl>={ni}` -> `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={ni}`
+* `<aa>={a_l}<tt>={tt}<aa>={a_l}<n_chl>={n}` -> `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={n}`
 
 ## txn2ltn and iso2ltn_ops grammars
 
@@ -126,7 +126,7 @@ the combining symbol {+} is used.
 
 **Example**
 
-* `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={ni}` ->
+* `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={n}` ->
 
  `<aa>=“aa”<tt>=“d”<aa>=“aa”<n_chl>=“n”` ->
 
@@ -138,7 +138,7 @@ In this format different spellings of the same word in one language are likely t
 
 **Example**
 
-* `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={ni}` ->
+* `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={n}` ->
 
  `<aa>=“a”<tt>=“d”<aa>=“a”<n_chl>=“n”` ->
 
@@ -188,7 +188,7 @@ Natural transliteration, which aims to capture the romanization of the source la
 
 **Example**
 
-* `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={ni}` ->
+* `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={n}` ->
 
  `<aa>“aa”<tt>“d”<aa>“a”<n_chl>“n”` ->
 

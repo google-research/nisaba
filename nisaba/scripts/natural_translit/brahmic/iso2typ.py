@@ -27,7 +27,7 @@ def _iso_to_decomposed_typ() -> pyn.Fst:
   """ISO to typable fst."""
   return c.read_glyph(iso.SINGLE_POINT)
 
-_COMPOSE_THREE_POINT_SIGN = c.compose_from_gr(iso.RETROFLEX_VOCALIC)
+_COMPOSE_THREE_POINT_SIGN = c.compose_from_gr(iso.LONG_VOCALIC)
 
 _COMPOSE_TWO_POINT_SIGN = c.compose_from_gr(iso.TWO_POINT_SIGN)
 

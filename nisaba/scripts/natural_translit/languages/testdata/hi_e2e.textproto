@@ -77,7 +77,7 @@ rewrite {
 rewrite {
   rule: "ISO_TO_IPA"
   input: "ākr̥tiyām̐"
-  output: "aːkɾit̪ijaː~"
+  output: "aːkrit̪ijaː~"
 }
 rewrite {
   rule: "ISO_TO_PSAF"

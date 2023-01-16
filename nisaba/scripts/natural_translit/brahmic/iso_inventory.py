@@ -136,17 +136,17 @@ sp = c.char_inventory(SINGLE_POINT)
 # Composite vowels
 
 # Three point vowel sign
-RETROFLEX_VOCALIC = ls.apply_foreach(c.make_composite_char, [
-    [[sp.L, sp.VCL, sp.LONG], 'll_vcl', ph.LL + ph.SYL],
-    [[sp.R, sp.VCL, sp.LONG], 'rr_vcl', ph.R + ph.SYL],
+LONG_VOCALIC = ls.apply_foreach(c.make_composite_char, [
+    [[sp.L, sp.VCL, sp.LONG], 'llv', ph.L + ph.SYL_L],
+    [[sp.R, sp.VCL, sp.LONG], 'rrv', ph.R + ph.SYL_L],
 ])
 
-ALVEOLAR_VOCALIC = ls.apply_foreach(c.make_composite_char, [
-    [[sp.L, sp.VCL], 'l_vcl', ph.L + ph.SYL],
-    [[sp.R, sp.VCL], 'r_vcl', ph.RT + ph.SYL],
+SHORT_VOCALIC = ls.apply_foreach(c.make_composite_char, [
+    [[sp.L, sp.VCL], 'lv', ph.L + ph.SYL],
+    [[sp.R, sp.VCL], 'rv', ph.R + ph.SYL],
 ])
 
-VOCALIC_SIGN = ALVEOLAR_VOCALIC + RETROFLEX_VOCALIC
+VOCALIC_SIGN = SHORT_VOCALIC + LONG_VOCALIC
 
 DIPHTHONG_SIGN = ls.apply_foreach(c.make_composite_char, [
     [[sp.A, sp.I], 'ai', ph.AE],
@@ -155,9 +155,9 @@ DIPHTHONG_SIGN = ls.apply_foreach(c.make_composite_char, [
 
 SANTAL_AAN = [c.make_composite_char([sp.AN, sp.LONG], 'aan', ph.A_L)]
 
-TWO_POINT_SIGN = ALVEOLAR_VOCALIC + DIPHTHONG_SIGN + SANTAL_AAN
+TWO_POINT_SIGN = SHORT_VOCALIC + DIPHTHONG_SIGN + SANTAL_AAN
 
-VOWEL_SIGN = SIMPLE_VOWEL + TWO_POINT_SIGN + RETROFLEX_VOCALIC
+VOWEL_SIGN = SIMPLE_VOWEL + TWO_POINT_SIGN + LONG_VOCALIC
 VOWEL_S = c.store_gr_union('VOWEL_S', VOWEL_SIGN)
 
 
@@ -194,23 +194,18 @@ ASPIRATED_CONSONANT = ls.apply_foreach(_make_aspirated, [
     [sp.K], [sp.P], [sp.RD], [sp.T], [sp.TT],
 ])
 
-
-def _make_chillu(char: c.Char) -> c.Char:
-  return c.make_composite_char(
-      [char, sp.CHL],
-      char.typ + '_chl',
-      char.ph)
-
-CHILLU_CONSONANT = ls.apply_foreach(_make_chillu, [
-    [sp.K], [sp.L], [sp.LL], [sp.N], [sp.NN], [sp.RR],
-])
-
-DEAD_R = ls.apply_foreach(c.make_composite_char, [
+DEAD_CONSONANT = ls.apply_foreach(c.make_composite_char, [
+    [[sp.K, sp.CHL], 'k_chl', sp.K.ph],
+    [[sp.L, sp.CHL], 'l_chl', sp.L.ph],
+    [[sp.LL, sp.CHL], 'll_chl', sp.LL.ph],
+    [[sp.N, sp.CHL], 'n_chl', ph.N],
+    [[sp.NN, sp.CHL], 'nn_chl', sp.NN.ph],
+    [[sp.RR, sp.CHL], 'rr_chl', sp.RR.ph],
     [[sp.R, sp.CHL], 'reph', ph.RT],
     [[sp.R, sp.EYE], 'r_eye', ph.RT]
 ])
 
-COMPOSITE_CONSONANT = ASPIRATED_CONSONANT + CHILLU_CONSONANT + DEAD_R
+COMPOSITE_CONSONANT = ASPIRATED_CONSONANT + DEAD_CONSONANT
 
 CND = [c.make_composite_char([sp.M, sp.CND_DIA], 'cnd', ph.NSL)]
 CODA = c.store_gr_union('CODA', SIMPLE_CODA + CND)
@@ -220,7 +215,7 @@ OM = [c.make_composite_char([sp.OT, sp.M], 'om', ph.O_L + ph.M)]
 
 TWO_POINT = TWO_POINT_SIGN + INDEPENDENT_VOWEL + COMPOSITE_CONSONANT + CND + OM
 
-CHAR = (SINGLE_POINT + TWO_POINT + RETROFLEX_VOCALIC)
+CHAR = (SINGLE_POINT + TWO_POINT + LONG_VOCALIC)
 STORES = [VOWEL_S, VOWEL_I, CODA, VOCALIC]
 
 GRAPHEME_INVENTORY = c.gr_inventory(CHAR, STORES)

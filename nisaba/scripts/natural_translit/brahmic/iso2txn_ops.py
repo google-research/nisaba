@@ -28,15 +28,15 @@ gr = iso.GRAPHEME_INVENTORY
 # Vocalic liquids
 
 
-def _vocalic(vcl: pyn.FstLike) -> pyn.Fst:
+def _vocalic(vcl: pyn.FstLike, vcl_l: pyn.FstLike) -> pyn.Fst:
   """Pronunciation of the vowel part of the vocalic Rs and Ls."""
-  return rw.rewrite(ph.SYL, vcl)
+  return rw.rewrite(ph.SYL, vcl) @ rw.rewrite(ph.SYL_L, vcl_l)
 
-VOCALIC_I = _vocalic(ph.I)
+VOCALIC_I = _vocalic(ph.I, ph.I_L)
 
-VOCALIC_U = _vocalic(ph.U)
+VOCALIC_U = _vocalic(ph.U, ph.U_L)
 
-VOCALIC_EC = _vocalic(ph.EC)
+VOCALIC_EC = _vocalic(ph.EC, ph.EC_L)
 
 # Schwa handling
 

@@ -79,6 +79,7 @@ def _rewrite_txn_to_ipa() -> pyn.Fst:
       [ph.NSL, ph.NSL_IPA],
       [ph.SIL, ph.SIL_IPA],
       [ph.SYL, ph.SYL_IPA],
+      [ph.SYL_L, ph.SYL_L_IPA],
       [ph.SCHWA, ph.SCHWA_IPA],
   ])
 

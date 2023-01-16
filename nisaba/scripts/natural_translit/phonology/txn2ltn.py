@@ -102,6 +102,7 @@ FEATURE = ls.cross_union([
     [ph.SIL, tr.DEL],
     [ph.SCHWA, tr.DEL],
     [ph.SYL, tr.I],
+    [ph.SYL_L, tr.S_II],
 ])
 
 MAP_FEATURE = rw.rewrite_op(FEATURE)

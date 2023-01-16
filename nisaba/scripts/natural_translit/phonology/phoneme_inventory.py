@@ -109,6 +109,7 @@ NSL_IPA = '~'
 SIL_IPA = ''
 GLIDE_IPA = '̯'  # Combining inverted breve below ( ̯ ) U+032F
 SYL_IPA = '̍'  # Combining vertical line above ( ̍ ) U+030D
+SYL_L_IPA = '̍ː'
 CMB_IPA = '͡'
 
 # txn phonemes
@@ -119,6 +120,7 @@ ASP = al.enclose_phoneme('H')
 GLIDE = al.enclose_phoneme('glide')
 NSL = al.enclose_phoneme('N')
 SYL = al.enclose_phoneme('V')
+SYL_L = al.enclose_phoneme('V_L')
 CMB = al.enclose_phoneme('+')
 
 # Silence
@@ -126,7 +128,7 @@ CMB = al.enclose_phoneme('+')
 SIL = al.enclose_phoneme('sil')
 
 VOWEL_MODS = ls.union_opt(GLIDE, NSL)
-CONSONANT_MODS = ls.union_opt(ASP, SYL)
+CONSONANT_MODS = ls.union_opt(ASP, SYL, SYL_L)
 
 MODS = ls.union_opt(VOWEL_MODS, CONSONANT_MODS, CMB)
 
@@ -244,7 +246,7 @@ LIQUID = ls.union_opt(RHOTIC, LATERAL)
 CONSONANT = ls.union_opt(NASAL, STOP, FRICATIVE, AFFRICATE, APPROXIMANT, LIQUID)
 
 PHONEME = ls.union_opt(
-    ASP, GLIDE, NSL, SYL, SIL, EC, EC_L, A, A_L, AE, AE_L, E,
+    ASP, GLIDE, NSL, SYL, SYL_L, SIL, EC, EC_L, A, A_L, AE, AE_L, E,
     E_L, EH, EH_L, I, I_L, O, O_L, OH, OH_L, U, U_L, B, TSH,
     D, DD, DI, F, G, H, DZH, K, L, LL, M, N, NG, NI, NN, NY,
     P, Q, R, RRT, RRU, RT, S, SH, SS, T, TI, TT, VU, KH, GH,

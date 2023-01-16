@@ -42,14 +42,21 @@ _NON_LABIAL_ANUSVARA = rw.reassign(
     tr.N)
 
 
-def _transliterate_vocalic(vcl_tr: pyn.FstLike) -> pyn.Fst:
+def _transliterate_vocalic(
+    vcl: pyn.FstLike,
+    vcl_l: pyn.FstLike) -> pyn.Fst:
   """Transliterates all vowels in vocalics as vcl_tr."""
-  return rw.rewrite(
-      ls.union_opt(ph.VOWEL, ph.SYL),
-      vcl_tr,
+  long_syl = rw.rewrite(
+      ph.SYL_L,
+      vcl_l,
       gr.VOCALIC)
+  rest = rw.rewrite(
+      ls.union_opt(ph.VOWEL, ph.SYL),
+      vcl,
+      gr.VOCALIC)
+  return long_syl @ rest
 
-VOCALIC_TR_I = _transliterate_vocalic(tr.I)
+VOCALIC_TR_I = _transliterate_vocalic(tr.I, tr.S_II)
 
 # Word initial <aa> is "aa".
 AA_WI = rw.reassign_word_initial(
@@ -101,7 +108,6 @@ TXN_TO_PSA_COMMON = (
     txn2ltn.MAP_CONSONANT @
     txn2ltn.MAP_FEATURE
     ).optimize()
-
 
 TXN_TO_PSAF = (
     TXN_TO_PSA_COMMON @

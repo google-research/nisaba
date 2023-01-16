@@ -21,6 +21,7 @@ from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
+# See README for Char tuple details.
 Char = collections.namedtuple(
     'Char', ['alias', 'typ', 'gr', 'tr', 'glyph', 'ph', 'cmp'])
 
@@ -102,11 +103,11 @@ def make_composite_char(
 
   Following call:
   ```
-  make_composite_char([iso.L, iso.VCL], 'l_vcl', ph.L + ph.SYL)
+  make_composite_char([iso.L, iso.VCL], 'lv', ph.L + ph.SYL)
   ```
   will return:
   ```
-  Char('L_VCL', 'l_vcl', <l_vcl>, “l_vcl”, 'l̥', ph.L + ph.SYL, <l><vcl>)
+  Char('LV', 'lv', <lv>, “lv”, 'l̥', ph.L + ph.SYL, <l><vcl>)
   ```
   """
   glyph = al.EMPTY_STR
@@ -128,14 +129,14 @@ def compose_from_gr(char_list: [Char]) -> pyn.Fst:
 
   Following call:
   ```
-  compose_from_gr([iso.L_VCL, iso.R_VCL])
+  compose_from_gr([iso.LV, iso.RV])
   ```
   will return:
   ```
   pyn.cdrewrite(
       pyn.union(
-          pyn.cross('<l><vcl>', '<l_vcl>'),
-          pyn.cross('<r><vcl>', '<r_vcl>')
+          pyn.cross('<l><vcl>', '<lv>'),
+          pyn.cross('<r><vcl>', '<rv>')
       )
   )
   ```

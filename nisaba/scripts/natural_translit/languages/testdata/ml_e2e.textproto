@@ -72,5 +72,5 @@ rewrite {
 rewrite {
   rule: "ISO_TO_IPA"
   input: "r̥ṣi"
-  output: "ɾəʂi"
+  output: "rəʂi"
 }
