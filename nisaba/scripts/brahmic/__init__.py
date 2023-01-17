@@ -74,7 +74,8 @@ class NormalizingAcceptor(object):
       self._visual_norm = VisualNorm(script)
       self._wellformed = WellFormed(script)
     except KeyError as error:
-      raise ScriptError('Unsupported language script: {}'.format(error))
+      raise ScriptError(
+          'Unsupported language script: {}'.format(error)) from error
     else:
       self.accept_pat = re.compile(r'[^{}]+'.format(re.escape(ignore)))
 

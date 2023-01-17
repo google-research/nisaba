@@ -27,6 +27,7 @@ load(
 load(
     "//nisaba/scripts/brahmic:constant.bzl",
     "FIXED_RULE_SCRIPTS",
+    "NATURAL_TRANSLIT_LANGS",
     "READING_NORM_LANGS",
     "SCRIPTS",
     "VISUAL_NORM_LANGS",
@@ -387,6 +388,9 @@ py_library(
         ":reading_norm.far",
         ":visual_norm.far",
         ":wellformed.far",
+    ] + [
+        "//nisaba/scripts/natural_translit/languages:{}_e2e.far".format(lang)
+        for lang in NATURAL_TRANSLIT_LANGS
     ],
     srcs_version = "PY3",
     visibility = ["//visibility:public"],

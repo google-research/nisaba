@@ -106,5 +106,7 @@ READING_NORM_LANGS = [
     ("Mlym", ""),
 ]
 
-FAR_DIR = pathlib.Path("com_google_nisaba/nisaba/scripts/brahmic")
+
+NISABA_DIR = pathlib.Path("com_google_nisaba/nisaba")
+FAR_DIR = NISABA_DIR / "scripts/brahmic"
 SCRIPT_DIR = FAR_DIR / "data"

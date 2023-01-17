@@ -83,14 +83,15 @@ class Far:
       return lattice.start() != pynini.NO_STATE_ID
 
   def __init__(self, path_to_far: os.PathLike[str]) -> None:
-    self._path_to_far = path_to_far
+    # This member variable can be used for debugging info.
+    self.path_to_far = path_to_far
 
   # NOTE: Due to a pytype inconvenience with memoize.Memoize, this users of this
   # and the following function actually have no type information checked
   # ().
   @functools.lru_cache(maxsize=None)
   def _LoadFar(self) -> pynini.Far:
-    return pynini.Far(uf.AsResourcePath(self._path_to_far))
+    return pynini.Far(uf.AsResourcePath(self.path_to_far))
 
   @functools.lru_cache(maxsize=None)
   def Fst(self, rule_name: str) -> 'FstWrapper':
