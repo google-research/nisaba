@@ -79,3 +79,29 @@ For Thrax, the FSTs could be imported as follows:
 ```
 latin_from_arab = LoadFstFromFar['nisaba/scripts/abjad_alphabet/reversible_roman.far', 'FROM_ARAB'];
 ```
+
+## Citation
+
+If you use this software in a publication, please cite the accompanying
+[paper](https://aclanthology.org/2022.wanlp-1.36.pdf) from
+[WANLP 2022](https://sites.google.com/corp/view/wanlp2022/):
+
+```bibtex
+@inproceedings{gutkin-etal-2022-beyond,
+    title = "Beyond {A}rabic: Software for {P}erso-{A}rabic Script Manipulation",
+    author = "Gutkin, Alexander  and
+      Johny, Cibu  and
+      Doctor, Raiomond  and
+      Roark, Brian  and
+      Sproat, Richard",
+    booktitle = "Proceedings of the Seventh Arabic Natural Language Processing Workshop (WANLP)",
+    month = dec,
+    year = "2022",
+    address = "Abu Dhabi, United Arab Emirates (Hybrid)",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.wanlp-1.36",
+    pages = "381--387",
+}
+```
+
+
