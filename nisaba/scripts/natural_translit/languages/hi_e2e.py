@@ -92,8 +92,7 @@ def iso_to_nat() -> pyn.Fst:
           txn2ltn.MAP_VOWEL_IGNORE_LENGTH @
           iso2ltn_ops.CC_TO_CCH @
           iso2ltn_ops.CCH_TO_CHH @
-          iso2ltn_ops.SSSS_TO_SSH @
-          iso2ltn_ops.SHSH_TO_SSH @
+          iso2ltn_ops.S_SHSH_TO_SSH @
           ltn.print_only_ltn()).optimize()
 
 

@@ -21,6 +21,7 @@ from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 from nisaba.scripts.natural_translit.phonology import txn2ltn
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
+from nisaba.scripts.utils import rewrite as cmp
 
 gr = iso.GRAPHEME_INVENTORY
 tr = ltn.TRANSLIT_INVENTORY
@@ -64,22 +65,10 @@ AA_WI = rw.reassign_word_initial(
     ph.A_L,
     tr.S_AA)
 
-# Rules for two-letter geminates.
-# PSAC uses the most reduced form in every contexts.
-# NAT depends on language and context.
-# TODO: Generalise and compress this rule set.
-
-# <c><c> is "ch"
-CC_TO_CH = rw.reduce_repetition(gr.C, tr.S_CH)
+# Rules for natural translit of two-letter geminates.
 
 # <c><c> is "cch"
-CC_TO_CCH = rw.reduce_repetition(gr.C, tr.S_CH, tr.C + tr.S_CH)
-
-# <c><ch> is "ch"
-CCH_TO_CH = rw.merge(
-    gr.C, tr.S_CH,
-    gr.CH, tr.S_CH + tr.H,
-    tr.S_CH)
+CC_TO_CCH = rw.merge_repeated_alignment(gr.C, tr.S_CH, tr.C + tr.S_CH)
 
 # <c><ch> is "chh"
 CCH_TO_CHH = rw.merge(
@@ -87,19 +76,11 @@ CCH_TO_CHH = rw.merge(
     gr.CH, tr.S_CH + tr.H,
     tr.S_CH + tr.H)
 
-# <ss><ss> is "sh"
-SSSS_TO_SH = rw.reduce_repetition(gr.SS, tr.S_SH)
-
-# <ss><ss> is "ssh"
-SSSS_TO_SSH = rw.reduce_repetition(gr.SS, tr.S_SH, tr.S + tr.S_SH)
-
-# <ss><ss> is "sh"
-SHSH_TO_SH = rw.reduce_repetition(gr.SH, tr.S_SH)
-
-# <ss><ss> is "ssh"
-SHSH_TO_SSH = rw.reduce_repetition(gr.SH, tr.S_SH, tr.S + tr.S_SH)
-
-# Converts txn to PSAF and outputs only translit strings.
+# Translit <sh><sh> and <ss><ss> as "ssh"
+S_SHSH_TO_SSH = cmp.ComposeFsts(ls.apply_foreach(rw.merge_repeated_alignment, [
+    [gr.SS, tr.S_SH, tr.S + tr.S_SH],
+    [gr.SH, tr.S_SH, tr.S + tr.S_SH],
+]))
 
 # Compose common rules for romanization
 TXN_TO_PSA_COMMON = (
@@ -109,17 +90,17 @@ TXN_TO_PSA_COMMON = (
     txn2ltn.MAP_FEATURE
     ).optimize()
 
+# Convert txn to PSAF and outputs only translit strings.
 TXN_TO_PSAF = (
     TXN_TO_PSA_COMMON @
     txn2ltn.MAP_VOWEL_LONG @
     ltn.print_only_ltn()
     ).optimize()
 
-# Converts txn to PSAC and outputs only translit strings.
-TXN_TO_PSAC = (TXN_TO_PSA_COMMON @
-               txn2ltn.MAP_VOWEL_IGNORE_LENGTH @
-               CC_TO_CH @
-               CCH_TO_CH @
-               SSSS_TO_SH @
-               SHSH_TO_SH @
-               ltn.print_only_ltn()).optimize()
+# Remove all repeated translit substrings in PSAC.
+REMOVE_REPEATED_LTN = cmp.ComposeFsts(ls.apply_foreach(
+    rw.rewrite_repeated,
+    [[char.glyph] for char in ltn.ASCII_ONLY],
+))
+
+TXN_TO_PSAC = (TXN_TO_PSAF @ REMOVE_REPEATED_LTN).optimize()

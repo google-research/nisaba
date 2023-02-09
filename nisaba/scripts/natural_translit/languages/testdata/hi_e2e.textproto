@@ -167,7 +167,7 @@ rewrite {
 rewrite {
   rule: "ISO_TO_PSAC"
   input: "gapʰpʰāraśāha"
-  output: "gaffarshah"
+  output: "gafarshah"
 }
 rewrite {
   rule: "ISO_TO_NAT"
@@ -213,4 +213,24 @@ rewrite {
   rule: "ISO_TO_NAT"
   input: "bī.ēmaḍablyū"
   output: "BMW"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "jakārtā"
+  output: "d͡ʒəkaːɾt̪aː"
+}
+rewrite {
+  rule: "ISO_TO_PSAF"
+  input: "jakārtā"
+  output: "jakaartaa"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "jakārtā"
+  output: "jakarta"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "jakārtā"
+  output: "jakarta"
 }

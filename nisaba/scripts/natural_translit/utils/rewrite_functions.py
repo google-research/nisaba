@@ -17,6 +17,7 @@
 
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import alignment as al
+from nisaba.scripts.natural_translit.utils import concat as cc
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
 
@@ -97,6 +98,22 @@ def rewrite_word_final(
       new,
       preceding,
       al.EOW)
+
+
+def rewrite_repeated(
+    repeated: pyn.FstLike,
+    new: pyn.FstLike = None,
+    preceding: pyn.FstLike = al.EPSILON,
+    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
+  """Rewrites a repeated string or fst. By default reduces it to one."""
+  change_to = repeated
+  if new:
+    change_to = new
+  return rewrite(
+      cc.repeat(repeated),
+      change_to,
+      preceding,
+      following)
 
 
 def reassign(
@@ -251,7 +268,7 @@ def merge(
       al.align(left_1 + left_2, right_side))
 
 
-def reduce_repetition(
+def merge_repeated_alignment(
     left: pyn.FstLike,
     right: pyn.FstLike,
     new_right: pyn.FstLike = al.EPSILON) -> pyn.Fst:
@@ -276,10 +293,3 @@ def delete(
 
 # Removes graphemes and returns a sequence of phonemes or translit substrings.
 EXTRACT_RIGHT_SIDE = delete(ls.union_opt(al.GRAPHEMES, al.ALIGN_SIGN))
-
-
-def strip_right_side(syms: pyn.FstLike) -> pyn.Fst:
-  """Removes graphemes and right side boundaries and returns output string."""
-  return (EXTRACT_RIGHT_SIDE @
-          delete(syms)
-          ).optimize()

@@ -114,6 +114,7 @@ py_library(
         "//nisaba/scripts/natural_translit/phonology:txn2ltn",
         "//nisaba/scripts/natural_translit/utils:list_op",
         "//nisaba/scripts/natural_translit/utils:rewrite_functions",
+        "//nisaba/scripts/utils:rewrite",
         "@org_opengrm_pynini//pynini",
     ],
 )

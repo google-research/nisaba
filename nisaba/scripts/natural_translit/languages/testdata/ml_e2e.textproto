@@ -74,3 +74,18 @@ rewrite {
   input: "r̥ṣi"
   output: "rəʂi"
 }
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "jakkāṟⸯtta"
+  output: "d͡ʒakkaːrt̪t̪a"
+}
+rewrite {
+  rule: "ISO_TO_PSAF"
+  input: "jakkāṟⸯtta"
+  output: "jakkaartta"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "jakkāṟⸯtta"
+  output: "jakarta"
+}

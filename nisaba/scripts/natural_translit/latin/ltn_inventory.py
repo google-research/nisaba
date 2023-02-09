@@ -48,6 +48,7 @@ SUBSTRING = ls.apply_foreach(c.make_substring, [
 DEL = [c.make_char('', '', alias='DEL')]
 
 EN_LETTERS = c.store_tr_star('EN_LETTERS', ASCII_UC)
+ASCII_ONLY = ASCII_CHAR + SUBSTRING
 
 CHARS = ASCII_CHAR + ASCII_UC + SUBSTRING + DEL
 TRANSLIT_INVENTORY = c.tr_inventory(CHARS, [EN_LETTERS])
@@ -55,5 +56,3 @@ TRANSLIT_INVENTORY = c.tr_inventory(CHARS, [EN_LETTERS])
 
 def print_only_ltn() -> pyn.Fst:
   return c.print_only_glyph(CHARS)
-
-

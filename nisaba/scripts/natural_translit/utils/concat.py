@@ -19,6 +19,10 @@ import pynini as pyn
 from nisaba.scripts.natural_translit.utils import alignment as al
 
 
+def repeat(sym: pyn.FstLike) -> pyn.FstLike:
+  return sym + sym
+
+
 def concat_r(
     right_1: pyn.FstLike,
     right_2: pyn.FstLike) -> pyn.Fst:
