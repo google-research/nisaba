@@ -234,3 +234,23 @@ rewrite {
   input: "jakārtā"
   output: "jakarta"
 }
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "akailā"
+  output: "əkɛːlaː"
+}
+rewrite {
+  rule: "ISO_TO_PSAF"
+  input: "akailā"
+  output: "akailaa"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "akailā"
+  output: "akaila"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "akailā"
+  output: "akaila"
+}

@@ -26,6 +26,8 @@ def _rewrite_txn_to_ipa() -> pyn.Fst:
       [ph.A, ph.A_IPA],
       [ph.A_L, ph.A_L_IPA],
       [ph.AE, ph.AE_IPA],
+      [ph.AI, ph.AI_IPA],
+      [ph.AU, ph.AU_IPA],
       [ph.B, ph.B_IPA],
       [ph.TSH, ph.TSH_IPA],
       [ph.D, ph.D_IPA],

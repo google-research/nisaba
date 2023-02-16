@@ -89,3 +89,18 @@ rewrite {
   input: "jakkāṟⸯtta"
   output: "jakarta"
 }
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "haikku"
+  output: "ha͡ikku"
+}
+rewrite {
+  rule: "ISO_TO_PSAF"
+  input: "haikku"
+  output: "haikku"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "haikku"
+  output: "haiku"
+}

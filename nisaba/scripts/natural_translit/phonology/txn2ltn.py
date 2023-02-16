@@ -21,6 +21,13 @@ from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 tr = ltn.TRANSLIT_INVENTORY
 
+VOWEL_DIPHTHONG = ls.cross_union([
+    [ph.AI, tr.S_AI],
+    [ph.AU, tr.S_AU],
+])
+
+MAP_VOWEL_DIPHTHONG = rw.rewrite_op(VOWEL_DIPHTHONG)
+
 VOWEL_SHORT = ls.cross_union([
     [ph.A, tr.A],
     [ph.AE, tr.S_AE],
@@ -36,8 +43,10 @@ MAP_VOWEL_SHORT = rw.rewrite_op(VOWEL_SHORT)
 VOWEL_LONG = ls.cross_union([
     [ph.A_L, tr.S_AA],
     [ph.E_L, tr.S_EE],
+    [ph.EH_L, tr.S_EE],
     [ph.I_L, tr.S_II],
     [ph.O_L, tr.S_OO],
+    [ph.OH_L, tr.S_OO],
     [ph.U_L, tr.S_UU],
 ])
 
@@ -46,8 +55,10 @@ MAP_VOWEL_LONG = rw.rewrite_op(VOWEL_LONG)
 VOWEL_IGNORE_LENGTH = ls.cross_union([
     [ph.A_L, tr.A],
     [ph.E_L, tr.E],
+    [ph.EH_L, tr.E],
     [ph.I_L, tr.I],
     [ph.O_L, tr.O],
+    [ph.OH_L, tr.O],
     [ph.U_L, tr.U],
 ])
 
@@ -103,6 +114,7 @@ FEATURE = ls.cross_union([
     [ph.SCHWA, tr.DEL],
     [ph.SYL, tr.I],
     [ph.SYL_L, tr.S_II],
+    [ph.CMB, tr.DEL],
 ])
 
 MAP_FEATURE = rw.rewrite_op(FEATURE)

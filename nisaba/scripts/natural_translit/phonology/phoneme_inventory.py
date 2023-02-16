@@ -68,6 +68,8 @@ OH_IPA = 'ɔ'
 OH_L_IPA = 'ɔː'
 U_IPA = 'u'
 U_L_IPA = 'uː'
+AI_IPA = 'a͡i'
+AU_IPA = 'a͡u'
 B_IPA = 'b'
 TSH_IPA = 't͡ʃ'
 D_IPA = 'd'
@@ -155,6 +157,11 @@ U_L = al.enclose_phoneme('u_l')
 SCHWA = al.enclose_phoneme('sch')  # unassigned inherent vowel
 VCL_SCHWA = al.enclose_phoneme('@')  # pronounced schwa
 
+# Diphthongs
+
+AI = A + CMB + I
+AU = A + CMB + U
+
 # Consonants
 
 B = al.enclose_phoneme('b')
@@ -200,7 +207,7 @@ VOWEL_SHORT = (
     ls.star_opt(VOWEL_MODS))
 
 VOWEL_LONG = (
-    ls.union_opt(EC_L, A_L, AE_L, E_L, EH_L, I_L, O_L, OH_L, U_L) +
+    ls.union_opt(EC_L, A_L, AE_L, E_L, EH_L, I_L, O_L, OH_L, U_L, AI, AU) +
     ls.star_opt(VOWEL_MODS))
 VOWEL = ls.union_opt(VOWEL_SHORT, VOWEL_LONG)
 

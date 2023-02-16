@@ -56,7 +56,7 @@ SIMPLE_VOWEL_SIGN = ls.apply_foreach(c.make_char, [
     ['ii', 'ī', ph.I_L],
     ['o', 'o', ph.O],
     ['oo', 'ō', ph.O_L],
-    ['oc', 'ô', ph.O_L],
+    ['oc', 'ô', ph.OH],
     ['u', 'u', ph.U],
     ['uu', 'ū', ph.U_L],
 ])
@@ -149,8 +149,8 @@ SHORT_VOCALIC = ls.apply_foreach(c.make_composite_char, [
 VOCALIC_SIGN = SHORT_VOCALIC + LONG_VOCALIC
 
 DIPHTHONG_SIGN = ls.apply_foreach(c.make_composite_char, [
-    [[sp.A, sp.I], 'ai', ph.AE],
-    [[sp.A, sp.U], 'au', ph.O_L],
+    [[sp.A, sp.I], 'ai', ph.AI],
+    [[sp.A, sp.U], 'au', ph.AU],
 ])
 
 SANTAL_AAN = [c.make_composite_char([sp.AN, sp.LONG], 'aan', ph.A_L)]

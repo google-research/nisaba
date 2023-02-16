@@ -65,6 +65,13 @@ AA_WI = rw.reassign_word_initial(
     ph.A_L,
     tr.S_AA)
 
+# Transliterate diphthong graphemes as diphthong instead of long vowel.
+
+_DIPHTHONG_GR = cmp.ComposeFsts(ls.apply_foreach(rw.reassign, [
+    [ls.union_opt(gr.AI, gr.AI_I), ph.EH_L, tr.S_AI],
+    [ls.union_opt(gr.AU, gr.AU_I), ph.OH_L, tr.S_AU],
+]))
+
 # Rules for natural translit of two-letter geminates.
 
 # <c><c> is "cch"
@@ -84,6 +91,7 @@ S_SHSH_TO_SSH = cmp.ComposeFsts(ls.apply_foreach(rw.merge_repeated_alignment, [
 
 # Compose common rules for romanization
 TXN_TO_PSA_COMMON = (
+    _DIPHTHONG_GR @
     _NON_LABIAL_ANUSVARA @
     txn2ltn.MAP_VOWEL_SHORT @
     txn2ltn.MAP_CONSONANT @

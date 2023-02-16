@@ -20,6 +20,9 @@ from nisaba.scripts.utils import test_util
 
 
 _TEST_CASES = [
+    (lambda: iso2txn_ops.AI_TO_EH_L, [
+        ('<ai>={a}{+}{i}', '<ai>={eh_l}'),
+    ]),
     (lambda: iso2txn_ops.ANUSVARA_ASSIMILATION, [
         ('<a>={a}<ans>={N}<b>={b}<aa>={a_l}',
          '<a>={a}<ans>={m}<b>={b}<aa>={a_l}'),

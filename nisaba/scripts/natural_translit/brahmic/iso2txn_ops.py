@@ -25,6 +25,15 @@ from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 gr = iso.GRAPHEME_INVENTORY
 
+# Vowels
+
+A_TO_EC = rw.rewrite(ph.A, ph.EC)
+
+# Ungliding: Diphthong to monophthong shift
+
+AI_TO_EH_L = rw.rewrite(ph.AI, ph.EH_L)
+AU_TO_OH_L = rw.rewrite(ph.AU, ph.OH_L)
+
 # Vocalic liquids
 
 
@@ -196,5 +205,3 @@ PHPH_TO_FF = rw.reassign_adjacent_alignments(
     gr.PH, ph.P + ph.ASP, ph.F,)
 
 RT_TO_R = rw.rewrite(ph.RT, ph.R)
-
-A_TO_EC = rw.rewrite(ph.A, ph.EC)

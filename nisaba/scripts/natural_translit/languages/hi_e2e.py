@@ -49,6 +49,8 @@ _PROCESS_SCHWA = iso2txn_ops.process_schwa(_ONSET_CL, _CODA_CL)
 
 
 _TXN_OPS = (
+    iso2txn_ops.AI_TO_EH_L @
+    iso2txn_ops.AU_TO_OH_L @
     iso2txn_ops.A_TO_EC @
     iso2txn_ops.VOCALIC_I @
     iso2txn_ops.ANUSVARA_ASSIMILATION @

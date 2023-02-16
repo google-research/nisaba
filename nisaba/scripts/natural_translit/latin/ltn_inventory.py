@@ -41,7 +41,7 @@ ASCII_UC = c.uppercase_list(ASCII_CHAR)
 
 
 SUBSTRING = ls.apply_foreach(c.make_substring, [
-    ['aa'], ['ae'], ['ch'], ['ee'], ['ii'], ['kh'], ['ng'],
+    ['aa'], ['ae'], ['ai'], ['au'], ['ch'], ['ee'], ['ii'], ['kh'], ['ng'],
     ['ny'], ['oo'], ['rd'], ['sh'], ['th'], ['uu'], ['zh'],
 ])
 
