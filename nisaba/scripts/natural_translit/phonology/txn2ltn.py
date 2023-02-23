@@ -15,106 +15,21 @@
 """txn pronunciation romanization."""
 
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
+from nisaba.scripts.natural_translit.phonology import phon as p
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
-from nisaba.scripts.natural_translit.utils import list_op as ls
-from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 tr = ltn.TRANSLIT_INVENTORY
 
-VOWEL_DIPHTHONG = ls.cross_union([
-    [ph.AI, tr.S_AI],
-    [ph.AU, tr.S_AU],
-])
+MAP_VOWEL_DIPHTHONG = p.ls_translit_by_key(ph.DIPHTHONG, 'diph')
 
-MAP_VOWEL_DIPHTHONG = rw.rewrite_op(VOWEL_DIPHTHONG)
+MAP_VOWEL_SHORT = p.ls_translit_base(ph.SHORT_VOWEL)
 
-VOWEL_SHORT = ls.cross_union([
-    [ph.A, tr.A],
-    [ph.AE, tr.S_AE],
-    [ph.E, tr.E],
-    [ph.EC, tr.A],
-    [ph.I, tr.I],
-    [ph.O, tr.O],
-    [ph.U, tr.U],
-])
+MAP_VOWEL_LONG = p.ls_translit_by_key(ph.LONG_VOWEL, 'long')
 
-MAP_VOWEL_SHORT = rw.rewrite_op(VOWEL_SHORT)
+MAP_VOWEL_IGNORE_LENGTH = p.ls_translit_base(ph.LONG_VOWEL)
 
-VOWEL_LONG = ls.cross_union([
-    [ph.A_L, tr.S_AA],
-    [ph.E_L, tr.S_EE],
-    [ph.EH_L, tr.S_EE],
-    [ph.I_L, tr.S_II],
-    [ph.O_L, tr.S_OO],
-    [ph.OH_L, tr.S_OO],
-    [ph.U_L, tr.S_UU],
-])
+MAP_AFFRICATE = p.ls_translit_by_key(ph.AFFRICATE_PHON, 'affr')
 
-MAP_VOWEL_LONG = rw.rewrite_op(VOWEL_LONG)
+MAP_CONSONANT = p.ls_translit_base(ph.CONSONANT_PHON)
 
-VOWEL_IGNORE_LENGTH = ls.cross_union([
-    [ph.A_L, tr.A],
-    [ph.E_L, tr.E],
-    [ph.EH_L, tr.E],
-    [ph.I_L, tr.I],
-    [ph.O_L, tr.O],
-    [ph.OH_L, tr.O],
-    [ph.U_L, tr.U],
-])
-
-MAP_VOWEL_IGNORE_LENGTH = rw.rewrite_op(VOWEL_IGNORE_LENGTH)
-
-AFFRICATE = ls.cross_union([
-    [ph.DZH, tr.J],
-    [ph.TSH, tr.S_CH],
-])
-
-CONSONANT = ls.cross_union([
-    [ph.B, tr.B],
-    [ph.DD, tr.D],
-    [ph.DI, tr.D],
-    [ph.F, tr.F],
-    [ph.G, tr.G],
-    [ph.H, tr.H],
-    [ph.K, tr.K],
-    [ph.L, tr.L],
-    [ph.LL, tr.L],
-    [ph.M, tr.M],
-    [ph.N, tr.N],
-    [ph.NG, tr.S_NG],
-    [ph.NI, tr.N],
-    [ph.NN, tr.N],
-    [ph.NY, tr.S_NY],
-    [ph.P, tr.P],
-    [ph.Q, tr.K],
-    [ph.R, tr.R],
-    [ph.RRT, tr.S_RD],
-    [ph.RRU, tr.S_ZH],
-    [ph.RT, tr.R],
-    [ph.S, tr.S],
-    [ph.SH, tr.S_SH],
-    [ph.SS, tr.S_SH],
-    [ph.T, tr.T],
-    [ph.TI, tr.T],
-    [ph.TT, tr.T],
-    [ph.VU, tr.V],
-    [ph.KH, tr.S_KH],
-    [ph.GH, tr.G],
-    [ph.Y, tr.Y],
-    [ph.Z, tr.Z],
-])
-
-MAP_CONSONANT = (rw.rewrite_op(AFFRICATE) @
-                 rw.rewrite_op(CONSONANT)).optimize()
-
-FEATURE = ls.cross_union([
-    [ph.ASP, tr.H],
-    [ph.NSL, tr.N],
-    [ph.SIL, tr.DEL],
-    [ph.SCHWA, tr.DEL],
-    [ph.SYL, tr.I],
-    [ph.SYL_L, tr.S_II],
-    [ph.CMB, tr.DEL],
-])
-
-MAP_FEATURE = rw.rewrite_op(FEATURE)
+MAP_FEATURE = p.ls_translit_base(ph.FEATURE)

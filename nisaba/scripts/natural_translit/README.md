@@ -72,15 +72,7 @@ applies to `“s_au”` substrings and not `“au”` or `“a”“u”`.
 
 ## txn representation and phoneme_inventory
 
-`txn` is an internal, high coverage, typable representation for multilingual phoneme inventories. `txn` strings are enclosed in curly brackets.
-
-[`phoneme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/brahmic/natural_translit/phoneme_inventory.py) is a library that contains the `txn`-[IPA](https://www.internationalphoneticassociation.org/content/ipa-chart) mapping and forms the `txn` symbols covering the unified South Asian phoneme inventory presented in [Demirsahin et al. (2018)](https://research.google/pubs/pub47341/).
-
-**Examples**
-
-* `aː` -> `{a_l}`
-* `ʈ` -> `{tt}`
-* `n̪` -> `{ni}`
+`txn` is an internal, high coverage, typable representation for multilingual phoneme inventories.
 
 For parsimony, txn uses a featurised representation for  diphthongs, affricates,
 coarticulation, secondary articulation and features like phonation. Where a sequence of symbols need to be disambiguated, eg, a phoneme
@@ -88,15 +80,44 @@ sequence vs diphthong or affricate, or distinguishing between nasalization that
 affects the whole phoneme vs. prenasalization and nasal release,
 the combining symbol {+} is used.
 
-**Examples**
+Phonemes and features are defined as `Phon` with the following attributes:
 
-* `aɪ`  -> `{a}{+}{i}` (diphthong)
-* `t͡ʃ` -> `{t}{+}{sh}` (affricate)
-* `d͡b` -> `{d}{+}{b}` (coarticulation)
-* `ᵐb` -> `{N}{+}{b}` (pre-nasalization)
-* `dⁿ` -> `{b}{+}{N}` (nasal release)
-* `õː` -> `{o_l}{N}` (nasalized vowel)
-* `bʰ` -> `{b}{H}` (aspiration / breathy voice)
+**alias:** A string that will be used to refer to the phoneme in grammars. For
+example, if the alias of a character is 'A', in the grammar file this Phon
+can be referred to as `ph.A`.
+
+**txn:** An internal, byte-only string to represent the character.
+
+**ftr:** A list of phonological features.
+
+**ph:** The acceptor fst of the `Phon`. The ph of a simple phoneme is its `txn`
+enclosed in `{ }`.
+
+**ipa:** The representation of the `Phon` in International Phonetic Alphabet.
+
+**tr_dict:** A dictionary of transliteration strings in `tr` format.
+Every `tr` dictionary has a 'base' key. For a simple `Phon`, 'base' is its
+default transliteration. Derived and composite phonemes can have additional `tr`s,
+in addition to a 'base' that is composed from its components.
+
+**cmp:** The components of a derived or composite `Phon`.
+
+  **Example:**
+
+               | a           | u           | a_l         | au               |
+   ------------|:-----------:|:-----------:|:-----------:|:----------------:|
+   **alias**   | A           | U           | A_L         | AU               |
+   **txn**     | a           | u           | a_l         | a+u              |
+   **ftr**     | vowel       | vowel       | vowel, long | diph, vowel, ... |
+   **ph**      | `{a}`       | `{u}`       | `{a_l}`     | `{a}{+}{u}`      |
+   **ipa**     | a           | u           | aː          | a͡u               |
+   **tr_dict** | `base: “a”` | `base: “u”` | `base: “a”` | `base: “a”“u”`   |
+               |             |             | `long: “aa”`| `diph: “au”`     |
+               |             |             |             | `semi: “aw”`     |
+               |             |             |             | `mono: “o”`      |
+
+
+[`phoneme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/brahmic/natural_translit/phoneme_inventory.py) is a library that contains the `txn`-[IPA](https://www.internationalphoneticassociation.org/content/ipa-chart) mapping and forms the `txn` symbols covering the unified South Asian phoneme inventory presented in [Demirsahin et al. (2018)](https://research.google/pubs/pub47341/).
 
 ## iso2txn grammars
 

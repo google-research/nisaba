@@ -17,7 +17,7 @@
 import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
-from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
+from nisaba.scripts.natural_translit.phonology import phoneme_inventory as phn
 from nisaba.scripts.natural_translit.phonology import txn2ltn
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
@@ -25,6 +25,7 @@ from nisaba.scripts.utils import rewrite as cmp
 
 gr = iso.GRAPHEME_INVENTORY
 tr = ltn.TRANSLIT_INVENTORY
+ph = phn.PHONEME_INVENTORY
 
 ## Rules to apply before txn to ltn mappings
 
@@ -93,7 +94,9 @@ S_SHSH_TO_SSH = cmp.ComposeFsts(ls.apply_foreach(rw.merge_repeated_alignment, [
 TXN_TO_PSA_COMMON = (
     _DIPHTHONG_GR @
     _NON_LABIAL_ANUSVARA @
+    txn2ltn.MAP_VOWEL_DIPHTHONG @
     txn2ltn.MAP_VOWEL_SHORT @
+    txn2ltn.MAP_AFFRICATE @
     txn2ltn.MAP_CONSONANT @
     txn2ltn.MAP_FEATURE
     ).optimize()

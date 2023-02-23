@@ -22,11 +22,13 @@ from nisaba.scripts.natural_translit.brahmic import iso2txn
 from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
 from nisaba.scripts.natural_translit.brahmic.acronym import typ2acr
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
-from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
+from nisaba.scripts.natural_translit.phonology import phoneme_inventory as phn
 from nisaba.scripts.natural_translit.phonology import txn2ipa
 from nisaba.scripts.natural_translit.phonology import txn2ltn
 from nisaba.scripts.natural_translit.utils import concat as cc
 from nisaba.scripts.natural_translit.utils import list_op as ls
+
+ph = phn.PHONEME_INVENTORY
 
 _ONSET_CL = ls.union_opt(
     cc.concat_r(ph.K, ph.SH),

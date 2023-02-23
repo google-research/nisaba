@@ -15,9 +15,11 @@
 """Multilingual phonological operations."""
 
 import pynini as pyn
-from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
+from nisaba.scripts.natural_translit.phonology import phoneme_inventory as phn
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
+
+ph = phn.PHONEME_INVENTORY
 
 # Voicing
 
