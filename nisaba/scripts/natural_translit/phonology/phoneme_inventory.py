@@ -67,8 +67,6 @@ STANDALONE_FEATURE = ls.apply_foreach(p.base_phon, [
 ])
 
 _MOD = p.phon_inventory(COMBINER + MODIFIER_FEATURE + STANDALONE_FEATURE)
-_VOWEL_MOD = [_MOD.GLD, _MOD.NSL]
-_CONS_MOD = [_MOD.ASP]
 
 UNASSIGNED_VOWEL = ls.apply_foreach(p.base_phon, [
     ['sch', ['vowel'], '', tr.DEL, 'SCHWA'],
@@ -77,9 +75,9 @@ UNASSIGNED_VOWEL = ls.apply_foreach(p.base_phon, [
 
 SHORT_VOWEL = ls.apply_foreach(p.base_phon, [
     ['a', ['vowel'], 'a', tr.A],
-    ['ae', ['vowel'], 'æ', tr.S_AE],
+    ['ae', ['vowel'], 'æ', tr.A],
     ['e', ['vowel'], 'e', tr.E],
-    ['ec', ['vowel'], 'ə', tr.A],
+    ['ec', ['vowel'], 'ə', tr.U],
     ['eh', ['vowel'], 'ɛ', tr.E],
     ['i', ['vowel'], 'i', tr.I],
     ['o', ['vowel'], 'o', tr.O],
@@ -103,7 +101,7 @@ LONG_SYL = [long(_MOD.SYL, tr.S_II)]
 LONG_VOWEL = ls.apply_foreach(long, [
     [_SV.A, tr.S_AA],
     [_SV.E, tr.S_EE],
-    [_SV.EC, tr.S_AA],
+    [_SV.EC, tr.S_UU],
     [_SV.EH, tr.S_EE],
     [_SV.I, tr.S_II],
     [_SV.O, tr.S_OO],
@@ -127,9 +125,9 @@ DIPHTHONG = ls.apply_foreach(diphthong, [
     ['AU', [_SV.A, _SV.U], tr.S_AU],
 ])
 
-VOWEL_PHON = (UNASSIGNED_VOWEL + SHORT_VOWEL + LONG_VOWEL + DIPHTHONG)
+VOWEL = (UNASSIGNED_VOWEL + SHORT_VOWEL + LONG_VOWEL + DIPHTHONG)
 
-NASAL_PHON = ls.apply_foreach(p.base_phon, [
+NASAL = ls.apply_foreach(p.base_phon, [
     ['m', ['bilabial'], 'm', tr.M],
     ['n', ['alveolar'], 'n', tr.N],
     ['ng', ['velar'], 'ŋ', tr.S_NG],
@@ -137,8 +135,6 @@ NASAL_PHON = ls.apply_foreach(p.base_phon, [
     ['nn', ['retroflex'], 'ɳ', tr.N],
     ['ny', ['palatal'], 'ɲ', tr.S_NY],
 ])
-
-_NSL = p.phon_inventory(NASAL_PHON)
 
 VOICELESS_STOP = ls.apply_foreach(p.base_phon, [
     ['p', ['bilabial'], 'p', tr.P],
@@ -158,7 +154,7 @@ VOICED_STOP = ls.apply_foreach(p.base_phon, [
 
 ])
 
-STOP_PHON = (VOICELESS_STOP + VOICED_STOP)
+STOP = (VOICELESS_STOP + VOICED_STOP)
 _ST = p.phon_inventory(VOICELESS_STOP + VOICED_STOP)
 
 VOICELESS_FRICATIVE = ls.apply_foreach(p.base_phon, [
@@ -176,9 +172,8 @@ VOICED_FRICATIVE = ls.apply_foreach(p.base_phon, [
     ['zh', ['postalveolar'], 'ʒ', tr.S_ZH],
 ])
 
-FRICATIVE_PHON = (VOICELESS_FRICATIVE + VOICED_FRICATIVE)
-_FRIC = p.phon_inventory(FRICATIVE_PHON)
-_SIBILANT_PHON = [_FRIC.S, _FRIC.Z, _FRIC.SH, _FRIC.ZH, _FRIC.SS]
+FRICATIVE = (VOICELESS_FRICATIVE + VOICED_FRICATIVE)
+_FRIC = p.phon_inventory(FRICATIVE)
 
 
 def affricate(
@@ -193,7 +188,7 @@ VOICED_AFFRICATE = ls.apply_foreach(affricate, [
     ['DZH', [_ST.D, _FRIC.ZH], tr.J],
 ])
 
-AFFRICATE_PHON = (VOICELESS_AFFRICATE + VOICED_AFFRICATE)
+AFFRICATE = (VOICELESS_AFFRICATE + VOICED_AFFRICATE)
 
 CENTRAL_APPROXIMANT = ls.apply_foreach(p.base_phon, [
     ['rru', ['retroflex'], 'ɻ', tr.S_ZH],
@@ -206,8 +201,7 @@ LATERAL_APPROXIMANT = ls.apply_foreach(p.base_phon, [
     ['ll', ['retroflex'], 'ɭ', tr.L],
 ])
 
-APPROXIMANT_PHON = (CENTRAL_APPROXIMANT + LATERAL_APPROXIMANT)
-_APP = p.phon_inventory(APPROXIMANT_PHON)
+APPROXIMANT = (CENTRAL_APPROXIMANT + LATERAL_APPROXIMANT)
 
 TAP = ls.apply_foreach(p.base_phon, [
     ['rrt', ['retroflex'], 'ɽ', tr.S_RD],
@@ -216,39 +210,14 @@ TAP = ls.apply_foreach(p.base_phon, [
 
 TRILL = [p.base_phon('r', ['alveolar'], 'r', tr.R)]
 
-_RHOTIC_PHON = TAP + TRILL + [_APP.RRU]
-
-CONSONANT_PHON = (
-    NASAL_PHON + STOP_PHON + FRICATIVE_PHON + AFFRICATE_PHON +
-    APPROXIMANT_PHON + TAP + TRILL)
+CONSONANT = (
+    NASAL + STOP + FRICATIVE + AFFRICATE + APPROXIMANT + TAP + TRILL
+)
 
 FEATURE = SILENCE + MODIFIER_FEATURE + STANDALONE_FEATURE + LONG_SYL
 
-PHONEMES = FEATURE + VOWEL_PHON + CONSONANT_PHON
+PHONEMES = FEATURE + VOWEL + CONSONANT
 
-PH_STORE = ls.apply_foreach(p.store_ph_union, [
-    ['NASAL', NASAL_PHON],
-    ['FRICATIVE', FRICATIVE_PHON],
-    ['VOICED', VOICED_STOP + VOICED_FRICATIVE + VOICED_AFFRICATE],
-    ['APPROXIMANT', APPROXIMANT_PHON],
-    ['RHOTIC', _RHOTIC_PHON],
-    ['LIQUID', _RHOTIC_PHON + LATERAL_APPROXIMANT],
-    ['SIBILANT', _SIBILANT_PHON],
-    ['LABIAL', [_NSL.M, _ST.B, _ST.P]],
-    ['DENTAL', [_NSL.NI, _ST.DI, _ST.TI]],
-    ['ALVEOLAR', [_NSL.N, _ST.D, _ST.T]],
-    ['PALATAL', [_NSL.NY, _APP.Y]],
-    ['RETROFLEX', [_NSL.NN, _ST.DD, _ST.TT]],
-    ['VELAR', [_NSL.NG, _ST.G, _ST.K]],
-])
+PHON_INVENTORY = p.phon_inventory(PHONEMES)
 
-PH_MOD_STORE = ls.apply_foreach(p.store_ph_modified, [
-    ['VOWEL', VOWEL_PHON, _VOWEL_MOD],
-    ['STOP', STOP_PHON, _CONS_MOD],
-    ['AFFRICATE', AFFRICATE_PHON, _CONS_MOD],
-    ['CONSONANT', CONSONANT_PHON, _CONS_MOD],
-])
-
-STORES = PH_STORE + PH_MOD_STORE
-
-PHONEME_INVENTORY = p.ph_inventory(PHONEMES + COMBINER, STORES)
+PHONEME_INVENTORY = p.ph_inventory(PHONEMES + COMBINER)

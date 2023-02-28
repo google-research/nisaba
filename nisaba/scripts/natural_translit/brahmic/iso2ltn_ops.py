@@ -16,16 +16,16 @@
 
 import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
+from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
-from nisaba.scripts.natural_translit.phonology import phoneme_inventory as phn
-from nisaba.scripts.natural_translit.phonology import txn2ltn
+from nisaba.scripts.natural_translit.phonology import phon
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 from nisaba.scripts.utils import rewrite as cmp
 
 gr = iso.GRAPHEME_INVENTORY
 tr = ltn.TRANSLIT_INVENTORY
-ph = phn.PHONEME_INVENTORY
+ph = psa.PHONEME_INVENTORY
 
 ## Rules to apply before txn to ltn mappings
 
@@ -90,21 +90,16 @@ S_SHSH_TO_SSH = cmp.ComposeFsts(ls.apply_foreach(rw.merge_repeated_alignment, [
     [gr.SH, tr.S_SH, tr.S + tr.S_SH],
 ]))
 
+TRANSLIT_BY_PSAF = phon.ls_translit_by_key(psa.PHONEMES, 'psaf')
+TRANSLIT_BY_PSAC = phon.ls_translit_by_key(psa.PHONEMES, 'psac')
+
 # Compose common rules for romanization
-TXN_TO_PSA_COMMON = (
-    _DIPHTHONG_GR @
-    _NON_LABIAL_ANUSVARA @
-    txn2ltn.MAP_VOWEL_DIPHTHONG @
-    txn2ltn.MAP_VOWEL_SHORT @
-    txn2ltn.MAP_AFFRICATE @
-    txn2ltn.MAP_CONSONANT @
-    txn2ltn.MAP_FEATURE
-    ).optimize()
+TXN_TO_PSA_COMMON = (_DIPHTHONG_GR @ _NON_LABIAL_ANUSVARA)
 
 # Convert txn to PSAF and outputs only translit strings.
 TXN_TO_PSAF = (
     TXN_TO_PSA_COMMON @
-    txn2ltn.MAP_VOWEL_LONG @
+    TRANSLIT_BY_PSAF @
     ltn.print_only_ltn()
     ).optimize()
 
@@ -114,4 +109,8 @@ REMOVE_REPEATED_LTN = cmp.ComposeFsts(ls.apply_foreach(
     [[char.glyph] for char in ltn.ASCII_ONLY],
 ))
 
-TXN_TO_PSAC = (TXN_TO_PSAF @ REMOVE_REPEATED_LTN).optimize()
+TXN_TO_PSAC = (
+    TXN_TO_PSA_COMMON @
+    TRANSLIT_BY_PSAC @
+    ltn.print_only_ltn() @
+    REMOVE_REPEATED_LTN).optimize()

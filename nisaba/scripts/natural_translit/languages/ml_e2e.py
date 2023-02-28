@@ -20,13 +20,13 @@ from pynini.export import multi_grm
 from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
 from nisaba.scripts.natural_translit.brahmic import iso2txn
 from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
-from nisaba.scripts.natural_translit.phonology import phoneme_inventory as phn
+from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
 from nisaba.scripts.natural_translit.phonology import txn2ipa
 from nisaba.scripts.natural_translit.phonology.operations import voicing
 from nisaba.scripts.natural_translit.utils import concat as cc
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
-ph = phn.PHONEME_INVENTORY
+ph = psa.PHONEME_INVENTORY
 
 _VOICING = voicing.voicing(
     ls.union_opt(ph.VOWEL, ph.NASAL, ph.APPROXIMANT),

@@ -20,15 +20,14 @@ from pynini.export import multi_grm
 from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
 from nisaba.scripts.natural_translit.brahmic import iso2txn
 from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
+from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
 from nisaba.scripts.natural_translit.brahmic.acronym import typ2acr
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
-from nisaba.scripts.natural_translit.phonology import phoneme_inventory as phn
 from nisaba.scripts.natural_translit.phonology import txn2ipa
-from nisaba.scripts.natural_translit.phonology import txn2ltn
 from nisaba.scripts.natural_translit.utils import concat as cc
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
-ph = phn.PHONEME_INVENTORY
+ph = psa.PHONEME_INVENTORY
 
 _ONSET_CL = ls.union_opt(
     cc.concat_r(ph.K, ph.SH),
@@ -93,7 +92,7 @@ def iso_to_nat() -> pyn.Fst:
           iso2ltn_ops.SIBV_TO_SIBW @
           iso2ltn_ops.AA_WI @
           iso2ltn_ops.TXN_TO_PSA_COMMON @
-          txn2ltn.MAP_VOWEL_IGNORE_LENGTH @
+          iso2ltn_ops.TRANSLIT_BY_PSAC @
           iso2ltn_ops.CC_TO_CCH @
           iso2ltn_ops.CCH_TO_CHH @
           iso2ltn_ops.S_SHSH_TO_SSH @

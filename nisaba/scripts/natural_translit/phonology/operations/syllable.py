@@ -12,17 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Multilingual phonological operations."""
+"""Syllable structure."""
 
 import pynini as pyn
-from nisaba.scripts.natural_translit.phonology import phoneme_inventory as phn
 from nisaba.scripts.natural_translit.utils import concat as cc
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
-ph = phn.PHONEME_INVENTORY
 
-
-def legal_onset(onset_cl: pyn.FstLike) -> pyn.Fst:
+def legal_onset(
+    nucleic: pyn.FstLike,
+    non_nucleic: pyn.FstLike,
+    onset_cl: pyn.FstLike
+) -> pyn.Fst:
   """Legal onset.
 
   A syllable can start with a consonant, a permitted consonant cluster followed
@@ -30,7 +31,9 @@ def legal_onset(onset_cl: pyn.FstLike) -> pyn.Fst:
   an independent vowel, the vowel onset has been left out of this function.
 
   Args:
-    onset_cl: Permitted onset consonant clusters for the language.
+    nucleic: Phonemes that can be the nucleus of a syllable.
+    non_nucleic: Single non-nucleic phonemes allowed at onset.
+    onset_cl: Non-nucleic clusters allowed at onset.
 
   Returns:
     Rewrite fst.
@@ -52,17 +55,23 @@ def legal_onset(onset_cl: pyn.FstLike) -> pyn.Fst:
   )
   ```
   """
-  return cc.concat_r(ls.union_opt(ph.CONSONANT, onset_cl), ph.VOWEL)
+  return cc.concat_r(ls.union_opt(non_nucleic, onset_cl), nucleic)
 
 
-def legal_coda(coda_cl: pyn.FstLike) -> pyn.Fst:
+def legal_coda(
+    nucleic: pyn.FstLike,
+    non_nucleic: pyn.FstLike,
+    coda_cl: pyn.FstLike
+) -> pyn.Fst:
   """Legal coda.
 
   A syllable can end with a just a vowel, or a vowel followed by a consonant or
   a permitted consonant cluster.
 
   Args:
-    coda_cl: Permitted coda consonant clusters for the language.
+    nucleic: Phonemes that can be the nucleus of a syllable.
+    non_nucleic: Single non-nucleic phonemes allowed at coda.
+    coda_cl: Non-nucleic clusters allowed at coda.
 
   Returns:
     Rewrite fst.
@@ -84,4 +93,4 @@ def legal_coda(coda_cl: pyn.FstLike) -> pyn.Fst:
   )
   ```
   """
-  return cc.concat_r(ph.VOWEL, ls.union_opt(ph.CONSONANT, coda_cl).ques)
+  return cc.concat_r(nucleic, ls.union_opt(non_nucleic, coda_cl).ques)

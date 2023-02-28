@@ -16,7 +16,7 @@
 
 import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
-from nisaba.scripts.natural_translit.phonology import phoneme_inventory as phn
+from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
 from nisaba.scripts.natural_translit.phonology.operations import syllable as syl
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import concat as cc
@@ -24,7 +24,7 @@ from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 gr = iso.GRAPHEME_INVENTORY
-ph = phn.PHONEME_INVENTORY
+ph = psa.PHONEME_INVENTORY
 
 # Vowels
 
@@ -95,15 +95,15 @@ _SCHWA_AFTER_IY = _vocal_schwa(cc.concat_r(ls.union_opt(ph.I, ph.I_L), ph.Y))
 def _schwa_eow(coda_cl) -> pyn.Fst:
   """Deletes the word final schwa if it's preceded by a legal coda."""
   return _silent_schwa(
-      syl.legal_coda(coda_cl),
+      syl.legal_coda(ph.VOWEL, ph.CONSONANT, coda_cl),
       al.EOS)
 
 
 def _schwa_between_syllables(onset_cl, coda_cl) -> pyn.Fst:
   """Deletes schwa between two well-formed syllables."""
   return _silent_schwa(
-      syl.legal_coda(coda_cl),
-      syl.legal_onset(onset_cl))
+      syl.legal_coda(ph.VOWEL, ph.CONSONANT, coda_cl),
+      syl.legal_onset(ph.VOWEL, ph.CONSONANT, onset_cl))
 
 
 def process_schwa(

@@ -37,11 +37,11 @@ ISO - typ mapping
 
 """
 
-from nisaba.scripts.natural_translit.phonology import phoneme_inventory as phn
+from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
 from nisaba.scripts.natural_translit.script import char as c
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
-ph = phn.PHONEME_INVENTORY
+ph = psa.PHONEME_INVENTORY
 
 # Single point characters
 

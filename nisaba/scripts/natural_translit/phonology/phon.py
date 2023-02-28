@@ -255,11 +255,36 @@ def ph_inventory(
   fst_list = ph_list(phon_list)
   return i.make_inventory(fst_list, phon_list, store_list)
 
+
+def import_phon(
+    phon: Phon,
+    add_ftr: [str] = None,
+    alt_tr_dict: dict[str] = None
+) -> pyn.Fst:
+  """Copies a Phon, optionally add features and translits."""
+  new_ftr = phon.ftr.copy()
+  if add_ftr:
+    new_ftr.extend(add_ftr)
+  new_tr_dict = phon.tr_dict.copy()
+  if alt_tr_dict:
+    new_tr_dict.update(alt_tr_dict)
+  return Phon(
+      phon.alias, phon.txn, new_ftr, phon.ph, phon.ipa, new_tr_dict, phon.cmp
+      )
+
 # Translit functions
 
 
+def check_key(key: str) -> str:
+  """Failsafe for translit_by_key_functions."""
+  if key:
+    return key
+  else:
+    return 'base'
+
+
 def translit_by_key(phon: Phon, key: str) -> pyn.Fst:
-  return rw.rewrite(phon.ph, phon.tr_dict[key])
+  return rw.rewrite(phon.ph, phon.tr_dict[check_key(key)])
 
 
 def translit_base(phon: Phon) -> pyn.Fst:
@@ -271,7 +296,8 @@ def translit_ipa(phon: Phon) -> pyn.Fst:
 
 
 def ls_translit_by_key(phon_list: [Phon], key: str) -> pyn.Fst:
-  ph_to_tr = [pyn.cross(phon.ph, phon.tr_dict[key]) for phon in phon_list]
+  ph_to_tr = [
+      pyn.cross(phon.ph, phon.tr_dict[check_key(key)]) for phon in phon_list]
   return rw.rewrite_op(ls.union_opt(*ph_to_tr))
 
 
