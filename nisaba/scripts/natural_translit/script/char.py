@@ -79,10 +79,55 @@ def uppercase_list(char_list: [Char]) -> [Char]:
   return upper_list
 
 
+# TODO: Convert substrings to composite Chars.
 def make_substring(substring: str) -> Char:
   """Makes a substring Char with 's_' prefix."""
   typ = 's_' + substring
   return make_char(typ, substring)
+
+
+def double_substring(char: Char) -> Char:
+  """Makes a substring Char by repeating the glyph of the arg Char."""
+  new_typ = 's_' + char.typ + char.typ
+  new_glyph = char.glyph + char.glyph
+  return make_char(new_typ, new_glyph)
+
+
+def ls_double_substring(chars: [Char]) -> ([Char], dict[str]):
+  """Makes a list of double substring Chars from a list of Chars.
+
+  Also makes a dictionary of corresponding tr fields.
+
+  Args:
+    chars: List of Chars
+
+  Returns:
+    A list of Chars, a dictionary of {tr: double_substring_tr}
+
+  Given
+  ```
+  Char(alias='A', typ='a', gr=<a>, tr=“a”, glyph='a',...)
+  ```
+  Following call:
+  ```
+  ls_double_substring([ltn.A])
+  ```
+  will return:
+  ```
+  Char(alias='S_AA', typ='s_aa', gr=<s_aa>, tr=“s_aa”, glyph='aa',...)
+  ```
+  and
+  ```
+  {“a”: “s_aa”}
+  ```
+  """
+  doubles = []
+  double_dict = {}
+  for char in chars:
+    double = double_substring(char)
+    doubles.append(double)
+    double_dict[char.tr.string()] = double.tr.string()
+  return doubles, double_dict
 
 
 def make_composite_char(

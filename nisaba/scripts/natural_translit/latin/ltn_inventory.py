@@ -31,26 +31,37 @@ def make_ascii_char(glyph: str) -> c.Char:
   return c.make_char(glyph, glyph)
 
 
-ASCII_CHAR = ls.apply_foreach(make_ascii_char, [
+ASCII_LC = ls.apply_foreach(make_ascii_char, [
     ['a'], ['b'], ['c'], ['d'], ['e'], ['f'], ['g'], ['h'], ['i'],
     ['j'], ['k'], ['l'], ['m'], ['n'], ['o'], ['p'], ['q'], ['r'],
     ['s'], ['t'], ['u'], ['v'], ['w'], ['x'], ['y'], ['z'],
 ])
 
-ASCII_UC = c.uppercase_list(ASCII_CHAR)
+ASCII_UC = c.uppercase_list(ASCII_LC)
+
+DOUBLE_SUBSTRING, DOUBLE_DICT = c.ls_double_substring(ASCII_LC)
 
 
-SUBSTRING = ls.apply_foreach(c.make_substring, [
-    ['aa'], ['ae'], ['ai'], ['au'], ['ch'], ['ee'], ['ii'], ['kh'], ['ng'],
-    ['ny'], ['oo'], ['rd'], ['sh'], ['th'], ['uu'], ['zh'],
+def double_substring_tr(tr) -> pyn.FstLike:
+  if tr.string() in DOUBLE_DICT:
+    return DOUBLE_DICT[tr.string()]
+  else:
+    return tr
+
+
+OTHER_SUBSTRING = ls.apply_foreach(c.make_substring, [
+    ['ae'], ['ai'], ['au'], ['ch'], ['kh'], ['ng'],
+    ['ny'], ['rd'], ['sh'], ['th'], ['zh'],
 ])
+
+SUBSTRING = DOUBLE_SUBSTRING + OTHER_SUBSTRING
 
 DEL = [c.make_char('', '', alias='DEL')]
 
 EN_LETTERS = c.store_tr_star('EN_LETTERS', ASCII_UC)
-ASCII_ONLY = ASCII_CHAR + SUBSTRING
+ASCII_ONLY = ASCII_LC + SUBSTRING
 
-CHARS = ASCII_CHAR + ASCII_UC + SUBSTRING + DEL
+CHARS = ASCII_LC + ASCII_UC + SUBSTRING + DEL
 TRANSLIT_INVENTORY = c.tr_inventory(CHARS, [EN_LETTERS])
 
 

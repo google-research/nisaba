@@ -88,9 +88,10 @@ SHORT_VOWEL = ls.apply_foreach(p.base_phon, [
 _SV = p.phon_inventory(SHORT_VOWEL)
 
 
+# TODO: Revisit default tr for substring bases.
 def long(phon: p.Phon, long_tr: pyn.FstLike = None) -> p.Phon:
   if not long_tr:
-    long_tr = phon.tr_dict['base']
+    long_tr = ltn.double_substring_tr(phon.tr_dict['base'])
   return p.derive_with_suffix(
       phon,
       _MOD.LONG,
@@ -98,16 +99,7 @@ def long(phon: p.Phon, long_tr: pyn.FstLike = None) -> p.Phon:
 
 LONG_SYL = [long(_MOD.SYL, tr.S_II)]
 
-LONG_VOWEL = ls.apply_foreach(long, [
-    [_SV.A, tr.S_AA],
-    [_SV.E, tr.S_EE],
-    [_SV.EC, tr.S_UU],
-    [_SV.EH, tr.S_EE],
-    [_SV.I, tr.S_II],
-    [_SV.O, tr.S_OO],
-    [_SV.OH, tr.S_OO],
-    [_SV.U, tr.S_UU],
-])
+LONG_VOWEL = [long(short) for short in SHORT_VOWEL]
 
 
 def diphthong(
