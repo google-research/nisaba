@@ -33,13 +33,25 @@ py_library(
 )
 
 py_library(
+    name = "modify_phon",
+    srcs = ["modify_phon.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/utils:alignment",
+        "//nisaba/scripts/natural_translit/utils:inventory",
+        "//nisaba/scripts/natural_translit/utils:list_op",
+        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
     name = "phoneme_inventory",
     srcs = ["phoneme_inventory.py"],
     deps = [
+        ":modify_phon",
         ":phon",
         "//nisaba/scripts/natural_translit/latin:ltn_inventory",
         "//nisaba/scripts/natural_translit/utils:list_op",
-        "@org_opengrm_pynini//pynini",
     ],
 )
 

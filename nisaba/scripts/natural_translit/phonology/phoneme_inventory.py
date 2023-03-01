@@ -44,8 +44,8 @@ IPA - txn mapping
 
 """
 
-import pynini as pyn
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
+from nisaba.scripts.natural_translit.phonology import modify_phon as mod
 from nisaba.scripts.natural_translit.phonology import phon as p
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
@@ -53,20 +53,18 @@ tr = ltn.TRANSLIT_INVENTORY
 
 SILENCE = [p.base_phon('sil', ['silent'], '', tr.DEL)]
 
-COMBINER = [p.base_phon('+', ['composite'], '͡', tr.DEL, 'CMB')]
-
-MODIFIER_FEATURE = ls.apply_foreach(p.base_phon, [
-    ['_l', ['long'], 'ː', tr.DEL, 'LONG'],
-])
-
-STANDALONE_FEATURE = ls.apply_foreach(p.base_phon, [
+BASE_FEATURE = ls.apply_foreach(p.base_phon, [
     ['V', ['syllabic'], '̍', tr.I, 'SYL'],
     ['GLD', ['glide'], '̯', tr.DEL, 'GLD'],
     ['N', ['nasalized'], '~', tr.N, 'NSL'],
     ['H', ['aspirated'], 'ʰ', tr.H, 'ASP'],
 ])
 
-_MOD = p.phon_inventory(COMBINER + MODIFIER_FEATURE + STANDALONE_FEATURE)
+_FTR = p.phon_inventory(BASE_FEATURE)
+
+LONG_SYL = [mod.long(_FTR.SYL, tr.S_II)]
+
+STANDALONE_FEATURE = BASE_FEATURE + LONG_SYL
 
 UNASSIGNED_VOWEL = ls.apply_foreach(p.base_phon, [
     ['sch', ['vowel'], '', tr.DEL, 'SCHWA'],
@@ -85,36 +83,13 @@ SHORT_VOWEL = ls.apply_foreach(p.base_phon, [
     ['u', ['vowel'], 'u', tr.U],
 ])
 
-_SV = p.phon_inventory(SHORT_VOWEL)
+LONG_VOWEL = [mod.long(short) for short in SHORT_VOWEL]
 
+_V = p.phon_inventory(SHORT_VOWEL + LONG_VOWEL)
 
-# TODO: Revisit default tr for substring bases.
-def long(phon: p.Phon, long_tr: pyn.FstLike = None) -> p.Phon:
-  if not long_tr:
-    long_tr = ltn.double_substring_tr(phon.tr_dict['base'])
-  return p.derive_with_suffix(
-      phon,
-      _MOD.LONG,
-      long_tr)
-
-LONG_SYL = [long(_MOD.SYL, tr.S_II)]
-
-LONG_VOWEL = [long(short) for short in SHORT_VOWEL]
-
-
-def diphthong(
-    alias: str, vowels: [p.Phon], diph: pyn.FstLike,
-    semi: pyn.FstLike = None, mono: pyn.FstLike = None) -> p.Phon:
-  tr_dict = {}
-  if semi:
-    tr_dict['semi'] = semi
-  if mono:
-    tr_dict['mono'] = mono
-  return p.compose(alias, vowels, _MOD.CMB, 'diph', diph, tr_dict)
-
-DIPHTHONG = ls.apply_foreach(diphthong, [
-    ['AI', [_SV.A, _SV.I], tr.S_AI],
-    ['AU', [_SV.A, _SV.U], tr.S_AU],
+DIPHTHONG = ls.apply_foreach(mod.diphthong, [
+    ['AI', [_V.A, _V.I], tr.S_AI],
+    ['AU', [_V.A, _V.U], tr.S_AU],
 ])
 
 VOWEL = (UNASSIGNED_VOWEL + SHORT_VOWEL + LONG_VOWEL + DIPHTHONG)
@@ -167,16 +142,11 @@ VOICED_FRICATIVE = ls.apply_foreach(p.base_phon, [
 FRICATIVE = (VOICELESS_FRICATIVE + VOICED_FRICATIVE)
 _FRIC = p.phon_inventory(FRICATIVE)
 
-
-def affricate(
-    alias: str, cons: [p.Phon], affr: pyn.FstLike) -> p.Phon:
-  return p.compose(alias, cons, _MOD.CMB, 'affr', affr)
-
-VOICELESS_AFFRICATE = ls.apply_foreach(affricate, [
+VOICELESS_AFFRICATE = ls.apply_foreach(mod.affricate, [
     ['TSH', [_ST.T, _FRIC.SH], tr.S_CH],
 ])
 
-VOICED_AFFRICATE = ls.apply_foreach(affricate, [
+VOICED_AFFRICATE = ls.apply_foreach(mod.affricate, [
     ['DZH', [_ST.D, _FRIC.ZH], tr.J],
 ])
 
@@ -206,10 +176,10 @@ CONSONANT = (
     NASAL + STOP + FRICATIVE + AFFRICATE + APPROXIMANT + TAP + TRILL
 )
 
-FEATURE = SILENCE + MODIFIER_FEATURE + STANDALONE_FEATURE + LONG_SYL
+FEATURE = mod.MODIFIER_FEATURE + STANDALONE_FEATURE
 
-PHONEMES = FEATURE + VOWEL + CONSONANT
+PHONEMES = SILENCE + FEATURE + VOWEL + CONSONANT
 
 PHON_INVENTORY = p.phon_inventory(PHONEMES)
 
-PHONEME_INVENTORY = p.ph_inventory(PHONEMES + COMBINER)
+PHONEME_INVENTORY = p.ph_inventory(PHONEMES + mod.COMBINER)

@@ -31,7 +31,7 @@ def base_phon(
     txn: str,
     ftr: [str],
     ipa: str,
-    base_tr: pyn.FstLike,
+    base_tr: pyn.FstLike = None,
     alias: str = None
 ) -> Phon:
   """Makes a base Phon.
@@ -64,7 +64,7 @@ def base_phon(
   else:
     new_alias = txn.upper()
   ph = al.enclose_phoneme(txn)
-  tr_dict = {'base': base_tr}
+  tr_dict = new_tr('base', base_tr, '“”')
   return Phon(new_alias, txn, ftr, ph, ipa, tr_dict, None)
 
 
@@ -80,123 +80,6 @@ def new_tr(key: str, new: str, base: str) -> dict[str, str]:
     return {key: new}
   else:
     return {key: base}
-
-
-def derive_with_suffix(
-    phon: Phon,
-    modifier: Phon,
-    tr: pyn.FstLike = None
-) -> Phon:
-  """Makes a new Phon from a phoneme Phon and a suffix Phon.
-
-  TODO: Split phonemes, modifying features, and standalone features into
-  distinct classes.
-
-  Args:
-    phon: A phoneme Phon to be modified.
-    modifier: A suffix Phon.
-    tr: The default translit for the new Phon. If None, the new entry will be
-    a copy of the base entry of the phon arg.
-
-  Returns:
-    Phon
-
-  Given:
-  (alias='A', txn='a', ftr=['vowel'], ph={a}, ipa='a', {'base': tr.A})
-  (alias='LONG', txn='_l', ftr=['long'], ph={_l}, ipa=':', {'base': tr.DEL})
-
-  Following call:
-  ```
-  derive_with_suffix(ph.A, ph.LONG, tr.S_AA)
-  ```
-  will return:
-  ```
-  Phon(
-    alias='A_L', txn='a_l', ftr=['vowel', 'long'], ph={a_l}, ipa='a:',
-    tr_dict={'base': tr.A 'long': tr.S_AA}, cmp=[ph.A, ph.LONG]
-  )
-  ```
-  """
-  alias = phon.alias + modifier.txn.upper()
-  txn = phon.txn + modifier.txn
-  ftr = phon.ftr + modifier.ftr
-  ph = al.enclose_phoneme(txn)
-  ipa = phon.ipa + modifier.ipa
-  tr_dict = phon.tr_dict.copy()
-  tr_dict.update(new_tr(modifier.ftr[0], tr, phon.tr_dict['base']))
-  cmp = get_cmp_list(phon) + get_cmp_list(modifier)
-  return Phon(alias, txn, ftr, ph, ipa, tr_dict, cmp)
-
-
-def compose(
-    alias: str,
-    phons: [Phon],
-    combiner: Phon,
-    ftr: str,
-    tr: str = None,
-    alt_tr_dict: dict[str] = None,
-) -> Phon:
-  """Make a composite Phon.
-
-  Args:
-    alias: The alias of the Phon that will be used in grammars.
-    phons: The list of Phons to be composed.
-    combiner: The combiner phoneme. Passed as arg to avoid cyclic dep.
-      TODO remove combiner arg when the function is factored out.
-    ftr: The class of the new Phon. Set as the first element of the new ftr.
-    tr: The default translit of the composite Phon. If None, it will be the same
-      as the new base tr, which is the concatenation of the base tr_dict of the
-      component Phons.
-    alt_tr_dict: A dictionary of alternative transliterations.
-
-  Returns:
-    Phon
-
-  Given:
-  (alias='A', txn='a', ftr=['vowel'], ph={a}, ipa='a', {'base': tr.A})
-  (alias='U', txn='u', ftr=['vowel'], ph={u}, ipa='u', {'base': tr.U})
-  (alias='CMB', txn='+', ftr=['composite'], ph={+}, ipa='͡', {'base': tr.DEL})
-
-  Following call:
-  ```
-  compose(
-      'AU', [ph.A, ph.U], ph.CMB, 'diph', tr.S_AU,
-      {'semi': tr.S_AW 'mono': tr.O}
-  )
-  ```
-  will return:
-  ```
-  Phon(
-    alias='AU', txn='a+u', ftr=['diph', 'vowel', 'vowel'],
-    ph={a}{+}{u}, ipa='a͡u',
-    tr_dict={
-        'base': tr.A + tr.U, 'diph': tr.S_AU, 'semi': tr.S_AW, 'mono': tr.O
-    },
-    cmp=[ph.A, ph.U]
-  )
-  ```
-  """
-  cmp_list = []
-  for phon in phons:
-    cmp_list.extend(get_cmp_list(phon))
-  new_txn = cmp_list[0].txn
-  new_ftr = [ftr] + cmp_list[0].ftr
-  new_ph = cmp_list[0].ph
-  new_ipa = cmp_list[0].ipa
-  new_base_tr = cmp_list[0].tr_dict['base']
-  new_cmp = [cmp_list[0]]
-  for cmp in cmp_list[1:]:
-    new_txn += combiner.txn + cmp.txn
-    new_ftr.extend(cmp.ftr)
-    new_ph = new_ph + combiner.ph + cmp.ph
-    new_ipa += combiner.ipa + cmp.ipa
-    new_base_tr += cmp.tr_dict['base']
-    new_cmp.append(cmp)
-  new_tr_dict = {'base': new_base_tr}
-  new_tr_dict.update(new_tr(ftr, tr, new_base_tr))
-  if alt_tr_dict:
-    new_tr_dict.update(alt_tr_dict)
-  return Phon(alias, new_txn, new_ftr, new_ph, new_ipa, new_tr_dict, new_cmp)
 
 # Shortcut functions for building Phon and ph inventories from Phon lists.
 
