@@ -104,9 +104,10 @@ TXN_TO_PSAF = (
     ).optimize()
 
 # Remove all repeated translit substrings in PSAC.
+# TODO: This should be ph geminate removal + post tr cleanup.
 REMOVE_REPEATED_LTN = cmp.ComposeFsts(ls.apply_foreach(
     rw.rewrite_repeated,
-    [[char.glyph] for char in ltn.ASCII_ONLY],
+    [[char.glyph] for char in ltn.ASCII_LC + ltn.OTHER_SUBSTRING],
 ))
 
 TXN_TO_PSAC = (
