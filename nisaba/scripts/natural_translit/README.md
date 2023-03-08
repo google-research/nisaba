@@ -106,7 +106,7 @@ in addition to a 'base' that is composed from its components.
 
                | a           | u           | a_l         | au               |
    ------------|:-----------:|:-----------:|:-----------:|:----------------:|
-   **alias**   | A           | U           | A_L         | AU               |
+   **alias**   | A           | U           | A_L         | A_U              |
    **txn**     | a           | u           | a_l         | a+u              |
    **ftr**     | vowel       | vowel       | vowel, long | diph, vowel, ... |
    **ph**      | `{a}`       | `{u}`       | `{a_l}`     | `{a}{+}{u}`      |

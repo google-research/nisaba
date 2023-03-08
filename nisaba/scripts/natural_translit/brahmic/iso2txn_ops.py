@@ -32,8 +32,8 @@ A_TO_EC = rw.rewrite(ph.A, ph.EC)
 
 # Ungliding: Diphthong to monophthong shift
 
-AI_TO_EH_L = rw.rewrite(ph.AI, ph.EH_L)
-AU_TO_OH_L = rw.rewrite(ph.AU, ph.OH_L)
+AI_TO_EH_L = rw.rewrite(ph.A_I, ph.EH_L)
+AU_TO_OH_L = rw.rewrite(ph.A_U, ph.OH_L)
 
 # Vocalic liquids
 
@@ -53,7 +53,7 @@ VOCALIC_EC = _vocalic(ph.EC, ph.EC_L)
 
 def _default_schwa(schwa: pyn.FstLike) -> pyn.Fst:
   """Pronounces unassigned schwas as the default phoneme for the language."""
-  return rw.rewrite(ls.union_opt(ph.SCHWA, ph.VCL_SCHWA), schwa)
+  return rw.rewrite(ls.union_opt(ph.V_TNT, ph.V_PRN), schwa)
 
 SCHWA_A = _default_schwa(ph.A)
 
@@ -66,8 +66,8 @@ def _vocal_schwa(
   """Pronounces schwa depending on the context."""
 
   return rw.rewrite(
-      ph.SCHWA,
-      ph.VCL_SCHWA,
+      ph.V_TNT,
+      ph.V_PRN,
       preceding,
       following)
 
@@ -78,7 +78,7 @@ def _silent_schwa(
   """Deletes schwa depending on the context."""
 
   return rw.rewrite(
-      ph.SCHWA,
+      ph.V_TNT,
       ph.SIL,
       preceding,
       following)
@@ -190,7 +190,7 @@ def _rewrite_jny(
     ny: pyn.FstLike) -> pyn.Fst:
   """Jny clusters are pronounced differently across languages."""
   return rw.reassign_adjacent_alignments(
-      gr.J, ph.DZH, j,
+      gr.J, ph.D_ZH, j,
       gr.NY, ph.NY, ny)
 
 JNY_TO_GNY = _rewrite_jny(ph.G, ph.NY)

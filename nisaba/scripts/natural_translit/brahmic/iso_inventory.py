@@ -45,7 +45,7 @@ ph = psa.PHONEME_INVENTORY
 
 # Single point characters
 
-INHERENT_VOWEL = [c.make_char('a', 'a', ph.SCHWA)]
+INHERENT_VOWEL = [c.make_char('a', 'a', ph.V_TNT)]
 
 SIMPLE_VOWEL_SIGN = ls.apply_foreach(c.make_char, [
     ['aa', 'ā', ph.A_L],
@@ -67,14 +67,14 @@ SIMPLE_VOWEL = INHERENT_VOWEL + SIMPLE_VOWEL_SIGN
 
 SIMPLE_CONSONANT = ls.apply_foreach(c.make_char, [
     ['b', 'b', ph.B],
-    ['c', 'c', ph.TSH],
+    ['c', 'c', ph.T_SH],
     ['d', 'd', ph.DI],
     ['dd', 'ḍ', ph.DD],
     ['f', 'f', ph.F],
     ['g', 'g', ph.G],
     ['gg', 'ġ', ph.GH],
     ['h', 'h', ph.H],
-    ['j', 'j', ph.DZH],
+    ['j', 'j', ph.D_ZH],
     ['k', 'k', ph.K],
     ['l', 'l', ph.L],
     ['ll', 'ḷ', ph.LL],
@@ -88,7 +88,7 @@ SIMPLE_CONSONANT = ls.apply_foreach(c.make_char, [
     ['p', 'p', ph.P],
     ['q', 'q', ph.Q],
     ['r', 'r', ph.RT],
-    ['rd', 'ṛ', ph.RRT],
+    ['rd', 'ṛ', ph.RD],
     ['rr', 'ṟ', ph.R],
     ['s', 's', ph.S],
     ['sh', 'ś', ph.SH],
@@ -151,8 +151,8 @@ SHORT_VOCALIC = ls.apply_foreach(c.make_composite_char, [
 VOCALIC_SIGN = SHORT_VOCALIC + LONG_VOCALIC
 
 DIPHTHONG_SIGN = ls.apply_foreach(c.make_composite_char, [
-    [[sp.A, sp.I], 'ai', ph.AI],
-    [[sp.A, sp.U], 'au', ph.AU],
+    [[sp.A, sp.I], 'ai', ph.A_I],
+    [[sp.A, sp.U], 'au', ph.A_U],
 ])
 
 SANTAL_AAN = [c.make_composite_char([sp.AN, sp.LONG], 'aan', ph.A_L)]

@@ -34,12 +34,12 @@ IPA - txn mapping
 'd͡ʒ' : {d}{+}{zh} 'k'   : {k}        'l' : {l}           'ɭ' : {ll}
 'm'   : {m}        'n'   : {n}        'ŋ' : {ng}          'n̪' : {ni}
 'ɳ'   : {nn}       'ɲ'   : {ny}       'p' : {p}           'q' : {q}
-'r'   : {r}        'ɽ'   : {rrt}      'ɻ' : {rru}         'ɾ' : {rt}
+'r'   : {r}        'ɽ'   : {rd}      'ɻ' : {rru}         'ɾ' : {rt}
 's'   : {s}        'ʃ'   : {sh}       'ʂ' : {ss}          't' : {t}
 't̪'   : {ti}       'ʈ'   : {tt}       'ʋ' : {vu}          'x' : {kh}
 'ɣ'   : {gh}       'j'   : {y}        'z' : {z}           'ʒ' : {zh}
 
-'ʰ'   : {H}        '~'   : {N}        '̍ ' : {V}
+'ʰ'   : {H}        '~'   : {N}        '̍ ' : {S}
 '͡'   : {+}
 
 """
@@ -54,7 +54,7 @@ tr = ltn.TRANSLIT_INVENTORY
 SILENCE = [p.base_phon('sil', ['silent'], '', tr.DEL)]
 
 BASE_FEATURE = ls.apply_foreach(p.base_phon, [
-    ['V', ['syllabic'], '̍', tr.I, 'SYL'],
+    ['S', ['syllabic'], '̍', tr.I, 'SYL'],
     ['GLD', ['glide'], '̯', tr.DEL, 'GLD'],
     ['N', ['nasalized'], '~', tr.N, 'NSL'],
     ['H', ['aspirated'], 'ʰ', tr.H, 'ASP'],
@@ -67,8 +67,8 @@ LONG_SYL = [mod.long(_FTR.SYL, tr.S_II)]
 STANDALONE_FEATURE = BASE_FEATURE + LONG_SYL
 
 UNASSIGNED_VOWEL = ls.apply_foreach(p.base_phon, [
-    ['sch', ['vowel'], '', tr.DEL, 'SCHWA'],
-    ['@', ['vowel'], '', tr.DEL, 'VCL_SCHWA'],
+    ['_', ['vowel'], '', tr.DEL, 'V_TNT'],  # tentative
+    ['V', ['vowel'], '', tr.DEL, 'V_PRN'],  # pronounced
 ])
 
 SHORT_VOWEL = ls.apply_foreach(p.base_phon, [
@@ -88,8 +88,8 @@ LONG_VOWEL = [mod.long(short) for short in SHORT_VOWEL]
 _V = p.phon_inventory(SHORT_VOWEL + LONG_VOWEL)
 
 DIPHTHONG = ls.apply_foreach(mod.diphthong, [
-    ['AI', [_V.A, _V.I], tr.S_AI],
-    ['AU', [_V.A, _V.U], tr.S_AU],
+    [[_V.A, _V.I], tr.S_AI],
+    [[_V.A, _V.U], tr.S_AU],
 ])
 
 VOWEL = (UNASSIGNED_VOWEL + SHORT_VOWEL + LONG_VOWEL + DIPHTHONG)
@@ -143,11 +143,11 @@ FRICATIVE = (VOICELESS_FRICATIVE + VOICED_FRICATIVE)
 _FRIC = p.phon_inventory(FRICATIVE)
 
 VOICELESS_AFFRICATE = ls.apply_foreach(mod.affricate, [
-    ['TSH', [_ST.T, _FRIC.SH], tr.S_CH],
+    [[_ST.T, _FRIC.SH], tr.S_CH],
 ])
 
 VOICED_AFFRICATE = ls.apply_foreach(mod.affricate, [
-    ['DZH', [_ST.D, _FRIC.ZH], tr.J],
+    [[_ST.D, _FRIC.ZH], tr.J],
 ])
 
 AFFRICATE = (VOICELESS_AFFRICATE + VOICED_AFFRICATE)
@@ -166,7 +166,7 @@ LATERAL_APPROXIMANT = ls.apply_foreach(p.base_phon, [
 APPROXIMANT = (CENTRAL_APPROXIMANT + LATERAL_APPROXIMANT)
 
 TAP = ls.apply_foreach(p.base_phon, [
-    ['rrt', ['retroflex'], 'ɽ', tr.S_RD],
+    ['rd', ['retroflex'], 'ɽ', tr.S_RD],
     ['rt', ['alveolar'], 'ɾ', tr.R],
 ])
 

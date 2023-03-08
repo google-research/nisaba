@@ -101,7 +101,6 @@ def long(phon: p.Phon, long_tr: pyn.FstLike = None) -> p.Phon:
 
 
 def compose(
-    alias: str,
     phons: [p.Phon],
     ftr: str,
     new_tr: str = None,
@@ -110,7 +109,6 @@ def compose(
   """Makes a composite Phon.
 
   Args:
-    alias: The alias of the Phon that will be used in grammars.
     phons: The list of Phons to be composed.
     ftr: The class of the new Phon. Set as the first element of the new ftr.
     new_tr: The default translit of the composite Phon. If None, it will be the
@@ -129,14 +127,14 @@ def compose(
   Following call:
   ```
   compose(
-      'AU', [ph.A, ph.U], ph.CMB, 'diph', tr.S_AU,
+      'A_U', [ph.A, ph.U], ph.CMB, 'diph', tr.S_AU,
       {'semi': tr.S_AW 'mono': tr.O}
   )
   ```
   will return:
   ```
   Phon(
-    alias='AU', txn='a+u', ftr=['diph', 'vowel', 'vowel'],
+    alias='A_U', txn='a+u', ftr=['diph', 'vowel', 'vowel'],
     ph={a}{+}{u}, ipa='a͡u',
     tr_dict={
         'base': tr.A + tr.U, 'diph': tr.S_AU, 'semi': tr.S_AW, 'mono': tr.O
@@ -148,6 +146,7 @@ def compose(
   cmp_list = []
   for phon in phons:
     cmp_list.extend(p.get_cmp_list(phon))
+  alias = cmp_list[0].alias
   new_txn = cmp_list[0].txn
   new_ftr = [ftr] + cmp_list[0].ftr
   new_ph = cmp_list[0].ph
@@ -155,6 +154,7 @@ def compose(
   new_base_tr = cmp_list[0].tr_dict['base']
   new_cmp = [cmp_list[0]]
   for cmp in cmp_list[1:]:
+    alias += '_' + cmp.alias
     new_txn += _MOD.CMB.txn + cmp.txn
     new_ftr.extend(cmp.ftr)
     new_ph = new_ph + _MOD.CMB.ph + cmp.ph
@@ -169,7 +169,7 @@ def compose(
 
 
 def diphthong(
-    alias: str, vowels: [p.Phon], diph: pyn.FstLike,
+    vowels: [p.Phon], diph: pyn.FstLike,
     semi: pyn.FstLike = None, mono: pyn.FstLike = None) -> p.Phon:
   """Composes a diphthong."""
   tr_dict = {}
@@ -177,10 +177,10 @@ def diphthong(
     tr_dict['semi'] = semi
   if mono:
     tr_dict['mono'] = mono
-  return compose(alias, vowels, 'diph', diph, tr_dict)
+  return compose(vowels, 'diph', diph, tr_dict)
 
 
 def affricate(
-    alias: str, cons: [p.Phon], affr: pyn.FstLike) -> p.Phon:
+    cons: [p.Phon], affr: pyn.FstLike) -> p.Phon:
   """Composes an affricate."""
-  return compose(alias, cons, 'affr', affr)
+  return compose(cons, 'affr', affr)

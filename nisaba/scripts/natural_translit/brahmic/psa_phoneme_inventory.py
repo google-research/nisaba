@@ -58,8 +58,8 @@ VOWEL_MOD = ls.apply_foreach(_import_to_psa, (
 CONS_MOD = [_import_to_psa(ph.ASP)]
 
 VOWEL = ls.apply_foreach(_import_to_psa, [
-    [ph.SCHWA], [ph.VCL_SCHWA],
-    [ph.SYL], [ph.SYL_L],
+    [ph.V_TNT], [ph.V_PRN],
+    [ph.SYL, tr.I], [ph.SYL_L, tr.I],
     [ph.A], [ph.A_L],
     [ph.AE, tr.S_AE],
     [ph.E], [ph.E_L],
@@ -69,7 +69,7 @@ VOWEL = ls.apply_foreach(_import_to_psa, [
     [ph.O], [ph.O_L],
     [ph.OH], [ph.OH_L],
     [ph.U], [ph.U_L],
-    [ph.AI], [ph.AU],
+    [ph.A_I], [ph.A_U],
 ])
 
 NASAL = ls.apply_foreach(_import_to_psa, [
@@ -85,23 +85,23 @@ VOICED_STOP = ls.apply_foreach(_import_to_psa, [
 ])
 
 VOICELESS_FRICATIVE = ls.apply_foreach(_import_to_psa, [
-    [ph.F], [ph.S], [ph.SH], [ph.SS], [ph.KH], [ph.H],
+    [ph.F], [ph.S], [ph.SH], [ph.SS], [ph.KH, tr.S_KH], [ph.H],
 ])
 
 VOICED_FRICATIVE = ls.apply_foreach(_import_to_psa, [
-    [ph.Z], [ph.ZH], [ph.GH],
+    [ph.Z], [ph.ZH], [ph.GH, tr.G],
 ])
 
-VOICELESS_AFFRICATE = [_import_to_psa(ph.TSH)]
+VOICELESS_AFFRICATE = [_import_to_psa(ph.T_SH)]
 
-VOICED_AFFRICATE = [_import_to_psa(ph.DZH)]
+VOICED_AFFRICATE = [_import_to_psa(ph.D_ZH)]
 
 APPROXIMANT = ls.apply_foreach(_import_to_psa, [
-    [ph.VU], [ph.RRU], [ph.Y], [ph.L], [ph.LL],
+    [ph.VU], [ph.RRU, tr.S_ZH], [ph.Y], [ph.L], [ph.LL],
 ])
 
 TAP_TRILL = ls.apply_foreach(_import_to_psa, [
-    [ph.R], [ph.RT], [ph.RRT],
+    [ph.R], [ph.RT], [ph.RD],
 ])
 
 CONSONANT = (

@@ -15,16 +15,16 @@
 """Multilingual phonological operations."""
 
 import pynini as pyn
-from nisaba.scripts.natural_translit.phonology import phoneme_inventory as phn
+from nisaba.scripts.natural_translit.phonology import phoneme_inventory as mul
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
-ph = phn.PHONEME_INVENTORY
+ph = mul.PHONEME_INVENTORY
 
 # Voicing
 
 VOICING_OP = ls.cross_union([
-    [ph.TSH, ph.DZH],
+    [ph.T_SH, ph.D_ZH],
     [ph.K, ph.G],
     [ph.P, ph.B],
     [ph.T, ph.D],
