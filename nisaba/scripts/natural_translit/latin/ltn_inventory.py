@@ -56,7 +56,7 @@ OTHER_SUBSTRING = ls.apply_foreach(c.make_substring, [
 
 SUBSTRING = DOUBLE_SUBSTRING + OTHER_SUBSTRING
 
-DEL = [c.make_char('', '', alias='DEL')]
+DEL = [c.make_char('DEL', '')]
 
 EN_LETTERS = c.store_tr_star('EN_LETTERS', ASCII_UC)
 

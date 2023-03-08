@@ -64,7 +64,7 @@ def base_phon(
   else:
     new_alias = txn.upper()
   ph = al.enclose_phoneme(txn)
-  tr_dict = new_tr('base', base_tr, '“”')
+  tr_dict = new_tr('base', base_tr, '`DEL`')
   return Phon(new_alias, txn, ftr, ph, ipa, tr_dict, None)
 
 

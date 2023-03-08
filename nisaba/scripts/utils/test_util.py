@@ -269,3 +269,47 @@ class FstTestCase(absltest.TestCase):
         with pynini.default_token_type(token_type):
           for test_pair in test_pairs:
             self.assertFstStrIO(fst_builder(), *test_pair)
+
+  def assertEqualFstLike(self, fstlike: pynini.FstLike,
+                         expected_str: str) -> None:
+    """Asserts that given FstLike is equal to expected_str.
+
+    Args:
+      fstlike : FST or string being tested.
+      expected_str: Expected string output.
+    """
+    if isinstance(fstlike, pynini.Fst):
+      input_str = fstlike.string()
+    else:
+      input_str = fstlike
+    self.assertEqual(input_str, expected_str)
+
+  def assertEqualFstLikeTestCases(
+      self,
+      test_cases:
+      List[Tuple[Callable[[str], pynini.Fst], List[Tuple[List[str], str]]]],
+  ) -> None:
+    """Asserts on every test in a list of FstLike input-ouput testcases.
+
+    Args:
+      test_cases: It is a list of tuples which carry an FST builder function
+      and a list of input / output test string tuples. Example:
+          ```
+          [
+              (enclose_function, [
+                  (['a', '(', ')'], '(a)'),
+                  (['a', '<', '>'], '<a>'),
+              ]),
+              (enclose_phoneme_function, [
+                  (['a'], '{a}'),
+                  ...
+              ]),
+          ]
+          ```
+    """
+
+    for fst_builder, test_pairs in test_cases:
+      for token_type in ("utf8", "byte"):
+        with pynini.default_token_type(token_type):
+          for args, expected_str in test_pairs:
+            self.assertEqualFstLike(fst_builder(*args), expected_str)

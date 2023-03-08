@@ -50,7 +50,7 @@ def make_char(
   ```
   will return:
   ```
-  Char(alias='AA', typ='aa', gr=<aa>, tr=“aa”, glyph='ā', ph=ph.A_L, cmp=None)
+  Char(alias='AA', typ='aa', gr=<aa>, tr=`aa`, glyph='ā', ph=ph.A_L, cmp=None)
   ```
   """
   if alias == al.EMPTY_STR:
@@ -106,7 +106,7 @@ def ls_double_substring(chars: [Char]) -> ([Char], dict[str]):
 
   Given
   ```
-  Char(alias='A', typ='a', gr=<a>, tr=“a”, glyph='a',...)
+  Char(alias='A', typ='a', gr=<a>, tr=`a`, glyph='a',...)
   ```
   Following call:
   ```
@@ -114,11 +114,11 @@ def ls_double_substring(chars: [Char]) -> ([Char], dict[str]):
   ```
   will return:
   ```
-  Char(alias='S_AA', typ='s_aa', gr=<s_aa>, tr=“s_aa”, glyph='aa',...)
+  Char(alias='S_AA', typ='s_aa', gr=<s_aa>, tr=`s_aa`, glyph='aa',...)
   ```
   and
   ```
-  {“a”: “s_aa”}
+  {`a`: `s_aa`}
   ```
   """
   doubles = []
@@ -152,7 +152,7 @@ def make_composite_char(
   ```
   will return:
   ```
-  Char('LV', 'lv', <lv>, “lv”, 'l̥', ph.L + ph.SYL, <l><vcl>)
+  Char('LV', 'lv', <lv>, `lv`, 'l̥', ph.L + ph.SYL, <l><vcl>)
   ```
   """
   glyph = al.EMPTY_STR

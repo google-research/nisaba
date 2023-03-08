@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 package(default_visibility = [
     "//nisaba/scripts/natural_translit:__subpackages__",
 ])
@@ -41,6 +42,17 @@ py_library(
         ":list_op",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:byte",
+    ],
+)
+
+py_test(
+    name = "alignment_test_py",
+    srcs = ["alignment_test.py"],
+    main = "alignment_test.py",
+    deps = [
+        ":alignment",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
     ],
 )
 

@@ -35,9 +35,8 @@ LESS_THAN = '<'
 GREATER_THAN = '>'
 CURLY_L = '{'
 CURLY_R = '}'
-DBL_QUOTE_L = '“'  # U+201C
-DBL_QUOTE_R = '”'  # U+201D
 EQUAL = '='
+GRAVE_ACCENT = '`'
 
 # Acceptors
 
@@ -54,10 +53,7 @@ PH_L = pyn.accep(CURLY_L)  # Phoneme left boundary
 PH_R = pyn.accep(CURLY_R)  # Phoneme right boundary
 PH_B = [PH_L, PH_R]
 PH_BOUND = ls.union_opt(*PH_B)
-TR_L = pyn.accep(DBL_QUOTE_L)  # Translit left boundary
-TR_R = pyn.accep(DBL_QUOTE_R)  # Translit right boundary
-TR_B = [TR_L, TR_R]
-TR_BOUND = ls.union_opt(*TR_B)
+TR_B = pyn.accep(GRAVE_ACCENT)  # Translit boundary
 ALIGN_SIGN = pyn.accep(EQUAL)  # Substring alignment
 
 # Functions
@@ -83,7 +79,7 @@ def enclose_phoneme(base: pyn.FstLike) -> pyn.Fst:
 
 def enclose_translit(base: pyn.FstLike) -> pyn.Fst:
   """Encloses a string with translit boundaries."""
-  return _enclose(base, *TR_B)
+  return _enclose(base, TR_B, TR_B)
 
 
 def align(left_side: pyn.FstLike, right_side: pyn.FstLike) -> pyn.Fst:

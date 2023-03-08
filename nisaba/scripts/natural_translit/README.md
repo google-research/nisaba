@@ -2,7 +2,7 @@
 
 This collection of [OpenGrm Pynini](http://www.opengrm.org/twiki/bin/view/GRM/Pynini) grammars takes the [ISO 15919](https://en.wikipedia.org/wiki/ISO_15919) transliteration of a Brahmic script that is normalized and converted by the [Nisaba Brahmic library](https://github.com/google-research/nisaba/tree/main/nisaba/nisaba/scripts/brahmic/README.md), and converts it to a Latin transliteration based on language specific pronunciation. For example, the natural transliteration of the same ISO string `apa` would be `ap` in Hindi, and `aba` in Malayalam.
 
-The natural transliteration grammars use internal notations that only contain extended ASCII characters for ease of input. All substrings are enclosed in type specific, asymmetrical boundary marks. `< >` donates a [grapheme](#typ-representation-and-iso-inventory), `{ }` donates a [phoneme](#txn-representation-and-phoneme-inventory), and `“ ”` donates a [transliteration](#transliteration-strings-and-ltn-inventory) substring.
+The natural transliteration grammars use internal notations that only contain extended ASCII characters for ease of input. All substrings are enclosed in type specific, asymmetrical boundary marks. `< >` denotes a [grapheme](#typ-representation-and-iso-inventory), `{ }` denotes a [phoneme](#txn-representation-and-phoneme-inventory), and `` ` ` `` denotes a [transliteration](#transliteration-strings-and-ltn-inventory) substring.
 
 ## typ representation and script inventories
 The characters of a script is defined as a `Char` with the following
@@ -18,7 +18,7 @@ will be referred to as `gr.A` or `tr.A`. The default value is the uppercase of
 **gr:** `typ` enclosed in `< >`. It is used to represent the characters of the
 source script.
 
-**tr:** `typ` enclosed in `“ ”`. It is used to represent the characters of the
+**tr:** `typ` enclosed in `` ` ` ``. It is used to represent the characters of the
 target script.
 
 **glyph:** The glyph of the character in the original script.
@@ -28,7 +28,7 @@ target script.
 **cmp:** Graphemes of the parts for composite characters.
 
 tr and gr are the underlying representations for the rewrite rules. For
-example, rules with `gr.A` apply to `<a>`, and rules with `tr.A` apply to `“a”`.
+example, rules with `gr.A` apply to `<a>`, and rules with `tr.A` apply to `` `a` ``.
 
 Conventions for assigning a `typ` to a character:
 
@@ -42,18 +42,18 @@ Conventions for assigning a `typ` to a character:
 
   **Example:**
 
-             | a         | u         | ä         | Ä         | au        |
-   ----------|:---------:|:---------:|:---------:|:---------:|:---------:|
-   **alias** | A         | U         | AU        | AU_UC     | S_AU      |
-   **typ**   | a         | u         | au        | au_uc     | s_au      |
-   **gr**    | `<a>`     | `<u>`     | `<au>`    | `<au_uc>` | `<s_au>`  |
-   **tr**    | `“a”`     | `“u”`     | `“au”`    | `“au_uc”` | `“s_au”`  |
-   **glyph** | a         | u         | ä         | Ä         | au        |
-   **ph**    | ph.A      | ph.U      | ph.E      | ph.E      | ph.AU     |
+             | a         | u         | ä         | Ä           | au         |
+   ----------|:---------:|:---------:|:---------:|:-----------:|:----------:|
+   **alias** | A         | U         | AU        | AU_UC       | S_AU       |
+   **typ**   | a         | u         | au        | au_uc       | s_au       |
+   **gr**    | `<a>`     | `<u>`     | `<au>`    | `<au_uc>`   | `<s_au>`   |
+   **tr**    | `` `a` `` | `` `u` `` |`` `au` `` |`` `au_uc` ``|`` `s_au` ``|
+   **glyph** | a         | u         | ä         | Ä           | au         |
+   **ph**    | ph.A      | ph.U      | ph.E      | ph.E        | ph.AU      |
 
 This scheme disambiguates substrings for grammars. For example, a rule that
 changes the transliteration of the diphthong `ph.AU` from 'au' to 'o' only
-applies to `“s_au”` substrings and not `“au”` or `“a”“u”`.
+applies to `` `s_au` `` substrings and not `` `au` `` or `` `a` `u` ``.
 
 [`iso_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic/iso_inventory.py) is a library that contains the `typ`-ISO mapping and makes `Char` for ISO characters.
 
@@ -104,17 +104,17 @@ in addition to a 'base' that is composed from its components.
 
   **Example:**
 
-               | a           | u           | a_l         | au               |
-   ------------|:-----------:|:-----------:|:-----------:|:----------------:|
-   **alias**   | A           | U           | A_L         | A_U              |
-   **txn**     | a           | u           | a_l         | a+u              |
-   **ftr**     | vowel       | vowel       | vowel, long | diph, vowel, ... |
-   **ph**      | `{a}`       | `{u}`       | `{a_l}`     | `{a}{+}{u}`      |
-   **ipa**     | a           | u           | aː          | a͡u               |
-   **tr_dict** | `base: “a”` | `base: “u”` | `base: “a”` | `base: “a”“u”`   |
-               |             |             | `long: “aa”`| `diph: “au”`     |
-               |             |             |             | `semi: “aw”`     |
-               |             |             |             | `mono: “o”`      |
+               | a            | u            | a_l           | au               |
+   ------------|:------------:|:------------:|:-------------:|:----------------:|
+   **alias**   | A            | U            | A_L           | A_U              |
+   **txn**     | a            | u            | a_l           | a+u              |
+   **ftr**     | vowel        | vowel        | vowel, long   | diph, vowel, ... |
+   **ph**      | `{a}`        | `{u}`        | `{a_l}`       | `{a}{+}{u}`      |
+   **ipa**     | a            | u            | aː            | a͡u               |
+   **tr_dict** |``base: `a` ``|``base: `u` ``|``base: `a` `` |``base: `a` `u` ``|
+               |              |              |``long: `aa` ``|``diph: `au` ``   |
+               |              |              |               |``semi: `aw` ``   |
+               |              |              |               |``mono: `o` ``    |
 
 
 [`phoneme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/brahmic/natural_translit/phoneme_inventory.py) is a library that contains the `txn`-[IPA](https://www.internationalphoneticassociation.org/content/ipa-chart) mapping and forms the `txn` symbols covering the unified South Asian phoneme inventory presented in [Demirsahin et al. (2018)](https://research.google/pubs/pub47341/).
@@ -149,7 +149,7 @@ in addition to a 'base' that is composed from its components.
 
 * `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={n}` ->
 
- `<aa>=“aa”<tt>=“d”<aa>=“aa”<n_chl>=“n”` ->
+ `` <aa>=`aa`<tt>=`d`<aa>=`aa`<n_chl>=`n` `` ->
 
    `aadaan`
 
@@ -161,7 +161,7 @@ In this format different spellings of the same word in one language are likely t
 
 * `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={n}` ->
 
- `<aa>=“a”<tt>=“d”<aa>=“a”<n_chl>=“n”` ->
+ ``<aa>=`a`<tt>=`d`<aa>=`a`<n_chl>=`n` `` ->
 
    `aadaan`
 
@@ -211,7 +211,7 @@ Natural transliteration, which aims to capture the romanization of the source la
 
 * `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={n}` ->
 
- `<aa>“aa”<tt>“d”<aa>“a”<n_chl>“n”` ->
+ ``<aa>`aa`<tt>`d`<aa>`a`<n_chl>`n` `` ->
 
    `aadan`
 
