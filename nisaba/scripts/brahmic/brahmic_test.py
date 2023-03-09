@@ -30,7 +30,8 @@ class BrahmicTest(absltest.TestCase):
     self._visual_norm_deva = brahmic.VisualNorm('Deva')
     self._wellformed_deva = brahmic.WellFormed('Deva')
     self._wellformed_mlym = brahmic.WellFormed('Mlym')
-    self._norm_acceptor = brahmic.NormalizingAcceptor('Deva')
+    self._norm_acceptor_deva = brahmic.NormalizingAcceptor('Deva')
+    self._norm_acceptor_sinh = brahmic.NormalizingAcceptor('Sinh')
 
   def testApplyOnText(self):
     self.assertEqual('क़्लब', self._nfc.ApplyOnText('क़्लब'))
@@ -55,20 +56,21 @@ class BrahmicTest(absltest.TestCase):
       self.assertIn('not an acceptor', str(warn.message))
 
   def testNormalizingAcceptor_ApplyOnWord(self):
-    self.assertEqual('ऐरावत', self._norm_acceptor.ApplyOnWord('एेरावत'))
+    self.assertEqual('ශ්‍රී', self._norm_acceptor_sinh.ApplyOnWord('ශ්‍රී'))
+    self.assertEqual('ऐरावत', self._norm_acceptor_deva.ApplyOnWord('एेरावत'))
     with self.assertRaises(brahmic.IllFormedError):
-      self._norm_acceptor.ApplyOnWord('काु')  # Two adjacent vowel signs
+      self._norm_acceptor_deva.ApplyOnWord('काु')  # Two adjacent vowel signs
     with self.assertRaises(brahmic.IllFormedError):
-      self._norm_acceptor.ApplyOnWord('ऐरावत ऐरावत')  # Embedded space
+      self._norm_acceptor_deva.ApplyOnWord('ऐरावत ऐरावत')  # Embedded space
 
   def testNormalizingAcceptor_ApplyOnText(self):
     self.assertEqual('ऐरावत ऐरावत\n',
-                     self._norm_acceptor.ApplyOnText('एेरावत एेरावत\n'))
+                     self._norm_acceptor_deva.ApplyOnText('एेरावत एेरावत\n'))
     with self.assertRaises(brahmic.IllFormedError):
       # Two adjacent vowel signs
-      self._norm_acceptor.ApplyOnText('एेरावत, एेरावत:\n काु')
+      self._norm_acceptor_deva.ApplyOnText('एेरावत, एेरावत:\n काु')
       # Unacceptable ascii punctuations
-      self._norm_acceptor.ApplyOnText('एेरावत, एेरावत:\n')
+      self._norm_acceptor_deva.ApplyOnText('एेरावत, एेरावत:\n')
 
   def testNormalizingAcceptor_ScriptError(self):
     with self.assertRaises(brahmic.ScriptError):
