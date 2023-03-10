@@ -82,8 +82,7 @@ def derive_with_suffix(
   ipa = phon.ipa + modifier.ipa
   tr_dict = phon.tr_dict.copy()
   tr_dict.update(p.new_tr(modifier.ftr[0], new_tr, phon.tr_dict['base']))
-  cmp = p.get_cmp_list(phon) + p.get_cmp_list(modifier)
-  return p.Phon(alias, txn, ftr, ph, ipa, tr_dict, cmp)
+  return p.Phon(alias, txn, ftr, ph, ipa, tr_dict, cmp=None)
 
 
 # TODO: Revisit default tr for substring bases.
@@ -151,7 +150,7 @@ def compose(
   new_ftr = [ftr] + cmp_list[0].ftr
   new_ph = cmp_list[0].ph
   new_ipa = cmp_list[0].ipa
-  new_base_tr = cmp_list[0].tr_dict['base']
+  new_base_tr = cmp_list[0].tr_dict['base'].copy()
   new_cmp = [cmp_list[0]]
   for cmp in cmp_list[1:]:
     alias += '_' + cmp.alias

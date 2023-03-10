@@ -116,6 +116,7 @@ def rewrite_repeated(
       following)
 
 
+# TODO: Update to accept union fst on the left side.
 def reassign(
     left_side: pyn.FstLike,
     old: pyn.FstLike,

@@ -38,7 +38,7 @@ SIBV_TO_SIBW = rw.reassign(
 
 
 # Palatal and velar assimilated anusvara is transliterated as "n".
-_NON_LABIAL_ANUSVARA = rw.reassign(
+NON_LABIAL_ANUSVARA = rw.reassign(
     gr.ANS,
     ls.union_opt(ph.NG, ph.NY),
     tr.N)
@@ -68,12 +68,15 @@ AA_WI = rw.reassign_word_initial(
 
 # Transliterate diphthong graphemes as diphthong instead of long vowel.
 
-_DIPHTHONG_GR = cmp.ComposeFsts(ls.apply_foreach(rw.reassign, [
-    [ls.union_opt(gr.AI, gr.AI_I), ph.EH_L, tr.S_AI],
-    [ls.union_opt(gr.AU, gr.AU_I), ph.OH_L, tr.S_AU],
+DIPHTHONG_GR = cmp.ComposeFsts(ls.apply_foreach(rw.reassign, [
+    [gr.AI, ph.EH_L, tr.S_AI],
+    [gr.AU, ph.OH_L, tr.S_AU],
+    [gr.AI_I, ph.EH_L, tr.S_AI],
+    [gr.AU_I, ph.OH_L, tr.S_AU],
 ]))
 
 # Rules for natural translit of two-letter geminates.
+# TODO: Revise and generalise all geminate rules.
 
 # <c><c> is "cch"
 CC_TO_CCH = rw.merge_repeated_alignment(gr.C, tr.S_CH, tr.C + tr.S_CH)
@@ -94,7 +97,7 @@ TRANSLIT_BY_PSAF = phon.ls_translit_by_key(psa.PHONEMES, 'psaf')
 TRANSLIT_BY_PSAC = phon.ls_translit_by_key(psa.PHONEMES, 'psac')
 
 # Compose common rules for romanization
-TXN_TO_PSA_COMMON = (_DIPHTHONG_GR @ _NON_LABIAL_ANUSVARA)
+TXN_TO_PSA_COMMON = (DIPHTHONG_GR @ NON_LABIAL_ANUSVARA)
 
 # Convert txn to PSAF and outputs only translit strings.
 TXN_TO_PSAF = (
