@@ -21,40 +21,45 @@ from nisaba.scripts.utils import test_util
 
 _TEST_CASES = [
     (lambda: iso2txn_ops.AI_TO_EH_L, [
-        ('<ai>={a}{+}{i}', '<ai>={eh_l}'),
+        ('{a}{+}{i}', '{eh_l}'),
     ]),
-    (lambda: iso2txn_ops.ANUSVARA_ASSIMILATION, [
+    (lambda: iso2txn_ops.vocalic('{i}', '{i_l}'), [
+        ('{S}', '{i}'),
+        ('{S_l}', '{i_l}'),
+    ]),
+    (lambda: iso2txn_ops.default_schwa('{a}'), [
+        ('{_}', '{a}'),
+        ('{V}', '{a}'),
+    ]),
+    (iso2txn_ops.vocal_schwa, [
+        ('{_}', '{V}'),
+    ]),
+    (iso2txn_ops.silent_schwa, [
+        ('{_}', '{sil}'),
+    ]),
+    (lambda: iso2txn_ops.schwa_eow('{r}{t}'), [
+        ('{a}{r}{t}{_}', '{a}{r}{t}{sil}'),
+        ('{a}{p}{t}{_}', '{a}{p}{t}{_}'),
+    ]),
+    (lambda: iso2txn_ops.schwa_between_syllables('{s}{p}', '{r}{t}'), [
+        ('{a}{r}{t}{_}{s}{p}{a}', '{a}{r}{t}{sil}{s}{p}{a}'),
+        ('{a}{p}{t}{_}{s}{p}{a}', '{a}{p}{t}{_}{s}{p}{a}'),
+        ('{a}{r}{t}{_}{k}{p}{a}', '{a}{r}{t}{_}{k}{p}{a}'),
+    ]),
+    (lambda: iso2txn_ops.assign_anusvara('{m}'), [
         ('<a>={a}<ans>={N}<b>={b}<aa>={a_l}',
          '<a>={a}<ans>={m}<b>={b}<aa>={a_l}'),
-        ('<a>={a}<ans>={N}<d>={di}<aa>={a_l}',
-         '<a>={a}<ans>={ni}<d>={di}<aa>={a_l}'),
-        ('<a>={a}<ans>={N}<d>={d}<aa>={a_l}',
-         '<a>={a}<ans>={n}<d>={d}<aa>={a_l}'),
-        ('<a>={a}<ans>={N}<y>={y}<aa>={a_l}',
-         '<a>={a}<ans>={ny}<y>={y}<aa>={a_l}'),
-        ('<a>={a}<ans>={N}<dd>={dd}<aa>={a_l}',
-         '<a>={a}<ans>={nn}<dd>={dd}<aa>={a_l}'),
+        ('<a>={a}<ans>={N}<s>={s}<aa>={a_l}',
+         '<a>={a}<ans>={m}<s>={s}<aa>={a_l}'),
+    ]),
+    (lambda: iso2txn_ops.assign_anusvara('{ng}', '{g}'), [
         ('<a>={a}<ans>={N}<g>={g}<aa>={a_l}',
          '<a>={a}<ans>={ng}<g>={g}<aa>={a_l}'),
         ('<a>={a}<ans>={N}<s>={s}<aa>={a_l}',
          '<a>={a}<ans>={N}<s>={s}<aa>={a_l}'),
     ]),
-    (lambda: iso2txn_ops.DEFAULT_ANUSVARA_LABIAL, [
-        ('<a>={a}<ans>={N}<s>={s}<aa>={a_l}',
-         '<a>={a}<ans>={m}<s>={s}<aa>={a_l}'),
-    ]),
-    (lambda: iso2txn_ops.DEFAULT_ANUSVARA_DENTAL, [
-        ('<a>={a}<ans>={N}<s>={s}<aa>={a_l}',
-         '<a>={a}<ans>={ni}<s>={s}<aa>={a_l}'),
-    ]),
-    (lambda: iso2txn_ops.JNY_TO_GNY, [
-        ('<j>={d}{+}{zh}<ny>={ny}', '<j>={g}<ny>={ny}'),
-    ]),
-    (lambda: iso2txn_ops.JNY_TO_GY, [
+    (lambda: iso2txn_ops.rewrite_jny('{g}', '{y}'), [
         ('<j>={d}{+}{zh}<ny>={ny}', '<j>={g}<ny>={y}'),
-    ]),
-    (lambda: iso2txn_ops.JNY_TO_NY, [
-        ('<j>={d}{+}{zh}<ny>={ny}', '<j>={sil}<ny>={ny}'),
     ]),
 ]
 

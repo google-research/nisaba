@@ -31,36 +31,32 @@ ph = psa.PHONEME_INVENTORY
 A_TO_EC = rw.rewrite(ph.A, ph.EC)
 
 # Ungliding: Diphthong to monophthong shift
-
 AI_TO_EH_L = rw.rewrite(ph.A_I, ph.EH_L)
 AU_TO_OH_L = rw.rewrite(ph.A_U, ph.OH_L)
 
 # Vocalic liquids
 
 
-def _vocalic(vcl: pyn.FstLike, vcl_l: pyn.FstLike) -> pyn.Fst:
+def vocalic(vcl: pyn.FstLike, vcl_l: pyn.FstLike) -> pyn.Fst:
   """Pronunciation of the vowel part of the vocalic Rs and Ls."""
   return rw.rewrite(ph.SYL, vcl) @ rw.rewrite(ph.SYL_L, vcl_l)
 
-VOCALIC_I = _vocalic(ph.I, ph.I_L)
-
-VOCALIC_U = _vocalic(ph.U, ph.U_L)
-
-VOCALIC_EC = _vocalic(ph.EC, ph.EC_L)
+VOCALIC_I = vocalic(ph.I, ph.I_L)
+VOCALIC_U = vocalic(ph.U, ph.U_L)
+VOCALIC_EC = vocalic(ph.EC, ph.EC_L)
 
 # Schwa handling
 
 
-def _default_schwa(schwa: pyn.FstLike) -> pyn.Fst:
+def default_schwa(schwa: pyn.FstLike) -> pyn.Fst:
   """Pronounces unassigned schwas as the default phoneme for the language."""
   return rw.rewrite(ls.union_opt(ph.V_TNT, ph.V_PRN), schwa)
 
-SCHWA_A = _default_schwa(ph.A)
+SCHWA_A = default_schwa(ph.A)
+SCHWA_EC = default_schwa(ph.EC)
 
-SCHWA_EC = _default_schwa(ph.EC)
 
-
-def _vocal_schwa(
+def vocal_schwa(
     preceding: pyn.FstLike = al.EPSILON,
     following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Pronounces schwa depending on the context."""
@@ -72,7 +68,7 @@ def _vocal_schwa(
       following)
 
 
-def _silent_schwa(
+def silent_schwa(
     preceding: pyn.FstLike = al.EPSILON,
     following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Deletes schwa depending on the context."""
@@ -84,24 +80,22 @@ def _silent_schwa(
       following)
 
 # Schwa is pronounced before coda graphemes
-_SCHWA_BEFORE_CODA = _vocal_schwa(following=gr.CODA)
-
-_SCHWA_BEFORE_IND_VOWEL = _vocal_schwa(following=gr.VOWEL_I)
-
+_SCHWA_BEFORE_CODA = vocal_schwa(following=gr.CODA)
+_SCHWA_BEFORE_IND_VOWEL = vocal_schwa(following=gr.VOWEL_I)
 # Schwa is pronounced after {i}{y} and {i_l}{y}
-_SCHWA_AFTER_IY = _vocal_schwa(cc.concat_r(ls.union_opt(ph.I, ph.I_L), ph.Y))
+_SCHWA_AFTER_IY = vocal_schwa(cc.concat_r(ls.union_opt(ph.I, ph.I_L), ph.Y))
 
 
-def _schwa_eow(coda_cl) -> pyn.Fst:
+def schwa_eow(coda_cl) -> pyn.Fst:
   """Deletes the word final schwa if it's preceded by a legal coda."""
-  return _silent_schwa(
+  return silent_schwa(
       syl.legal_coda(ph.VOWEL, ph.CONSONANT, coda_cl),
       al.EOS)
 
 
-def _schwa_between_syllables(onset_cl, coda_cl) -> pyn.Fst:
+def schwa_between_syllables(onset_cl, coda_cl) -> pyn.Fst:
   """Deletes schwa between two well-formed syllables."""
-  return _silent_schwa(
+  return silent_schwa(
       syl.legal_coda(ph.VOWEL, ph.CONSONANT, coda_cl),
       syl.legal_onset(ph.VOWEL, ph.CONSONANT, onset_cl))
 
@@ -115,13 +109,13 @@ def process_schwa(
       _SCHWA_BEFORE_CODA @
       _SCHWA_BEFORE_IND_VOWEL @
       _SCHWA_AFTER_IY @
-      _schwa_eow(coda_cl) @
-      _schwa_between_syllables(onset_cl, coda_cl)).optimize()
+      schwa_eow(coda_cl) @
+      schwa_between_syllables(onset_cl, coda_cl)).optimize()
 
 # Anusvara place of articulation assimilation functions
 
 
-def _assign_anusvara(
+def assign_anusvara(
     phoneme: pyn.FstLike,
     place: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Pronunciation of anusvara.
@@ -139,7 +133,7 @@ def _assign_anusvara(
 
   Following call:
   ```
-  _assign_anusvara(ph.M, ph.LABIAL)
+  assign_anusvara(ph.M, ph.LABIAL)
   ```
   will return:
   ```
@@ -156,22 +150,14 @@ def _assign_anusvara(
       phoneme,
       following=place)
 
-DEFAULT_ANUSVARA_LABIAL = _assign_anusvara(ph.M)
-
-DEFAULT_ANUSVARA_DENTAL = _assign_anusvara(ph.NI)
-
-ANUSVARA_ASSIMILATION_LABIAL = _assign_anusvara(ph.M, ph.LABIAL)
-
-ANUSVARA_ASSIMILATION_DENTAL = _assign_anusvara(ph.NI, ph.DENTAL)
-
-ANUSVARA_ASSIMILATION_ALVEOLAR = _assign_anusvara(ph.N, ph.ALVEOLAR)
-
-ANUSVARA_ASSIMILATION_PALATAL = _assign_anusvara(ph.NY, ph.PALATAL)
-
-ANUSVARA_ASSIMILATION_RETROFLEX = _assign_anusvara(ph.NN, ph.RETROFLEX)
-
-ANUSVARA_ASSIMILATION_VELAR = _assign_anusvara(ph.NG, ph.VELAR)
-
+DEFAULT_ANUSVARA_LABIAL = assign_anusvara(ph.M)
+DEFAULT_ANUSVARA_DENTAL = assign_anusvara(ph.NI)
+ANUSVARA_ASSIMILATION_LABIAL = assign_anusvara(ph.M, ph.LABIAL)
+ANUSVARA_ASSIMILATION_DENTAL = assign_anusvara(ph.NI, ph.DENTAL)
+ANUSVARA_ASSIMILATION_ALVEOLAR = assign_anusvara(ph.N, ph.ALVEOLAR)
+ANUSVARA_ASSIMILATION_PALATAL = assign_anusvara(ph.NY, ph.PALATAL)
+ANUSVARA_ASSIMILATION_RETROFLEX = assign_anusvara(ph.NN, ph.RETROFLEX)
+ANUSVARA_ASSIMILATION_VELAR = assign_anusvara(ph.NG, ph.VELAR)
 FINAL_ANUSVARA_NASALIZATION = rw.reassign_word_final(gr.ANS, ph.NASAL, ph.NSL)
 
 # Composes anusvara assimilation for all places of articulation.
@@ -185,7 +171,7 @@ ANUSVARA_ASSIMILATION = (ANUSVARA_ASSIMILATION_LABIAL @
 # JNY clusters
 
 
-def _rewrite_jny(
+def rewrite_jny(
     j: pyn.FstLike,
     ny: pyn.FstLike) -> pyn.Fst:
   """Jny clusters are pronounced differently across languages."""
@@ -193,11 +179,9 @@ def _rewrite_jny(
       gr.J, ph.D_ZH, j,
       gr.NY, ph.NY, ny)
 
-JNY_TO_GNY = _rewrite_jny(ph.G, ph.NY)
-
-JNY_TO_GY = _rewrite_jny(ph.G, ph.Y)
-
-JNY_TO_NY = _rewrite_jny(ph.SIL, ph.NY)
+JNY_TO_GNY = rewrite_jny(ph.G, ph.NY)
+JNY_TO_GY = rewrite_jny(ph.G, ph.Y)
+JNY_TO_NY = rewrite_jny(ph.SIL, ph.NY)
 
 # <ph><ph> pronounced {f}{f}. Should only occur in Perso-Arabic words.
 # TODO: Move this when there is a Perso-Arabic module.
