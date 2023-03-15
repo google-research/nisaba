@@ -23,9 +23,6 @@ The multilingual inventory is used for shared multilingual or
 language agnostic modules. For example:
 /nisaba/scripts/natural_translit/phonology/operations/voicing.py
 
-Complete list of Phons:
-/nisaba/scripts/natural_translit/phonology/doc/phon_table.md
-
 TODO: Add test to make sure phon_table is up to date.
 """
 
