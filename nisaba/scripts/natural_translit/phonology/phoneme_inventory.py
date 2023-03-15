@@ -13,35 +13,20 @@
 # limitations under the License.
 
 # Lint as: python3
-"""Phoneme inventory.
+"""Multilingual phoneme inventory.
 
-txn is an internal typable representation for phonemes. txn strings
-are enclosed in '{ }'. This library provides the constants for IPA - txn
-conversion and the phonological features of phonemes such as class (vowel,
-consonant, etc), manner (nasal, stop, etc) and the place of articulation
-(labial, dental, etc).
+This library builds a high coverage Phon inventory. Language specific phoneme
+inventories can be built by importing the relevant subset of Phons.
+For example: /nisaba/scripts/natural_translit/brahmic/psa_phoneme_inventory.py
 
-IPA - txn mapping
+The multilingual inventory is used for shared multilingual or
+language agnostic modules. For example:
+/nisaba/scripts/natural_translit/phonology/operations/voicing.py
 
-'ə'   : {ec}       'əː'  : {ec_l}     'a' : {a}          'aː' : {a_l}
-'æ'   : {ae}       'æː'  : {ae_l}	    'e' : {e}          'eː' : {e_l}
-'ɛ'   : {eh}       'ɛː'  : {eh_l}	    'i' : {i}          'iː' : {i_l}
-'o'   : {o}        'oː'  : {o_l}      'ɔ' : {oh}         'ɔː' : {oh_l}
-'u'   : {u}        'uː'  : {u_l}
+Complete list of Phons:
+/nisaba/scripts/natural_translit/phonology/doc/phon_table.md
 
-'b'   : {b}        't͡ʃ' : {t}{+}{sh} 'd' : {d}           'ɖ' : {dd}
-'d̪'   : {di}       'f'   : {f}        'ɡ' : {g}           'h' : {h}
-'d͡ʒ' : {d}{+}{zh} 'k'   : {k}        'l' : {l}           'ɭ' : {ll}
-'m'   : {m}        'n'   : {n}        'ŋ' : {ng}          'n̪' : {ni}
-'ɳ'   : {nn}       'ɲ'   : {ny}       'p' : {p}           'q' : {q}
-'r'   : {r}        'ɽ'   : {rd}      'ɻ' : {rru}         'ɾ' : {rt}
-'s'   : {s}        'ʃ'   : {sh}       'ʂ' : {ss}          't' : {t}
-'t̪'   : {ti}       'ʈ'   : {tt}       'ʋ' : {vu}          'x' : {kh}
-'ɣ'   : {gh}       'j'   : {y}        'z' : {z}           'ʒ' : {zh}
-
-'ʰ'   : {H}        '~'   : {N}        '̍ ' : {S}
-'͡'   : {+}
-
+TODO: Add test to make sure phon_table is up to date.
 """
 
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
