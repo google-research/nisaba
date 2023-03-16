@@ -103,7 +103,7 @@ def nisaba_grm_textproto_test(
         token_type = token_type,
         extra_deps = [
         ],
-        test_one_top_rewrite = True,
+        mode = "one_top",
         **kwds
     )
 
@@ -215,5 +215,5 @@ def nisaba_compile_script_lang_multi_grm_py(
         #    grammar = ":%s" % name_token_type,
         #    test_file = "testdata:%s.tsv" % name,
         #    token_type = token_type,
-        #    test_one_top_rewrite = True,
+        #    mode = "one_top",
         #)
