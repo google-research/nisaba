@@ -23,8 +23,11 @@ PhonFeature = collections.namedtuple(
     'PhonFeature', ['alias', 'cat'])
 
 
-def ft_inventory(feature_list: [PhonFeature]) -> collections.namedtuple:
-  return i.make_inventory(i.alias_list(feature_list), feature_list)
+def ft_inventory(
+    feature_list: [PhonFeature],
+    store_list: [i.Store] = None
+) -> collections.namedtuple:
+  return i.make_inventory(i.alias_list(feature_list), feature_list, store_list)
 
 # TODO:Enum features by category
 FEATURES = ls.apply_foreach(PhonFeature, [
@@ -33,8 +36,8 @@ FEATURES = ls.apply_foreach(PhonFeature, [
     ['nonsyllabic', 'syllabicity'],
     ['pulmonic', 'airstream'],
     ['nonpulmonic', 'airstream'],
-    ['oral_central', 'airflow'],
-    ['oral_lateral', 'airflow'],
+    ['central', 'airflow'],
+    ['lateral', 'airflow'],
     ['nasal', 'airflow'],
     ['aspirated', 'release'],
     ['click', 'release'],
@@ -83,4 +86,41 @@ FEATURES = ls.apply_foreach(PhonFeature, [
     ['near_back', 'backness'],
     ['back', 'backness'],
 ])
-FEATURE_INVENTORY = ft_inventory(FEATURES)
+_F = ft_inventory(FEATURES)
+
+ROWS = ls.apply_foreach(i.store_as, [
+    ['close_vwl', [_F.vowel, _F.close]],
+    ['n_close_vwl', [_F.vowel, _F.near_close]],
+    ['c_mid_vwl', [_F.vowel, _F.close_mid]],
+    ['mid_vwl', [_F.vowel, _F.mid]],
+    ['o_mid_vwl', [_F.vowel, _F.open_mid]],
+    ['n_open_vwl', [_F.vowel, _F.near_open]],
+    ['open_vwl', [_F.vowel, _F.open]],
+    ['front_unr', [_F.front, _F.nonlabial]],
+    ['front_rnd', [_F.front, _F.labial]],
+    ['n_front_unr', [_F.near_front, _F.nonlabial]],
+    ['n_front_rnd', [_F.near_front, _F.labial]],
+    ['center_unr', [_F.center, _F.nonlabial]],
+    ['center_rnd', [_F.center, _F.labial]],
+    ['n_back_unr', [_F.near_back, _F.nonlabial]],
+    ['n_back_rnd', [_F.near_back, _F.labial]],
+    ['back_unr', [_F.back, _F.nonlabial]],
+    ['back_rnd', [_F.back, _F.labial]],
+    ['vcd_nasal', [_F.nasal, _F.stop, _F.voiced]],
+    ['vcl_stop', [_F.stop, _F.voiceless]],
+    ['vcd_stop', [_F.stop, _F.voiced]],
+    ['vcl_nonsib_fricative', [_F.fricative, _F.nonsibilant, _F.voiceless]],
+    ['vcd_nonsib_fricative', [_F.fricative, _F.nonsibilant, _F.voiced]],
+    ['vcl_sib_fricative', [_F.fricative, _F.sibilant, _F.voiceless]],
+    ['vcd_sib_fricative', [_F.fricative, _F.sibilant, _F.voiced]],
+    ['vcl_lat_fricative', [_F.fricative, _F.lateral, _F.voiceless]],
+    ['vcd_lat_fricative', [_F.fricative, _F.lateral, _F.voiced]],
+    ['central_approximant', [_F.approximant, _F.voiced]],
+    ['lateral_approximant', [_F.approximant, _F.voiced, _F.lateral]],
+    ['vlr_lbl', [_F.velar, _F.labial]],
+    ['vcd_flap', [_F.flap, _F.voiced]],
+    ['vcd_trill', [_F.trill, _F.voiced]],
+    ['click_release', [_F.click, _F.nonpulmonic]],
+])
+
+FEATURE_INVENTORY = ft_inventory(FEATURES, ROWS)

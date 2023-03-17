@@ -14,6 +14,7 @@
 
 """Functions for deriving and composing Phons."""
 
+import copy
 import pynini as pyn
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import feature
@@ -36,6 +37,8 @@ COMBINER = [modifier_phon('CMB', '+', [f.composite], '͡')]
 
 MODIFIER_FEATURE = ls.apply_foreach(modifier_phon, [
     ['LONG', '_l', [f.long], 'ː'],
+    ['DVC', 'o', [f.devoiced], '̥'],  # devoiced
+    ['NPL', 'e', [f.nonpulmonic], '`'],  # nonpulmonic
 ])
 
 _MOD = p.phon_inventory(COMBINER + MODIFIER_FEATURE)
@@ -97,6 +100,18 @@ def long(phon: p.Phon, long_tr: pyn.FstLike = None) -> p.Phon:
       phon,
       _MOD.LONG,
       long_tr)
+
+
+def devoiced(phon: p.Phon) -> p.Phon:
+  """Voiceless derivation for prototypically voiced Phons."""
+  new_phon = copy.deepcopy(phon)
+  new_phon.ftr.remove(f.voiced)
+  return derive_with_suffix(new_phon, _MOD.DVC)
+
+
+def nonpulmonic(phon: p.Phon) -> p.Phon:
+  """Ejective and implosive derivation."""
+  return derive_with_suffix(phon, _MOD.NPL)
 
 
 # Composition functions
@@ -172,7 +187,8 @@ def compose(
 
 def diphthong(
     vowels: [p.Phon], diph: pyn.FstLike,
-    semi: pyn.FstLike = None, mono: pyn.FstLike = None) -> p.Phon:
+    semi: pyn.FstLike = None, mono: pyn.FstLike = None
+) -> p.Phon:
   """Composes a diphthong."""
   tr_dict = {}
   if semi:
@@ -183,6 +199,37 @@ def diphthong(
 
 
 def affricate(
-    cons: [p.Phon], affr: pyn.FstLike) -> p.Phon:
+    cons: [p.Phon], affr: pyn.FstLike
+) -> p.Phon:
   """Composes an affricate."""
   return compose(cons, f.affricate, affr)
+
+
+def ls_affricate(
+    stop: p.Phon, frics: [p.Phon], tr: pyn.FstLike
+) -> [p.Phon]:
+  """Composes list of affricates and their geminations."""
+  affr = []
+  gemm = long(stop)
+  g_tr = ltn.double_substring_tr(tr)
+  for fric in frics:
+    affr += [affricate([stop, fric], tr), affricate([gemm, fric], g_tr)]
+    if f.voiceless in fric.ftr:
+      ejc = nonpulmonic(fric)
+      affr += [affricate([stop, ejc], tr), affricate([gemm, ejc], g_tr)]
+  return affr
+
+
+def click(
+    stop: p.Phon, release: p.Phon
+) -> p.Phon:
+  """Composes a click Phon from a stop and a click release."""
+  return compose([stop, release], f.coarticulated)
+
+
+def ls_click(stops: [p.Phon], releases: [p.Phon]) -> [p.Phon]:
+  """Composes list of click co-articulations from stops and releases."""
+  clicks = []
+  for stop in stops:
+    clicks += [click(stop, release) for release in releases]
+  return clicks

@@ -50,8 +50,8 @@ def double_substring_tr(tr) -> pyn.FstLike:
 
 
 OTHER_SUBSTRING = ls.apply_foreach(c.make_substring, [
-    ['ae'], ['ai'], ['au'], ['ch'], ['kh'], ['ng'],
-    ['ny'], ['rd'], ['sh'], ['th'], ['zh'],
+    ['ae'], ['ai'], ['au'], ['ch'], ['dh'], ['kh'],
+    ['ng'], ['ny'], ['rd'], ['sh'], ['th'], ['zh'],
 ])
 
 SUBSTRING = DOUBLE_SUBSTRING + OTHER_SUBSTRING
