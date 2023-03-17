@@ -15,10 +15,12 @@
 """Pan South Asian phoneme inventory."""
 
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
+from nisaba.scripts.natural_translit.phonology import feature
 from nisaba.scripts.natural_translit.phonology import phon as p
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
+f = feature.FEATURE_INVENTORY
 ph = phoneme_inventory.PHON_INVENTORY
 tr = ltn.TRANSLIT_INVENTORY
 
@@ -30,10 +32,10 @@ def _import_to_psa(
 ) -> p.Phon:
   """Import Phons and add Pan South Asian translits."""
   # Check phon class to set the default translit.
-  if 'affr' in phon.ftr:
-    psa = phon.tr_dict['affr']
-  elif 'diph' in phon.ftr:
-    psa = phon.tr_dict['diph']
+  if f.affricate in phon.ftr:
+    psa = phon.tr_dict[f.affricate]
+  elif f.diphthong in phon.ftr:
+    psa = phon.tr_dict[f.diphthong]
   else:
     psa = phon.tr_dict['base']
   psa_dict = {}
@@ -42,8 +44,8 @@ def _import_to_psa(
     psa_dict.update({'psaf': psaf})
     psa = psaf
   else:
-    if 'vowel' in phon.ftr and 'long' in phon.ftr:
-      psa_dict.update({'psaf': phon.tr_dict['long']})
+    if f.vowel in phon.ftr and f.long in phon.ftr:
+      psa_dict.update({'psaf': phon.tr_dict[f.long]})
     else:
       psa_dict.update({'psaf': psa})
   psa_dict.update(p.new_tr('psac', psac, psa))
@@ -52,7 +54,7 @@ def _import_to_psa(
 SILENCE = [_import_to_psa(ph.SIL)]
 
 VOWEL_MOD = ls.apply_foreach(_import_to_psa, (
-    [ph.GLD], [ph.NSL]
+    [ph.NSY], [ph.NSL]
 ))
 
 CONS_MOD = [_import_to_psa(ph.ASP)]

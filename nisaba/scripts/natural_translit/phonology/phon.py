@@ -22,7 +22,6 @@ from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 # See README for Phon tuple details.
-# TODO: add some structure to ftr and enumerate possible values.
 Phon = collections.namedtuple(
     'Phon', ['alias', 'txn', 'ftr', 'ph', 'ipa', 'tr_dict', 'cmp'])
 

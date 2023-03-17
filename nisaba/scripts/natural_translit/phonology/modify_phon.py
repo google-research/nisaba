@@ -16,9 +16,12 @@
 
 import pynini as pyn
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
+from nisaba.scripts.natural_translit.phonology import feature
 from nisaba.scripts.natural_translit.phonology import phon as p
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import list_op as ls
+
+f = feature.FEATURE_INVENTORY
 
 
 def modifier_phon(
@@ -29,10 +32,10 @@ def modifier_phon(
 ) -> p.Phon:
   return p.base_phon(txn, ftr, ipa, alias=mod_alias)
 
-COMBINER = [modifier_phon('CMB', '+', ['composite'], '͡')]
+COMBINER = [modifier_phon('CMB', '+', [f.composite], '͡')]
 
 MODIFIER_FEATURE = ls.apply_foreach(modifier_phon, [
-    ['LONG', '_l', ['long'], 'ː'],
+    ['LONG', '_l', [f.long], 'ː'],
 ])
 
 _MOD = p.phon_inventory(COMBINER + MODIFIER_FEATURE)
@@ -173,13 +176,13 @@ def diphthong(
   """Composes a diphthong."""
   tr_dict = {}
   if semi:
-    tr_dict['semi'] = semi
+    tr_dict['semivowel'] = semi
   if mono:
-    tr_dict['mono'] = mono
-  return compose(vowels, 'diph', diph, tr_dict)
+    tr_dict['monophthong'] = mono
+  return compose(vowels, f.diphthong, diph, tr_dict)
 
 
 def affricate(
     cons: [p.Phon], affr: pyn.FstLike) -> p.Phon:
   """Composes an affricate."""
-  return compose(cons, 'affr', affr)
+  return compose(cons, f.affricate, affr)

@@ -27,6 +27,7 @@ py_library(
     srcs = ["psa_phoneme_inventory.py"],
     deps = [
         "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/phonology:feature",
         "//nisaba/scripts/natural_translit/phonology:phon",
         "//nisaba/scripts/natural_translit/phonology:phoneme_inventory",
         "//nisaba/scripts/natural_translit/utils:list_op",

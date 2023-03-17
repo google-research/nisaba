@@ -33,9 +33,19 @@ py_library(
 )
 
 py_library(
+    name = "feature",
+    srcs = ["feature.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/utils:inventory",
+        "//nisaba/scripts/natural_translit/utils:list_op",
+    ],
+)
+
+py_library(
     name = "modify_phon",
     srcs = ["modify_phon.py"],
     deps = [
+        ":feature",
         "//nisaba/scripts/natural_translit/utils:alignment",
         "//nisaba/scripts/natural_translit/utils:inventory",
         "//nisaba/scripts/natural_translit/utils:list_op",
@@ -48,6 +58,7 @@ py_library(
     name = "phoneme_inventory",
     srcs = ["phoneme_inventory.py"],
     deps = [
+        ":feature",
         ":modify_phon",
         ":phon",
         "//nisaba/scripts/natural_translit/latin:ltn_inventory",

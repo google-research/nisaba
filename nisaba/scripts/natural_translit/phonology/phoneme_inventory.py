@@ -27,19 +27,21 @@ TODO: Add test to make sure phon_table is up to date.
 """
 
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
+from nisaba.scripts.natural_translit.phonology import feature
 from nisaba.scripts.natural_translit.phonology import modify_phon as mod
 from nisaba.scripts.natural_translit.phonology import phon as p
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
+f = feature.FEATURE_INVENTORY
 tr = ltn.TRANSLIT_INVENTORY
 
-SILENCE = [p.base_phon('sil', ['silent'], '', tr.DEL)]
+SILENCE = [p.base_phon('sil', [f.silent], '', tr.DEL)]
 
 BASE_FEATURE = ls.apply_foreach(p.base_phon, [
-    ['S', ['syllabic'], '̍', tr.I, 'SYL'],
-    ['GLD', ['glide'], '̯', tr.DEL, 'GLD'],
-    ['N', ['nasalized'], '~', tr.N, 'NSL'],
-    ['H', ['aspirated'], 'ʰ', tr.H, 'ASP'],
+    ['S', [f.syllabic], '̍', tr.I, 'SYL'],
+    ['Z', [f.nonsyllabic], '̯', tr.DEL, 'NSY'],
+    ['N', [f.nasal], '~', tr.N, 'NSL'],
+    ['H', [f.aspirated], 'ʰ', tr.H, 'ASP'],
 ])
 
 _FTR = p.phon_inventory(BASE_FEATURE)
@@ -49,20 +51,20 @@ LONG_SYL = [mod.long(_FTR.SYL, tr.S_II)]
 STANDALONE_FEATURE = BASE_FEATURE + LONG_SYL
 
 UNASSIGNED_VOWEL = ls.apply_foreach(p.base_phon, [
-    ['_', ['vowel'], '', tr.DEL, 'V_TNT'],  # tentative
-    ['V', ['vowel'], '', tr.DEL, 'V_PRN'],  # pronounced
+    ['_', [f.vowel], '', tr.DEL, 'V_TNT'],  # tentative
+    ['V', [f.vowel], '', tr.DEL, 'V_PRN'],  # pronounced
 ])
 
 SHORT_VOWEL = ls.apply_foreach(p.base_phon, [
-    ['a', ['vowel'], 'a', tr.A],
-    ['ae', ['vowel'], 'æ', tr.A],
-    ['e', ['vowel'], 'e', tr.E],
-    ['ec', ['vowel'], 'ə', tr.U],
-    ['eh', ['vowel'], 'ɛ', tr.E],
-    ['i', ['vowel'], 'i', tr.I],
-    ['o', ['vowel'], 'o', tr.O],
-    ['oh', ['vowel'], 'ɔ', tr.O],
-    ['u', ['vowel'], 'u', tr.U],
+    ['a', [f.vowel], 'a', tr.A],
+    ['ae', [f.vowel], 'æ', tr.A],
+    ['e', [f.vowel], 'e', tr.E],
+    ['ec', [f.vowel], 'ə', tr.U],
+    ['eh', [f.vowel], 'ɛ', tr.E],
+    ['i', [f.vowel], 'i', tr.I],
+    ['o', [f.vowel], 'o', tr.O],
+    ['oh', [f.vowel], 'ɔ', tr.O],
+    ['u', [f.vowel], 'u', tr.U],
 ])
 
 LONG_VOWEL = [mod.long(short) for short in SHORT_VOWEL]
@@ -77,29 +79,29 @@ DIPHTHONG = ls.apply_foreach(mod.diphthong, [
 VOWEL = (UNASSIGNED_VOWEL + SHORT_VOWEL + LONG_VOWEL + DIPHTHONG)
 
 NASAL = ls.apply_foreach(p.base_phon, [
-    ['m', ['bilabial'], 'm', tr.M],
-    ['n', ['alveolar'], 'n', tr.N],
-    ['ng', ['velar'], 'ŋ', tr.S_NG],
-    ['ni', ['dental'], 'n̪', tr.N],
-    ['nn', ['retroflex'], 'ɳ', tr.N],
-    ['ny', ['palatal'], 'ɲ', tr.S_NY],
+    ['m', [f.bilabial], 'm', tr.M],
+    ['n', [f.alveolar], 'n', tr.N],
+    ['ng', [f.velar], 'ŋ', tr.S_NG],
+    ['ni', [f.dental], 'n̪', tr.N],
+    ['nn', [f.retroflex], 'ɳ', tr.N],
+    ['ny', [f.palatal], 'ɲ', tr.S_NY],
 ])
 
 VOICELESS_STOP = ls.apply_foreach(p.base_phon, [
-    ['p', ['bilabial'], 'p', tr.P],
-    ['q', ['uvular'], 'q', tr.K],
-    ['k', ['velar'], 'k', tr.K],
-    ['t', ['alveolar'], 't', tr.T],
-    ['ti', ['dental'], 't̪', tr.T],
-    ['tt', ['retroflex'], 'ʈ', tr.T],
+    ['p', [f.bilabial], 'p', tr.P],
+    ['q', [f.uvular], 'q', tr.K],
+    ['k', [f.velar], 'k', tr.K],
+    ['t', [f.alveolar], 't', tr.T],
+    ['ti', [f.dental], 't̪', tr.T],
+    ['tt', [f.retroflex], 'ʈ', tr.T],
 ])
 
 VOICED_STOP = ls.apply_foreach(p.base_phon, [
-    ['b', ['bilabial'], 'b', tr.B],
-    ['d', ['alveolar'], 'd', tr.D],
-    ['dd', ['retroflex'], 'ɖ', tr.D],
-    ['di', ['dental'], 'd̪', tr.D],
-    ['g', ['velar'], 'ɡ', tr.G],
+    ['b', [f.bilabial], 'b', tr.B],
+    ['d', [f.alveolar], 'd', tr.D],
+    ['dd', [f.retroflex], 'ɖ', tr.D],
+    ['di', [f.dental], 'd̪', tr.D],
+    ['g', [f.velar], 'ɡ', tr.G],
 
 ])
 
@@ -107,18 +109,18 @@ STOP = (VOICELESS_STOP + VOICED_STOP)
 _ST = p.phon_inventory(VOICELESS_STOP + VOICED_STOP)
 
 VOICELESS_FRICATIVE = ls.apply_foreach(p.base_phon, [
-    ['f', ['labiodental'], 'f', tr.F],
-    ['h', ['glottal'], 'h', tr.H],
-    ['kh', ['uvular'], 'x', tr.S_KH],
-    ['s', ['alveolar'], 's', tr.S],
-    ['sh', ['postalveolar'], 'ʃ', tr.S_SH],
-    ['ss', ['retroflex'], 'ʂ', tr.S_SH],
+    ['f', [f.labiodental], 'f', tr.F],
+    ['h', [f.glottal], 'h', tr.H],
+    ['kh', [f.uvular], 'x', tr.S_KH],
+    ['s', [f.alveolar], 's', tr.S],
+    ['sh', [f.postalveolar], 'ʃ', tr.S_SH],
+    ['ss', [f.retroflex], 'ʂ', tr.S_SH],
 ])
 
 VOICED_FRICATIVE = ls.apply_foreach(p.base_phon, [
-    ['gh', ['uvular'], 'ɣ', tr.G],
-    ['z', ['alveolar'], 'z', tr.Z],
-    ['zh', ['postalveolar'], 'ʒ', tr.S_ZH],
+    ['gh', [f.uvular], 'ɣ', tr.G],
+    ['z', [f.alveolar], 'z', tr.Z],
+    ['zh', [f.postalveolar], 'ʒ', tr.S_ZH],
 ])
 
 FRICATIVE = (VOICELESS_FRICATIVE + VOICED_FRICATIVE)
@@ -135,24 +137,24 @@ VOICED_AFFRICATE = ls.apply_foreach(mod.affricate, [
 AFFRICATE = (VOICELESS_AFFRICATE + VOICED_AFFRICATE)
 
 CENTRAL_APPROXIMANT = ls.apply_foreach(p.base_phon, [
-    ['rru', ['retroflex'], 'ɻ', tr.S_ZH],
-    ['vu', ['labiodental'], 'ʋ', tr.V],
-    ['y', ['palatal'], 'j', tr.Y],
+    ['rru', [f.retroflex], 'ɻ', tr.S_ZH],
+    ['vu', [f.labiodental], 'ʋ', tr.V],
+    ['y', [f.palatal], 'j', tr.Y],
 ])
 
 LATERAL_APPROXIMANT = ls.apply_foreach(p.base_phon, [
-    ['l', ['alveolar'], 'l', tr.L],
-    ['ll', ['retroflex'], 'ɭ', tr.L],
+    ['l', [f.alveolar], 'l', tr.L],
+    ['ll', [f.retroflex], 'ɭ', tr.L],
 ])
 
 APPROXIMANT = (CENTRAL_APPROXIMANT + LATERAL_APPROXIMANT)
 
 TAP = ls.apply_foreach(p.base_phon, [
-    ['rd', ['retroflex'], 'ɽ', tr.S_RD],
-    ['rt', ['alveolar'], 'ɾ', tr.R],
+    ['rd', [f.retroflex], 'ɽ', tr.S_RD],
+    ['rt', [f.alveolar], 'ɾ', tr.R],
 ])
 
-TRILL = [p.base_phon('r', ['alveolar'], 'r', tr.R)]
+TRILL = [p.base_phon('r', [f.alveolar], 'r', tr.R)]
 
 CONSONANT = (
     NASAL + STOP + FRICATIVE + AFFRICATE + APPROXIMANT + TAP + TRILL
