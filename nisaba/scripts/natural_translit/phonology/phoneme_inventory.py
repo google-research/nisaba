@@ -52,6 +52,7 @@ BASE_FEATURE = ls.apply_foreach(p.base_phon, [
     ['C', [f.pharyngeal], 'ˤ', tr.H, 'PHR'],
     ['X', [f.glottal], 'ˀ', tr.H, 'GLT'],
     ['R', [f.rhotic], '˞', tr.R, 'RHT'],
+    ['.', [f.interrupt], '.', tr.DEL, 'SYB']  # syllable break
 ])
 
 _FTR = p.phon_inventory(BASE_FEATURE)
@@ -351,9 +352,34 @@ CLICK = mod.ls_click(
     CLICK_RELEASE
 )
 
+STRESS = ls.apply_foreach(mod.stress, [
+    [mod.MOD.HGH, 'ˈ'],  # primary
+    [mod.MOD.MDL, 'ˌ']  # secondary
+])
+
+PITCH = ls.apply_foreach(mod.pitch, [
+    [mod.MOD.TOP, '̋'],  # top, extra high
+    [mod.MOD.HGH, '́'],  # high
+    [mod.MOD.MDL, '̄'],  # mid
+    [mod.MOD.LOW, '̀'],  # low
+    [mod.MOD.BTM, '̏'],  # bottom, extra low
+])
+
+CONTOUR = ls.apply_foreach(mod.contour, [
+    [mod.MOD.RSN, '̌'],  # rising
+    [mod.MOD.FLN, '̂'],  # falling
+])
+
+INTONATION = ls.apply_foreach(mod.intonation, [
+    [mod.MOD.RSN, '↗︎'],  # global rise
+    [mod.MOD.FLN, '↘︎'],  # globall fall
+    [mod.MOD.TRP, '|'],  # foot break, conflated with intonation break
+])
+
 VOWEL = SIMPLE_VOWEL + DIPHTHONG
 CONSONANT = SIMPLE_CONS + CLICK + AFFRICATE
 FEATURE = SILENCE + STANDALONE_FEATURE
-PHONEMES = FEATURE + VOWEL + CONSONANT
+SUPRASEGMENTAL = STRESS + PITCH + CONTOUR + INTONATION
+PHONEMES = FEATURE + VOWEL + CONSONANT + SUPRASEGMENTAL
 PHON_INVENTORY = p.phon_inventory(PHONEMES)
 PHONEME_INVENTORY = p.ph_inventory(PHONEMES + mod.COMBINER)

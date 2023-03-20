@@ -80,7 +80,41 @@ sequence vs diphthong or affricate, or distinguishing between nasalization that
 affects the whole phoneme vs. prenasalization and nasal release,
 the combining symbol {+} is used.
 
-Phonemes and features are defined as `Phon` with the following attributes:
+In order to keep the number of primitives to a minimum, features that can be
+present at different levels are modified by a shared set of qualifiers.
+For example, instead of using {primary, secondary} for stress,
+{extra-short, short, half-long, long, extra-long} for duration and
+various qualifiers for tone and intonation, they use a shared set of level
+modifiers {bottom, low, middle, high, top} and change modifiers {rising,
+falling, interrupt}.
+
+With this scheme some suprasegmental features can be represented as:
+
+* Rising tone: [contour, rising]
+* Mid rising tone: [pitch, mid] + [contour, rising]
+* Falling tone: [contour, falling]
+* Global rise in intonation: [intonation, rising]
+* Global fall in intonation: [intonation, falling]
+
+The subset of modifiers are defined within feature. For example, primary stress
+is represented as [stress, high] and secondary stress is represented as
+[stress, middle]. However this doesn't necessarily imply the existence of
+'top' level stress.
+
+The default level of a feature is also defined within feature. For example, the
+default value for duration can be 'low' in order to accomodate other possible
+durations.
+
+* Unmarked phoneme is implicitly [duration, low]
+* Long phoneme: [duration, high]
+* Extra-long phoneme: [duration, top]
+* Half-long phoneme: [duration, middle]
+* Extra-short phoneme: [duration, bottom]
+
+For another feature, the default can be 'bottom' or 'middle' depending on the
+general usage of the feature and the semantics attributed to it.
+
+Phonemes and standalone features are defined as `Phon`s with the following attributes:
 
 **alias:** A string that will be used to refer to the phoneme in grammars. For
 example, if the alias of a character is 'A', in the grammar file this Phon

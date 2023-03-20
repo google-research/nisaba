@@ -33,15 +33,45 @@ def modifier_phon(
 ) -> p.Phon:
   return p.base_phon(txn, ftr, ipa, alias=mod_alias)
 
+
+def qualified_modifier(
+    modifier: p.Phon,
+    qualifier: p.Phon,
+    ipa: str
+) -> [p.Phon]:
+  """Derives a modifier feature with a qualifier."""
+  return modifier_phon(
+      modifier.alias + qualifier.txn.upper(),
+      modifier.txn + qualifier.txn,
+      modifier.ftr + qualifier.ftr,
+      ipa
+  )
+
 COMBINER = [modifier_phon('CMB', '+', [f.composite], '͡')]
 
 MODIFIER_FEATURE = ls.apply_foreach(modifier_phon, [
+    # TODO: move long to suprasegmental as a degree of duration.
     ['LONG', '_l', [f.long], 'ː'],
     ['DVC', 'o', [f.devoiced], '̥'],  # devoiced
     ['NPL', 'e', [f.nonpulmonic], '`'],  # nonpulmonic
+    ['STR', '*', [f.stress], ''],
+    ['TPT', '^', [f.pitch], ''],
+    ['TCN', '&', [f.contour], ''],
+    ['INT', '!', [f.intonation], ''],
 ])
 
-_MOD = p.phon_inventory(COMBINER + MODIFIER_FEATURE)
+FEATURE_QUALIFIER = ls.apply_foreach(modifier_phon, [
+    ['TOP', 't', [f.top], ''],
+    ['HGH', 'h', [f.high], ''],
+    ['MDL', 'm', [f.middle], ''],
+    ['LOW', 'w', [f.low], ''],
+    ['BTM', 'b', [f.bottom], ''],
+    ['RSN', 'r', [f.rising], ''],
+    ['FLN', 'f', [f.falling], ''],
+    ['TRP', 'k', [f.interrupt], ''],
+])
+
+MOD = p.phon_inventory(COMBINER + MODIFIER_FEATURE + FEATURE_QUALIFIER)
 
 # Derivation functions
 
@@ -98,7 +128,7 @@ def long(phon: p.Phon, long_tr: pyn.FstLike = None) -> p.Phon:
     long_tr = ltn.double_substring_tr(phon.tr_dict['base'])
   return derive_with_suffix(
       phon,
-      _MOD.LONG,
+      MOD.LONG,
       long_tr)
 
 
@@ -106,12 +136,28 @@ def devoiced(phon: p.Phon) -> p.Phon:
   """Voiceless derivation for prototypically voiced Phons."""
   new_phon = copy.deepcopy(phon)
   new_phon.ftr.remove(f.voiced)
-  return derive_with_suffix(new_phon, _MOD.DVC)
+  return derive_with_suffix(new_phon, MOD.DVC)
 
 
 def nonpulmonic(phon: p.Phon) -> p.Phon:
   """Ejective and implosive derivation."""
-  return derive_with_suffix(phon, _MOD.NPL)
+  return derive_with_suffix(phon, MOD.NPL)
+
+
+def stress(value: p.Phon, ipa: str) -> p.Phon:
+  return qualified_modifier(MOD.STR, value, ipa)
+
+
+def pitch(value: p.Phon, ipa: str) -> p.Phon:
+  return qualified_modifier(MOD.TPT, value, ipa)
+
+
+def contour(value: p.Phon, ipa: str) -> p.Phon:
+  return qualified_modifier(MOD.TCN, value, ipa)
+
+
+def intonation(value: p.Phon, ipa: str) -> p.Phon:
+  return qualified_modifier(MOD.INT, value, ipa)
 
 
 # Composition functions
@@ -172,10 +218,10 @@ def compose(
   new_cmp = [cmp_list[0]]
   for cmp in cmp_list[1:]:
     alias += '_' + cmp.alias
-    new_txn += _MOD.CMB.txn + cmp.txn
+    new_txn += MOD.CMB.txn + cmp.txn
     new_ftr.extend(cmp.ftr)
-    new_ph = new_ph + _MOD.CMB.ph + cmp.ph
-    new_ipa += _MOD.CMB.ipa + cmp.ipa
+    new_ph = new_ph + MOD.CMB.ph + cmp.ph
+    new_ipa += MOD.CMB.ipa + cmp.ipa
     new_base_tr += cmp.tr_dict['base']
     new_cmp.append(cmp)
   new_tr_dict = {'base': new_base_tr}

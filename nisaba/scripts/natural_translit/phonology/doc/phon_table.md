@@ -12,6 +12,7 @@ VLR      | G        | {G}            | base: g    | base: g            |        
 PHR      | C        | {C}            | base: h    | base: h            |          | `` ˤ ``      | pharyngeal
 GLT      | X        | {X}            | base: h    | base: h            |          | `` ˀ ``      | glottal
 RHT      | R        | {R}            | base: r    | base: r            |          | `` ˞ ``      | rhotic
+SYB      | .        | {.}            |            |                    |          | `` . ``      | interrupt
 SYL_L    | S_l      | {S_l}          | base: u    | long: uu           |          | `` ̍ː ``     | syllabic, long
 V_TNT    | _        | {_}            |            |                    |          | ``  ``       | vowel
 V_PRN    | V        | {V}            |            |                    |          | ``  ``       | vowel
@@ -157,15 +158,15 @@ AW_L     | aw_l     | {aw_l}         | base: o    | long: oo           |        
 OW_L     | ow_l     | {ow_l}         | base: o    | long: oo           |          | `` ɒː ``     | vowel, open, back, labial, long
 A_I      | a+i      | {a}{+}{i}      | base: ai   | diphthong: ai      | A, I     | `` a͡i ``    | diphthong, vowel, open, front, nonlabial, vowel, close, front, nonlabial
 A_U      | a+u      | {a}{+}{u}      | base: au   | diphthong: au      | A, U     | `` a͡u ``    | diphthong, vowel, open, front, nonlabial, vowel, close, back, labial
-M        | m        | {m}            | base: m    | base: m            |          | `` m ``      | nasal, stop, bilabial
-MI       | mi       | {mi}           | base: m    | base: m            |          | `` ɱ ``      | nasal, stop, labiodental
-NI       | ni       | {ni}           | base: n    | base: n            |          | `` n̪ ``     | nasal, stop, dental
-N        | n        | {n}            | base: n    | base: n            |          | `` n ``      | nasal, stop, alveolar
-NX       | nx       | {nx}           | base: n    | base: n            |          | `` n̠ ``     | nasal, stop, postalveolar
-NN       | nn       | {nn}           | base: n    | base: n            |          | `` ɳ ``      | nasal, stop, retroflex
-NY       | ny       | {ny}           | base: ny   | base: ny           |          | `` ɲ ``      | nasal, stop, palatal
-NG       | ng       | {ng}           | base: ng   | base: ng           |          | `` ŋ ``      | nasal, stop, velar
-NJ       | nj       | {nj}           | base: ng   | base: ng           |          | `` ɴ ``      | nasal, stop, uvular
+M        | m        | {m}            | base: m    | base: m            |          | `` m ``      | nasal, stop, voiced, bilabial
+MI       | mi       | {mi}           | base: m    | base: m            |          | `` ɱ ``      | nasal, stop, voiced, labiodental
+NI       | ni       | {ni}           | base: n    | base: n            |          | `` n̪ ``     | nasal, stop, voiced, dental
+N        | n        | {n}            | base: n    | base: n            |          | `` n ``      | nasal, stop, voiced, alveolar
+NX       | nx       | {nx}           | base: n    | base: n            |          | `` n̠ ``     | nasal, stop, voiced, postalveolar
+NN       | nn       | {nn}           | base: n    | base: n            |          | `` ɳ ``      | nasal, stop, voiced, retroflex
+NY       | ny       | {ny}           | base: ny   | base: ny           |          | `` ɲ ``      | nasal, stop, voiced, palatal
+NG       | ng       | {ng}           | base: ng   | base: ng           |          | `` ŋ ``      | nasal, stop, voiced, velar
+NJ       | nj       | {nj}           | base: ng   | base: ng           |          | `` ɴ ``      | nasal, stop, voiced, uvular
 MO       | mo       | {mo}           | base: m    | devoiced: m        |          | `` m̥ ``     | nasal, stop, bilabial, devoiced
 MIO      | mio      | {mio}          | base: m    | devoiced: m        |          | `` ɱ̥ ``     | nasal, stop, labiodental, devoiced
 NIO      | nio      | {nio}          | base: n    | devoiced: n        |          | `` n̪̥ ``    | nasal, stop, dental, devoiced
@@ -175,15 +176,15 @@ NNO      | nno      | {nno}          | base: n    | devoiced: n        |        
 NYO      | nyo      | {nyo}          | base: ny   | devoiced: ny       |          | `` ɲ̥ ``     | nasal, stop, palatal, devoiced
 NGO      | ngo      | {ngo}          | base: ng   | devoiced: ng       |          | `` ŋ̥ ``     | nasal, stop, velar, devoiced
 NJO      | njo      | {njo}          | base: ng   | devoiced: ng       |          | `` ɴ̥ ``     | nasal, stop, uvular, devoiced
-M_L      | m_l      | {m_l}          | base: m    | long: mm           |          | `` mː ``     | nasal, stop, bilabial, long
-MI_L     | mi_l     | {mi_l}         | base: m    | long: mm           |          | `` ɱː ``     | nasal, stop, labiodental, long
-NI_L     | ni_l     | {ni_l}         | base: n    | long: nn           |          | `` n̪ː ``    | nasal, stop, dental, long
-N_L      | n_l      | {n_l}          | base: n    | long: nn           |          | `` nː ``     | nasal, stop, alveolar, long
-NX_L     | nx_l     | {nx_l}         | base: n    | long: nn           |          | `` n̠ː ``    | nasal, stop, postalveolar, long
-NN_L     | nn_l     | {nn_l}         | base: n    | long: nn           |          | `` ɳː ``     | nasal, stop, retroflex, long
-NY_L     | ny_l     | {ny_l}         | base: ny   | long: ny           |          | `` ɲː ``     | nasal, stop, palatal, long
-NG_L     | ng_l     | {ng_l}         | base: ng   | long: ng           |          | `` ŋː ``     | nasal, stop, velar, long
-NJ_L     | nj_l     | {nj_l}         | base: ng   | long: ng           |          | `` ɴː ``     | nasal, stop, uvular, long
+M_L      | m_l      | {m_l}          | base: m    | long: mm           |          | `` mː ``     | nasal, stop, voiced, bilabial, long
+MI_L     | mi_l     | {mi_l}         | base: m    | long: mm           |          | `` ɱː ``     | nasal, stop, voiced, labiodental, long
+NI_L     | ni_l     | {ni_l}         | base: n    | long: nn           |          | `` n̪ː ``    | nasal, stop, voiced, dental, long
+N_L      | n_l      | {n_l}          | base: n    | long: nn           |          | `` nː ``     | nasal, stop, voiced, alveolar, long
+NX_L     | nx_l     | {nx_l}         | base: n    | long: nn           |          | `` n̠ː ``    | nasal, stop, voiced, postalveolar, long
+NN_L     | nn_l     | {nn_l}         | base: n    | long: nn           |          | `` ɳː ``     | nasal, stop, voiced, retroflex, long
+NY_L     | ny_l     | {ny_l}         | base: ny   | long: ny           |          | `` ɲː ``     | nasal, stop, voiced, palatal, long
+NG_L     | ng_l     | {ng_l}         | base: ng   | long: ng           |          | `` ŋː ``     | nasal, stop, voiced, velar, long
+NJ_L     | nj_l     | {nj_l}         | base: ng   | long: ng           |          | `` ɴː ``     | nasal, stop, voiced, uvular, long
 P        | p        | {p}            | base: p    | base: p            |          | `` p ``      | stop, voiceless, bilabial
 PI       | pi       | {pi}           | base: p    | base: p            |          | `` p̪ ``     | stop, voiceless, labiodental
 TI       | ti       | {ti}           | base: t    | base: t            |          | `` t̪ ``     | stop, voiceless, dental
@@ -215,15 +216,15 @@ KE       | ke       | {ke}           | base: k    | nonpulmonic: k     |        
 QE       | qe       | {qe}           | base: k    | nonpulmonic: k     |          | `` q` ``     | stop, voiceless, uvular, nonpulmonic
 CE       | ce       | {ce}           | base: k    | nonpulmonic: k     |          | `` ʡ` ``     | stop, voiceless, epiglottal, nonpulmonic
 XE       | xe       | {xe}           | base: t    | nonpulmonic: t     |          | `` ʔ` ``     | stop, voiceless, glottal, nonpulmonic
-BE       | be       | {be}           | base: b    | nonpulmonic: b     |          | `` b` ``     | stop, bilabial, nonpulmonic
-BIE      | bie      | {bie}          | base: b    | nonpulmonic: b     |          | `` b̪` ``    | stop, labiodental, nonpulmonic
-DIE      | die      | {die}          | base: d    | nonpulmonic: d     |          | `` d̪` ``    | stop, dental, nonpulmonic
-DE       | de       | {de}           | base: d    | nonpulmonic: d     |          | `` d` ``     | stop, alveolar, nonpulmonic
-DXE      | dxe      | {dxe}          | base: d    | nonpulmonic: d     |          | `` d̠` ``    | stop, postalveolar, nonpulmonic
-DDE      | dde      | {dde}          | base: d    | nonpulmonic: d     |          | `` ɖ` ``     | stop, retroflex, nonpulmonic
-GYE      | gye      | {gye}          | base: gy   | nonpulmonic: gy    |          | `` ɟ` ``     | stop, palatal, nonpulmonic
-GE       | ge       | {ge}           | base: g    | nonpulmonic: g     |          | `` ɡ` ``     | stop, velar, nonpulmonic
-JE       | je       | {je}           | base: g    | nonpulmonic: g     |          | `` ɢ` ``     | stop, uvular, nonpulmonic
+BE       | be       | {be}           | base: b    | nonpulmonic: b     |          | `` b` ``     | stop, voiced, bilabial, nonpulmonic
+BIE      | bie      | {bie}          | base: b    | nonpulmonic: b     |          | `` b̪` ``    | stop, voiced, labiodental, nonpulmonic
+DIE      | die      | {die}          | base: d    | nonpulmonic: d     |          | `` d̪` ``    | stop, voiced, dental, nonpulmonic
+DE       | de       | {de}           | base: d    | nonpulmonic: d     |          | `` d` ``     | stop, voiced, alveolar, nonpulmonic
+DXE      | dxe      | {dxe}          | base: d    | nonpulmonic: d     |          | `` d̠` ``    | stop, voiced, postalveolar, nonpulmonic
+DDE      | dde      | {dde}          | base: d    | nonpulmonic: d     |          | `` ɖ` ``     | stop, voiced, retroflex, nonpulmonic
+GYE      | gye      | {gye}          | base: gy   | nonpulmonic: gy    |          | `` ɟ` ``     | stop, voiced, palatal, nonpulmonic
+GE       | ge       | {ge}           | base: g    | nonpulmonic: g     |          | `` ɡ` ``     | stop, voiced, velar, nonpulmonic
+JE       | je       | {je}           | base: g    | nonpulmonic: g     |          | `` ɢ` ``     | stop, voiced, uvular, nonpulmonic
 BEO      | beo      | {beo}          | base: b    | devoiced: b        |          | `` b`̥ ``    | stop, bilabial, nonpulmonic, devoiced
 BIEO     | bieo     | {bieo}         | base: b    | devoiced: b        |          | `` b̪`̥ ``   | stop, labiodental, nonpulmonic, devoiced
 DIEO     | dieo     | {dieo}         | base: d    | devoiced: d        |          | `` d̪`̥ ``   | stop, dental, nonpulmonic, devoiced
@@ -264,15 +265,15 @@ KE_L     | ke_l     | {ke_l}         | base: k    | long: kk           |        
 QE_L     | qe_l     | {qe_l}         | base: k    | long: kk           |          | `` q`ː ``    | stop, voiceless, uvular, nonpulmonic, long
 CE_L     | ce_l     | {ce_l}         | base: k    | long: kk           |          | `` ʡ`ː ``    | stop, voiceless, epiglottal, nonpulmonic, long
 XE_L     | xe_l     | {xe_l}         | base: t    | long: tt           |          | `` ʔ`ː ``    | stop, voiceless, glottal, nonpulmonic, long
-BE_L     | be_l     | {be_l}         | base: b    | long: bb           |          | `` b`ː ``    | stop, bilabial, nonpulmonic, long
-BIE_L    | bie_l    | {bie_l}        | base: b    | long: bb           |          | `` b̪`ː ``   | stop, labiodental, nonpulmonic, long
-DIE_L    | die_l    | {die_l}        | base: d    | long: dd           |          | `` d̪`ː ``   | stop, dental, nonpulmonic, long
-DE_L     | de_l     | {de_l}         | base: d    | long: dd           |          | `` d`ː ``    | stop, alveolar, nonpulmonic, long
-DXE_L    | dxe_l    | {dxe_l}        | base: d    | long: dd           |          | `` d̠`ː ``   | stop, postalveolar, nonpulmonic, long
-DDE_L    | dde_l    | {dde_l}        | base: d    | long: dd           |          | `` ɖ`ː ``    | stop, retroflex, nonpulmonic, long
-GYE_L    | gye_l    | {gye_l}        | base: gy   | long: gy           |          | `` ɟ`ː ``    | stop, palatal, nonpulmonic, long
-GE_L     | ge_l     | {ge_l}         | base: g    | long: gg           |          | `` ɡ`ː ``    | stop, velar, nonpulmonic, long
-JE_L     | je_l     | {je_l}         | base: g    | long: gg           |          | `` ɢ`ː ``    | stop, uvular, nonpulmonic, long
+BE_L     | be_l     | {be_l}         | base: b    | long: bb           |          | `` b`ː ``    | stop, voiced, bilabial, nonpulmonic, long
+BIE_L    | bie_l    | {bie_l}        | base: b    | long: bb           |          | `` b̪`ː ``   | stop, voiced, labiodental, nonpulmonic, long
+DIE_L    | die_l    | {die_l}        | base: d    | long: dd           |          | `` d̪`ː ``   | stop, voiced, dental, nonpulmonic, long
+DE_L     | de_l     | {de_l}         | base: d    | long: dd           |          | `` d`ː ``    | stop, voiced, alveolar, nonpulmonic, long
+DXE_L    | dxe_l    | {dxe_l}        | base: d    | long: dd           |          | `` d̠`ː ``   | stop, voiced, postalveolar, nonpulmonic, long
+DDE_L    | dde_l    | {dde_l}        | base: d    | long: dd           |          | `` ɖ`ː ``    | stop, voiced, retroflex, nonpulmonic, long
+GYE_L    | gye_l    | {gye_l}        | base: gy   | long: gy           |          | `` ɟ`ː ``    | stop, voiced, palatal, nonpulmonic, long
+GE_L     | ge_l     | {ge_l}         | base: g    | long: gg           |          | `` ɡ`ː ``    | stop, voiced, velar, nonpulmonic, long
+JE_L     | je_l     | {je_l}         | base: g    | long: gg           |          | `` ɢ`ː ``    | stop, voiced, uvular, nonpulmonic, long
 BEO_L    | beo_l    | {beo_l}        | base: b    | long: bb           |          | `` b`̥ː ``   | stop, bilabial, nonpulmonic, devoiced, long
 BIEO_L   | bieo_l   | {bieo_l}       | base: b    | long: bb           |          | `` b̪`̥ː ``  | stop, labiodental, nonpulmonic, devoiced, long
 DIEO_L   | dieo_l   | {dieo_l}       | base: d    | long: dd           |          | `` d̪`̥ː ``  | stop, dental, nonpulmonic, devoiced, long
@@ -482,17 +483,17 @@ LY_L     | ly_l     | {ly_l}         | base: ly   | long: ly           |        
 LG_L     | lg_l     | {lg_l}         | base: w    | long: ww           |          | `` ʟː ``     | approximant, voiced, lateral, velar, long
 LJ_L     | lj_l     | {lj_l}         | base: w    | long: ww           |          | `` ʟ̠ː ``    | approximant, voiced, lateral, uvular, long
 LW_L     | lw_l     | {lw_l}         | base: w    | long: ww           |          | `` ɫː ``     | approximant, voiced, lateral, velar, labial, long
-BT       | bt       | {bt}           | base: b    | base: b            |          | `` ⱱ̟ ``     | flap, bilabial
-VT       | vt       | {vt}           | base: v    | base: v            |          | `` ⱱ ``      | flap, labiodental
-VR       | vr       | {vr}           | base: r    | base: r            |          | `` ɾ̪ ``     | flap, dental
-RT       | rt       | {rt}           | base: r    | base: r            |          | `` ɾ ``      | flap, alveolar
-XR       | xr       | {xr}           | base: r    | base: r            |          | `` ɾ̠ ``     | flap, postalveolar
-RD       | rd       | {rd}           | base: rd   | base: rd           |          | `` ɽ ``      | flap, retroflex
-HT       | ht       | {ht}           | base: h    | base: h            |          | `` ʡ̆ ``     | flap, pharyngeal
-VL       | vl       | {vl}           | base: r    | base: r            |          | `` ɺ̪ ``     | flap, dental, lateral
-RL       | rl       | {rl}           | base: r    | base: r            |          | `` ɺ ``      | flap, alveolar, lateral
-XL       | xl       | {xl}           | base: r    | base: r            |          | `` ɺ̠ ``     | flap, postalveolar, lateral
-LR       | lr       | {lr}           | base: r    | base: r            |          | `` 𝼈 ``      | flap, retroflex, lateral
+BT       | bt       | {bt}           | base: b    | base: b            |          | `` ⱱ̟ ``     | flap, voiced, bilabial
+VT       | vt       | {vt}           | base: v    | base: v            |          | `` ⱱ ``      | flap, voiced, labiodental
+VR       | vr       | {vr}           | base: r    | base: r            |          | `` ɾ̪ ``     | flap, voiced, dental
+RT       | rt       | {rt}           | base: r    | base: r            |          | `` ɾ ``      | flap, voiced, alveolar
+XR       | xr       | {xr}           | base: r    | base: r            |          | `` ɾ̠ ``     | flap, voiced, postalveolar
+RD       | rd       | {rd}           | base: rd   | base: rd           |          | `` ɽ ``      | flap, voiced, retroflex
+HT       | ht       | {ht}           | base: h    | base: h            |          | `` ʡ̆ ``     | flap, voiced, pharyngeal
+VL       | vl       | {vl}           | base: r    | base: r            |          | `` ɺ̪ ``     | flap, voiced, dental, lateral
+RL       | rl       | {rl}           | base: r    | base: r            |          | `` ɺ ``      | flap, voiced, alveolar, lateral
+XL       | xl       | {xl}           | base: r    | base: r            |          | `` ɺ̠ ``     | flap, voiced, postalveolar, lateral
+LR       | lr       | {lr}           | base: r    | base: r            |          | `` 𝼈 ``      | flap, voiced, retroflex, lateral
 BTO      | bto      | {bto}          | base: b    | devoiced: b        |          | `` ⱱ̟̥ ``    | flap, bilabial, devoiced
 VTO      | vto      | {vto}          | base: v    | devoiced: v        |          | `` ⱱ̥ ``     | flap, labiodental, devoiced
 VRO      | vro      | {vro}          | base: r    | devoiced: r        |          | `` ɾ̪̥ ``    | flap, dental, devoiced
@@ -504,14 +505,14 @@ VLO      | vlo      | {vlo}          | base: r    | devoiced: r        |        
 RLO      | rlo      | {rlo}          | base: r    | devoiced: r        |          | `` ɺ̥ ``     | flap, alveolar, lateral, devoiced
 XLO      | xlo      | {xlo}          | base: r    | devoiced: r        |          | `` ɺ̠̥ ``    | flap, postalveolar, lateral, devoiced
 LRO      | lro      | {lro}          | base: r    | devoiced: r        |          | `` 𝼈̥ ``     | flap, retroflex, lateral, devoiced
-BB       | bb       | {bb}           | base: b    | base: b            |          | `` ʙ ``      | trill, bilabial
-VV       | vv       | {vv}           | base: v    | base: v            |          | `` ⱱ̞ ``     | trill, labiodental
-RV       | rv       | {rv}           | base: r    | base: r            |          | `` r̪ ``     | trill, dental
-R        | r        | {r}            | base: r    | base: r            |          | `` r ``      | trill, alveolar
-RX       | rx       | {rx}           | base: r    | base: r            |          | `` r̠ ``     | trill, postalveolar
-RR       | rr       | {rr}           | base: r    | base: r            |          | `` ɽr ``     | trill, retroflex
-RJ       | rj       | {rj}           | base: r    | base: r            |          | `` ʀ ``      | trill, uvular
-HH       | hh       | {hh}           | base: h    | base: h            |          | `` ʢ ``      | trill, epiglottal
+BB       | bb       | {bb}           | base: b    | base: b            |          | `` ʙ ``      | trill, voiced, bilabial
+VV       | vv       | {vv}           | base: v    | base: v            |          | `` ⱱ̞ ``     | trill, voiced, labiodental
+RV       | rv       | {rv}           | base: r    | base: r            |          | `` r̪ ``     | trill, voiced, dental
+R        | r        | {r}            | base: r    | base: r            |          | `` r ``      | trill, voiced, alveolar
+RX       | rx       | {rx}           | base: r    | base: r            |          | `` r̠ ``     | trill, voiced, postalveolar
+RR       | rr       | {rr}           | base: r    | base: r            |          | `` ɽr ``     | trill, voiced, retroflex
+RJ       | rj       | {rj}           | base: r    | base: r            |          | `` ʀ ``      | trill, voiced, uvular
+HH       | hh       | {hh}           | base: h    | base: h            |          | `` ʢ ``      | trill, voiced, epiglottal
 BBO      | bbo      | {bbo}          | base: b    | devoiced: b        |          | `` ʙ̥ ``     | trill, bilabial, devoiced
 VVO      | vvo      | {vvo}          | base: v    | devoiced: v        |          | `` ⱱ̞̥ ``    | trill, labiodental, devoiced
 RVO      | rvo      | {rvo}          | base: r    | devoiced: r        |          | `` r̪̥ ``    | trill, dental, devoiced
@@ -520,14 +521,14 @@ RXO      | rxo      | {rxo}          | base: r    | devoiced: r        |        
 RRO      | rro      | {rro}          | base: r    | devoiced: r        |          | `` ɽr̥ ``    | trill, retroflex, devoiced
 RJO      | rjo      | {rjo}          | base: r    | devoiced: r        |          | `` ʀ̥ ``     | trill, uvular, devoiced
 HHO      | hho      | {hho}          | base: h    | devoiced: h        |          | `` ʢ̥ ``     | trill, epiglottal, devoiced
-BB_L     | bb_l     | {bb_l}         | base: b    | long: bb           |          | `` ʙː ``     | trill, bilabial, long
-VV_L     | vv_l     | {vv_l}         | base: v    | long: vv           |          | `` ⱱ̞ː ``    | trill, labiodental, long
-RV_L     | rv_l     | {rv_l}         | base: r    | long: rr           |          | `` r̪ː ``    | trill, dental, long
-R_L      | r_l      | {r_l}          | base: r    | long: rr           |          | `` rː ``     | trill, alveolar, long
-RX_L     | rx_l     | {rx_l}         | base: r    | long: rr           |          | `` r̠ː ``    | trill, postalveolar, long
-RR_L     | rr_l     | {rr_l}         | base: r    | long: rr           |          | `` ɽrː ``    | trill, retroflex, long
-RJ_L     | rj_l     | {rj_l}         | base: r    | long: rr           |          | `` ʀː ``     | trill, uvular, long
-HH_L     | hh_l     | {hh_l}         | base: h    | long: hh           |          | `` ʢː ``     | trill, epiglottal, long
+BB_L     | bb_l     | {bb_l}         | base: b    | long: bb           |          | `` ʙː ``     | trill, voiced, bilabial, long
+VV_L     | vv_l     | {vv_l}         | base: v    | long: vv           |          | `` ⱱ̞ː ``    | trill, voiced, labiodental, long
+RV_L     | rv_l     | {rv_l}         | base: r    | long: rr           |          | `` r̪ː ``    | trill, voiced, dental, long
+R_L      | r_l      | {r_l}          | base: r    | long: rr           |          | `` rː ``     | trill, voiced, alveolar, long
+RX_L     | rx_l     | {rx_l}         | base: r    | long: rr           |          | `` r̠ː ``    | trill, voiced, postalveolar, long
+RR_L     | rr_l     | {rr_l}         | base: r    | long: rr           |          | `` ɽrː ``    | trill, voiced, retroflex, long
+RJ_L     | rj_l     | {rj_l}         | base: r    | long: rr           |          | `` ʀː ``     | trill, voiced, uvular, long
+HH_L     | hh_l     | {hh_l}         | base: h    | long: hh           |          | `` ʢː ``     | trill, voiced, epiglottal, long
 BBO_L    | bbo_l    | {bbo_l}        | base: b    | long: bb           |          | `` ʙ̥ː ``    | trill, bilabial, devoiced, long
 VVO_L    | vvo_l    | {vvo_l}        | base: v    | long: vv           |          | `` ⱱ̞̥ː ``   | trill, labiodental, devoiced, long
 RVO_L    | rvo_l    | {rvo_l}        | base: r    | long: rr           |          | `` r̪̥ː ``   | trill, dental, devoiced, long
@@ -548,12 +549,12 @@ G_LK     | g+lk     | {g}{+}{lk}     | base: gx   | coarticulated: gx  | G, LK  
 G_TK     | g+tk     | {g}{+}{tk}     | base: gq   | coarticulated: gq  | G, TK    | `` ɡ͡ǃ ``    | coarticulated, stop, voiced, velar, click, nonpulmonic, alveolar
 G_YK     | g+yk     | {g}{+}{yk}     | base: gt   | coarticulated: gt  | G, YK    | `` ɡ͡ǂ ``    | coarticulated, stop, voiced, velar, click, nonpulmonic, palatal
 G_RK     | g+rk     | {g}{+}{rk}     | base: gq   | coarticulated: gq  | G, RK    | `` ɡ͡𝼊 ``    | coarticulated, stop, voiced, velar, click, nonpulmonic, retroflex
-NG_PK    | ng+pk    | {ng}{+}{pk}    | base: ngp  | coarticulated: ngp | NG, PK   | `` ŋ͡ʘ ``    | coarticulated, nasal, stop, velar, click, nonpulmonic, bilabial
-NG_CK    | ng+ck    | {ng}{+}{ck}    | base: ngc  | coarticulated: ngc | NG, CK   | `` ŋ͡ǀ ``    | coarticulated, nasal, stop, velar, click, nonpulmonic, dental
-NG_LK    | ng+lk    | {ng}{+}{lk}    | base: ngx  | coarticulated: ngx | NG, LK   | `` ŋ͡ǁ ``    | coarticulated, nasal, stop, velar, click, nonpulmonic, alveolar, lateral
-NG_TK    | ng+tk    | {ng}{+}{tk}    | base: ngq  | coarticulated: ngq | NG, TK   | `` ŋ͡ǃ ``    | coarticulated, nasal, stop, velar, click, nonpulmonic, alveolar
-NG_YK    | ng+yk    | {ng}{+}{yk}    | base: ngt  | coarticulated: ngt | NG, YK   | `` ŋ͡ǂ ``    | coarticulated, nasal, stop, velar, click, nonpulmonic, palatal
-NG_RK    | ng+rk    | {ng}{+}{rk}    | base: ngq  | coarticulated: ngq | NG, RK   | `` ŋ͡𝼊 ``    | coarticulated, nasal, stop, velar, click, nonpulmonic, retroflex
+NG_PK    | ng+pk    | {ng}{+}{pk}    | base: ngp  | coarticulated: ngp | NG, PK   | `` ŋ͡ʘ ``    | coarticulated, nasal, stop, voiced, velar, click, nonpulmonic, bilabial
+NG_CK    | ng+ck    | {ng}{+}{ck}    | base: ngc  | coarticulated: ngc | NG, CK   | `` ŋ͡ǀ ``    | coarticulated, nasal, stop, voiced, velar, click, nonpulmonic, dental
+NG_LK    | ng+lk    | {ng}{+}{lk}    | base: ngx  | coarticulated: ngx | NG, LK   | `` ŋ͡ǁ ``    | coarticulated, nasal, stop, voiced, velar, click, nonpulmonic, alveolar, lateral
+NG_TK    | ng+tk    | {ng}{+}{tk}    | base: ngq  | coarticulated: ngq | NG, TK   | `` ŋ͡ǃ ``    | coarticulated, nasal, stop, voiced, velar, click, nonpulmonic, alveolar
+NG_YK    | ng+yk    | {ng}{+}{yk}    | base: ngt  | coarticulated: ngt | NG, YK   | `` ŋ͡ǂ ``    | coarticulated, nasal, stop, voiced, velar, click, nonpulmonic, palatal
+NG_RK    | ng+rk    | {ng}{+}{rk}    | base: ngq  | coarticulated: ngq | NG, RK   | `` ŋ͡𝼊 ``    | coarticulated, nasal, stop, voiced, velar, click, nonpulmonic, retroflex
 Q_PK     | q+pk     | {q}{+}{pk}     | base: kp   | coarticulated: kp  | Q, PK    | `` q͡ʘ ``    | coarticulated, stop, voiceless, uvular, click, nonpulmonic, bilabial
 Q_CK     | q+ck     | {q}{+}{ck}     | base: kc   | coarticulated: kc  | Q, CK    | `` q͡ǀ ``    | coarticulated, stop, voiceless, uvular, click, nonpulmonic, dental
 Q_LK     | q+lk     | {q}{+}{lk}     | base: kx   | coarticulated: kx  | Q, LK    | `` q͡ǁ ``    | coarticulated, stop, voiceless, uvular, click, nonpulmonic, alveolar, lateral
@@ -566,12 +567,12 @@ J_LK     | j+lk     | {j}{+}{lk}     | base: gx   | coarticulated: gx  | J, LK  
 J_TK     | j+tk     | {j}{+}{tk}     | base: gq   | coarticulated: gq  | J, TK    | `` ɢ͡ǃ ``    | coarticulated, stop, voiced, uvular, click, nonpulmonic, alveolar
 J_YK     | j+yk     | {j}{+}{yk}     | base: gt   | coarticulated: gt  | J, YK    | `` ɢ͡ǂ ``    | coarticulated, stop, voiced, uvular, click, nonpulmonic, palatal
 J_RK     | j+rk     | {j}{+}{rk}     | base: gq   | coarticulated: gq  | J, RK    | `` ɢ͡𝼊 ``    | coarticulated, stop, voiced, uvular, click, nonpulmonic, retroflex
-NJ_PK    | nj+pk    | {nj}{+}{pk}    | base: ngp  | coarticulated: ngp | NJ, PK   | `` ɴ͡ʘ ``    | coarticulated, nasal, stop, uvular, click, nonpulmonic, bilabial
-NJ_CK    | nj+ck    | {nj}{+}{ck}    | base: ngc  | coarticulated: ngc | NJ, CK   | `` ɴ͡ǀ ``    | coarticulated, nasal, stop, uvular, click, nonpulmonic, dental
-NJ_LK    | nj+lk    | {nj}{+}{lk}    | base: ngx  | coarticulated: ngx | NJ, LK   | `` ɴ͡ǁ ``    | coarticulated, nasal, stop, uvular, click, nonpulmonic, alveolar, lateral
-NJ_TK    | nj+tk    | {nj}{+}{tk}    | base: ngq  | coarticulated: ngq | NJ, TK   | `` ɴ͡ǃ ``    | coarticulated, nasal, stop, uvular, click, nonpulmonic, alveolar
-NJ_YK    | nj+yk    | {nj}{+}{yk}    | base: ngt  | coarticulated: ngt | NJ, YK   | `` ɴ͡ǂ ``    | coarticulated, nasal, stop, uvular, click, nonpulmonic, palatal
-NJ_RK    | nj+rk    | {nj}{+}{rk}    | base: ngq  | coarticulated: ngq | NJ, RK   | `` ɴ͡𝼊 ``    | coarticulated, nasal, stop, uvular, click, nonpulmonic, retroflex
+NJ_PK    | nj+pk    | {nj}{+}{pk}    | base: ngp  | coarticulated: ngp | NJ, PK   | `` ɴ͡ʘ ``    | coarticulated, nasal, stop, voiced, uvular, click, nonpulmonic, bilabial
+NJ_CK    | nj+ck    | {nj}{+}{ck}    | base: ngc  | coarticulated: ngc | NJ, CK   | `` ɴ͡ǀ ``    | coarticulated, nasal, stop, voiced, uvular, click, nonpulmonic, dental
+NJ_LK    | nj+lk    | {nj}{+}{lk}    | base: ngx  | coarticulated: ngx | NJ, LK   | `` ɴ͡ǁ ``    | coarticulated, nasal, stop, voiced, uvular, click, nonpulmonic, alveolar, lateral
+NJ_TK    | nj+tk    | {nj}{+}{tk}    | base: ngq  | coarticulated: ngq | NJ, TK   | `` ɴ͡ǃ ``    | coarticulated, nasal, stop, voiced, uvular, click, nonpulmonic, alveolar
+NJ_YK    | nj+yk    | {nj}{+}{yk}    | base: ngt  | coarticulated: ngt | NJ, YK   | `` ɴ͡ǂ ``    | coarticulated, nasal, stop, voiced, uvular, click, nonpulmonic, palatal
+NJ_RK    | nj+rk    | {nj}{+}{rk}    | base: ngq  | coarticulated: ngq | NJ, RK   | `` ɴ͡𝼊 ``    | coarticulated, nasal, stop, voiced, uvular, click, nonpulmonic, retroflex
 T_SH     | t+sh     | {t}{+}{sh}     | base: tsh  | affricate: ch      | T, SH    | `` t͡ʃ ``    | affricate, stop, voiceless, alveolar, fricative, sibilant, voiceless, postalveolar
 T_L_SH   | t_l+sh   | {t_l}{+}{sh}   | base: tsh  | affricate: ch      | T_L, SH  | `` tː͡ʃ ``   | affricate, stop, voiceless, alveolar, long, fricative, sibilant, voiceless, postalveolar
 T_SHE    | t+she    | {t}{+}{she}    | base: tsh  | affricate: ch      | T, SHE   | `` t͡ʃ` ``   | affricate, stop, voiceless, alveolar, fricative, sibilant, voiceless, postalveolar, nonpulmonic
@@ -590,3 +591,15 @@ D_ZZ     | d+zz     | {d}{+}{zz}     | base: dzh  | affricate: j       | D, ZZ  
 D_L_ZZ   | d_l+zz   | {d_l}{+}{zz}   | base: dzh  | affricate: jj      | D_L, ZZ  | `` dː͡ʐ ``   | affricate, stop, voiced, alveolar, long, fricative, sibilant, voiced, retroflex
 D_ZY     | d+zy     | {d}{+}{zy}     | base: dzhy | affricate: j       | D, ZY    | `` d͡ʑ ``    | affricate, stop, voiced, alveolar, fricative, sibilant, voiced, palatal
 D_L_ZY   | d_l+zy   | {d_l}{+}{zy}   | base: dzhy | affricate: jj      | D_L, ZY  | `` dː͡ʑ ``   | affricate, stop, voiced, alveolar, long, fricative, sibilant, voiced, palatal
+STRH     | *h       | {*h}           |            |                    |          | `` ˈ ``      | stress, high
+STRM     | *m       | {*m}           |            |                    |          | `` ˌ ``      | stress, middle
+TPTT     | ^t       | {^t}           |            |                    |          | `` ̋ ``      | pitch, top
+TPTH     | ^h       | {^h}           |            |                    |          | `` ́ ``      | pitch, high
+TPTM     | ^m       | {^m}           |            |                    |          | `` ̄ ``      | pitch, middle
+TPTW     | ^w       | {^w}           |            |                    |          | `` ̀ ``      | pitch, low
+TPTB     | ^b       | {^b}           |            |                    |          | `` ̏ ``      | pitch, bottom
+TCNR     | &r       | {&r}           |            |                    |          | `` ̌ ``      | contour, rising
+TCNF     | &f       | {&f}           |            |                    |          | `` ̂ ``      | contour, falling
+INTR     | !r       | {!r}           |            |                    |          | `` ↗︎ ``     | intonation, rising
+INTF     | !f       | {!f}           |            |                    |          | `` ↘︎ ``     | intonation, falling
+INTK     | !k       | {!k}           |            |                    |          | `` \| ``     | intonation, interrupt

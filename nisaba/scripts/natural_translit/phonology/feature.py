@@ -30,7 +30,7 @@ def ft_inventory(
   return i.make_inventory(i.alias_list(feature_list), feature_list, store_list)
 
 # TODO:Enum features by category
-FEATURES = ls.apply_foreach(PhonFeature, [
+ARTICULATION_FEATURE = ls.apply_foreach(PhonFeature, [
     ['silent', 'pronunciation'],
     ['syllabic', 'syllabicity'],
     ['nonsyllabic', 'syllabicity'],
@@ -85,7 +85,24 @@ FEATURES = ls.apply_foreach(PhonFeature, [
     ['center', 'backness'],
     ['near_back', 'backness'],
     ['back', 'backness'],
+    ['stress', 'suprasegmental'],
+    ['pitch', 'suprasegmental'],
+    ['contour', 'suprasegmental'],
+    ['intonation', 'suprasegmental'],
 ])
+
+FEATURE_QUALIFIER = ls.apply_foreach(PhonFeature, [
+    ['top', 'degree'],
+    ['high', 'degree'],
+    ['middle', 'degree'],
+    ['low', 'degree'],
+    ['bottom', 'degree'],
+    ['rising', 'change'],
+    ['falling', 'change'],
+    ['interrupt', 'change'],
+])
+
+FEATURES = ARTICULATION_FEATURE + FEATURE_QUALIFIER
 _F = ft_inventory(FEATURES)
 
 ROWS = ls.apply_foreach(i.store_as, [

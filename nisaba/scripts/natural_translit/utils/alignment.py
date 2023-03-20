@@ -37,6 +37,11 @@ CURLY_L = '{'
 CURLY_R = '}'
 EQUAL = '='
 GRAVE_ACCENT = '`'
+FULL_STOP = '.'
+ASTERISK = '*'
+MINUS = '-'
+AMPERSAND = '&'
+EXCLAMATION = '!'
 
 # Acceptors
 
@@ -55,6 +60,11 @@ PH_B = [PH_L, PH_R]
 PH_BOUND = ls.union_opt(*PH_B)
 TR_B = pyn.accep(GRAVE_ACCENT)  # Translit boundary
 ALIGN_SIGN = pyn.accep(EQUAL)  # Substring alignment
+DOT = pyn.accep(FULL_STOP)
+STRESS = pyn.accep(ASTERISK)
+PITCH = pyn.accep(MINUS)
+CONTOUR = pyn.accep(AMPERSAND)
+INTONATION = pyn.accep(EXCLAMATION)
 
 # Functions
 
@@ -101,7 +111,10 @@ def assign(left_side: pyn.FstLike, right_side: pyn.FstLike) -> pyn.Fst:
   """Takes left side, returns an alignment of left and right sides."""
   return pyn.cross(left_side, align(left_side, right_side))
 
-SYM = ls.union_star(byte.ALPHA, AFFIX, COMBINE)
+PUNCTUATION = (
+    AFFIX | COMBINE | DOT | STRESS | PITCH | CONTOUR | INTONATION
+)
+SYM = ls.union_star(byte.ALPHA, PUNCTUATION)
 GRAPHEME = enclose_grapheme(SYM)
 GRAPHEMES = ls.star_opt(GRAPHEME)
 PHONEME = enclose_phoneme(SYM)
