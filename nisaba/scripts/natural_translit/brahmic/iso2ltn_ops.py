@@ -49,7 +49,7 @@ def _transliterate_vocalic(
     vcl_l: pyn.FstLike) -> pyn.Fst:
   """Transliterates all vowels in vocalics as vcl_tr."""
   long_syl = rw.rewrite(
-      ph.SYL_L,
+      ph.SYL + ph.DURH,
       vcl_l,
       gr.VOCALIC)
   rest = rw.rewrite(
@@ -63,17 +63,26 @@ VOCALIC_TR_I = _transliterate_vocalic(tr.I, tr.S_II)
 # Word initial <aa> is "aa".
 AA_WI = rw.reassign_word_initial(
     gr.AA_I,
-    ph.A_L,
+    ph.A + ph.DURH,
     tr.S_AA)
 
 # Transliterate diphthong graphemes as diphthong instead of long vowel.
 
 DIPHTHONG_GR = cmp.ComposeFsts(ls.apply_foreach(rw.reassign, [
-    [gr.AI, ph.EH_L, tr.S_AI],
-    [gr.AU, ph.OH_L, tr.S_AU],
-    [gr.AI_I, ph.EH_L, tr.S_AI],
-    [gr.AU_I, ph.OH_L, tr.S_AU],
+    [gr.AI, ph.EH + ph.DURH, tr.S_AI],
+    [gr.AU, ph.OH + ph.DURH, tr.S_AU],
+    [gr.AI_I, ph.EH + ph.DURH, tr.S_AI],
+    [gr.AU_I, ph.OH + ph.DURH, tr.S_AU],
 ]))
+
+
+# Translit options for long phonemes
+TRANSLIT_LONG = cmp.ComposeFsts(ls.apply_foreach(
+    rw.rewrite,
+    [[long.ph + ph.DURH, ltn.double_substring_tr(long.tr_dict['psa'])]
+     for long in psa.PH],
+))
+IGNORE_LONG = rw.delete(ph.DURH)
 
 # Rules for natural translit of two-letter geminates.
 # TODO: Revise and generalise all geminate rules.
@@ -93,8 +102,8 @@ S_SHSH_TO_SSH = cmp.ComposeFsts(ls.apply_foreach(rw.merge_repeated_alignment, [
     [gr.SH, tr.S_SH, tr.S + tr.S_SH],
 ]))
 
-TRANSLIT_BY_PSAF = phon.ls_translit_by_key(psa.PHONEMES, 'psaf')
-TRANSLIT_BY_PSAC = phon.ls_translit_by_key(psa.PHONEMES, 'psac')
+TRANSLIT_BY_PSA = phon.ls_translit_by_key(psa.PHONEMES, 'psa')
+
 
 # Compose common rules for romanization
 TXN_TO_PSA_COMMON = (DIPHTHONG_GR @ NON_LABIAL_ANUSVARA)
@@ -102,7 +111,8 @@ TXN_TO_PSA_COMMON = (DIPHTHONG_GR @ NON_LABIAL_ANUSVARA)
 # Convert txn to PSAF and outputs only translit strings.
 TXN_TO_PSAF = (
     TXN_TO_PSA_COMMON @
-    TRANSLIT_BY_PSAF @
+    TRANSLIT_LONG @
+    TRANSLIT_BY_PSA @
     ltn.print_only_ltn()
     ).optimize()
 
@@ -115,6 +125,7 @@ REMOVE_REPEATED_LTN = cmp.ComposeFsts(ls.apply_foreach(
 
 TXN_TO_PSAC = (
     TXN_TO_PSA_COMMON @
-    TRANSLIT_BY_PSAC @
+    IGNORE_LONG @
+    TRANSLIT_BY_PSA @
     ltn.print_only_ltn() @
     REMOVE_REPEATED_LTN).optimize()

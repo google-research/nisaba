@@ -42,12 +42,8 @@ ASCII_UC = c.uppercase_list(ASCII_LC)
 DOUBLE_SUBSTRING, DOUBLE_DICT = c.ls_double_substring(ASCII_LC)
 
 
-def double_substring_tr(tr) -> pyn.FstLike:
-  if tr.string() in DOUBLE_DICT:
-    return DOUBLE_DICT[tr.string()]
-  else:
-    return tr
-
+def double_substring_tr(tr: pyn.Fst) -> pyn.Fst:
+  return DOUBLE_DICT.get(tr.string(), tr)
 
 OTHER_SUBSTRING = ls.apply_foreach(c.make_substring, [
     ['ae'], ['ai'], ['au'], ['ch'], ['dh'], ['kh'],

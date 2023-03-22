@@ -28,22 +28,24 @@ ph = psa.PHONEME_INVENTORY
 
 # Vowels
 
-A_TO_EC = rw.rewrite(ph.A, ph.EC)
-
+A_TO_EC = (
+    rw.rewrite(ph.A, ph.EC) @
+    rw.rewrite(ph.EC + ph.DURH, ph.A + ph.DURH)
+)
 # Ungliding: Diphthong to monophthong shift
-AI_TO_EH_L = rw.rewrite(ph.A_I, ph.EH_L)
-AU_TO_OH_L = rw.rewrite(ph.A_U, ph.OH_L)
+AI_TO_EH_LONG = rw.rewrite(ph.A_I, ph.EH + ph.DURH)
+AU_TO_OH_LONG = rw.rewrite(ph.A_U, ph.OH + ph.DURH)
 
 # Vocalic liquids
 
 
 def vocalic(vcl: pyn.FstLike, vcl_l: pyn.FstLike) -> pyn.Fst:
   """Pronunciation of the vowel part of the vocalic Rs and Ls."""
-  return rw.rewrite(ph.SYL, vcl) @ rw.rewrite(ph.SYL_L, vcl_l)
+  return rw.rewrite(ph.SYL, vcl) @ rw.rewrite(ph.SYL + ph.DURH, vcl_l)
 
-VOCALIC_I = vocalic(ph.I, ph.I_L)
-VOCALIC_U = vocalic(ph.U, ph.U_L)
-VOCALIC_EC = vocalic(ph.EC, ph.EC_L)
+VOCALIC_I = vocalic(ph.I, ph.I + ph.DURH)
+VOCALIC_U = vocalic(ph.U, ph.U + ph.DURH)
+VOCALIC_EC = vocalic(ph.EC, ph.EC + ph.DURH)
 
 # Schwa handling
 
@@ -82,8 +84,10 @@ def silent_schwa(
 # Schwa is pronounced before coda graphemes
 _SCHWA_BEFORE_CODA = vocal_schwa(following=gr.CODA)
 _SCHWA_BEFORE_IND_VOWEL = vocal_schwa(following=gr.VOWEL_I)
-# Schwa is pronounced after {i}{y} and {i_l}{y}
-_SCHWA_AFTER_IY = vocal_schwa(cc.concat_r(ls.union_opt(ph.I, ph.I_L), ph.Y))
+# Schwa is pronounced after {i}{y} and {i}{:h}{y}
+_SCHWA_AFTER_IY = vocal_schwa(
+    cc.concat_r(ls.union_opt(ph.I, ph.I + ph.DURH), ph.Y)
+)
 
 
 def schwa_eow(coda_cl) -> pyn.Fst:

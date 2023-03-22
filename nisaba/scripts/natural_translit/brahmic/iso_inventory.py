@@ -48,19 +48,19 @@ ph = psa.PHONEME_INVENTORY
 INHERENT_VOWEL = [c.make_char('a', 'a', ph.V_TNT)]
 
 SIMPLE_VOWEL_SIGN = ls.apply_foreach(c.make_char, [
-    ['aa', 'ā', ph.A_L],
+    ['aa', 'ā', ph.A + ph.DURH],
     ['ac', 'æ', ph.AE],
     ['an', 'ạ', ph.A],
     ['e', 'e', ph.E],
-    ['ee', 'ē', ph.E_L],
+    ['ee', 'ē', ph.E + ph.DURH],
     ['ec', 'ê', ph.AE],
     ['i', 'i', ph.I],
-    ['ii', 'ī', ph.I_L],
+    ['ii', 'ī', ph.I + ph.DURH],
     ['o', 'o', ph.O],
-    ['oo', 'ō', ph.O_L],
+    ['oo', 'ō', ph.O + ph.DURH],
     ['oc', 'ô', ph.OH],
     ['u', 'u', ph.U],
-    ['uu', 'ū', ph.U_L],
+    ['uu', 'ū', ph.U + ph.DURH],
 ])
 
 SIMPLE_VOWEL = INHERENT_VOWEL + SIMPLE_VOWEL_SIGN
@@ -113,7 +113,7 @@ SIMPLE_CODA = ls.apply_foreach(c.make_char, [
     ['jihva', 'ẖ', ph.H],
 ])
 
-OM_VOWEL = [c.make_char('ot', 'õ', ph.O_L)]
+OM_VOWEL = [c.make_char('ot', 'õ', ph.O + ph.DURH)]
 
 MODIFIER = ls.apply_foreach(c.make_char, [
     ['asp', 'ʰ', ph.ASP],
@@ -139,8 +139,8 @@ sp = c.char_inventory(SINGLE_POINT)
 
 # Three point vowel sign
 LONG_VOCALIC = ls.apply_foreach(c.make_composite_char, [
-    [[sp.L, sp.VCL, sp.LONG], 'llv', ph.L + ph.SYL_L],
-    [[sp.R, sp.VCL, sp.LONG], 'rrv', ph.R + ph.SYL_L],
+    [[sp.L, sp.VCL, sp.LONG], 'llv', ph.L + ph.SYL + ph.DURH],
+    [[sp.R, sp.VCL, sp.LONG], 'rrv', ph.R + ph.SYL + ph.DURH],
 ])
 
 SHORT_VOCALIC = ls.apply_foreach(c.make_composite_char, [
@@ -155,7 +155,7 @@ DIPHTHONG_SIGN = ls.apply_foreach(c.make_composite_char, [
     [[sp.A, sp.U], 'au', ph.A_U],
 ])
 
-SANTAL_AAN = [c.make_composite_char([sp.AN, sp.LONG], 'aan', ph.A_L)]
+SANTAL_AAN = [c.make_composite_char([sp.AN, sp.LONG], 'aan', ph.A + ph.DURH)]
 
 TWO_POINT_SIGN = SHORT_VOCALIC + DIPHTHONG_SIGN + SANTAL_AAN
 
@@ -213,7 +213,7 @@ CND = [c.make_composite_char([sp.M, sp.CND_DIA], 'cnd', ph.NSL)]
 CODA = c.store_gr_union('CODA', SIMPLE_CODA + CND)
 
 # Om
-OM = [c.make_composite_char([sp.OT, sp.M], 'om', ph.O_L + ph.M)]
+OM = [c.make_composite_char([sp.OT, sp.M], 'om', ph.O + ph.DURH + ph.M)]
 
 TWO_POINT = TWO_POINT_SIGN + INDEPENDENT_VOWEL + COMPOSITE_CONSONANT + CND + OM
 

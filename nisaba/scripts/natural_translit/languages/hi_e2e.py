@@ -50,8 +50,8 @@ _PROCESS_SCHWA = iso2txn_ops.process_schwa(_ONSET_CL, _CODA_CL)
 
 
 _TXN_OPS = (
-    iso2txn_ops.AI_TO_EH_L @
-    iso2txn_ops.AU_TO_OH_L @
+    iso2txn_ops.AI_TO_EH_LONG @
+    iso2txn_ops.AU_TO_OH_LONG @
     iso2txn_ops.A_TO_EC @
     iso2txn_ops.VOCALIC_I @
     iso2txn_ops.ANUSVARA_ASSIMILATION @
@@ -92,7 +92,8 @@ def iso_to_nat() -> pyn.Fst:
           iso2ltn_ops.SIBV_TO_SIBW @
           iso2ltn_ops.AA_WI @
           iso2ltn_ops.TXN_TO_PSA_COMMON @
-          iso2ltn_ops.TRANSLIT_BY_PSAC @
+          iso2ltn_ops.IGNORE_LONG @
+          iso2ltn_ops.TRANSLIT_BY_PSA @
           iso2ltn_ops.CC_TO_CCH @
           iso2ltn_ops.CCH_TO_CHH @
           iso2ltn_ops.S_SHSH_TO_SSH @

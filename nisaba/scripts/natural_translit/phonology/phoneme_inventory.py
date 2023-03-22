@@ -40,7 +40,7 @@ tr = ltn.TRANSLIT_INVENTORY
 
 SILENCE = [p.base_phon('sil', [f.silent], '', tr.DEL)]
 
-BASE_FEATURE = ls.apply_foreach(p.base_phon, [
+STANDALONE_FEATURE = ls.apply_foreach(p.base_phon, [
     ['S', [f.syllabic], '̍', tr.U, 'SYL'],
     ['Z', [f.nonsyllabic], '̯', tr.DEL, 'NSY'],
     ['N', [f.nasal], '~', tr.N, 'NSL'],
@@ -54,12 +54,6 @@ BASE_FEATURE = ls.apply_foreach(p.base_phon, [
     ['R', [f.rhotic], '˞', tr.R, 'RHT'],
     ['.', [f.interrupt], '.', tr.DEL, 'SYB']  # syllable break
 ])
-
-_FTR = p.phon_inventory(BASE_FEATURE)
-
-LONG_SYL = [mod.long(_FTR.SYL, tr.S_UU)]
-
-STANDALONE_FEATURE = BASE_FEATURE + LONG_SYL
 
 UNASSIGNED_VOWEL = ls.apply_foreach(p.base_phon, [
     ['_', [f.vowel], '', tr.DEL, 'V_TNT'],  # tentative
@@ -139,8 +133,8 @@ BASE_VOWEL = ls.apply_foreach(p.base_phon, [
     ['ow', f.open_vwl + f.back_rnd, 'ɒ', tr.O],
 ])
 
-LONG_VOWEL = [mod.long(short) for short in BASE_VOWEL]
-SIMPLE_VOWEL = UNASSIGNED_VOWEL + BASE_VOWEL + LONG_VOWEL
+SIMPLE_VOWEL = UNASSIGNED_VOWEL + BASE_VOWEL
+
 
 VOICED_NASAL = ls.apply_foreach(p.base_phon, [
     ['m', f.vcd_nasal + [f.bilabial], 'm', tr.M],
@@ -156,8 +150,7 @@ VOICED_NASAL = ls.apply_foreach(p.base_phon, [
 
 DEVOICED_NASAL = [mod.devoiced(phon) for phon in VOICED_NASAL]
 SHORT_NASAL = VOICED_NASAL + DEVOICED_NASAL
-GEMINATED_NASAL = [mod.long(short) for short in VOICED_NASAL]
-NASAL = SHORT_NASAL + GEMINATED_NASAL
+NASAL = SHORT_NASAL
 
 VOICELESS_STOP = ls.apply_foreach(p.base_phon, [
     ['p', f.vcl_stop + [f.bilabial], 'p', tr.P],
@@ -189,9 +182,7 @@ EJECTIVE_STOP = [mod.nonpulmonic(phon) for phon in VOICELESS_STOP]
 VOICED_IMPLOSIVE = [mod.nonpulmonic(phon) for phon in VOICED_STOP]
 DEVOICED_IMPLOSIVE = [mod.devoiced(phon) for phon in VOICED_IMPLOSIVE]
 IMPLOSIVE = VOICED_IMPLOSIVE + DEVOICED_IMPLOSIVE
-SHORT_STOP = VOICELESS_STOP + VOICED_STOP + EJECTIVE_STOP + IMPLOSIVE
-GEMINATED_STOP = [mod.long(short) for short in SHORT_STOP]
-STOP = SHORT_STOP + GEMINATED_STOP
+STOP = VOICELESS_STOP + VOICED_STOP + EJECTIVE_STOP + IMPLOSIVE
 
 VOICELESS_FRICATIVE = ls.apply_foreach(p.base_phon, [
     ['si', f.vcl_sib_fricative + [f.dental], 's̪', tr.S],
@@ -249,9 +240,7 @@ VOICED_FRICATIVE = ls.apply_foreach(p.base_phon, [
 ])
 
 EJECTIVE_FRICATIVE = [mod.nonpulmonic(phon) for phon in VOICELESS_FRICATIVE]
-SHORT_FRICATIVE = VOICELESS_FRICATIVE + VOICED_FRICATIVE + EJECTIVE_FRICATIVE
-GEMINATED_FRICATIVE = [mod.long(short) for short in SHORT_FRICATIVE]
-FRICATIVE = SHORT_FRICATIVE + GEMINATED_FRICATIVE
+FRICATIVE = VOICELESS_FRICATIVE + VOICED_FRICATIVE + EJECTIVE_FRICATIVE
 
 CENTRAL_APPROXIMANT = ls.apply_foreach(p.base_phon, [
     ['bu', f.central_approximant + [f.bilabial], 'β̞', tr.W],
@@ -281,9 +270,7 @@ LATERAL_APPROXIMANT = ls.apply_foreach(p.base_phon, [
     ['lw', f.lateral_approximant + f.vlr_lbl, 'ɫ', tr.W],
 ])
 
-SHORT_APPROXIMANT = CENTRAL_APPROXIMANT + LATERAL_APPROXIMANT
-GEMINATED_APPROXIMANT = [mod.long(short) for short in SHORT_APPROXIMANT]
-APPROXIMANT = SHORT_APPROXIMANT + GEMINATED_APPROXIMANT
+APPROXIMANT = CENTRAL_APPROXIMANT + LATERAL_APPROXIMANT
 
 VOICED_FLAP = ls.apply_foreach(p.base_phon, [
     ['bt', f.vcd_flap + [f.bilabial], 'ⱱ̟', tr.B],
@@ -314,9 +301,7 @@ VOICED_TRILL = ls.apply_foreach(p.base_phon, [
 ])
 
 DEVOICED_TRILL = [mod.devoiced(phon) for phon in VOICED_TRILL]
-SHORT_TRILL = VOICED_TRILL + DEVOICED_TRILL
-GEMINATED_TRILL = [mod.long(short) for short in SHORT_TRILL]
-TRILL = SHORT_TRILL + GEMINATED_TRILL
+TRILL = VOICED_TRILL + DEVOICED_TRILL
 
 CLICK_RELEASE = ls.apply_foreach(p.base_phon, [
     ['pk', f.click_release + [f.bilabial], 'ʘ', tr.P],
@@ -381,5 +366,7 @@ CONSONANT = SIMPLE_CONS + CLICK + AFFRICATE
 FEATURE = SILENCE + STANDALONE_FEATURE
 SUPRASEGMENTAL = STRESS + PITCH + CONTOUR + INTONATION
 PHONEMES = FEATURE + VOWEL + CONSONANT + SUPRASEGMENTAL
+COMBINING_MODIFIERS = mod.COMBINER + [mod.MOD.DURH]
+MOD_INVENTORY = p.phon_inventory(COMBINING_MODIFIERS)
 PHON_INVENTORY = p.phon_inventory(PHONEMES)
-PHONEME_INVENTORY = p.ph_inventory(PHONEMES + mod.COMBINER)
+PHONEME_INVENTORY = p.ph_inventory(PHONEMES + COMBINING_MODIFIERS)

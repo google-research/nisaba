@@ -20,12 +20,12 @@ from nisaba.scripts.utils import test_util
 
 
 _TEST_CASES = [
-    (lambda: iso2txn_ops.AI_TO_EH_L, [
-        ('{a}{+}{i}', '{eh_l}'),
+    (lambda: iso2txn_ops.AI_TO_EH_LONG, [
+        ('{a}{+}{i}', '{eh}{:h}'),
     ]),
-    (lambda: iso2txn_ops.vocalic('{i}', '{i_l}'), [
+    (lambda: iso2txn_ops.vocalic('{i}', '{i}{:h}'), [
         ('{S}', '{i}'),
-        ('{S_l}', '{i_l}'),
+        ('{S}{:h}', '{i}{:h}'),
     ]),
     (lambda: iso2txn_ops.default_schwa('{a}'), [
         ('{_}', '{a}'),
@@ -47,16 +47,16 @@ _TEST_CASES = [
         ('{a}{r}{t}{_}{k}{p}{a}', '{a}{r}{t}{_}{k}{p}{a}'),
     ]),
     (lambda: iso2txn_ops.assign_anusvara('{m}'), [
-        ('<a>={a}<ans>={N}<b>={b}<aa>={a_l}',
-         '<a>={a}<ans>={m}<b>={b}<aa>={a_l}'),
-        ('<a>={a}<ans>={N}<s>={s}<aa>={a_l}',
-         '<a>={a}<ans>={m}<s>={s}<aa>={a_l}'),
+        ('<a>={a}<ans>={N}<b>={b}<aa>={a}{:h}',
+         '<a>={a}<ans>={m}<b>={b}<aa>={a}{:h}'),
+        ('<a>={a}<ans>={N}<s>={s}<aa>={a}{:h}',
+         '<a>={a}<ans>={m}<s>={s}<aa>={a}{:h}'),
     ]),
     (lambda: iso2txn_ops.assign_anusvara('{ng}', '{g}'), [
-        ('<a>={a}<ans>={N}<g>={g}<aa>={a_l}',
-         '<a>={a}<ans>={ng}<g>={g}<aa>={a_l}'),
-        ('<a>={a}<ans>={N}<s>={s}<aa>={a_l}',
-         '<a>={a}<ans>={N}<s>={s}<aa>={a_l}'),
+        ('<a>={a}<ans>={N}<g>={g}<aa>={a}{:h}',
+         '<a>={a}<ans>={ng}<g>={g}<aa>={a}{:h}'),
+        ('<a>={a}<ans>={N}<s>={s}<aa>={a}{:h}',
+         '<a>={a}<ans>={N}<s>={s}<aa>={a}{:h}'),
     ]),
     (lambda: iso2txn_ops.rewrite_jny('{g}', '{y}'), [
         ('<j>={d}{+}{zh}<ny>={ny}', '<j>={g}<ny>={y}'),

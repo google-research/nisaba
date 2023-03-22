@@ -22,55 +22,39 @@ from nisaba.scripts.natural_translit.utils import list_op as ls
 
 f = feature.FEATURE_INVENTORY
 ph = phoneme_inventory.PHON_INVENTORY
+mod = phoneme_inventory.MOD_INVENTORY
 tr = ltn.TRANSLIT_INVENTORY
 
 
 def _import_to_psa(
     phon: p.Phon,
-    psaf: str = None,
-    psac: str = None
+    psa: str = None,
 ) -> p.Phon:
   """Import Phons and add Pan South Asian translits."""
   # Check phon class to set the default translit.
-  if f.affricate in phon.ftr:
-    psa = phon.tr_dict[f.affricate]
+  if psa:
+    psa_tr = psa
+  elif f.affricate in phon.ftr:
+    psa_tr = phon.tr_dict[f.affricate]
   elif f.diphthong in phon.ftr:
-    psa = phon.tr_dict[f.diphthong]
+    psa_tr = phon.tr_dict[f.diphthong]
   else:
-    psa = phon.tr_dict['base']
-  psa_dict = {}
-  # If psaf is set, psac defaults to psaf
-  if psaf:
-    psa_dict.update({'psaf': psaf})
-    psa = psaf
-  else:
-    if f.vowel in phon.ftr and f.long in phon.ftr:
-      psa_dict.update({'psaf': phon.tr_dict[f.long]})
-    else:
-      psa_dict.update({'psaf': psa})
-  psa_dict.update(p.new_tr('psac', psac, psa))
-  return p.import_phon(phon, alt_tr_dict=psa_dict)
+    psa_tr = phon.tr_dict['base']
+  return p.import_phon(phon, alt_tr_dict={'psa': psa_tr})
 
 SILENCE = [_import_to_psa(ph.SIL)]
 
 VOWEL_MOD = ls.apply_foreach(_import_to_psa, (
-    [ph.NSY], [ph.NSL]
+    [ph.NSY], [ph.NSL], [mod.DURH],
 ))
 
 CONS_MOD = [_import_to_psa(ph.ASP)]
 
 VOWEL = ls.apply_foreach(_import_to_psa, [
-    [ph.V_TNT], [ph.V_PRN],
-    [ph.SYL, tr.I], [ph.SYL_L, tr.I],
-    [ph.A], [ph.A_L],
-    [ph.AE, tr.S_AE],
-    [ph.E], [ph.E_L],
-    [ph.EC, tr.A], [ph.EC_L, tr.S_AA, tr.A],
-    [ph.EH], [ph.EH_L],
-    [ph.I], [ph.I_L],
-    [ph.O], [ph.O_L],
-    [ph.OH], [ph.OH_L],
-    [ph.U], [ph.U_L],
+    [ph.V_TNT], [ph.V_PRN], [ph.SYL, tr.I],
+    [ph.A], [ph.AE, tr.S_AE],
+    [ph.E], [ph.EC, tr.A], [ph.EH],
+    [ph.I], [ph.O], [ph.OH], [ph.U],
     [ph.A_I], [ph.A_U],
 ])
 
@@ -114,22 +98,22 @@ CONSONANT = (
 )
 
 PHONEMES = SILENCE + VOWEL_MOD + CONS_MOD + VOWEL + CONSONANT
-_ph = p.phon_inventory(PHONEMES)
+PH = p.phon_inventory(PHONEMES)
 
 PH_STORE = ls.apply_foreach(p.store_ph_union, [
     ['NASAL', NASAL],
     ['FRICATIVE', VOICELESS_FRICATIVE + VOICED_FRICATIVE],
     ['VOICED', VOICED_STOP + VOICED_FRICATIVE + VOICED_AFFRICATE],
     ['APPROXIMANT', APPROXIMANT],
-    ['RHOTIC', TAP_TRILL + [_ph.RRU]],
-    ['LIQUID', TAP_TRILL + [_ph.RRU, _ph.L, _ph.LL]],
-    ['SIBILANT', [_ph.S, _ph.Z, _ph.SH, _ph.ZH, _ph.SS]],
-    ['LABIAL', [_ph.M, _ph.B, _ph.P]],
-    ['DENTAL', [_ph.NI, _ph.DI, _ph.TI]],
-    ['ALVEOLAR', [_ph.N, _ph.D, _ph.T]],
-    ['PALATAL', [_ph.NY, _ph.Y]],
-    ['RETROFLEX', [_ph.NN, _ph.DD, _ph.TT]],
-    ['VELAR', [_ph.NG, _ph.G, _ph.K]],
+    ['RHOTIC', TAP_TRILL + [PH.RRU]],
+    ['LIQUID', TAP_TRILL + [PH.RRU, PH.L, PH.LL]],
+    ['SIBILANT', [PH.S, PH.Z, PH.SH, PH.ZH, PH.SS]],
+    ['LABIAL', [PH.M, PH.B, PH.P]],
+    ['DENTAL', [PH.NI, PH.DI, PH.TI]],
+    ['ALVEOLAR', [PH.N, PH.D, PH.T]],
+    ['PALATAL', [PH.NY, PH.Y]],
+    ['RETROFLEX', [PH.NN, PH.DD, PH.TT]],
+    ['VELAR', [PH.NG, PH.G, PH.K]],
 ])
 
 PH_MOD_STORE = ls.apply_foreach(p.store_ph_modified, [

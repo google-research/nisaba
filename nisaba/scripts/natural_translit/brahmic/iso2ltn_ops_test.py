@@ -28,10 +28,10 @@ _TEST_CASES = [
         ]),
     (lambda: iso2ltn_ops.VOCALIC_TR_I, [
         ('<rv>={r}{u}', '<rv>={r}`i`'),
-        ('<llv_i>={l}{S_l}', '<llv_i>={l}`s_ii`'),
+        ('<llv_i>={l}{S}{:h}', '<llv_i>={l}`s_ii`'),
         ]),
     (lambda: iso2ltn_ops.DIPHTHONG_GR, [
-        ('<ai>={eh_l}', '<ai>=`s_ai`'),
+        ('<ai>={eh}{:h}', '<ai>=`s_ai`'),
         ]),
     (lambda: iso2ltn_ops.CC_TO_CCH, [
         ('<c>=`s_ch`<c>=`s_ch`', '<c><c>=`c``s_ch`'),
@@ -39,13 +39,15 @@ _TEST_CASES = [
     (lambda: iso2ltn_ops.CCH_TO_CHH, [
         ('<c>=`s_ch`<ch>=`s_ch``h`', '<c><ch>=`s_ch``h`'),
         ]),
-    (lambda: iso2ltn_ops.TRANSLIT_BY_PSAF, [
-        ('<h>={h}<i>={i}<ans>={ni}<d>={di}<ii>={i_l}',
-         '<h>=`h`<i>=`i`<ans>=`n`<d>=`d`<ii>=`s_ii`'),
+    (lambda: iso2ltn_ops.TRANSLIT_BY_PSA, [
+        ('<h>={h}<i>={i}<ans>={ni}<d>={di}<ii>={i}{:h}',
+         '<h>=`h`<i>=`i`<ans>=`n`<d>=`d`<ii>=`i``DEL`'),
         ]),
-    (lambda: iso2ltn_ops.TRANSLIT_BY_PSAC, [
-        ('<h>={h}<i>={i}<ans>={ni}<d>={di}<ii>={i_l}',
-         '<h>=`h`<i>=`i`<ans>=`n`<d>=`d`<ii>=`i`'),
+    (lambda: iso2ltn_ops.TRANSLIT_LONG, [
+        ('{i}{:h}', '`s_ii`'),
+        ]),
+    (lambda: iso2ltn_ops.IGNORE_LONG, [
+        ('{i}{:h}', '{i}'),
         ]),
     (lambda: iso2ltn_ops.REMOVE_REPEATED_LTN, [
         ('kk', 'k'),

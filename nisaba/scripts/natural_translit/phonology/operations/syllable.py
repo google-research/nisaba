@@ -84,7 +84,7 @@ def legal_coda(
   ```
   pyn.union(
       '{a}',
-      '{a_l}',
+      '{a}{:h}',
       ...
       '{a}gr.GRAPHEMES{b}',
       ...

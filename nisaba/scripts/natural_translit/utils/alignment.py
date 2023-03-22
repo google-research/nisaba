@@ -42,6 +42,7 @@ ASTERISK = '*'
 MINUS = '-'
 AMPERSAND = '&'
 EXCLAMATION = '!'
+COLON = ':'
 
 # Acceptors
 
@@ -65,6 +66,7 @@ STRESS = pyn.accep(ASTERISK)
 PITCH = pyn.accep(MINUS)
 CONTOUR = pyn.accep(AMPERSAND)
 INTONATION = pyn.accep(EXCLAMATION)
+DURATION = pyn.accep(COLON)
 
 # Functions
 
@@ -112,7 +114,7 @@ def assign(left_side: pyn.FstLike, right_side: pyn.FstLike) -> pyn.Fst:
   return pyn.cross(left_side, align(left_side, right_side))
 
 PUNCTUATION = (
-    AFFIX | COMBINE | DOT | STRESS | PITCH | CONTOUR | INTONATION
+    AFFIX | COMBINE | DOT | STRESS | PITCH | CONTOUR | INTONATION | DURATION
 )
 SYM = ls.union_star(byte.ALPHA, PUNCTUATION)
 GRAPHEME = enclose_grapheme(SYM)

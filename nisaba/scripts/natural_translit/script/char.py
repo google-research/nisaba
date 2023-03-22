@@ -46,11 +46,18 @@ def make_char(
 
   Following call:
   ```
-  make_char('aa', 'ā', ph.A_L)
+  make_char('aa', 'ā', ph.A + ph.DURH)
   ```
   will return:
   ```
-  Char(alias='AA', typ='aa', gr=<aa>, tr=`aa`, glyph='ā', ph=ph.A_L, cmp=None)
+  Char(
+      alias='AA',
+      typ='aa',
+      gr=<aa>,
+      tr=`aa`,
+      glyph='ā',
+      ph=ph.A + ph.DURH,
+      cmp=None)
   ```
   """
   if alias == al.EMPTY_STR:
@@ -93,7 +100,7 @@ def double_substring(char: Char) -> Char:
   return make_char(new_typ, new_glyph)
 
 
-def ls_double_substring(chars: [Char]) -> ([Char], dict[str]):
+def ls_double_substring(chars: [Char]) -> ([Char], dict[str, pyn.Fst]):
   """Makes a list of double substring Chars from a list of Chars.
 
   Also makes a dictionary of corresponding tr fields.
@@ -126,7 +133,7 @@ def ls_double_substring(chars: [Char]) -> ([Char], dict[str]):
   for char in chars:
     double = double_substring(char)
     doubles.append(double)
-    double_dict[char.tr.string()] = double.tr.string()
+    double_dict.update({char.tr.string(): double.tr})
   return doubles, double_dict
 
 

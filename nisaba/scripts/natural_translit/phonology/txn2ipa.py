@@ -21,4 +21,4 @@ from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 
 def txn_to_ipa() -> pyn.Fst:
   """Converts txn to IPA and outputs only transcription strings."""
-  return p.print_only_ipa(ph.PHONEMES)
+  return p.print_only_ipa(ph.PHONEMES + [ph.MOD_INVENTORY.DURH])

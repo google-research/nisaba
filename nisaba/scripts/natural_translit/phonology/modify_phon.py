@@ -16,7 +16,6 @@
 
 import copy
 import pynini as pyn
-from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import feature
 from nisaba.scripts.natural_translit.phonology import phon as p
 from nisaba.scripts.natural_translit.utils import alignment as al
@@ -50,15 +49,15 @@ def qualified_modifier(
 COMBINER = [modifier_phon('CMB', '+', [f.composite], '͡')]
 
 MODIFIER_FEATURE = ls.apply_foreach(modifier_phon, [
-    # TODO: move long to suprasegmental as a degree of duration.
-    ['LONG', '_l', [f.long], 'ː'],
     ['DVC', 'o', [f.devoiced], '̥'],  # devoiced
     ['NPL', 'e', [f.nonpulmonic], '`'],  # nonpulmonic
+    ['DUR', ':', [f.duration], 'ː'],
     ['STR', '*', [f.stress], ''],
     ['TPT', '^', [f.pitch], ''],
     ['TCN', '&', [f.contour], ''],
     ['INT', '!', [f.intonation], ''],
 ])
+_M = p.phon_inventory(MODIFIER_FEATURE)
 
 FEATURE_QUALIFIER = ls.apply_foreach(modifier_phon, [
     ['TOP', 't', [f.top], ''],
@@ -70,8 +69,22 @@ FEATURE_QUALIFIER = ls.apply_foreach(modifier_phon, [
     ['FLN', 'f', [f.falling], ''],
     ['TRP', 'k', [f.interrupt], ''],
 ])
+_F = p.phon_inventory(FEATURE_QUALIFIER)
 
-MOD = p.phon_inventory(COMBINER + MODIFIER_FEATURE + FEATURE_QUALIFIER)
+
+def duration(value: p.Phon, ipa: str) -> p.Phon:
+  return qualified_modifier(_M.DUR, value, ipa)
+
+DURATION = ls.apply_foreach(duration, [
+    [_F.BTM, '̆'],
+    [_F.MDL, 'ˑ'],
+    [_F.HGH, 'ː'],
+    [_F.TOP, 'ːː']
+])
+
+MOD = p.phon_inventory(
+    COMBINER + MODIFIER_FEATURE + FEATURE_QUALIFIER + DURATION
+)
 
 # Derivation functions
 
@@ -96,18 +109,18 @@ def derive_with_suffix(
     Phon
 
   Given:
-  (alias='A', txn='a', ftr=['vowel'], ph={a}, ipa='a', {'base': tr.A})
-  (alias='LONG', txn='_l', ftr=['long'], ph={_l}, ipa=':', {'base': tr.DEL})
+  (alias='B', txn='b', ftr=[stop, vcd], ph={b}, ipa='b', {'base': tr.B})
+  (alias='DVC', txn='o', ftr=[dvc], ph={o}, ipa='̥', {'base': tr.DEL})
 
   Following call:
   ```
-  derive_with_suffix(ph.A, ph.LONG, tr.S_AA)
+  derive_with_suffix(ph.B, ph.DVC, tr.P)
   ```
   will return:
   ```
   Phon(
-    alias='A_L', txn='a_l', ftr=['vowel', 'long'], ph={a_l}, ipa='a:',
-    tr_dict={'base': tr.A 'long': tr.S_AA}, cmp=[ph.A, ph.LONG]
+    alias='BO', txn='bo', ftr=[stop, dvc], ph={bo}, ipa='b̥',
+    tr_dict={'base': tr.B 'dvc': tr.P}
   )
   ```
   """
@@ -119,17 +132,6 @@ def derive_with_suffix(
   tr_dict = phon.tr_dict.copy()
   tr_dict.update(p.new_tr(modifier.ftr[0], new_tr, phon.tr_dict['base']))
   return p.Phon(alias, txn, ftr, ph, ipa, tr_dict, cmp=None)
-
-
-# TODO: Revisit default tr for substring bases.
-def long(phon: p.Phon, long_tr: pyn.FstLike = None) -> p.Phon:
-  """Derives a long Phon."""
-  if not long_tr:
-    long_tr = ltn.double_substring_tr(phon.tr_dict['base'])
-  return derive_with_suffix(
-      phon,
-      MOD.LONG,
-      long_tr)
 
 
 def devoiced(phon: p.Phon) -> p.Phon:
@@ -256,13 +258,11 @@ def ls_affricate(
 ) -> [p.Phon]:
   """Composes list of affricates and their geminations."""
   affr = []
-  gemm = long(stop)
-  g_tr = ltn.double_substring_tr(tr)
   for fric in frics:
-    affr += [affricate([stop, fric], tr), affricate([gemm, fric], g_tr)]
+    affr += [affricate([stop, fric], tr)]
     if f.voiceless in fric.ftr:
       ejc = nonpulmonic(fric)
-      affr += [affricate([stop, ejc], tr), affricate([gemm, ejc], g_tr)]
+      affr += [affricate([stop, ejc], tr)]
   return affr
 
 

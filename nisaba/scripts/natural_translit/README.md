@@ -138,17 +138,17 @@ in addition to a 'base' that is composed from its components.
 
   **Example:**
 
-               | a            | u            | a_l           | au               |
-   ------------|:------------:|:------------:|:-------------:|:----------------:|
-   **alias**   | A            | U            | A_L           | A_U              |
-   **txn**     | a            | u            | a_l           | a+u              |
-   **ftr**     | vowel        | vowel        | vowel, long   | diph, vowel, ... |
-   **ph**      | `{a}`        | `{u}`        | `{a_l}`       | `{a}{+}{u}`      |
-   **ipa**     | a            | u            | aː            | a͡u               |
-   **tr_dict** |``base: `a` ``|``base: `u` ``|``base: `a` `` |``base: `a` `u` ``|
-               |              |              |``long: `aa` ``|``diph: `au` ``   |
-               |              |              |               |``semi: `aw` ``   |
-               |              |              |               |``mono: `o` ``    |
+               | a            | u            | au
+   ------------|:------------:|:------------:|:----------------:
+   **alias**   | A            | U            | A_U
+   **txn**     | a            | u            | a+u
+   **ftr**     | vowel        | vowel        | diph, vowel, ...
+   **ph**      | `{a}`        | `{u}`        | `{a}{+}{u}`
+   **ipa**     | a            | u            | a͡u
+   **tr_dict** |``base: `a` ``|``base: `u` ``|``base: `a` `u` ``
+               |              |              |``diph: `au` ``
+               |              |              |``semi: `aw` ``
+               |              |              |``mono: `o` ``
 
 
 [`phoneme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/phonology/phoneme_inventory.py) is a library that builds a multilingual `Phon` inventory. The complete list of `Phon`s can be found [here](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/phonology/doc/phon_table.md) along with [IPA](https://www.internationalphoneticassociation.org/content/ipa-chart) mapping. The IPA symbols in this table are meant to be descriptive rather than definitive. Since related `Phon`s are derived from each other, the IPA strings are created dynamically during the derivation process. As a result, some phonemes with dedicated IPA symbols are represented as a symbol and diacritic instead. For example, the voiced bilabial implosive is represented as `bʼ` rather than the dedicated IPA symbol `ɓ`.
@@ -161,7 +161,7 @@ Language specific phoneme inventories can be built by importing phonemes from th
 
 **Example**
 
-* `<aa><tt><aa><n_chl>` -> `<aa>={a_l}<tt>={tt}<aa>={a_l}<n_chl>={n}`
+* `<aa><tt><aa><n_chl>` -> `<aa>={a}{:h}<tt>={tt}<aa>={a}{:h}<n_chl>={n}`
 
 `iso2txn_ops` grammar contains phonological operations that depend on the iso graphemes that are on the left side of the alignment, and therefore don't fit the language agnostic phonological operations in the `phon_ops` grammar.
 
@@ -171,7 +171,7 @@ Language specific phoneme inventories can be built by importing phonemes from th
 
 **Example**: Malayalam voicing
 
-* `<aa>={a_l}<tt>={tt}<aa>={a_l}<n_chl>={n}` -> `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={n}`
+* `<aa>={a}{:h}<tt>={tt}<aa>={a}{:h}<n_chl>={n}` -> `<aa>={a}{:h}<tt>={dd}<aa>={a}{:h}<n_chl>={n}`
 
 ## txn2ltn and iso2ltn_ops grammars
 
@@ -183,7 +183,7 @@ Language specific phoneme inventories can be built by importing phonemes from th
 
 **Example**
 
-* `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={n}` ->
+* `<aa>={a}{:h}<tt>={dd}<aa>={a}{:h}<n_chl>={n}` ->
 
  `` <aa>=`aa`<tt>=`d`<aa>=`aa`<n_chl>=`n` `` ->
 
@@ -195,7 +195,7 @@ In this format different spellings of the same word in one language are likely t
 
 **Example**
 
-* `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={n}` ->
+* `<aa>={a}{:h}<tt>={dd}<aa>={a}{:h}<n_chl>={n}` ->
 
  ``<aa>=`a`<tt>=`d`<aa>=`a`<n_chl>=`n` `` ->
 
@@ -209,7 +209,7 @@ Discarding finer details makes it possible to have much closer PSAC romanization
 
 **Example**
 
-* `<aa>{a_l}<tt>{dd}<aa>{a_l}<n_chl>{ni}` ->
+* `<aa>{a}{:h}<tt>{dd}<aa>{a}{:h}<n_chl>{ni}` ->
 
  `<aa>aː<tt>ɖ<aa>aː<n_chl>n` ->
 
@@ -245,7 +245,7 @@ Natural transliteration, which aims to capture the romanization of the source la
 
 **Example**
 
-* `<aa>={a_l}<tt>={dd}<aa>={a_l}<n_chl>={n}` ->
+* `<aa>={a}{:h}<tt>={dd}<aa>={a}{:h}<n_chl>={n}` ->
 
  ``<aa>`aa`<tt>`d`<aa>`a`<n_chl>`n` `` ->
 
