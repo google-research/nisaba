@@ -43,6 +43,7 @@ MINUS = '-'
 AMPERSAND = '&'
 EXCLAMATION = '!'
 COLON = ':'
+SPACE = ' '
 
 # Acceptors
 

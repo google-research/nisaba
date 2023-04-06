@@ -14,11 +14,10 @@
 
 """Phonology resources."""
 
-package(default_visibility = [
-    "//nisaba/scripts/natural_translit:__subpackages__",
-])
-
-licenses(["notice"])
+package(
+    default_applicable_licenses = ["//nisaba:license"],
+    default_visibility = ["//nisaba/scripts/natural_translit:__subpackages__"],
+)
 
 py_library(
     name = "phon",
@@ -94,5 +93,17 @@ py_library(
         ":phon",
         ":phoneme_inventory",
         "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
+    ],
+)
+
+py_test(
+    name = "txn2ltn_test_py",
+    srcs = ["txn2ltn_test.py"],
+    main = "txn2ltn_test.py",
+    deps = [
+        ":txn2ltn",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
     ],
 )

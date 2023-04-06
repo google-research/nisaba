@@ -76,6 +76,17 @@ def rewrite(
       following)
 
 
+def rewrite_ls(
+    list_comp: [[pyn.FstLike]],
+    preceding: pyn.FstLike = al.EPSILON,
+    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
+  """Shorthand for when the op loops over a list."""
+  return rewrite_op(
+      ls.cross_union(list_comp),
+      preceding,
+      following)
+
+
 def rewrite_word_initial(
     old: pyn.FstLike,
     new: pyn.FstLike,
@@ -278,6 +289,19 @@ def merge_repeated_alignment(
   if right_side == al.EPSILON:
     right_side = right
   return merge(left, right, left, right, right_side)
+
+
+def insert(
+    syms: pyn.FstLike,
+    preceding: pyn.FstLike = al.EPSILON,
+    following: pyn.FstLike = al.EPSILON
+) -> pyn.Fst:
+  """Inserts symbols."""
+  return rewrite(
+      al.EPSILON,
+      syms,
+      preceding,
+      following)
 
 
 def delete(

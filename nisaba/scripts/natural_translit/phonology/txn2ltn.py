@@ -17,19 +17,16 @@
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import phon as p
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
+from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 tr = ltn.TRANSLIT_INVENTORY
 
-MAP_VOWEL_DIPHTHONG = p.ls_translit_by_key(ph.DIPHTHONG, 'diph')
-
-MAP_VOWEL_SHORT = p.ls_translit_base(ph.SHORT_VOWEL)
-
-MAP_VOWEL_LONG = p.ls_translit_by_key(ph.LONG_VOWEL, 'long')
-
-MAP_VOWEL_IGNORE_LENGTH = p.ls_translit_base(ph.LONG_VOWEL)
-
-MAP_AFFRICATE = p.ls_translit_by_key(ph.AFFRICATE_PHON, 'affr')
-
-MAP_CONSONANT = p.ls_translit_base(ph.CONSONANT_PHON)
-
-MAP_FEATURE = p.ls_translit_base(ph.FEATURE)
+TRANSLIT_DIPHTHONG = p.ls_translit_by_key(ph.DIPHTHONG, 'diphthong')
+TRANSLIT_AFFRICATE = p.ls_translit_by_key(ph.AFFRICATE, 'affricate')
+TRANSLIT_BASE = p.ls_translit_base(ph.PHONEMES)
+IGNORE_MODIFIERS = rw.rewrite_ls(
+    [mod.ph, tr.DEL] for mod in ph.COMBINING_MODIFIERS
+)
+DEL_REPEATED_SUBSTRING = rw.rewrite_ls(
+    [char.tr + char.tr, char.tr] for char in ltn.OTHER_SUBSTRING
+)
