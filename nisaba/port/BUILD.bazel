@@ -136,10 +136,9 @@ cc_library(
    linkstatic = True,
    deps = [
        ":file_util",
-       "@com_google_absl//absl/log",
-       "@com_google_absl//absl/log:check",
        "@com_google_absl//absl/strings",
        "@com_google_protobuf//:protobuf",
+       "@org_openfst//:base",
    ],
 )
 

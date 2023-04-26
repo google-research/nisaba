@@ -56,7 +56,9 @@ jobs:
         ${CXX} --version
 
     - name: Build
-      run: ./$BAZEL build -c opt //...
+      run: |
+        ./$BAZEL run //:requirements.update
+        ./$BAZEL build -c opt //...
 
     - name: Test
       run: ./$BAZEL test -c opt --test_size_filters=-large,-enormous --test_output=errors //...
