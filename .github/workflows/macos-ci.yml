@@ -1,4 +1,4 @@
-# NOTE: Currently disabled. Due to symlinking errors (`link already exists`)
+# NOTE -
 # when building Cython during Pynini compilation.
 
 name: "macos"

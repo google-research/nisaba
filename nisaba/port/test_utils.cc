@@ -16,9 +16,9 @@
 
 #include <filesystem>
 
-#include "google/protobuf/stubs/logging.h"
 #include "gtest/gtest.h"
 #include "absl/flags/flag.h"
+#include "fst/log.h"
 #include "absl/strings/string_view.h"
 #include "nisaba/port/file_util.h"
 
@@ -35,7 +35,7 @@ std::string TestFilePath(absl::string_view dir_name,
   if (status.ok()) {
     model_path = std::move(status.value());
   } else {
-    GOOGLE_LOG(WARNING) << "Can't deduce runfiles path";
+    LOG(WARNING) << "Can't deduce runfiles path";
   }
   return model_path.make_preferred().string();
 }

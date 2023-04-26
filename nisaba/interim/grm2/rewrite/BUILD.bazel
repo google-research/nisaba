@@ -1,0 +1,85 @@
+# Copyright 2023 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "base_rule_cascade",
+    hdrs = ["base_rule_cascade.h"],
+    deps = [
+        ":rewrite",
+        "@com_google_absl//absl/log",
+        "@com_google_absl//absl/strings",
+        "@com_google_protobuf//:protobuf_lite",
+        "@org_openfst//:fst",
+        "@org_openfst//:lib_lite",
+        "@org_openfst//:symbol-table",
+    ],
+)
+
+cc_library(
+    name = "parentheses",
+    hdrs = ["parentheses.h"],
+    deps = [
+        "@com_google_absl//absl/log",
+        "@org_openfst//:fst",
+    ],
+)
+
+cc_library(
+    name = "rewrite",
+    hdrs = ["rewrite.h"],
+    deps = [
+        "//nisaba/interim/grm2/paths",
+        "//nisaba/interim/grm2/string:stringprint",
+        "//nisaba/port:integral_types",
+        "@com_google_absl//absl/log",
+        "@com_google_protobuf//:protobuf_lite",
+        "@org_openfst//:fst",
+        "@org_openfst//:mpdt",
+        "@org_openfst//:pdt",
+    ],
+)
+
+cc_library(
+    name = "rewrite_manager",
+    hdrs = ["rewrite_manager.h"],
+    deps = [
+        ":parentheses",
+        ":rewrite",
+        "@com_google_absl//absl/container:flat_hash_map",
+        "@com_google_absl//absl/log",
+        "@com_google_absl//absl/memory",
+        "@com_google_absl//absl/strings",
+        "@com_google_protobuf//:protobuf_lite",
+        "@org_openfst//:far",
+        "@org_openfst//:fst",
+        "@org_openfst//:fst-decl",
+        "@org_openfst//:mpdt",
+        "@org_openfst//:pdt",
+    ],
+)
+
+cc_library(
+    name = "rule_cascade",
+    hdrs = ["rule_cascade.h"],
+    deps = [
+        ":base_rule_cascade",
+        ":rewrite_manager",
+        "@com_google_absl//absl/log",
+        "@org_openfst//:fst",
+    ],
+)

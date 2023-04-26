@@ -19,7 +19,7 @@ load(
     "compile_grm_py",
     "compile_multi_grm_py",
 )
-load("//speech/fst/testing:build_defs.bzl", "grm_textproto_test")
+load("//nisaba/interim/testing:build_defs.bzl", "grm_textproto_test")
 
 # FST type for compile_grm_py and compile_multi_grm_py; depend on
 # //nisaba/scripts/utils:fst_types to read such FSTs.

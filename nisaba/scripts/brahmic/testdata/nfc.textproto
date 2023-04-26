@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# proto-file: speech/fst/testing/testdata.proto
+# proto-file: nisaba/interim/testing/testdata.proto
 # proto-message: Rewrites
 rewrite {
   rule: "BENG"

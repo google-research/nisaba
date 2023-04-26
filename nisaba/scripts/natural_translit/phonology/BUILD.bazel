@@ -15,8 +15,7 @@
 """Phonology resources."""
 
 package(
-    default_applicable_licenses = ["//nisaba:license"],
-    default_visibility = ["//nisaba/scripts/natural_translit:__subpackages__"],
+    default_visibility = ["//visibility:public"],
 )
 
 py_library(

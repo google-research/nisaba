@@ -52,3 +52,10 @@ READING_NORM_LANGS = [
 ]
 
 FIXED_RULE_SCRIPTS = ["Mlym"]
+
+NATURAL_TRANSLIT_LANGS = [
+    "hi",
+    "kn",
+    "ml",
+    "te",
+]

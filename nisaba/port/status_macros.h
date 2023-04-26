@@ -19,7 +19,7 @@
 
 #include "absl/base/optimization.h"
 #include "absl/status/status.h"
-#include "google/protobuf/stubs/logging.h"
+#include "fst/log.h"  // Take the log from OpenFst.
 
 namespace mozolm {
 
@@ -60,10 +60,10 @@ namespace mozolm {
     }                                                                    \
   } while (false)
 
-// We need dependency on logging to import the core GOOGLE_CHECK macros.
-#if !defined(GOOGLE_CHECK_OK)
-#define GOOGLE_CHECK_OK(value) GOOGLE_CHECK((value).ok())
-#endif  // GOOGLE_CHECK_OK
+// We need dependency on logging to import the core CHECK macros.
+#if !defined(CHECK_OK)
+#define CHECK_OK(value) CHECK((value).ok())
+#endif  // CHECK_OK
 
 }  // namespace mozolm
 

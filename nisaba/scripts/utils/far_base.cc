@@ -33,7 +33,7 @@ absl::Status FarBase::Load(absl::string_view far_path) {
   return absl::OkStatus();
 }
 
-std::unique_ptr<::fst::StdFst> FarBase::Fst(
+std::unique_ptr<fst::StdFst> FarBase::Fst(
     absl::string_view fst_name) const {
   return grm_mgr_.GetFstSafe(absl::AsciiStrToUpper(fst_name));
 }

@@ -14,7 +14,7 @@
 
 """Starlark utilities for letter registry."""
 
-load("@nisaba_deps//:requirements.bzl", "requirement")
+load("@pip_deps//:requirements.bzl", "requirement")
 
 def setup_letter_languages(name):
     """Introduces several rules that deal with script letter language registry.

@@ -27,16 +27,25 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 #    https://github.com/protocolbuffers/protobuf
 # -------------------------------------------------------------------------
 
-protobuf_version = "3.20.3"
-protobuf_sha256 = "9c0fd39c7a08dff543c643f0f4baf081988129a411b977a07c46221793605638"
+# TODO: Version `21.12` is the last released version that works with
+# `py_proto_library`. The latest current `22.3` is broken. Unfortunately, this
+# version does not support absl::Cord for ZeroOutputStream.
+#
+# On the hack below see https://github.com/protocolbuffers/protobuf/issues/12523.
+
+protobuf_commit = "bc127f2b5605e5454d1c15d3325ecdd5ceaad6cf"
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = protobuf_sha256,
-    strip_prefix = "protobuf-%s" % protobuf_version,
-    urls = ["https://github.com/protocolbuffers/protobuf/archive/v%s.tar.gz" %
-            protobuf_version],
+    strip_prefix = "protobuf-%s" % protobuf_commit,
+    patches = ["//:bazel/protobuf.patch"],
+    urls = ["https://github.com/protocolbuffers/protobuf/archive/%s.tar.gz" %
+            protobuf_commit],
 )
+
+# Import external protobuf dependencies into this workspace.
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+protobuf_deps()
 
 # -------------------------------------------------------------------------
 # Google testing framework. See
@@ -50,6 +59,17 @@ http_archive(
 )
 
 # -------------------------------------------------------------------------
+# Google foundation C++ classes. See
+#    https://github.com/abseil/abseil-cpp
+# -------------------------------------------------------------------------
+
+http_archive(
+    name = "com_google_absl",
+    strip_prefix = "abseil-cpp-master",
+    urls = ["https://github.com/abseil/abseil-cpp/archive/master.zip"],
+)
+
+# -------------------------------------------------------------------------
 # Thrax: This repo is only used to retrieve some of the build rules for
 # grammar manipulation. See
 #    http://www.opengrm.org/twiki/bin/view/GRM/Thrax
@@ -59,7 +79,7 @@ thrax_version = "1.3.7-rc2"
 http_archive(
     name = "org_opengrm_thrax",
     urls = ["https://github.com/agutkin/finite_state/raw/main/thrax-%s.tar.gz" % thrax_version],
-    sha256 = "08b80255c08e548ce5e7cc96bcc9139df17d6cf2cf8c283c66abbaa9333df4d5",
+    sha256 = "8d94cb30bd99e78930786af7953762eba024e29d77e9b37b451ccafbf826a16a",
     strip_prefix = "thrax-%s" % thrax_version,
 )
 
@@ -72,7 +92,7 @@ pynini_version = "2.1.5-rc2"
 http_archive(
     name = "org_opengrm_pynini",
     urls = ["https://github.com/agutkin/finite_state/raw/main/pynini-%s.tar.gz" % pynini_version],
-    sha256 = "8d3d66e663dc280c9ccd7af04ae7ddfc4f4e1b4d0395dbe45d585f8b0dd5c26d",
+    sha256 = "22f0f88ed9936a7690335cad90d10cc5e408602100cc43e7df7c5d2f1e610064",
     strip_prefix = "pynini-%s" % pynini_version
 )
 
@@ -86,26 +106,36 @@ pynini_repositories()
 
 http_archive(
     name = "rules_python",
-    sha256 = "b593d13bb43c94ce94b483c2858e53a9b811f6f10e1e0eedc61073bd90e58d9c",
-    strip_prefix = "rules_python-0.12.0",
-    url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/0.12.0.tar.gz",
+    sha256 = "94750828b18044533e98a129003b6a68001204038dc4749f40b195b24c38f49f",
+    strip_prefix = "rules_python-0.21.0",
+    url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/0.21.0.tar.gz",
 )
 
 # Python external packages installation.
-load("@rules_python//python:pip.bzl", "pip_install")
+load("@rules_python//python:pip.bzl", "pip_parse")
 
-pip_install(
-    name = "nisaba_deps",
-    requirements = "//:requirements.txt", # Top level requirements.
+pip_parse(
+    name = "pip_deps",
+    requirements_lock = "//:requirements.txt", # Top level requirements.
 )
 
+load("@pip_deps//:requirements.bzl", "install_deps")
+
+install_deps()
+
 # -------------------------------------------------------------------------
-# Protocol buffer dependencies.
+# Rules for generating C++ code from Protocol Buffers.
 # -------------------------------------------------------------------------
 
-# Import external protobuf dependencies into this workspace.
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-protobuf_deps()
+http_archive(
+    name = "rules_cc",
+    sha256 = "35f2fb4ea0b3e61ad64a369de284e4fbbdcdba71836a5555abb5e194cf119509",
+    strip_prefix = "rules_cc-624b5d59dfb45672d4239422fa1e3de1822ee110",
+    urls = ["https://github.com/bazelbuild/rules_cc/archive/624b5d59dfb45672d4239422fa1e3de1822ee110.tar.gz"],
+)
+
+load("@rules_cc//cc:repositories.bzl", "rules_cc_dependencies")
+rules_cc_dependencies()
 
 # -------------------------------------------------------------------------
 # Public dependencies that need to be exposed for the downstream projects.

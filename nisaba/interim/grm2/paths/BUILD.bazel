@@ -12,22 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("@rules_python//python:pip.bzl", "compile_pip_requirements")
-
 package(
     default_visibility = ["//visibility:public"],
 )
 
-licenses(["notice"])
-
-exports_files([
-    "LICENSE",
-    "requirements.txt",
-])
-
-compile_pip_requirements(
-    name = "requirements",
-    extra_args = ["--allow-unsafe"],
-    requirements_in = "requirements.in",
-    requirements_txt = "requirements.txt",
+cc_library(
+    name = "paths",
+    hdrs = ["paths.h"],
+    deps = [
+        "@org_openfst//:fst",
+    ],
 )
