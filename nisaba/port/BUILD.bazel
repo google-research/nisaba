@@ -176,9 +176,9 @@ cc_library(
         ":file_util",
         "//nisaba/port:status-matchers",
         "@com_google_absl//absl/flags:flag",
-        "@com_google_absl//absl/log",
         "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest",
+        "@org_openfst//:base",
     ],
 )
 
@@ -209,8 +209,7 @@ cc_library(
     deps = [
         "//nisaba/port:file",
         "//nisaba/port:status_macros",
-        "@com_google_absl//absl/log",
-        "@com_google_absl//absl/log:check",
         "@com_google_protobuf//:protobuf",
+        "@org_openfst//:base",
     ],
 )
