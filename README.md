@@ -144,7 +144,7 @@ pip (20.1.1).
 
 ## Contributions
 
-NOTE - at the moment.
+NOTE: We don't accept pull requests (PRs) at the moment.
 
 ## License
 

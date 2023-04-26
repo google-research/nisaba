@@ -40,11 +40,11 @@ cc_library(
         "//nisaba/port:file",
         "//nisaba/port:proto_file_stream",
         "//nisaba/port:status_macros",
-        "@com_google_absl//absl/log",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/status:statusor",
         "@com_google_absl//absl/strings",
         "@com_google_protobuf//:protobuf",
+        "@org_openfst//:base",
     ],
 )
 
@@ -60,10 +60,9 @@ cc_library(
         "@com_google_absl//absl/algorithm:container",
         "@com_google_absl//absl/flags:flag",
         "@com_google_absl//absl/flags:parse",
-        "@com_google_absl//absl/log",
-        "@com_google_absl//absl/log:check",
         "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest",
+        "@org_openfst//:base",
         "@org_openfst//:fstscript_compile",
     ],
     # We use alwayslink = 1 in order to allow our tests to be
