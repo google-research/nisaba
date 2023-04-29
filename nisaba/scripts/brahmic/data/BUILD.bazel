@@ -18,7 +18,11 @@ load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "component_tsv")
 
 licenses(["notice"])
 
-package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"],
+)
 
 exports_files(glob(["*.textproto"]))
 

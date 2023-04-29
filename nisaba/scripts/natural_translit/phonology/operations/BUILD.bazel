@@ -14,9 +14,13 @@
 
 """Phonological operations."""
 
-package(default_visibility = [
-    "//nisaba/scripts/natural_translit:__subpackages__",
-])
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = [
+        "//nisaba/scripts/natural_translit:__subpackages__",
+    ],
+)
 
 py_library(
     name = "voicing",

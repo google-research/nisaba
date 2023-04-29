@@ -14,10 +14,14 @@
 
 # English acronym related grammars where the letters are spelled out.
 
-package(default_visibility = [
-    "//nisaba/scripts/natural_translit/brahmic:__subpackages__",
-    "//nisaba/scripts/natural_translit/languages:__subpackages__",
-])
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = [
+        "//nisaba/scripts/natural_translit/brahmic:__subpackages__",
+        "//nisaba/scripts/natural_translit/languages:__subpackages__",
+    ],
+)
 
 py_library(
     name = "typ2acr",

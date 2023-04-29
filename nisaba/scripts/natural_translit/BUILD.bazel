@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-package(default_visibility = ["//nisaba/scripts:__subpackages__"])
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = ["//nisaba/scripts:__subpackages__"],
+)
 
 licenses(["notice"])

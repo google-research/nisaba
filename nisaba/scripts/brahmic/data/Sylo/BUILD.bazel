@@ -20,7 +20,11 @@ load(
     "empty_components_tsv",
 )
 
-package(default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"])
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"],
+)
 
 licenses(["notice"])
 

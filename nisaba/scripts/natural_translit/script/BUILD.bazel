@@ -14,9 +14,13 @@
 
 # Script building modules.
 
-package(default_visibility = [
-    "//nisaba/scripts/natural_translit:__subpackages__",
-])
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = [
+        "//nisaba/scripts/natural_translit:__subpackages__",
+    ],
+)
 
 licenses(["notice"])
 

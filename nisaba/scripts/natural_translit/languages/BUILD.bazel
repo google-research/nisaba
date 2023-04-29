@@ -18,9 +18,13 @@ load(
     "nisaba_grm_textproto_test",
 )
 
-package(default_visibility = [
-    "//nisaba/scripts/natural_translit/languages:__subpackages__",
-])
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = [
+        "//nisaba/scripts/natural_translit/languages:__subpackages__",
+    ],
+)
 
 licenses(["notice"])
 

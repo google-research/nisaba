@@ -14,8 +14,16 @@
 
 # External dependencies and Starlark helpers.
 
-package(default_visibility = ["//visibility:public"])
+package(
+    default_applicable_licenses = [
+        "//nisaba:license",
+    ],
+    default_visibility = ["//visibility:public"],
+)
 
 licenses(["notice"])
 
-exports_files(glob(["*.BUILD.bazel", "*.bzl"]))
+exports_files(glob([
+    "*.BUILD.bazel",
+    "*.bzl",
+]))

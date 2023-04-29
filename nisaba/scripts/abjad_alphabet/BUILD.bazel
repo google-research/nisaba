@@ -22,7 +22,11 @@ load(
     "nisaba_grm_textproto_test",
 )
 
-package(default_visibility = ["//nisaba/scripts/abjad_alphabet:__subpackages__"])
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = ["//nisaba/scripts/abjad_alphabet:__subpackages__"],
+)
 
 licenses(["notice"])
 

@@ -21,7 +21,11 @@ load(
     "components_tsv_local",
 )
 
-package(default_visibility = ["//nisaba/scripts/abjad_alphabet:__subpackages__"])
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = ["//nisaba/scripts/abjad_alphabet:__subpackages__"],
+)
 
 licenses(["notice"])
 
