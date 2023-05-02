@@ -15,9 +15,6 @@
 # External dependencies and Starlark helpers.
 
 package(
-    default_applicable_licenses = [
-        "//nisaba:license",
-    ],
     default_visibility = ["//visibility:public"],
 )
 
