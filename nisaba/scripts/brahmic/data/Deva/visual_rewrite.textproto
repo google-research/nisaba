@@ -19,7 +19,7 @@
 # Rewrites from Unicode standards text
 
 # Devanagari Vowel Letters
-# Unicode Standard Version 12.0: Chapter 12.1: Table 12-1
+# Unicode Standard Version 15.0: Chapter 12.1: Table 12-1
 
 item {
   uname: ["A", "SIGN SHORT E"] raw: "अॆ"
@@ -55,7 +55,7 @@ item {
 }
 
 item {
-  uname: ["A", "SIGN AA", "SIGN CANDRA E"] raw: "अाॅ"
+  uname: ["A", "SIGN CANDRA O"] raw: "अॉ"
   to_uname: "CANDRA O" to_raw: "ऑ"
 }
 item {
@@ -82,7 +82,7 @@ item {
 }
 
 item {
-  uname: ["A", "SIGN AA", "SIGN AI"] raw: "अाै"
+  uname: ["A", "SIGN AU"] raw: "अौ"
   to_uname: "AU" to_raw: "औ"
 }
 item {
@@ -99,11 +99,15 @@ item {
   to_uname: "OE" to_raw: "ॳ"
 }
 item {
-  uname: ["A", "SIGN AA", "SIGN OE"] raw: "अाऺ"
+  uname: ["A", "SIGN OOE"] raw: "अऻ"
   to_uname: "OOE" to_raw: "ॴ"
 }
 item {
-  uname: ["AW", "SIGN AY"] raw: "ॵꣿ"
+  uname: ["AA", "SIGN OE"] raw: "आऺ"
+  to_uname: "OOE" to_raw: "ॴ"
+}
+item {
+  uname: ["A", "SIGN AW"] raw: "अॏ"
   to_uname: "AW" to_raw: "ॵ"
 }
 item {
@@ -546,33 +550,9 @@ item {
   to_uname: ["A", "SIGN CANDRABINDU"] to_raw: "अँ"
 }
 
-# A, SIGN (AU|OOE|AW) → AU|OOE|AW
+# A, SIGN AA, SIGN (Candra E|Short E|E|AI|OE|AY) → Candra O|Short O|O|AU|OOE|AW
 item {
-  uname: ["A", "SIGN AU"] raw: "अौ"
-  to_uname: "AU" to_raw: "औ"
-}
-item {
-  uname: ["A", "SIGN OOE"] raw: "अऻ"
-  to_uname: "OOE" to_raw: "ॴ"
-}
-item {
-  uname: ["A", "SIGN AW"] raw: "अॏ"
-  to_uname: "AW" to_raw: "ॵ"
-}
-
-# AA, SIGN (OE|AY) → OOE|AW
-item {
-  uname: ["AA", "SIGN OE"] raw: "आऺ"
-  to_uname: "OOE" to_raw: "ॴ"
-}
-item {
-  uname: ["AA", "SIGN AY"] raw: "आꣿ"
-  to_uname: "AW" to_raw: "ॵ"
-}
-
-# A, SIGN AA, SIGN (Candra E|Short E|E|AY) → Candra O|Short O|O|AW
-item {
-  uname: ["A", "SIGN CANDRA O"] raw: "अॉ"
+  uname: ["A", "SIGN AA", "SIGN CANDRA E"] raw: "अाॅ"
   to_uname: "CANDRA O" to_raw: "ऑ"
 }
 item {
@@ -582,6 +562,14 @@ item {
 item {
   uname: ["A", "SIGN AA", "SIGN E"] raw: "अाे"
   to_uname: "O" to_raw: "ओ"
+}
+item {
+  uname: ["A", "SIGN AA", "SIGN AI"] raw: "अाै"
+  to_uname: "AU" to_raw: "औ"
+}
+item {
+  uname: ["A", "SIGN AA", "SIGN OE"] raw: "अाऺ"
+  to_uname: "OOE" to_raw: "ॴ"
 }
 item {
   uname: ["A", "SIGN AA", "SIGN AY"] raw: "अाꣿ"
@@ -628,7 +616,12 @@ item {
   to_uname: ["AA", "SIGN CANDRABINDU"] to_raw: "आँ"
 }
 
-# E, SIGN AY → AY
+# TODO: Try to push these two upstream into Unicode table 12-1, as
+# they complete the set defined there.
+item {
+  uname: ["AA", "SIGN AY"] raw: "आꣿ"
+  to_uname: "AW" to_raw: "ॵ"
+}
 item {
   uname: ["E", "SIGN AY"] raw: "एꣿ"
   to_uname: "AY" to_raw: "ꣾ"
@@ -832,7 +825,6 @@ item {
   to_uname: "SIGN OOE" to_raw: "ऻ"
 }
 item {
-
   uname: ["SIGN AW", "SIGN AY"] raw: "ॏꣿ"
   to_uname: "SIGN AW" to_raw: "ॏ"
 }
@@ -857,6 +849,10 @@ item {
 item {
   uname: ["OOE", "SIGN OE"] raw: "ॴऺ"
   to_uname: "OOE" to_raw: "ॴ"
+}
+item {
+  uname: ["AW", "SIGN AY"] raw: "ॵꣿ"
+  to_uname: "AW" to_raw: "ॵ"
 }
 
 # Exceptional NFC nukta-composed forms:
