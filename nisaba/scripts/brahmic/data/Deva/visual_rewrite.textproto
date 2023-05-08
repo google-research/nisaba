@@ -103,9 +103,7 @@ item {
   to_uname: "OOE" to_raw: "ॴ"
 }
 item {
-  # TODO: unicodedata module cannot handle these characters.
-  # Use icu.Char.charName() to get the names.
-  raw: "ॵꣿ"
+  uname: ["AW", "SIGN AY"] raw: "ॵꣿ"
   to_uname: "AW" to_raw: "ॵ"
 }
 item {
@@ -568,9 +566,7 @@ item {
   to_uname: "OOE" to_raw: "ॴ"
 }
 item {
-  # TODO: unicodedata module cannot handle these characters.
-  # Use icu.Char.charName() to get the names.
-  raw: "आꣿ"
+  uname: ["AA", "SIGN AY"] raw: "आꣿ"
   to_uname: "AW" to_raw: "ॵ"
 }
 
@@ -588,9 +584,7 @@ item {
   to_uname: "O" to_raw: "ओ"
 }
 item {
-  # TODO: unicodedata module cannot handle these characters.
-  # Use icu.Char.charName() to get the names.
-  raw: "अाꣿ"
+  uname: ["A", "SIGN AA", "SIGN AY"] raw: "अाꣿ"
   to_uname: "AW" to_raw: "ॵ"
 }
 
@@ -636,12 +630,8 @@ item {
 
 # E, SIGN AY → AY
 item {
-  # TODO: unicodedata module cannot handle these characters.
-  # Use icu.Char.charName() to get the names.
-  raw: "एꣿ"
-  # TODO: unicodedata module cannot handle these characters.
-  # Use icu.Char.charName() to get the names.
-  to_raw: "ꣾ"
+  uname: ["E", "SIGN AY"] raw: "एꣿ"
+  to_uname: "AY" to_raw: "ꣾ"
 }
 
 # CANDRA E, SIGN (ANUSVARA|CANDRABINDU) → E, SIGN CANDRABINDU
@@ -724,9 +714,7 @@ item {
   to_uname: "SIGN OOE" to_raw: "ऻ"
 }
 item {
-  # TODO: unicodedata module cannot handle these characters.
-  # Use icu.Char.charName() to get the names.
-  raw: "ाꣿ"
+  uname: ["SIGN AA", "SIGN AY"] raw: "ाꣿ"
   to_uname: "SIGN AW" to_raw: "ॏ"
 }
 
@@ -753,9 +741,7 @@ item {
   to_uname: "SIGN OOE" to_raw: "ऻ"
 }
 item {
-  # TODO: unicodedata module cannot handle these characters.
-  # Use icu.Char.charName() to get the names.
-  raw: "ꣿा"
+  uname: ["SIGN AY", "SIGN AA"] raw: "ꣿा"
   to_uname: "SIGN AW" to_raw: "ॏ"
 }
 
@@ -820,12 +806,8 @@ item {
   to_uname: "AI" to_raw: "ऐ"
 }
 item {
-  # TODO: unicodedata module cannot handle these characters.
-  # Use icu.Char.charName() to get the names.
-  raw: "ꣾꣿ"
-  # TODO: unicodedata module cannot handle these characters.
-  # Use icu.Char.charName() to get the names.
-  to_raw: "ꣾ"
+  uname: ["AY", "SIGN AY"] raw: "ꣾꣿ"
+  to_uname: "AY" to_raw: "ꣾ"
 }
 
 # SIGN (Candra O|Short O|O|AU|OOE|AW), SIGN (Candra E|Short E|E|AI|OE|AY) → SIGN (Candra O|Short O|O|AU|OOE|AW)
@@ -850,9 +832,8 @@ item {
   to_uname: "SIGN OOE" to_raw: "ऻ"
 }
 item {
-  # TODO: unicodedata module cannot handle these characters.
-  # Use icu.Char.charName() to get the names.
-  raw: "ॏꣿ"
+
+  uname: ["SIGN AW", "SIGN AY"] raw: "ॏꣿ"
   to_uname: "SIGN AW" to_raw: "ॏ"
 }
 
