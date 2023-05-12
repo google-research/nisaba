@@ -45,7 +45,7 @@ def component_tsv(name, text_protos):
         name = converter_rule_name,
         outs = ["%s.tsv" % name],
         srcs = [combined_text_proto],
-        exec_tools = [converter_tool],
+        tools = [converter_tool],
         visibility = [DEFAULT_VISIBILITY],
         cmd = "$(location %s) --input_text_proto $(location %s) --output_tsv $@" % (
             converter_tool,
