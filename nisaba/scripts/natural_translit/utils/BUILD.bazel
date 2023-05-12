@@ -79,3 +79,21 @@ py_library(
         "@org_opengrm_pynini//pynini",
     ],
 )
+
+py_library(
+    name = "type_op",
+    srcs = ["type_op.py"],
+    deps = [
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "type_op_test_py",
+    srcs = ["type_op_test.py"],
+    main = "type_op_test.py",
+    deps = [
+        ":type_op",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
