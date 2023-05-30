@@ -15,16 +15,19 @@
 """Tests for type_op."""
 
 import collections
-from nisaba.scripts.natural_translit.utils import type_op as t
+
 from absl.testing import absltest
+from nisaba.scripts.natural_translit.utils import type_op as t
 
 # Test objects
 
 D = collections.namedtuple('D', ['k'])
 _D1 = D('v')
-_T1 = t.Thing(alias='T1', text='t1')
-_T2 = t.Thing(alias='T2', text='')
-_T3 = t.Thing(alias='', text='t3')
+_T0 = t.make_thing(alias='T0', text='t0', value=0)
+_T1 = t.make_thing(alias='T1', text='t1', value=t.UNSPECIFIED)
+_T2 = t.make_thing(alias='T2', text='', value=_T0)
+_T3 = t.make_thing(alias='', text='t3', value=_T1)
+_T4 = t.make_thing(alias='T4', text='t4', value=_T1)
 
 
 class TypeOpTest(absltest.TestCase):
@@ -95,6 +98,21 @@ class TypeOpTest(absltest.TestCase):
   def test_not_instance_invalid_type(self):
     self.assertTrue(t.not_instance(1, 'int'))
 
+  def test_make_thing(self):
+    self.assertEqual(_T0.value, 0)
+
+  def test_make_thing_default_value(self):
+    self.assertEqual(_T1.value, _T1)
+
+  def test_make_thing_inherit_value(self):
+    self.assertEqual(_T2.value, 0)
+
+  def test_enforce_thing_thing(self):
+    self.assertEqual(t.enforce_thing(_T1), _T1)
+
+  def test_enforce_thing_int(self):
+    self.assertEqual(t.enforce_thing(0).value, 0)
+
   def test_has_attribute(self):
     self.assertTrue(t.has_attribute(complex(1, 2), 'real'))
 
@@ -160,6 +178,18 @@ class TypeOpTest(absltest.TestCase):
   def test_not_equal(self):
     self.assertNotEqualTypeOp(0, 1)
 
+  def test_is_equal_value_to_int(self):
+    self.assertEqualTypeOp(_T0, 0)
+
+  def test_is_equal_int_to_value(self):
+    self.assertEqualTypeOp(0, _T0)
+
+  def test_equal_thing_to_value(self):
+    self.assertEqualTypeOp(_T1, _T3)
+
+  def test_equal_value_to_value(self):
+    self.assertEqualTypeOp(_T3, _T4)
+
   def test_is_equal_zero(self):
     self.assertEqualTypeOp(0, 0)
 
@@ -215,6 +245,33 @@ class TypeOpTest(absltest.TestCase):
 
   def test_not_equal_nothing(self):
     self.assertNotEqualTypeOp(t.UNSPECIFIED, t.UNSPECIFIED)
+
+  def test_is_empty_list(self):
+    self.assertTrue(t.is_empty([]))
+
+  def test_not_empty_list(self):
+    self.assertTrue(t.not_empty([1]))
+
+  def test_is_empty_range(self):
+    self.assertTrue(t.is_empty(range(0)))
+
+  def test_is_empty_set(self):
+    self.assertTrue(t.is_empty(set()))
+
+  def test_not_empty_non_iterable(self):
+    self.assertTrue(t.not_empty(_T1))
+
+  def test_not_empty_zero(self):
+    self.assertTrue(t.not_empty(0))
+
+  def test_is_empty_unassigned(self):
+    self.assertTrue(t.is_empty(t.UNASSIGNED))
+
+  def test_is_empty_none(self):
+    self.assertTrue(t.is_empty(None))
+
+  def test_not_empty_allow_none(self):
+    self.assertTrue(t.not_empty(None, allow_none=True))
 
   def test_get_element(self):
     self.assertEqual(t.get_element([1, 2, 3], 1), 2)
@@ -316,7 +373,7 @@ class TypeOpTest(absltest.TestCase):
 
   def test_enforce_list_none_true(self):
     self.assertEqual(
-        t.enforce_list(None, nonexistent=True), [None]
+        t.enforce_list(None, allow_none=True), [None]
     )
 
   def test_in_list(self):
@@ -330,7 +387,7 @@ class TypeOpTest(absltest.TestCase):
 
   def test_enforce_dict_thing(self):
     self.assertEqual(
-        t.enforce_dict(_T1), {'alias': 'T1', 'text': 't1'}
+        t.enforce_dict(_T1), {'alias': 'T1', 'text': 't1', 'value': _T1}
     )
 
   def test_enforce_dict_no_key(self):
@@ -344,7 +401,7 @@ class TypeOpTest(absltest.TestCase):
 
   def test_enforce_dict_none_true(self):
     self.assertEqual(
-        t.enforce_dict(None, nonexistent=True), {'default': None}
+        t.enforce_dict(None, allow_none=True), {'default': None}
     )
 
   def test_dict_get(self):
@@ -353,7 +410,7 @@ class TypeOpTest(absltest.TestCase):
   def test_dict_get_with_key(self):
     self.assertTrue(t.not_found(t.dict_get('v', key='k')))
 
-  def test_dict_get_with_key_non_hashable(self):
+  def test_dict_get_with_key_unhashable(self):
     self.assertTrue(t.not_found(t.dict_get('v', key=['a'])))
 
   def test_dict_get_with_default(self):
@@ -364,6 +421,45 @@ class TypeOpTest(absltest.TestCase):
 
   def test_in_dict_with_keys(self):
     self.assertTrue(t.in_dict('v', {'k': ['v', 'v2']}, keys='k'))
+
+  def test_enforce_set(self):
+    self.assertEqual(t.enforce_set({1, 2, 3}), {1, 2, 3})
+
+  def test_enforce_set_int(self):
+    self.assertEqual(t.enforce_set(1), {1})
+
+  def test_enforce_set_list(self):
+    self.assertEqual(t.enforce_set([1, 2, 3, 3]), {1, 2, 3})
+
+  def test_enforce_set_empty_list(self):
+    self.assertEqual(t.enforce_set([]), set())
+
+  def test_enforce_set_dict(self):
+    self.assertEqual(t.enforce_set({'k1': 'v1', 'k2': 'v2'}), {'v1', 'v2'})
+
+  def test_enforce_set_dict_false(self):
+    self.assertEqual(
+        t.enforce_set({'k1': 'v1', 'k2': 'v2'}, enf_dict=False),
+        {('k1', 'v1'), ('k2', 'v2')},
+    )
+
+  def test_enforce_set_list_of_unhashable(self):
+    self.assertIsNotNone(t.enforce_set([[1], [2], [3]]))
+
+  def test_enforce_set_str(self):
+    self.assertEqual(t.enforce_set({'abc'}), {('abc')})
+
+  def test_enforce_set_none(self):
+    self.assertEqual(t.enforce_set(None), set())
+
+  def test_enforce_set_allow_none(self):
+    self.assertEqual(t.enforce_set(None, allow_none=True), {None})
+
+  def test_in_set(self):
+    self.assertTrue(t.in_set(1, {1, 2, 3}))
+
+  def test_in_set_int(self):
+    self.assertTrue(t.in_set(1, 1))
 
   def test_in_enforced_key_non_dict(self):
     self.assertFalse(t.in_enforced('v', ['k', 'v'], keys='k', enf_dict=False))

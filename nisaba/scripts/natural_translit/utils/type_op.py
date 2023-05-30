@@ -19,6 +19,40 @@ converting types and attributes, and returning default values when required.
 Avoids equating NoneTypes in comparisons. For example if a.features = None and
 b.features = None, a and b won't be evaluated as having the same features.
 
+Undefined Things:
+
+UNASSIGNED: Unassigned variable.
+UNSPECIFIED: Optional argument was not specified.
+MISSING: Searched object was not found.
+
+In the following example, UNSPECIFIED as the optional argument means nothing is
+exluded. The function can return None or UNASSIGNED unless specifically
+excluded. MISSING distinguishes the cases where the index is out of scope from
+where the value of the element is not assigned yet or where the value of the
+item is explicitly assigned as None.
+
+```
+def value_from_list(some_list, index, exclude=UNSPECIFIED, instead=0):
+  try:
+    thing = some_list[index]
+  except IndexError:
+    return MISSING
+  if exclude != UNSPECIFIED and thing.value == exclude:
+    return instead
+  return thing.value
+
+A = Thing(value=7)
+B = Thing(value=None)
+C = Thing(value=UNASSIGNED)
+things = [A, B, C]
+```
+
+`value_from_list(things, 3)` returns `MISSING`
+`value_from_list(things, 1)` returns `None`
+`value_from_list(things, 1, exclude=None)` returns `0`
+`value_from_list(things, 2)` returns `UNASSIGNED`
+`value_from_list(things, 2, exclude=UNASSIGNED)` returns `0`
+
 """
 
 import logging
@@ -38,16 +72,26 @@ class Thing(object):
       token in a lexicon should have a unique alias.
     text: A string that represents the surface form of the object. eg. bass_fish
       and bass_instrument in an English lexicon can have the same text 'bass'.
+    value: The value of the Object. The initial value of the
+      thing is itself.
+
+    For example, the value of a phoneme in an inventory is itself. Each
+    occurence of the phoneme in a pronunciation is a new instance, but their
+    values point to the same phoneme in the inventory.
   """
 
   def __init__(self, alias: str = '', text: str = ''):
     self.alias = alias
     self.text = text
+    self.value = self
 
 # Constants for undefined Thing objects.
-UNASSIGNED = Thing(text='Unassigned')  # Unassigned variable.
-UNSPECIFIED = Thing(text='Unspecified')  # Unspecified optional argument.
-MISSING = Thing(text='Missing')  # Searched object is not found.
+# Unassigned variable.
+UNASSIGNED = Thing('UNASSIGNED', 'Unassigned')
+# Unspecified optional argument.
+UNSPECIFIED = Thing('UNSPECIFIED', 'Unspecified')
+# Searched object is not found.
+MISSING = Thing('MISSING', 'Missing')
 
 # Union types
 
@@ -55,7 +99,7 @@ MISSING = Thing(text='Missing')  # Searched object is not found.
 FstLike = Union[str, pyn.Fst]
 Catalog = Union[Dict, List, NamedTuple]
 # Restricted generic class to avoid using Any type.
-Valid = Union[None, range, Thing, Catalog, numbers.Number, Tuple, FstLike]
+Valid = Union[range, Thing, Catalog, numbers.Number, Tuple, set, FstLike]
 
 # Log functions
 
@@ -78,12 +122,33 @@ def debug_false(function_name: str, detail: str = '') -> None:
   return debug_result(function_name, False, detail)
 
 
+# Handle common attributes for objects of unknown types.
+
+
 def class_of(a: Valid) -> str:
   return a.__class__.__name__
 
 
+def text_of(a: Valid) -> str:
+  """Returns str() for objects with no text attribute."""
+  if hasattr(a, 'text'):
+    return ('Textless %s' % class_of(a)) if is_empty(a.text) else a.text
+  return a.string() if isinstance(a, pyn.Fst) else str(a)
+
+
 def texts_of(*args) -> str:
   return ' ,'.join([text_of(a) for a in args])
+
+
+def alias_of(a: Valid) -> str:
+  """Returns text_of() for logging objects with no alias."""
+  return a.alias if hasattr(a, 'alias') and not_empty(a.alias) else text_of(a)
+
+
+def value_of(a: Valid) -> Valid:
+  """If a has no value attribute, returns a."""
+  return a.value if isinstance(a, Thing) else a
+
 
 # Type check.
 
@@ -149,13 +214,13 @@ def not_nothing(a: Valid) -> bool:
   return not is_nothing(a)
 
 
-def exists(a: Valid) -> bool:
+def exists(a: Valid, allow_none: bool = False) -> bool:
   """Combines checking for None and undefined Things."""
-  return not_none(a) and not_nothing(a)
+  return (not_none(a) or allow_none) and not_nothing(a)
 
 
-def not_exists(a: Valid) -> bool:
-  return not exists(a)
+def not_exists(a: Valid, allow_none: bool = False) -> bool:
+  return not exists(a, allow_none)
 
 
 def is_instance(a: Valid, want: Valid = UNSPECIFIED) -> bool:
@@ -187,6 +252,25 @@ def is_instance(a: Valid, want: Valid = UNSPECIFIED) -> bool:
 def not_instance(a: Valid, want: Valid = UNSPECIFIED) -> bool:
   return not is_instance(a, want)
 
+
+def make_thing(
+    alias: str = '', text: str = '',
+    value: Valid = UNSPECIFIED, allow_none: bool = False
+) -> Thing:
+  thing = Thing(alias, text)
+  if not_exists(value, allow_none): return thing
+  thing.value = value_of(value)
+  return thing
+
+
+def enforce_thing(t: Valid) -> Thing:
+  """Enforces thing type. If t is not Thing, puts t in value of a new Thing."""
+  if is_instance(t, Thing): return t
+  debug_message(
+      'enforce_thing', 'Thing from %s: %s' % (class_of(t), text_of(t))
+  )
+  return make_thing(text=text_of(t), value=t)
+
 # Attribute functions with type check.
 
 
@@ -207,24 +291,6 @@ def get_attribute(
   """Adds log and type check to getattr()."""
   return getattr(a, attr) if has_attribute(a, attr, want) else default
 
-# Handle common attributes for objects of unknown types.
-
-
-def text_of(a: Valid) -> str:
-  """Returns str() for objects with no text attribute."""
-  if hasattr(a, 'text'):
-    if is_empty(a.text): return 'Textless %s' % class_of(a)
-    return a.text
-  if isinstance(a, pyn.Fst): return a.string()
-  return str(a)
-
-
-def alias_of(a: Valid) -> str:
-  """Returns text_of() for logging objects with no alias."""
-  if has_attribute(a, 'alias') and not_empty(a.alias):
-    return a.alias
-  return text_of(a)
-
 # Equivalence functions.
 
 
@@ -236,6 +302,7 @@ def is_equal(
 
   Never equates None, logs other 'not a' conditions.
   Never equates UNASSIGNED, UNSPECIFIED or MISSING.
+  Thing instances are equal if their values are equal.
 
   Args:
     a: Object for comparison.
@@ -258,14 +325,17 @@ def is_equal(
     if not epsilon and a == pyn.accep(''):
       debug_false(name, 'epsilon fst')
       return False
-  if a != b:
-    if not_instance(a, type(b)):
-      debug_false(name, 'type mismatch %s' % texts_of(a, b))
+  a_val = value_of(a)
+  b_val = value_of(b)
+  if a_val != b_val:
+    if not_instance(a_val, type(b_val)):
+      debug_false(name, 'type mismatch %s' % texts_of(a_val, b_val))
     return False
   if (
-      not_exists(a) or (not zero and a == 0) or (not empty and is_empty(a))
+      not_exists(a_val) or
+      (not zero and a_val == 0) or (not empty and is_empty(a_val))
   ):
-    debug_false(name, text_of(a))
+    debug_false(name, text_of(a_val))
     return False
   return True
 
@@ -279,13 +349,12 @@ def not_equal(
 # Iterable functions
 
 
-def is_empty(a: Valid) -> bool:
-  if not_exists(a): return True
-  return is_instance(a, Iterable) and not_instance(a, range) and not a
+def is_empty(a: Valid, allow_none: bool = False) -> bool:
+  return not_exists(a, allow_none) or (isinstance(a, Iterable) and not a)
 
 
-def not_empty(a: Valid) -> bool:
-  return not is_empty(a)
+def not_empty(a: Valid, allow_none: bool = False) -> bool:
+  return not is_empty(a, allow_none)
 
 
 def get_element(
@@ -375,7 +444,7 @@ def in_range(
 
 
 def enforce_list(
-    l: Valid, enf_dict: bool = True, nonexistent: bool = False
+    l: Valid, enf_dict: bool = True, allow_none: bool = False
 ) -> [Valid]:
   """Enforces list type.
 
@@ -385,7 +454,7 @@ def enforce_list(
   Args:
     l: Valid variable.
     enf_dict: When true, if l is a dict returns the list of values.
-    nonexistent: When false, if l is None returns an empty list. When true,
+    allow_none: When false, if l is None returns an empty list. When true,
       returns `[None]`.
 
   Returns:
@@ -402,7 +471,7 @@ def enforce_list(
   ):
     debug_message(name, 'list(%s)' % text_of(l))
     return list(l)
-  if not nonexistent and not_exists(l):
+  if not_exists(l, allow_none):
     debug_message(name, 'empty list from %s' % text_of(l))
     return []
   debug_result(name, '[%s]' % text_of(l))
@@ -411,14 +480,14 @@ def enforce_list(
 
 def in_list(
     look_for: Valid, look_in: Valid,
-    enf_dict: bool = True, nonexistent: bool = False
+    enf_dict: bool = True, allow_none: bool = False
 ) -> bool:
   """Checks if look_for is an element of a list enforced from look_in."""
-  return look_for in enforce_list(look_in, enf_dict, nonexistent)
+  return look_for in enforce_list(look_in, enf_dict, allow_none)
 
 
 def enforce_dict(
-    d: Valid, add_key: Valid = 'default', nonexistent: bool = False
+    d: Valid, add_key: Valid = 'default', allow_none: bool = False
 ) -> dict[Valid, []]:
   """Enforces dict type.
 
@@ -426,7 +495,7 @@ def enforce_dict(
     d: Valid variable.
       When d is a dict, returns d. Otherwise returns `{add_key: d}`.
     add_key: optional key for adding d as a value to a new list.
-    nonexistent: When false, if d is a nonexistant type returns an empty dict.
+    allow_none: When false, if d is a nonexistant type returns an empty dict.
       When true, returns `{add_key: d}`
 
   Returns:
@@ -440,7 +509,7 @@ def enforce_dict(
   if isinstance(d, Tuple) and hasattr(d, '_fields'):
     debug_message(name, 'dict from namedtuple')
     return d._asdict()
-  if not nonexistent and not_exists(d):
+  if not_exists(d, allow_none):
     debug_message(name, 'empty dict from none')
     return {}
   debug_message(name, '{%s: %s}' % (text_of(add_key), text_of(d)))
@@ -449,10 +518,10 @@ def enforce_dict(
 
 def dict_get(
     d: Valid, key: Valid = 'default', default: Valid = MISSING,
-    add_key: Valid = 'default', nonexistent: bool = False
+    add_key: Valid = 'default', allow_none: bool = False
 ) -> Valid:
   try:
-    return enforce_dict(d, add_key, nonexistent).get(key, default)
+    return enforce_dict(d, add_key, allow_none).get(key, default)
   except TypeError:
     debug_result('dict_get', default, 'invalid key type')
     return default
@@ -479,13 +548,63 @@ def in_dict(look_for: Valid, look_in: Valid, keys: Valid = UNSPECIFIED) -> bool:
   return False
 
 
+def enforce_set(
+    s: Valid, enf_dict: bool = True, allow_none: bool = False
+) -> set[Valid]:
+  """Enforces set type.
+
+  If s is a set, returns s. If s is iterable returns set(s). Else returns {s}.
+  If an object is unhashable, converts it to a Thing whose value is the
+  unhashable object.
+
+  Args:
+    s: Object to be converted to set.
+    enf_dict: When true, returns a set of values of dict. When false, returns
+      a set of tuples where the first element is the key and the second is the
+      value.
+    allow_none: When false, if s is None returns an empty set. When true,
+      returns `{None}`.
+
+  Returns:
+    Set.
+  """
+  if isinstance(s, set): return s
+  debug_message('enforce_set', 'set from %s' % class_of(s))
+  if not_exists(s, allow_none):
+    debug_result('enforce_set', set(), 'empty set from nonexistent')
+    return set()
+  if is_instance(s, str): return {s}
+  if is_instance(s, dict):
+    return set(enforce_list(s)) if enf_dict else {(k, v) for k, v in s.items()}
+  result = set()
+  if is_instance(s, Iterable):
+    for element in s:
+      try:
+        result.add(element)
+      except TypeError:
+        result.add(make_thing(value=element))
+  else:
+    try:
+      result.add(s)
+    except TypeError:
+      result.add(make_thing(value=s))
+  return result
+
+
+def in_set(
+    look_for: Valid, look_in: Valid,
+    enf_dict: bool = True, allow_none: bool = False
+) -> bool:
+  return look_for in enforce_set(look_in, enf_dict, allow_none)
+
+
 def in_enforced(
     look_for: Valid, look_in: Valid, keys: Valid = UNSPECIFIED,
-    enf_list: bool = True, enf_dict: bool = True, enf_range: bool = False,
-    nonexistent: bool = False
+    enf_list: bool = True, enf_dict: bool = True, enf_set: bool = True,
+    enf_range: bool = False, allow_none: bool = False
 ) -> bool:
   """Checks if look_for is in enforced type look_in."""
-  if not nonexistent and not_exists(look_for): return False
+  if not_exists(look_for, allow_none): return False
   if is_specified(keys) and not enf_dict and not_instance(look_in, dict):
     debug_false(
         'in_enforced', 'key for non-dict argument %s' % text_of(look_in)
@@ -494,7 +613,8 @@ def in_enforced(
   if (
       (enf_list and in_list(look_for, look_in)) or
       (enf_dict and in_dict(look_for, look_in, keys)) or
-      (enf_range and in_range(look_for, look_in))
+      (enf_range and in_range(look_for, look_in)) or
+      (enf_set and in_set(look_for, look_in))
   ): return True
   return False
 
@@ -502,10 +622,10 @@ def in_enforced(
 def in_attribute(
     look_for: Valid, thing: Valid, attr: str, keys: Valid = UNSPECIFIED,
     enf_list: bool = True, enf_dict: bool = True, enf_range: bool = False,
-    nonexistent: bool = False
+    allow_none: bool = False
 ) -> bool:
   """Checks if look_for is in an enforced type attribute of thing."""
   return in_enforced(
       look_for, get_attribute(thing, attr),
-      keys, enf_list, enf_dict, enf_range, nonexistent
+      keys, enf_list, enf_dict, enf_range, allow_none
   )
