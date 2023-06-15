@@ -1,0 +1,272 @@
+# Copyright 2023 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: testing/testdata.proto
+# proto-message: Rewrites
+
+# Tests with legacy Chillu encoding, using Zero Width Joiner(ZWJ)
+rewrite { rule: "MLYM" input: "ആന്‍ഡ്" output: "ആൻഡ്" }
+rewrite { rule: "MLYM" input: "ഹൈഫന്‍" output: "ഹൈഫൻ" }
+
+# Tests with Zero Width Non-Joiner(ZWNJ)
+rewrite { rule: "MLYM" input: "കെജ്‌രിവാൾ" output: "കെജ്‌രിവാൾ" }
+rewrite { rule: "MLYM" input: "സദ്‌വാരം" output: "സദ്‌വാരം" }
+rewrite { rule: "MLYM" input: "‌സ്പു‌ട്നിക്‌" output: "സ്പുട്നിക്" }
+rewrite { rule: "MLYM" input: "അറബ്‌ബസാർ" output: "അറബ്‌ബസാർ" }
+
+# Tests with Zero Width Space(ZWS) and ZWNJ
+rewrite { rule: "MLYM" input: "​ആൻഡ്‌" output: "ആൻഡ്" }
+
+rewrite { rule: "SINH" input: "ශ්‍රී​ලං‌කා‍" output: "ශ්‍රීලංකා" }
+
+rewrite { rule: "TAML" input: "தமி​ழர்‌கள்‍" output: "தமிழர்கள்" }
+
+rewrite { rule: "DEVA" input: "श्रीमान्‌को" output: "श्रीमान्‌को" }
+rewrite { rule: "DEVA" input: "गोल्‍डबर्ग" output: "गोल्डबर्ग" }
+
+# <VIRAMA, NUKTA> → <NUKTA, VIRAMA>
+rewrite { rule: "DEVA" input: "क़्लब" output: "क़्लब" }
+
+# <LETTER E, VOWEL SIGN E> → <LETTER AI>
+rewrite { rule: "DEVA" input: "एेरावत" output: "ऐरावत" }
+
+# <LETTER AA, VOWEL SIGN E> → <LETTER O>
+rewrite { rule: "DEVA" input: "संस्थाआें" output: "संस्थाओं" }
+# <LETTER A, VOWEL SIGN AA, VOWEL SIGN E> → <LETTER O>
+rewrite { rule: "DEVA" input: "संस्थाअाें" output: "संस्थाओं" }
+
+# <VOWEL SIGN AA, VOWEL SIGN E> → <VOWEL SIGN O>
+rewrite { rule: "DEVA" input: "बाेलने" output: "बोलने" }
+
+# Eyelash reph
+rewrite { rule: "DEVA" input: "दर्‍या" output: "दऱ्या" }
+
+## Examples from mr_in translit data ##
+
+# <VOWEL A, ZWJ?, VOWEL SIGN CANDRA E> → <VOWEL CANDRA A>
+rewrite { rule: "DEVA" input: "व्हॉट्सअॅपवर" output: "व्हॉट्सॲपवर" }
+rewrite { rule: "DEVA" input: "व्हॉट्सअ‍ॅपवर" output: "व्हॉट्सॲपवर" }
+
+# <LETTER A, VOWEL SIGN CANDRA E, SIGN ANUSVARA> → <LETTER A, SIGN CANDRABINDU>
+rewrite { rule: "DEVA" input: "अॅंडी" output: "अँडी" }
+
+## <VOWEL SIGN CANDRA O, SIGN ANUSVARA> → <VOWEL SIGN AA, SIGN CANDRABINDU>
+rewrite { rule: "DEVA" input: "बॉंब" output: "बाँब" }
+
+## <VOWEL SIGN CANDRA O, SIGN CANDRABINDU> → <VOWEL SIGN AA, SIGN CANDRABINDU>
+rewrite { rule: "DEVA" input: "कॉँग्रेसचे" output: "काँग्रेसचे" }
+
+## Examples from hi_in translit data ##
+
+# <VOWEL A, VOWEL SIGN AA> → <VOWEL AA>
+# <VOWEL SIGN AA, VOWEL SIGN E> → <VOWEL SIGN O>
+rewrite { rule: "DEVA" input: "अायाेजन" output: "आयोजन" }
+
+# <LETTER A, VOWEL SIGN CANDRA O> → <LETTER CANDRA O>
+rewrite { rule: "DEVA" input: "अॉनलाइन" output: "ऑनलाइन" }
+
+# <LETTER A, VOWEL SIGN O> → <LETTER O>
+rewrite { rule: "DEVA" input: "शाअोमी" output: "शाओमी" }
+
+# <LETTER A, VOWEL SIGN AU> → <LETTER AU>
+rewrite { rule: "DEVA" input: "अौर" output: "और" }
+
+# <VOWEL SIGN AA, VOWEL SIGN CANDRA E> → <VOWEL SIGN CANDRA O>
+rewrite { rule: "DEVA" input: "पाॅजिटिव" output: "पॉजिटिव" }
+
+# <VOWEL SIGN AA, VOWEL SIGN AI> → <VOWEL SIGN AU>
+rewrite { rule: "DEVA" input: "दाैरान" output: "दौरान" }
+
+# <LETTER E, VOWEL SIGN CANDRA E> → <VOWEL SIGN CANDRA E>
+rewrite { rule: "DEVA" input: "एॅप" output: "ऍप" }
+
+# <LETTER E, VOWEL SIGN E> → <LETTER AI>
+rewrite { rule: "DEVA" input: "एेश्वर्या" output: "ऐश्वर्या" }
+
+# <LETTER AA, VOWEL SIGN CANDRA E> → <LETTER CANDRA O>
+rewrite { rule: "DEVA" input: "आॅटोमोबाइल" output: "ऑटोमोबाइल" }
+
+# <LETTER AA, VOWEL SIGN E> → <LETTER O>
+# <LETTER R, VIRAMA, LETTER I> → <LETTER II>
+rewrite { rule: "DEVA" input: "आर्इआेएस" output: "आईओएस" }
+
+# <LETTER AA, VOWEL SIGN AI> → <LETTER AU>
+rewrite { rule: "DEVA" input: "आैसत" output: "औसत" }
+
+# <VOWEL SIGN CANDRA E, SIGN ANUSVARA> → <SIGN CANDRABINDU>
+rewrite { rule: "DEVA" input: "बॅंकेच्या" output: "बँकेच्या" }
+
+# <VOWEL SIGN CANDRA O, SIGN ANUSVARA> → <VOWEL SIGN AA, SIGN CANDRABINDU>
+# TODO: Uncomment this when/if visual_norm_utf8 supports hyphens.
+# rewrite { rule: "DEVA" input: "सीमेंट-कॉंक्रीट" output: "सीमेंट-काँक्रीट" }
+
+# <LETTER CANDRA O, SIGN ANUSVARA> → <LETTER AA, SIGN CANDRABINDU>
+rewrite { rule: "DEVA" input: "ऑंखें" output: "आँखें" }
+rewrite { rule: "DEVA" input: "ऑंकोलॉजिस्ट" output: "आँकोलॉजिस्ट" }
+
+# <VOWEL SIGN A, VOWEL SIGN CANDRA E, SIGN ANUSVARA> → <VOWEL SIGN AA, SIGN CANDRABINDU>
+rewrite { rule: "DEVA" input: "काॅंप्लेक्स" output: "काँप्लेक्स" }
+
+# Ref: Unicode Standard Version 12.0: Chapter 12.1: Table 12-3
+rewrite { rule: "DEVA" input: "क्च्ा" output: "क्च" }
+rewrite { rule: "DEVA" input: "क्च्‍ा" output: "क्च" }
+rewrite { rule: "DEVA" input: "क्ष्ा" output: "क्ष" }
+rewrite { rule: "DEVA" input: "क्ष्‍ा" output: "क्ष" }
+rewrite { rule: "DEVA" input: "त्त्ा" output: "त्त" }
+rewrite { rule: "DEVA" input: "त्त्‍ा" output: "त्त" }
+rewrite { rule: "DEVA" input: "न्त्ा" output: "न्त" }
+rewrite { rule: "DEVA" input: "न्त्‍ा" output: "न्त" }
+
+rewrite { rule: "BENG" input: "অ্যাড" output: "অ্যাড" }
+rewrite { rule: "BENG" input: "এ্যালজিও" output: "এ্যালজিও" }
+
+# YA-phalaa/sign
+rewrite { rule: "BENG" input: "র‍্যাল" output: "র‍্যাল" }
+rewrite { rule: "KNDA" input: "ರ‍್ಯಂಡ್" output: "ರ‍್ಯಂಡ್" }
+
+# TODO: Drop ZWJ for YA-phalaa after KA.
+# rewrite { rule: rule: "BENG" input: "ক‍্যাশ" output: "ক্যাশ" }
+# rewrite { rule: rule: "KNDA" input: "ಕ‍್ಯಾಂಡ್" output: "ಕ್ಯಾಂಡ್" }
+
+# Reordering of Vowel signs equivalences in NFC
+rewrite { rule: "BENG" input: "কৰােতা" output: "কৰোতা" }
+
+# De-duplicate overlapping signs
+rewrite { rule: "DEVA" input: "ुु" output: "ु" }
+rewrite { rule: "DEVA" input: "ूू" output: "ू" }
+rewrite { rule: "DEVA" input: "ृृ" output: "ृ" }
+rewrite { rule: "DEVA" input: "ेे" output: "े" }
+rewrite { rule: "DEVA" input: "ैै" output: "ै" }
+rewrite { rule: "DEVA" input: "ंं" output: "ं" }
+rewrite { rule: "DEVA" input: "ॉंं" output: "ाँ" }
+rewrite { rule: "DEVA" input: "अ‍‍‍‍ॅ" output: "ॲ" }
+# SIGN UU, SIGN UU --> SIGN UU
+rewrite { rule: "DEVA" input: "खूूब" output: "खूब" }
+rewrite { rule: "DEVA" input: "खूूबसूरत" output: "खूबसूरत" }
+rewrite { rule: "DEVA" input: "जम्मूू" output: "जम्मू" }
+
+rewrite { rule: "GUJR" input: "઼઼" output: "઼" }
+rewrite { rule: "GUJR" input: "ુુ" output: "ુ" }
+rewrite { rule: "GUJR" input: "ૂૂ" output: "ૂ" }
+rewrite { rule: "GUJR" input: "ૃૃ" output: "ૃ" }
+rewrite { rule: "GUJR" input: "ૄૄ" output: "ૄ" }
+rewrite { rule: "GUJR" input: "ૅૅ" output: "ૅ" }
+rewrite { rule: "GUJR" input: "ેે" output: "ે" }
+rewrite { rule: "GUJR" input: "ૈૈ" output: "ૈ" }
+rewrite { rule: "GUJR" input: "્્" output: "્" }
+
+# BENG
+rewrite { rule: "BENG" input: "ঁঁ" output: "ঁ" }
+rewrite { rule: "BENG" input: "়়" output: "়" }
+rewrite { rule: "BENG" input: "ুু" output: "ু" }
+rewrite { rule: "BENG" input: "ূূ" output: "ূ" }
+rewrite { rule: "BENG" input: "ৃৃ" output: "ৃ" }
+rewrite { rule: "BENG" input: "্্" output: "্" }
+
+rewrite { rule: "KNDA" input: "ೆೆ" output: "ೆ" }
+
+rewrite { rule: "TELU" input: "బుు" output: "ఋ" }
+
+# Soft de-duplication:
+
+# SIGN E, SIGN AI --> SIGN AI
+rewrite { rule: "DEVA" input: "जेैकी" output: "जैकी" }
+# AI, SIGN E → AI
+rewrite { rule: "DEVA" input: "ऐेड" output: "ऐड" }
+# AU, SIGN E → AU
+rewrite { rule: "DEVA" input: "औेर" output: "और" }
+# AU, SIGN AI → AU
+rewrite { rule: "DEVA" input: "औैर" output: "और" }
+# O, SIGN E → O
+# SIGN O, SIGN E → SIGN O
+# SIGN AU, SIGN AI → SIGN AU
+rewrite { rule: "DEVA" input: "चौैहान" output: "चौहान" }
+# TODO: Support the following for NFC composed forms like QA.
+# NUKTA, NUKTA  → NUKTA
+rewrite { rule: "DEVA" input: "जुड़़े" output: "जुड़े" }
+# AU, SIGN AI → AU
+# SIGN AU, SIGN AI → SIGN AU
+rewrite { rule: "DEVA" input: "औै" output: "औ" }
+rewrite { rule: "DEVA" input: "ौै" output: "ौ" }
+# O, SIGN E → O
+# SIGN O, SIGN E → SIGN O
+rewrite { rule: "DEVA" input: "ओे" output: "ओ" }
+rewrite { rule: "DEVA" input: "ोे" output: "ो" }
+# CANDRA O, SIGN CANDRA E → CANDRA O
+# SIGN CANDRA O, SIGN CANDRA E → SIGN CANDRA O
+rewrite { rule: "DEVA" input: "ऑॅ" output: "ऑ" }
+rewrite { rule: "DEVA" input: "ॉॅ" output: "ॉ" }
+# AI, SIGN E → AI
+rewrite { rule: "DEVA" input: "ऐे" output: "ऐ" }
+# Exceptional overlapped nuktas:
+rewrite { rule: "DEVA" input: "आऩ़्दा" output: "आऩ्दा" }
+rewrite { rule: "DEVA" input: "आऱ़्दा" output: "आऱ्दा" }
+rewrite { rule: "DEVA" input: "आऴ़्दा" output: "आऴ्दा" }
+rewrite { rule: "DEVA" input: "आऩ़्दा" output: "आऩ्दा" }
+rewrite { rule: "DEVA" input: "आऱ़्दा" output: "आऱ्दा" }
+rewrite { rule: "DEVA" input: "आऴ़्दा" output: "आऴ्दा" }
+
+# Malformed Ra with vocalic liquids.
+rewrite { rule: "DEVA" input: "निर्ऋति" output: "निरृति" }
+rewrite { rule: "DEVA" input: "नैर्ॠताः" output: "नैरॄताः" }
+rewrite { rule: "DEVA" input: "र्ऌ" output: "रॢ" }
+rewrite { rule: "DEVA" input: "र्ॡ" output: "रॣ" }
+
+# Chillus/KHANDA TA with a preceding VIRAMA
+rewrite { rule: "MLYM" input: "കെയ്ൻ" output: "കെയ്ൻ" }
+rewrite { rule: "BENG" input: "রাইনফেল্ৎ" output: "রাইনফেল্ৎ" }
+
+# No ZWNJ with KHANDA TA with a preceding VIRAMA
+# TODO: Investigate if the usage of ZWJs valid in here.
+# That is, if <Consonant, VIRAMA, ZW(N)J, KHANDA TA> has a valid usage,
+# please change visual_norm to keep ZW(N)J for that specific usage.
+# Corresponding change is needed in wellformed acceptor as well.
+rewrite { rule: "BENG" input: "রাইনফেল্‌ৎ" output: "রাইনফেল্ৎ" }
+
+# Assamese RA in conjuncts becomes Bengali RA; rest of the RA\'s are unaffected
+rewrite { rule: "BN" input: "রৰৰ্ক্ৰর্ক্র" output: "রৰর্ক্রর্ক্র" }
+# <ASSAMESE RA, VIRAMA, ZWNJ> is preserved as RA is explicitly displayed.
+rewrite { rule: "BN" input: "ৰ্‌ক্‌ৰ" output: "ৰ্‌ক্‌ৰ" }
+# No rewrite if <ASSAMESE RA, VIRAMA> is not followed by a consonant.
+rewrite { rule: "BN" input: "ৰৰ্" output: "ৰৰ্" }
+
+# Bengali RA in conjuncts becomes Assamese RA; rest of the RA\'s are unaffected
+rewrite { rule: "AS" input: "রৰর্ক্রৰ্ক্ৰ" output: "রৰৰ্ক্ৰৰ্ক্ৰ" }
+# <BENGALI RA, VIRAMA, ZWNJ> is preserved as RA is explicitly displayed.
+rewrite { rule: "AS" input: "র্‌ক্‌র" output: "র্‌ক্‌র" }
+# No rewrite if <BENGALI RA, VIRAMA> is not followed by a consonant.
+rewrite { rule: "AS" input: "রর্" output: "রর্" }
+
+# Oriya LETTER WA mis-encoded as <LETTER O, VIRAMA, LETTER BA>
+rewrite { rule: "ORYA" input: "ଓ୍ବେବ" output: "ୱେବ" }
+# Oriya LETTER WA mis-encoded as <LETTER O, VIRAMA, LETTER WA>
+rewrite { rule: "ORYA" input: "ଓ୍ୱାଇଫାଇ" output: "ୱାଇଫାଇ" }
+
+# Newa (Pracalit): <LETTER AA> misencoded as <LETTER A, VOWEL SIGN AA>.
+rewrite { rule: "NEWA" input: "𑐀𑐵𑐩𑐾" output: "𑐁𑐩𑐾" }
+
+# Tirhuta: Table 15-5 (Section 15.10) from Unicode standard 14.0.
+# ---------------------------------------------------------------
+rewrite { rule: "TIRH" input: "𑒁𑒰" output: "𑒂" }
+rewrite { rule: "TIRH" input: "𑒪𑒵" output: "𑒉" }
+rewrite { rule: "TIRH" input: "𑒪𑒶" output: "𑒊" }
+rewrite { rule: "TIRH" input: "𑒋𑒺" output: "𑒌" }
+rewrite { rule: "TIRH" input: "𑒍𑒺" output: "𑒎" }
+
+# Takri: Table 15-1 (Section 15.4) from Unicode standard 14.0.
+# ------------------------------------------------------------
+rewrite { rule: "TAKR" input: "𑚘𑚀𑚭" output: "𑚘𑚁" }
+rewrite { rule: "TAKR" input: "𑚐𑚆𑚲" output: "𑚐𑚇" }
+rewrite { rule: "TAKR" input: "𑚟𑚀𑚴" output: "𑚟𑚈" }
+rewrite { rule: "TAKR" input: "𑚓𑚀𑚵" output: "𑚓𑚉" }

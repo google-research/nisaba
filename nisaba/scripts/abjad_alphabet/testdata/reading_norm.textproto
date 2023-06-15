@@ -1,0 +1,207 @@
+# Copyright 2023 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: testing/testdata.proto
+# proto-message: Rewrites
+
+# Reading normalization test data.
+
+# -----------
+# Arabic(MSA)
+# -----------
+
+# TEH WITH THREE DOTS ABOVE DOWNWARDS → TEH
+rewrite { rule: "AR" input: "المعلوماٽ" output: "المعلومات" }
+
+# FARSI YEH → YEH
+rewrite { rule: "AR" input: "الأخیرة" output: "الأخيرة" }
+
+# -------
+# Balochi
+# -------
+
+# TEH WITH THREE DOTS ABOVE DOWNWARDS → TEH
+rewrite { rule: "BAL" input: "دئیٽ" output: "دئیت" }
+
+# ----
+# Urdu
+# ----
+
+# TEH MARBUTA GOAL
+rewrite { rule: "UR" input: "صورة" output: "صورۃ" }
+
+# WAVY HAMZA → HAMZA
+rewrite { rule: "UR" input: "حیثیٲت" output: "حیثیأت" }
+rewrite { rule: "UR" input: "ٳيميلي" output: "إیمیلی" }
+
+# YEH → FARSI YEH
+rewrite { rule: "UR" input: "ہيں" output: "ہیں" }
+rewrite { rule: "UR" input: "تھي" output: "تھی" }
+
+# ----
+# Dari
+# ----
+
+# TEH WITH THREE DOTS ABOVE DOWNWARDS → TEH
+rewrite { rule: "PRS" input: "آناٽولی" output: "آناتولی" }
+
+# --------
+# Kashmiri
+# --------
+
+# BEH
+rewrite { rule: "KS" input: "چٮ۪ن" output: "چبن" }
+rewrite { rule: "KS" input: "ہٮ۪کُن" output: "ہبکُن" }
+rewrite { rule: "KS" input: "کٮ۪نن" output: "کبنن" }
+rewrite { rule: "KS" input: "گرٮ۪ز" output: "گربز" }
+
+# KASHMIRI YEH
+rewrite { rule: "KS" input: "بیٹۍ" output: "بیٹؠ" }
+rewrite { rule: "KS" input: "ھۍتک" output: "ھؠتک" }
+rewrite { rule: "KS" input: "ۍنو" output: "ؠنو" }
+
+# WAW WITH RING
+rewrite { rule: "KS" input: "یۅس" output: "یۄس" }
+rewrite { rule: "KS" input: "کۅدش" output: "کۄدش" }
+rewrite { rule: "KS" input: "مۅختہٕ" output: "مۄختہٕ" }
+
+# FARSI YEH + SUPERSCRIPT ALEF
+rewrite { rule: "KS" input: "حَتّٰى" output: "حَتّٰیٰ" }
+rewrite { rule: "KS" input: "ثى۪قہ" output: "ثیٰ۪قہ" }
+rewrite { rule: "KS" input: "حَتّى" output: "حَتّیٰ" }
+
+# KEHEH
+rewrite { rule: "KS" input: "لكل" output: "لکل" }
+rewrite { rule: "KS" input: "يكلف" output: "یکلف" }
+rewrite { rule: "KS" input: "وذلك" output: "وذلک" }
+
+# YEH → FARSI YEH
+rewrite { rule: "KS" input: "يُرِيدُ" output: "یُرِیدُ" }
+rewrite { rule: "KS" input: "يبيع" output: "یبیع" }
+rewrite { rule: "KS" input: "مَرِيضًا" output: "مَرِیضًا" }
+rewrite { rule: "KS" input: "تِتھي" output: "تِتھی" }
+
+# ------
+# Sindhi
+# ------
+
+# TEH MARBUTA GOAL
+rewrite { rule: "SD" input: "دراسة" output: "دراسۃ" }
+rewrite { rule: "SD" input: "حجة" output: "حجۃ" }
+rewrite { rule: "SD" input: "مشڪوٰة" output: "مشڪوٰۃ" }
+
+# YEH + SUPERSCRIPT ALEF
+rewrite { rule: "SD" input: "وهى" output: "وہيٰ" }
+rewrite { rule: "SD" input: "عيسى" output: "عيسيٰ" }
+
+# YEH
+rewrite { rule: "SD" input: "اڏمي" output: "اڏمي" }
+rewrite { rule: "SD" input: "بجيٽُ" output: "بجيٽُ" }
+rewrite { rule: "SD" input: "گيزلين" output: "گيزلين" }
+
+# HEH GOAL
+rewrite { rule: "SD" input: "ڳڙهه" output: "ڳڙہہ" }
+rewrite { rule: "SD" input: "بهاريءَ" output: "بہاريءَ" }
+rewrite { rule: "SD" input: "ڳوهه" output: "ڳوہہ" }
+
+# -------
+# Panjabi
+# -------
+
+# YEH → FARSI YEH
+rewrite { rule: "PA" input: "پرائيمیٹ" output: "پرائیمیٹ" }
+rewrite { rule: "PA" input: "گيا" output: "گیا" }
+rewrite { rule: "PA" input: "کئي" output: "کئی" }
+rewrite { rule: "PA" input: "يار" output: "یار" }
+
+# ----------------
+# Kurdish (Sorani)
+# ----------------
+# TODO: Double-check that these are indeed Kurdish (rather than
+# Persian) words.
+
+# KEHEH
+rewrite { rule: "CKB" input: "ئێكێ‌" output: "ئێکێ‌" }
+rewrite { rule: "CKB" input: "لەكەس" output: "لەکەس" }
+rewrite { rule: "CKB" input: "كەمت" output: "کەمت" }
+rewrite { rule: "CKB" input: "لەشڪر" output: "لەشکر" }
+rewrite { rule: "CKB" input: "ڪەڵک" output: "کەڵک" }
+
+# ALEF
+rewrite { rule: "CKB" input: "خلجآن" output: "خلجان" }
+rewrite { rule: "CKB" input: "پکآپ" output: "پکاپ" }
+rewrite { rule: "CKB" input: "بةبآ" output: "بەبا" output: "بەبا" }
+rewrite { rule: "CKB" input: "إِلَی" output: "اِلَی" }
+rewrite { rule: "CKB" input: "إیراد" output: "ایراد" }
+rewrite { rule: "CKB" input: "لنشأة" output: "لنشاە" }
+rewrite { rule: "CKB" input: "رأیتُ" output: "رایتُ" }
+rewrite { rule: "CKB" input: "الأولى" output: "الاولى" }
+
+# FARSI YEH
+rewrite { rule: "CKB" input: "سورياى" output: "سوریاى" }
+rewrite { rule: "CKB" input: "زەريا" output: "زەریا" }
+rewrite { rule: "CKB" input: "رِيزى" output: "رِیزى" }
+
+# AE
+rewrite { rule: "CKB" input: "بةبآ" output: "بەبا" }
+rewrite { rule: "CKB" input: "بيَرة" output: "بیَرە" }
+rewrite { rule: "CKB" input: "یةحیا" output: "یەحیا" }
+
+# OE
+rewrite { rule: "CKB" input: "دؤخة" output: "دۆخە" }
+rewrite { rule: "CKB" input: "خؤشه" output: "خۆشه" }
+rewrite { rule: "CKB" input: "ثؤلى" output: "ثۆلى" }
+
+# TEH WITH THREE DOTS ABOVE DOWNWARDS → TEH
+rewrite { rule: "CKB" input: "الكويٽية" output: "الکویتیە" }
+
+# ----------------
+# Pashto
+# ----------------
+
+# FARSI YEH → YEH
+rewrite { rule: "PS" input: "بفوریت" output: "بفوريت" }
+
+# ----------------
+# Persian
+# ----------------
+
+# FARSI YEH
+rewrite { rule: "FA" input: "برگردانيد" output: "برگردانید" }
+rewrite { rule: "FA" input: "اگربپذيريد" output: "اگربپذیرید" }
+rewrite { rule: "FA" input: "گويش" output: "گویش" }
+
+# KEHEH
+rewrite { rule: "FA" input: "ماداگاسكار" output: "ماداگاسکار" }
+rewrite { rule: "FA" input: "كشند" output: "کشند" }
+rewrite { rule: "FA" input: "فيزيك" output: "فیزیک" }
+
+# TEH MARBUTA
+rewrite { rule: "FA" input: "تذکرۃ" output: "تذکرة" }
+
+# REH
+rewrite { rule: "FA" input: "گورانی‌چڕ" output: "گورانی‌چڕ" }
+
+# WAW
+rewrite { rule: "FA" input: "مؤسسه" output: "موسسه" }
+
+# TEH WITH THREE DOTS ABOVE DOWNWARDS → TEH
+rewrite { rule: "FA" input: "آئینهاسٽ" output: "آئینهاست" }
+
+# ----------------
+# Uyghur
+# ----------------
+
+# FARSI YEH → YEH
+rewrite { rule: "UG" input: "سای" output: "ساي" }

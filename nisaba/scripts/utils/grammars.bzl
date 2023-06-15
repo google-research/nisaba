@@ -207,13 +207,3 @@ def nisaba_compile_script_lang_multi_grm_py(
             ],
             **kwds
         )
-
-        # FIXME
-        # Tests token-type specific FAR files.
-        #nisaba_grm_textproto_test(
-        #    name = "%s_test" % name_token_type,
-        #    grammar = ":%s" % name_token_type,
-        #    test_file = "testdata:%s.tsv" % name,
-        #    token_type = token_type,
-        #    mode = "one_top",
-        #)

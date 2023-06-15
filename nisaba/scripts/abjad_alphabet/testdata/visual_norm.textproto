@@ -1,0 +1,1090 @@
+# Copyright 2023 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: testing/testdata.proto
+# proto-message: Rewrites
+
+# Unit tests for visual norm of abjad / alphabet script languages.
+
+# ----
+# Presentation Forms
+# ----
+
+# LAM-ALEF
+rewrite { rule: "UR" input: "ﻻ" output: "لا" }
+rewrite { rule: "FA" input: "ﻻ" output: "لا" }
+rewrite { rule: "KS" input: "ﻻ" output: "لا" }
+
+# -----------
+# Arabic(MSA)
+# -----------
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+rewrite { rule: "AR" input: "ح۬سية" output: "خسية" }
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+rewrite { rule: "AR" input: "إند۬ارٍ" output: "إنذارٍ" }
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+rewrite { rule: "AR" input: "إور۬ة" output: "إوزة" }
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+rewrite { rule: "AR" input: "مسۛروع" output: "مشروع" }
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+rewrite { rule: "AR" input: "المرص۬" output: "المرض" }
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+rewrite { rule: "AR" input: "تع۬يير" output: "تغيير" }
+
+# KAF, SMALL HIGH THREE DOTS → NG
+rewrite { rule: "AR" input: "تكۛليت" output: "تڭليت" }
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+rewrite { rule: "AR" input: "الأرٮٜاح" output: "الأرباح" }
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+rewrite { rule: "AR" input: "يعرڡ۬" output: "يعرف" }
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+rewrite { rule: "AR" input: "بيں۬" output: "بين" }
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+rewrite { rule: "AR" input: "إجلایٔهم" output: "إجلائهم" }
+
+# Word-initial position.
+
+# FARSI YEH → YEH
+rewrite { rule: "AR" input: "یحدث" output: "يحدث" }
+
+# Isolated position.
+
+# FEH → QAF WITH DOT ABOVE
+rewrite { rule: "AR" input: "ف" output: "ڧ" }
+
+# HEH GOAL → HEH
+rewrite { rule: "AR" input: "ہ" output: "ه" }
+
+# TEH MARBUTA GOAL → TEH MARBUTA
+rewrite { rule: "AR" input: "ۃ" output: "ة" }
+
+# Word-medial position.
+
+# FARSI YEH → YEH
+rewrite { rule: "AR" input: "طویلة" output: "طويلة" }
+
+# -------
+# Balochi
+# -------
+
+# DAL, SMALL HIGH TAH → DDAL
+rewrite { rule: "BAL" input: "دؕوک" output: "ڈوک" }
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+rewrite { rule: "BAL" input: "ر۬ند" output: "زند" }
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+rewrite { rule: "BAL" input: "سۛپ" output: "شپ" }
+
+# WAW, ROUNDED HIGH STOP WITH FILLED CENTRE → WAW WITH DOT ABOVE
+rewrite { rule: "BAL" input: "و۬پر" output: "ۏپر" }
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+rewrite { rule: "BAL" input: "ٮٜل" output: "بل" }
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+rewrite { rule: "BAL" input: "مں۬" output: "من" }
+
+# Word-initial position.
+
+# KAF → KEHEH
+rewrite { rule: "BAL" input: "كن" output: "کن" }
+
+# YEH → FARSI YEH
+rewrite { rule: "BAL" input: "يا" output: "یا" }
+
+# HEH DOACHASHMEE → HEH
+rewrite { rule: "BAL" input: "ھستیت" output: "هستیت" }
+
+# Isolated position.
+
+# HEH GOAL → HEH
+rewrite { rule: "BAL" input: "ہ" output: "ه" }
+
+# Word-medial position.
+
+# KAF → KEHEH
+rewrite { rule: "BAL" input: "علیكم" output: "علیکم" }
+
+# YEH → FARSI YEH
+rewrite { rule: "BAL" input: "اينت" output: "اینت" }
+
+# HEH DOACHASHMEE → HEH
+rewrite { rule: "BAL" input: "مھربانی" output: "مهربانی" }
+
+# ----
+# Dari
+# ----
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+rewrite { rule: "PRS" input: "اح۬با" output: "اخبا" }
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+rewrite { rule: "PRS" input: "اخدد۬" output: "اخدذ" }
+
+# REH, SMALL HIGH THREE DOTS → JEH
+rewrite { rule: "PRS" input: "اسارۛ" output: "اساژ" }
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+rewrite { rule: "PRS" input: "اخرر۬ان" output: "اخرزان" }
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+rewrite { rule: "PRS" input: "استسۛا" output: "استشا" }
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+rewrite { rule: "PRS" input: "استيص۬اح" output: "استیضاح" }
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+rewrite { rule: "PRS" input: "آقبلاع۬" output: "آقبلاغ" }
+
+# HEH, HAMZA ABOVE → HEH GOAL WITH HAMZA ABOVE
+rewrite { rule: "PRS" input: "هٔ" output: "ۂ" }
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+rewrite { rule: "PRS" input: "آٮٜ" output: "آب" }
+
+# DOTLESS BEH, SMALL HIGH THREE DOTS → THEH
+rewrite { rule: "PRS" input: "أٮۛرکی" output: "أثرکی" }
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+rewrite { rule: "PRS" input: "اڡ۬اتخر" output: "افاتخر" }
+
+# QAF WITH DOT ABOVE → FEH
+rewrite { rule: "PRS" input: "ڧاقد" output: "فاقد" }
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+rewrite { rule: "PRS" input: "آئيں۬" output: "آئین" }
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+rewrite { rule: "PRS" input: "آبادیٔ" output: "آبادئ" }
+
+# Tests for the normalizations at word initial position
+
+# KAF → KEHEH
+rewrite { rule: "PRS" input: "كرد" output: "کرد" }
+
+# YEH → FARSI YEH
+rewrite { rule: "PRS" input: "يافته" output: "یافته" }
+
+# Tests for the normalizations for characters at isolated position
+
+# HEH → HEH GOAL
+rewrite { rule: "PRS" input: "ه" output: "ہ" }
+
+# HEH GOAL → HEH
+rewrite { rule: "PRS" input: "ہ" output: "ه" }
+
+# Tests for the normalizations at word medial position
+
+# KAF → KEHEH
+rewrite { rule: "PRS" input: "مذاكرات" output: "مذاکرات" }
+
+# YEH → FARSI YEH
+rewrite { rule: "PRS" input: "دايما" output: "دایما" }
+
+# ----
+# Urdu
+# ----
+
+# Can do NFC as well (ALEF WITH HAMZA ABOVE).
+rewrite { rule: "UR" input: "غالبأ" output: "غالبأ" }
+
+# ZWS
+rewrite { rule: "UR" input: "آ​پ" output: "آپ" }
+
+# ZWJ
+rewrite { rule: "UR" input: "آغا‍ز" output: "آغاز" }
+
+# U
+rewrite { rule: "UR" input: "وُضع" output: "ۇضع" }
+
+# ALEF WITH WAVY HAMZA ABOVE → ALEF WITH HAMZA ABOVE
+rewrite { rule: "UR" input: "ٲَفْرَاد" output: "أَفْرَاد" }
+
+# ALEF WITH WAVY HAMZA BELOW → ALEF WITH HAMZA BELOW
+rewrite { rule: "UR" input: "ٳنشاء" output: "إنشاء" }
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+rewrite { rule: "UR" input: "آزادیٔ" output: "آزادئ" }
+rewrite { rule: "UR" input: "انیٔ" output: "انئ" }
+rewrite { rule: "UR" input: "آزادیٔمذہب" output: "آزادئمذہب" }
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+rewrite { rule: "UR" input: "مذاہٮٜ" output: "مذاہب" }
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+rewrite { rule: "UR" input: "ازح۬ود" output: "ازخود" }
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+rewrite { rule: "UR" input: "تد۬کرہ" output: "تذکرہ" }
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+rewrite { rule: "UR" input: "تنر۬لی" output: "تنزلی" }
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+rewrite { rule: "UR" input: "خروسۛ" output: "خروش" }
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+rewrite { rule: "UR" input: "راص۬ی" output: "راضی" }
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+rewrite { rule: "UR" input: "ع۬لہ" output: "غلہ" }
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+rewrite { rule: "UR" input: "ڡ۬اتح" output: "فاتح" }
+rewrite { rule: "UR" input: "ڡ۬یصلوں" output: "فیصلوں" }
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+rewrite { rule: "UR" input: "قرباں۬" output: "قربان" }
+
+# DAL, SMALL HIGH TAH → DDAL
+rewrite { rule: "UR" input: "مدؕھوں" output: "مڈھوں" }
+
+# REH, SMALL HIGH TAH → RREH
+rewrite { rule: "UR" input: "اوکارؕہ" output: "اوکاڑہ" }
+
+# REH, SMALL HIGH THREE DOTS → JEH
+rewrite { rule: "UR" input: "وررۛن" output: "ورژن" }
+
+# HEH, HAMZA ABOVE → HEH GOAL WITH HAMZA ABOVE
+rewrite { rule: "UR" input: "شدۀ" output: "شدۂ" }
+rewrite { rule: "UR" input: "جلوهٔ" output: "جلوۂ" }
+
+# QAF WITH DOT ABOVE → FEH
+rewrite { rule: "UR" input: "صاڧ" output: "صاف" }
+
+# Tests for the normalizations at word initial position
+
+# KAF(Arabic) → KEHEH(Urdu).
+# (Updates medial YEH → FARSI YEH as well.)
+rewrite { rule: "UR" input: "كيا" output: "کیا" }
+
+# HEH(Arabic) → HEH DOACHASHMEE(Urdu).
+rewrite { rule: "UR" input: "هی" output: "ھی" }
+
+# YEH → FARSI YEH
+rewrite { rule: "UR" input: "يہ" output: "یہ" }
+
+# QAF WITH DOT ABOVE → FEH
+rewrite { rule: "UR" input: "ڧهرست" output: "فھرست" }
+
+# RNOON → TTEH
+rewrite { rule: "UR" input: "ڻیسٹ" output: "ٹیسٹ" }
+
+# NOON GHUNNA → NOON
+rewrite { rule: "UR" input: "ںئی" output: "نئی" }
+
+# KAF → KEHEH
+rewrite { rule: "UR" input: "كیا" output: "کیا" }
+
+# Tests for the normalizations at word medial position
+
+# KAF(Arabic) → KEHEH(Urdu).
+rewrite { rule: "UR" input: "آكسیٹان" output: "آکسیٹان" }
+rewrite { rule: "UR" input: "سپیكر" output: "سپیکر" }
+
+# HEH(Arabic) → HEH DOACHASHMEE(Urdu).
+rewrite { rule: "UR" input: "چوتهی" output: "چوتھی" }
+
+# YEH → FARSI YEH
+rewrite { rule: "UR" input: "ہيں" output: "ہیں" }
+rewrite { rule: "UR" input: "ملکيت" output: "ملکیت" }
+
+# QAF WITH DOT ABOVE → FEH
+rewrite { rule: "UR" input: "مقڧل" output: "مقفل" }
+
+# RNOON → TTEH
+rewrite { rule: "UR" input: "کیڻیلان" output: "کیٹیلان" }
+rewrite { rule: "UR" input: "مسڻر" output: "مسٹر" }
+
+# NOON GHUNNA → NOON
+# (Word-final NOON GHUNNA remains as it is)
+rewrite { rule: "UR" input: "ںاظرین" output: "ناظرین" }
+rewrite { rule: "UR" input: "رںگ" output: "رنگ" }
+
+# Tests for the normalizations at word final position
+
+# ALEF MAKSURA → FARSI YEH
+rewrite { rule: "UR" input: "کى" output: "کی" }
+
+# Tests for the normalizations at isolated position
+
+rewrite { rule: "UR" input: "ه" output: "ہ" }
+rewrite { rule: "UR" input: "ى" output: "ی" }
+rewrite { rule: "UR" input: "ۀ" output: "ۂ" }
+rewrite { rule: "UR" input: "ة" output: "ۃ" }
+
+# HEH, HAMZA ABOVE → HEH GOAL WITH HAMZA ABOVE
+rewrite { rule: "UR" input: "هٔ" output: "ۂ" }
+
+# --------
+# Kashmiri
+# --------
+
+# Can do NFC as well (HEH GOAL WITH HAMZA ABOVE).
+rewrite { rule: "KS" input: "ۂتۍ" output: "ۂتۍ" }
+
+# HEH GOAL WITH HAMZA ABOVE
+rewrite { rule: "KS" input: "تۂندۍ" output: "تۂندۍ" }
+rewrite { rule: "KS" input: "ۂسۍ" output: "ۂسۍ" }
+rewrite { rule: "KS" input: "پۂلۍ" output: "پۂلۍ" }
+
+# HAH WITH HAMZA ABOVE
+rewrite { rule: "KS" input: "حٔثۍ" output: "ځثۍ" }
+rewrite { rule: "KS" input: "سَرحٔدی" output: "سَرځدی" }
+rewrite { rule: "KS" input: "وُنحٔسیٖن" output: "ۇنځسیٖن" }
+
+# REH WITH HAMZA ABOVE
+rewrite { rule: "KS" input: "فرٔج" output: "فݬج" }
+rewrite { rule: "KS" input: "پیتݬ" output: "پیتݬ" }
+rewrite { rule: "KS" input: "کرٔن" output: "کݬن" }
+
+# WAW, VOWEL SIGN SMALL V ABOVE → OE
+rewrite { rule: "KS" input: "اوٚش" output: "اۆش" }
+rewrite { rule: "KS" input: "ہیوٚل" output: "ہیۆل" }
+rewrite { rule: "KS" input: "یوٚتام" output: "یۆتام" }
+rewrite { rule: "KS" input: "گیوٚو" output: "گیۆو" }
+rewrite { rule: "KS" input: "کوٚر" output: "کۆر" }
+
+# WAW, DAMMA → U
+rewrite { rule: "KS" input: "زوُن" output: "زۇن" }
+rewrite { rule: "KS" input: "یِوُن" output: "یِۇن" }
+rewrite { rule: "KS" input: "ہووُن" output: "ہوۇن" }
+rewrite { rule: "KS" input: "گاشراوُن" output: "گاشراۇن" }
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+rewrite { rule: "KS" input: "مگیٔنھی" output: "مگئنھی" }
+rewrite { rule: "KS" input: "یٔہے" output: "ئہے" }
+rewrite { rule: "KS" input: "میٔژ" output: "مئژ" }
+rewrite { rule: "KS" input: "حکایٔژ" output: "حکائژ" }
+
+# ALEF MAKSURA, VOWEL SIGN SMALL V ABOVE → YEH WITH SMALL V
+rewrite { rule: "KS" input: "زىٚو" output: "زێو" }
+rewrite { rule: "KS" input: "ہیٚرِم" output: "ہێرِم" }
+rewrite { rule: "KS" input: "کارریٚلِہ" output: "کاررێلِہ" }
+rewrite { rule: "KS" input: "ییٚلہ" output: "یێلہ" }
+rewrite { rule: "KS" input: "کیٚر" output: "کێر" }
+
+# ALEF + WAVY HAMZA BELOW
+rewrite { rule: "KS" input: "كٳم" output: "کاٟم" }
+
+# ALEF WITH HAMZA ABOVE → ALEF WITH WAVY HAMZA ABOVE
+rewrite { rule: "KS" input: "أ" output: "ٲ" }
+
+# ALEF WITH HAMZA BELOW → ALEF, WAVY HAMZA BELOW
+rewrite { rule: "KS" input: "كإم" output: "کاٟم" }
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+rewrite { rule: "KS" input: "ناح۬ٲز" output: "ناخٲز" }
+
+# DAL, SMALL HIGH TAH → DDAL
+rewrite { rule: "KS" input: "بَدؕ" output: "بَڈ" }
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+rewrite { rule: "KS" input: "ند۬یٖر" output: "نذیٖر" }
+
+# REH, SMALL HIGH TAH → RREH
+rewrite { rule: "KS" input: "بَرؕان" output: "بَڑان" }
+
+# REH, SMALL HIGH THREE DOTS → JEH
+rewrite { rule: "KS" input: "بُترٲرۛ" output: "بُترٲژ" }
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+rewrite { rule: "KS" input: "نر۬اکِرات" output: "نزاکِرات" }
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+rewrite { rule: "KS" input: "نسۛاندِہی" output: "نشاندِہی" }
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+rewrite { rule: "KS" input: "بعص۬" output: "بعض" }
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+rewrite { rule: "KS" input: "بلیع۬" output: "بلیغ" }
+
+# DOTLESS BEH, SMALL HIGH TAH → TTEH
+rewrite { rule: "KS" input: "بَٮؕ" output: "بَٹ" }
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+rewrite { rule: "KS" input: "مہاٮٜھارت" output: "مہابھارت" }
+
+# DOTLESS BEH, SMALL HIGH THREE DOTS → THEH
+rewrite { rule: "KS" input: "میراٮۛ" output: "میراث" }
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+rewrite { rule: "KS" input: "بَرڡ۬" output: "بَرف" }
+
+# QAF WITH DOT ABOVE → FEH
+rewrite { rule: "KS" input: "مستعڧی" output: "مستعفی" }
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+rewrite { rule: "KS" input: "بَٹں۬" output: "بَٹن" }
+
+
+# Word-initial position.
+
+# KAF → KEHEH
+rewrite { rule: "KS" input: "كٲشِر" output: "کٲشِر" }
+
+# YEH → FARSI YEH
+rewrite { rule: "KS" input: "يادہ" output: "یادہ" }
+
+# Word-medial position.
+
+# KAF → KEHEH
+rewrite { rule: "KS" input: "كۄكُر" output: "کۄکُر" }
+
+# HEH → HEH DOACHASHMEE
+rewrite { rule: "KS" input: "تاراهو" output: "تاراھو" }
+
+# YEH → FARSI YEH
+rewrite { rule: "KS" input: "بير" output: "بیر" }
+
+# ------
+# Sindhi
+# ------
+
+# U
+rewrite { rule: "SD" input: "نوُح" output: "نۇح" }
+rewrite { rule: "SD" input: "آئوُن" output: "آئۇن" }
+rewrite { rule: "SD" input: "سوُرن" output: "سۇرن" }
+
+# DAL,SMALL HIGH TAH → DDAL
+rewrite { rule: "SD" input: "چاندؕيو" output: "چانڈيو" }
+
+# DAL,ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+rewrite { rule: "SD" input: "لد۬يِدُ۬" output: "لذيِذُ" }
+
+# REH,SMALL HIGH THREE DOTS → JEH
+rewrite { rule: "SD" input: "ٽيليويرۛن" output: "ٽيليويژن" }
+
+# REH,ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+rewrite { rule: "SD" input: "لطيفبارُ۬" output: "لطيفبازُ" }
+
+# SEEN,SMALL HIGH THREE DOTS → SHEEN
+rewrite { rule: "SD" input: "لسۛڪريِ" output: "لشڪريِ" }
+
+# SAD,ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+rewrite { rule: "SD" input: "لاغرص۬يِ" output: "لاغرضيِ" }
+
+# DOTLESS BEH,SMALL HIGH THREE DOTS → THEH
+rewrite { rule: "SD" input: "الاٮۛار" output: "الاثار" }
+
+# ALEF WITH WAVY HAMZA ABOVE → ALEF WITH HAMZA ABOVE
+rewrite { rule: "SD" input: "ٲَفْرَاد" output: "أَفْرَاد" }
+
+# ALEF WITH WAVY HAMZA BELOW → ALEF WITH HAMZA BELOW
+rewrite { rule: "SD" input: "ٳن" output: "إن" }
+
+# DOTLESS FEH,ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+rewrite { rule: "SD" input: "شغوڡ۬و" output: "شغوفو" }
+
+# QAF WITH DOT ABOVE → FEH
+rewrite { rule: "SD" input: "ڧؤتن" output: "فؤتن" }
+
+# NOON GHUNNA,SMALL HIGH TAH → RNOON
+rewrite { rule: "SD" input: "هميراںؕو" output: "ھميراڻو" }
+
+# NOON GHUNNA,ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+rewrite { rule: "SD" input: "مں۬گلوار" output: "منگلوار" }
+
+# FARSI YEH,HAMZA ABOVE → YEH WITH HAMZA ABOVE
+rewrite { rule: "SD" input: "الیٔه" output: "الئه" }
+
+# Normalizations at word initial position
+
+# KAF → KEHEH
+rewrite { rule: "SD" input: "كان" output: "کان" }
+rewrite { rule: "SD" input: "كلائيا" output: "کلائيا" }
+
+# HEH → HEH DOACHASHMEE
+rewrite { rule: "SD" input: "هزار" output: "ھزار" }
+
+# FARSI YEH → YEH
+rewrite { rule: "SD" input: "یوڪرينين" output: "يوڪرينين" }
+rewrite { rule: "SD" input: "یجس" output: "يجس" }
+
+# QAF WITH DOT ABOVE → FEH
+rewrite { rule: "SD" input: "ڧعال" output: "فعال" }
+
+# Normalizations at word medial position
+
+# KAF → KEHEH
+rewrite { rule: "SD" input: "ميكرا" output: "ميکرا" }
+
+# HEH → HEH DOACHASHMEE
+rewrite { rule: "SD" input: "تاراهو" output: "تاراھو" }
+
+# NOON GHUNNA → NOON
+rewrite { rule: "SD" input: "ںاںا" output: "نانا" }
+
+# FARSI YEH → YEH
+rewrite { rule: "SD" input: "میمنه" output: "ميمنه" }
+
+# Normalizations for isolated characters
+
+# HEH → HEH GOAL
+rewrite { rule: "SD" input: "ه" output: "ہ" }
+
+# TEH MARBUTA → TEH MARBUTA GOAL
+rewrite { rule: "SD" input: "ة" output: "ۃ" }
+
+# -------
+# Panjabi
+# -------
+
+# U
+rewrite { rule: "PA" input: "آگوُ" output: "آگۇ" }
+rewrite { rule: "PA" input: "لاگوُ" output: "لاگۇ" }
+rewrite { rule: "PA" input: "لگوُ" output: "لگۇ" }
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+rewrite { rule: "PA" input: "اسح۬" output: "اسخ" }
+
+# DAL, SMALL HIGH TAH → DDAL
+rewrite { rule: "PA" input: "تہادؕے" output: "تہاڈے" }
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+rewrite { rule: "PA" input: "کاغد۬" output: "کاغذ" }
+
+# REH, SMALL HIGH TAH → RREH
+rewrite { rule: "PA" input: "تاراگرؕھ" output: "تاراگڑھ" }
+
+# REH, SMALL HIGH THREE DOTS → JEH
+rewrite { rule: "PA" input: "ٹیلیورۛن" output: "ٹیلیوژن" }
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+rewrite { rule: "PA" input: "کار۬ل" output: "کازل" }
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+rewrite { rule: "PA" input: "کارجسۛالا" output: "کارجشالا" }
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+rewrite { rule: "PA" input: "تع۬ما" output: "تغما" }
+
+# NOON, SMALL HIGH TAH → NOON WITH SMALL TAH
+rewrite { rule: "PA" input: "ٹھانؕ" output: "ٹھاݨ" }
+
+# HEH, HAMZA ABOVE → HEH GOAL WITH HAMZA ABOVE
+rewrite { rule: "PA" input: "جلوهٔ" output: "جلوۂ" }
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+rewrite { rule: "PA" input: "انوٮٜھوَ" output: "انوبھوَ" }
+
+# ALEF WITH WAVY HAMZA ABOVE → ALEF WITH HAMZA ABOVE
+rewrite { rule: "PA" input: "ٲَفْرَاد" output: "أَفْرَاد" }
+
+# ALEF WITH WAVY HAMZA BELOW → ALEF WITH HAMZA BELOW
+rewrite { rule: "PA" input: "ٳن" output: "إن" }
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+rewrite { rule: "PA" input: "تڡ۬تیشی" output: "تفتیشی" }
+
+# QAF WITH DOT ABOVE → FEH
+rewrite { rule: "PA" input: "قاڧلہ" output: "قافلہ" }
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+rewrite { rule: "PA" input: "تبں۬اؤں۬ا" output: "تبناؤنا" }
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+rewrite { rule: "PA" input: "ادھنیٔم" output: "ادھنئم" }
+
+# KAF → KEHEH
+rewrite { rule: "PA" input: "كاں" output: "کاں" output: "کاں" }
+
+# YEH → FARSI YEH
+rewrite { rule: "PA" input: "خريد" output: "خرید" output: "خرید" }
+
+# RNOON → TTEH
+rewrite { rule: "PA" input: "ڻَنگیا" output: "ٹَنگیا" output: "ٹَنگیا" }
+
+# TEH MARBUTA → TEH MARBUTA GOAL
+rewrite { rule: "PA" input: "ة" output: "ۃ" output: "ۃ" }
+
+# HEH GOAL WITH HAMZA ABOVE → HEH, HAMZA ABOVE
+rewrite { rule: "PA" input: "ۂ" output: "هٔ" output: "هٔ" }
+
+# Normalizations for isolated characters
+
+# HEH → HEH GOAL
+rewrite { rule: "PA" input: "ه" output: "ہ" }
+
+# TEH MARBUTA → TEH MARBUTA GOAL
+rewrite { rule: "PA" input: "ة" output: "ۃ" }
+
+# HEH GOAL WITH HAMZA ABOVE → HEH, HAMZA ABOVE
+rewrite { rule: "PA" input: "ۂ" output: "هٔ" }
+
+# Normalizations at word initial position
+
+# KAF → KEHEH
+rewrite { rule: "PA" input: "كاں" output: "کاں" }
+
+# YEH → FARSI YEH
+rewrite { rule: "PA" input: "خريد" output: "خرید" }
+
+# RNOON → TTEH
+rewrite { rule: "PA" input: "ڻَنگیا" output: "ٹَنگیا" }
+
+# HEH → HEH DOACHASHMEE
+rewrite { rule: "PA" input: "همای" output: "ھمای" }
+
+# Normalizations at word medial position
+
+# KAF → KEHEH
+rewrite { rule: "PA" input: "نَكّے" output: "نَکّے" }
+
+# HEH → HEH DOACHASHMEE
+rewrite { rule: "PA" input: "اکهاڑ" output: "اکھاڑ" }
+rewrite { rule: "PA" input: "شهبازبیضا" output: "شھبازبیضا" }
+
+# YEH → FARSI YEH
+rewrite { rule: "PA" input: "کيہندي" output: "کیہندي" }
+
+# NOON GHUNNA → NOON
+rewrite { rule: "PA" input: "رںگ" output: "رنگ" }
+
+# RNOON → TTEH
+rewrite { rule: "PA" input: "پُڻھیاں" output: "پُٹھیاں" }
+
+# Normalizations for word final position
+
+# HEH → HEH GOAL
+rewrite { rule: "PA" input: "کننده" output: "کنندہ" }
+
+# ------------------------
+# Central Kurdish (Sorani)
+# ------------------------
+# TODO: Double-check that these are indeed Kurdish (rather than
+# Persian) words.
+
+rewrite { rule: "CKB" input: "جەلەنده‌ر" output: "جەلەندەر" }
+rewrite { rule: "CKB" input: "ئیێمه‌" output: "ئیێمە" }
+rewrite { rule: "CKB" input: "گه‌یشت" output: "گەیشت" }
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+rewrite { rule: "CKB" input: "باح۬" output: "باخ" }
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+rewrite { rule: "CKB" input: "د۬مي" output: "ذمي" }
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+rewrite { rule: "CKB" input: "رار۬اندنەوە" output: "رازاندنەوە" }
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+rewrite { rule: "CKB" input: "رسۛانەوە" output: "رشانەوە" }
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+rewrite { rule: "CKB" input: "الرکص۬" output: "الرکض" }
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+rewrite { rule: "CKB" input: "آع۬ایی" output: "آغایی" }
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+rewrite { rule: "CKB" input: "ٮٜاکووریان" output: "باکووریان" }
+
+# DOTLESS BEH, SMALL HIGH THREE DOTS → THEH
+rewrite { rule: "CKB" input: "باٮۛ" output: "باث" }
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+rewrite { rule: "CKB" input: "آڡ۬اق" output: "آفاق" }
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+rewrite { rule: "CKB" input: "باپيره‌ياں۬" output: "باپیرەیان" }
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+rewrite { rule: "CKB" input: "یٔاسیا" output: "ئاسیا" }
+
+# HEH + ZWNJ -> AE
+rewrite { rule: "CKB" input: "ره‌زبه‌ر" output: "رەزبەر" }
+
+# HEH DOACHASHMEE → HEH
+rewrite { rule: "CKB" input: "ھەر" output: "هەر" }
+
+# Normalizations at word initial position
+
+# KAF → KEHEH
+rewrite { rule: "CKB" input: "كیلۆمەتر" output: "کیلۆمەتر" }
+
+# YEH → FARSI YEH
+rewrite { rule: "CKB" input: "يارييەکە" output: "یارییەکە" }
+
+# HEH DOACHASHMEE → HEH
+rewrite { rule: "CKB" input: "ھیچ" output: "هیچ" }
+
+# Normalizations for isolated characters
+
+# HEH GOAL → HEH
+rewrite { rule: "CKB" input: "ہ" output: "ه" }
+
+# Normalizations at word medial position
+
+# KAF → KEHEH
+rewrite { rule: "CKB" input: "جارێكی" output: "جارێکی" }
+
+# HEH DOACHASHMEE → HEH
+rewrite { rule: "CKB" input: "تەنھا" output: "تەنها" }
+
+# YEH → FARSI YEH
+rewrite { rule: "CKB" input: "بريتي" output: "بریتي" }
+
+# ----------------
+# Pashto
+# ----------------
+
+# HAH, HAMZA ABOVE → HAH WITH HAMZA ABOVE
+rewrite { rule: "PS" input: "بياحٔل" output: "بياځل" }
+
+# HAH, SMALL HIGH THREE DOTS → HAH WITH THREE DOTS ABOVE
+rewrite { rule: "PS" input: "ترحۛ" output: "ترڅ" }
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+rewrite { rule: "PS" input: "ابرح۬ازن" output: "ابرخازن" }
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+rewrite { rule: "PS" input: "ابود۬ر" output: "ابوذر" }
+
+# REH, SMALL HIGH THREE DOTS → JEH
+rewrite { rule: "PS" input: "تررۛر" output: "ترژر" }
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+rewrite { rule: "PS" input: "ابور۬يد" output: "ابوزيد" }
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+rewrite { rule: "PS" input: "اتاکاکسۛی" output: "اتاکاکشی" }
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+rewrite { rule: "PS" input: "اتحص۬" output: "اتحض" }
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+rewrite { rule: "PS" input: "بع۬الن" output: "بغالن" }
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+rewrite { rule: "PS" input: "اؤزٮٜک" output: "اؤزبک" }
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+rewrite { rule: "PS" input: "بڡ۬ر" output: "بفر" }
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+rewrite { rule: "PS" input: "بفروں۬و" output: "بفرونو" }
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+rewrite { rule: "PS" input: "یٔاسانكاريا" output: "ئاسانكاريا" }
+
+# Isolated position.
+
+# HEH GOAL → HEH
+rewrite { rule: "PS" input: "ہ" output: "ه" }
+
+# ----------------
+# Persian
+# ----------------
+
+# HE
+# Mix of foreign-looking words (e.g. Pashto) from Persian Wikipedia.
+rewrite { rule: "FA" input: "دوہمی" output: "دوهمی" }
+rewrite { rule: "FA" input: "قندہار" output: "قندهار" }
+rewrite { rule: "FA" input: "ریشەهای" output: "ریشههای" }
+rewrite { rule: "FA" input: "بەڕۆژه" output: "بهڕۆژه" }
+rewrite { rule: "FA" input: "اینکە" output: "اینکه" }
+
+# HEH, HAMZA ABOVE → HEH GOAL WITH HAMZA ABOVE
+# TODO: Need to verify if this altenate mapping is the right one.
+# rewrite { rule: "FA" input: "هٔ" output: "ۂ" }
+rewrite { rule: "FA" input: "رشتهٔ" output: "رشتۀ" }
+rewrite { rule: "FA" input: "تکیهٔ" output: "تکیۀ" }
+rewrite { rule: "FA" input: "باشندهٔ" output: "باشندۀ" }
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+rewrite { rule: "FA" input: "آیٔت" output: "آئت" }
+rewrite { rule: "FA" input: "پروتیٔینی" output: "پروتئینی" }
+rewrite { rule: "FA" input: "پانتیٔون" output: "پانتئون" }
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+rewrite { rule: "FA" input: "آباقاح۬ان" output: "آباقاخان" }
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+rewrite { rule: "FA" input: "آخد۬" output: "آخذ" }
+
+# REH, SMALL HIGH THREE DOTS → JEH
+rewrite { rule: "FA" input: "آبارۛورش" output: "آباژورش" }
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+rewrite { rule: "FA" input: "گار۬" output: "گاز" }
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+rewrite { rule: "FA" input: "آبدارسۛان" output: "آبدارشان" }
+
+# SAD, ROUNDED HIGH STOP WITH FILLED CENTRE → DAD
+rewrite { rule: "FA" input: "آزارص۬ج" output: "آزارضج" }
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+rewrite { rule: "FA" input: "آقبلاع۬" output: "آقبلاغ" }
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+rewrite { rule: "FA" input: "آئرٮٜتیک" output: "آئربتیک" }
+
+# DOTLESS BEH, SMALL HIGH THREE DOTS → THEH
+rewrite { rule: "FA" input: "آبادٮۛبت" output: "آبادثبت" }
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+rewrite { rule: "FA" input: "آلبوروڡ۬" output: "آلبوروف" }
+
+# QAF WITH DOT ABOVE → FEH
+rewrite { rule: "FA" input: "ڧقط" output: "فقط" }
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+rewrite { rule: "FA" input: "آمارتاں۬" output: "آمارتان" }
+
+# Tests for the normalizations at word-initial position.
+
+# KAF → KEHEH
+rewrite { rule: "FA" input: "كشف" output: "کشف" }
+
+# YEH → FARSI YEH
+rewrite { rule: "FA" input: "يابنده" output: "یابنده" }
+
+# Tests for the normalizations at character isolated position.
+
+# HEH GOAL → HEH
+rewrite { rule: "FA" input: "ہ" output: "ه" }
+
+# Tests for the normalizations at word-medial position.
+
+# KAF → KEHEH
+rewrite { rule: "FA" input: "ليكن" output: "لیکن" }
+
+# YEH → FARSI YEH
+rewrite { rule: "FA" input: "يابيم" output: "یابیم" }
+
+# ----------------
+# Malay
+# ----------------
+
+# Tests for the normalizations at word initial position.
+
+# KEHEH.
+rewrite { rule: "MS" input: "كونچي" output: "کونچي" }
+
+# HEH.
+rewrite { rule: "MS" input: "ھجرية" output: "هجرية" }
+
+# YEH.
+rewrite { rule: "MS" input: "یاسا" output: "ياسا" }
+
+# NOON WITH THREE DOTS ABOVE.
+rewrite { rule: "MS" input: "پارلاق" output: "ڽارلاق" }
+
+# Tests for the normalizations at word medial position.
+
+# KEHEH.
+rewrite { rule: "MS" input: "ڤعكعك" output: "ڤعکعك" }
+
+# HEH.
+rewrite { rule: "MS" input: "فرفيسھن" output: "فرفيسهن" }
+
+# YEH.
+rewrite { rule: "MS" input: "مریك" output: "مريك" }
+
+# NOON WITH THREE DOTS ABOVE.
+rewrite { rule: "MS" input: "ڤوپا" output: "ڤوڽا" }
+
+# --------
+# Uighur:
+# --------
+
+# U.
+rewrite { rule: "UG" input: "وَرَسُوُلُهٗ" output: "وَرَسُۇلُھٗ" }
+
+# WAW, SMALL DAMMA → U
+rewrite { rule: "UG" input: "كۆتوؙروؙپ" output: "كۆتۇرۇپ" }
+
+# YU.
+rewrite { rule: "UG" input: "لَوٰاتُ" output: "لَۈاتُ" }
+rewrite { rule: "UG" input: "كۆتوٰ" output: "كۆتۈ" }
+
+# FEH.
+rewrite { rule: "UG" input: "گىراڧىكنىڭ" output: "گىرافىكنىڭ" }
+rewrite { rule: "UG" input: "ساڡ۬" output: "ساف" }
+
+# Isolated forms (AE).
+rewrite { rule: "UG" input: "ہ" output: "ە" }
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+rewrite { rule: "UG" input: "باتۇح۬ان" output: "باتۇخان" }
+
+# DAL, ROUNDED HIGH STOP WITH FILLED CENTRE → THAL
+rewrite { rule: "UG" input: "د۬و" output: "ذو" }
+
+# REH, SMALL HIGH THREE DOTS → JEH
+rewrite { rule: "UG" input: "كامبودرۛا" output: "كامبودژا" }
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+rewrite { rule: "UG" input: "رار۬ىلىق" output: "رازىلىق" }
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+rewrite { rule: "UG" input: "راۋاجلىنىسۛىغا" output: "راۋاجلىنىشىغا" }
+
+# AIN, ROUNDED HIGH STOP WITH FILLED CENTRE → GHAIN
+rewrite { rule: "UG" input: "روھىع۬ا" output: "روھىغا" }
+
+# KAF, SMALL HIGH THREE DOTS → NG
+rewrite { rule: "UG" input: "كايسارنىكۛ" output: "كايسارنىڭ" }
+
+# WAW, VOWEL SIGN SMALL V ABOVE → OE
+rewrite { rule: "UG" input: "كوٚترۈم" output: "كۆترۈم" }
+
+# WAW, SMALL HIGH THREE DOTS → VE
+rewrite { rule: "UG" input: "كۆمۈوۛېتىلگەن" output: "كۆمۈۋېتىلگەن" }
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+rewrite { rule: "UG" input: "اٮٜو" output: "ابو" }
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+rewrite { rule: "UG" input: "سالغاں۬" output: "سالغان" }
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+rewrite { rule: "UG" input: "یٔایٔىت" output: "ئائىت" }
+
+# Tests for the normalizations at word initial position.
+
+# KAF.
+rewrite { rule: "UG" input: "کہا" output: "كہا" }
+rewrite { rule: "UG" input: "کائون" output: "كائون" }
+
+# HEH DOACHASHMEE.
+rewrite { rule: "UG" input: "أهل" output: "أھل" }
+rewrite { rule: "UG" input: "هابداڭ" output: "ھابداڭ" }
+
+# YEH.
+rewrite { rule: "UG" input: "یاشاغان" output: "ياشاغان" }
+rewrite { rule: "UG" input: "یاباقۇ" output: "ياباقۇ" }
+
+# Tests for the normalizations at word medial position.
+
+# KAF.
+rewrite { rule: "UG" input: "ئىلىسىکى" output: "ئىلىسىكى" }
+
+# HEH DOACHASHMEE.
+rewrite { rule: "UG" input: "ئابىهايات" output: "ئابىھايات" }
+
+# YEH.
+rewrite { rule: "UG" input: "ئابایا" output: "ئابايا" }
+
+# Tests for normalization at word-final position.
+
+# YEH.
+rewrite { rule: "UG" input: "تورکی" output: "توركی" }
+
+# ------------------
+# South Azerbaijani
+# ------------------
+
+# HEH WITH YEH ABOVE.
+rewrite { rule: "AZB" input: "گیومهٔ" output: "گیومۀ" }
+rewrite { rule: "AZB" input: "مؤسسهٔ" output: "مؤسسۀ" }
+
+# FARSI YEH WITH INVERTED V.
+rewrite { rule: "AZB" input: "کاسیٛب" output: "کاسؽب" }
+rewrite { rule: "AZB" input: "چاتدیٛ" output: "چاتدؽ" }
+
+# KEHEH (non-final).
+rewrite { rule: "AZB" input: "ويكيداشلار" output: "ویکیداشلار" }
+rewrite { rule: "AZB" input: "كيهان" output: "کیهان" }
+
+# HEH (non-final).
+rewrite { rule: "AZB" input: "ھەمدەم" output: "هەمدەم" }
+rewrite { rule: "AZB" input: "ھىچ" output: "هىچ" }
+
+# FARSI YEH (non-final).
+rewrite { rule: "AZB" input: "حوروفاتينا" output: "حوروفاتینا" }
+rewrite { rule: "AZB" input: "تيکمک" output: "تیکمک" }
+
+# FARSI YEH (final).
+rewrite { rule: "AZB" input: "شريعتى" output: "شریعتی" }
+rewrite { rule: "AZB" input: "تايينلرى" output: "تایینلری" }
+
+# Isolated position.
+rewrite { rule: "AZB" input: "ہ" output: "ه" }
+rewrite { rule: "AZB" input: "ى" output: "ی" }
+
+# -----
+# Uzbek
+# -----
+
+# HAH, ROUNDED HIGH STOP WITH FILLED CENTRE → KHAH
+rewrite { rule: "UZ" input: "آنرح۬زم" output: "آنرخزم" }
+
+# REH, ROUNDED HIGH STOP WITH FILLED CENTRE → ZAIN
+rewrite { rule: "UZ" input: "آنرخر۬م" output: "آنرخزم" }
+
+# SEEN, SMALL HIGH THREE DOTS → SHEEN
+rewrite { rule: "UZ" input: "قۇسۛ" output: "قۇش" }
+
+# KAF, SMALL HIGH THREE DOTS → NG
+rewrite { rule: "UZ" input: "دريالارىنىكۛ" output: "دريالارىنىڭ" }
+
+# WAW, DAMMA → U
+rewrite { rule: "UZ" input: "ئوُلارنىڭ" output: "ئۇلارنىڭ" }
+
+# WAW, SMALL HIGH THREE DOTS → VE
+rewrite { rule: "UZ" input: "وۛىكىپېدىيادان" output: "ۋىكىپېدىيادان" }
+
+# DOTLESS BEH, VOWEL SIGN DOT BELOW → BEH
+rewrite { rule: "UZ" input: "العرٮٜية" output: "العربية" }
+
+# DOTLESS FEH, ROUNDED HIGH STOP WITH FILLED CENTRE → FEH
+rewrite { rule: "UZ" input: "يوڡ۬" output: "يوف" }
+
+# NOON GHUNNA, ROUNDED HIGH STOP WITH FILLED CENTRE → NOON
+rewrite { rule: "UZ" input: "ماتں۬" output: "ماتن" }
+
+# FARSI YEH, HAMZA ABOVE → YEH WITH HAMZA ABOVE
+rewrite { rule: "UZ" input: "یٔۇنىڭ" output: "ئۇنىڭ" }
+
+# At word-initial position
+
+# KEHEH → KAF
+rewrite { rule: "UZ" input: "کاپىتلىزم" output: "كاپىتلىزم" }
+
+# HEH DOACHASHMEE → HEH
+rewrite { rule: "UZ" input: "ھەر" output: "هەر" }
+
+# FARSI YEH → YEH
+rewrite { rule: "UZ" input: "یوف" output: "يوف" }
+
+# When character is isolated
+
+# HEH GOAL → HEH
+rewrite { rule: "UZ" input: "ہ" output: "ه" }
+
+# At word-medial position
+
+# KEHEH → KAF
+rewrite { rule: "UZ" input: "ۋىکىپېدىيادا" output: "ۋىكىپېدىيادا" }
+
+# HEH DOACHASHMEE → HEH
+rewrite { rule: "UZ" input: "ساھىفادا" output: "ساهىفادا" }
+
+# FARSI YEH → YEH
+rewrite { rule: "UZ" input: "دریاسى" output: "درياسى" }
