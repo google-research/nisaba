@@ -91,12 +91,16 @@ def grm_textproto_test(
         "--token_type=" + token_type,
     ]
 
+    tags = [
+    ] + kwds.pop("tags", [])  # We pop to avoid providing tags twice.
+
     args.append("--mode=" + mode)
     native.cc_test(
         name = name,
         size = size,
         args = args,
         linkstatic = 1,
+        tags = tags,
         data = [
             far_target,
             textproto_target,
