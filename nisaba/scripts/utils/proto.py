@@ -16,15 +16,24 @@
 
 import logging
 import os
+from typing import TypeVar, Union
+
+from google.protobuf import message
 from google.protobuf import text_format
 import nisaba.scripts.utils.file as uf
 
+_ParsableT = TypeVar(
+    '_ParsableT',
+    bound=message.Message,
+)
 
-def read_textproto(proto_path, proto):
+
+def read_textproto(
+    proto_path: Union[str, os.PathLike], proto: _ParsableT
+) -> _ParsableT:
   logging.info('Parsing %s ...', proto_path)
   if not os.path.exists(proto_path):
     proto_path = uf.AsResourcePath(proto_path)
   with open(proto_path, encoding='utf8') as f:
     text_format.Parse(f.read(), proto)
-  logging.info('Read %d items.', len(proto.item))
   return proto

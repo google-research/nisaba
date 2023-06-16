@@ -15,8 +15,8 @@
 """Utilities for processing Unicode strings from protocol message."""
 
 import logging
+import os
 from typing import List, Sequence, Tuple, Union
-
 import unicodedata
 
 from nisaba.scripts.utils import proto
@@ -145,7 +145,7 @@ def convert_item(
   return source_str, dest_str
 
 
-def _fill_missing_raw(pb: unicode_strings_pb2.UnicodeStrings):
+def _fill_missing_raw(pb: unicode_strings_pb2.UnicodeStrings) -> None:
   """Fills `raw` and `to_raw` fields of the `item`s, if they are missing.
 
   Invisible characters like ZWJ and combining marks like FATHA cannot be
@@ -157,15 +157,19 @@ def _fill_missing_raw(pb: unicode_strings_pb2.UnicodeStrings):
 
   Args:
     pb: UnicodeStrings proto buffer to be updated in place.
+
   Returns:
     None
   """
   for item in pb.item:
     item.raw, item.to_raw = convert_item(
-        pb.uname_prefix, pb.to_uname_prefix, item)
+        pb.uname_prefix, pb.to_uname_prefix, item
+    )
 
 
-def read_textproto(proto_path):
+def read_textproto(
+    proto_path: Union[str, os.PathLike],
+) -> unicode_strings_pb2.UnicodeStrings:
   pb = proto.read_textproto(proto_path, unicode_strings_pb2.UnicodeStrings())
   _fill_missing_raw(pb)
   logging.info('Read %d items.', len(pb.item))

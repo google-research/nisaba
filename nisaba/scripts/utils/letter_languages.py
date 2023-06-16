@@ -15,12 +15,14 @@
 """Utilities for processing LetterLanguages proto."""
 
 import logging
+import os
+from typing import Union
 from nisaba.scripts.utils import letter_languages_pb2 as ll
 from nisaba.scripts.utils import proto
 from nisaba.scripts.utils import unicode_strings_util as us
 
 
-def _fill_missing_raw(pb: ll.LetterLanguages):
+def _fill_missing_raw(pb: ll.LetterLanguages) -> None:
   """Fill `raw` fields of the `item.letter`, if they are missing.
 
   Invisible characters like ZWJ and combining marks like FATHA cannot be
@@ -39,7 +41,7 @@ def _fill_missing_raw(pb: ll.LetterLanguages):
     item.letter.raw, _ = us.convert_item(pb.uname_prefix, [], item.letter)
 
 
-def read_textproto(proto_path):
+def read_textproto(proto_path: Union[str, os.PathLike]) -> ll.LetterLanguages:
   pb = proto.read_textproto(proto_path, ll.LetterLanguages())
   _fill_missing_raw(pb)
   logging.info('Read %d letters.', len(pb.item))
