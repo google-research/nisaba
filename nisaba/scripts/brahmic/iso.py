@@ -55,8 +55,6 @@ from nisaba.scripts.utils import file as f
 from nisaba.scripts.utils import rewrite as rw
 
 
-
-# Public version of does not accept type subscript on os.PathLike, yet.
 def brahmic_to_iso(consonant_file: os.PathLike,
                    inherent_vowel_file: os.PathLike,
                    vowel_sign_file: os.PathLike,
@@ -67,7 +65,6 @@ def brahmic_to_iso(consonant_file: os.PathLike,
                    standalone_file: os.PathLike,
                    subjoined_consonant_file: os.PathLike,
                    virama_file: os.PathLike) -> p.Fst:
-
   """Creates an FST that transduces a Brahmic script to ISO 15919.
 
   Args:

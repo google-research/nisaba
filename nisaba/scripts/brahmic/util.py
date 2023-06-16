@@ -57,8 +57,6 @@ def OpenSigma(script: str, token_type: str) -> pynini.Fst:
     raise ValueError(f"Received invalid token_type: {token_type}")
 
 
-
-# As github Python says: "TypeError: 'ABCMeta' object is not subscriptable"
 def MaybeLoadScriptConfig(
     file_path: os.PathLike) -> script_config_pb2.ScriptConfig:
   """Loads script configuration, if present."""

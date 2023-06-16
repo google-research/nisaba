@@ -46,8 +46,6 @@ _TOKEN_TYPE = flags.DEFINE_enum('token_type', '', ['byte', 'utf8'],
                                 'Token type: utf8 or byte')
 
 
-
-# As github Python says: "TypeError: 'ABCMeta' object is not subscriptable"
 def core_visual_norm_fsts(rewrite_file: os.PathLike,
                           preserve_file: os.PathLike,
                           consonant_file: os.PathLike,
