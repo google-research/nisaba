@@ -51,12 +51,12 @@ rewrite { rule: "HI" input: "सम्वाद" output: "संवाद" }
 rewrite { rule: "HI" input: "अन्श" output: "अंश" }
 rewrite { rule: "HI" input: "विमेन्स" output: "विमेंस" }
 
-rewrite { rule: "MLYM" input: "കൌ" output: "കൗ" }
-rewrite { rule: "MLYM" input: "അതു്" output: "അത്" }
-rewrite { rule: "MLYM" input: "ഭാൎയ്യ" output: "ഭാര്യ" }
-rewrite { rule: "MLYM" input: "കൎമ്മം" output: "കർമ്മം" }
-
 rewrite { rule: "LEPC" input: "ᰓᰧᰀ᰷ᰥᰕᰨᰧ" output: "ᰓᰧᱍᰕᰨᰧ" }
 rewrite { rule: "LEPC" input: "ᰑᰤᰬᰃ᰷ᰥᰡᰨ" output: "ᰑᰤᰬᱏᰡᰨ" }
 rewrite { rule: "LEPC" input: "ᰃ᰷ᰥ" output: "ᱏ" }
 rewrite { rule: "LEPC" input: "ᰛᰧᰵᰶᰝ᰷ᰥᰤᰪᰮ" output: "ᰛᰧᰵᰶᱎᰤᰪᰮ" }
+
+rewrite { rule: "MLYM" input: "കൌ" output: "കൗ" }
+rewrite { rule: "MLYM" input: "അതു്" output: "അത്" }
+rewrite { rule: "MLYM" input: "ഭാൎയ്യ" output: "ഭാര്യ" }
+rewrite { rule: "MLYM" input: "കൎമ്മം" output: "കർമ്മം" }
