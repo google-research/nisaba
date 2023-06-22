@@ -20,34 +20,36 @@
 # Verifying if NFC and Visual Norm are applied along with Reading Norm
 # rewrite { rule: "MLYM" input: "കൌന്‍" output: "കൗൻ" }
 
+# Velar
 rewrite { rule: "HI" input: "शशाङ्क" output: "शशांक" }
 rewrite { rule: "HI" input: "शङ्ख" output: "शंख" }
 rewrite { rule: "HI" input: "काङ्ग्रेस" output: "कांग्रेस" }
 rewrite { rule: "HI" input: "सङ्घर्ष" output: "संघर्ष" }
-
+# Palatal
 rewrite { rule: "HI" input: "पाञ्चजन्य" output: "पांचजन्य" }
 rewrite { rule: "HI" input: "वाञ्छित" output: "वांछित" }
 rewrite { rule: "HI" input: "सञ्जय" output: "संजय" }
 rewrite { rule: "HI" input: "सञ्झ्याल" output: "संझ्याल" }
-
+# Retroflex
 rewrite { rule: "HI" input: "घण्टा" output: "घंटा" }
 rewrite { rule: "HI" input: "कुण्ठित" output: "कुंठित" }
 rewrite { rule: "HI" input: "सेकेण्ड" output: "सेकेंड" }
 rewrite { rule: "HI" input: "पण्ढरपुर" output: "पंढरपुर" }
-
+# Dental
 rewrite { rule: "HI" input: "प्रान्त" output: "प्रांत" }
 rewrite { rule: "HI" input: "ग्रन्थ" output: "ग्रंथ" }
 rewrite { rule: "HI" input: "हिन्दी" output: "हिंदी" }
 rewrite { rule: "HI" input: "धुन्ध" output: "धुंध" }
-
+# Bilabial
 rewrite { rule: "HI" input: "लैम्प" output: "लैंप" }
 rewrite { rule: "HI" input: "लिम्फोमा" output: "लिंफोमा" }
 rewrite { rule: "HI" input: "नवम्बर" output: "नवंबर" }
 rewrite { rule: "HI" input: "सम्भावित" output: "संभावित" }
-
+# Approximant
 rewrite { rule: "HI" input: "सम्युक्त" output: "संयुक्त" }
 rewrite { rule: "HI" input: "अम्लीय" output: "अंलीय" }
 rewrite { rule: "HI" input: "सम्वाद" output: "संवाद" }
+# Fricative
 rewrite { rule: "HI" input: "अन्श" output: "अंश" }
 rewrite { rule: "HI" input: "विमेन्स" output: "विमेंस" }
 
