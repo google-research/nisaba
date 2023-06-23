@@ -39,7 +39,7 @@ py_proto_library(
     # Starlark macro supplied by the Bazel team (loaded from `protobuf.bzl` file
     # above). See
     #   https://thethoughtfulkoala.com/posts/2020/05/08/py-protobuf-bazel.html
-    srcs = ["unicode_strings.proto"],
+    srcs = ["testdata.proto"],
 )
 
 # Helper for serializing and deserializing textproto test data.
