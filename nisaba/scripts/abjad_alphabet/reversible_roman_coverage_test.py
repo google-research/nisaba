@@ -59,7 +59,7 @@ class LetterLanguagesRomanizationTest(absltest.TestCase):
   def test_language_chars_for_reversibile_romanization(self):
     """Make sure each letter_language character is romanizable reliably."""
     for item in self._letters_proto.item:
-      ut.assert_fst_functional(
+      ut.AssertFstFunctional(
           self._round_trip, 'byte', pynini.accep(item.letter.raw))
 
 if __name__ == '__main__':

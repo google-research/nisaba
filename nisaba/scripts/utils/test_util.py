@@ -29,14 +29,14 @@ NUM_TEST_SAMPLES = 5
 _MAX_SAMPLE_LENGTH = 5
 
 
-def _olabels_iter(f: pynini.Fst) -> Iterator[List[int]]:
+def _OlabelsIter(f: pynini.Fst) -> Iterator[List[int]]:
   it = f.paths()
   while not it.done():
     yield it.olabels()
     it.next()
 
 
-def _label_list_to_string_fsa(labels: List[int]) -> pynini.Fst:
+def _LabelListToStringFsa(labels: List[int]) -> pynini.Fst:
   fst = pynini.Fst()
   fst.add_states(len(labels) + 1)
   fst.set_start(0)
@@ -46,10 +46,10 @@ def _label_list_to_string_fsa(labels: List[int]) -> pynini.Fst:
   return fst.optimize()
 
 
-def assert_fst_functional(fst: pynini.Fst,
-                          token_type: pynini.TokenType,
-                          string_fsa: pynini.Fst) -> None:
-  """Assert that an FST is funcional for the given string FSA.
+def AssertFstFunctional(fst: pynini.Fst,
+                        token_type: pynini.TokenType,
+                        string_fsa: pynini.Fst) -> None:
+  """Assert that an FST is functional for the given string FSA.
 
   Args:
     fst: An FST to verify if is functional.
@@ -60,10 +60,10 @@ def assert_fst_functional(fst: pynini.Fst,
     AssertionError: If the FST is found to have a non-functional.
   """
   with pynini.default_token_type(token_type):
-    verify_if_single_path(string_fsa, string_fsa @ fst)
+    _VerifyIfSinglePath(string_fsa, string_fsa @ fst)
 
 
-def verify_if_single_path(input_str_fsa: pynini.Fst, fst: pynini.Fst):
+def _VerifyIfSinglePath(input_str_fsa: pynini.Fst, fst: pynini.Fst):
   """Does nothing if given string FST has only one path; throws otherwise.
 
   If there is more than one path in the FST, then string() method on the FST
@@ -90,7 +90,30 @@ def verify_if_single_path(input_str_fsa: pynini.Fst, fst: pynini.Fst):
                 fst.optimize().paths().ostrings()))) from e
 
 
-def verify_identity(input_str_fsa: pynini.Fst, fst: pynini.Fst):
+def _VerifyIfSingleShortestPath(input_str_fsa: pynini.Fst, fst: pynini.Fst):
+  """Throws if given string FST has multiple shorest paths; pass otherwise.
+
+  Args:
+    input_str_fsa: Input string FSA specific to the FST. Used in the
+        exception message.
+    fst: FST to be verified if it has only a single path.
+
+  Raises:
+    AssertionError: If the FST is found to have more than one shortest path.
+  """
+  input_str = input_str_fsa.string()
+  out_weights = collections.defaultdict(set)
+  for _, out, weight in fst.optimize().paths().items():
+    out_weights[int(str(weight))].add(out)
+  outstrs = out_weights[min(out_weights)]
+
+  if len(outstrs) > 1:
+    raise AssertionError(
+        f'Expected FST to produce single best output for input `{input_str}`;'
+        f' however, produced multiple: `{", ".join(outstrs)}`')
+
+
+def _VerifyIdentity(input_str_fsa: pynini.Fst, fst: pynini.Fst):
   """Verifies if FST produces only the input string at its minimum weight path.
 
   Throws AssertError with a detailed error message on verification failure;
@@ -129,11 +152,12 @@ class FstPropertiesTestCase(absltest.TestCase):
 
 
 class FstRandgenTestCase(absltest.TestCase):
+  """Tests using sampling to verify properties of an FST."""
 
   def assertFstProbablyFunctional(self, fst: pynini.Fst,
                                   token_type: pynini.TokenType,
                                   samples: int) -> None:
-    """Asserts that an FST is likely funcional by sampling.
+    """Asserts that an FST is likely functional by sampling.
 
     This samples from an Fst's input projection in order to verify that all the
     samples produce exactly one output when composed with the FST. This is used
@@ -152,10 +176,36 @@ class FstRandgenTestCase(absltest.TestCase):
     Raises:
       AssertionError: If the FST is found to have a non-functional input sample.
     """
-    self._assert_fst_sampled_behavior(
-        [fst], token_type, samples, verify_if_single_path)
+    self._AssertFstSampledBehavior(
+        [fst], token_type, samples, _VerifyIfSinglePath)
 
-  def assertFstProbablyIdentity(self, fsts: List[pynini.Fst],
+  def AssertFstSingleShortestPath(self, fst: pynini.Fst,
+                                  token_type: pynini.TokenType,
+                                  samples: int) -> None:
+    """Empirically asserts an FST produces a unique shortest path for the input.
+
+    This samples from an FST's input projection to verify that all the samples
+    produce unique best output when composed with the FST. This is used in lieu
+    of statically verifying that an FST is functional as that isn't easy to
+    answer for non-deterministic weighted Fsts. If token_type is set to "byte",
+    then the input projection of the FST is intersected with the definition of
+    the closure over valid UTF-8 characters to ensure all samples are valid
+    UTF-8 strings that Python can handle. The maximum length of a sample is set
+    to 100 labels.
+
+
+    Args:
+      fst: An FST to verify if it produces single best output.
+      token_type: The token_type used to derive the FST.
+      samples: The number of input samples to take to verify functionality.
+
+    Raises:
+      AssertionError: If the FST is found to have a non-functional input sample.
+    """
+    self._AssertFstSampledBehavior(
+        [fst], token_type, samples, _VerifyIfSingleShortestPath)
+
+  def AssertFstProbablyIdentity(self, fsts: List[pynini.Fst],
                                 token_type: pynini.TokenType,
                                 samples: int) -> None:
     """Asserts that FSTs composed on samples behaves as an identity.
@@ -179,10 +229,10 @@ class FstRandgenTestCase(absltest.TestCase):
       AssertionError: If, for any sample, the FSTs composed on it produces
           anything other than the sample itself at its minimum weight path.
     """
-    self._assert_fst_sampled_behavior(
-        fsts, token_type, samples, verify_identity)
+    self._AssertFstSampledBehavior(
+        fsts, token_type, samples, _VerifyIdentity)
 
-  def _assert_fst_sampled_behavior(
+  def _AssertFstSampledBehavior(
       self, fsts: List[pynini.Fst],
       token_type: pynini.TokenType,
       samples: int,
@@ -217,8 +267,8 @@ class FstRandgenTestCase(absltest.TestCase):
     input_samples = pynini.randgen(
         input_language, npath=samples, max_length=_MAX_SAMPLE_LENGTH)
     with pynini.default_token_type(token_type):
-      for ilabels in _olabels_iter(input_samples):
-        input_str_fsa = _label_list_to_string_fsa(ilabels)
+      for ilabels in _OlabelsIter(input_samples):
+        input_str_fsa = _LabelListToStringFsa(ilabels)
         output_fst = rewrite.ComposeFsts([input_str_fsa] + fsts)
         assert_function(input_str_fsa, output_fst)
 

@@ -48,16 +48,23 @@ from nisaba.scripts.utils import rule
 import nisaba.scripts.utils.char as uc
 import nisaba.scripts.utils.file as uf
 
+# ASCII printable characters used for the input.
+# Pynini's symbol generation characters ('[', ']') are avoided.
+_ASCII_INPUT_CHARS = set(string.printable) - set('[]')
+
 
 def _fixed_rule_fst(script: str) -> pynini.Fst:
   """Creates an FST that transduces fixed rule romanization to ISO 15919."""
   path = u.SCRIPT_DIR / script / 'fixed.tsv'
   chars = uc.derive_chars(both_sides=[path])
-  # ASCII printable characters are pass through.
-  # Pynini's symbol generation characters ('[', ']') are avoided.
-  sigma = uc.derive_sigma(chars | set(string.printable) - set('[]'))
+  sigma = uc.derive_sigma(chars | _ASCII_INPUT_CHARS)
   resource_file = uf.AsResourcePath(path)
   return rule.fst_from_cascading_rule_file(resource_file, sigma)
+
+
+def _ascii_acceptor() -> pynini.Fst:
+  """Acceptor for ASCII printable charactrers."""
+  return pynini.union(*[pynini.accep(ch) for ch in _ASCII_INPUT_CHARS]).star
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
@@ -67,8 +74,9 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
       exporter = exporter_map[token_type]
       for script in u.FIXED_RULE_SCRIPTS:
         iso_fst = u.OpenFstFromBrahmicFar('iso', f'to_{script}', token_type)
-        exporter[f'{script.upper()}'] = (_fixed_rule_fst(script) @
-                                         iso_fst).optimize()
+        exporter[f'{script.upper()}'] = (
+            _ascii_acceptor() @ _fixed_rule_fst(script) @ iso_fst
+        ).optimize()
 
 
 if __name__ == '__main__':

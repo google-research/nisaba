@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# proto-file: nisaba/interim/testing/testdata.proto
+# proto-file: third_party/nisaba/interim/testing/testdata.proto
 # proto-message: Rewrites
 rewrite {
   rule: "MLYM"
@@ -198,6 +198,11 @@ rewrite {
   rule: "MLYM"
   input: "paaTham"
   output: "പാഠം"
+}
+rewrite {
+  rule: "MLYM"
+  input: "paal~"
+  output: "പാല്"
 }
 rewrite {
   rule: "MLYM"

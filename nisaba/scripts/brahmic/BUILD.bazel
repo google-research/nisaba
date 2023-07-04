@@ -267,6 +267,7 @@ py_test(
         ":fixed.far",
         ":fixed_utf8.far",
         ":iso.far",
+        ":iso_utf8.far",
         ":nfc.far",
         ":nfc_utf8.far",
         ":reading_norm.far",

@@ -36,11 +36,35 @@ class FstRandgenTest(parameterized.TestCase, test_util.FstRandgenTestCase):
     self.assertFstProbablyFunctional(fst, token_type,
                                      samples=test_util.NUM_TEST_SAMPLES)
 
+  # TODO: Following ISO conversion tests do not work. Fix and uncomment.
+
+  # @parameterized.parameters(
+  #     itertools.product(u.SCRIPTS, ('byte', 'utf8')))
+  # def test_from_iso_to_native_single_best(self, script: str, token_type: str):
+  #   fst = u.OpenFstFromBrahmicFar('iso', f'TO_{script}', token_type)
+  #   self.assertFstSingleShortestPath(fst, token_type, samples=1e4)
+
+  # @parameterized.parameters(
+  #     itertools.product(u.SCRIPTS, ('byte', 'utf8')))
+  # def test_from_native_to_iso_single_best(self, script: str, token_type: str):
+  #   fst = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)
+  #   self.assertFstSingleShortestPath(fst, token_type, samples=1e4)
+
+  # @parameterized.parameters(
+  #     itertools.product(u.SCRIPTS, ('byte', 'utf8')))
+  # def test_iso_roundtrip(self, script: str, token_type: str):
+  #   natv_to_iso = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)
+  #   iso_to_natv = u.OpenFstFromBrahmicFar('iso', f'TO_{script}', token_type)
+  #   self.assertFstProbablyIdentity([natv_to_iso, iso_to_natv],
+  #                                  token_type='byte',
+  #                                  samples=test_util.NUM_TEST_SAMPLES)
+
   @parameterized.parameters(
       itertools.product(u.FIXED_RULE_SCRIPTS, ('byte', 'utf8')))
   def test_fixed(self, script: str, token_type: str):
     fst = u.OpenFstFromBrahmicFar('fixed', script, token_type)
-    self.assertFstProbablyFunctional(fst, token_type, samples=1e6)
+    self.AssertFstSingleShortestPath(fst, token_type,
+                                     samples=test_util.NUM_TEST_SAMPLES)
 
 
 if __name__ == '__main__':

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# proto-file: nisaba/interim/testing/testdata.proto
+# proto-file: third_party/nisaba/interim/testing/testdata.proto
 # proto-message: Rewrites
 rewrite {
   rule: "FROM_BENG"
@@ -84,6 +84,16 @@ rewrite {
   rule: "TO_MLYM"
   input: "brāhmik"
   output: "ബ്രാഹ്മിക്"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "kā.u"
+  output: "കാഉ"
+}
+rewrite {
+  rule: "TO_MLYM"
+  input: "kāu"
+  output: "കാഉ"
 }
 rewrite {
   rule: "FROM_ORYA"
