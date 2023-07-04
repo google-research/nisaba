@@ -25,6 +25,7 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
   --rules=MLYM < /tmp/mlym_words.txt
 ```
 """
+
 import os
 from typing import List
 
@@ -39,7 +40,6 @@ import nisaba.scripts.utils.char as uc
 import nisaba.scripts.utils.file as uf
 import nisaba.scripts.utils.rewrite as ur
 
-FLAGS = flags.FLAGS
 _SCRIPT = flags.DEFINE_string('script', '', 'ISO 15924 script tag.')
 _LANG = flags.DEFINE_string('lang', '', 'ISO 639-2/3 language tag.')
 _TOKEN_TYPE = flags.DEFINE_enum('token_type', '', ['byte', 'utf8'],

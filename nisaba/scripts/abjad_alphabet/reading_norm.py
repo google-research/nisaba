@@ -35,8 +35,6 @@ from pynini.export import grm
 import nisaba.scripts.abjad_alphabet.util as u
 from nisaba.scripts.utils import rule
 
-
-FLAGS = flags.FLAGS
 _LANG = flags.DEFINE_string('lang', '', 'ISO 639-2/3 language tag.')
 _TOKEN_TYPE = flags.DEFINE_enum('token_type', '', ['byte', 'utf8'],
                                 'Token type: utf8 or byte')

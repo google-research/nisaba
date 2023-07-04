@@ -36,7 +36,6 @@ cc_library(
     hdrs = ["far_base.h"],
     deps = [
         "//nisaba/port:file_util",
-        "@com_google_absl//absl/memory",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/strings",
         "@org_openfst//:fst",
@@ -75,7 +74,6 @@ py_library(
     srcs = ["test_util.py"],
     srcs_version = "PY3",
     deps = [
-        ":file",
         ":rewrite",
         "@io_abseil_py//absl/testing:absltest",
         "@org_opengrm_pynini//pynini",
@@ -90,7 +88,6 @@ py_library(
     deps = [
         ":file",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:pynutil",
     ],
 )
 
@@ -124,9 +121,7 @@ py_library(
     srcs_version = "PY3",
     deps = [
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:byte",
         "@rules_python//python/runfiles",
-        requirement("pandas"),
     ],
 )
 

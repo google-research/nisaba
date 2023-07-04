@@ -28,12 +28,12 @@ class FstRandgenTest(parameterized.TestCase, test_util.FstRandgenTestCase):
       itertools.product(u.SCRIPTS + ['brahmic'], ('byte', 'utf8')))
   def test_nfc(self, script: str, token_type: str):
     fst = u.OpenFstFromBrahmicFar('nfc', script, token_type)
-    self.assertFstProbablyFunctional(fst, token_type, samples=1e6)
+    self.AssertFstProbablyFunctional(fst, token_type, samples=1e6)
 
   @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   def test_visual_norm(self, script: str, token_type: str):
     fst = u.OpenFstFromBrahmicFar('visual_norm', script, token_type)
-    self.assertFstProbablyFunctional(fst, token_type,
+    self.AssertFstProbablyFunctional(fst, token_type,
                                      samples=test_util.NUM_TEST_SAMPLES)
 
   # TODO: Following ISO conversion tests do not work. Fix and uncomment.

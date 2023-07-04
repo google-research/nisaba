@@ -42,7 +42,7 @@ py_library(
     name = "iso_inventory",
     srcs = ["iso_inventory.py"],
     deps = [
-        "//nisaba/scripts/natural_translit/brahmic:psa_phoneme_inventory",
+        ":psa_phoneme_inventory",
         "//nisaba/scripts/natural_translit/script:char",
         "//nisaba/scripts/natural_translit/utils:list_op",
     ],
@@ -99,7 +99,7 @@ py_library(
     srcs = ["iso2txn_ops.py"],
     deps = [
         ":iso_inventory",
-        "//nisaba/scripts/natural_translit/brahmic:psa_phoneme_inventory",
+        ":psa_phoneme_inventory",
         "//nisaba/scripts/natural_translit/phonology/operations:syllable",
         "//nisaba/scripts/natural_translit/utils:alignment",
         "//nisaba/scripts/natural_translit/utils:concat",

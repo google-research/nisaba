@@ -36,7 +36,7 @@ load(
 package(
     default_applicable_licenses = [
     ],
-    default_visibility = ["//nisaba/scripts/brahmic:__subpackages__"],
+    default_visibility = ["//nisaba/scripts:__subpackages__"],
 )
 
 licenses(["notice"])
@@ -279,7 +279,6 @@ py_test(
     srcs_version = "PY3",
     deps = [
         ":util",
-        "//nisaba/scripts/utils:file",
         "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
         "@io_abseil_py//absl/testing:parameterized",
@@ -505,7 +504,6 @@ cc_test(
     deps = [
         ":cc",
         "//nisaba/port:status-matchers",
-        "@com_google_absl//absl/memory",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/status:statusor",
         "@com_google_absl//absl/strings",

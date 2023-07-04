@@ -20,12 +20,12 @@ package nisaba;
 // component of a given script, like characters comprising a class of dependent
 // vowel signs in Telugu, or mappings between characters, e.g. a mapping from
 // Bengali consonant letters to their respective romanization in Latin script.
-//
+
 // Next available ID: 4
 message UnicodeStrings {
   // A data item can represent a single item in a list of Unicode strings or an
   // item in a mapping.
-  //
+
   // Next available ID: 5
   message Item {
     // Fields `uname` and `raw` are required for defining Unicode string lists

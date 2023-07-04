@@ -17,7 +17,7 @@ syntax = "proto3";
 package nisaba.brahmic;
 
 // Script-specific configuration.
-//
+
 // Next available ID: 2
 message ScriptConfig {
   // Inherent vowel is one of the most salient features of the Brahmic abugida

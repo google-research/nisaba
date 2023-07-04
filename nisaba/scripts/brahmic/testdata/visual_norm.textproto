@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# proto-file: testing/testdata.proto
+# proto-file: third_party/nisaba/interim/testing/testdata.proto
 # proto-message: Rewrites
 
 # Tests with legacy Chillu encoding, using Zero Width Joiner(ZWJ)

@@ -14,9 +14,9 @@
 
 """Tests for Unicode strings proto parser."""
 
+from absl.testing import absltest
 from nisaba.scripts.utils import unicode_strings_pb2
 from nisaba.scripts.utils import unicode_strings_util as lib
-from absl.testing import absltest
 
 
 class UnicodeStringsUtilTest(absltest.TestCase):

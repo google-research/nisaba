@@ -35,7 +35,7 @@ _TEST_CASES = [
 class AlignmentTest(test_util.FstTestCase):
 
   def test_all(self):
-    self.assertEqualFstLikeTestCases(_TEST_CASES)
+    self.AssertEqualFstLikeTestCases(_TEST_CASES)
 
 
 if __name__ == '__main__':

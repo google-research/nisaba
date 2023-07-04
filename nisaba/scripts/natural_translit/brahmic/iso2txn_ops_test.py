@@ -67,7 +67,7 @@ _TEST_CASES = [
 class Iso2TxnOpsTest(test_util.FstTestCase):
 
   def test_all(self):
-    self.assertFstStrIoTestCases(_TEST_CASES)
+    self.AssertFstStrIoTestCases(_TEST_CASES)
 
 
 if __name__ == '__main__':

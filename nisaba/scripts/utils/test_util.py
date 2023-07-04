@@ -142,7 +142,7 @@ def _VerifyIdentity(input_str_fsa: pynini.Fst, fst: pynini.Fst):
 
 class FstPropertiesTestCase(absltest.TestCase):
 
-  def assertFstCompliesWithProperties(
+  def AssertFstCompliesWithProperties(
       self, fst: pynini.Fst, expected_props: pynini.FstProperties) -> None:
     if fst.properties(expected_props, True) != expected_props:
       raise AssertionError(
@@ -154,7 +154,7 @@ class FstPropertiesTestCase(absltest.TestCase):
 class FstRandgenTestCase(absltest.TestCase):
   """Tests using sampling to verify properties of an FST."""
 
-  def assertFstProbablyFunctional(self, fst: pynini.Fst,
+  def AssertFstProbablyFunctional(self, fst: pynini.Fst,
                                   token_type: pynini.TokenType,
                                   samples: int) -> None:
     """Asserts that an FST is likely functional by sampling.
@@ -276,7 +276,7 @@ class FstRandgenTestCase(absltest.TestCase):
 class FstTestCase(absltest.TestCase):
   """Collection of asserts related to string FSTs."""
 
-  def assertFstStrIO(self, fst: pynini.Fst,
+  def AssertFstStrIO(self, fst: pynini.Fst,
                      input_str: str, expected_str: str) -> None:
     """Asserts that given FST produces expeted_str for the given input_str.
 
@@ -291,7 +291,7 @@ class FstTestCase(absltest.TestCase):
     actual_output = output_fst.string()
     self.assertEqual(actual_output, expected_str)
 
-  def assertFstStrIoTestCases(
+  def AssertFstStrIoTestCases(
       self,
       test_cases:
       List[Tuple[Callable[[], pynini.Fst], List[Tuple[str, str]]]]) -> None:
@@ -318,9 +318,9 @@ class FstTestCase(absltest.TestCase):
       for token_type in ("utf8", "byte"):
         with pynini.default_token_type(token_type):
           for test_pair in test_pairs:
-            self.assertFstStrIO(fst_builder(), *test_pair)
+            self.AssertFstStrIO(fst_builder(), *test_pair)
 
-  def assertEqualFstLike(self, fstlike: pynini.FstLike,
+  def AssertEqualFstLike(self, fstlike: pynini.FstLike,
                          expected_str: str) -> None:
     """Asserts that given FstLike is equal to expected_str.
 
@@ -334,7 +334,7 @@ class FstTestCase(absltest.TestCase):
       input_str = fstlike
     self.assertEqual(input_str, expected_str)
 
-  def assertEqualFstLikeTestCases(
+  def AssertEqualFstLikeTestCases(
       self,
       test_cases:
       List[Tuple[Callable[[str], pynini.Fst], List[Tuple[List[str], str]]]],
@@ -362,4 +362,4 @@ class FstTestCase(absltest.TestCase):
       for token_type in ("utf8", "byte"):
         with pynini.default_token_type(token_type):
           for args, expected_str in test_pairs:
-            self.assertEqualFstLike(fst_builder(*args), expected_str)
+            self.AssertEqualFstLike(fst_builder(*args), expected_str)

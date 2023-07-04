@@ -20,7 +20,6 @@
 #include <memory>
 #include <string>
 
-#include "nisaba/port/file_util.h"
 #include "thrax/grm-manager.h"
 #include "absl/status/status.h"
 #include "absl/status/statusor.h"

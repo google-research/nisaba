@@ -36,7 +36,7 @@ class FstPropertiesTest(parameterized.TestCase, ut.FstPropertiesTestCase):
   def test_reversible_roman(self, direction: str, prop: pynini.FstProperties):
     fst = uf.OpenFstFromFar(u.FAR_DIR, 'reversible_roman', 'byte',
                             f'{direction}_ARAB')
-    self.assertFstCompliesWithProperties(fst, prop)
+    self.AssertFstCompliesWithProperties(fst, prop)
 
   @parameterized.parameters(
       itertools.product(u.LANGS,
@@ -50,7 +50,7 @@ class FstPropertiesTest(parameterized.TestCase, ut.FstPropertiesTestCase):
   def test_visual_or_reading_norm(self, lang: str, far_name: str,
                                   token_type: str, prop: pynini.FstProperties):
     fst = uf.OpenFstFromFar(u.FAR_DIR, far_name, token_type, lang)
-    self.assertFstCompliesWithProperties(fst, prop)
+    self.AssertFstCompliesWithProperties(fst, prop)
 
   @parameterized.parameters(
       itertools.product(('byte', 'utf8'),
@@ -61,7 +61,7 @@ class FstPropertiesTest(parameterized.TestCase, ut.FstPropertiesTestCase):
                          pynini.UNWEIGHTED)))
   def test_nfc(self, token_type: str, prop: pynini.FstProperties):
     fst = uf.OpenFstFromFar(u.FAR_DIR, 'nfc', token_type, 'ARAB')
-    self.assertFstCompliesWithProperties(fst, prop)
+    self.AssertFstCompliesWithProperties(fst, prop)
 
 
 if __name__ == '__main__':

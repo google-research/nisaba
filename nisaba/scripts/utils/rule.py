@@ -67,9 +67,9 @@ import networkx as nx
 import pandas as pd
 
 import pynini
+import pathlib
 import nisaba.scripts.utils.file as uf
 import nisaba.scripts.utils.rewrite as ur
-import pathlib
 
 Rule = NamedTuple('Rule', [('lhs', str), ('rhs', str)])
 RuleSet = Iterable[Rule]

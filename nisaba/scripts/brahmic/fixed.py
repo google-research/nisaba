@@ -38,7 +38,6 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 ```
 """
 
-
 import string
 
 import pynini

@@ -41,20 +41,18 @@ from google.protobuf import text_format
 from nisaba.scripts.utils import unicode_strings_pb2
 from nisaba.scripts.utils import unicode_strings_util as lib
 
-flags.DEFINE_string(
+_INPUT = flags.DEFINE_string(
     'input_text_proto', None,
     ('Input proto file in textual format corresponding to '
      '`nisaba.UnicodeStrings` protocol buffer message.'))
 
-flags.DEFINE_string(
+_OUTPUT = flags.DEFINE_string(
     'output_tsv', None,
     ('Output file in tab-separated (tsv) format ready for consumption by '
      'Pynini/Thrax grammars.'))
 
 flags.mark_flag_as_required('input_text_proto')
 flags.mark_flag_as_required('output_tsv')
-
-FLAGS = flags.FLAGS
 
 
 def _convert_data_proto_to_file(data_proto: unicode_strings_pb2.UnicodeStrings):
@@ -67,7 +65,7 @@ def _convert_data_proto_to_file(data_proto: unicode_strings_pb2.UnicodeStrings):
     ValueError: If we are unable to parse the proto.
   """
   # TODO: Disallow duplicate items.
-  with open(FLAGS.output_tsv, mode='w', encoding='utf8') as output_file:
+  with open(_OUTPUT.value, mode='w', encoding='utf8') as output_file:
     output_file.write('# Auto-generated using \'%s\'\n' % sys.argv[0])
     for index, item in enumerate(data_proto.item):
       try:
@@ -88,9 +86,9 @@ def main(argv: Sequence[str]) -> None:
   if len(argv) > 1:
     raise app.UsageError('Too many command-line arguments.')
 
-  logging.info('Parsing %s ...', FLAGS.input_text_proto)
+  logging.info('Parsing %s ...', _INPUT.value)
   data_proto = unicode_strings_pb2.UnicodeStrings()
-  with open(FLAGS.input_text_proto, encoding='utf8') as input_file:
+  with open(_INPUT.value, encoding='utf8') as input_file:
     text_format.Parse(input_file.read(), data_proto)
   _convert_data_proto_to_file(data_proto)
 

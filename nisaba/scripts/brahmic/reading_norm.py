@@ -37,8 +37,6 @@ from nisaba.scripts.utils import file
 from nisaba.scripts.utils import rewrite
 from nisaba.scripts.utils import rule
 
-
-FLAGS = flags.FLAGS
 _SCRIPT = flags.DEFINE_string('script', '', 'ISO 15924 script tag.')
 _LANG = flags.DEFINE_string('lang', '', 'ISO 639-2/3 language tag.')
 _TOKEN_TYPE = flags.DEFINE_enum('token_type', '', ['byte', 'utf8'],
@@ -58,7 +56,7 @@ def generator_main(exporter: grm.Exporter):
   script = _SCRIPT.value
   lang = _LANG.value
   token_type = _TOKEN_TYPE.value
-  with pynini.default_token_type(FLAGS.token_type):
+  with pynini.default_token_type(token_type):  # pytype: disable=wrong-arg-types
     sigma = u.OpenSigma(script, token_type)
     script_reading_norm = _reading_norm_fst(u.SCRIPT_DIR / script, sigma)
     fsts = [script_reading_norm]

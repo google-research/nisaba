@@ -34,7 +34,7 @@ class FstPropertiesTest(parameterized.TestCase,
            pynini.ACCEPTOR)))
   def test_sigma_utf8(self, script: str, prop: pynini.FstProperties):
     fst = u.OpenFstFromBrahmicFar('sigma', script, token_type='utf8')
-    self.assertFstCompliesWithProperties(fst, prop)
+    self.AssertFstCompliesWithProperties(fst, prop)
 
   @parameterized.parameters(
       itertools.product(
@@ -45,7 +45,7 @@ class FstPropertiesTest(parameterized.TestCase,
   def test_wellformed(self, script: str, prop: pynini.FstProperties,
                       token_type: str):
     fst = u.OpenFstFromBrahmicFar('wellformed', script, token_type)
-    self.assertFstCompliesWithProperties(fst, prop)
+    self.AssertFstCompliesWithProperties(fst, prop)
 
   @parameterized.parameters(
       itertools.product(u.SCRIPTS + ['Brahmic'],
@@ -54,7 +54,7 @@ class FstPropertiesTest(parameterized.TestCase,
                         ('byte', 'utf8')))
   def test_nfc(self, script: str, prop: pynini.FstProperties, token_type: str):
     fst = u.OpenFstFromBrahmicFar('nfc', script, token_type)
-    self.assertFstCompliesWithProperties(fst, prop)
+    self.AssertFstCompliesWithProperties(fst, prop)
 
   @parameterized.parameters(
       itertools.product(u.SCRIPTS,
@@ -64,7 +64,7 @@ class FstPropertiesTest(parameterized.TestCase,
   def test_visual_norm(self, script: str, prop: pynini.FstProperties,
                        token_type: str):
     fst = u.OpenFstFromBrahmicFar('visual_norm', script, token_type)
-    self.assertFstCompliesWithProperties(fst, prop)
+    self.AssertFstCompliesWithProperties(fst, prop)
 
   @parameterized.parameters(
       itertools.product(u.SCRIPTS,
@@ -77,7 +77,7 @@ class FstPropertiesTest(parameterized.TestCase,
   def test_iso(self, script: str, prop: pynini.FstProperties, token_type: str,
                direction: str):
     fst = u.OpenFstFromBrahmicFar('iso', f'{direction}_{script}', token_type)
-    self.assertFstCompliesWithProperties(fst, prop)
+    self.AssertFstCompliesWithProperties(fst, prop)
 
   @parameterized.parameters(
       itertools.product(u.FIXED_RULE_SCRIPTS,
@@ -93,7 +93,7 @@ class FstPropertiesTest(parameterized.TestCase,
                  prop: pynini.FstProperties,
                  token_type: str):
     fst = u.OpenFstFromBrahmicFar('fixed', script, token_type)
-    self.assertFstCompliesWithProperties(fst, prop)
+    self.AssertFstCompliesWithProperties(fst, prop)
 
 
 if __name__ == '__main__':

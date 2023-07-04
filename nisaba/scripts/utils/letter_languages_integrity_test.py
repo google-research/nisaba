@@ -22,28 +22,24 @@ import pycountry
 from absl.testing import absltest
 from nisaba.scripts.utils import letter_languages
 
-flags.DEFINE_string(
+_INPUT = flags.DEFINE_string(
     'input_text_proto', None,
     'Input text proto file in `nisaba.LetterLanguages` format.')
-
 flags.mark_flag_as_required('input_text_proto')
-
-FLAGS = flags.FLAGS
 
 
 class LetterLanguagesIntegrityTest(absltest.TestCase):
 
   @contextlib.contextmanager
-  def assertNotRaises(self, exc_type):
+  def assertNotRaises(self, ex):
     try:
       yield None
-    except exc_type:
-      raise self.failureException('{} raised'.format(exc_type.__name__))
+    except ex:
+      raise self.failureException('{} raised'.format(ex.__name__)) from ex
 
   def setUp(self):
     super().setUp()
-    self._letters_proto = letter_languages.read_textproto(
-        FLAGS.input_text_proto)
+    self._letters_proto = letter_languages.read_textproto(_INPUT.value)
 
   def test_letters(self):
     """Make sure the unicode letter names map to raw characters correctly."""

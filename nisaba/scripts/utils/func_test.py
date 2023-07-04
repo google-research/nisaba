@@ -14,8 +14,8 @@
 
 """Tests for third_party.nisaba.scripts.utils.func."""
 
-from nisaba.scripts.utils import func
 from absl.testing import absltest
+from nisaba.scripts.utils import func
 
 
 class FuncTest(absltest.TestCase):

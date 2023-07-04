@@ -29,8 +29,8 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 
 import pynini
 from pynini.export import multi_grm
-import nisaba.scripts.abjad_alphabet.util as u
-import nisaba.scripts.utils.rule as rule
+from nisaba.scripts.abjad_alphabet import util as u
+from nisaba.scripts.utils import rule
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):

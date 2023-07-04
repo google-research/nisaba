@@ -34,7 +34,7 @@ class FstRandgenTest(parameterized.TestCase, ut.FstRandgenTestCase):
       natv_to_latin = far['FROM_ARAB']
       latin_to_natv = far['TO_ARAB']
       round_trip = natv_to_latin @ latin_to_natv
-      self.assertFstProbablyFunctional(round_trip,
+      self.AssertFstProbablyFunctional(round_trip,
                                        token_type='byte',
                                        samples=ut.NUM_TEST_SAMPLES)
 
@@ -43,13 +43,13 @@ class FstRandgenTest(parameterized.TestCase, ut.FstRandgenTestCase):
   def test_visual_or_reading_norm(self, lang: str, far_name: str,
                                   token_type: str):
     fst = uf.OpenFstFromFar(u.FAR_DIR, far_name, token_type, lang)
-    self.assertFstProbablyFunctional(fst, token_type,
+    self.AssertFstProbablyFunctional(fst, token_type,
                                      samples=ut.NUM_TEST_SAMPLES)
 
   @parameterized.parameters('byte', 'utf8')
   def test_nfc(self, token_type: str):
     fst = uf.OpenFstFromFar(u.FAR_DIR, 'nfc', token_type, 'ARAB')
-    self.assertFstProbablyFunctional(fst, token_type,
+    self.AssertFstProbablyFunctional(fst, token_type,
                                      samples=ut.NUM_TEST_SAMPLES)
 
 
