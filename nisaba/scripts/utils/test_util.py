@@ -23,6 +23,11 @@ from absl.testing import absltest
 from nisaba.scripts.utils import rewrite
 
 # Number of random test strings to generate for each FST type and token type.
+# TODO: As of this writing, the time it takes for `randgen_test` in
+# `abjad_alphabet` is around 4 times longer than that of `brahmic`. If the
+# current number of samples and sample lengths are not catching the relevant
+# errors in `brahmic`, consider using separate and higher numbers of samples
+# and sample lengths for `brahmic`.
 NUM_TEST_SAMPLES = 5
 
 # Maximum length of test string.
