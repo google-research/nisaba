@@ -100,6 +100,7 @@ FIXED_RULE_SCRIPTS = ["Mlym"]
 READING_NORM_LANGS = [
     ("Deva", "hi"),
     # Following entries are not language-specific
+    ("Beng", ""),
     ("Lepc", ""),
     ("Mlym", ""),
 ]

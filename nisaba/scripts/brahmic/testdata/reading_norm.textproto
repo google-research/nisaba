@@ -20,6 +20,67 @@
 # Verifying if NFC and Visual Norm are applied along with Reading Norm
 # rewrite { rule: "MLYM" input: "കൌന്‍" output: "കൗൻ" }
 
+# BENG
+# Tests for rules that needed to be double checked are commented out.
+# ANUSVARA
+# Velar
+# ["ANUSVARA", "KA"] -> ["NGA", "VIRAMA", "KA"], "ংক" -> "ঙ্ক"
+# rewrite { rule: "BENG" input: "লিংকটিকে" output: "লিঙ্কটিকে" }
+# ["ANUSVARA", "KHA"] -> ["NGA", "VIRAMA", "KHA"], "ংখ" -> "ঙ্খ"
+# rewrite { rule: "BENG" input: "শৃংখলা" output: "শৃঙ্খলা" }
+# ["ANUSVARA", "GA"] -> ["NGA", "VIRAMA", "GA"], "ংগ" -> "ঙ্গ"
+rewrite { rule: "BENG" input: "সংগে" output: "সঙ্গে" }
+# ["ANUSVARA", "GHA"] -> ["NGA", "VIRAMA", "GHA"], "ংঘ" -> "ঙ্ঘ"
+# rewrite { rule: "BENG" input: "লংঘন" output: "লঙ্ঘন" }
+
+# Palatal
+# ["ANUSVARA", "CA"] -> ["NYA", "VIRAMA", "CA"], "ংচ" -> "ঞ্চ"
+rewrite { rule: "BENG" input: "ইংচি" output: "ইঞ্চি" }
+# ["ANUSVARA", "CHA"] -> ["NYA", "VIRAMA", "CHA"], "ংছ" -> "ঞ্ছ"
+# rewrite { rule: "BENG" input: "বাংছিত" output: "বাঞ্ছিত" }
+# ["ANUSVARA", "JA"] -> ["NYA", "VIRAMA", "JA"], "ংজ" -> "ঞ্জ"
+rewrite { rule: "BENG" input: "চ্যালেংজ" output: "চ্যালেঞ্জ" }
+# ["ANUSVARA", "JHA"] -> ["NYA", "VIRAMA", "JHA"], "ংঝ" -> "ঞ্ঝ"
+rewrite { rule: "BENG" input: "ঝংঝা" output: "ঝঞ্ঝা" }
+
+# Retroflex
+# ["ANUSVARA", "TTA"] -> ["NNA", "VIRAMA", "TTA"], "ংট" -> "ণ্ট"
+rewrite { rule: "BENG" input: "ঘংটা" output: "ঘণ্টা" }
+# ["ANUSVARA", "TTHA"] -> ["NNA", "VIRAMA", "TTHA"], "ংঠ" -> "ণ্ঠ"
+rewrite { rule: "BENG" input: "কংঠ" output: "কণ্ঠ" }
+# ["ANUSVARA", "DDA"] -> ["NNA", "VIRAMA", "DDA"], "ংড" -> "ণ্ড"
+rewrite { rule: "BENG" input: "মংডল" output: "মণ্ডল" }
+# ["ANUSVARA", "DDHA"] -> ["NNA", "VIRAMA", "DDHA"], "ংঢ" -> "ণ্ঢ"
+# rewrite { rule: "BENG" input: "ৰাংঢালী" output: "ৰাণ্ঢালী" }
+
+# Dental
+# ["ANUSVARA", "TA"] -> ["NA", "VIRAMA", "TA"], "ংত" -> "ন্ত"
+rewrite { rule: "BENG" input: "কিংতু" output: "কিন্তু" }
+# ["ANUSVARA", "THA"] -> ["NA", "VIRAMA", "THA"], "ংথ" -> "ন্থ"
+rewrite { rule: "BENG" input: "গ্রংথ" output: "গ্রন্থ" }
+# ["ANUSVARA", "DA"] -> ["NA", "VIRAMA", "DA"], "ংদ" -> "ন্দ"
+rewrite { rule: "BENG" input: "সুংদর" output: "সুন্দর" }
+# ["ANUSVARA", "DHA"] -> ["NA", "VIRAMA", "DHA"], "ংধ" -> "ন্ধ"
+rewrite { rule: "BENG" input: "বংধ" output: "বন্ধ" }
+
+# Bilabial
+# ["ANUSVARA", "PA"] -> ["MA", "VIRAMA", "PA"], "ংপ" -> "ম্প"
+rewrite { rule: "BENG" input: "সংপর্কে" output: "সম্পর্কে" }
+# ["ANUSVARA", "PHA"] -> ["MA", "VIRAMA", "PHA"], "ংফ" -> "ম্ফ"
+# rewrite { rule: "BENG" input: "লিংফ" output: "লিম্ফ" }
+# ["ANUSVARA", "BA"] -> ["MA", "VIRAMA", "BA"], "ংব" -> "ম্ব"
+rewrite { rule: "BENG" input: "নভেংবর" output: "নভেম্বর" }
+# ["ANUSVARA", "BHA"] -> ["MA", "VIRAMA", "BHA"], "ংভ" -> "ম্ভ"
+rewrite { rule: "BENG" input: "সংভব" output: "সম্ভব" }
+
+# Fricative
+# ["ANUSVARA", "SHA"] -> ["NA", "VIRAMA", "SHA"], "ংশ" -> "ন্শ"
+# rewrite { rule: "BENG" input: "ইংশাআল্লাহ" output: "ইন্শাআল্লাহ" }
+# ["ANUSVARA", "SSA"] -> ["NA", "VIRAMA", "SSA"], "ংষ" -> "ন্ষ"
+# rewrite { rule: "BENG" input: "সহিংষু" output: "সহিন্ষু" }
+# ["ANUSVARA", "HA"] -> ["NA", "VIRAMA", "HA"], "ংহ" -> "ন্হ"
+# rewrite { rule: "BENG" input: "চিংহ" output: "চিন্হ" }
+
 # Velar
 rewrite { rule: "HI" input: "शशाङ्क" output: "शशांक" }
 rewrite { rule: "HI" input: "शङ्ख" output: "शंख" }

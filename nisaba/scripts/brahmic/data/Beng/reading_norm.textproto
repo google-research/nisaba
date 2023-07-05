@@ -1,0 +1,170 @@
+# Copyright 2023 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/scripts/utils/unicode_strings.proto
+# proto-message: nisaba.UnicodeStrings
+
+# Bengali prefers homorganic nasal consonant to Anusvara or Candrabindu.
+
+# TODO: Double check the commented (questionable) rules.
+
+# ANUSVARA + CONSONANT -> NASAL VARGA + VIRAMA + CONSONANT
+# Velar
+# item {
+#   uname: ["ANUSVARA", "KA"]  raw: "ংক"
+#   to_uname: ["NGA", "VIRAMA", "KA"]  to_raw: "ঙ্ক"
+# }
+
+# item {
+#   uname: ["ANUSVARA", "KHA"]  raw: "ংখ"
+#   to_uname: ["NGA", "VIRAMA", "KHA"]  to_raw: "ঙ্খ"
+# }
+
+item {
+  uname: ["ANUSVARA", "GA"]
+  raw: "ংগ"
+  to_uname: ["NGA", "VIRAMA", "GA"]
+  to_raw: "ঙ্গ"
+}
+
+# item {
+#   uname: ["ANUSVARA", "GHA"]  raw: "ংঘ"
+#   to_uname: ["NGA", "VIRAMA", "GHA"]  to_raw: "ঙ্ঘ"
+# }
+
+# Palatal
+item {
+  uname: ["ANUSVARA", "CA"]
+  raw: "ংচ"
+  to_uname: ["NYA", "VIRAMA", "CA"]
+  to_raw: "ঞ্চ"
+}
+
+# item {
+#   uname: ["ANUSVARA", "CHA"]  raw: "ংছ"
+#   to_uname: ["NYA", "VIRAMA", "CHA"]  to_raw: "ঞ্ছ"
+# }
+
+item {
+  uname: ["ANUSVARA", "JA"]
+  raw: "ংজ"
+  to_uname: ["NYA", "VIRAMA", "JA"]
+  to_raw: "ঞ্জ"
+}
+
+item {
+  uname: ["ANUSVARA", "JHA"]
+  raw: "ংঝ"
+  to_uname: ["NYA", "VIRAMA", "JHA"]
+  to_raw: "ঞ্ঝ"
+}
+
+# Retroflex
+item {
+  uname: ["ANUSVARA", "TTA"]
+  raw: "ংট"
+  to_uname: ["NNA", "VIRAMA", "TTA"]
+  to_raw: "ণ্ট"
+}
+
+item {
+  uname: ["ANUSVARA", "TTHA"]
+  raw: "ংঠ"
+  to_uname: ["NNA", "VIRAMA", "TTHA"]
+  to_raw: "ণ্ঠ"
+}
+
+item {
+  uname: ["ANUSVARA", "DDA"]
+  raw: "ংড"
+  to_uname: ["NNA", "VIRAMA", "DDA"]
+  to_raw: "ণ্ড"
+}
+
+# item {
+#   uname: ["ANUSVARA", "DDHA"]  raw: "ংঢ"
+#   to_uname: ["NNA", "VIRAMA", "DDHA"]  to_raw: "ণ্ঢ"
+# }
+
+# Dental
+item {
+  uname: ["ANUSVARA", "TA"]
+  raw: "ংত"
+  to_uname: ["NA", "VIRAMA", "TA"]
+  to_raw: "ন্ত"
+}
+
+item {
+  uname: ["ANUSVARA", "THA"]
+  raw: "ংথ"
+  to_uname: ["NA", "VIRAMA", "THA"]
+  to_raw: "ন্থ"
+}
+
+item {
+  uname: ["ANUSVARA", "DA"]
+  raw: "ংদ"
+  to_uname: ["NA", "VIRAMA", "DA"]
+  to_raw: "ন্দ"
+}
+
+item {
+  uname: ["ANUSVARA", "DHA"]
+  raw: "ংধ"
+  to_uname: ["NA", "VIRAMA", "DHA"]
+  to_raw: "ন্ধ"
+}
+
+# Bilabial
+item {
+  uname: ["ANUSVARA", "PA"]
+  raw: "ংপ"
+  to_uname: ["MA", "VIRAMA", "PA"]
+  to_raw: "ম্প"
+}
+
+# item {
+#   uname: ["ANUSVARA", "PHA"]  raw: "ংফ"
+#   to_uname: ["MA", "VIRAMA", "PHA"]  to_raw: "ম্ফ"
+# }
+
+item {
+  uname: ["ANUSVARA", "BA"]
+  raw: "ংব"
+  to_uname: ["MA", "VIRAMA", "BA"]
+  to_raw: "ম্ব"
+}
+
+item {
+  uname: ["ANUSVARA", "BHA"]
+  raw: "ংভ"
+  to_uname: ["MA", "VIRAMA", "BHA"]
+  to_raw: "ম্ভ"
+}
+
+# Fricative
+# item {
+#   uname: ["ANUSVARA", "SHA"]  raw: "ংশ"
+#   to_uname: ["NA", "VIRAMA", "SHA"]  to_raw: "ন্শ"
+# }
+
+# item {
+#   uname: ["ANUSVARA", "SSA"]  raw: "ংষ"
+#   to_uname: ["NA", "VIRAMA", "SSA"]  to_raw: "ন্ষ"
+# }
+
+# item {
+#   uname: ["ANUSVARA", "HA"]  raw: "ংহ"
+#   to_uname: ["NA", "VIRAMA", "HA"]  to_raw: "ন্হ"
+# }

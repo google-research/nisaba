@@ -53,6 +53,7 @@ components_tsv_local_with_common(names = [
 components_tsv_local(names = [
     "dead_consonant",
     "nfc",
+    "reading_norm",
     "visual_rewrite",
 ])
 
