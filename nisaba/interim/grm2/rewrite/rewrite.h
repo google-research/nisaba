@@ -22,13 +22,10 @@
 
 #include <cstdint>
 #include <string>
-#include <type_traits>
 #include <utility>
 #include <vector>
 
-#include "nisaba/port/integral_types.h"
 #ifndef NO_GOOGLE
-#include "google/protobuf/repeated_field.h"
 #endif  // NO_GOOGLE
 #include "fst/extensions/mpdt/compose.h"
 #include "fst/extensions/pdt/compose.h"
@@ -37,7 +34,6 @@
 #include "fst//determinize.h"
 #include "fst//fst.h"
 #include "fst//intersect.h"
-#include "fst//minimize.h"
 #include "fst//mutable-fst.h"
 #include "fst//project.h"
 #include "fst//rmepsilon.h"

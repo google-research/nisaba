@@ -45,8 +45,6 @@ cc_library(
     deps = [
         "//nisaba/interim/grm2/paths",
         "//nisaba/interim/grm2/string:stringprint",
-        "//nisaba/port:integral_types",
-        "@com_google_protobuf//:protobuf_lite",
         "@org_openfst//:base",
         "@org_openfst//:fst",
         "@org_openfst//:mpdt",

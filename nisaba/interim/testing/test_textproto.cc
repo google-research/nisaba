@@ -49,13 +49,13 @@
 #include "gtest/gtest.h"
 #include "absl/algorithm/container.h"
 #include "absl/flags/flag.h"
-#include "absl/flags/parse.h"
 #include "fst/log.h"
 #include "fst/log.h"
 #include "absl/strings/str_join.h"
 #include "absl/strings/string_view.h"
 #include "nisaba/interim/grm2/rewrite/rule_cascade.h"
 #include "nisaba/interim/testing/testdata.h"
+#include "absl/flags/parse.h"
 
 ABSL_FLAG(std::string, far_path, "", "Path of FAR to read rules from");
 ABSL_FLAG(std::string, textproto_path, "", "Rewrites textproto path");

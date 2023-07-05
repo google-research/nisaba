@@ -34,8 +34,7 @@ def AsResourcePath(filename: os.PathLike) -> os.PathLike:
 def IsFileExist(filename: os.PathLike) -> bool:
   """Checks if a resource file exists."""
   try:
-    filename = AsResourcePath(filename)
-    if os.path.isfile(filename):
+    if os.path.isfile(AsResourcePath(filename)):
       return True
   except IOError as ex:
     if ex.errno != errno.ENOENT:

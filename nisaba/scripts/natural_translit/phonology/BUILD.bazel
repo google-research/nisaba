@@ -44,10 +44,9 @@ py_library(
     srcs = ["modify_phon.py"],
     deps = [
         ":feature",
+        ":phon",
         "//nisaba/scripts/natural_translit/utils:alignment",
-        "//nisaba/scripts/natural_translit/utils:inventory",
         "//nisaba/scripts/natural_translit/utils:list_op",
-        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
         "@org_opengrm_pynini//pynini",
     ],
 )

@@ -42,20 +42,20 @@ class FstRandgenTest(parameterized.TestCase, test_util.FstRandgenTestCase):
   #     itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   # def test_from_iso_to_native_single_best(self, script: str, token_type: str):
   #   fst = u.OpenFstFromBrahmicFar('iso', f'TO_{script}', token_type)
-  #   self.assertFstSingleShortestPath(fst, token_type, samples=1e4)
+  #   self.AssertFstSingleShortestPath(fst, token_type, samples=1e4)
 
   # @parameterized.parameters(
   #     itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   # def test_from_native_to_iso_single_best(self, script: str, token_type: str):
   #   fst = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)
-  #   self.assertFstSingleShortestPath(fst, token_type, samples=1e4)
+  #   self.AssertFstSingleShortestPath(fst, token_type, samples=1e4)
 
   # @parameterized.parameters(
   #     itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   # def test_iso_roundtrip(self, script: str, token_type: str):
   #   natv_to_iso = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)
   #   iso_to_natv = u.OpenFstFromBrahmicFar('iso', f'TO_{script}', token_type)
-  #   self.assertFstProbablyIdentity([natv_to_iso, iso_to_natv],
+  #   self.AssertFstProbablyIdentity([natv_to_iso, iso_to_natv],
   #                                  token_type='byte',
   #                                  samples=test_util.NUM_TEST_SAMPLES)
 
