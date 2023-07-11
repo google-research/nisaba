@@ -24,9 +24,9 @@
 # finals are pronounced without a following vowel.
 item { uname: "SMALL LETTER KA"  to_raw: "ḳ" }
 item { uname: "SMALL LETTER NGA" to_raw: "ṇ̇" }
-item { uname: "SMALL LETTER TA"  to_raw: "ṭ" }
+item { uname: "SMALL LETTER TA"  to_raw: "ť" }
 item { uname: "SMALL LETTER NA"  to_raw: "ṇ" }
 item { uname: "SMALL LETTER PA"  to_raw: "ṕ" }
 item { uname: "SMALL LETTER MA"  to_raw: "ṃ" }
-item { uname: "SMALL LETTER RA"  to_raw: "ṛ" }
+item { uname: "SMALL LETTER RA"  to_raw: "ŕ" }
 item { uname: "SMALL LETTER LA"  to_raw: "ḷ" }

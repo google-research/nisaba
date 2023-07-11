@@ -51,7 +51,7 @@ item { uname: "TTAA"   raw: "ޘ" to_raw: "tʰ" }
 item { uname: "HHAA"   raw: "ޙ" to_raw: "ḥ" }
 item { uname: "KHAA"   raw: "ޚ" to_raw: "kʰ" }
 item { uname: "THAALU" raw: "ޛ" to_raw: "dʰ" }
-item { uname: "ZAA"    raw: "ޜ" to_raw: "ẓ" }
+item { uname: "ZAA"    raw: "ޜ" to_raw: "ž" }
 item { uname: "SHEENU" raw: "ޝ" to_raw: "sʰ" }
 item { uname: "SAADHU" raw: "ޞ" to_raw: "ṣ" }
 item { uname: "DAADHU" raw: "ޟ" to_raw: "ḏ" }

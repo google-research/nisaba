@@ -35,5 +35,5 @@ item { uname: "SIGN T"  to_raw: "t`" }
 # consonant ("ᰊᰰᰶᰚᰵᰓᰨᰫ"), `NYIN-DO` after vowel sign ("ᰕᰳᰃᰨᰴ"). Ideally `NYIN-DO`
 # should move to `subjoined_consonants`, but it's not clear how widespread the
 # confusion between the two is.
-item { uname: "SIGN NYIN-DO"  to_raw: "ṅ" }
+item { uname: "SIGN NYIN-DO"  to_raw: "n̊" }
 item { uname: "SIGN KANG"  to_raw: "ṇ̇" }

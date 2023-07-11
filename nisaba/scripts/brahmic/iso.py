@@ -55,16 +55,18 @@ from nisaba.scripts.utils import file as f
 from nisaba.scripts.utils import rewrite as rw
 
 
-def brahmic_to_iso(consonant_file: os.PathLike,
-                   inherent_vowel_file: os.PathLike,
-                   vowel_sign_file: os.PathLike,
-                   vowel_file: os.PathLike,
-                   vowel_length_sign_file: os.PathLike,
-                   coda_file: os.PathLike,
-                   dead_consonant_file: os.PathLike,
-                   standalone_file: os.PathLike,
-                   subjoined_consonant_file: os.PathLike,
-                   virama_file: os.PathLike) -> p.Fst:
+def brahmic_to_iso(
+    consonant_file: os.PathLike,
+    inherent_vowel_file: os.PathLike,
+    vowel_sign_file: os.PathLike,
+    vowel_file: os.PathLike,
+    vowel_length_sign_file: os.PathLike,
+    coda_file: os.PathLike,
+    dead_consonant_file: os.PathLike,
+    standalone_file: os.PathLike,
+    subjoined_consonant_file: os.PathLike,
+    virama_file: os.PathLike,
+) -> p.Fst:
   """Creates an FST that transduces a Brahmic script to ISO 15919.
 
   Args:
@@ -78,8 +80,8 @@ def brahmic_to_iso(consonant_file: os.PathLike,
       native--latin independent vowel mapping.
     vowel_length_sign_file: Path relative to depot of a StringFile containing a
       native--latin vowel length sign mapping.
-    coda_file: Path relative to depot of a StringFile containing a
-      native--latin coda mapping.
+    coda_file: Path relative to depot of a StringFile containing a native--latin
+      coda mapping.
     dead_consonant_file: Path relative to depot of a StringFile containing a
       native--latin dead consonant mapping.
     standalone_file: Path relative to depot of a StringFile containing a
@@ -122,18 +124,17 @@ def brahmic_to_iso(consonant_file: os.PathLike,
       dead_consonant,
       vowel_length_sign,
       standalone,
-
       # Rare cases:
       # Dangling vowel signs.
       ins_dash + vowel_sign + (ins_dot + vowel).star + low_priority_epsilon,
       virama_mark + low_priority_epsilon,  # Explicit virama elsewhere.
       common_symbol,  # Joiners.
-
       # Independent vowel not as the first letter:
       vowel + (ins_dot + vowel).plus + low_priority_epsilon,
       consonant + vowel_sign + (ins_dot + vowel).plus,
       consonant + del_virama + (ins_dot + vowel).plus,
-      consonant + ins_inherent + (ins_dot + vowel).plus)
+      consonant + ins_inherent + (ins_dot + vowel).plus,
+  )
 
   return p.optimize(convert_to_iso.star)
 
@@ -150,11 +151,17 @@ def _script_fsts(script: str, token_type: str) -> Tuple[p.Fst, p.Fst]:
       u.SCRIPT_DIR / script / 'dead_consonant.tsv',
       u.SCRIPT_DIR / script / 'standalone.tsv',
       u.SCRIPT_DIR / script / 'subjoined_consonant.tsv',
-      u.SCRIPT_DIR / script / 'virama.tsv')
+      u.SCRIPT_DIR / script / 'virama.tsv',
+  )
   to_script = p.invert(from_script)
+
+  # TODO: Ideally, this should be Visual-Normalized with NFC. However,
+  # this makes the following compositions too slow, causing the build to time
+  # out.
   nfc = u.OpenFstFromBrahmicFar('nfc', script, token_type)
-  from_script = rw.ComposeFsts([nfc, from_script])
-  return (from_script, to_script)
+  from_nfced_script = rw.ComposeFsts([nfc, from_script])
+  to_nfced_script = rw.ComposeFsts([to_script, nfc])
+  return (from_nfced_script, to_nfced_script)
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):

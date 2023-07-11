@@ -72,9 +72,9 @@ item { uname: "DDA"  raw: "ᱏ" to_raw: "ḍ" }
 # cover is presently unclear. However, according to the discussion in
 # https://github.com/googlefonts/noto-fonts/issues/451, `NUKTA` *only* appears
 # in the following contexts below:
-item { uname: ["KA", "NUKTA", "SUBJOINED LETTER RA"] raw: "ᰀ᰷ᰥ" to_raw: "ṭ" }
-item { uname: ["HA", "NUKTA", "SUBJOINED LETTER RA"] raw: "ᰝ᰷ᰥ" to_raw: "ṭʰ" }
-item { uname: ["GA", "NUKTA", "SUBJOINED LETTER RA"] raw: "ᰃ᰷ᰥ" to_raw: "ḍ" }
+item { uname: ["KA", "NUKTA", "SUBJOINED LETTER RA"] raw: "ᰀ᰷ᰥ" to_raw: "ḳʳ" }
+item { uname: ["HA", "NUKTA", "SUBJOINED LETTER RA"] raw: "ᰝ᰷ᰥ" to_raw: "ḥʳ" }
+item { uname: ["GA", "NUKTA", "SUBJOINED LETTER RA"] raw: "ᰃ᰷ᰥ" to_raw: "g̣ʳ" }
 
 # Subjoined consonants on <A>: Our implementation does not allow subjoined
 # consonants on vowels, but Lepcha allows the following cluster.

@@ -17,7 +17,7 @@
 
 item {
   uname: "COMBINING CANDRABINDU ABOVE" raw: "ఀ"
-  to_uname: ["M", "COMBINING CANDRABINDU"] to_raw: "m̐"
+  to_uname: ["N", "COMBINING CANDRABINDU"] to_raw: "n̐"
 }
 item {
   uname: "CANDRABINDU" raw: "ఁ"

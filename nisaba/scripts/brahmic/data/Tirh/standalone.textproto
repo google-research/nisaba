@@ -17,5 +17,5 @@
 
 item {
   uname: "ANJI" raw: "𑒀"
-  to_uname: "RIGHT SINGLE QUOTATION MARK" to_raw: "’"
+  to_uname: "G WITH HOOK" to_raw: "ɠ"
 }
