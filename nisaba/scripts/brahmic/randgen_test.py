@@ -45,13 +45,14 @@ class FstRandgenTest(parameterized.TestCase, tu.FstRandgenTestCase):
         fst, token_type, samples=tu.NUM_TEST_SAMPLES
     )
 
-  # TODO: Following ISO conversion tests do not work. Fix and uncomment.
+  @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
+  def test_from_native_to_iso_single_best(self, script: str, token_type: str):
+    fst = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)
+    self.AssertFstSingleShortestPath(
+        fst, token_type, samples=tu.NUM_TEST_SAMPLES
+    )
 
-  # @parameterized.parameters(
-  #     itertools.product(u.SCRIPTS, ('byte', 'utf8')))
-  # def test_from_native_to_iso_single_best(self, script: str, token_type: str):
-  #   fst = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)
-  #   self.AssertFstSingleShortestPath(fst, token_type, samples=1e4)
+  # TODO: Following ISO round-trip tests do not work. Fix and uncomment.
 
   # @parameterized.parameters(
   #     itertools.product(u.SCRIPTS, ('byte', 'utf8')))

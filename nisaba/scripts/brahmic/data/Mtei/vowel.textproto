@@ -30,4 +30,3 @@ item { uname: ["ATIYA", "SIGN YENAP"]   raw: "ꯑꯦ" to_raw: "ē" }
 item { uname: ["ATIYA", "SIGN ONAP"]    raw: "ꯑꯣ" to_raw: "ō" }
 item { uname: ["ATIYA", "SIGN CHEINAP"] raw: "ꯑꯩ" to_raw: "ai" }
 item { uname: ["ATIYA", "SIGN SOUNAP"]  raw: "ꯑꯧ" to_raw: "au" }
-item { uname: ["ATIYA", "SIGN NUNG"]    raw: "ꯑꯪ" to_raw: "aṁ" }

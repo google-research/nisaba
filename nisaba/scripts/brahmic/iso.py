@@ -114,20 +114,21 @@ def brahmic_to_iso(
   virama_mark = p.cross(virama, '˘')
 
   low_priority_epsilon = p.accep('', weight=1)
+  very_low_priority_epsilon = p.accep('', weight=2)
   consonant = core_consonant + f.QuesSafe(subjoined_consonant)
   convert_to_iso = p.union(
       consonant + vowel_sign,
       consonant + ins_inherent + low_priority_epsilon,
       consonant + del_virama + low_priority_epsilon,
       vowel + low_priority_epsilon,
-      coda,
+      coda + low_priority_epsilon,
       dead_consonant,
       vowel_length_sign,
-      standalone,
+      standalone + low_priority_epsilon,
       # Rare cases:
       # Dangling vowel signs.
       ins_dash + vowel_sign + (ins_dot + vowel).star + low_priority_epsilon,
-      virama_mark + low_priority_epsilon,  # Explicit virama elsewhere.
+      virama_mark + very_low_priority_epsilon,  # Explicit virama elsewhere.
       common_symbol,  # Joiners.
       # Independent vowel not as the first letter:
       vowel + (ins_dot + vowel).plus + low_priority_epsilon,
