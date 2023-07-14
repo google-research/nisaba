@@ -34,43 +34,31 @@ class FstRandgenTest(parameterized.TestCase, tu.FstRandgenTestCase):
   @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   def test_visual_norm(self, script: str, token_type: str):
     fst = u.OpenFstFromBrahmicFar('visual_norm', script, token_type)
-    self.AssertFstProbablyFunctional(
-        fst, token_type, samples=tu.NUM_TEST_SAMPLES
-    )
+    self.AssertFstProbablyFunctional(fst, token_type)
 
   @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   def test_from_iso_to_native_single_best(self, script: str, token_type: str):
     fst = u.OpenFstFromBrahmicFar('iso', f'TO_{script}', token_type)
-    self.AssertFstSingleShortestPath(
-        fst, token_type, samples=tu.NUM_TEST_SAMPLES
-    )
+    self.AssertFstSingleShortestPath(fst, token_type)
 
   @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   def test_from_native_to_iso_single_best(self, script: str, token_type: str):
     fst = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)
-    self.AssertFstSingleShortestPath(
-        fst, token_type, samples=tu.NUM_TEST_SAMPLES
-    )
+    self.AssertFstSingleShortestPath(fst, token_type)
 
-  # TODO: Following ISO round-trip tests do not work. Fix and uncomment.
-
-  # @parameterized.parameters(
-  #     itertools.product(u.SCRIPTS, ('byte', 'utf8')))
-  # def test_iso_roundtrip(self, script: str, token_type: str):
-  #   natv_to_iso = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)
-  #   iso_to_natv = u.OpenFstFromBrahmicFar('iso', f'TO_{script}', token_type)
-  #   self.AssertFstProbablyIdentity([natv_to_iso, iso_to_natv],
-  #                                  token_type='byte',
-  #                                  samples=tu.NUM_TEST_SAMPLES)
+  @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
+  def test_iso_roundtrip(self, script: str, token_type: str):
+    natv_to_iso = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)
+    iso_to_natv = u.OpenFstFromBrahmicFar('iso', f'TO_{script}', token_type)
+    nfc = u.OpenFstFromBrahmicFar('nfc', script, token_type)
+    self.AssertFstProbablyIdentity([natv_to_iso, iso_to_natv], token_type, nfc)
 
   @parameterized.parameters(
       itertools.product(u.FIXED_RULE_SCRIPTS, ('byte', 'utf8'))
   )
   def test_fixed(self, script: str, token_type: str):
     fst = u.OpenFstFromBrahmicFar('fixed', script, token_type)
-    self.AssertFstSingleShortestPath(
-        fst, token_type, samples=tu.NUM_TEST_SAMPLES
-    )
+    self.AssertFstSingleShortestPath(fst, token_type)
 
 
 if __name__ == '__main__':

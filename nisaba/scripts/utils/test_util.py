@@ -15,7 +15,7 @@
 """A library for making unit tests that verify FST properties."""
 
 import collections
-from typing import Callable, Iterator, List, Tuple
+from typing import Callable, Iterator, List, Optional, Tuple
 
 import pynini
 from pynini.lib import utf8
@@ -161,7 +161,7 @@ class FstRandgenTestCase(absltest.TestCase):
 
   def AssertFstProbablyFunctional(self, fst: pynini.Fst,
                                   token_type: pynini.TokenType,
-                                  samples: int) -> None:
+                                  samples: int = NUM_TEST_SAMPLES) -> None:
     """Asserts that an FST is likely functional by sampling.
 
     This samples from an Fst's input projection in order to verify that all the
@@ -186,7 +186,7 @@ class FstRandgenTestCase(absltest.TestCase):
 
   def AssertFstSingleShortestPath(self, fst: pynini.Fst,
                                   token_type: pynini.TokenType,
-                                  samples: int) -> None:
+                                  samples: int = NUM_TEST_SAMPLES) -> None:
     """Empirically asserts an FST produces a unique shortest path for the input.
 
     This samples from an FST's input projection to verify that all the samples
@@ -212,7 +212,8 @@ class FstRandgenTestCase(absltest.TestCase):
 
   def AssertFstProbablyIdentity(self, fsts: List[pynini.Fst],
                                 token_type: pynini.TokenType,
-                                samples: int) -> None:
+                                norm_fst: pynini.Fst,
+                                samples: int = NUM_TEST_SAMPLES) -> None:
     """Asserts that FSTs composed on samples behaves as an identity.
 
     This samples from first FST's input projection in order to verify that all
@@ -228,6 +229,8 @@ class FstRandgenTestCase(absltest.TestCase):
       fsts: List of FSTs to be applied on a sample to verify if the resultant
             FST generates sample itself at its minimum weighted path.
       token_type: The token_type used to derive the FST.
+      norm_fst: The FST to normalize the randomly generated string; usually
+            NFC or Visual Norm.
       samples: The number of input samples to take to verify functionality.
 
     Raises:
@@ -235,13 +238,14 @@ class FstRandgenTestCase(absltest.TestCase):
           anything other than the sample itself at its minimum weight path.
     """
     self._AssertFstSampledBehavior(
-        fsts, token_type, samples, _VerifyIdentity)
+        fsts, token_type, samples, _VerifyIdentity, norm_fst)
 
   def _AssertFstSampledBehavior(
       self, fsts: List[pynini.Fst],
       token_type: pynini.TokenType,
       samples: int,
-      assert_function: Callable[[pynini.Fst, pynini.Fst], None]) -> None:
+      assert_function: Callable[[pynini.Fst, pynini.Fst], None],
+      norm_fst: Optional[pynini.Fst] = None) -> None:
     """Asserts that FST composed on samples is follow a specific behavior.
 
     This samples from first FST's input projection in order to assert a
@@ -261,6 +265,8 @@ class FstRandgenTestCase(absltest.TestCase):
       assert_function: An assert function with  input string FSA and output FST
           as parameters. This function is run in `pynini.default_token_type`
           environment. This function raises AssertionError on assert failure.
+      norm_fst: The FST to normalize the randomly generated string; usually
+          NFC or Visual Norm.
     """
     input_language = pynini.project(fsts[0], "input")
     if token_type == "byte":
@@ -274,6 +280,8 @@ class FstRandgenTestCase(absltest.TestCase):
     with pynini.default_token_type(token_type):
       for ilabels in _OlabelsIter(input_samples):
         input_str_fsa = _LabelListToStringFsa(ilabels)
+        if norm_fst:
+          input_str_fsa @= norm_fst
         output_fst = rewrite.ComposeFsts([input_str_fsa] + fsts)
         assert_function(input_str_fsa, output_fst)
 
