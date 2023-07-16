@@ -122,6 +122,7 @@ py_library(
     deps = [
         "@org_opengrm_pynini//pynini",
         "@rules_python//python/runfiles",
+        # Required to open compressed FST formats.
     ],
 )
 

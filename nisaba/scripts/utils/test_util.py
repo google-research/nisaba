@@ -65,10 +65,10 @@ def AssertFstFunctional(fst: pynini.Fst,
     AssertionError: If the FST is found to have a non-functional.
   """
   with pynini.default_token_type(token_type):
-    _VerifyIfSinglePath(string_fsa, string_fsa @ fst)
+    AssertIfSinglePath(string_fsa, string_fsa @ fst)
 
 
-def _VerifyIfSinglePath(input_str_fsa: pynini.Fst, fst: pynini.Fst):
+def AssertIfSinglePath(log_str_fsa: pynini.Fst, fst: pynini.Fst):
   """Does nothing if given string FST has only one path; throws otherwise.
 
   If there is more than one path in the FST, then string() method on the FST
@@ -76,7 +76,7 @@ def _VerifyIfSinglePath(input_str_fsa: pynini.Fst, fst: pynini.Fst):
   relevant error message with input string from the given string FSA.
 
   Args:
-    input_str_fsa: Input string FSA specific to the FST. Used in the
+    log_str_fsa: Input string FSA specific to the FST. Used in the
         exception message.
     fst: FST to be verified if it has only a single path.
 
@@ -89,7 +89,7 @@ def _VerifyIfSinglePath(input_str_fsa: pynini.Fst, fst: pynini.Fst):
     raise AssertionError(
         "Expected FST to be functional but input string `{input}`"
         " produced multiple output strings: {outputs}".format(
-            input=input_str_fsa.string(),
+            input=log_str_fsa.string(),
             outputs=", ".join(
                 f"`{ostring}`" for ostring in
                 fst.optimize().paths().ostrings()))) from e
@@ -118,7 +118,7 @@ def _VerifyIfSingleShortestPath(input_str_fsa: pynini.Fst, fst: pynini.Fst):
         f' however, produced multiple: `{", ".join(outstrs)}`')
 
 
-def _VerifyIdentity(input_str_fsa: pynini.Fst, fst: pynini.Fst):
+def AssertIdentity(input_str_fsa: pynini.Fst, fst: pynini.Fst):
   """Verifies if FST produces only the input string at its minimum weight path.
 
   Throws AssertError with a detailed error message on verification failure;
@@ -182,7 +182,7 @@ class FstRandgenTestCase(absltest.TestCase):
       AssertionError: If the FST is found to have a non-functional input sample.
     """
     self._AssertFstSampledBehavior(
-        [fst], token_type, samples, _VerifyIfSinglePath)
+        [fst], token_type, samples, AssertIfSinglePath)
 
   def AssertFstSingleShortestPath(self, fst: pynini.Fst,
                                   token_type: pynini.TokenType,
@@ -238,7 +238,7 @@ class FstRandgenTestCase(absltest.TestCase):
           anything other than the sample itself at its minimum weight path.
     """
     self._AssertFstSampledBehavior(
-        fsts, token_type, samples, _VerifyIdentity, norm_fst)
+        fsts, token_type, samples, AssertIdentity, norm_fst)
 
   def _AssertFstSampledBehavior(
       self, fsts: List[pynini.Fst],

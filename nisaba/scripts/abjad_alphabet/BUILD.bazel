@@ -222,11 +222,12 @@ py_test(
     srcs_version = "PY3",
     deps = [
         ":util",
-        "//nisaba/scripts/utils:file",
-        "//nisaba/scripts/utils:test_util",
+        "@org_opengrm_pynini//pynini",
         "@io_abseil_py//absl/testing:absltest",
         "@io_abseil_py//absl/testing:parameterized",
-        "@org_opengrm_pynini//pynini",
+        "//nisaba/scripts/utils:file",
+        # TODO: Remove this dependency by using OpenFar/OpenFstFromFar calls.
+        "//nisaba/scripts/utils:test_util",
     ],
 )
 
@@ -248,12 +249,13 @@ py_test(
     srcs_version = "PY3",
     deps = [
         ":util",
-        "//nisaba/scripts/utils:file",
-        "//nisaba/scripts/utils:test_util",
-        "@io_abseil_py//absl/logging",
+        "@org_opengrm_pynini//pynini",
         "@io_abseil_py//absl/testing:absltest",
         "@io_abseil_py//absl/testing:parameterized",
-        "@org_opengrm_pynini//pynini",
+        "//nisaba/scripts/utils:file",
+        # TODO: Remove this dependency by using OpenFar/OpenFstFromFar calls.
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/logging",
     ],
 )
 
@@ -319,8 +321,7 @@ py_test(
 
 py_test(
     name = "reversible_roman_coverage_test",
-    size = "medium",
-    timeout = "long",
+    size = "small",
     srcs = ["reversible_roman_coverage_test.py"],
     data = [
         ":reversible_roman.far",
@@ -334,6 +335,7 @@ py_test(
         ":util",
         "//nisaba/scripts/utils:file",
         "//nisaba/scripts/utils:letter_languages",
+        "//nisaba/scripts/utils:rewrite",
         "//nisaba/scripts/utils:test_util",
         "//nisaba/scripts/utils:unicode_strings_util",
         "@io_abseil_py//absl/testing:absltest",

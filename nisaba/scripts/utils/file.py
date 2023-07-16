@@ -63,11 +63,18 @@ def StarSafe(fst: pynini.Fst) -> pynini.Fst:
   return OnEmpty(fst, EPSILON).star
 
 
-def OpenFstFromFar(far_dir: pathlib.Path, far_name: str,
-                   token_type: str, fst_name: str) -> pynini.Fst:
+def OpenFar(
+    far_dir: pathlib.Path, far_name: str, token_type: str
+) -> pynini.Far:
   tt_suffix = {"byte": "", "utf8": "_utf8"}[token_type]
   far_path = far_dir / f"{far_name}{tt_suffix}.far"
-  with pynini.Far(AsResourcePath(far_path), "r") as far:
+  return pynini.Far(AsResourcePath(far_path), "r")
+
+
+def OpenFstFromFar(
+    far_dir: pathlib.Path, far_name: str, token_type: str, fst_name: str
+) -> pynini.Fst:
+  with OpenFar(far_dir, far_name, token_type) as far:
     return far[fst_name.upper()]
 
 
