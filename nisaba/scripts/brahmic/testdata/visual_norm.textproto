@@ -270,3 +270,17 @@ rewrite { rule: "TAKR" input: "𑚘𑚀𑚭" output: "𑚘𑚁" }
 rewrite { rule: "TAKR" input: "𑚐𑚆𑚲" output: "𑚐𑚇" }
 rewrite { rule: "TAKR" input: "𑚟𑚀𑚴" output: "𑚟𑚈" }
 rewrite { rule: "TAKR" input: "𑚓𑚀𑚵" output: "𑚓𑚉" }
+
+# Some point examples of a visually split vowel with an anusvara in the middle:
+# <LETTER AA, SIGN ANUSVARA, VOWEL SIGN E> → <LETTER O, SIGN ANUSVARA>
+rewrite { rule: "DEVA" input: "अधिकारियांे" output: "अधिकारियों"}
+rewrite { rule: "DEVA" input: "वालांे" output: "वालों"}
+# <LETTER A, SIGN ANUSVARA, VOWEL SIGN CANDRA E> → <LETTER A, SIGN CANDRABINDU>
+rewrite { rule: "DEVA" input: "अंॅडी" output: "अँडी" }
+# <SIGN ANUSVARA, VOWEL SIGN CANDRA E> → <SIGN CANDRABINDU>
+rewrite { rule: "DEVA" input: "बंॅकेच्या" output: "बँकेच्या" }
+
+# TODO: Consider adding tests in the opposite order.
+# The same but with opposite order:
+# rewrite { rule: "DEVA" input: "अधिकारियेंा" output: "अधिकारियों"}
+# rewrite { rule: "DEVA" input: "वालेंा" output: "वालों"}

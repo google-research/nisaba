@@ -744,6 +744,38 @@ item {
   to_uname: ["NUKTA", "VIRAMA"] to_raw: "़्"
 }
 
+# TODO: Consider doing the below also only for vowels that can be the second part of a split vowel, or potentially expanded to all other vowels.
+# TODO: Consider supporting this in the opposite order as well. We support this for such vowels not intermediated by ANUSVARA.
+# TODO: Consider supporing this with CANDRABINDU as well.
+
+# SIGN ANUSVARA, VOWEL SIGN (SHORT E|E|AI|OE|AY) → VOWEL SIGN (SHORT E|E|AI|OE|AY), SIGN ANUSVARA
+# We take an exception for the CANDRA E case to ensure we compose a CANDRABINDU
+# SIGN ANUSVARA, VOWEL SIGN CANDRA E → SIGN CANDRABINDU
+item {
+  uname: ["SIGN ANUSVARA", "SIGN CANDRA E"] raw: "ंॅ"
+  to_uname: ["SIGN CANDRABINDU"] to_raw: "ँ"
+}
+item {
+  uname: ["SIGN ANUSVARA", "SIGN SHORT E"] raw: "ंॆ"
+  to_uname: ["SIGN SHORT E", "SIGN ANUSVARA"] to_raw: "ॆं"
+}
+item {
+  uname: ["SIGN ANUSVARA", "SIGN E"] raw: "ंे"
+  to_uname: ["SIGN E", "SIGN ANUSVARA"] to_raw: "ें"
+}
+item {
+  uname: ["SIGN ANUSVARA", "SIGN AI"] raw: "ंै"
+  to_uname: ["SIGN AI", "SIGN ANUSVARA"] to_raw: "ैं"
+}
+item {
+  uname: ["SIGN ANUSVARA", "SIGN OE"] raw: "ंऺ"
+  to_uname: ["SIGN OE", "SIGN ANUSVARA"] to_raw: "ऺं"
+}
+item {
+  uname: ["SIGN ANUSVARA", "SIGN AY"] raw: "ंꣿ"
+  to_uname: ["SIGN AY", "SIGN ANUSVARA"] to_raw: "ꣿं"
+}
+
 # (GA|JA|DA|BA), ANUDATTA → GGA|JJA|DDDA|BBA
 item {
   uname: ["GA", "STRESS SIGN ANUDATTA"] raw: "ग॒"
