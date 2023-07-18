@@ -81,6 +81,65 @@ rewrite { rule: "BENG" input: "সংভব" output: "সম্ভব" }
 # ["ANUSVARA", "HA"] -> ["NA", "VIRAMA", "HA"], "ংহ" -> "ন্হ"
 # rewrite { rule: "BENG" input: "চিংহ" output: "চিন্হ" }
 
+# CANDRABINDU
+# Velar
+# ["CANDRABINDU", "KA"] -> ["NGA", "VIRAMA", "KA"], "ঁক" -> "ঙ্ক"
+# rewrite { rule: "BENG" input: "আতঁক" output: "আতঙ্ক" }
+# ["CANDRABINDU", "KHA"] -> ["NGA", "VIRAMA", "KHA"], "ঁখ" -> "ঙ্খ"
+# rewrite { rule: "BENG" input: "শঁখ" output: "শঙ্খ" }
+# ["CANDRABINDU", "GA"] -> ["NGA", "VIRAMA", "GA"], "ঁগ" -> "ঙ্গ"
+rewrite { rule: "BENG" input: "সঁগে" output: "সঙ্গে" }
+# ["CANDRABINDU", "GHA"] -> ["NGA", "VIRAMA", "GHA"], "ঁঘ" -> "ঙ্ঘ"
+rewrite { rule: "BENG" input: "সঁঘ" output: "সঙ্ঘ" }
+
+# Palatal
+# ["CANDRABINDU", "CA"] -> ["NYA", "VIRAMA", "CA"], "ঁচ" -> "ঞ্চ"
+# rewrite { rule: "BENG" input: "ইঁচি" output: "ইঞ্চি" }
+# ["CANDRABINDU", "CHA"] -> ["NYA", "VIRAMA", "CHA"], "ঁছ" -> "ঞ্ছ"
+# rewrite { rule: "BENG" input: "লাঁছিত" output: "লাঞ্ছিত" }
+# ["CANDRABINDU", "JA"] -> ["NYA", "VIRAMA", "JA"], "ঁজ" -> "ঞ্জ"
+# rewrite { rule: "BENG" input: "সরঁজাম" output: "সরঞ্জাম" }
+# ["CANDRABINDU", "JHA"] -> ["NYA", "VIRAMA", "JHA"], "ঁঝ" -> "ঞ্ঝ"
+# rewrite { rule: "BENG" input: "ঝঁঝা" output: "ঝঞ্ঝা" }
+
+# Retroflex
+# ["CANDRABINDU", "TTA"] -> ["NNA", "VIRAMA", "TTA"], "ঁট" -> "ণ্ট"
+# rewrite { rule: "BENG" input: "ঘঁটা" output: "ঘণ্টা" }
+# ["CANDRABINDU", "TTHA"] -> ["NNA", "VIRAMA", "TTHA"], "ঁঠ" -> "ণ্ঠ"
+rewrite { rule: "BENG" input: "কঁঠ" output: "কণ্ঠ" }
+# ["CANDRABINDU", "DDA"] -> ["NNA", "VIRAMA", "DDA"], "ঁড" -> "ণ্ড"
+# rewrite { rule: "BENG" input: "মঁডল" output: "মণ্ডল" }
+# ["CANDRABINDU", "DDHA"] -> ["NNA", "VIRAMA", "DDHA"], "ঁঢ" -> "ণ্ঢ"
+# rewrite { rule: "BENG" input: "ঢুঁঢ" output: "ঢুণ্ঢ" }
+
+# Dental
+# ["CANDRABINDU", "TA"] -> ["NA", "VIRAMA", "TA"], "ঁত" -> "ন্ত"
+rewrite { rule: "BENG" input: "পর্যঁত" output: "পর্যন্ত" }
+# ["CANDRABINDU", "THA"] -> ["NA", "VIRAMA", "THA"], "ঁথ" -> "ন্থ"
+# rewrite { rule: "BENG" input: "পঁথা" output: "পন্থা" }
+# ["CANDRABINDU", "DA"] -> ["NA", "VIRAMA", "DA"], "ঁদ" -> "ন্দ"
+# rewrite { rule: "BENG" input: "সুঁদর" output: "সুন্দর" }
+# ["CANDRABINDU", "DHA"] -> ["NA", "VIRAMA", "DHA"], "ঁধ" -> "ন্ধ"
+rewrite { rule: "BENG" input: "বঁধ" output: "বন্ধ" }
+
+# Bilabial
+# ["CANDRABINDU", "PA"] -> ["MA", "VIRAMA", "PA"], "ঁপ" -> "ম্প"
+# rewrite { rule: "BENG" input: "সঁপাদকীয়" output: "সম্পাদকীয়" }
+# ["CANDRABINDU", "PHA"] -> ["MA", "VIRAMA", "PHA"], "ঁফ" -> "ম্ফ"
+# rewrite { rule: "BENG" input: "লঁফে" output: "লম্ফে" }
+# ["CANDRABINDU", "BA"] -> ["MA", "VIRAMA", "BA"], "ঁব" -> "ম্ব"
+rewrite { rule: "BENG" input: "কঁবল" output: "কম্বল" }
+# ["CANDRABINDU", "BHA"] -> ["MA", "VIRAMA", "BHA"], "ঁভ" -> "ম্ভ"
+rewrite { rule: "BENG" input: "সঁভার" output: "সম্ভার" }
+
+# Fricative
+# ["CANDRABINDU", "SHA"] -> ["NA", "VIRAMA", "SHA"], "ঁশ" -> "ন্শ"
+# rewrite { rule: "BENG" input: "মুঁশি" output: "মুন্শি" }
+# ["CANDRABINDU", "SSA"] -> ["NA", "VIRAMA", "SSA"], "ঁষ" -> "ন্ষ"
+# rewrite { rule: "BENG" input: "চাঁষ" output: "চান্ষ" }
+# ["CANDRABINDU", "HA"] -> ["NA", "VIRAMA", "HA"], "ঁহ" -> "ন্হ"
+# rewrite { rule: "BENG" input: "সঁহা" output: "সন্হা" }
+
 # Velar
 rewrite { rule: "HI" input: "शशाङ्क" output: "शशांक" }
 rewrite { rule: "HI" input: "शङ्ख" output: "शंख" }

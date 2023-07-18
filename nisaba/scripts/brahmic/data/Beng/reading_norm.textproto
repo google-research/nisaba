@@ -18,9 +18,13 @@
 # Bengali prefers homorganic nasal consonant to Anusvara or Candrabindu.
 
 # TODO: Double check the commented (questionable) rules.
+# TODO: If the rule has no winning outcome, consider including
+#                        the reverse rule.
 
 # ANUSVARA + CONSONANT -> NASAL VARGA + VIRAMA + CONSONANT
+
 # Velar
+
 # item {
 #   uname: ["ANUSVARA", "KA"]  raw: "ংক"
 #   to_uname: ["NGA", "VIRAMA", "KA"]  to_raw: "ঙ্ক"
@@ -44,6 +48,7 @@ item {
 # }
 
 # Palatal
+
 item {
   uname: ["ANUSVARA", "CA"]
   raw: "ংচ"
@@ -71,6 +76,7 @@ item {
 }
 
 # Retroflex
+
 item {
   uname: ["ANUSVARA", "TTA"]
   raw: "ংট"
@@ -98,6 +104,7 @@ item {
 # }
 
 # Dental
+
 item {
   uname: ["ANUSVARA", "TA"]
   raw: "ংত"
@@ -127,6 +134,7 @@ item {
 }
 
 # Bilabial
+
 item {
   uname: ["ANUSVARA", "PA"]
   raw: "ংপ"
@@ -154,6 +162,7 @@ item {
 }
 
 # Fricative
+
 # item {
 #   uname: ["ANUSVARA", "SHA"]  raw: "ংশ"
 #   to_uname: ["NA", "VIRAMA", "SHA"]  to_raw: "ন্শ"
@@ -166,5 +175,137 @@ item {
 
 # item {
 #   uname: ["ANUSVARA", "HA"]  raw: "ংহ"
+#   to_uname: ["NA", "VIRAMA", "HA"]  to_raw: "ন্হ"
+# }
+
+# CANDRABINDU + CONSONANT -> NASAL VARGA + VIRAMA + CONSONANT
+# Candrabindu represents a nasal sound and can be placed above vowel letter or
+# vowel sign. However it has been noticed that the Candrabindu is treated like
+# the Anusvara and is placed before homorganic nasals.
+
+# Velar
+
+# item {
+#   uname: ["CANDRABINDU", "KA"]  raw: "ঁক"
+#   to_uname: ["NGA", "VIRAMA", "KA"]  to_raw: "ঙ্ক"
+# }
+
+# item {
+#   uname: ["CANDRABINDU", "KHA"]  raw: "ঁখ"
+#   to_uname: ["NGA", "VIRAMA", "KHA"]  to_raw: "ঙ্খ"
+# }
+
+item {
+  uname: ["CANDRABINDU", "GA"]  raw: "ঁগ"
+  to_uname: ["NGA", "VIRAMA", "GA"]  to_raw: "ঙ্গ"
+}
+
+item {
+  uname: ["CANDRABINDU", "GHA"]  raw: "ঁঘ"
+  to_uname: ["NGA", "VIRAMA", "GHA"]  to_raw: "ঙ্ঘ"
+}
+
+# Palatal
+
+# item {
+#   uname: ["CANDRABINDU", "CA"]  raw: "ঁচ"
+#   to_uname: ["NYA", "VIRAMA", "CA"]  to_raw: "ঞ্চ"
+# }
+
+# item {
+#   uname: ["CANDRABINDU", "CHA"]  raw: "ঁছ"
+#   to_uname: ["NYA", "VIRAMA", "CHA"]  to_raw: "ঞ্ছ"
+# }
+
+# item {
+#   uname: ["CANDRABINDU", "JA"]  raw: "ঁজ"
+#   to_uname: ["NYA", "VIRAMA", "JA"]  to_raw: "ঞ্জ"
+# }
+
+# item {
+#   uname: ["CANDRABINDU", "JHA"]  raw: "ঁঝ"
+#   to_uname: ["NYA", "VIRAMA", "JHA"]  to_raw: "ঞ্ঝ"
+# }
+
+# Retroflex
+
+# item {
+#   uname: ["CANDRABINDU", "TTA"]  raw: "ঁট"
+#   to_uname: ["NNA", "VIRAMA", "TTA"]  to_raw: "ণ্ট"
+# }
+
+item {
+  uname: ["CANDRABINDU", "TTHA"]  raw: "ঁঠ"
+  to_uname: ["NNA", "VIRAMA", "TTHA"]  to_raw: "ণ্ঠ"
+}
+
+# item {
+#   uname: ["CANDRABINDU", "DDA"]  raw: "ঁড"
+#   to_uname: ["NNA", "VIRAMA", "DDA"]  to_raw: "ণ্ড"
+# }
+
+# item {
+#   uname: ["CANDRABINDU", "DDHA"]  raw: "ঁঢ"
+#   to_uname: ["NNA", "VIRAMA", "DDHA"]  to_raw: "ণ্ঢ"
+# }
+
+# Dental
+
+item {
+  uname: ["CANDRABINDU", "TA"]  raw: "ঁত"
+  to_uname: ["NA", "VIRAMA", "TA"]  to_raw: "ন্ত"
+}
+
+# item {
+#   uname: ["CANDRABINDU", "THA"]  raw: "ঁথ"
+#   to_uname: ["NA", "VIRAMA", "THA"]  to_raw: "ন্থ"
+# }
+
+# item {
+#   uname: ["CANDRABINDU", "DA"]  raw: "ঁদ"
+#   to_uname: ["NA", "VIRAMA", "DA"]  to_raw: "ন্দ"
+# }
+
+item {
+  uname: ["CANDRABINDU", "DHA"]  raw: "ঁধ"
+  to_uname: ["NA", "VIRAMA", "DHA"]  to_raw: "ন্ধ"
+}
+
+# Bilabial
+
+# item {
+#  uname: ["CANDRABINDU", "PA"]  raw: "ঁপ"
+#  to_uname: ["MA", "VIRAMA", "PA"]  to_raw: "ম্প"
+# }
+
+# item {
+#   uname: ["CANDRABINDU", "PHA"]  raw: "ঁফ"
+#   to_uname: ["MA", "VIRAMA", "PHA"]  to_raw: "ম্ফ"
+# }
+
+item {
+  uname: ["CANDRABINDU", "BA"]  raw: "ঁব"
+  to_uname: ["MA", "VIRAMA", "BA"]  to_raw: "ম্ব"
+}
+
+item {
+  uname: ["CANDRABINDU", "BHA"]  raw: "ঁভ"
+  to_uname: ["MA", "VIRAMA", "BHA"]  to_raw: "ম্ভ"
+}
+
+# Fricative
+
+# item {
+#   uname: ["CANDRABINDU", "SHA"]  raw: "ঁশ"
+#   to_uname: ["NA", "VIRAMA", "SHA"]  to_raw: "ন্শ"
+# }
+
+# item {
+#   uname: ["CANDRABINDU", "SSA"]  raw: "ঁষ"
+#   to_uname: ["NA", "VIRAMA", "SSA"]  to_raw: "ন্ষ"
+# }
+
+# item {
+#   uname: ["CANDRABINDU", "HA"]  raw: "ঁহ"
 #   to_uname: ["NA", "VIRAMA", "HA"]  to_raw: "ন্হ"
 # }
