@@ -18,7 +18,6 @@ import itertools
 
 from absl import logging  
 
-import pynini
 from absl.testing import absltest
 from absl.testing import parameterized
 from nisaba.scripts.abjad_alphabet import util as u
@@ -28,13 +27,13 @@ from nisaba.scripts.utils import test_util as ut
 
 class FstRandgenTest(parameterized.TestCase, ut.FstRandgenTestCase):
 
-  def test_romanization_roundtrip(self):
-    far_path = u.FAR_DIR / 'reversible_roman.far'
-    with pynini.Far(uf.AsResourcePath(far_path), 'r') as far:
-      natv_to_latin = far['FROM_ARAB']
-      latin_to_natv = far['TO_ARAB']
-      round_trip = natv_to_latin @ latin_to_natv
-      self.AssertFstProbablyFunctional(round_trip, token_type='byte')
+  @parameterized.parameters('byte', 'utf8')
+  def test_romanization_roundtrip(self, token_type: str):
+    far = uf.OpenFar(u.FAR_DIR, 'reversible_roman', token_type)
+    natv_to_latin = far['FROM_ARAB']
+    latin_to_natv = far['TO_ARAB']
+    round_trip = natv_to_latin @ latin_to_natv
+    self.AssertFstProbablyFunctional(round_trip, token_type)
 
   @parameterized.parameters(itertools.product(
       u.LANGS, ('visual_norm', 'reading_norm'), ('byte', 'utf8')))

@@ -28,13 +28,15 @@ class FstPropertiesTest(parameterized.TestCase, ut.FstPropertiesTestCase):
 
   @parameterized.parameters(
       itertools.product(('TO', 'FROM'),
+                        ('byte', 'utf8'),
                         (pynini.ACCESSIBLE,
                          pynini.COACCESSIBLE,
                          pynini.CYCLIC,
                          pynini.NO_EPSILONS,
                          pynini.UNWEIGHTED)))
-  def test_reversible_roman(self, direction: str, prop: pynini.FstProperties):
-    fst = uf.OpenFstFromFar(u.FAR_DIR, 'reversible_roman', 'byte',
+  def test_reversible_roman(self, direction: str, token_type: str,
+                            prop: pynini.FstProperties):
+    fst = uf.OpenFstFromFar(u.FAR_DIR, 'reversible_roman', token_type,
                             f'{direction}_ARAB')
     self.AssertFstCompliesWithProperties(fst, prop)
 

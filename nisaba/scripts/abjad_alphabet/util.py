@@ -16,7 +16,7 @@
 
 import itertools as it
 import pathlib
-
+import string
 import pynini
 import nisaba.scripts.utils.char as uc
 import nisaba.scripts.utils.file as uf
@@ -44,7 +44,9 @@ def sigma_from_common_data_files() -> pynini.Fst:
                 'visual_norm_nonfinal']
   files = [f'{lang}/{file}' for lang, file in it.product(LANGS, lang_files)]
   paths = [LANG_DIR / f'{file}.tsv' for file in files + common_files]
-  chars = uc.derive_chars(input_side=paths)
+  # All characters used in our data files and ASCII characters, except '[' & ']'
+  # as they have special meaning to Pynini.
+  chars = uc.derive_chars(both_sides=paths) | set(string.printable) - set('[]')
   return uc.derive_sigma(chars)
 
 

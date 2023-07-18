@@ -114,8 +114,8 @@ def _VerifyIfSingleShortestPath(input_str_fsa: pynini.Fst, fst: pynini.Fst):
 
   if len(outstrs) > 1:
     raise AssertionError(
-        f'Expected FST to produce single best output for input `{input_str}`;'
-        f' however, produced multiple: `{", ".join(outstrs)}`')
+        f"Expected FST to produce single best output for input `{input_str}`;"
+        f" however, produced multiple: `{', '.join(outstrs)}`")
 
 
 def AssertIdentity(input_str_fsa: pynini.Fst, fst: pynini.Fst):
@@ -137,12 +137,16 @@ def AssertIdentity(input_str_fsa: pynini.Fst, fst: pynini.Fst):
   out_weights = collections.defaultdict(set)
   for _, out, weight in fst.optimize().paths().items():
     out_weights[int(str(weight))].add(out)
-  outstrs = out_weights[min(out_weights)]
 
+  if not out_weights:
+    raise AssertionError(
+        f"Expected FST identical to `{input_str}`, but it is empty.")
+
+  outstrs = out_weights[min(out_weights)]
   if outstrs - {input_str}:
     raise AssertionError(
-        f'Expected FST to be idenity but input `{input_str}`'
-        f' produced output string(s): `{", ".join(outstrs)}`')
+        f"Expected FST to be idenity but input `{input_str}`"
+        f" produced output string(s): `{', '.join(outstrs)}`")
 
 
 class FstPropertiesTestCase(absltest.TestCase):

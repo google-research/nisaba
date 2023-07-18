@@ -16,7 +16,6 @@
 
 load(
     "//nisaba/scripts/utils:grammars.bzl",
-    "nisaba_compile_grm_py",
     "nisaba_compile_multi_grm_py",
     "nisaba_compile_script_lang_multi_grm_py",
     "nisaba_grm_textproto_test",
@@ -51,8 +50,12 @@ LANGS = [
 
 NORM_SCRIPT_LANGS = [("Arab", lang) for lang in LANGS]
 
-nisaba_compile_grm_py(
+nisaba_compile_multi_grm_py(
     name = "reversible_roman",
+    outs = {
+        "byte": "reversible_roman.far",
+        "utf8": "reversible_roman_utf8.far",
+    },
     data = [
         "//nisaba/scripts/abjad_alphabet/data/Arab:reversible_roman.tsv",
         "//nisaba/scripts/abjad_alphabet/data/Arab:visual_norm.tsv",
@@ -73,6 +76,13 @@ nisaba_grm_textproto_test(
     name = "reversible_roman_test",
     grammar = ":reversible_roman",
     textproto = "testdata/reversible_roman.textproto",
+)
+
+nisaba_grm_textproto_test(
+    name = "reversible_roman_utf8_test",
+    grammar = ":reversible_roman_utf8",
+    textproto = "testdata/reversible_roman.textproto",
+    token_type = "utf8",
 )
 
 nisaba_compile_multi_grm_py(
@@ -215,6 +225,7 @@ py_test(
         ":reading_norm.far",
         ":reading_norm_utf8.far",
         ":reversible_roman.far",
+        ":reversible_roman_utf8.far",
         ":visual_norm.far",
         ":visual_norm_utf8.far",
     ],
@@ -241,6 +252,7 @@ py_test(
         ":reading_norm.far",
         ":reading_norm_utf8.far",
         ":reversible_roman.far",
+        ":reversible_roman_utf8.far",
         ":visual_norm.far",
         ":visual_norm_utf8.far",
     ],
