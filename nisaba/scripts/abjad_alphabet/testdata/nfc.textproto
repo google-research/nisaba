@@ -12,10 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# proto-file: nisaba/interim/testing/testdata.proto
+# proto-file: third_party/nisaba/interim/testing/testdata.proto
 # proto-message: Rewrites
+
+# Unit tests for NFC of abjad / alphabet script languages.
+
+# ALEF WITH MADDA ABOVE
 rewrite {
-  comment: "Unit tests for NFC of abjad / alphabet script languages. ALEF WITH MADDA ABOVE"
   rule: "ARAB"
   input: "آپ"
   output: "آپ"
@@ -25,14 +28,16 @@ rewrite {
   input: "درآمد"
   output: "درآمد"
 }
+
+# ALEF WITH HAMZA ABOVE
 rewrite {
-  comment: "ALEF WITH HAMZA ABOVE"
   rule: "ARAB"
   input: "غالبأ"
   output: "غالبأ"
 }
+
+# ALEF WITH HAMZA BELOW
 rewrite {
-  comment: "ALEF WITH HAMZA BELOW"
   rule: "ARAB"
   input: "علإ"
   output: "علإ"
@@ -47,158 +52,187 @@ rewrite {
   input: "الإبراهيم"
   output: "الإبراهيم"
 }
+
+# WAW WITH HAMZA ABOVE
 rewrite {
-  comment: "WAW WITH HAMZA ABOVE"
   rule: "ARAB"
   input: "بناؤ"
   output: "بناؤ"
 }
+
+# ARABIC LETTER HEH GOAL WITH HAMZA ABOVE
 rewrite {
-  comment: "ARABIC LETTER HEH GOAL WITH HAMZA ABOVE"
   rule: "ARAB"
   input: "نقطۂ"
   output: "نقطۂ"
 }
+
+# ARABIC LETTER YEH BARREE WITH HAMZA ABOVE
 rewrite {
-  comment: "ARABIC LETTER YEH BARREE WITH HAMZA ABOVE"
   rule: "ARAB"
   input: "کۓ"
   output: "کۓ"
 }
+
+# ALEF MADDAH + HAMZA BELOW -> ALEF HAMZA BELOW + MADDAH
 rewrite {
-  comment: "ALEF MADDAH + HAMZA BELOW -> ALEF HAMZA BELOW + MADDAH"
   rule: "ARAB"
   input: "إٓئیکن"
   output: "إٓئیکن"
 }
+
+# ALEF + SUPERSCRIPT ALEF + MADDHA -> ALEF MADDHA + SUPERSCRIPT ALEF
 rewrite {
-  comment: "ALEF + SUPERSCRIPT ALEF + MADDHA -> ALEF MADDHA + SUPERSCRIPT ALEF"
   rule: "ARAB"
   input: "آٰئی"
   output: "آٰئی"
 }
+
+# Pass-through deprecated letter: ALEF WITH WAVY HAMZA BELOW
 rewrite {
-  comment: "Pass-through deprecated letter: ALEF WITH WAVY HAMZA BELOW"
   rule: "ARAB"
   input: "كٳم"
   output: "كٳم"
 }
+
+# Keeping multiple combining marks on a letter in the canonical order.
+# TODO: Change this example input to SHADDA, SHADDA, FATHA, FATHA.
+# This is not currently supported as SHADDA, FATHA reordering is applied only
+# once that generates SHADDA, FATHA, SHADDA, FATHA which is not fully NFC'ed.
 rewrite {
-  comment: "Keeping multiple combining marks on a letter in the canonical order TODO: Change this example input to SHADDA, SHADDA, FATHA, FATHA. This is not currently supported as SHADDA, FATHA reordering is applied only once that generates SHADDA, FATHA, SHADDA, FATHA which is not fully NFC\'ed."
   rule: "ARAB"
   input: "تعذََّّر"
   output: "تعذََّّر"
 }
+
+# FATHA, SHADDA
 rewrite {
-  comment: "FATHA, SHADDA"
   rule: "ARAB"
   input: "مصمَّم"
   output: "مصمَّم"
 }
+
+# FATHA, KASRA
 rewrite {
-  comment: "FATHA, KASRA"
   rule: "ARAB"
   input: "ہَِیں"
   output: "ہَِیں"
 }
+
+# FATHA, DAMMA
 rewrite {
-  comment: "FATHA, DAMMA"
   rule: "ARAB"
   input: "گَُراني"
   output: "گَُراني"
 }
+
+# FATHA, SHADDA, KASRA
 rewrite {
-  comment: "FATHA, SHADDA, KASRA"
   rule: "ARAB"
   input: "غيَِّر"
   output: "غيَِّر"
 }
+
+# FATHATAN, FATHA
 rewrite {
-  comment: "FATHATAN, FATHA"
   rule: "ARAB"
   input: "تلقائيًَا"
   output: "تلقائيًَا"
 }
+
+# FATHATAN, KASRA
 rewrite {
-  comment: "FATHATAN, KASRA"
   rule: "ARAB"
   input: "حاليًِا"
   output: "حاليًِا"
 }
+
+# FATHATAN, KASRATAN
 rewrite {
-  comment: "FATHATAN, KASRATAN"
   rule: "ARAB"
   input: "نهمًٍه"
   output: "نهمًٍه"
 }
+
+# FATHATAN, SHADDA
 rewrite {
-  comment: "FATHATAN, SHADDA"
   rule: "ARAB"
   input: "ردًّا"
   output: "ردًّا"
 }
+
+# KASRA, SHADDA
 rewrite {
-  comment: "KASRA, SHADDA"
   rule: "ARAB"
   input: "حدِّد"
   output: "حدِّد"
 }
+
+# KASRA, SMALL HIGH TAH
 rewrite {
-  comment: "KASRA, SMALL HIGH TAH"
   rule: "ARAB"
   input: "اِؕس"
   output: "اِؕس"
 }
+
+# KASRA, SUKUN
 rewrite {
-  comment: "KASRA, SUKUN"
   rule: "ARAB"
   input: "يُمِْكِنُنِي"
   output: "يُمِْكِنُنِي"
 }
+
+# KASRATAN, SHADDA
 rewrite {
-  comment: "KASRATAN, SHADDA"
   rule: "ARAB"
   input: "بأيٍّ"
   output: "بأيٍّ"
 }
+
+# KASRATAN, KASRA
 rewrite {
-  comment: "KASRATAN, KASRA"
   rule: "ARAB"
   input: "جارٍِ"
   output: "جارٍِ"
 }
+
+# KASRATAN, FATHA
 rewrite {
-  comment: "KASRATAN, FATHA"
   rule: "ARAB"
   input: "حدٍَ"
   output: "حدٍَ"
 }
+
+# DAMMATAN, DAMMA
 rewrite {
-  comment: "DAMMATAN, DAMMA"
   rule: "ARAB"
   input: "التحقٌُّق"
   output: "التحقٌُّق"
 }
+
+# DAMMATAN, SHADDA
 rewrite {
-  comment: "DAMMATAN, SHADDA"
   rule: "ARAB"
   input: "كلٌّ"
   output: "كلٌّ"
 }
+
+# DAMMA, SMALL HIGH DOTLESS HEAD OF KHAH
 rewrite {
-  comment: "DAMMA, SMALL HIGH DOTLESS HEAD OF KHAH"
   rule: "ARAB"
   input: "ٿاُۡ"
   output: "ٿاُۡ"
 }
+
+# DAMMA, SHADDA
 rewrite {
-  comment: "DAMMA, SHADDA"
   rule: "ARAB"
   input: "توفُّر"
   output: "توفُّر"
 }
+
+# SHADDA, SUKUN
 rewrite {
-  comment: "SHADDA, SUKUN"
   rule: "ARAB"
   input: "نظاميّْ"
   output: "نظاميّْ"

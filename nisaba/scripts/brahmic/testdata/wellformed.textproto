@@ -14,8 +14,9 @@
 
 # proto-file: third_party/nisaba/interim/testing/testdata.proto
 # proto-message: Rewrites
+
+# Reject tests
 rewrite {
-  comment: "Reject tests"
   rule: "DEVA"
   input: "काु"
 }
@@ -31,8 +32,9 @@ rewrite {
   rule: "DEVA"
   input: "ँ"
 }
+
+# TODO: Allow initial position of Khanda Ta & Chillus.
 rewrite {
-  comment: "TODO: Allow initial position of Khanda Ta & Chillus"
   rule: "BENG"
   input: "ৎ"
 }
@@ -40,8 +42,9 @@ rewrite {
   rule: "MLYM"
   input: "ൻ"
 }
+
+# Reject: Consonant + (Virama + Vowel Sign | Vowel Sign + Virama).
 rewrite {
-  comment: "Reject: Consonant + (Virama + Vowel Sign | Vowel Sign + Virama)"
   rule: "DEVA"
   input: "क्ा"
 }
@@ -49,8 +52,9 @@ rewrite {
   rule: "DEVA"
   input: "का्"
 }
+
+# Reject: Consonant + Virama, (|ZWS|ZWNJ|ZWJ) + Coda.
 rewrite {
-  comment: "Reject: Consonant + Virama, (|ZWS|ZWNJ|ZWJ) + Coda"
   rule: "DEVA"
   input: "क्ँ"
 }
@@ -66,8 +70,9 @@ rewrite {
   rule: "DEVA"
   input: "क्‍ँ"
 }
+
+# Reject: Consonant + <VIRAMA, (ZWS|ZWNJ|ZWJ)>.
 rewrite {
-  comment: "Reject: Consonant + <VIRAMA, (ZWS|ZWNJ|ZWJ)>"
   rule: "DEVA"
   input: "न्​"
 }
@@ -79,8 +84,11 @@ rewrite {
   rule: "DEVA"
   input: "न्‍"
 }
+
+# Accept tests
+# TODO: This currently passes but a standalone chillu does not
+# (See above). Choose one or the other.
 rewrite {
-  comment: "Accept tests TODO: This currently passes but a standalone chillu does not (See above). Choose one or the other."
   rule: "MLYM"
   input: "ൻേ"
   output: "ൻേ"
@@ -258,14 +266,16 @@ rewrite {
   rule: "DEVA"
   input: "ख़ाँ  ख़ाँ"
 }
+
+# Accept Avagraha
 rewrite {
-  comment: "Accept Avagraha"
   rule: "DEVA"
   input: "ऽ"
   output: "ऽ"
 }
+
+# Words with Zero-Width-Non-Joiner.
 rewrite {
-  comment: "Words with Zero-Width-Non-Joiner."
   rule: "MLYM"
   input: "കെജ്‌രിവാൾ"
   output: "കെജ്‌രിവാൾ"
@@ -295,8 +305,9 @@ rewrite {
   input: "श्रीमान्‌को"
   output: "श्रीमान्‌को"
 }
+
+# Eyelash reph
 rewrite {
-  comment: "Eyelash reph"
   rule: "DEVA"
   input: "दऱ्या"
   output: "दऱ्या"
@@ -311,8 +322,9 @@ rewrite {
   input: "এ্যালজিও"
   output: "এ্যালজিও"
 }
+
+# Khanda Ta examples
 rewrite {
-  comment: "Khanda Ta examples"
   rule: "BENG"
   input: "ভবিষ্যৎ"
   output: "ভবিষ্যৎ"
@@ -322,8 +334,9 @@ rewrite {
   input: "তৎসম"
   output: "তৎসম"
 }
+
+# Independent æ vowel built with YA-phalaa
 rewrite {
-  comment: "Independent æ vowel built with YA-phalaa"
   rule: "KNDA"
   input: "ಆ್ಯಪ್"
   output: "ಆ್ಯಪ್"
@@ -338,8 +351,9 @@ rewrite {
   input: "এ্যাপ্লিকেশন"
   output: "এ্যাপ্লিকেশন"
 }
+
+# YA-phalaa/sign
 rewrite {
-  comment: "YA-phalaa/sign"
   rule: "BENG"
   input: "র‍্যাল"
   output: "র‍্যাল"
@@ -349,8 +363,19 @@ rewrite {
   input: "ರ‍್ಯಂಡ್"
   output: "ರ‍್ಯಂಡ್"
 }
+
+# TODO: ZWJ for YA-phalaa after KA should not be wellformed.
+# rewrite {
+#   rule: "BENG"
+#   input: "ক‍্যাশ"
+# }
+# rewrite {
+#   rule: "KNDA"
+#   input: "ಕ‍್ಯಾಂಡ್"
+# }
+
+# Accepts Chillus/KHANDA TA with a preceding VIRAMA:
 rewrite {
-  comment: "TODO: ZWJ for YA-phalaa after KA should not be wellformed. BENG\tক‍্যাশ KNDA\tಕ‍್ಯಾಂಡ್ Accepts Chillus/KHANDA TA with a preceding VIRAMA"
   rule: "MLYM"
   input: "കെയ്ൻ"
   output: "കെയ്ൻ"
@@ -375,53 +400,66 @@ rewrite {
   input: "ল্ৎ"
   output: "ল্ৎ"
 }
+
+# Rejects adjacent Chillus
 rewrite {
-  comment: "Rejects adjacent Chillus"
   rule: "MLYM"
   input: "കെയ്ൻൻ"
 }
+
+# Rejects VIRAMA+ZWNJ+KHANDA TA
+# TODO: Investigate if the usage of ZWJs valid in here.
+# That is, if <Consonant, VIRAMA, ZW(N)J, KHANDA TA> has a valid usage, please
+# change wellformed acceptor to allow that specific usage. Corresponding change
+# is needed in visual_norm as well.
 rewrite {
-  comment: "Rejects VIRAMA+ZWNJ+KHANDA TA TODO: Investigate if the usage of ZWJs valid in here. That is, if <Consonant, VIRAMA, ZW(N)J, KHANDA TA> has a valid usage, please change wellformed acceptor to allow that specific usage. Corresponding change is needed in visual_norm as well."
   rule: "BENG"
   input: "রাইনফেল্‌ৎ"
 }
+
+# Rejects KHANDA TA, VIRAMA
 rewrite {
-  comment: "Rejects KHANDA TA, VIRAMA"
   rule: "BENG"
   input: "ৎ্ল"
 }
+
+# Example: 7-ാം (meaning \'seventh\')
 rewrite {
-  comment: "Example: 7-ാം (meaning \'seventh\')"
   rule: "MLYM"
   input: "ാം"
   output: "ാം"
 }
+
+# Example: 2020-ൽ (meaning \'in 2020\')
 rewrite {
-  comment: "Example: 2020-ൽ (meaning \'in 2020\')"
   rule: "MLYM"
   input: "ൽ"
   output: "ൽ"
 }
+
+# sat-Beng specific <SIGN AA, NUKTA>
 rewrite {
-  comment: "sat-Beng specific <SIGN AA, NUKTA>"
   rule: "BENG"
   input: "গিদরা়"
   output: "গিদরা়"
 }
+
+# Kokborok specific examples: For vowel letter aw
 rewrite {
-  comment: "Kokborok specific examples: For vowel letter aw"
   rule: "BENG"
   input: "অৗইকৗ"
   output: "অৗইকৗ"
 }
+
+# For vowel letter ua
 rewrite {
-  comment: "For vowel letter ua"
   rule: "BENG"
   input: "কম্পিউারে"
   output: "কম্পিউারে"
 }
+
+# Santali specific examples: আৗ for ᱟᱹ
 rewrite {
-  comment: "Santali specific examples: আৗ for ᱟᱹ"
   rule: "BENG"
   input: "আৗডী"
   output: "আৗডী"
@@ -436,8 +474,9 @@ rewrite {
   input: "কৗল"
   output: "কৗল"
 }
+
+# অঁ for ᱚᱸ
 rewrite {
-  comment: "অঁ for ᱚᱸ"
   rule: "BENG"
   input: "মৗঁঝী"
   output: "মৗঁঝী"
@@ -457,8 +496,9 @@ rewrite {
   input: "নিঃহৗঁত"
   output: "নিঃহৗঁত"
 }
+
+# -------------------------- Meetei Mayek (Manipuri) --------------------------
 rewrite {
-  comment: "----------------------------------------------------------------------------- Meetei Mayek (Manipuri). -----------------------------------------------------------------------------"
   rule: "MTEI"
   input: "ꯆ"
   output: "ꯆ"
@@ -588,28 +628,36 @@ rewrite {
   input: "ꯖꯥꯢꯐꯜ"
   output: "ꯖꯥꯢꯐꯜ"
 }
+
+# Reject: Of all the independent vowels, matras can only be applied to
+# LETTER ATIYA.
+# Reject: <LETTER I, VOWEL SIGN ANAP>.
 rewrite {
-  comment: "Reject: Of all the independent vowels, matras can only be applied to LETTER ATIYA. Reject: <LETTER I, VOWEL SIGN ANAP>."
   rule: "MTEI"
   input: "ꯏꯥ"
 }
+
+# Reject: <LETTER UN, VOWEL SIGN YENAP>.
 rewrite {
-  comment: "Reject: <LETTER UN, VOWEL SIGN YENAP>"
   rule: "MTEI"
   input: "ꯎꯦ"
 }
+
+# Reject: Consonant + (Virama + Vowel Sign | Vowel Sign + Virama).
+# Reject: <LETTER KHOU, APUN IYEK, VOWEL SIGN UNAP>.
 rewrite {
-  comment: "Reject: Consonant + (Virama + Vowel Sign | Vowel Sign + Virama): Reject: <LETTER KHOU, APUN IYEK, VOWEL SIGN UNAP>"
   rule: "MTEI"
   input: "ꯈ꯭ꯨ"
 }
+
+# Reject: <LETTER KHOU, VOWEL SIGN UNAP, APUN IYEK>.
 rewrite {
-  comment: "Reject: <LETTER KHOU, VOWEL SIGN UNAP, APUN IYEK>"
   rule: "MTEI"
   input: "ꯈꯨ꯭"
 }
+
+# Reject: Lonsum can\'t start a word.
 rewrite {
-  comment: "Reject: Lonsum can\'t start a word."
   rule: "MTEI"
   input: "ꯟ"
 }
@@ -617,13 +665,15 @@ rewrite {
   rule: "MTEI"
   input: "ꯢ"
 }
+
+# Reject: <VOWEL SIGN ONAP, LETTER LAI, MEETEI MAYEK VOWEL SIGN UNAP>.
 rewrite {
-  comment: "Reject: <VOWEL SIGN ONAP, LETTER LAI, MEETEI MAYEK VOWEL SIGN UNAP>."
   rule: "MTEI"
   input: "ꯣꯂꯨ"
 }
+
+# --------------------- Baybain (Tagalog) ---------------------
 rewrite {
-  comment: "----------------------------------------------------------------------------- Baybain (Tagalog). -----------------------------------------------------------------------------"
   rule: "TGLG"
   input: "ᜎ"
   output: "ᜎ"
@@ -648,18 +698,21 @@ rewrite {
   input: "ᜋᜃᜃᜎᜒᜃᜐᜈ᜔"
   output: "ᜋᜃᜃᜎᜒᜃᜐᜈ᜔"
 }
+
+# Reject: Word-initial vowel signs: <VOWEL SIGN I, LETTER DA>.
 rewrite {
-  comment: "Reject: Word-initial vowel signs: <VOWEL SIGN I, LETTER DA>."
   rule: "TGLG"
   input: "ᜒᜇ"
 }
+
+# Reject: Virama on a vowel.
 rewrite {
-  comment: "Reject: Virama on a vowel."
   rule: "TGLG"
   input: "ᜂ᜔"
 }
+
+# --------------------- Lontara (Buginese) ---------------------
 rewrite {
-  comment: "----------------------------------------------------------------------------- Lontara (Buginese). -----------------------------------------------------------------------------"
   rule: "BUGI"
   input: "ᨆᨀᨘᨋᨕᨗ"
   output: "ᨆᨀᨘᨋᨕᨗ"
@@ -679,13 +732,15 @@ rewrite {
   input: "ᨑᨗᨔᨗᨈᨗᨊᨍᨊᨕᨙᨈᨚᨔ"
   output: "ᨑᨗᨔᨗᨈᨗᨊᨍᨊᨕᨙᨈᨚᨔ"
 }
+
+# Reject: Consecutive dependent vowels.
 rewrite {
-  comment: "Reject: Consecutive dependent vowels."
   rule: "BUGI"
   input: "ᨕᨍᨙᨙ"
 }
+
+# --------------------- Thaana ---------------------
 rewrite {
-  comment: "----------------------------------------------------------------------------- Thaana. -----------------------------------------------------------------------------"
   rule: "THAA"
   input: "މުޙައްމަދު"
   output: "މުޙައްމަދު"
@@ -700,8 +755,13 @@ rewrite {
   input: "ކަނޑު"
   output: "ކަނޑު"
 }
+
+# The following two examples provide two different ways to spell
+# `kasʰmīrugārḍan`: the first example is the correct way to spell the last
+# consonant cluster with <RAA, SUKUN, DAVIYANI> with intermediate <SUKUN>,
+# the second example (real example from the web) has <RAA, DAVIYANI> combination
+# and should fail.
 rewrite {
-  comment: "The following two examples provide two different ways to spell `kasʰmīrugārḍan`: the first example is the correct way to spell the last consonant cluster with <RAA, SUKUN, DAVIYANI> with intermediate <SUKUN>, the second example (real example from the web) has <RAA, DAVIYANI> combination and should fail."
   rule: "THAA"
   input: "ކަޝްމީރުގާރްޑަން"
   output: "ކަޝްމީރުގާރްޑަން"
@@ -710,8 +770,10 @@ rewrite {
   rule: "THAA"
   input: "ކަޝްމީރުގާރޑަން"
 }
+
+# Reject: Spelling of Jefferson without a <SUKUN> between <RAA> and <SEENU>,
+# `Washington` without a <SUKUN> between <GAAFU> and <TAVIYANI>.
 rewrite {
-  comment: "Reject: Spelling of Jefferson without a <SUKUN> between <RAA> and <SEENU>, `Washington` without a <SUKUN> between <GAAFU> and <TAVIYANI>."
   rule: "THAA"
   input: "ޖެފަރސަން"
 }
@@ -723,8 +785,10 @@ rewrite {
   rule: "THAA"
   input: "އެލެގްޒެންޑަރ"
 }
+
+# Reject: `Minister`, `September`, `November` and `Alexander` without <SUKUN>
+# after final <RAA>.
 rewrite {
-  comment: "Reject: `Minister`, `September`, `November` and `Alexander` without <SUKUN> after final <RAA>."
   rule: "THAA"
   input: "ސެޕްޓެމްބަރ"
 }
@@ -736,53 +800,65 @@ rewrite {
   rule: "THAA"
   input: "މިނިސްޓަރ"
 }
+
+# Reject: Sequence of vowel signs (double <ABAFILI>).
 rewrite {
-  comment: "Reject: Sequence of vowel signs (double <ABAFILI>)."
   rule: "THAA"
   input: "ވަރަަކަށް"
 }
+
+# Reject: Sequence of vowel signs + SUKUN: <ZAVIYANI, 2 EEBEEFILI, SUKUN>.
 rewrite {
-  comment: "Reject: Sequence of vowel signs + SUKUN: <ZAVIYANI, 2 EEBEEFILI, SUKUN>."
   rule: "THAA"
   input: "ޒީޭް"
 }
+
+# Reject: <ZAVIYANI, EEBEEFILI, SUKUN>
 rewrite {
-  comment: "Reject: <ZAVIYANI, EEBEEFILI, SUKUN>"
   rule: "THAA"
   input: "ޒީް"
 }
+
+# Reject: Stray SUKUN (<SUKUN, KAAFU, OBOFILI>).
 rewrite {
-  comment: "Reject: Stray SUKUN (<SUKUN, KAAFU, OBOFILI>)."
   rule: "THAA"
   input: "ްކޮ"
 }
+
+# Reject: Multiple SUKUNs (<MEEMU, IBIFILI, SUKUN, SUKUN>).
 rewrite {
-  comment: "Reject: Multiple SUKUNs (<MEEMU, IBIFILI, SUKUN, SUKUN>)."
   rule: "THAA"
   input: "މިްް"
 }
+
+# Reject: Multiple SUKUNs (<MEEMU, SUKUN, SUKUN>).
 rewrite {
-  comment: "Reject: Multiple SUKUNs (<MEEMU, SUKUN, SUKUN>)."
   rule: "THAA"
   input: " މްް"
 }
+
+# Reject: ALIFU without combining marks (<ALIFU, LHAVIYANI, OBOFILI>).
 rewrite {
-  comment: "Reject: ALIFU without combining marks (<ALIFU, LHAVIYANI, OBOFILI>)."
   rule: "THAA"
   input: "އޅޮ"
 }
+
+# Reject: ALIFU without combining marks (<LHAVIYANI, OBOFILI, ALIFU>).
 rewrite {
-  comment: "Reject: ALIFU without combining marks (<LHAVIYANI, OBOFILI, ALIFU>)."
   rule: "THAA"
   input: "ޅޮއ"
 }
+
+# Reject: Synthetic: Vowel sign starting a word: <UBUFILI, YAA>.
 rewrite {
-  comment: "Reject: Synthetic: Vowel sign starting a word: <UBUFILI, YAA>."
   rule: "THAA"
   input: "ޔ"
 }
+
+# TODO: Not clear whether we should accept or reject the abbreviations.
+# Following is a synthetic example "Mr" (with SUKUNs), the spelling without
+# SUKUNs (that we reject) is also frequent.
 rewrite {
-  comment: "TODO: Not clear whether we should accept or reject the abbreviations. Following is a synthetic example \"Mr\" (with SUKUNs), the spelling without SUKUNs (that we reject) is also frequent."
   rule: "THAA"
   input: "މްރް"
   output: "މްރް"
@@ -791,8 +867,9 @@ rewrite {
   rule: "THAA"
   input: "މރ"
 }
+
+# --------------------- Limbu ---------------------
 rewrite {
-  comment: "----------------------------------------------------------------------------- Limbu. -----------------------------------------------------------------------------"
   rule: "LIMB"
   input: "ᤜᤧᤰᤁᤩᤠᤱ"
   output: "ᤜᤧᤰᤁᤩᤠᤱ"
@@ -837,14 +914,16 @@ rewrite {
   input: "ᤀᤠᤱ"
   output: "ᤀᤠᤱ"
 }
+
+# Accept: <MUKPHRENG> following a vowel sign.
 rewrite {
-  comment: "Accept: <MUKPHRENG> following a vowel sign."
   rule: "LIMB"
   input: "ᤁᤧᤔᤠ᤹ᤰᤂᤡᤴᤏᤢ"
   output: "ᤁᤧᤔᤠ᤹ᤰᤂᤡᤴᤏᤢ"
 }
+
+# Reject: Double vowel signs (<VOWEL SIGN OO>).
 rewrite {
-  comment: "Reject: Double vowel signs (<VOWEL SIGN OO>)."
   rule: "LIMB"
   input: "ᤔᤧᤏᤡᤛᤛᤡᤖᤥᤥ"
 }
@@ -864,53 +943,66 @@ rewrite {
   rule: "LIMB"
   input: "ᤒᤧᤒᤡᤗᤥᤥᤏ"
 }
+
+# Reject: Initial subjoined consonant (<SUBJOINED LETTER RA>).
 rewrite {
-  comment: "Reject: Initial subjoined consonant (<SUBJOINED LETTER RA>)."
   rule: "LIMB"
   input: "ᤪᤀᤠᤸᤗ"
 }
+
+# Reject: Vowel followed by subjoined consonant (<SUBJOINED LETTER RA>).
 rewrite {
-  comment: "Reject: Vowel followed by subjoined consonant (<SUBJOINED LETTER RA>)."
   rule: "LIMB"
   input: "ᤀᤠᤪ"
 }
+
+# Reject: Small (final) consonant word-initially (<SMALL LETTER KA>).
 rewrite {
-  comment: "Reject: Small (final) consonant word-initially (<SMALL LETTER KA>)."
   rule: "LIMB"
   input: "ᤰᤎ"
 }
+
+# Reject: Double word-final small consonants (<SMALL LETTER RA>).
 rewrite {
-  comment: "Reject: Double word-final small consonants (<SMALL LETTER RA>)."
   rule: "LIMB"
   input: "ᤄᤷᤷ"
 }
+
+# Reject: Double <KEMPHRENG>s.
 rewrite {
-  comment: "Reject: Double <KEMPHRENG>s."
   rule: "LIMB"
   input: "ᤆᤥ᤺᤺ᤰᤛᤧ"
 }
+
+# Reject: Initial <KEMPHRENG>.
 rewrite {
-  comment: "Reject: Initial <KEMPHRENG>."
   rule: "LIMB"
   input: " ᤺ᤄ"
 }
+
+# Reject: Initial <MUKPHRENG>.
 rewrite {
-  comment: "Reject: Initial <MUKPHRENG>."
   rule: "LIMB"
   input: " ᤹ᤊ"
 }
+
+# Reject: <MA, MUKPHRENG, KEMPHRENG>
+# TODO: Check if this is legal.
 rewrite {
-  comment: "Reject: <MA, MUKPHRENG, KEMPHRENG> TODO: Check if this is legal."
   rule: "LIMB"
   input: "ᤔ᤹᤺"
 }
+
+# Reject: <KHA, SIGN E, NA, MUKPHRENG, SIGN E>
+# TODO: Check if vowel signs can apply to <MUKPHRENG>.
 rewrite {
-  comment: "Reject: <KHA, SIGN E, NA, MUKPHRENG, SIGN E> TODO: Check if vowel signs can apply to <MUKPHRENG>."
   rule: "LIMB"
   input: "ᤂᤧᤏ᤹ᤧ"
 }
+
+# --------------------- Lepcha ---------------------
+# From: https://scriptsource.org/cms/scripts/page.php?item_id=entry_detail&uid=t5r9zasayh
 rewrite {
-  comment: "----------------------------------------------------------------------------- Lepcha. ----------------------------------------------------------------------------- From: https://scriptsource.org/cms/scripts/page.php?item_id=entry_detail&uid=t5r9zasayh"
   rule: "LEPC"
   input: "ᰊᰍᰜ"
   output: "ᰊᰍᰜ"
@@ -945,18 +1037,21 @@ rewrite {
   input: "ᰀᰚᰠ"
   output: "ᰀᰚᰠ"
 }
+
+# Reject: Initial vowel sign (<SIGN OO>).
 rewrite {
-  comment: "Reject: Initial vowel sign (<SIGN OO>)."
   rule: "LEPC"
   input: "ᰩᰚ"
 }
+
+# Reject: Initial final consonant (<CONSONANT SIGN R>).
 rewrite {
-  comment: "Reject: Initial final consonant (<CONSONANT SIGN R>)."
   rule: "LEPC"
   input: " ᰲᰜ"
 }
+
+# Reject: Double vowel signs (<SIGN O, SIGN E>, <SIGN I, SIGN E>).
 rewrite {
-  comment: "Reject: Double vowel signs (<SIGN O, SIGN E>, <SIGN I, SIGN E>)."
   rule: "LEPC"
   input: "ᰀᰃᰨᰬ"
 }
@@ -964,8 +1059,10 @@ rewrite {
   rule: "LEPC"
   input: "ᰀᰧᰬᰍ"
 }
+
+# Reject: Subjoined consonant: <SUBJOINED YA, SUBJOINED RA>,
+# but the inverse is legal.
 rewrite {
-  comment: "Reject: Subjoined consonant: <SUBJOINED YA, SUBJOINED RA>, but the inverse is legal."
   rule: "LEPC"
   input: "ᰜᰤᰥ"
 }
@@ -974,8 +1071,10 @@ rewrite {
   input: "ᰜᰥᰤ"
   output: "ᰜᰥᰤ"
 }
+
+# Reject: Uncontrolled nukta after consonant <LETTER TA, NUKTA>,
+# <LETTER NGA, NUKTA>.
 rewrite {
-  comment: "Reject: Uncontrolled nukta after consonant <LETTER TA, NUKTA>, <LETTER NGA, NUKTA>."
   rule: "LEPC"
   input: "ᰀᰪᰊᰊ᰷ᰬ"
 }
@@ -991,13 +1090,15 @@ rewrite {
   rule: "LEPC"
   input: "ᰈᰣᰍᰇ᰷ᰧ"
 }
+
+# Reject: Nukta after <LETTER A>.
 rewrite {
-  comment: "Reject: Nukta after <LETTER A>."
   rule: "LEPC"
   input: "ᰇᰣ᰷ᰧ"
 }
+
+# Reject: Double consonant signs (<SIGN K, SIGN K>, <SIGN N, SIGN R>).
 rewrite {
-  comment: "Reject: Double consonant signs (<SIGN K, SIGN K>, <SIGN N, SIGN R>)."
   rule: "LEPC"
   input: "ᰀᰧᰌᰪᰭᰭ"
 }
@@ -1005,8 +1106,9 @@ rewrite {
   rule: "LEPC"
   input: "ᰃᰪᰰᰲᰜᰬᰰ"
 }
+
+# Reject: <RAN> can only appear after the syllable-final consonant.
 rewrite {
-  comment: "Reject: <RAN> can only appear after the syllable-final consonant."
   rule: "LEPC"
   input: "ᰀᰶᰛᰬᰞᰳᰬᰢ"
 }
@@ -1014,8 +1116,9 @@ rewrite {
   rule: "LEPC"
   input: "ᰀᰞᰶᰬᰘᰪᰶ"
 }
+
+# --------------------- Syloti Nagri ---------------------
 rewrite {
-  comment: "----------------------------------------------------------------------------- Syloti Nagri. -----------------------------------------------------------------------------"
   rule: "SYLO"
   input: "ꠝꠣꠖꠣꠘ"
   output: "ꠝꠣꠖꠣꠘ"
@@ -1055,45 +1158,53 @@ rewrite {
   input: "ꠀꠁꠞꠣꠝ"
   output: "ꠀꠁꠞꠣꠝ"
 }
+
+# Reject: Initial vowel sign.
 rewrite {
-  comment: "Reject: Initial vowel sign."
   rule: "SYLO"
   input: "ꠣꠀ"
 }
+
+# Reject: Duplicate vowel signs (<SIGN OO>, <SIGN E>).
 rewrite {
-  comment: "Reject: Duplicate vowel signs (<SIGN OO>, <SIGN E>)."
   rule: "SYLO"
   input: "ꠢꠧꠦ"
 }
+
+# Reject: Hasanta on a vowel.
 rewrite {
-  comment: "Reject: Hasanta on a vowel."
   rule: "SYLO"
   input: "ꠃ꠆"
 }
+
+# Accept: <VOWEL SIGN U, SIGN DVISVARA>
 rewrite {
-  comment: "Accept: <VOWEL SIGN U, SIGN DVISVARA>"
   rule: "SYLO"
   input: "ꠑꠥꠂ"
   output: "ꠑꠥꠂ"
 }
+
+# Reject: <VOWEL SIGN I, SIGN DVISVARA>
 rewrite {
-  comment: "Reject: <VOWEL SIGN I, SIGN DVISVARA>"
   rule: "SYLO"
   input: "ꠊꠤ ꠂ"
 }
+
+# Accept: <LETTER U, SIGN DVISVARA>
 rewrite {
-  comment: "Accept: <LETTER U, SIGN DVISVARA>"
   rule: "SYLO"
   input: "ꠠꠃꠂ"
   output: "ꠠꠃꠂ"
 }
+
+# Reject: <LETTER I, SIGN DVISVARA>
 rewrite {
-  comment: "Reject: <LETTER I, SIGN DVISVARA>"
   rule: "SYLO"
   input: "ꠊꠁꠂ"
 }
+
+# --------------------- Tirhuta ---------------------
 rewrite {
-  comment: "----------------------------------------------------------------------------- Tirhuta. -----------------------------------------------------------------------------"
   rule: "TIRH"
   input: "𑒬𑓂𑒩"
   output: "𑒬𑓂𑒩"
@@ -1108,14 +1219,16 @@ rewrite {
   input: "𑒭𑓂𑒏𑓂𑒭"
   output: "𑒭𑓂𑒏𑓂𑒭"
 }
+
+# Accept ANJI.
 rewrite {
-  comment: "Accept ANJI."
   rule: "TIRH"
   input: "𑒀"
   output: "𑒀"
 }
+
+# Reject: Consonant + (Virama + Vowel Sign | Vowel Sign + Virama).
 rewrite {
-  comment: "Reject: Consonant + (Virama + Vowel Sign | Vowel Sign + Virama)."
   rule: "TIRH"
   input: "𑒫𑓂𑒰"
 }
@@ -1123,8 +1236,9 @@ rewrite {
   rule: "TIRH"
   input: "𑒫𑒰 𑓂"
 }
+
+# Reject: Initial vowel signs, double vowel signs.
 rewrite {
-  comment: "Reject: Initial vowel signs, double vowel signs."
   rule: "TIRH"
   input: "𑒷𑒒"
 }
@@ -1132,13 +1246,15 @@ rewrite {
   rule: "TIRH"
   input: "𑒣𑒺 𑒼"
 }
+
+# Reject: Vowel + virama.
 rewrite {
-  comment: "Reject: Vowel + virama."
   rule: "TIRH"
   input: "𑒅𑓂"
 }
+
+# Reject: (|ZWS|ZWNJ|ZWJ) + coda.
 rewrite {
-  comment: "Reject: (|ZWS|ZWNJ|ZWJ) + coda."
   rule: "TIRH"
   input: " 𑓄"
 }
@@ -1146,14 +1262,16 @@ rewrite {
   rule: "TIRH"
   input: " 𑓀"
 }
+
+# --------------------- Takri ---------------------
 rewrite {
-  comment: "----------------------------------------------------------------------------- Takri. -----------------------------------------------------------------------------"
   rule: "TAKR"
   input: "𑚀𑚫𑚌𑚤𑚲𑚑𑚷"
   output: "𑚀𑚫𑚌𑚤𑚲𑚑𑚷"
 }
+
+# Reject: Consonant + (Virama + Vowel Sign | Vowel Sign + Virama).
 rewrite {
-  comment: "Reject: Consonant + (Virama + Vowel Sign | Vowel Sign + Virama)."
   rule: "TAKR"
   input: "𑚔𑚶 𑚳"
 }
@@ -1161,8 +1279,9 @@ rewrite {
   rule: "TAKR"
   input: "𑚙𑚯𑚶"
 }
+
+# Reject: Initial vowel signs, double vowel signs.
 rewrite {
-  comment: "Reject: Initial vowel signs, double vowel signs."
   rule: "TAKR"
   input: "𑚭𑚓"
 }
@@ -1170,13 +1289,15 @@ rewrite {
   rule: "TAKR"
   input: "𑚣𑚴𑚲"
 }
+
+# Reject: Vowel + virama.
 rewrite {
-  comment: "Reject: Vowel + virama."
   rule: "TAKR"
   input: "𑚈𑚶"
 }
+
+# Reject: (|ZWS|ZWNJ|ZWJ) + coda.
 rewrite {
-  comment: "Reject: (|ZWS|ZWNJ|ZWJ) + coda."
   rule: "TAKR"
   input: " 𑚫"
 }

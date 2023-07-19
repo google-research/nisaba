@@ -12,16 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# proto-file: nisaba/interim/testing/testdata.proto
+# proto-file: third_party/nisaba/interim/testing/testdata.proto
 # proto-message: Rewrites
+
+# Currently, test strings are gathered from ALA-LC (Urdu) specification.
+
+# TODO: Add test strings from rest of the languages as well. Out of script
+# characters are pass through.
 rewrite {
-  comment: "Currently, test strings are gathered from ALA-LC (Urdu) specification. TODO: Add test strings from rest of the languages as well. Out of script characters are pass through"
   rule: "FROM_ARAB"
   input: "Abæ آب"
   output: "Abæ ʼ͟āb"
 }
+
+# Visual normalization applied prior to romanization (Urdu U).
 rewrite {
-  comment: "Visual normalization applied prior to romanization (Urdu U)."
   rule: "FROM_ARAB"
   input: "عضوُ"
   output: "ʻẓʉ"
@@ -36,8 +41,9 @@ rewrite {
   input: ""
   output: ""
 }
+
+# NFC + visual normalization applied prior to romanization.
 rewrite {
-  comment: "NFC + visual normalization applied prior to romanization."
   rule: "FROM_ARAB"
   input: "آپ"
   output: "ʼ͟āp"
@@ -62,8 +68,23 @@ rewrite {
   input: "ٸةًَ"
   output: "Ÿẗa͟na"
 }
+
+# TODO: Following presentation forms tests to included their handling can
+# be supported without timeouts in round-trip tests. Presentation normalization
+# should be applied prior to romanization.
+
+# rewrite {
+#   rule: "FROM_ARAB"
+#   input: "ﻻ"
+#   output: "lā"
+# }
+# rewrite {
+#   rule: "TO_ARAB"
+#   input: "lā"
+#   output: "ﻻ"
+# }
+
 rewrite {
-  comment: "TODO: Following presentation forms tests to included their handling can be supported without timeouts in round-trip tests. Presentation normalization applied prior to romanization. FROM_ARAB\tﻻ\tlā TO_ARAB\tlā\tلا"
   rule: "FROM_ARAB"
   input: "آب"
   output: "ʼ͟āb"
@@ -1313,8 +1334,9 @@ rewrite {
   input: "cʰṆ"
   output: "چھݨ"
 }
+
+# Real string from one Kashmiri scrape.
 rewrite {
-  comment: "Real string from one Kashmiri scrape."
   rule: "FROM_ARAB"
   input: "قۭمتِیلاشمُشکِلسَخٕتسَخٕتخۄشٕک"
   output: "qᶯmtiīlāśmuśḱilsak͟hʰ̹tsak͟hʰ̹tk͟họśʰ̹ḱ"

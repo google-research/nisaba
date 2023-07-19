@@ -14,6 +14,7 @@
 
 # proto-file: third_party/nisaba/interim/testing/testdata.proto
 # proto-message: Rewrites
+
 rewrite {
   rule: "FROM_BENG"
   input: "ব্রাহ্মীকে"
@@ -24,8 +25,9 @@ rewrite {
   input: "brāhmīkē"
   output: "ব্রাহ্মীকে"
 }
+
+# sat-Beng specific <SIGN AA, NUKTA>
 rewrite {
-  comment: "sat-Beng specific <SIGN AA, NUKTA>"
   rule: "FROM_BENG"
   input: "গিদরা়"
   output: "gidarạ̄"
@@ -160,8 +162,9 @@ rewrite {
   input: "ॲलन"
   output: "ælana"
 }
+
+# Out of script characters are pass through:
 rewrite {
-  comment: "Out of script characters are pass through"
   rule: "FROM_BRAHMIC"
   input: "Abæ ॲलन"
   output: "Abæ ælana"
@@ -226,8 +229,9 @@ rewrite {
   input: "രംഗ"
   output: "raṁga"
 }
+
+# Bengali foreign word transliteration:
 rewrite {
-  comment: "Bengali foreign word transliteration"
   rule: "FROM_BRAHMIC"
   input: "র‍্যাল"
   output: "rỹāla"
@@ -247,8 +251,9 @@ rewrite {
   input: "এ্যালজিও"
   output: "êlaji.ō"
 }
+
+# Kannada foreign vowel transliteration:
 rewrite {
-  comment: "Kannada foreign vowel transliteration"
   rule: "FROM_BRAHMIC"
   input: "ಆ್ಯಪ್"
   output: "æp"
@@ -258,8 +263,9 @@ rewrite {
   input: "æp"
   output: "ಆ್ಯಪ್"
 }
+
+# Reversible notation for adjoining vowels:
 rewrite {
-  comment: "Reversible notation for adjoining vowels:"
   rule: "FROM_BRAHMIC"
   input: "आईईईई"
   output: "ā.ī.ī.ī.ī"
@@ -279,8 +285,9 @@ rewrite {
   input: "ക്ഇഇഇ"
   output: "k.i.i.i"
 }
+
+# Rewrite of aspirated consonants:
 rewrite {
-  comment: "Rewrite of aspirated consonants:"
   rule: "FROM_BRAHMIC"
   input: "घऔ"
   output: "gʰa.au"
@@ -350,14 +357,16 @@ rewrite {
   input: "kau̯"
   output: "കൌ"
 }
+
+# Rewrite only Brahmic characters if they are mixed with Latin.
 rewrite {
-  comment: "Rewrite only Brahmic characters if they are mixed with Latin."
   rule: "FROM_BRAHMIC"
   input: "AघऔB"
   output: "Agʰa.auB"
 }
+
+# Test Devanagari Eyelash Ra modern encoding and legacy encoding
 rewrite {
-  comment: "Test Devanagari Eyelash Ra modern encoding and legacy encoding"
   rule: "FROM_BRAHMIC"
   input: "दऱ्या"
   output: "dar̆yā"
@@ -367,8 +376,9 @@ rewrite {
   input: "दर्‍या"
   output: "dar+yā"
 }
+
+# Chillus/Khanta TA with a preceding Virama
 rewrite {
-  comment: "Chillus/Khanta TA with a preceding Virama"
   rule: "FROM_MLYM"
   input: "കെയ്ൻ"
   output: "keynⸯ"
@@ -378,20 +388,23 @@ rewrite {
   input: "বেন্ডনর্ৎস"
   output: "bēnḍanartⸯsa"
 }
+
+# Kokborok specific examples: For vowel letter aw
 rewrite {
-  comment: "Kokborok specific examples: For vowel letter aw"
   rule: "FROM_BENG"
   input: "অৗইকৗ"
   output: "a͟w.ikă"
 }
+
+# For vowel letter ua
 rewrite {
-  comment: "For vowel letter ua"
   rule: "FROM_BENG"
   input: "কম্পিউারে"
   output: "kampi.u͟arē"
 }
+
+# Santali specific examples: আৗ for ᱟᱹ
 rewrite {
-  comment: "Santali specific examples: আৗ for ᱟᱹ"
   rule: "FROM_BENG"
   input: "আৗডী"
   output: "ăḍī"
@@ -406,8 +419,9 @@ rewrite {
   input: "কৗল"
   output: "kăla"
 }
+
+# অঁ for ᱚᱸ
 rewrite {
-  comment: "অঁ for ᱚᱸ"
   rule: "FROM_BENG"
   input: "মৗঁঝী"
   output: "măm̐jʰī"
@@ -1352,8 +1366,12 @@ rewrite {
   input: "vanna"
   output: "ވަންނަ"
 }
+
+# Some Dhivehi words found online violate the `SUKUN` principle in consonant
+# clusters. The following word `ކަޝްމީރުގާރްޑަން` cannot be rewritten by our grammar
+# to the expected form `kasʰmīrugārḍan` because `SUKUN` is missing between
+# `r` and `ḍ`. The correctly behaving forms of the same can be found above.
 rewrite {
-  comment: "Some Dhivehi words found online violate the `SUKUN` principle in consonant clusters. The following word `ކަޝްމީރުގާރްޑަން` cannot be rewritten by our grammar to the expected form `kasʰmīrugārḍan` because `SUKUN` is missing between `r` and `ḍ`. The correctly behaving forms of the same can be found above."
   rule: "FROM_THAA"
   input: "ކަޝްމީރުގާރޑަން"
 }
@@ -2064,7 +2082,7 @@ rewrite {
   output: "ꠖꠥꠙꠁꠞ"
 }
 rewrite {
-  comment: "<HASANTA>."
+# <HASANTA>.
   rule: "FROM_SYLO"
   input: "ꠀꠁꠌ꠆ꠍꠣ"
   output: "a.iccʰa"
@@ -2124,8 +2142,9 @@ rewrite {
   input: "surjō"
   output: "ꠡꠥꠞ꠆ꠎꠧ"
 }
+
+# <DVISVARA>
 rewrite {
-  comment: "<DVISVARA>."
   rule: "FROM_SYLO"
   input: "ꠖꠥꠂꠚꠥꠞ"
   output: "duipʰuro"
