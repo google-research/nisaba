@@ -14,6 +14,8 @@
 
 # English acronym related grammars where the letters are spelled out.
 
+load("@rules_python//python:py_library.bzl", "py_library")
+
 package(
     default_applicable_licenses = [
     ],

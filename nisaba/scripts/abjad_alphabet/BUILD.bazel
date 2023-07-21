@@ -14,6 +14,8 @@
 
 # Build packages for the abjad / alphabet language script APIs.
 
+load("@rules_python//python:py_library.bzl", "py_library")
+
 load(
     "//nisaba/scripts/utils:grammars.bzl",
     "nisaba_compile_multi_grm_py",
