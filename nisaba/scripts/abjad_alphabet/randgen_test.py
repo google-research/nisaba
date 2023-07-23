@@ -16,35 +16,33 @@
 
 import itertools
 
-from absl import logging  
-
 from absl.testing import absltest
 from absl.testing import parameterized
 from nisaba.scripts.abjad_alphabet import util as u
-from nisaba.scripts.utils import file as uf
-from nisaba.scripts.utils import test_util as ut
+from nisaba.scripts.utils import test_util
 
 
-class FstRandgenTest(parameterized.TestCase, ut.FstRandgenTestCase):
+class FstRandgenTest(parameterized.TestCase, test_util.FstRandgenTestCase):
 
   @parameterized.parameters('byte', 'utf8')
   def test_romanization_roundtrip(self, token_type: str):
-    far = uf.OpenFar(u.FAR_DIR, 'reversible_roman', token_type)
+    nfc = u.open_fst_from_far('nfc', 'ARAB', token_type)
+    far = u.open_far('reversible_roman', token_type)
     natv_to_latin = far['FROM_ARAB']
     latin_to_natv = far['TO_ARAB']
-    round_trip = natv_to_latin @ latin_to_natv
-    self.AssertFstProbablyFunctional(round_trip, token_type)
+    self.AssertFstProbablyIdentity(
+        [natv_to_latin, latin_to_natv], token_type, nfc)
 
   @parameterized.parameters(itertools.product(
-      u.LANGS, ('visual_norm', 'reading_norm'), ('byte', 'utf8')))
-  def test_visual_or_reading_norm(self, lang: str, far_name: str,
+      ('visual_norm', 'reading_norm'), u.LANGS, ('byte', 'utf8')))
+  def test_visual_or_reading_norm(self, far_name: str, lang: str,
                                   token_type: str):
-    fst = uf.OpenFstFromFar(u.FAR_DIR, far_name, token_type, lang)
+    fst = u.open_fst_from_far(far_name, lang, token_type)
     self.AssertFstProbablyFunctional(fst, token_type)
 
   @parameterized.parameters('byte', 'utf8')
   def test_nfc(self, token_type: str):
-    fst = uf.OpenFstFromFar(u.FAR_DIR, 'nfc', token_type, 'ARAB')
+    fst = u.open_fst_from_far('nfc', 'ARAB', token_type)
     self.AssertFstProbablyFunctional(fst, token_type)
 
 

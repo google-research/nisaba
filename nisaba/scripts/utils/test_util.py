@@ -284,10 +284,17 @@ class FstRandgenTestCase(absltest.TestCase):
     with pynini.default_token_type(token_type):
       for ilabels in _OlabelsIter(input_samples):
         input_str_fsa = _LabelListToStringFsa(ilabels)
+        output_str = rewrite.ComposeFsts([input_str_fsa] + fsts)
+
+        # Please note that `norm` is not idempotent if it is Arabic NFC which
+        # cannot handle the reordering of a large number of SHADDA, FATHA,
+        # FATHATAN, KASRA, etc.. Even though this is only a theoretical
+        # possibility, for randgen test, the number of NFCs in the round trip
+        # should be the same as the count of NFCs applied to the input before
+        # the assert function.
         if norm_fst:
-          input_str_fsa @= norm_fst
-        output_fst = rewrite.ComposeFsts([input_str_fsa] + fsts)
-        assert_function(input_str_fsa, output_fst)
+          input_str_fsa = rewrite.ComposeFsts([input_str_fsa, norm_fst])
+        assert_function(input_str_fsa, output_str)
 
 
 class FstTestCase(absltest.TestCase):

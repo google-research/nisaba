@@ -18,19 +18,24 @@
 # Currently, test strings are gathered from ALA-LC (Urdu) specification.
 
 # TODO: Add test strings from rest of the languages as well. Out of script
-# characters are pass through.
-rewrite {
-  rule: "FROM_ARAB"
-  input: "Abæ آب"
-  output: "Abæ ʼ͟āb"
-}
+# characters should be pass through.
 
-# Visual normalization applied prior to romanization (Urdu U).
-rewrite {
-  rule: "FROM_ARAB"
-  input: "عضوُ"
-  output: "ʻẓʉ"
-}
+# rewrite {
+#   rule: "FROM_ARAB"
+#   input: "Abæ آب"
+#   output: "Abæ ʼ͟āb"
+# }
+
+# TODO: Like NFC, visual norm should also be applied before romanization
+# (Urdu U). However, this is not currently done as the build takes too long.
+# Furthermore, Brahmic scripts do not apply visual norm before ISO.
+
+# rewrite {
+#   rule: "FROM_ARAB"
+#   input: "عضوُ"
+#   output: "ʻẓʉ"
+# }
+
 rewrite {
   rule: "FROM_ARAB"
   input: "عضۇ"
@@ -42,7 +47,7 @@ rewrite {
   output: ""
 }
 
-# NFC + visual normalization applied prior to romanization.
+# NFC applied prior to romanization.
 rewrite {
   rule: "FROM_ARAB"
   input: "آپ"

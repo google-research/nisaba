@@ -30,39 +30,24 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 
 import pynini
 from pynini.export import multi_grm
-from pynini.lib import byte
 from nisaba.scripts.abjad_alphabet import util
-from nisaba.scripts.abjad_alphabet import visual_norm_common
 from nisaba.scripts.utils import file
 from nisaba.scripts.utils import rewrite
-from nisaba.scripts.utils import rule
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
   """FSTs for language-agnostic reversible romanization of abjad/alphabets."""
-  # Compile romanisation transducer. In the direction to Latin, NFC and then
-  # visual normalization are applied. They are not required in the opposite
-  # direction.
   for token_type in ('byte', 'utf8'):
     with pynini.default_token_type(token_type):
+      nfc = util.open_fst_from_far('nfc', 'ARAB', token_type)
+
+      roman_tsv = util.LANG_DIR / 'reversible_roman.tsv'
+      roman = file.StringFile(roman_tsv).star.optimize()
+
       exporter = exporter_map[token_type]
-      sigma = byte.BYTE
-      if token_type == 'utf8':
-        sigma = util.sigma_from_common_data_files()
-
-      # TODO: Currently, `prefix=(‘presentation_forms’,)` takes too long
-      # to process, so it is not specified in `script_common_fsts()` even though
-      # it should be included.
-      script_common_fsts = visual_norm_common.script_common_fsts(sigma)
-      roman_mapping_file = util.LANG_DIR / 'reversible_roman.tsv'
-      roman_fst = rule.fst_from_rule_file(roman_mapping_file, sigma)
-      fsts = script_common_fsts + [roman_fst]
-      exporter['FROM_ARAB'] = rewrite.ComposeFsts(fsts, sigma)
-
-      # Transforming Latin to native is simpler.
-      roman_strings = file.StringFile(roman_mapping_file)
-      roman_inv_fst = pynini.invert(roman_strings).star
-      exporter['TO_ARAB'] = roman_inv_fst.optimize()
+      # NFC is used for romanization, not de-romanization.
+      exporter['FROM_ARAB'] = rewrite.ComposeFsts([nfc, roman])
+      exporter['TO_ARAB'] = roman.invert()
 
 
 if __name__ == '__main__':

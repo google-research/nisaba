@@ -161,6 +161,13 @@ def _script_fsts(script: str, token_type: str) -> Tuple[p.Fst, p.Fst]:
   # out.
   nfc = u.OpenFstFromBrahmicFar('nfc', script, token_type)
   from_nfced_script = rw.ComposeFsts([nfc, from_script])
+
+  # TODO: The NFC form of Gurmukhi SHA is <SA, NUKTA>, which currently has
+  # the same romanization defined in the Guru/consonant. So NFC on TO_GURU is
+  # required currently. However that need not be the case. We could consider
+  # moving the SHA from common consonant mapping to script specific files
+  # without adding that to Gurmukhi. That would then align this code with
+  # Arabic, which does not do NFC on TO_ARAB.
   to_nfced_script = rw.ComposeFsts([to_script, nfc])
   return (from_nfced_script, to_nfced_script)
 
@@ -177,6 +184,9 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
         script = script.upper()
         exporter[f'FROM_{script}'] = from_script
         exporter[f'TO_{script}'] = to_script
+      # TODO: Following rewrite assumes 'byte' token type. It should be
+      # made available to 'utf8' as well. The corresponding 'utf8_test' is
+      # missing as well.
       exporter['FROM_BRAHMIC'] = rw.Rewrite(p.union(*from_script_fsts))
 
 

@@ -14,6 +14,9 @@
 
 """Python APIs for abjad / alphabet grammars."""
 
+# TODO: This library currently only supports `byte` tokens. Consider
+# supporting `utf8` tokens too.
+
 import pathlib
 import re
 import string
@@ -21,6 +24,7 @@ import string
 import pynini
 from nisaba.scripts.abjad_alphabet import util as u
 from nisaba.scripts.utils import far
+from nisaba.scripts.utils import rewrite
 
 
 class _FarStore(object):
@@ -37,7 +41,9 @@ _FARS = _FarStore()
 
 
 def ToReversibleRoman() -> far.Far.FstWrapper:
-  return _FARS.reversible_roman.Fst('FROM_ARAB')
+  fst = u.open_fst_from_far('reversible_roman', 'FROM_ARAB', 'byte')
+  # Allows out of script characters to pass through.
+  return far.Far.FstWrapper(rewrite.Rewrite(fst))
 
 
 def FromReversibleRoman() -> far.Far.FstWrapper:
@@ -70,7 +76,7 @@ class Normalizer(object):
       self._nfc = Nfc()
       self._visual_norm = VisualNorm(tag)
     except KeyError as error:
-      raise TagError('Unsupported language/script: {}'.format(error))
+      raise TagError(f'Unsupported language/script: {tag}') from error
     else:
       self.accept_pat = re.compile(r'[^{}]+'.format(re.escape(ignore)))
 

@@ -59,18 +59,16 @@ nisaba_compile_multi_grm_py(
         "utf8": "reversible_roman_utf8.far",
     },
     data = [
+        ":nfc.far",
+        ":nfc_utf8.far",
         "//nisaba/scripts/abjad_alphabet/data/Arab:reversible_roman.tsv",
-        "//nisaba/scripts/abjad_alphabet/data/Arab:visual_norm.tsv",
     ],
     visibility = ["//visibility:public"],
     deps = [
         ":util",
-        ":visual_norm_common",
         "//nisaba/scripts/utils:file",
         "//nisaba/scripts/utils:rewrite",
-        "//nisaba/scripts/utils:rule",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:byte",
     ],
 )
 
@@ -263,13 +261,9 @@ py_test(
     srcs_version = "PY3",
     deps = [
         ":util",
-        "@org_opengrm_pynini//pynini",
+        "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
         "@io_abseil_py//absl/testing:parameterized",
-        "//nisaba/scripts/utils:file",
-        # TODO: Remove this dependency by using OpenFar/OpenFstFromFar calls.
-        "//nisaba/scripts/utils:test_util",
-        "@io_abseil_py//absl/logging",
     ],
 )
 
@@ -316,6 +310,7 @@ py_library(
     deps = [
         ":util",
         "//nisaba/scripts/utils:far",
+        "//nisaba/scripts/utils:rewrite",
         "@org_opengrm_pynini//pynini",
     ],
 )

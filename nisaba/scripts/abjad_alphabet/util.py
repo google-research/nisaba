@@ -50,6 +50,11 @@ def sigma_from_common_data_files() -> pynini.Fst:
   return uc.derive_sigma(chars)
 
 
+def open_far(far_name: str, token_type: str) -> pynini.Far:
+  """Loads Abjad-Alphabet FAR specified by `far_name`."""
+  return uf.OpenFar(FAR_DIR, far_name, token_type)
+
+
 def open_fst_from_far(far_name: str, fst_name: str,
                       token_type: str) -> pynini.Fst:
   """Loads FST given by `fst_name` from FAR specified by `far_name`."""
