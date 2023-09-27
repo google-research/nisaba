@@ -28,6 +28,12 @@
 #     verbose_logs:     Show all compiler warnings during build.
 #     libc++:           Link against libc++ instead of stdlibc++
 
+# Enable fast C++ protos for everything.
+build --define=use_fast_cpp_protos=true
+
+# Make Bazel print out all options from rc files when starting up.
+build --announce_rc
+
 # Suppress all warning messages.
 build:short_logs --output_filter=DONT_MATCH_ANYTHING
 build:verbose_logs --output_filter=
