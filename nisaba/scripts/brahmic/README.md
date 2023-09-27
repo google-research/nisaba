@@ -490,7 +490,7 @@ If the script tag is not supported `brahmic.ScriptError` exception is thrown.
 Example for commandline access:
 
 ```
-bazel build -c opt nlp/grm/language/rewrite-tester \
+bazel build -c opt nlp/grm2/thrax/rewrite-tester \
   nisaba/scripts/brahmic/visual_norm.far
 
 cat deva-words.txt |

@@ -17,7 +17,7 @@ r"""Reading normalization grammar for abjad / alphabet script languages.
 To try for Urdu:
 
 ```sh
-bazel build -c opt nlp/grm/language:rewrite-tester \
+bazel build -c opt nlp/grm2/thrax:rewrite-tester \
   nisaba/scripts/abjad_alphabet:reading_norm
 
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \

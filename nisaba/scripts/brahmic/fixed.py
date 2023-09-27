@@ -28,7 +28,7 @@ Please refer to: https://en.wikipedia.org/wiki/ISO_15919 for ISO.
 To try:
 
 ```sh
-bazel build -c opt nlp/grm/language:rewrite-tester \
+bazel build -c opt nlp/grm2/thrax:rewrite-tester \
   nisaba/scripts/brahmic:fixed
 
 cat /tmp/ml-latn-text.txt |

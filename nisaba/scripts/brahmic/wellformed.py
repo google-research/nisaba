@@ -17,7 +17,7 @@ r"""Acceptor for well-formed strings from major modern Brahmic scripts.
 To try:
 
 ```sh
-bazel build -c opt nlp/grm/language:rewrite-tester \
+bazel build -c opt nlp/grm2/thrax:rewrite-tester \
                    nisaba/scripts/brahmic:wellformed
 
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \

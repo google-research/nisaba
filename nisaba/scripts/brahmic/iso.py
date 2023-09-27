@@ -19,7 +19,7 @@ README for extensions to this scheme.
 To try:
 
 ```sh
-bazel build -c opt nlp/grm/language:rewrite-tester \
+bazel build -c opt nlp/grm2/thrax:rewrite-tester \
   nisaba/scripts/brahmic:iso
 
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \
@@ -31,7 +31,7 @@ bazel-bin/external/org_opengrm_thrax/rewrite-tester \
 To create input - output tsv:
 
 ```sh
-bazel build -c opt nlp/grm/language:rewrite-tester \
+bazel build -c opt nlp/grm2/thrax:rewrite-tester \
   nisaba/scripts/brahmic:iso
 
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \

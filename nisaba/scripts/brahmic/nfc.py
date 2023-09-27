@@ -18,7 +18,7 @@ Please refer to: http://unicode.org/charts/normalization/
 To try each rule:
 
 ```sh
-bazel build -c opt nlp/grm/language:rewrite-tester \
+bazel build -c opt nlp/grm2/thrax:rewrite-tester \
   nisaba/scripts/brahmic:nfc
 
 bazel-bin/external/org_opengrm_thrax/rewrite-tester \
