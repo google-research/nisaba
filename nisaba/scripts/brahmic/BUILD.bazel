@@ -19,19 +19,19 @@ load("@com_google_protobuf//:protobuf.bzl", "py_proto_library")
 load("@pip_deps//:requirements.bzl", "requirement")
 
 load(
-    "//nisaba/scripts/utils:grammars.bzl",
-    "nisaba_compile_grm_py",
-    "nisaba_compile_multi_grm_py",
-    "nisaba_compile_script_lang_multi_grm_py",
-    "nisaba_grm_textproto_test",
-)
-load(
     "//nisaba/scripts/brahmic:constant.bzl",
     "FIXED_RULE_SCRIPTS",
     "NATURAL_TRANSLIT_LANGS",
     "READING_NORM_LANGS",
     "SCRIPTS",
     "VISUAL_NORM_LANGS",
+)
+load(
+    "//nisaba/scripts/utils:grammars.bzl",
+    "nisaba_compile_grm_py",
+    "nisaba_compile_multi_grm_py",
+    "nisaba_compile_script_lang_multi_grm_py",
+    "nisaba_grm_textproto_test",
 )
 
 package(
