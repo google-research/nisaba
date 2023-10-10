@@ -20,7 +20,7 @@
 #include <memory>
 #include <string>
 
-#include "grm2/thrax/grm-manager.h"
+#include "thrax/grm-manager.h"
 #include "absl/status/status.h"
 #include "absl/status/statusor.h"
 #include "absl/strings/ascii.h"
