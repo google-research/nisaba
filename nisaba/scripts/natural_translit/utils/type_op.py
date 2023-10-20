@@ -58,7 +58,7 @@ TODO(): Fix typing in natural_translit.
 
 import logging
 import numbers
-from typing import Dict, Iterable, List, NamedTuple, Tuple, Union
+from typing import Dict, Iterable, List, NamedTuple, Tuple, Union, Callable
 import pynini as pyn
 
 # Custom types
@@ -631,3 +631,11 @@ def in_attribute(
       look_for, get_attribute(thing, attr),
       keys, enf_list, enf_dict, enf_range, allow_none
   )
+
+
+# TODO: Switch to list_op and remove duplicate when  is fixed.
+def apply_foreach(
+    func: Callable[[Valid,], Valid], arg_list: List[Valid]
+) -> list[...]:
+  """Temporary duplicate of apply_foreach in list_op with Valid type."""
+  return [func(*args) for args in arg_list]
