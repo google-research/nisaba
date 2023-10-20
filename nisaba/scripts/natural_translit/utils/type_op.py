@@ -53,6 +53,7 @@ things = [A, B, C]
 `value_from_list(things, 2)` returns `UNASSIGNED`
 `value_from_list(things, 2, exclude=UNASSIGNED)` returns `0`
 
+TODO(): Fix typing in natural_translit.
 """
 
 import logging
@@ -100,6 +101,7 @@ FstLike = Union[str, pyn.Fst]
 Catalog = Union[Dict, List, NamedTuple]
 # Restricted generic class to avoid using Any type.
 Valid = Union[range, Thing, Catalog, numbers.Number, Tuple, set, FstLike]
+OptSet = Union[set, Thing]
 
 # Log functions
 
