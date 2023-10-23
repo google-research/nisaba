@@ -53,7 +53,7 @@ py_library(
 )
 
 py_test(
-    name = "alignment_test_py",
+    name = "alignment_test",
     srcs = ["alignment_test.py"],
     main = "alignment_test.py",
     deps = [
@@ -92,7 +92,7 @@ py_library(
 )
 
 py_test(
-    name = "type_op_test_py",
+    name = "type_op_test",
     srcs = ["type_op_test.py"],
     main = "type_op_test.py",
     deps = [

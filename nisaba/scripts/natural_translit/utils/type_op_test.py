@@ -89,14 +89,14 @@ class TypeOpTest(absltest.TestCase):
   def test_not_exists_empty(self):
     self.assertTrue(t.not_exists(t.MISSING))
 
-  def test_is_instance(self):
-    self.assertTrue(t.is_instance(1, int))
+  def test_is_instance_dbg(self):
+    self.assertTrue(t.is_instance_dbg(1, int))
 
   def test_not_instance(self):
     self.assertTrue(t.not_instance(1, str))
 
   def test_not_instance_invalid_type(self):
-    self.assertTrue(t.not_instance(1, 'int'))
+    self.assertTrue(t.not_instance(1, t.MISSING))
 
   def test_make_thing(self):
     self.assertEqual(_T0.value, 0)

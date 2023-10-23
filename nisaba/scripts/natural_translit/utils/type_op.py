@@ -57,8 +57,7 @@ TODO(): Fix typing in natural_translit.
 """
 
 import logging
-import numbers
-from typing import Dict, Iterable, List, NamedTuple, Tuple, Union
+from typing import Dict, Iterable, List, NamedTuple, Tuple, Union, Type
 import pynini as pyn
 
 # Custom types
@@ -98,10 +97,13 @@ MISSING = Thing('MISSING', 'Missing')
 
 # FstLike from pynini doesn't work in isinstance()
 FstLike = Union[str, pyn.Fst]
-Catalog = Union[Dict, List, NamedTuple]
 # Restricted generic class to avoid using Any type.
-Valid = Union[range, Thing, Catalog, numbers.Number, Tuple, set, FstLike]
+Valid = Union[
+    bool, Dict, float, FstLike, int, List, NamedTuple, range, set, Thing, Tuple
+]
+# TODO: Update Opt names to fit the union types.
 OptSet = Union[set, Thing]
+OptType = Union[Type, Thing]
 
 # Log functions
 
@@ -225,13 +227,13 @@ def not_exists(a: Valid, allow_none: bool = False) -> bool:
   return not exists(a, allow_none)
 
 
-def is_instance(a: Valid, want: Valid = UNSPECIFIED) -> bool:
+def is_instance_dbg(a: Valid, want: OptType = UNSPECIFIED) -> bool:
   """Checks instance for logging purposes.
 
   Args:
     a: Object
     want: Type. Default value is UNSPECIFIED to make type check optional in
-      functions that call is_instance, while the case of optional argument
+      functions that call is_instance_dbg, while the case of optional argument
       and specifically checking for Null type as distinct cases.
 
   Returns:
@@ -239,20 +241,22 @@ def is_instance(a: Valid, want: Valid = UNSPECIFIED) -> bool:
 
   """
   if not_specified(want):
-    debug_true('is_instance', 'type check not requested for %s' % text_of(a))
+    debug_true(
+        'is_instance_dbg', 'type check not requested for %s' % text_of(a)
+    )
     return True
   try:
     if isinstance(a, want):
       return True
     else:
-      debug_false('is_instance', '%s not %s' % (text_of(a), want.__name__))
+      debug_false('is_instance_dbg', '%s not %s' % (text_of(a), want.__name__))
   except TypeError:
-    debug_false('is_instance', 'invalid type')
+    debug_false('is_instance_dbg', 'invalid type')
   return False
 
 
-def not_instance(a: Valid, want: Valid = UNSPECIFIED) -> bool:
-  return not is_instance(a, want)
+def not_instance(a: Valid, want: OptType = UNSPECIFIED) -> bool:
+  return not is_instance_dbg(a, want)
 
 
 def make_thing(
@@ -267,7 +271,7 @@ def make_thing(
 
 def enforce_thing(t: Valid) -> Thing:
   """Enforces thing type. If t is not Thing, puts t in value of a new Thing."""
-  if is_instance(t, Thing): return t
+  if isinstance(t, Thing): return t
   debug_message(
       'enforce_thing', 'Thing from %s: %s' % (class_of(t), text_of(t))
   )
@@ -276,7 +280,7 @@ def enforce_thing(t: Valid) -> Thing:
 # Attribute functions with type check.
 
 
-def has_attribute(a: Valid, attr: str, want: Valid = UNSPECIFIED) -> bool:
+def has_attribute(a: Valid, attr: str, want: OptType = UNSPECIFIED) -> bool:
   """Adds log and optional type check to hasattr()."""
   if not_exists(a): return False
   if not hasattr(a, attr):
@@ -284,11 +288,11 @@ def has_attribute(a: Valid, attr: str, want: Valid = UNSPECIFIED) -> bool:
         'has_attribute', '%s not an attribute of %s' % (attr, text_of(a))
     )
     return False
-  return is_instance(getattr(a, attr), want)
+  return is_instance_dbg(getattr(a, attr), want)
 
 
 def get_attribute(
-    a: Valid, attr: str, default: Valid = MISSING, want: Valid = UNSPECIFIED
+    a: Valid, attr: str, default: Valid = MISSING, want: OptType = UNSPECIFIED
 ) -> Valid:
   """Adds log and type check to getattr()."""
   return getattr(a, attr) if has_attribute(a, attr, want) else default
@@ -361,7 +365,7 @@ def not_empty(a: Valid, allow_none: bool = False) -> bool:
 
 def get_element(
     search_in: Valid, index: int, default: Valid = MISSING
-    ) -> bool:
+    ) -> Valid:
   """Returns a[index] if possible, default value if not."""
   if not_exists(search_in): return default
   if not_instance(search_in, Iterable): return default
@@ -447,7 +451,7 @@ def in_range(
 
 def enforce_list(
     l: Valid, enf_dict: bool = True, allow_none: bool = False
-) -> [Valid]:
+) -> List[Valid]:
   """Enforces list type.
 
   When l is a list, returns l. If l is an iterable returns `list(l)`, except
@@ -490,7 +494,7 @@ def in_list(
 
 def enforce_dict(
     d: Valid, add_key: Valid = 'default', allow_none: bool = False
-) -> dict[Valid, []]:
+) -> Dict[Valid, Valid]:
   """Enforces dict type.
 
   Args:
@@ -575,11 +579,11 @@ def enforce_set(
   if not_exists(s, allow_none):
     debug_result('enforce_set', set(), 'empty set from nonexistent')
     return set()
-  if is_instance(s, str): return {s}
-  if is_instance(s, dict):
+  if isinstance(s, str): return {s}
+  if isinstance(s, dict):
     return set(enforce_list(s)) if enf_dict else {(k, v) for k, v in s.items()}
   result = set()
-  if is_instance(s, Iterable):
+  if isinstance(s, Iterable):
     for element in s:
       try:
         result.add(element)
