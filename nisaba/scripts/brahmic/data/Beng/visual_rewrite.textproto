@@ -55,3 +55,10 @@ item {
   uname: ["AU LENGTH MARK", "SIGN E"] raw: "ৗে"
   to_uname: "SIGN AU" to_raw: "ৌ"
 }
+
+# Replaces ZWNJ with ZWJ for YA-phalaa.
+# Ref: Unicode Standard 15.0.0 Section 12.2 Page 494.
+item {
+  uname: ["RA", "ZERO WIDTH NON-JOINER", "VIRAMA", "YA"] raw: "র‌্য"
+  to_uname: ["RA", "ZERO WIDTH JOINER", "VIRAMA", "YA"] to_raw: "র‍্য"
+}

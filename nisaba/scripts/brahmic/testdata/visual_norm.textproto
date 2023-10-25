@@ -131,7 +131,10 @@ rewrite { rule: "DEVA" input: "न्त्‍ा" output: "न्त" }
 rewrite { rule: "BENG" input: "অ্যাড" output: "অ্যাড" }
 rewrite { rule: "BENG" input: "এ্যালজিও" output: "এ্যালজিও" }
 
-# YA-phalaa/sign
+# Ya-phalaa/sign
+# <RA, ZWNJ, VIRAMA, YA> → <RA, ZWJ, VIRAMA, YA>
+rewrite { rule: "BENG" input: "র‌্যাল" output: "র‍্যাল" }
+# ZWJ in <RA, ZWNJ, VIRAMA, YA> is preserved.
 rewrite { rule: "BENG" input: "র‍্যাল" output: "র‍্যাল" }
 rewrite { rule: "KNDA" input: "ರ‍್ಯಂಡ್" output: "ರ‍್ಯಂಡ್" }
 
