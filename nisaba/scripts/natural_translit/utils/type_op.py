@@ -19,40 +19,6 @@ converting types and attributes, and returning default values when required.
 Avoids equating NoneTypes in comparisons. For example if a.features = None and
 b.features = None, a and b won't be evaluated as having the same features.
 
-Undefined Things:
-
-UNASSIGNED: Unassigned variable.
-UNSPECIFIED: Optional argument was not specified.
-MISSING: Searched object was not found.
-
-In the following example, UNSPECIFIED as the optional argument means nothing is
-exluded. The function can return None or UNASSIGNED unless specifically
-excluded. MISSING distinguishes the cases where the index is out of scope from
-where the value of the element is not assigned yet or where the value of the
-item is explicitly assigned as None.
-
-```
-def value_from_list(some_list, index, exclude=UNSPECIFIED, instead=0):
-  try:
-    thing = some_list[index]
-  except IndexError:
-    return MISSING
-  if exclude != UNSPECIFIED and thing.value == exclude:
-    return instead
-  return thing.value
-
-A = Thing(value=7)
-B = Thing(value=None)
-C = Thing(value=UNASSIGNED)
-things = [A, B, C]
-```
-
-`value_from_list(things, 3)` returns `MISSING`
-`value_from_list(things, 1)` returns `None`
-`value_from_list(things, 1, exclude=None)` returns `0`
-`value_from_list(things, 2)` returns `UNASSIGNED`
-`value_from_list(things, 2, exclude=UNASSIGNED)` returns `0`
-
 TODO(): Fix typing in natural_translit.
 """
 
@@ -61,6 +27,52 @@ from typing import Dict, Iterable, List, NamedTuple, Tuple, Union, Type
 import pynini as pyn
 
 # Custom types
+
+
+class Nothing:
+  """Class for defining constants that stand in for None and empty values.
+
+  UNASSIGNED: Unassigned variable.
+  UNSPECIFIED: Optional argument was not specified.
+  MISSING: Searched object was not found.
+
+  In the following example, UNSPECIFIED as the optional argument means nothing
+  is excluded. The function can return None or UNASSIGNED unless specifically
+  excluded. MISSING distinguishes the cases where the index is out of scope from
+  where the value of the element is not assigned yet or where the value of the
+  item is explicitly assigned as None.
+
+  ```
+  def value_from_list(some_list, index, exclude=UNSPECIFIED, instead=0):
+    try:
+      thing = some_list[index]
+    except IndexError:
+      return MISSING
+    if exclude != UNSPECIFIED and thing.value == exclude:
+      return instead
+    return thing.value
+
+  A = Thing(value=7)
+  B = Thing(value=None)
+  C = Thing(value=UNASSIGNED)
+  things = [A, B, C]
+  ```
+
+  `value_from_list(things, 3)` returns `MISSING`
+  `value_from_list(things, 1)` returns `None`
+  `value_from_list(things, 1, exclude=None)` returns `0`
+  `value_from_list(things, 2)` returns `UNASSIGNED`
+  `value_from_list(things, 2, exclude=UNASSIGNED)` returns `0`
+  """
+
+  def __init__(self, name: str):
+    self.alias = name.upper()
+    self.text = name
+    self.value = self
+
+UNASSIGNED = Nothing('Unassigned')
+UNSPECIFIED = Nothing('Unspecified')
+MISSING = Nothing('Missing')
 
 
 class Thing(object):
@@ -85,13 +97,6 @@ class Thing(object):
     self.text = text
     self.value = self
 
-# Constants for undefined Thing objects.
-# Unassigned variable.
-UNASSIGNED = Thing('UNASSIGNED', 'Unassigned')
-# Unspecified optional argument.
-UNSPECIFIED = Thing('UNSPECIFIED', 'Unspecified')
-# Searched object is not found.
-MISSING = Thing('MISSING', 'Missing')
 
 # Union types
 
@@ -99,11 +104,11 @@ MISSING = Thing('MISSING', 'Missing')
 FstLike = Union[str, pyn.Fst]
 # Restricted generic class to avoid using Any type.
 Valid = Union[
-    bool, Dict, float, FstLike, int, List, NamedTuple, range, set, Thing, Tuple
+    bool, Dict, float, FstLike, int, List, NamedTuple,
+    Nothing, range, set, Thing, Tuple
 ]
-# TODO: Update Opt names to fit the union types.
-OptSet = Union[set, Thing]
-OptType = Union[Type, Thing]
+SetOrNothing = Union[set, Nothing]
+TypeOrNothing = Union[Type, Nothing]
 
 # Log functions
 
@@ -227,7 +232,7 @@ def not_exists(a: Valid, allow_none: bool = False) -> bool:
   return not exists(a, allow_none)
 
 
-def is_instance_dbg(a: Valid, want: OptType = UNSPECIFIED) -> bool:
+def is_instance_dbg(a: Valid, want: TypeOrNothing = UNSPECIFIED) -> bool:
   """Checks instance for logging purposes.
 
   Args:
@@ -255,7 +260,7 @@ def is_instance_dbg(a: Valid, want: OptType = UNSPECIFIED) -> bool:
   return False
 
 
-def not_instance(a: Valid, want: OptType = UNSPECIFIED) -> bool:
+def not_instance(a: Valid, want: TypeOrNothing = UNSPECIFIED) -> bool:
   return not is_instance_dbg(a, want)
 
 
@@ -280,7 +285,9 @@ def enforce_thing(t: Valid) -> Thing:
 # Attribute functions with type check.
 
 
-def has_attribute(a: Valid, attr: str, want: OptType = UNSPECIFIED) -> bool:
+def has_attribute(
+    a: Valid, attr: str, want: TypeOrNothing = UNSPECIFIED
+) -> bool:
   """Adds log and optional type check to hasattr()."""
   if not_exists(a): return False
   if not hasattr(a, attr):
@@ -292,7 +299,8 @@ def has_attribute(a: Valid, attr: str, want: OptType = UNSPECIFIED) -> bool:
 
 
 def get_attribute(
-    a: Valid, attr: str, default: Valid = MISSING, want: OptType = UNSPECIFIED
+    a: Valid, attr: str, default: Valid = MISSING,
+    want: TypeOrNothing = UNSPECIFIED
 ) -> Valid:
   """Adds log and type check to getattr()."""
   return getattr(a, attr) if has_attribute(a, attr, want) else default
