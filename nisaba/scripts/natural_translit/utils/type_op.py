@@ -92,14 +92,52 @@ class Thing:
     values point to the same phoneme in the inventory.
   """
 
-  def __init__(
-      self,
-      alias: str = '', text: str = '',
-      value: ... = UNSPECIFIED, allow_none: bool = False
-  ):
-    self.alias = alias
-    self.text = text
-    self.value = value_of(value) if exists(value, allow_none) else self
+  def __init__(self):
+    c = class_of(self)
+    self.alias = '%s_%d' % (c, hash(self))
+    self.text = 'Undefined %s' % c
+    self.value = self
+
+  @classmethod
+  def with_alias(cls, alias: str) -> 'Thing':
+    new = cls()
+    new.set_alias(alias)
+    new.text = class_and_alias(new)
+    return new
+
+  @classmethod
+  def from_value_of(cls, entry: ...) -> 'Thing':
+    """Makes a Thing from the value of the entry.
+
+    Args:
+      entry: If the entry is an object with 'value' attribute, the value is
+        set to entry.value in order to avoid nesting values in dynamically
+        created things and making their equivalence invisible to is_equal().
+        If this is undesirable, use with_alias_and_value().
+
+    Returns:
+      Thing
+    """
+    new = cls()
+    new.text = 'from:%s' % class_and_text(entry)
+    new.value = value_of(entry)
+    return new
+
+  @classmethod
+  def with_alias_and_value(cls, alias: str, value: ...) -> 'Thing':
+    """Makes a Thing with a custom alias and value."""
+    new = cls()
+    new.set_alias(alias)
+    new.text = 'store_%s:%s' % (new.alias, class_and_text(value))
+    new.value = value
+    return new
+
+  def set_alias(self, alias: str) -> None:
+    # TODO: ensure alias conforms to inventory field name restrictions.
+    if alias:
+      self.alias = alias
+    else:
+      debug_message('set_alias', 'empty alias is not allowed')
 
 # Union types
 
@@ -141,8 +179,11 @@ def class_of(a: ...) -> str:
 def text_of(a: ...) -> str:
   """Returns str() for objects with no text attribute."""
   if hasattr(a, 'text'):
-    return ('Textless %s' % class_of(a)) if is_empty(a.text) else a.text
-  return a.string() if isinstance(a, pyn.Fst) else str(a)
+    text = a.text
+  elif isinstance(a, pyn.Fst):
+    text = a.string()
+  else: text = str(a)
+  return text if text else '<no_text>'
 
 
 def texts_of(*args) -> str:
@@ -152,6 +193,14 @@ def texts_of(*args) -> str:
 def alias_of(a: ...) -> str:
   """Returns text_of() for logging objects with no alias."""
   return a.alias if hasattr(a, 'alias') and not_empty(a.alias) else text_of(a)
+
+
+def class_and_alias(a: ...) -> str:
+  return '%s_%s' % (class_of(a), alias_of(a))
+
+
+def class_and_text(a: ...) -> str:
+  return '%s_%s' % (class_of(a), text_of(a))
 
 
 def value_of(a: ...) -> ...:
@@ -270,7 +319,7 @@ def enforce_thing(t: ...) -> Thing:
   debug_message(
       'enforce_thing', 'Thing from %s: %s' % (class_of(t), text_of(t))
   )
-  return Thing(text=text_of(t), value=t)
+  return Thing.from_value_of(t)
 
 # Attribute functions with type check.
 
@@ -586,12 +635,12 @@ def enforce_set(
       try:
         result.add(element)
       except TypeError:
-        result.add(Thing(value=element))
+        result.add(Thing.from_value_of(element))
   else:
     try:
       result.add(s)
     except TypeError:
-      result.add(Thing(value=s))
+      result.add(Thing.from_value_of(s))
   return result
 
 

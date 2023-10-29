@@ -23,11 +23,12 @@ from nisaba.scripts.natural_translit.utils import type_op as t
 
 D = collections.namedtuple('D', ['k'])
 _D1 = D('v')
-_T0 = t.Thing(alias='T0', text='t0', value=0)
-_T1 = t.Thing(alias='T1', text='t1', value=t.UNSPECIFIED)
-_T2 = t.Thing(alias='T2', text='', value=_T0)
-_T3 = t.Thing(alias='', text='t3', value=_T1)
-_T4 = t.Thing(alias='T4', text='t4', value=_T1)
+_T0 = t.Thing.with_alias_and_value('T0', 0)
+_T1 = t.Thing.with_alias('T1')
+_T2 = t.Thing.from_value_of(_T0)
+_T3 = t.Thing.with_alias_and_value('', _T1)
+_T4 = t.Thing.with_alias_and_value('T4', _T1)
+_T5 = t.Thing.with_alias_and_value('T5', t.pyn.accep(''))
 
 
 class TypeOpTest(absltest.TestCase):
@@ -140,10 +141,10 @@ class TypeOpTest(absltest.TestCase):
     )
 
   def test_text_of_thing(self):
-    self.assertEqual(t.text_of(_T1), 't1')
+    self.assertEqual(t.text_of(_T1), 'Thing_T1')
 
   def test_text_of_thing_empty(self):
-    self.assertEqual(t.text_of(_T2), 'Textless Thing')
+    self.assertEqual(t.text_of(_T5), 'store_T5:Fst_<no_text>')
 
   def test_text_of_str(self):
     self.assertEqual(t.text_of('abc'), 'abc')
@@ -167,7 +168,7 @@ class TypeOpTest(absltest.TestCase):
     self.assertEqual(t.alias_of(_T1), 'T1')
 
   def test_alias_of_thing_empty(self):
-    self.assertEqual(t.alias_of(_T3), 't3')
+    self.assertNotEmpty(t.alias_of(_T3))
 
   def test_alias_of_list(self):
     self.assertEqual(t.alias_of([0, 1]), '[0, 1]')
@@ -387,7 +388,7 @@ class TypeOpTest(absltest.TestCase):
 
   def test_enforce_dict_thing(self):
     self.assertEqual(
-        t.enforce_dict(_T1), {'alias': 'T1', 'text': 't1', 'value': _T1}
+        t.enforce_dict(_T1), {'alias': 'T1', 'text': 'Thing_T1', 'value': _T1}
     )
 
   def test_enforce_dict_no_key(self):
