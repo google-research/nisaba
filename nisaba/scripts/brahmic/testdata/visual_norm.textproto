@@ -30,7 +30,18 @@ rewrite { rule: "MLYM" input: "​ആൻഡ്‌" output: "ആൻഡ്" }
 
 rewrite { rule: "SINH" input: "ශ්‍රී​ලං‌කා‍" output: "ශ්‍රීලංකා" }
 
-rewrite { rule: "TAML" input: "தமி​ழர்‌கள்‍" output: "தமிழர்கள்" }
+rewrite { rule: "SINH" input: "ඊශ‍්‍රායල" output: "ඊශ්‍රායල" }
+rewrite { rule: "SINH" input: "බි‍්‍රතාන්‍යයේ" output: "බ්‍රිතාන්‍යයේ" }
+rewrite { rule: "SINH" input: "අපේ‍්‍රල්" output: "අප්‍රේල්" }
+
+# TODO: Currently, ‘preserve’ is only available when the listed sequence
+# is sandwiched between two consonants. However, in Tamil, only a few clusters
+# require preserving <VIRAMA, ZWNJ>, such as the K-SSA cluster. Unfortunately,
+# this is not possible to represent in Nisaba today. As a result, <VIRAMA, ZWNJ>
+# is unnecessarily preserved in all consonant contexts. After such a
+# specialization is implemented, please include the following test:
+# rewrite { rule: "TAML" input: "தமி​ழர்‌கள்‍" output: "தமிழர்கள்" }
+rewrite { rule: "TAML" input: "ஆக்‌ஷன்" output: "ஆக்‌ஷன்" }
 
 rewrite { rule: "DEVA" input: "श्रीमान्‌को" output: "श्रीमान्‌को" }
 rewrite { rule: "DEVA" input: "गोल्‍डबर्ग" output: "गोल्डबर्ग" }

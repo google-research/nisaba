@@ -71,3 +71,29 @@ item {
   uname: ["GAETTA-PILLA", "GAETTA-PILLA"] raw: "ෘෘ"
   to_uname: "DIGA GAETTA-PILLA" to_raw: "ෲ"
 }
+
+# This rewrite is about the meaning of the sequence `<ZWJ, VIRAMA, ZWJ>`.
+# In Sinhala, both the sequences `<ZWJ, VIRAMA>` and `<VIRAMA, ZWJ>` can
+# represent different cluster formations.
+# See Unicode Standard 15.0.0 Chapter 13.2 Table 13-2 Page 538.
+# We are making the determination here that the intended form is the reduced
+# consonant form Rakaaraansaya, like Ra-phalaa.
+item {
+  uname: ["ZERO WIDTH JOINER", "AL-LAKUNA", "ZERO WIDTH JOINER"] raw: "‍්‍"
+  to_uname: ["AL-LAKUNA", "ZERO WIDTH JOINER"] to_raw: "්‍"
+}
+
+# In some cases, the vowel sign must be moved to the end of the cluster with
+# Rakaaraansaya along with removing ZWJ.
+
+# TODO: The following Rakaaraansaya sequence rewrites are not exhaustive;
+# please include them as they are discovered in the wild.
+item {
+  uname: ["KETTI IS-PILLA", "ZERO WIDTH JOINER", "AL-LAKUNA", "ZERO WIDTH JOINER", "RAYANNA"] raw: "ි‍්‍ර"
+  to_uname: ["AL-LAKUNA", "ZERO WIDTH JOINER", "RAYANNA", "KETTI IS-PILLA"] to_raw: "්‍රි"
+}
+
+item {
+  uname: ["DIGA KOMBUVA", "ZERO WIDTH JOINER", "AL-LAKUNA", "ZERO WIDTH JOINER", "RAYANNA"] raw: "ේ‍්‍ර"
+  to_uname: ["AL-LAKUNA", "ZERO WIDTH JOINER", "RAYANNA", "DIGA KOMBUVA"] to_raw: "්‍රේ"
+}
