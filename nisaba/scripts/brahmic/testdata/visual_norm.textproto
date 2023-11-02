@@ -32,6 +32,7 @@ rewrite { rule: "SINH" input: "ශ්‍රී​ලං‌කා‍" output: "�
 
 rewrite { rule: "SINH" input: "ඊශ‍්‍රායල" output: "ඊශ්‍රායල" }
 rewrite { rule: "SINH" input: "බි‍්‍රතාන්‍යයේ" output: "බ්‍රිතාන්‍යයේ" }
+rewrite { rule: "SINH" input: "මන්තී‍්‍ර" output: "මන්ත්‍රී" }
 rewrite { rule: "SINH" input: "අපේ‍්‍රල්" output: "අප්‍රේල්" }
 
 # TODO: Currently, ‘preserve’ is only available when the listed sequence

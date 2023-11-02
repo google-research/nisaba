@@ -94,6 +94,11 @@ item {
 }
 
 item {
+  uname: ["DIGA IS-PILLA", "ZERO WIDTH JOINER", "AL-LAKUNA", "ZERO WIDTH JOINER", "RAYANNA"] raw: "ී‍්‍ර"
+  to_uname: ["AL-LAKUNA", "ZERO WIDTH JOINER", "RAYANNA", "DIGA IS-PILLA"] to_raw: "්‍රී"
+}
+
+item {
   uname: ["DIGA KOMBUVA", "ZERO WIDTH JOINER", "AL-LAKUNA", "ZERO WIDTH JOINER", "RAYANNA"] raw: "ේ‍්‍ර"
   to_uname: ["AL-LAKUNA", "ZERO WIDTH JOINER", "RAYANNA", "DIGA KOMBUVA"] to_raw: "්‍රේ"
 }
