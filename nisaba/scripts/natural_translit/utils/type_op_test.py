@@ -152,6 +152,9 @@ class TypeOpTest(absltest.TestCase):
   def test_text_of_fst(self):
     self.assertEqual(t.text_of(t.pyn.accep('abc')), 'abc')
 
+  def test_text_of_fst_non_string(self):
+    self.assertEqual(t.text_of(t.pyn.union('a', 'b')), '<non_string_fst>')
+
   def test_text_of_namedtuple(self):
     self.assertEqual(t.text_of(_D1), 'D(k=\'v\')')
 

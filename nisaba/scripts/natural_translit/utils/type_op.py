@@ -181,7 +181,10 @@ def text_of(a: ...) -> str:
   if hasattr(a, 'text'):
     text = a.text
   elif isinstance(a, pyn.Fst):
-    text = a.string()
+    try:
+      text = a.string()
+    except pyn.FstOpError:
+      text = '<non_string_fst>'
   else: text = str(a)
   return text if text else '<no_text>'
 
