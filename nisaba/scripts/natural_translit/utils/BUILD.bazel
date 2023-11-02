@@ -30,7 +30,18 @@ py_library(
     name = "list_op",
     srcs = ["list_op.py"],
     deps = [
+        ":type_op",
         "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "list_op_test",
+    srcs = ["list_op_test.py"],
+    main = "list_op_test.py",
+    deps = [
+        ":list_op",
+        "@io_abseil_py//absl/testing:absltest",
     ],
 )
 
