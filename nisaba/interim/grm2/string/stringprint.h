@@ -17,8 +17,8 @@
 
 #include <string>
 
-#include "fst//fst-decl.h"
-#include "fst//string.h"
+#include "fst/fst-decl.h"
+#include "fst/string.h"
 
 namespace fst {
 

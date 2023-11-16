@@ -17,7 +17,7 @@
 #include <memory>
 #include <string>
 
-#include "fst//fstlib.h"
+#include "fst/fstlib.h"
 #include "gmock/gmock.h"
 #include "nisaba/port/status-matchers.h"
 #include "gtest/gtest.h"

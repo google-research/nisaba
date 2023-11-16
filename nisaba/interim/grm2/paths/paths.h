@@ -30,8 +30,8 @@
 #include <string>
 #include <vector>
 
-#include "fst//fst.h"
-#include "fst//string.h"
+#include "fst/fst.h"
+#include "fst/string.h"
 
 namespace fst {
 

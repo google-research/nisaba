@@ -32,11 +32,11 @@
 #ifndef NO_GOOGLE
 #include "google/protobuf/repeated_field.h"
 #endif  // NO_GOOGLE
-#include "fst//arcsort.h"
-#include "fst//compose.h"
-#include "fst//fst.h"
-#include "fst//string.h"
-#include "fst//symbol-table.h"
+#include "fst/arcsort.h"
+#include "fst/compose.h"
+#include "fst/fst.h"
+#include "fst/string.h"
+#include "fst/symbol-table.h"
 #include "fst/log.h"
 #include "absl/strings/string_view.h"
 #include "nisaba/interim/grm2/rewrite/rewrite.h"

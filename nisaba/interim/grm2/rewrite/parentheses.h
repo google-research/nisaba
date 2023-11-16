@@ -20,7 +20,7 @@
 #include <utility>
 #include <vector>
 
-#include "fst//fst.h"
+#include "fst/fst.h"
 #include "fst/log.h"
 
 // This is used by (M)PdtCompose and and associated grammar managers when they
