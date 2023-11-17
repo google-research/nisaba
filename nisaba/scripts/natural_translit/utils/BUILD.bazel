@@ -54,6 +54,28 @@ py_library(
 )
 
 py_library(
+    name = "inventory2",
+    srcs = ["inventory2.py"],
+    deps = [
+        ":list_op",
+        ":type_op",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "inventory2_test",
+    srcs = ["inventory2_test.py"],
+    main = "inventory2_test.py",
+    deps = [
+        ":inventory2",
+        ":type_op",
+        "@io_abseil_py//absl/testing:absltest",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
     name = "alignment",
     srcs = ["alignment.py"],
     deps = [

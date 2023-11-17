@@ -143,7 +143,8 @@ class Thing:
 
 # FstLike from pynini doesn't work in isinstance()
 FstLike = Union[str, pyn.Fst]
-# Restricted generic class to avoid using Any type.
+# <class>OrNothing unions for arguments.
+ListOrNothing = Union[list, Nothing]
 SetOrNothing = Union[set, Nothing]
 ThingOrNothing = Union[Thing, Nothing]
 TypeOrNothing = Union[Type, Nothing]
