@@ -21,7 +21,7 @@ To try each rule:
 bazel build -c opt nlp/grm2/thrax:rewrite-tester \
   nisaba/scripts/brahmic:nfc
 
-bazel-bin/external/org_opengrm_thrax/rewrite-tester \
+bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
   --far=bazel-bin/nisaba/scripts/brahmic/nfc.far \
   --rules=DEVA < /tmp/deva_words.txt
 ```

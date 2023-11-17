@@ -36,11 +36,11 @@ cc_library(
     srcs = ["far_base.cc"],
     hdrs = ["far_base.h"],
     deps = [
+        "//nisaba/interim/grm2/thrax:grm-manager-lib",
         "//nisaba/port:file_util",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/strings",
         "@org_openfst//:fst",
-        "@org_opengrm_thrax//:thrax",
     ],
 )
 

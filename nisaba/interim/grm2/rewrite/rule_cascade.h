@@ -24,7 +24,7 @@
 #include <utility>
 #include <vector>
 
-#include "fst/log.h"
+#include "absl/log/log.h"
 #include "nisaba/interim/grm2/rewrite/base_rule_cascade.h"
 #include "nisaba/interim/grm2/rewrite/rewrite_manager.h"
 

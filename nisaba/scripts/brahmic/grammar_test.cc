@@ -22,7 +22,7 @@
 #include "gmock/gmock.h"
 #include "nisaba/port/status-matchers.h"
 #include "gtest/gtest.h"
-#include "fst/log.h"
+#include "absl/log/check.h"
 #include "absl/status/status.h"
 #include "absl/status/statusor.h"
 #include "absl/strings/string_view.h"

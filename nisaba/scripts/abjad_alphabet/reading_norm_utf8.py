@@ -20,7 +20,7 @@ To try for Urdu:
 bazel build -c opt nlp/grm2/thrax:rewrite-tester \
   nisaba/scripts/abjad_alphabet:reading_norm
 
-bazel-bin/external/org_opengrm_thrax/rewrite-tester \
+bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
   --far \
     bazel-bin/nisaba/scripts/abjad_alphabet/reading_norm.far \
   --rules=UR \

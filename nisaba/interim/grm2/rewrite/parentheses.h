@@ -21,7 +21,7 @@
 #include <vector>
 
 #include "fst/fst.h"
-#include "fst/log.h"
+#include "absl/log/log.h"
 
 // This is used by (M)PdtCompose and and associated grammar managers when they
 // express parentheses and/or assignments as transducers.

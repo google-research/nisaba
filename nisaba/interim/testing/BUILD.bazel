@@ -52,11 +52,11 @@ cc_library(
         "//nisaba/port:file",
         "//nisaba/port:proto_file_stream",
         "//nisaba/port:status_macros",
+        "@com_google_absl//absl/log",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/status:statusor",
         "@com_google_absl//absl/strings",
         "@com_google_protobuf//:protobuf",
-        "@org_openfst//:base",
     ],
 )
 
@@ -72,7 +72,8 @@ cc_library(
         "@com_google_googletest//:gtest",
         "@com_google_absl//absl/algorithm:container",
         "@com_google_absl//absl/flags:flag",
-        "@org_openfst//:base",
+        "@com_google_absl//absl/log",
+        "@com_google_absl//absl/log:check",
         "@com_google_absl//absl/strings",
         "//nisaba/interim/grm2/rewrite:rule_cascade",
         "@com_google_absl//absl/flags:parse",

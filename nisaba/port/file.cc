@@ -20,8 +20,8 @@
 #include <iostream>
 #include <memory>
 
-#include "fst/log.h"
-#include "fst/log.h"
+#include "absl/log/check.h"
+#include "absl/log/log.h"
 #include "nisaba/port/file_util.h"
 #include "google/protobuf/text_format.h"
 

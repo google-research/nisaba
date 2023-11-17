@@ -49,8 +49,8 @@
 #include "gtest/gtest.h"
 #include "absl/algorithm/container.h"
 #include "absl/flags/flag.h"
-#include "fst/log.h"
-#include "fst/log.h"
+#include "absl/log/check.h"
+#include "absl/log/log.h"
 #include "absl/strings/str_join.h"
 #include "absl/strings/string_view.h"
 #include "nisaba/interim/grm2/rewrite/rule_cascade.h"
@@ -92,17 +92,17 @@ TEST(TestTextProto, TextProtoTest) {
 
   // Reads token type.
   TokenType token_type;
-  CHECK(GetTokenType(absl::GetFlag(FLAGS_token_type), &token_type));
+  QCHECK(GetTokenType(absl::GetFlag(FLAGS_token_type), &token_type));
 
   // Reads FAR.
   StdRuleCascade cascade(token_type);
-  CHECK(cascade.Load(absl::GetFlag(FLAGS_far_path)));
+  QCHECK(cascade.Load(absl::GetFlag(FLAGS_far_path)));
 
   // Reads mode.
   const auto mode = absl::GetFlag(FLAGS_mode);
 
   for (const auto &rewrite : rewrites.rewrite()) {
-    CHECK(cascade.SetRules(rewrite.rule()));
+    QCHECK(cascade.SetRules(rewrite.rule()));
     const auto rules = absl::StrJoin(rewrite.rule(), ", ");
     const auto &input = rewrite.input();
     const auto &expected = rewrite.output();

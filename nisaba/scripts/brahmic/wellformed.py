@@ -20,7 +20,7 @@ To try:
 bazel build -c opt nlp/grm2/thrax:rewrite-tester \
                    nisaba/scripts/brahmic:wellformed
 
-bazel-bin/external/org_opengrm_thrax/rewrite-tester \
+bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
  --far=bazel-bin/nisaba/scripts/brahmic/wellformed.far \
  --rules=DEVA \
  < /tmp/words_to_verify.txt

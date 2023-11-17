@@ -16,8 +16,8 @@
 
 #include "nisaba/port/file.h"
 #include "nisaba/port/file_util.h"
-#include "fst/log.h"
-#include "fst/log.h"
+#include "absl/log/check.h"
+#include "absl/log/log.h"
 #include "nisaba/port/status_macros.h"
 
 namespace nisaba {

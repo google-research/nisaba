@@ -21,7 +21,7 @@ ABJAD_ALPHABET_DIR=nisaba/scripts/abjad_alphabet
 bazel build -c opt nlp/grm2/thrax:rewrite-tester \
   ${ABJAD_ALPHABET_DIR}:reversible_roman
 
-bazel-bin/external/org_opengrm_thrax/rewrite-tester \
+bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
  --far=blaze-genfiles/${ABJAD_ALPHABET_DIR}/reversible_roman.far \
  --rules=FROM_UR \
  < /tmp/urdu_word_list.txt

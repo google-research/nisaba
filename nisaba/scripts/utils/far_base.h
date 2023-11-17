@@ -19,7 +19,7 @@
 #include <string>
 
 #include "fst/fstlib.h"
-#include "thrax/grm-manager.h"
+#include "nisaba/interim/grm2/thrax/grm-manager.h"
 #include "absl/status/status.h"
 #include "absl/strings/string_view.h"
 
@@ -34,7 +34,7 @@ constexpr char kFarExtn[] = ".far";
 class FarBase {
  public:
   // Fetches FST given by its name.
-  std::unique_ptr<fst::StdFst> Fst(absl::string_view fst_name) const;
+  std::unique_ptr<::fst::StdFst> Fst(absl::string_view fst_name) const;
 
  protected:
   explicit FarBase(absl::string_view far_name) : far_name_(far_name) {}

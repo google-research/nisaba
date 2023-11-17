@@ -1,0 +1,75 @@
+# Copyright 2023 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Parts of Thrax we require.
+
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "abstract-grm-manager-lib",
+    hdrs = ["abstract-grm-manager.h"],
+    deps = [
+        "//nisaba/interim/grm2/rewrite:parentheses",
+        "@com_google_absl//absl/base",
+        "@com_google_absl//absl/container:flat_hash_map",
+        "@com_google_absl//absl/log",
+        "@com_google_absl//absl/memory",
+        "@com_google_absl//absl/strings",
+        "@org_openfst//:fst",
+        "@org_openfst//:mpdt",
+        "@org_openfst//:pdt",
+    ],
+)
+
+cc_library(
+    name = "grm-manager-lib",
+    hdrs = ["grm-manager.h"],
+    deps = [
+        ":abstract-grm-manager-lib",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/memory",
+        "@org_openfst//:far",
+        "@org_openfst//:symbol-table",
+    ],
+)
+
+cc_library(
+    name = "rewrite-tester-lib",
+    srcs = ["rewrite-tester.cc"],
+    hdrs = ["rewrite-tester.h"],
+    deps = [
+        ":grm-manager-lib",
+        "//nisaba/interim/grm2/paths",
+        "//nisaba/interim/grm2/thrax/walker/util/function:symbols",
+        "//nisaba/port:file",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/log",
+        "@com_google_absl//absl/log:check",
+        "@com_google_absl//absl/memory",
+        "@com_google_absl//absl/strings",
+        "@org_openfst//:fst",
+        "@org_openfst//:symbol-table",
+    ],
+)
+
+cc_binary(
+    name = "rewrite-tester",
+    srcs = ["rewrite-tester-main.cc"],
+    deps = [
+        ":rewrite-tester-lib",
+        "@com_google_absl//absl/flags:parse",
+    ],
+)

@@ -21,9 +21,9 @@ cc_library(
     hdrs = ["base_rule_cascade.h"],
     deps = [
         ":rewrite",
+        "@com_google_absl//absl/log",
         "@com_google_absl//absl/strings",
         "@com_google_protobuf//:protobuf_lite",
-        "@org_openfst//:base",
         "@org_openfst//:fst",
         "@org_openfst//:lib_lite",
         "@org_openfst//:symbol-table",
@@ -34,7 +34,7 @@ cc_library(
     name = "parentheses",
     hdrs = ["parentheses.h"],
     deps = [
-        "@org_openfst//:base",
+        "@com_google_absl//absl/log",
         "@org_openfst//:fst",
     ],
 )
@@ -45,7 +45,7 @@ cc_library(
     deps = [
         "//nisaba/interim/grm2/paths",
         "//nisaba/interim/grm2/string:stringprint",
-        "@org_openfst//:base",
+        "@com_google_absl//absl/log",
         "@org_openfst//:fst",
         "@org_openfst//:mpdt",
         "@org_openfst//:pdt",
@@ -59,10 +59,10 @@ cc_library(
         ":parentheses",
         ":rewrite",
         "@com_google_absl//absl/container:flat_hash_map",
+        "@com_google_absl//absl/log",
         "@com_google_absl//absl/memory",
         "@com_google_absl//absl/strings",
         "@com_google_protobuf//:protobuf_lite",
-        "@org_openfst//:base",
         "@org_openfst//:far",
         "@org_openfst//:fst",
         "@org_openfst//:fst-decl",
@@ -77,7 +77,7 @@ cc_library(
     deps = [
         ":base_rule_cascade",
         ":rewrite_manager",
-        "@org_openfst//:base",
+        "@com_google_absl//absl/log",
         "@org_openfst//:fst",
     ],
 )

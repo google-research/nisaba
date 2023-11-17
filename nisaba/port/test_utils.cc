@@ -18,7 +18,7 @@
 
 #include "gtest/gtest.h"
 #include "absl/flags/flag.h"
-#include "fst/log.h"
+#include "absl/log/log.h"
 #include "absl/strings/string_view.h"
 #include "nisaba/port/file_util.h"
 

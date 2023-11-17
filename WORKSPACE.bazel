@@ -44,9 +44,9 @@ protobuf_deps()
 
 http_archive(
     name = "rules_python",
+    strip_prefix = "rules_python-0.25.0",
     url = "https://github.com/bazelbuild/rules_python/releases/download/0.25.0/rules_python-0.25.0.tar.gz",
     sha256 = "5868e73107a8e85d8f323806e60cad7283f34b32163ea6ff1020cf27abef6036",
-    strip_prefix = "rules_python-0.25.0",
 )
 
 load("@rules_python//python:repositories.bzl", "py_repositories")
@@ -64,29 +64,15 @@ http_archive(
 )
 
 # -------------------------------------------------------------------------
-# Thrax: This repo is only used to retrieve some of the build rules for
-# grammar manipulation. See
-#    http://www.opengrm.org/twiki/bin/view/GRM/Thrax
-# -------------------------------------------------------------------------
-thrax_version = "1.3.7-rc2"
-
-http_archive(
-    name = "org_opengrm_thrax",
-    urls = ["https://github.com/agutkin/finite_state/raw/main/thrax-%s.tar.gz" % thrax_version],
-    sha256 = "8d94cb30bd99e78930786af7953762eba024e29d77e9b37b451ccafbf826a16a",
-    strip_prefix = "thrax-%s" % thrax_version,
-)
-
-# -------------------------------------------------------------------------
 # Pynini: See
 #    http://www.opengrm.org/twiki/bin/view/GRM/Pynini
 # -------------------------------------------------------------------------
-pynini_version = "2.1.5-rc2"
+pynini_version = "2.1.5-rc2-absl"
 
 http_archive(
     name = "org_opengrm_pynini",
     urls = ["https://github.com/agutkin/finite_state/raw/main/pynini-%s.tar.gz" % pynini_version],
-    sha256 = "22f0f88ed9936a7690335cad90d10cc5e408602100cc43e7df7c5d2f1e610064",
+    sha256 = "6e9a06591249e31664f810097fc58e66f7f81190736efd3fbdcd75a3d65717e9",
     strip_prefix = "pynini-%s" % pynini_version
 )
 

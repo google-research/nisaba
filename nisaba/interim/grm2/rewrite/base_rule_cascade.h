@@ -37,7 +37,7 @@
 #include "fst/fst.h"
 #include "fst/string.h"
 #include "fst/symbol-table.h"
-#include "fst/log.h"
+#include "absl/log/log.h"
 #include "absl/strings/string_view.h"
 #include "nisaba/interim/grm2/rewrite/rewrite.h"
 

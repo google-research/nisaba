@@ -1,0 +1,81 @@
+// Copyright 2023 Nisaba Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+package nisaba.translit.fst;
+
+// Next available ID: 19
+message PairLMDecoderOptions {
+  // Filename for FST-based pair LM.
+  optional string pairlm_file = 1;
+
+  // Whether to invert the pairs, i.e., input symbols are output in pairs.
+  optional bool invert_pairlm = 2;
+
+  // Whether pair LM is encoded as a transducer.
+  optional bool pairlm_is_transducer = 13;
+
+  // Filename for pre-computed transliteration pairs. Expects a TSV file with 3
+  // columns: input string, output string and cost (negative log probability).
+  optional string translit_cands_file = 3;
+
+  // Pre-computed translit_cands_file items override PairLM rather than mix.
+  optional bool translit_cands_override = 14;
+
+  // Mixture weight between pair LM candidates and pre-computed pairs.
+  optional double pairlm_translit_weight = 4;
+
+  // Filename for language model for full-string transliteration. Expects an
+  // FST encoded model.
+  optional string lm_file = 5;
+
+  // Whether language model requires closure (e.g., word-level wordpiece model).
+  optional bool apply_closure_to_lm = 12;
+
+  // Symbol in language model FST corresponding to OOV symbols.
+  optional string oov_symbol = 6;
+
+  // Additional cost accrued by OOV symbols.
+  optional double oov_cost = 7;
+
+  // Symbol in the language model FST corresponding to epsilon.
+  optional string epsilon_symbol = 15;
+
+  // The maximum number of candidate transliterations per word.
+  optional int32 max_word_cands = 8;
+
+  // Threshold on scores for word candidates, in terms of the difference of log
+  // probability with the highest probability candidate.
+  optional double word_cand_thresh = 9;
+
+  // A minimum posterior probability for any transliteration candidate at a
+  // word-position, as part of final pruning in addition to max_word_cands.
+  optional double min_cand_posterior = 11;
+
+  // Internal word-piece prefix.  If non-empty, will assume language model is
+  // constructed of word-pieces.
+  optional string word_piece_internal_prefix = 10;
+
+  // Allows turning off caching to prevent memory leak when running as a
+  // service.
+  optional bool add_to_cache = 16;
+
+  // Maximum number of tokens to transliterate in parallel using different
+  // cores.
+  optional int32 max_parallel_tokens = 17;
+
+  // Whether to apply language model at the word (rather than sentence) level.
+  optional bool apply_lm_at_word_level = 18;
+}

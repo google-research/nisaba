@@ -19,7 +19,7 @@
 #include "nisaba/port/file.h"
 #include "nisaba/port/file_util.h"
 #include "nisaba/port/proto_file_stream.h"
-#include "fst/log.h"
+#include "absl/log/log.h"
 #include "absl/status/status.h"
 #include "absl/status/statusor.h"
 #include "google/protobuf/text_format.h"

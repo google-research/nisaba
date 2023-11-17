@@ -39,7 +39,7 @@
 #include "fst/rmepsilon.h"
 #include "fst/shortest-path.h"
 #include "fst/vector-fst.h"
-#include "fst/log.h"
+#include "absl/log/log.h"
 #include "nisaba/interim/grm2/paths/paths.h"
 #include "nisaba/interim/grm2/string/stringprint.h"
 

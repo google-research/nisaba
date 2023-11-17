@@ -489,12 +489,12 @@ cc_library(
     data = [":far_files"],
     visibility = ["//visibility:public"],
     deps = [
+        "//nisaba/interim/grm2/thrax:grm-manager-lib",
         "//nisaba/port:file_util",
         "//nisaba/port:status_macros",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/status:statusor",
         "@com_google_absl//absl/strings",
-        "@org_opengrm_thrax//:thrax",
     ],
 )
 
@@ -505,11 +505,11 @@ cc_test(
     deps = [
         ":cc",
         "//nisaba/port:status-matchers",
+        "@com_google_absl//absl/log:check",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/status:statusor",
         "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest_main",
-        "@org_openfst//:base",
     ],
 )
 

@@ -22,7 +22,7 @@ To try:
 bazel build -c opt nlp/grm2/thrax:rewrite-tester \
   nisaba/scripts/brahmic:iso
 
-bazel-bin/external/org_opengrm_thrax/rewrite-tester \
+bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
  --far=bazel-bin/nisaba/scripts/brahmic/iso.far \
  --rules=FROM_BRAHMIC \
  < /tmp/words.txt
@@ -34,7 +34,7 @@ To create input - output tsv:
 bazel build -c opt nlp/grm2/thrax:rewrite-tester \
   nisaba/scripts/brahmic:iso
 
-bazel-bin/external/org_opengrm_thrax/rewrite-tester \
+bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
  --far=bazel-bin/nisaba/scripts/brahmic/iso.far \
  --rules=FROM_BRAHMIC \
  < /tmp/words.txt \
