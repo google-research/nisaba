@@ -42,7 +42,8 @@ jobs:
     - name: Install requirements
       run: |
         brew install --display-times python || true
-        pip3 install -r ./requirements.txt
+        pip install --upgrade pip
+        pip install -r ./requirements.txt
 
     - name: Environment variables (debug dump)
       run: |
