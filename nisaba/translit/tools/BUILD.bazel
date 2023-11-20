@@ -1,0 +1,61 @@
+# Copyright 2023 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Error rate calculation utilities for specific transliteration use cases.
+
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = [
+        "//nlp/sweet/translit:__subpackages__",
+    ],
+)
+
+cc_binary(
+    name = "calculate_error_rate",
+    srcs = ["calculate_error_rate_main.cc"],
+    deps = [
+        ":calculate_error_rate_lib",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/flags:parse",
+        "@com_google_absl//absl/log:check",
+    ],
+)
+
+cc_library(
+    name = "calculate_error_rate_lib",
+    srcs = ["calculate_error_rate.cc"],
+    hdrs = ["calculate_error_rate.h"],
+    deps = [
+        "//nisaba/port:file_util",
+        "//nisaba/port:utf8_util",
+        "@com_google_absl//absl/log:check",
+        "@com_google_absl//absl/strings",
+        "@com_google_absl//absl/types:span",
+        "@org_openfst//:lib_lite",
+        "@org_openfst//:symbol-table",
+    ],
+)
+
+cc_test(
+    name = "calculate_error_rate_test",
+    size = "medium",
+    srcs = ["calculate_error_rate_test.cc"],
+    deps = [
+        ":calculate_error_rate_lib",
+        "//nisaba/port:status-matchers",
+        "@com_google_absl//absl/strings",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
