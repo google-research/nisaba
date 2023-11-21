@@ -28,7 +28,6 @@ _T1 = t.Thing.with_alias('T1')
 _T2 = t.Thing.from_value_of(_T0)
 _T3 = t.Thing.with_alias_and_value('', _T1)
 _T4 = t.Thing.with_alias_and_value('T4', _T1)
-_T5 = t.Thing.with_alias_and_value('T5', t.pyn.accep(''))
 
 
 class TypeOpTest(absltest.TestCase):
@@ -139,42 +138,6 @@ class TypeOpTest(absltest.TestCase):
     self.assertEqual(
         t.get_attribute(complex(1, 2), 'real', want=int, default=-1), -1
     )
-
-  def test_text_of_thing(self):
-    self.assertEqual(t.text_of(_T1), 'Thing_T1')
-
-  def test_text_of_thing_empty(self):
-    self.assertEqual(t.text_of(_T5), 'store_T5:Fst_<no_text>')
-
-  def test_text_of_str(self):
-    self.assertEqual(t.text_of('abc'), 'abc')
-
-  def test_text_of_fst(self):
-    self.assertEqual(t.text_of(t.pyn.accep('abc')), 'abc')
-
-  def test_text_of_fst_non_string(self):
-    self.assertEqual(t.text_of(t.pyn.union('a', 'b')), '<non_string_fst>')
-
-  def test_text_of_namedtuple(self):
-    self.assertEqual(t.text_of(_D1), 'D(k=\'v\')')
-
-  def test_text_of_int(self):
-    self.assertEqual(t.text_of('0'), '0')
-
-  def test_text_of_none(self):
-    self.assertEqual(t.text_of(None), 'None')
-
-  def test_text_of_nothing(self):
-    self.assertEqual(t.text_of(t.UNSPECIFIED), 'Unspecified')
-
-  def test_alias_of_thing(self):
-    self.assertEqual(t.alias_of(_T1), 'T1')
-
-  def test_alias_of_thing_empty(self):
-    self.assertNotEmpty(t.alias_of(_T3))
-
-  def test_alias_of_list(self):
-    self.assertEqual(t.alias_of([0, 1]), '[0, 1]')
 
   def test_is_equal(self):
     self.assertEqualTypeOp(1, 1)

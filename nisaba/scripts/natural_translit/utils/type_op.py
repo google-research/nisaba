@@ -22,9 +22,9 @@ b.features = None, a and b won't be evaluated as having the same features.
 TODO(): Fix typing in natural_translit.
 """
 
-import logging
 from typing import Any, Dict, Iterable, List, Tuple, Union, Type
 import pynini as pyn
+from nisaba.scripts.natural_translit.utils import logging as log
 
 # Custom types
 
@@ -93,7 +93,7 @@ class Thing:
   """
 
   def __init__(self):
-    c = class_of(self)
+    c = log.class_of(self)
     self.alias = '%s_%d' % (c, hash(self))
     self.text = 'Undefined %s' % c
     self.value = self
@@ -102,7 +102,7 @@ class Thing:
   def with_alias(cls, alias: str) -> 'Thing':
     new = cls()
     new.set_alias(alias)
-    new.text = class_and_alias(new)
+    new.text = log.class_and_alias(new)
     return new
 
   @classmethod
@@ -119,7 +119,7 @@ class Thing:
       Thing
     """
     new = cls()
-    new.text = 'from:%s' % class_and_text(entry)
+    new.text = log.from_class_and_text(entry)
     new.value = value_of(entry)
     return new
 
@@ -128,7 +128,7 @@ class Thing:
     """Makes a Thing with a custom alias and value."""
     new = cls()
     new.set_alias(alias)
-    new.text = 'store_%s:%s' % (new.alias, class_and_text(value))
+    new.text = '%s:%s' % (log.class_and_alias(new), log.class_and_text(value))
     new.value = value
     return new
 
@@ -137,7 +137,7 @@ class Thing:
     if alias:
       self.alias = alias
     else:
-      debug_message('set_alias', 'empty alias is not allowed')
+      log.dbg_message('empty alias is not allowed')
 
 # Union types
 
@@ -149,147 +149,73 @@ SetOrNothing = Union[set, Nothing]
 ThingOrNothing = Union[Thing, Nothing]
 TypeOrNothing = Union[Type, Nothing]
 
-# Log functions
 
-
-def debug_message(function_name: str, message: str = '') -> None:
-  return logging.debug('%s: %s', function_name, message)
-
-
-def debug_result(function_name: str, result: ..., detail: str = '') -> None:
-  message = 'returns %s' % text_of(result)
-  if detail: message += ', ' + detail
-  return debug_message(function_name, message)
-
-
-def debug_true(function_name: str, detail: str = '') -> None:
-  return debug_result(function_name, True, detail)
-
-
-def debug_false(function_name: str, detail: str = '') -> None:
-  return debug_result(function_name, False, detail)
-
-
-# Handle common attributes for objects of unknown types.
-
-
-def class_of(a: ...) -> str:
-  return a.__class__.__name__
-
-
-def text_of(a: ...) -> str:
-  """Returns str() for objects with no text attribute."""
-  if hasattr(a, 'text'):
-    text = a.text
-  elif isinstance(a, pyn.Fst):
-    try:
-      text = a.string()
-    except pyn.FstOpError:
-      text = '<non_string_fst>'
-  else: text = str(a)
-  return text if text else '<no_text>'
-
-
-def texts_of(*args) -> str:
-  return ' ,'.join([text_of(a) for a in args])
-
-
-def alias_of(a: ...) -> str:
-  """Returns text_of() for logging objects with no alias."""
-  return a.alias if hasattr(a, 'alias') and not_empty(a.alias) else text_of(a)
-
-
-def class_and_alias(a: ...) -> str:
-  return '%s_%s' % (class_of(a), alias_of(a))
-
-
-def class_and_text(a: ...) -> str:
-  return '%s_%s' % (class_of(a), text_of(a))
-
-
-def value_of(a: ...) -> ...:
+def value_of(obj: ...) -> ...:
   """If a has no value attribute, returns a."""
-  return a.value if isinstance(a, Thing) else a
-
+  return obj.value if isinstance(obj, Thing) else obj
 
 # Type check.
 
 
-def is_none(a: ...) -> bool:
+def is_none(obj: ...) -> bool:
   """Checks None for logging purposes."""
-  if a is None:
-    debug_true('is_none')
-    return True
-  debug_false('is_none', '%s is %s' % (text_of(a), class_of(a)))
-  return False
+  return log.dbg_return(obj is None, log.class_and_text(obj))
 
 
-def not_none(a: ...) -> bool:
-  return not is_none(a)
+def not_none(obj: ...) -> bool:
+  return not is_none(obj)
 
 
-def is_assigned(a: ...) -> bool:
+def is_assigned(obj: ...) -> bool:
   """Checks UNASSIGNED for logging purposes."""
-  if a is UNASSIGNED:
-    debug_false('is_assigned')
-    return False
-  debug_true('is_assigned', text_of(a))
-  return True
+  return log.dbg_return(obj is not UNASSIGNED, log.class_and_text(obj))
 
 
-def not_assigned(a: ...) -> bool:
-  return not is_assigned(a)
+def not_assigned(obj: ...) -> bool:
+  return not is_assigned(obj)
 
 
-def is_specified(a: ...) -> bool:
+def is_specified(obj: ...) -> bool:
   """Checks UNSPECIFIED for logging purposes."""
-  if a is UNSPECIFIED:
-    debug_false('is_specified')
-    return False
-  debug_true('is_specified', text_of(a))
-  return True
+  return log.dbg_return(obj is not UNSPECIFIED, log.class_and_text(obj))
 
 
-def not_specified(a: ...) -> bool:
-  return not is_specified(a)
+def not_specified(obj: ...) -> bool:
+  return not is_specified(obj)
 
 
-def is_found(a: ...) -> bool:
+def is_found(obj: ...) -> bool:
   """Checks MISSING for logging purposes."""
-  if a is MISSING:
-    debug_false('is_found')
-    return False
-  debug_true('is_found', text_of(a))
-  return True
+  return log.dbg_return(obj is not MISSING, log.class_and_text(obj))
 
 
-def not_found(a: ...) -> bool:
-  return not is_found(a)
+def not_found(obj: ...) -> bool:
+  return not is_found(obj)
 
 
-def is_nothing(a: ...) -> bool:
-  """Checks default Thing constants."""
-  return not_assigned(a) or not_specified(a) or not_found(a)
+def is_nothing(obj: ...) -> bool:
+  """Checks Nothing constants."""
+  return log.dbg_return(isinstance(obj, Nothing), log.class_and_text(obj))
 
 
-def not_nothing(a: ...) -> bool:
-  return not is_nothing(a)
+def not_nothing(obj: ...) -> bool:
+  return not is_nothing(obj)
 
 
-def exists(a: ..., allow_none: bool = False) -> bool:
+def exists(obj: ..., allow_none: bool = False) -> bool:
   """Combines checking for None and undefined Things."""
-  return (not_none(a) or allow_none) and not_nothing(a)
+  return (not_none(obj) or allow_none) and not_nothing(obj)
 
 
-def not_exists(a: ..., allow_none: bool = False) -> bool:
-  return not exists(a, allow_none)
+def not_exists(obj: ..., allow_none: bool = False) -> bool:
+  return not exists(obj, allow_none)
 
 
-def is_instance_dbg(a: ..., want: TypeOrNothing = UNSPECIFIED) -> bool:
+def is_instance_dbg(obj: ..., want: TypeOrNothing = UNSPECIFIED) -> bool:
   """Checks instance for logging purposes.
 
   Args:
-    a: Object
+    obj: Object
     want: Type. Default value is UNSPECIFIED to make type check optional in
       functions that call is_instance_dbg, while the case of optional argument
       and specifically checking for Null type as distinct cases.
@@ -299,60 +225,52 @@ def is_instance_dbg(a: ..., want: TypeOrNothing = UNSPECIFIED) -> bool:
 
   """
   if not_specified(want):
-    debug_true(
-        'is_instance_dbg', 'type check not requested for %s' % text_of(a)
+    return log.dbg_return_true(
+        'type check not requested for %s' % log.text_of(obj)
     )
-    return True
   try:
-    if isinstance(a, want):
-      return True
-    else:
-      debug_false('is_instance_dbg', '%s not %s' % (text_of(a), want.__name__))
+    if isinstance(obj, want): return True
+    return log.dbg_return_false('%s not %s' % (log.text_of(obj), want.__name__))
   except TypeError:
-    debug_false('is_instance_dbg', 'invalid type')
-  return False
+    return log.dbg_return_false('invalid type')
 
 
-def not_instance(a: ..., want: TypeOrNothing = UNSPECIFIED) -> bool:
-  return not is_instance_dbg(a, want)
+def not_instance(obj: ..., want: TypeOrNothing = UNSPECIFIED) -> bool:
+  return not is_instance_dbg(obj, want)
 
 
 def enforce_thing(t: ...) -> Thing:
   """Enforces thing type. If t is not Thing, puts t in value of a new Thing."""
   if isinstance(t, Thing): return t
-  debug_message(
-      'enforce_thing', 'Thing from %s: %s' % (class_of(t), text_of(t))
-  )
-  return Thing.from_value_of(t)
+  return log.dbg_return(Thing.from_value_of(t))
 
 # Attribute functions with type check.
 
 
 def has_attribute(
-    a: ..., attr: str, want: TypeOrNothing = UNSPECIFIED
+    obj: ..., attr: str, want: TypeOrNothing = UNSPECIFIED
 ) -> bool:
   """Adds log and optional type check to hasattr()."""
-  if not_exists(a): return False
-  if not hasattr(a, attr):
-    debug_false(
-        'has_attribute', '%s not an attribute of %s' % (attr, text_of(a))
+  if not_exists(obj): return False
+  if not hasattr(obj, attr):
+    return log.dbg_return_false(
+        '%s not an attribute of %s' % (attr, log.text_of(obj))
     )
-    return False
-  return is_instance_dbg(getattr(a, attr), want)
+  return is_instance_dbg(getattr(obj, attr), want)
 
 
 def get_attribute(
-    a: ..., attr: str, default: ... = MISSING,
+    obj: ..., attr: str, default: ... = MISSING,
     want: TypeOrNothing = UNSPECIFIED
 ) -> ...:
   """Adds log and type check to getattr()."""
-  return getattr(a, attr) if has_attribute(a, attr, want) else default
+  return getattr(obj, attr) if has_attribute(obj, attr, want) else default
 
 # Equivalence functions.
 
 
 def is_equal(
-    a: ..., b: ...,
+    obj1: ..., obj2: ...,
     empty: bool = False, epsilon: bool = False, zero: bool = True
 ) -> bool:
   """Checks equivalence.
@@ -362,8 +280,8 @@ def is_equal(
   Thing instances are equal if their values are equal.
 
   Args:
-    a: Object for comparison.
-    b: Object for comparison
+    obj1: Object for comparison.
+    obj2: Object for comparison
     empty: When false, empty str, list and dict are not considered equal.
     epsilon: When false, epsilon fsts are not considered equal.
     zero: When false, zero is not considered equal.
@@ -373,45 +291,44 @@ def is_equal(
 
   """
   # Check Fst first, otherwise if Fst == Non-FstLike raises error.
-  name = 'is_equal'
-  if isinstance(a, pyn.Fst) or isinstance(b, pyn.Fst):
-    if not_instance(b, FstLike) or not_instance(a, FstLike):
-      debug_false(name, 'type mismatch %s' % texts_of(a, b))
-      return False
-    if a != b: return False
-    if not epsilon and a == pyn.accep(''):
-      debug_false(name, 'epsilon fst')
-      return False
-  a_val = value_of(a)
-  b_val = value_of(b)
-  if a_val != b_val:
-    if not_instance(a_val, type(b_val)):
-      debug_false(name, 'type mismatch %s' % texts_of(a_val, b_val))
+  if isinstance(obj1, pyn.Fst) or isinstance(obj2, pyn.Fst):
+    if not_instance(obj1, FstLike) or not_instance(obj2, FstLike):
+      return log.dbg_return_false(
+          'type mismatch between %s and %s' %
+          (log.class_and_text(obj1), log.class_and_text(obj2))
+      )
+    if obj1 != obj2: return False
+    if not epsilon and obj1 == pyn.accep(''):
+      return log.dbg_return_false('epsilon fst')
+  obj1_val = value_of(obj1)
+  obj2_val = value_of(obj2)
+  if obj1_val != obj2_val:
+    if not_instance(obj1_val, type(obj2_val)):
+      log.dbg_message('type mismatch %s' % log.texts_of(obj1_val, obj2_val))
     return False
   if (
-      not_exists(a_val) or
-      (not zero and a_val == 0) or (not empty and is_empty(a_val))
-  ):
-    debug_false(name, text_of(a_val))
-    return False
+      not_exists(obj1_val) or
+      (not zero and obj1_val == 0) or
+      (not empty and is_empty(obj1_val))
+  ): return log.dbg_return_false(log.text_of(obj1_val))
   return True
 
 
 def not_equal(
-    a: ..., b: ...,
+    obj1: ..., obj2: ...,
     empty: bool = False, epsilon: bool = False, zero: bool = True
 ) -> bool:
-  return not is_equal(a, b, empty, epsilon, zero)
+  return not is_equal(obj1, obj2, empty, epsilon, zero)
 
 # Iterable functions
 
 
-def is_empty(a: ..., allow_none: bool = False) -> bool:
-  return not_exists(a, allow_none) or (isinstance(a, Iterable) and not a)
+def is_empty(obj: ..., allow_none: bool = False) -> bool:
+  return not_exists(obj, allow_none) or (isinstance(obj, Iterable) and not obj)
 
 
-def not_empty(a: ..., allow_none: bool = False) -> bool:
-  return not is_empty(a, allow_none)
+def not_empty(obj: ..., allow_none: bool = False) -> bool:
+  return not is_empty(obj, allow_none)
 
 
 def get_element(
@@ -423,8 +340,7 @@ def get_element(
   try:
     return search_in[index]
   except IndexError:
-    debug_result('get_element', text_of(default), 'index error')
-    return default
+    return log.dbg_return(default, 'index error')
 
 
 def enforce_range(
@@ -461,16 +377,14 @@ def enforce_range(
     range
   """
 
-  name = 'enforce_range'
   a3 = 1 if not_specified(arg3) else arg3
   if isinstance(arg1, Tuple):
     if len(arg1) > 3 or (len(arg1) == 3 and is_specified(arg2)):
-      debug_result(
-          name, range(0),
-          'too many arguments range(%s)' % texts_of(arg1, arg2, arg3)
+      return log.dbg_return(
+          range(0),
+          'too many arguments range(%s)' % log.texts_of(arg1, arg2, arg3)
       )
-      return range(0)
-    debug_message(name, 'range from tuple %s' % text_of(arg1))
+    log.dbg_message(log.from_class_and_text(arg1))
     e1 = get_element(arg1, 0)
     e2 = get_element(arg1, 1)
     e3 = get_element(arg1, 2)
@@ -486,8 +400,7 @@ def enforce_range(
   if isinstance(a1, int) and isinstance(a2, int):
     if isinstance(a3, int): return range(a1, a2, a3)
     if is_nothing(a3): return range(a1, a2)
-  debug_result(name, range(0), 'from %s' % texts_of(arg1, arg2, arg3))
-  return range(0)
+  return log.dbg_return(range(0), log.texts_of(arg1, arg2, arg3))
 
 
 def in_range(
@@ -517,22 +430,15 @@ def enforce_list(
   Returns:
     List.
   """
-  name = 'enforce_list'
   if isinstance(l, list): return l
-  if enf_dict and isinstance(l, dict):
-    debug_message(name, 'list of dict values')
-    return list(l.values())
+  log.dbg_message(log.from_class_and_text(l))
+  if enf_dict and isinstance(l, dict): return log.dbg_return(list(l.values()))
   if (
       isinstance(l, Iterable) and
       not_instance(l, str) and not_instance(l, dict)
-  ):
-    debug_message(name, 'list(%s)' % text_of(l))
-    return list(l)
-  if not_exists(l, allow_none):
-    debug_message(name, 'empty list from %s' % text_of(l))
-    return []
-  debug_result(name, '[%s]' % text_of(l))
-  return [l]
+  ): return log.dbg_return(list(l))
+  if not_exists(l, allow_none): return log.dbg_return([])
+  return log.dbg_return([l])
 
 
 def in_list(
@@ -558,19 +464,16 @@ def enforce_dict(
   Returns:
     Dict.
   """
-  name = 'enforce_dict'
   if isinstance(d, dict): return d
-  if isinstance(d, Thing):
-    debug_message(name, 'dict from %s' % class_of(d))
-    return d.__dict__
+  log.dbg_message(log.from_class_and_text(d))
+  if isinstance(d, Thing): return log.dbg_return(d.__dict__)
   if isinstance(d, Tuple) and hasattr(d, '_fields'):
-    debug_message(name, 'dict from namedtuple')
-    return d._asdict()
-  if not_exists(d, allow_none):
-    debug_message(name, 'empty dict from none')
-    return {}
-  debug_message(name, '{%s: %s}' % (text_of(add_key), text_of(d)))
-  return {add_key: d}
+    return log.dbg_return(d._asdict())
+  if not_exists(d, allow_none): return log.dbg_return({})
+  return log.dbg_return(
+      {add_key: d},
+      '{%s: %s}' % (log.text_of(add_key), log.text_of(d))
+  )
 
 
 def dict_get(
@@ -580,8 +483,7 @@ def dict_get(
   try:
     return enforce_dict(d, add_key, allow_none).get(key, default)
   except TypeError:
-    debug_result('dict_get', default, 'invalid key type')
-    return default
+    return log.dbg_return(default, 'invalid key type')
 
 
 def in_dict(look_for: ..., look_in: ..., keys: ... = UNSPECIFIED) -> bool:
@@ -626,13 +528,12 @@ def enforce_set(
     Set.
   """
   if isinstance(s, set): return s
-  debug_message('enforce_set', 'set from %s' % class_of(s))
-  if not_exists(s, allow_none):
-    debug_result('enforce_set', set(), 'empty set from nonexistent')
-    return set()
-  if isinstance(s, str): return {s}
+  log.dbg_message(log.from_class_and_text(s))
+  if not_exists(s, allow_none): return log.dbg_return(set())
+  if isinstance(s, str): return log.dbg_return({s})
   if isinstance(s, dict):
-    return set(enforce_list(s)) if enf_dict else {(k, v) for k, v in s.items()}
+    s = set(enforce_list(s)) if enf_dict else {(k, v) for k, v in s.items()}
+    return log.dbg_return(s)
   result = set()
   if isinstance(s, Iterable):
     for element in s:
@@ -645,7 +546,7 @@ def enforce_set(
       result.add(s)
     except TypeError:
       result.add(Thing.from_value_of(s))
-  return result
+  return log.dbg_return(result)
 
 
 def in_set(
@@ -663,10 +564,9 @@ def in_enforced(
   """Checks if look_for is in enforced type look_in."""
   if not_exists(look_for, allow_none): return False
   if is_specified(keys) and not enf_dict and not_instance(look_in, dict):
-    debug_false(
-        'in_enforced', 'key for non-dict argument %s' % text_of(look_in)
+    return log.dbg_return_false(
+        'key for non-dict argument %s' % log.text_of(look_in)
     )
-    return False
   if (
       (enf_list and in_list(look_for, look_in)) or
       (enf_dict and in_dict(look_for, look_in, keys)) or
