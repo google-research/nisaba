@@ -18,7 +18,7 @@ This class will replace the named tuples in inventory.py and the functions used
 to build or process the inventories currently scattered accross modules.
 """
 
-from nisaba.scripts.natural_translit.utils import logging as log
+from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 

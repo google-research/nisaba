@@ -58,7 +58,7 @@ py_library(
     srcs = ["inventory2.py"],
     deps = [
         ":list_op",
-        ":logging",
+        ":log_op",
         ":type_op",
         "@org_opengrm_pynini//pynini",
     ],
@@ -118,8 +118,8 @@ py_library(
 )
 
 py_library(
-    name = "logging",
-    srcs = ["logging.py"],
+    name = "log_op",
+    srcs = ["log_op.py"],
     deps = [
         "@io_abseil_py//absl/logging",
         "@org_opengrm_pynini//pynini",
@@ -127,11 +127,11 @@ py_library(
 )
 
 py_test(
-    name = "logging_test",
-    srcs = ["logging_test.py"],
-    main = "logging_test.py",
+    name = "log_op_test",
+    srcs = ["log_op_test.py"],
+    main = "log_op_test.py",
     deps = [
-        ":logging",
+        ":log_op",
         ":type_op",
         "@io_abseil_py//absl/testing:absltest",
     ],
@@ -141,7 +141,7 @@ py_library(
     name = "type_op",
     srcs = ["type_op.py"],
     deps = [
-        ":logging",
+        ":log_op",
         "@org_opengrm_pynini//pynini",
     ],
 )

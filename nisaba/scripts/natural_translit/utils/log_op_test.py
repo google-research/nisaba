@@ -14,7 +14,7 @@
 
 import collections
 from absl.testing import absltest
-from nisaba.scripts.natural_translit.utils import logging as log
+from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as t
 
 # Test objects

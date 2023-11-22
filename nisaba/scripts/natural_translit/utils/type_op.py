@@ -24,7 +24,7 @@ TODO(): Fix typing in natural_translit.
 
 from typing import Any, Dict, Iterable, List, Tuple, Union, Type
 import pynini as pyn
-from nisaba.scripts.natural_translit.utils import logging as log
+from nisaba.scripts.natural_translit.utils import log_op as log
 
 # Custom types
 
