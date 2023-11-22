@@ -17,7 +17,8 @@
 
 from typing import Any, Callable, List
 import pynini as pyn
-from nisaba.scripts.natural_translit.utils import type_op as ty
+# from nisaba.scripts.
+# natural_translit.utils import type_op as ty
 
 # Shorthands for optimized union and star.
 
@@ -71,16 +72,16 @@ def apply_foreach(
 
 
 def apply_union(
-    func: Callable[..., ty.FstLike],
+    func: Callable[..., pyn.FstLike],
     arg_list: List[List[Any]]
-) -> ty.pyn.Fst:
+) -> pyn.Fst:
   return union_opt(*apply_foreach(func, arg_list))
 
 
 def apply_union_star(
-    func: Callable[..., ty.FstLike],
+    func: Callable[..., pyn.FstLike],
     arg_list: List[List[Any]]
-) -> ty.pyn.Fst:
+) -> pyn.Fst:
   return union_star(*apply_foreach(func, arg_list))
 
 # Special cases where the function is a simple ty.pyn.cross(old, new)
@@ -99,37 +100,37 @@ def cross_union_star(
   return union_star(*apply_foreach(pyn.cross, arg_list))
 
 
-def attr_list(
-    things: list[Any],
-    attr: str,
-    attr_type: ty.TypeOrNothing = ty.UNSPECIFIED
-) -> list[Any]:
-  """Makes a list from an attribute of a list of objects.
+# def attr_list(
+#     things: list[Any],
+#     attr: str,
+#     attr_type: ty.TypeOrNothing = ty.UNSPECIFIED
+# ) -> list[Any]:
+#   """Makes a list from an attribute of a list of objects.
 
-  Args:
-    things: A list of objects.
-    attr: The attribute from which the new list is to be compiled. If the
-      object doesn't have the requested attribute, skips that object.
-    attr_type: If specified, only the results that are instances of this type
-      will be added to the list.
+#   Args:
+#     things: A list of objects.
+#     attr: The attribute from which the new list is to be compiled. If the
+#       object doesn't have the requested attribute, skips that object.
+#     attr_type: If specified, only the results that are instances of this type
+#       will be added to the list.
 
-  Returns:
-    if attr_type is specified:
-      [t.attr for t in things if isinstance(t.attr, attr_type)]
-    else:
-      [t.attr for t in things]
-  """
-  l = [ty.get_attribute(t, attr, want=attr_type) for t in things]
-  return list(filter(ty.is_found, l))
-
-
-def fst_attr_list(things: list[Any], attr: str) -> list[pyn.Fst]:
-  return attr_list(things, attr, ty.FstLike)
+#   Returns:
+#     if attr_type is specified:
+#       [t.attr for t in things if isinstance(t.attr, attr_type)]
+#     else:
+#       [t.attr for t in things]
+#   """
+#   l = [ty.get_attribute(t, attr, want=attr_type) for t in things]
+#   return list(filter(ty.is_found, l))
 
 
-def fst_attr_list_union(things: list[Any], attr: str) -> pyn.Fst:
-  return union_opt(*fst_attr_list(things, attr))
+# def fst_attr_list(things: list[Any], attr: str) -> list[pyn.Fst]:
+#   return attr_list(things, attr, ty.FstLike)
 
 
-def fst_attr_list_union_star(things: list[Any], attr: str) -> pyn.Fst:
-  return union_star(*fst_attr_list(things, attr))
+# def fst_attr_list_union(things: list[Any], attr: str) -> pyn.Fst:
+#   return union_opt(*fst_attr_list(things, attr))
+
+
+# def fst_attr_list_union_star(things: list[Any], attr: str) -> pyn.Fst:
+#   return union_star(*fst_attr_list(things, attr))

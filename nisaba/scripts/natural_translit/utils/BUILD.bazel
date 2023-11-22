@@ -30,7 +30,7 @@ py_library(
     name = "list_op",
     srcs = ["list_op.py"],
     deps = [
-        ":type_op",
+        # ":type_op",
         "@org_opengrm_pynini//pynini",
     ],
 )
