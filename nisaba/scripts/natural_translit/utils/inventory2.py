@@ -18,7 +18,6 @@ This class will replace the named tuples in inventory.py and the functions used
 to build or process the inventories currently scattered accross modules.
 """
 
-from nisaba.scripts.natural_translit.utils import logging as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
@@ -70,7 +69,8 @@ class Inventory:
 
   def _add_field(self, alias: str, value: ...) -> bool:
     if alias in self.__dict__.keys():
-      return log.dbg_return_false('skipping recurring alias %s' % alias)
+      ty.debug_message('inventory.add', 'skipping recurring alias %s' % alias)
+      return False
     self.__dict__[alias] = value
     return True
 
