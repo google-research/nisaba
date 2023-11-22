@@ -108,12 +108,14 @@ class MultiRefErrorRate {
     output_syms_.AddSymbol("<epsilon>");
   }
 
-  // Calculates multi reference error rate for given test file.
-  void CalculateErrorRate(absl::string_view reffile,
-                          absl::string_view testfile);
+  // Calculates multi reference error rate for given test file. If pairwise_edit
+  // is set to true, provides pairwise edits between all reference and test
+  // outputs for the same input.
+  void CalculateErrorRate(absl::string_view reffile, absl::string_view testfile,
+                          bool pairwise_edits);
 
   // Writes results to output file.
-  void Write(absl::string_view ofile);
+  void Write(absl::string_view ofile, bool pairwise_edits);
 
   // Calculates error rate and optionally writes to provide file pointer.
   double CalcErrorRate();
@@ -132,18 +134,28 @@ class MultiRefErrorRate {
                                               bool is_test_item) const;
 
   // Scans through data set and calculates error rate.
-  void CalculateErrorRate();
+  void CalculateErrorRate(bool pairwise_edits);
 
   // Calculates error rate for one example.
-  void CalculateErrorRate(int idx);
+  void CalculateErrorRate(int idx, bool pairwise_edits);
 
   // Calculates minimum error rate for one example.
   void CalculateMinErrorRate(int idx);
+
+  // Calculates pairwise edits for all reference and test outputs for item idx.
+  void CalculatePairwiseErrors(int idx);
+
+  // Writes error rates to output file.
+  void WriteErrorRate(std::ofstream &output_file);
+
+  // Writes pairwise edits to output file.
+  void WritePairwiseEdits(std::ofstream &output_file);
 
   ::fst::SymbolTable output_syms_;
   std::vector<std::vector<std::pair<int, double>>> references_;
   std::vector<std::vector<std::pair<int, double>>> test_input_;
   std::vector<EditDistanceDouble> total_ed_double_;
+  std::vector<std::vector<std::vector<int>>> pairwise_edits_;
   bool is_split_chars_;
 };
 

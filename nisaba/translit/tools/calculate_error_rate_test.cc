@@ -14,12 +14,9 @@
 
 #include "nisaba/translit/tools/calculate_error_rate.h"
 
-#include <cmath>
-#include <cstdlib>
 #include <filesystem>
 #include <fstream>
 #include <string>
-#include <vector>
 
 #include "gtest/gtest.h"
 #include "absl/strings/str_cat.h"
@@ -81,7 +78,8 @@ TEST_F(MultiRefErrorRateTest, CorrectMinErrorRates) {
   nisaba::translit::tools::MultiRefErrorRate multi_ref_calc_one(
       /*is_split_chars=*/true);
   multi_ref_calc_one.CalculateErrorRate(/*reffile=*/file_one_,
-                                        /*testfile=*/file_two_);
+                                        /*testfile=*/file_two_,
+                                        /*pairwise_edits=*/false);
   // If file two is the test file, then the minimum cost hypotheses in the
   // k-best list are "abac", "bbcbbc" and "z" for items 0, 1 and 2 respectively.
   // The closest matching reference to "abac" for item 0 is "aabac" which
@@ -98,7 +96,8 @@ TEST_F(MultiRefErrorRateTest, CorrectMinErrorRates) {
   nisaba::translit::tools::MultiRefErrorRate multi_ref_calc_two(
       /*is_split_chars=*/true);
   multi_ref_calc_two.CalculateErrorRate(/*reffile=*/file_two_,
-                                        /*testfile=*/file_one_);
+                                        /*testfile=*/file_one_,
+                                        /*pairwise_edits=*/false);
   // If file one is the test file, then the minimum cost hypotheses in the
   // k-best list are "aabac", "babab" and "bcdef" for items 0, 1 and 2
   // respectively. "babab" is the min cost hypothesis because it does not have

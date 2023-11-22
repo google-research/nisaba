@@ -56,6 +56,9 @@ ABSL_FLAG(std::string, ofile, "", "Output filename.");
 ABSL_FLAG(bool, split_chars, true,
           "Whether to split at character level or at whitespace separated "
           "token level.");
+ABSL_FLAG(bool, pairwise_edits, false,
+          "Whether to calculate edits between all references and all test "
+          "outputs for the same input and write to expected json format.");
 
 int main(int argc, char** argv) {
   std::string usage = "Usage: ";
@@ -74,7 +77,9 @@ int main(int argc, char** argv) {
   nisaba::translit::tools::MultiRefErrorRate error_rate_calc(
       absl::GetFlag(FLAGS_split_chars));
   error_rate_calc.CalculateErrorRate(absl::GetFlag(FLAGS_reference),
-                                    absl::GetFlag(FLAGS_testfile));
-  error_rate_calc.Write(absl::GetFlag(FLAGS_ofile));
+                                     absl::GetFlag(FLAGS_testfile),
+                                     absl::GetFlag(FLAGS_pairwise_edits));
+  error_rate_calc.Write(absl::GetFlag(FLAGS_ofile),
+                        absl::GetFlag(FLAGS_pairwise_edits));
   return 0;
 }

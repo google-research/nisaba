@@ -60,9 +60,13 @@ namespace {
 
 // Prints 1-4 items in a line to the output file.
 void LineToFile(std::ofstream &output_file, const absl::AlphaNum &a,
-                const absl::AlphaNum &b = "", const absl::AlphaNum &c = "",
-                const absl::AlphaNum &d = "") {
-  output_file << absl::StrCat(a, b, c, d, "\n");
+                bool newline, const absl::AlphaNum &b = "",
+                const absl::AlphaNum &c = "", const absl::AlphaNum &d = "") {
+  if (newline) {
+    output_file << absl::StrCat(a, b, c, d, "\n");
+  } else {
+    output_file << absl::StrCat(a, b, c, d);
+  }
   QCHECK(output_file);
 }
 
@@ -115,6 +119,7 @@ bool BetterErrorValues(const EditDistanceDouble &this_min_error_values,
   return impl::GetMinErrorAlignment(test_fst, ref_fst, &align_mod);
 }
 
+// Returns the counts for deriving the string-to-string edit distance.
 EditDistanceInt CalculatePairEditDistance(const ::fst::StdVectorFst &ref_fst,
                                           const ::fst::StdVectorFst &test_fst,
                                           int num_symbols) {
@@ -144,6 +149,7 @@ EditDistanceInt CalculatePairEditDistance(const ::fst::StdVectorFst &ref_fst,
   return ed_int;
 }
 
+// Returns the counts for deriving the string-to-string edit distance.
 EditDistanceInt CalculatePairEditDistance(
     const std::vector<std::string> &ref_string,
     const std::vector<std::string> &test_string) {
@@ -152,6 +158,13 @@ EditDistanceInt CalculatePairEditDistance(
   const ::fst::StdVectorFst ref_fst = GetStringFst(ref_string, &syms);
   const ::fst::StdVectorFst test_fst = GetStringFst(test_string, &syms);
   return CalculatePairEditDistance(ref_fst, test_fst, syms.NumSymbols());
+}
+
+// Returns the number of edits in the distance between the pairs.
+int CalculatePairEditDistanceValue(
+    const std::vector<std::string> &ref_string,
+    const std::vector<std::string> &test_string) {
+  return CalculatePairEditDistance(ref_string, test_string).Edits();
 }
 
 // Splits string on either whitespace or characters.
@@ -168,6 +181,97 @@ std::vector<std::string> MaybeSplitChars(absl::string_view str,
   return tokenized_string;
 }
 
+// Accumulates a normalizer from a vector of pairs including -log weights.
+double GetNormalizer(const std::vector<std::pair<int, double>> &input_pairs) {
+  double exp_sum = 0.0;
+  for (const auto input_pair : input_pairs) {
+    exp_sum += exp(-input_pair.second);
+  }
+  return -log(exp_sum);
+}
+
+// Writes vector of candidates to output file in expected json format, after
+// normalizing the weights, and returns vector of probabilities.
+std::vector<double> WriteCands(std::ofstream &output_file,
+                               const std::vector<std::pair<int, double>> &cands,
+                               const ::fst::SymbolTable &syms) {
+  double norm = impl::GetNormalizer(cands);
+  std::vector<double> probs;
+  probs.reserve(cands.size());
+  for (int i = 0; i < cands.size(); ++i) {
+    const std::string hyp_word = syms.Find(cands[i].first);
+    probs.push_back(exp(-cands[i].second + norm));
+    const std::string delim = i > 0 ? ", \"" : "\"";
+    impl::LineToFile(output_file,
+                     absl::StrCat(delim, hyp_word, "\": ", probs[i]),
+                     /*newline=*/false);
+  }
+  return probs;
+}
+
+// Produces a square bracket vector string concatenating two vectors of type T.
+template <class T>
+std::string GetBracketedVectorString(const std::vector<T> &vector_a,
+                                     const std::vector<T> &vector_b) {
+  return absl::StrCat(
+      "[",
+      absl::StrJoin(
+          {absl::StrJoin(vector_a, ", "), absl::StrJoin(vector_b, ", ")}, ", "),
+      "]");
+}
+
+// Transposes matrix of ints.
+std::vector<std::vector<int>> TransposeMatrix(
+    const std::vector<std::vector<int>> &matrix) {
+  if (matrix.empty()) {
+    return matrix;
+  }
+  std::vector<std::vector<int>> transposed;
+  int rows = matrix.size();
+  int cols = matrix[0].size();
+  transposed.reserve(cols);
+  for (int i = 0; i < cols; ++i) {
+    std::vector<int> this_row;
+    this_row.reserve(rows);
+    for (int j = 0; j < rows; ++j) {
+      this_row.push_back(matrix[j][i]);
+    }
+    transposed.push_back(this_row);
+  }
+  return transposed;
+}
+
+// Returns string showing pairwise distances between refs/hyps in json format.
+std::string GetDistances(const std::vector<std::vector<int>> &dists) {
+  std::vector<std::string> dist_arrays;
+  if (!dists.empty()) {
+    int rows = dists.size();
+    int cols = dists[0].size();
+    const auto transposed = TransposeMatrix(dists);
+    dist_arrays.reserve(rows + cols);
+    for (const auto &dist : dists) {
+      dist_arrays.push_back(
+          GetBracketedVectorString(std::vector<int>(rows, 0), dist));
+    }
+    for (const auto &trans_dist : transposed) {
+      dist_arrays.push_back(
+          GetBracketedVectorString(trans_dist, std::vector<int>(cols, 0)));
+    }
+  }
+  return absl::StrJoin(dist_arrays, ", ");
+}
+
+// Returns vector of lengths of strings in cands.
+std::vector<int> GetLengths(const std::vector<std::pair<int, double>> &cands,
+                            const ::fst::SymbolTable &syms) {
+  std::vector<int> lengths;
+  lengths.reserve(cands.size());
+  for (const auto cand : cands) {
+    lengths.push_back(utf8::StrSplitByChar(syms.Find(cand.first)).size());
+  }
+  return lengths;
+}
+
 }  // namespace
 }  // namespace impl
 
@@ -179,20 +283,69 @@ double MultiRefErrorRate::CalcErrorRate() {
   return tot_ed_double.ErrorRate();
 }
 
-void MultiRefErrorRate::Write(absl::string_view ofile) {
-  std::ofstream output_file;
-  output_file.open(std::string(ofile));
-  QCHECK(output_file) << "Cannot open " << ofile << " for writing.";
+void MultiRefErrorRate::WriteErrorRate(std::ofstream &output_file) {
   EditDistanceDouble tot_ed_double;
   for (int i = 0; i < total_ed_double_.size(); ++i) {
-    impl::LineToFile(output_file, total_ed_double_[i].ToString());
+    impl::LineToFile(output_file, total_ed_double_[i].ToString(),
+                     /*newline=*/true);
     tot_ed_double += total_ed_double_[i];
   }
   std::string error_rate_label = is_split_chars_ ? "CER" : "WER";
-  impl::LineToFile(output_file, "Summary ", error_rate_label);
-  impl::LineToFile(output_file, "total statistics: ", tot_ed_double.ToString());
-  impl::LineToFile(output_file, "overall ", error_rate_label, ": ",
-                   tot_ed_double.ErrorRate());
+  impl::LineToFile(output_file, "Summary ", /*newline=*/true, error_rate_label);
+  impl::LineToFile(output_file, "total statistics: ", /*newline=*/true,
+                   tot_ed_double.ToString());
+  impl::LineToFile(output_file, "overall ", /*newline=*/true, error_rate_label,
+                   ": ", tot_ed_double.ErrorRate());
+}
+
+void MultiRefErrorRate::WritePairwiseEdits(std::ofstream &output_file) {
+  for (int idx = 0; idx < references_.size(); ++idx) {
+    // Writes system outputs with probabilities.
+    impl::LineToFile(output_file, "{\"hyp\": {", /*newline=*/false);
+    const auto p1 =
+        impl::WriteCands(output_file, test_input_[idx], output_syms_);
+    // Writes references with probabilities.
+    impl::LineToFile(output_file, "}, \"ref\": {", /*newline=*/false);
+    const auto p2 =
+        impl::WriteCands(output_file, references_[idx], output_syms_);
+    // Writes system output probabilities.
+    impl::LineToFile(output_file, "}, \"p1\": ", /*newline=*/false);
+    impl::LineToFile(output_file,
+                     impl::GetBracketedVectorString(
+                         p1, std::vector<double>(references_[idx].size(), 0)),
+                     /*newline=*/false);
+    // Writes reference probabilities.
+    impl::LineToFile(output_file, ", \"p2\": ", /*newline=*/false);
+    impl::LineToFile(
+        output_file,
+        impl::GetBracketedVectorString(
+            std::vector<double>(test_input_[idx].size(), 0), p2),
+        /*newline=*/false);
+    // Writes distances all system/reference pairs, (zeros for
+    // reference/reference or system/system distances, not used).
+    impl::LineToFile(output_file, ", \"D\": [", /*newline=*/false);
+    impl::LineToFile(output_file, impl::GetDistances(pairwise_edits_[idx]),
+                     /*newline=*/false);
+    // Writes lengths of references (zeros for system items, not used).
+    impl::LineToFile(output_file, "], \"L\": ", /*newline=*/false);
+    impl::LineToFile(output_file,
+                     impl::GetBracketedVectorString(
+                         std::vector<int>(test_input_[idx].size(), 0),
+                         impl::GetLengths(references_[idx], output_syms_)),
+                     /*newline=*/false);
+    impl::LineToFile(output_file, "}", /*newline=*/true);
+  }
+}
+
+void MultiRefErrorRate::Write(absl::string_view ofile, bool pairwise_edits) {
+  std::ofstream output_file;
+  output_file.open(std::string(ofile));
+  QCHECK(output_file) << "Cannot open " << ofile << " for writing.";
+  if (pairwise_edits) {
+    WritePairwiseEdits(output_file);
+  } else {
+    WriteErrorRate(output_file);
+  }
 }
 
 void MultiRefErrorRate::ReadInputs(absl::string_view input_file,
@@ -280,18 +433,46 @@ void MultiRefErrorRate::CalculateMinErrorRate(int idx) {
   total_ed_double_.push_back(min_error_values);
 }
 
-void MultiRefErrorRate::CalculateErrorRate(int idx) {
+void MultiRefErrorRate::CalculatePairwiseErrors(int idx) {
+  std::vector<std::vector<int>> pairwise_edits;
+  pairwise_edits.reserve(test_input_[idx].size());
+  for (int i = 0; i < test_input_[idx].size(); ++i) {
+    const std::vector<std::string> test_string =
+        GetTokenizedString(idx, i, /*is_test_item=*/true);
+    std::vector<int> these_edits;
+    these_edits.reserve(references_[idx].size());
+    for (int j = 0; j < references_[idx].size(); ++j) {
+      const std::vector<std::string> ref_string =
+          GetTokenizedString(idx, j, /*is_test_item=*/false);
+      these_edits.push_back(
+          impl::CalculatePairEditDistanceValue(ref_string, test_string));
+    }
+    pairwise_edits.push_back(these_edits);
+  }
+  pairwise_edits_.push_back(pairwise_edits);
+}
+
+void MultiRefErrorRate::CalculateErrorRate(int idx, bool pairwise_edits) {
   if (references_[idx].empty()) {
     // Nothing to do for this example.
     return;
   }
-  CalculateMinErrorRate(idx);
+  if (pairwise_edits) {
+    CalculatePairwiseErrors(idx);
+  } else {
+    CalculateMinErrorRate(idx);
+  }
 }
 
-void MultiRefErrorRate::CalculateErrorRate() {
+void MultiRefErrorRate::CalculateErrorRate(bool pairwise_edits) {
   QCHECK_EQ(references_.size(), test_input_.size());
-  total_ed_double_.clear();
-  total_ed_double_.reserve(references_.size());
+  if (pairwise_edits) {
+    pairwise_edits_.clear();
+    pairwise_edits_.reserve(references_.size());
+  } else {
+    total_ed_double_.clear();
+    total_ed_double_.reserve(references_.size());
+  }
   for (int idx = 0; idx < references_.size(); ++idx) {
     // Either both are empty or reference is non-empty.
     QCHECK(!references_[idx].empty() || test_input_[idx].empty());
@@ -299,15 +480,16 @@ void MultiRefErrorRate::CalculateErrorRate() {
       // Creates empty string test input if none given for reference item.
       test_input_[idx].push_back(std::make_pair(0, 0.0));
     }
-    CalculateErrorRate(idx);
+    CalculateErrorRate(idx, pairwise_edits);
   }
 }
 
 void MultiRefErrorRate::CalculateErrorRate(absl::string_view reffile,
-                                           absl::string_view testfile) {
+                                           absl::string_view testfile,
+                                           bool pairwise_edits) {
   ReadInputs(reffile, /*is_reference=*/true);
   ReadInputs(testfile, /*is_reference=*/false);
-  CalculateErrorRate();
+  CalculateErrorRate(pairwise_edits);
 }
 
 }  // namespace tools

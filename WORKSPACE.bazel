@@ -34,6 +34,18 @@ git_repository(
     tag = "v4.24.3",
 )
 
+# -------------------------------------------------------------------------
+# nlohmann json. See
+#    https://github.com/nlohmann/json
+# -------------------------------------------------------------------------
+
+http_archive(
+    name = "com_github_nlohmann_json",
+    urls = ["https://github.com/nlohmann/json/archive/refs/heads/develop.zip"],
+    sha256 = "5d9b3a054b4d0f51e47dc6fbb031c75166869a816cfaef08bb0f18be209dddb3",
+    strip_prefix = "json-develop"
+)
+
 # Import external protobuf dependencies into this workspace.
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 protobuf_deps()

@@ -14,6 +14,8 @@
 
 # Error rate calculation utilities for specific transliteration use cases.
 
+load("@pip_deps//:requirements.bzl", "requirement")
+
 package(
     default_applicable_licenses = [
     ],
@@ -57,5 +59,54 @@ cc_test(
         "//nisaba/port:status-matchers",
         "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "emd_tsv_to_json_test",
+    size = "medium",
+    srcs = ["emd_tsv_to_json_test.cc"],
+    deps = [
+        ":calculate_error_rate_lib",
+        "//nisaba/port:file_util",
+        "//nisaba/port:status-matchers",
+        "//nisaba/port:utf8_util",
+        "@com_github_nlohmann_json//:json",
+        "@com_google_absl//absl/log:check",
+        "@com_google_absl//absl/strings",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+py_binary(
+    name = "calculate_emd_cer",
+    srcs = ["calculate_emd_cer.py"],
+    python_version = "PY3",
+    deps = [
+        ":emd_cer",
+        "@io_abseil_py//absl:app",
+        "@io_abseil_py//absl/flags",
+        requirement("numpy"),
+        requirement("pyemd"),
+    ],
+)
+
+py_library(
+    name = "emd_cer",
+    srcs = ["emd_cer.py"],
+    deps = [
+        requirement("numpy"),
+        requirement("pyemd"),
+    ],
+)
+
+py_test(
+    name = "emd_cer_test",
+    srcs = ["emd_cer_test.py"],
+    python_version = "PY3",
+    srcs_version = "PY3",
+    deps = [
+        ":emd_cer",
+        "@io_abseil_py//absl/testing:absltest",
     ],
 )

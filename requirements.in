@@ -1,3 +1,5 @@
 networkx>=2.5
+numpy>=1.26.1
 pandas>=1.0.5
 pycountry>=22.3.5
+pyemd>=0.4.1
