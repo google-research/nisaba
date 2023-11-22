@@ -141,7 +141,6 @@ py_library(
     name = "type_op",
     srcs = ["type_op.py"],
     deps = [
-        ":logging",
         "@org_opengrm_pynini//pynini",
     ],
 )
