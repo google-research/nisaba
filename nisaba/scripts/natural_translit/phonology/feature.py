@@ -12,132 +12,37 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Simple placeholder for the phonological feature structure."""
+"""Converts feature inventories to str inventories for backward compatibility.
 
-import collections
-from nisaba.scripts.natural_translit.utils import inventory as i
-from nisaba.scripts.natural_translit.utils import list_op as ls
+TODO: Remove after updating modify_phon and phoneme_inventory to use
+feature2.
 
-# cat: category, val: value
-PhonFeature = collections.namedtuple(
-    'PhonFeature', ['alias', 'cat'])
+"""
+
+from nisaba.scripts.natural_translit.features import phonological
+from nisaba.scripts.natural_translit.features import qualifier
+from nisaba.scripts.natural_translit.utils import inventory2
 
 
-def ft_inventory(
-    feature_list: [PhonFeature],
-    store_list: [i.Store] = None
-) -> collections.namedtuple:
-  return i.make_inventory(i.alias_list(feature_list), feature_list, store_list)
+def _convert_and_add(
+    feature_inventory: inventory2.Inventory,
+    str_inventory: inventory2.Inventory,
+) -> None:
+  for alias in feature_inventory.item_aliases:
+    str_inventory.add_item(feature_inventory.get(alias), 'alias')
+  for alias in feature_inventory.supp_aliases:
+    str_inventory.make_supp(
+        alias, [f.alias for f in feature_inventory.get(alias)]
+    )
 
-# TODO:Enum features by category
-ARTICULATION_FEATURE = ls.apply_foreach(PhonFeature, [
-    ['silent', 'pronunciation'],
-    ['syllabic', 'syllabicity'],
-    ['nonsyllabic', 'syllabicity'],
-    ['pulmonic', 'airstream'],
-    ['nonpulmonic', 'airstream'],
-    ['central', 'airflow'],
-    ['lateral', 'airflow'],
-    ['nasal', 'airflow'],
-    ['aspirated', 'release'],
-    ['click', 'release'],
-    ['labial', 'place'],
-    ['nonlabial', 'place'],
-    ['bilabial', 'place'],
-    ['labiodental', 'place'],
-    ['dental', 'place'],
-    ['alveolar', 'place'],
-    ['postalveolar', 'place'],
-    ['palatal', 'place'],
-    ['retroflex', 'place'],
-    ['velar', 'place'],
-    ['uvular', 'place'],
-    ['pharyngeal', 'place'],
-    ['epiglottal', 'place'],
-    ['glottal', 'place'],
-    ['rhotic', 'rhoticity'],
-    ['sibilant', 'amplitude'],
-    ['nonsibilant', 'amplitude'],
-    ['vowel', 'class'],
-    ['stop', 'manner'],
-    ['fricative', 'manner'],
-    ['approximant', 'manner'],
-    ['flap', 'manner'],
-    ['trill', 'manner'],
-    ['voiceless', 'voicing'],
-    ['voiced', 'voicing'],
-    ['partially_voiced', 'voicing'],
-    ['devoiced', 'voicing'],
-    ['composite', 'composite'],
-    ['diphthong', 'composite'],
-    ['affricate', 'composite'],
-    ['coarticulated', 'composite'],
-    ['close', 'height'],
-    ['near_close', 'height'],
-    ['close_mid', 'height'],
-    ['mid', 'height'],
-    ['open_mid', 'height'],
-    ['near_open', 'height'],
-    ['open', 'height'],
-    ['front', 'backness'],
-    ['near_front', 'backness'],
-    ['center', 'backness'],
-    ['near_back', 'backness'],
-    ['back', 'backness'],
-    ['duration', 'suprasegmental'],
-    ['stress', 'suprasegmental'],
-    ['pitch', 'suprasegmental'],
-    ['contour', 'suprasegmental'],
-    ['intonation', 'suprasegmental'],
-])
 
-FEATURE_QUALIFIER = ls.apply_foreach(PhonFeature, [
-    ['top', 'degree'],
-    ['high', 'degree'],
-    ['middle', 'degree'],
-    ['low', 'degree'],
-    ['bottom', 'degree'],
-    ['rising', 'change'],
-    ['falling', 'change'],
-    ['interrupt', 'change'],
-])
+def _str_inventory() -> inventory2.Inventory:
+  """Str feature inventory for backward compatibility."""
+  f = inventory2.Inventory()
+  _convert_and_add(phonological.articulatory, f)
+  _convert_and_add(phonological.suprasegmental, f)
+  _convert_and_add(qualifier.qualifier, f)
+  return f
 
-FEATURES = ARTICULATION_FEATURE + FEATURE_QUALIFIER
-_F = ft_inventory(FEATURES)
 
-ROWS = ls.apply_foreach(i.store_as, [
-    ['close_vwl', [_F.vowel, _F.close]],
-    ['n_close_vwl', [_F.vowel, _F.near_close]],
-    ['c_mid_vwl', [_F.vowel, _F.close_mid]],
-    ['mid_vwl', [_F.vowel, _F.mid]],
-    ['o_mid_vwl', [_F.vowel, _F.open_mid]],
-    ['n_open_vwl', [_F.vowel, _F.near_open]],
-    ['open_vwl', [_F.vowel, _F.open]],
-    ['front_unr', [_F.front, _F.nonlabial]],
-    ['front_rnd', [_F.front, _F.labial]],
-    ['n_front_unr', [_F.near_front, _F.nonlabial]],
-    ['n_front_rnd', [_F.near_front, _F.labial]],
-    ['center_unr', [_F.center, _F.nonlabial]],
-    ['center_rnd', [_F.center, _F.labial]],
-    ['n_back_unr', [_F.near_back, _F.nonlabial]],
-    ['n_back_rnd', [_F.near_back, _F.labial]],
-    ['back_unr', [_F.back, _F.nonlabial]],
-    ['back_rnd', [_F.back, _F.labial]],
-    ['vcd_nasal', [_F.nasal, _F.stop, _F.voiced]],
-    ['vcl_stop', [_F.stop, _F.voiceless]],
-    ['vcd_stop', [_F.stop, _F.voiced]],
-    ['vcl_nonsib_fricative', [_F.fricative, _F.nonsibilant, _F.voiceless]],
-    ['vcd_nonsib_fricative', [_F.fricative, _F.nonsibilant, _F.voiced]],
-    ['vcl_sib_fricative', [_F.fricative, _F.sibilant, _F.voiceless]],
-    ['vcd_sib_fricative', [_F.fricative, _F.sibilant, _F.voiced]],
-    ['vcl_lat_fricative', [_F.fricative, _F.lateral, _F.voiceless]],
-    ['vcd_lat_fricative', [_F.fricative, _F.lateral, _F.voiced]],
-    ['central_approximant', [_F.approximant, _F.voiced]],
-    ['lateral_approximant', [_F.approximant, _F.voiced, _F.lateral]],
-    ['vlr_lbl', [_F.velar, _F.labial]],
-    ['vcd_flap', [_F.flap, _F.voiced]],
-    ['vcd_trill', [_F.trill, _F.voiced]],
-    ['click_release', [_F.click, _F.nonpulmonic]],
-])
-
-FEATURE_INVENTORY = ft_inventory(FEATURES, ROWS)
+FEATURE_INVENTORY = _str_inventory()

@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Phonology resources."""
 
 load("@rules_python//python:py_library.bzl", "py_library")
 
@@ -36,8 +35,19 @@ py_library(
     name = "feature",
     srcs = ["feature.py"],
     deps = [
-        "//nisaba/scripts/natural_translit/utils:inventory",
-        "//nisaba/scripts/natural_translit/utils:list_op",
+        "//nisaba/scripts/natural_translit/features:phonological",
+        "//nisaba/scripts/natural_translit/features:qualifier",
+        "//nisaba/scripts/natural_translit/utils:inventory2",
+    ],
+)
+
+py_test(
+    name = "feature_test_py",
+    srcs = ["feature_test.py"],
+    main = "feature_test.py",
+    deps = [
+        ":feature",
+        "@io_abseil_py//absl/testing:absltest",
     ],
 )
 
