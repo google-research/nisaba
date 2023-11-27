@@ -75,7 +75,7 @@ class Inventory:
     return True
 
   def _get_field_value(
-      self, thing: ..., attr: str = '',
+      self, thing: ty.Thing, attr: str = '',
       typed: ty.TypeOrNothing = ty.UNSPECIFIED
   ) -> ...:
     """Gets the value for a field from a Thing.
@@ -98,7 +98,7 @@ class Inventory:
     return field_value if ty.is_instance_dbg(field_value, typed) else ty.MISSING
 
   def add_item(
-      self, thing: ..., attr: str = '',
+      self, thing: ty.Thing, attr: str = '',
       typed: ty.TypeOrNothing = ty.UNSPECIFIED
   ) -> bool:
     field_value = self._get_field_value(thing, attr, typed)
@@ -117,3 +117,6 @@ class Inventory:
     """Adds the value as a supplement."""
     if self._add_field(alias, value):
       self.supp_aliases.append(alias)
+
+  def get(self, alias: str, default: ... = ty.MISSING) -> ...:
+    return self.__dict__.get(alias, default)

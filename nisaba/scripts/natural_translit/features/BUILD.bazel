@@ -1,0 +1,103 @@
+# Copyright 2023 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = [
+        "//nisaba/scripts/natural_translit:__subpackages__",
+        "//nlp/sweet/saline:__subpackages__",
+    ],
+)
+
+licenses(["notice"])
+
+py_library(
+    name = "feature2",
+    srcs = ["feature2.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/utils:inventory2",
+        "//nisaba/scripts/natural_translit/utils:log_op",
+        "//nisaba/scripts/natural_translit/utils:type_op",
+    ],
+)
+
+py_test(
+    name = "feature2_test",
+    srcs = ["feature2_test.py"],
+    main = "feature2_test.py",
+    deps = [
+        ":feature2",
+        "//nisaba/scripts/natural_translit/utils:type_op",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "orthographic",
+    srcs = ["orthographic.py"],
+    deps = [
+        ":feature2",
+        "//nisaba/scripts/natural_translit/utils:list_op",
+    ],
+)
+
+py_test(
+    name = "orthographic_test",
+    srcs = ["orthographic_test.py"],
+    main = "orthographic_test.py",
+    deps = [
+        ":orthographic",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "phonological",
+    srcs = ["phonological.py"],
+    deps = [
+        ":feature2",
+        "//nisaba/scripts/natural_translit/utils:list_op",
+    ],
+)
+
+py_test(
+    name = "phonological_test",
+    srcs = ["phonological_test.py"],
+    main = "phonological_test.py",
+    deps = [
+        ":phonological",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "qualifier",
+    srcs = ["qualifier.py"],
+    deps = [
+        ":feature2",
+        "//nisaba/scripts/natural_translit/utils:list_op",
+    ],
+)
+
+py_test(
+    name = "qualifier_test",
+    srcs = ["qualifier_test.py"],
+    main = "qualifier_test.py",
+    deps = [
+        ":qualifier",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
