@@ -57,6 +57,12 @@ def _return_message(return_value: ..., message: str = '') -> str:
   return return_message
 
 
+def _in_message(look_for: ..., look_in: ..., message: str = '') -> str:
+  in_message = '%s in %s' % (_class_and_text(look_for), text_of(look_in))
+  if message: in_message += ', ' + message
+  return in_message
+
+
 ## Public functions
 
 # Log functions
@@ -94,6 +100,18 @@ def dbg_return_false(
   return dbg_return(False, message, callstack_index + 1)
 
 
+def dbg_return_in(
+    look_for: ..., look_in: ...,
+    message: str = '',
+    callstack_index: int = 0
+) -> bool:
+  return dbg_return(
+      look_for in look_in,
+      _in_message(look_for, look_in, message),
+      callstack_index + 1
+  )
+
+
 # Functions that return simple and readable strings to identify the objects.
 
 
@@ -113,21 +131,27 @@ def text_of(obj: ...) -> str:
   return text if text else '<no_text>'
 
 
-def texts_of(*args) -> str:
-  return ' ,'.join([text_of(arg) for arg in args])
-
-
 def alias_of(obj: ...) -> str:
   return obj.alias if hasattr(obj, 'alias') else text_of(obj)
+
+
+def name_of(obj: ...) -> str:
+  if hasattr(obj, 'name'): return obj.name
+  if hasattr(obj, '__name__'): return obj.__name__
+  return alias_of(obj)
 
 
 def class_and_alias(obj: ...) -> str:
   return '%s_%s' % (class_of(obj), alias_of(obj))
 
 
-def class_and_text(obj: ...) -> str:
+def _class_and_text(obj: ...) -> str:
   return '%s_%s' % (class_of(obj), text_of(obj))
 
 
+def class_and_texts(*args) -> str:
+  return ', '.join(_class_and_text(arg) for arg in args)
+
+
 def from_class_and_text(obj: ...) -> str:
-  return 'from:%s' % class_and_text(obj)
+  return 'from:%s' % _class_and_text(obj)

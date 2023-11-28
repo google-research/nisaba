@@ -119,7 +119,7 @@ def attr_list(
     else:
       [t.attr for t in things]
   """
-  l = [ty.get_attribute(t, attr, want=attr_type) for t in things]
+  l = [ty.get_attribute(t, attr, typeinfo=attr_type) for t in things]
   return list(filter(ty.is_found, l))
 
 

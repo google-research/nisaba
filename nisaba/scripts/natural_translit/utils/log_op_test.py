@@ -24,6 +24,8 @@ _D1 = D('v')
 _T1 = t.Thing.with_alias('T1')
 _T3 = t.Thing.with_alias_and_value('', _T1)
 _T5 = t.Thing.with_alias_and_value('T5', t.pyn.accep(''))
+Named = collections.namedtuple('Named', ['name'])
+_NAMED = Named('Jane')
 
 
 class LoggingTest(absltest.TestCase):
@@ -70,11 +72,32 @@ class LoggingTest(absltest.TestCase):
   def test_alias_of_list(self):
     self.assertEqual(log.alias_of([0, 1]), '[0, 1]')
 
+  def test_name_of_named(self):
+    self.assertEqual(log.name_of(_NAMED), 'Jane')
+
+  def test_name_of_type(self):
+    self.assertEqual(log.name_of(int), 'int')
+
+  def test_name_of_obj_int(self):
+    self.assertEqual(log.name_of(3), '3')
+
+  def test_name_of_thing(self):
+    self.assertEqual(log.name_of(_T1), 'T1')
+
+  def test_class_and_texts(self):
+    self.assertEqual(
+        log.class_and_texts(1, t.MISSING, ''),
+        'int_1, Nothing_Missing, str_<no_text>'
+    )
+
   def test_frame(self):
     self.assertEqual(log._add_caller('msg', 3), 'case.py/run: msg')
 
   def test_return_message(self):
     self.assertEqual(log._return_message(5, 'msg'), 'returns 5, detail: msg')
+
+  def test_in_message(self):
+    self.assertEqual(log._in_message(3, [0, 1], 'msg'), 'int_3 in [0, 1], msg')
 
   def test_dbg_return(self):
     self.assertEqual(log.dbg_return(5), 5)
@@ -84,6 +107,9 @@ class LoggingTest(absltest.TestCase):
 
   def test_dbg_return_false(self):
     self.assertFalse(log.dbg_return_false('msg'))
+
+  def test_dbg_return_in(self):
+    self.assertFalse(log.dbg_return_in(3, [0, 1]))
 
 if __name__ == '__main__':
   absltest.main()

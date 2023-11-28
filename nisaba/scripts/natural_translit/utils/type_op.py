@@ -22,7 +22,7 @@ b.features = None, a and b won't be evaluated as having the same features.
 TODO(): Fix typing in natural_translit.
 """
 
-from typing import Any, Dict, Iterable, List, Tuple, Union, Type
+from typing import Any, Iterable, Union, Type
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import log_op as log
 
@@ -128,7 +128,7 @@ class Thing:
     """Makes a Thing with a custom alias and value."""
     new = cls()
     new.set_alias(alias)
-    new.text = '%s:%s' % (log.class_and_alias(new), log.class_and_text(value))
+    new.text = '%s:%s' % (log.class_and_alias(new), log.class_and_texts(value))
     new.value = value
     return new
 
@@ -144,6 +144,8 @@ class Thing:
 # FstLike from pynini doesn't work in isinstance()
 FstLike = Union[str, pyn.Fst]
 # <class>OrNothing unions for arguments.
+DictOrNothing = Union[dict, Nothing]
+IntOrNothing = Union[int, Nothing]
 ListOrNothing = Union[list, Nothing]
 SetOrNothing = Union[set, Nothing]
 ThingOrNothing = Union[Thing, Nothing]
@@ -159,7 +161,7 @@ def value_of(obj: ...) -> ...:
 
 def is_none(obj: ...) -> bool:
   """Checks None for logging purposes."""
-  return log.dbg_return(obj is None, log.class_and_text(obj))
+  return log.dbg_return(obj is None, log.class_and_texts(obj))
 
 
 def not_none(obj: ...) -> bool:
@@ -168,7 +170,7 @@ def not_none(obj: ...) -> bool:
 
 def is_assigned(obj: ...) -> bool:
   """Checks UNASSIGNED for logging purposes."""
-  return log.dbg_return(obj is not UNASSIGNED, log.class_and_text(obj))
+  return log.dbg_return(obj is not UNASSIGNED, log.class_and_texts(obj))
 
 
 def not_assigned(obj: ...) -> bool:
@@ -177,7 +179,7 @@ def not_assigned(obj: ...) -> bool:
 
 def is_specified(obj: ...) -> bool:
   """Checks UNSPECIFIED for logging purposes."""
-  return log.dbg_return(obj is not UNSPECIFIED, log.class_and_text(obj))
+  return log.dbg_return(obj is not UNSPECIFIED, log.class_and_texts(obj))
 
 
 def not_specified(obj: ...) -> bool:
@@ -186,7 +188,7 @@ def not_specified(obj: ...) -> bool:
 
 def is_found(obj: ...) -> bool:
   """Checks MISSING for logging purposes."""
-  return log.dbg_return(obj is not MISSING, log.class_and_text(obj))
+  return log.dbg_return(obj is not MISSING, log.class_and_texts(obj))
 
 
 def not_found(obj: ...) -> bool:
@@ -195,76 +197,73 @@ def not_found(obj: ...) -> bool:
 
 def is_nothing(obj: ...) -> bool:
   """Checks Nothing constants."""
-  return log.dbg_return(isinstance(obj, Nothing), log.class_and_text(obj))
+  return log.dbg_return(isinstance(obj, Nothing), log.class_and_texts(obj))
 
 
 def not_nothing(obj: ...) -> bool:
   return not is_nothing(obj)
 
 
-def exists(obj: ..., allow_none: bool = False) -> bool:
+def exists(obj: ...) -> bool:
   """Combines checking for None and undefined Things."""
-  return (not_none(obj) or allow_none) and not_nothing(obj)
+  return log.dbg_return(
+      obj is not None and not isinstance(obj, Nothing),
+      log.class_and_texts(obj)
+  )
 
 
-def not_exists(obj: ..., allow_none: bool = False) -> bool:
-  return not exists(obj, allow_none)
+def not_exists(obj: ...) -> bool:
+  return not exists(obj)
 
 
-def is_instance_dbg(obj: ..., want: TypeOrNothing = UNSPECIFIED) -> bool:
+def is_instance(obj: ..., typeinfo: TypeOrNothing = UNSPECIFIED) -> bool:
   """Checks instance for logging purposes.
 
   Args:
     obj: Object
-    want: Type. Default value is UNSPECIFIED to make type check optional in
-      functions that call is_instance_dbg, while the case of optional argument
+    typeinfo: Type. Default value is UNSPECIFIED to make type check optional in
+      functions that call is_instance, while the case of optional argument
       and specifically checking for Null type as distinct cases.
 
   Returns:
     bool
 
   """
-  if not_specified(want):
-    return log.dbg_return_true(
-        'type check not requested for %s' % log.text_of(obj)
-    )
-  try:
-    if isinstance(obj, want): return True
-    return log.dbg_return_false('%s not %s' % (log.text_of(obj), want.__name__))
-  except TypeError:
-    return log.dbg_return_false('invalid type')
+  if isinstance(typeinfo, Nothing): return log.dbg_return_true(
+      'typeinfo %s for %s' % (typeinfo.text, log.class_and_texts(obj))
+  )
+  if isinstance(obj, typeinfo):
+    return log.dbg_return_true(log.class_and_texts(obj))
+  return log.dbg_return_false(
+      '%s not %s' % (log.class_and_texts(obj), log.name_of(typeinfo))
+  )
 
 
-def not_instance(obj: ..., want: TypeOrNothing = UNSPECIFIED) -> bool:
-  return not is_instance_dbg(obj, want)
-
-
-def enforce_thing(t: ...) -> Thing:
-  """Enforces thing type. If t is not Thing, puts t in value of a new Thing."""
-  if isinstance(t, Thing): return t
-  return log.dbg_return(Thing.from_value_of(t))
+def not_instance(obj: ..., typeinfo: TypeOrNothing = UNSPECIFIED) -> bool:
+  return not is_instance(obj, typeinfo)
 
 # Attribute functions with type check.
 
 
 def has_attribute(
-    obj: ..., attr: str, want: TypeOrNothing = UNSPECIFIED
+    obj: ..., attr: str, typeinfo: TypeOrNothing = UNSPECIFIED
 ) -> bool:
   """Adds log and optional type check to hasattr()."""
-  if not_exists(obj): return False
-  if not hasattr(obj, attr):
-    return log.dbg_return_false(
-        '%s not an attribute of %s' % (attr, log.text_of(obj))
-    )
-  return is_instance_dbg(getattr(obj, attr), want)
+  if not hasattr(obj, attr): return log.dbg_return_false(
+      '%s has no attribute %s' % (log.class_and_texts(obj), attr)
+  )
+  return log.dbg_return(is_instance(getattr(obj, attr), typeinfo))
 
 
 def get_attribute(
     obj: ..., attr: str, default: ... = MISSING,
-    want: TypeOrNothing = UNSPECIFIED
+    typeinfo: TypeOrNothing = UNSPECIFIED
 ) -> ...:
   """Adds log and type check to getattr()."""
-  return getattr(obj, attr) if has_attribute(obj, attr, want) else default
+  return log.dbg_return(
+      getattr(obj, attr) if has_attribute(obj, attr, typeinfo) else default,
+      '%s of %s' % (attr, log.class_and_texts(obj))
+  )
 
 # Equivalence functions.
 
@@ -276,7 +275,7 @@ def is_equal(
   """Checks equivalence.
 
   Never equates None, logs other 'not a' conditions.
-  Never equates UNASSIGNED, UNSPECIFIED or MISSING.
+  Never equates Nothing.
   Thing instances are equal if their values are equal.
 
   Args:
@@ -292,26 +291,26 @@ def is_equal(
   """
   # Check Fst first, otherwise if Fst == Non-FstLike raises error.
   if isinstance(obj1, pyn.Fst) or isinstance(obj2, pyn.Fst):
-    if not_instance(obj1, FstLike) or not_instance(obj2, FstLike):
-      return log.dbg_return_false(
-          'type mismatch between %s and %s' %
-          (log.class_and_text(obj1), log.class_and_text(obj2))
-      )
-    if obj1 != obj2: return False
+    if (
+        not isinstance(obj1, FstLike) or
+        not isinstance(obj2, FstLike) or
+        obj1 != obj2
+    ):
+      return log.dbg_return_false(log.class_and_texts(obj1, obj2))
     if not epsilon and obj1 == pyn.accep(''):
       return log.dbg_return_false('epsilon fst')
+    return log.dbg_return_true(log.class_and_texts(obj1, obj2))
   obj1_val = value_of(obj1)
   obj2_val = value_of(obj2)
   if obj1_val != obj2_val:
-    if not_instance(obj1_val, type(obj2_val)):
-      log.dbg_message('type mismatch %s' % log.texts_of(obj1_val, obj2_val))
-    return False
+    return log.dbg_return_false(log.class_and_texts(obj1_val, obj2_val))
   if (
-      not_exists(obj1_val) or
+      obj1_val is None or
+      isinstance(obj1_val, Nothing) or
       (not zero and obj1_val == 0) or
       (not empty and is_empty(obj1_val))
-  ): return log.dbg_return_false(log.text_of(obj1_val))
-  return True
+  ): return log.dbg_return_false(log.class_and_texts(obj1_val))
+  return log.dbg_return_true(log.class_and_texts(obj1_val, obj2_val))
 
 
 def not_equal(
@@ -323,20 +322,25 @@ def not_equal(
 # Iterable functions
 
 
-def is_empty(obj: ..., allow_none: bool = False) -> bool:
-  return not_exists(obj, allow_none) or (isinstance(obj, Iterable) and not obj)
+# TODO: Restrict the arg type of is_empty() to IterableOrNothing.
+def is_empty(obj: ...) -> bool:
+  try:
+    return log.dbg_return(len(obj) < 1, log.class_and_texts(obj))
+  except TypeError:
+    return log.dbg_return_false('no size for ' + log.class_and_texts(obj))
 
 
-def not_empty(obj: ..., allow_none: bool = False) -> bool:
-  return not is_empty(obj, allow_none)
+def not_empty(obj: ...) -> bool:
+  return not is_empty(obj)
 
 
 def get_element(
     search_in: ..., index: int, default: ... = MISSING
     ) -> ...:
   """Returns a[index] if possible, default value if not."""
-  if not_exists(search_in): return default
-  if not_instance(search_in, Iterable): return default
+  if not isinstance(search_in, Iterable): return log.dbg_return(
+      default, log.class_and_texts(search_in) + ' not iterable'
+  )
   try:
     return search_in[index]
   except IndexError:
@@ -344,245 +348,92 @@ def get_element(
 
 
 def enforce_range(
-    arg1: ..., arg2: ... = UNSPECIFIED, arg3: ... = UNSPECIFIED,
-    def_start: ... = UNSPECIFIED, def_stop: ... = UNSPECIFIED,
+    start: IntOrNothing, stop: IntOrNothing,
+    default_start: IntOrNothing = UNSPECIFIED,
+    default_stop: IntOrNothing = UNSPECIFIED,
 ) -> range:
-  """Ensures range type for tuple arguments.
+  """Enforces range type for int or Nothing arguments.
 
   Args:
-    arg1: If int, start or stop. If Tuple(int, int), provides range arguments.
-    arg2: If arg1 is int, stop. If arg1 is (int, int) step.
-    arg3: If arg1 and arg2 are int, step.
-    def_start: Optional start value if range starts at None.
-    def_stop: Optional stop value if range stops at None.
+    start: Start of range.
+    stop: Stop of range.
+    default_start: Optional start value if start is Nothing.
+    default_stop: Optional stop value if stop is Nothing.
 
   Fail value is range(0) to ensure type but in_range() always returns false.
-  Default values are UNSPECIFIED to differentiate NoneType from optional args.
 
-  Eg. `enforce_range(1, 5, 2)` returns `range(1, 5, 2)`
-      `enforce_range((1, 5), 2)` returns `range(1, 5, 2)`
-      `enforce_range(5)` returns `range(5)`.
-      `enforce_range(5, None)` returns `range(0)`.
+  Eg.
+  `enforce_range(1, 5)` returns `range(1, 5)`
+  `enforce_range(MISSING, 5)` returns `range(0)`
+  `enforce_range(1, 5, 0, 10)` returns `range(1, 5)`
+  `enforce_range(MISSING, 5, 0, 10)` returns `range(0, 5)`
+  `enforce_range(1, MISSING, 0, 10)` returns `range(1, 10)`
+  `enforce_range(1, MISSING, 0, MISSING)` returns `range(0)`
 
-  def_start and def_stop values for None start and stop args for cases like:
+  default_start and default_stop values for Nothing start and stop args for
+  cases like:
   ```
     enforce_range(
         previous_vowel_index,
         next_vowel_index,
-        def_start=0,
-        def_stop=len(word))
+        default_start=0,
+        default_stop=len(word))
   ```
 
   Returns:
     range
   """
-
-  a3 = 1 if not_specified(arg3) else arg3
-  if isinstance(arg1, Tuple):
-    if len(arg1) > 3 or (len(arg1) == 3 and is_specified(arg2)):
-      return log.dbg_return(
-          range(0),
-          'too many arguments range(%s)' % log.texts_of(arg1, arg2, arg3)
-      )
-    log.dbg_message(log.from_class_and_text(arg1))
-    e1 = get_element(arg1, 0)
-    e2 = get_element(arg1, 1)
-    e3 = get_element(arg1, 2)
-    a1, a2 = (e1, e2)
-    a3 = arg2 if not_found(e3) and exists(arg2) else e3
-  else:
-    if not_specified(arg2):
-      a1, a2 = (0, arg1)
-    else:
-      a1, a2 = (arg1, arg2)
-  if not_exists(a1) and exists(def_start): a1 = def_start
-  if not_exists(a2) and exists(def_stop): a2 = def_stop
-  if isinstance(a1, int) and isinstance(a2, int):
-    if isinstance(a3, int): return range(a1, a2, a3)
-    if is_nothing(a3): return range(a1, a2)
-  return log.dbg_return(range(0), log.texts_of(arg1, arg2, arg3))
-
-
-def in_range(
-    look_for: ..., arg1: ...,
-    arg2: ... = UNSPECIFIED, arg3: ... = UNSPECIFIED,
-) -> bool:
-  """Checks if look_for is in an enforced range."""
-  if not_exists(look_for): return False
-  if not_instance(look_for, int): return False
-  return look_for in enforce_range(arg1, arg2, arg3)
-
-
-def enforce_list(
-    l: ..., enf_dict: bool = True, allow_none: bool = False
-) -> List[Any]:
-  """Enforces list type.
-
-  When l is a list, returns l. If l is an iterable returns `list(l)`, except
-  for str and dict. For other types returns `[l]`.
-
-  Args:
-    l: ... variable.
-    enf_dict: When true, if l is a dict returns the list of values.
-    allow_none: When false, if l is None returns an empty list. When true,
-      returns `[None]`.
-
-  Returns:
-    List.
-  """
-  if isinstance(l, list): return l
-  log.dbg_message(log.from_class_and_text(l))
-  if enf_dict and isinstance(l, dict): return log.dbg_return(list(l.values()))
-  if (
-      isinstance(l, Iterable) and
-      not_instance(l, str) and not_instance(l, dict)
-  ): return log.dbg_return(list(l))
-  if not_exists(l, allow_none): return log.dbg_return([])
-  return log.dbg_return([l])
-
-
-def in_list(
-    look_for: ..., look_in: ...,
-    enf_dict: bool = True, allow_none: bool = False
-) -> bool:
-  """Checks if look_for is an element of a list enforced from look_in."""
-  return look_for in enforce_list(look_in, enf_dict, allow_none)
-
-
-def enforce_dict(
-    d: ..., add_key: ... = 'default', allow_none: bool = False
-) -> Dict[Any, Any]:
-  """Enforces dict type.
-
-  Args:
-    d: ... variable.
-      When d is a dict, returns d. Otherwise returns `{add_key: d}`.
-    add_key: optional key for adding d as a value to a new list.
-    allow_none: When false, if d is a nonexistant type returns an empty dict.
-      When true, returns `{add_key: d}`
-
-  Returns:
-    Dict.
-  """
-  if isinstance(d, dict): return d
-  log.dbg_message(log.from_class_and_text(d))
-  if isinstance(d, Thing): return log.dbg_return(d.__dict__)
-  if isinstance(d, Tuple) and hasattr(d, '_fields'):
-    return log.dbg_return(d._asdict())
-  if not_exists(d, allow_none): return log.dbg_return({})
+  r_start = start if isinstance(start, int) else default_start
+  r_stop = stop if isinstance(stop, int) else default_stop
+  if isinstance(r_start, int) and isinstance(r_stop, int):
+    r = range(r_start, r_stop)
+  else: r = range(0)
   return log.dbg_return(
-      {add_key: d},
-      '{%s: %s}' % (log.text_of(add_key), log.text_of(d))
+      r, log.class_and_texts(start, stop, default_start, default_stop)
   )
 
 
-def dict_get(
-    d: ..., key: ... = 'default', default: ... = MISSING,
-    add_key: ... = 'default', allow_none: bool = False
-) -> ...:
+def in_range(
+    look_for: IntOrNothing, start: IntOrNothing, stop: IntOrNothing,
+    default_start: IntOrNothing = UNSPECIFIED,
+    default_stop: IntOrNothing = UNSPECIFIED
+) -> bool:
+  """Checks if look_for is in an enforced range."""
+  return log.dbg_return_in(
+      look_for, enforce_range(start, stop, default_start, default_stop)
+  )
+
+
+def enforce_list(obj: ListOrNothing) -> list[Any]:
+  """Enforces list type for list or Nothing arguments."""
+  # TODO: catch dict iterables as list
+  if isinstance(obj, list): return obj
+  return log.dbg_return([], log.from_class_and_text(obj))
+
+
+def in_list(look_for: ..., look_in: ListOrNothing) -> bool:
+  """Checks if look_for is an element of a list enforced from look_in."""
+  return log.dbg_return_in(look_for, enforce_list(look_in))
+
+
+def enforce_dict(obj: DictOrNothing) -> dict[Any, Any]:
+  """Enforces dict type for dict or Nothing arguments."""
+  if isinstance(obj, dict): return obj
+  return log.dbg_return({}, log.from_class_and_text(obj))
+
+
+def dict_get(obj: DictOrNothing, key: ..., default: ... = MISSING) -> ...:
   try:
-    return enforce_dict(d, add_key, allow_none).get(key, default)
+    return log.dbg_return(enforce_dict(obj).get(key, default))
   except TypeError:
     return log.dbg_return(default, 'invalid key type')
 
 
-def in_dict(look_for: ..., look_in: ..., keys: ... = UNSPECIFIED) -> bool:
-  """Checks if look_for is a value of a dict enforced from look_in.
-
-  If the value of a key is a list, searches the elements of the list.
-  Example: `i in {key: i}` and `i in {key: [i, j, k]}` will both return True.
-
-  Args:
-    look_for: Item to be checked.
-    look_in: Dictionary. If not dict type will be converted to dict.
-    keys: If unspecified, will look in the values of all keys of dict.
-
-  Returns:
-    bool.
-  """
-  enforced = enforce_dict(look_in)
-  key_list = enforce_list(keys) if is_specified(keys) else list(enforced.keys())
-  for k in key_list:
-    if in_list(look_for, dict_get(enforced, k)): return True
-  return False
+def enforce_set(obj: SetOrNothing) -> set[Any]:
+  """Enforces set type for set or Nothing arguments."""
+  if isinstance(obj, set): return obj
+  return log.dbg_return(set(), log.from_class_and_text(obj))
 
 
-def enforce_set(
-    s: ..., enf_dict: bool = True, allow_none: bool = False
-) -> set[Any]:
-  """Enforces set type.
-
-  If s is a set, returns s. If s is iterable returns set(s). Else returns {s}.
-  If an object is unhashable, converts it to a Thing whose value is the
-  unhashable object.
-
-  Args:
-    s: Object to be converted to set.
-    enf_dict: When true, returns a set of values of dict. When false, returns
-      a set of tuples where the first element is the key and the second is the
-      value.
-    allow_none: When false, if s is None returns an empty set. When true,
-      returns `{None}`.
-
-  Returns:
-    Set.
-  """
-  if isinstance(s, set): return s
-  log.dbg_message(log.from_class_and_text(s))
-  if not_exists(s, allow_none): return log.dbg_return(set())
-  if isinstance(s, str): return log.dbg_return({s})
-  if isinstance(s, dict):
-    s = set(enforce_list(s)) if enf_dict else {(k, v) for k, v in s.items()}
-    return log.dbg_return(s)
-  result = set()
-  if isinstance(s, Iterable):
-    for element in s:
-      try:
-        result.add(element)
-      except TypeError:
-        result.add(Thing.from_value_of(element))
-  else:
-    try:
-      result.add(s)
-    except TypeError:
-      result.add(Thing.from_value_of(s))
-  return log.dbg_return(result)
-
-
-def in_set(
-    look_for: ..., look_in: ...,
-    enf_dict: bool = True, allow_none: bool = False
-) -> bool:
-  return look_for in enforce_set(look_in, enf_dict, allow_none)
-
-
-def in_enforced(
-    look_for: ..., look_in: ..., keys: ... = UNSPECIFIED,
-    enf_list: bool = True, enf_dict: bool = True, enf_set: bool = True,
-    enf_range: bool = False, allow_none: bool = False
-) -> bool:
-  """Checks if look_for is in enforced type look_in."""
-  if not_exists(look_for, allow_none): return False
-  if is_specified(keys) and not enf_dict and not_instance(look_in, dict):
-    return log.dbg_return_false(
-        'key for non-dict argument %s' % log.text_of(look_in)
-    )
-  if (
-      (enf_list and in_list(look_for, look_in)) or
-      (enf_dict and in_dict(look_for, look_in, keys)) or
-      (enf_range and in_range(look_for, look_in)) or
-      (enf_set and in_set(look_for, look_in))
-  ): return True
-  return False
-
-
-def in_attribute(
-    look_for: ..., thing: ..., attr: str, keys: ... = UNSPECIFIED,
-    enf_list: bool = True, enf_dict: bool = True, enf_range: bool = False,
-    allow_none: bool = False
-) -> bool:
-  """Checks if look_for is in an enforced type attribute of thing."""
-  return in_enforced(
-      look_for, get_attribute(thing, attr),
-      keys, enf_list, enf_dict, enf_range, allow_none
-  )
+def in_set(look_for: ..., look_in: ...) -> bool:
+  return log.dbg_return_in(look_for, enforce_set(look_in))
