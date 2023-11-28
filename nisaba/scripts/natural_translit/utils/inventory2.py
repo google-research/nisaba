@@ -117,3 +117,10 @@ class Inventory:
     """Adds the value as a supplement."""
     if self._add_field(alias, value):
       self.supp_aliases.append(alias)
+
+  def get(self, alias: str, default: ... = ty.MISSING) -> ...:
+    if alias in self.item_aliases or alias in self.supp_aliases:
+      return log.dbg_return(
+          getattr(self, alias, default), 'for alias ' + alias
+      )
+    return default

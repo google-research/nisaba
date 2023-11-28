@@ -99,5 +99,17 @@ class InventoryTest(absltest.TestCase):
     _i2.add_item(_T_CB_STR, 'value')
     self.assertLen(_i2, 2)
 
+  def test_get_item(self):
+    self.assertEqual(_i2.get('b'), _B_STR)
+
+  def test_get_supp(self):
+    self.assertEqual(_i2.get('d'), _D_INT)
+
+  def test_get_out_of_inventory(self):
+    self.assertEqual(_i2.get('x'), ty.MISSING)
+
+  def test_get_out_of_inventory_default(self):
+    self.assertIsNone(_i2.get('x', None))
+
 if __name__ == '__main__':
   absltest.main()
