@@ -57,6 +57,7 @@ DEL = [c.make_char('DEL', '')]
 EN_LETTERS = c.store_tr_star('EN_LETTERS', ASCII_UC)
 
 CHARS = ASCII_LC + ASCII_UC + SUBSTRING + DEL
+GRAPHEME_INVENTORY = c.gr_inventory(CHARS, [EN_LETTERS])
 TRANSLIT_INVENTORY = c.tr_inventory(CHARS, [EN_LETTERS])
 
 
