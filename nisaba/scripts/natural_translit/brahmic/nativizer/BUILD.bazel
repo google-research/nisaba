@@ -1,0 +1,48 @@
+# Copyright 2023 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+load("@rules_python//python:py_library.bzl", "py_library")
+load(
+    "//nisaba/scripts/utils:grammars.bzl",
+    "nisaba_compile_multi_grm_py",
+)
+
+package(default_applicable_licenses = [
+])
+
+py_library(
+    name = "ltn2iso",
+    srcs = ["ltn2iso.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/brahmic:iso_inventory",
+        "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/script:char",
+        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "nativize",
+    outs = {
+        "byte": "nativize.far",
+        "utf8": "nativize_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        ":ltn2iso",
+        "//nisaba/scripts/natural_translit/phonology:txn2ltn",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
