@@ -1,0 +1,87 @@
+# Copyright 2023 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+load("@rules_python//python:py_library.bzl", "py_library")
+load(
+    "//nisaba/scripts/utils:grammars.bzl",
+    "nisaba_compile_multi_grm_py",
+)
+
+package(default_applicable_licenses = [
+])
+
+py_library(
+    name = "typ2brh",
+    srcs = ["typ2brh.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/brahmic:iso_inventory",
+        "//nisaba/scripts/natural_translit/utils:log_op",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "ltn2brh",
+    srcs = ["ltn2brh.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/brahmic:iso_inventory",
+        "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/utils:inventory2",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "fst_builder",
+    srcs = ["fst_builder.py"],
+    deps = [
+        ":ltn2brh",
+        ":typ2brh",
+        "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/script:char",
+        "//nisaba/scripts/natural_translit/utils:inventory2",
+        "//nisaba/scripts/natural_translit/utils:list_op",
+        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
+        "//nisaba/scripts/utils:rewrite",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "hi",
+    outs = {
+        "byte": "hi.far",
+        "utf8": "hi_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        ":fst_builder",
+        ":ltn2brh",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "ta",
+    outs = {
+        "byte": "ta.far",
+        "utf8": "ta_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        ":fst_builder",
+        ":ltn2brh",
+        "@org_opengrm_pynini//pynini",
+    ],
+)

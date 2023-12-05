@@ -123,6 +123,8 @@ MODIFIER = ls.apply_foreach(c.make_char, [
     ['eye', '̆', ph.SIL],
 ])
 
+VIRAMA = [c.make_char('vir', '', ph.SIL)]
+
 SYMBOL = ls.apply_foreach(c.make_char, [
     ['ind', '.', ph.SIL],
     ['zwj', '+', ph.SIL],
@@ -161,6 +163,7 @@ TWO_POINT_SIGN = SHORT_VOCALIC + DIPHTHONG_SIGN + SANTAL_AAN
 
 VOWEL_SIGN = SIMPLE_VOWEL + TWO_POINT_SIGN + LONG_VOCALIC
 VOWEL_S = c.store_gr_union('VOWEL_S', VOWEL_SIGN)
+VOWEL_S_TR = c.store_tr_union('VWL_S', VOWEL_SIGN)
 
 
 def _independent(sign: c.Char):
@@ -207,7 +210,12 @@ DEAD_CONSONANT = ls.apply_foreach(c.make_composite_char, [
     [[sp.R, sp.EYE], 'r_eye', ph.RT]
 ])
 
+SCHWA_BEARING = SIMPLE_CONSONANT + ASPIRATED_CONSONANT
+SCHWA_BEARING_TR = c.store_tr_union('SCH_CONS', SCHWA_BEARING)
+DEAD_CONSONANT_TR = c.store_tr_union('DEAD_CONS', DEAD_CONSONANT)
 COMPOSITE_CONSONANT = ASPIRATED_CONSONANT + DEAD_CONSONANT
+ONSET_CONSONANT = SIMPLE_CONSONANT + COMPOSITE_CONSONANT
+ONSET_CONSONANT_TR = c.store_tr_union('ONSET_CONS', ONSET_CONSONANT)
 
 CND = [c.make_composite_char([sp.M, sp.CND_DIA], 'cnd', ph.NSL)]
 CODA = c.store_gr_union('CODA', SIMPLE_CODA + CND)
@@ -219,5 +227,9 @@ TWO_POINT = TWO_POINT_SIGN + INDEPENDENT_VOWEL + COMPOSITE_CONSONANT + CND + OM
 
 CHAR = (SINGLE_POINT + TWO_POINT + LONG_VOCALIC)
 STORES = [VOWEL_S, VOWEL_I, CODA, VOCALIC]
+TR_STORES = [
+    VOWEL_S_TR, SCHWA_BEARING_TR, DEAD_CONSONANT_TR, ONSET_CONSONANT_TR
+]
 
 GRAPHEME_INVENTORY = c.gr_inventory(CHAR, STORES)
+TRANSLIT_INVENTORY = c.tr_inventory(CHAR + VIRAMA, TR_STORES)
