@@ -77,6 +77,28 @@ py_test(
 )
 
 py_library(
+    name = "fst_list",
+    srcs = ["fst_list.py"],
+    deps = [
+        ":type_op",
+        "//nisaba/scripts/utils:rewrite",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "fst_list_test",
+    srcs = ["fst_list_test.py"],
+    main = "fst_list_test.py",
+    deps = [
+        ":fst_list",
+        ":type_op",
+        "@io_abseil_py//absl/testing:absltest",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
     name = "alignment",
     srcs = ["alignment.py"],
     deps = [
