@@ -16,6 +16,7 @@ import pynini as pyn
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.utils import fst_list as f
 from nisaba.scripts.natural_translit.utils import type_op as ty
+from nisaba.scripts.utils import test_util
 
 _FST_A = pyn.accep('a')
 _FST_B = pyn.accep('b')
@@ -24,7 +25,12 @@ _FST_AXB = pyn.cross(_FST_A, _FST_B)
 _FST_BXC = pyn.cross(_FST_B, _FST_C)
 
 
-class FstListTest(absltest.TestCase):
+class FstListTest(test_util.FstTestCase):
+
+  def assertFstListItemsEqual(
+      self, fst_list: f.FstList, expected: list[pyn.Fst]
+  ) -> bool:
+    return self.assertEqual(fst_list._items, expected)
 
   def test_empty(self):
     self.assertEmpty(f.FstList())
@@ -42,35 +48,30 @@ class FstListTest(absltest.TestCase):
     self.assertEmpty(f.FstList(ty.UNSPECIFIED))
 
   def test_add_str(self):
-    self.assertEqual(f.FstList('a')._items, [_FST_A])
+    self.assertFstListItemsEqual(f.FstList('a'), [_FST_A])
 
   def test_add_fst(self):
-    self.assertEqual(f.FstList(_FST_A, _FST_B)._items, [_FST_A, _FST_B])
+    self.assertFstListItemsEqual(f.FstList(_FST_A, _FST_B), [_FST_A, _FST_B])
 
   def test_add_iterable(self):
-    self.assertEqual(f.FstList([_FST_A, _FST_B])._items, [_FST_A, _FST_B])
+    self.assertFstListItemsEqual(f.FstList([_FST_A, _FST_B]), [_FST_A, _FST_B])
 
   def test_add_iterable_nested(self):
-    self.assertEqual(
-        f.FstList(_FST_A).add([_FST_B, [_FST_A, _FST_C]])._items,
+    self.assertFstListItemsEqual(
+        f.FstList(_FST_A).add([_FST_B, [_FST_A, _FST_C]]),
         [_FST_A, _FST_B, _FST_A, _FST_C])
 
   def test_add_fst_list(self):
-    self.assertEqual(
-        f.FstList(f.FstList(_FST_A, _FST_B))._items,
-        [_FST_A, _FST_B]
+    self.assertFstListItemsEqual(
+        f.FstList(f.FstList(_FST_A, _FST_B)), [_FST_A, _FST_B]
     )
 
   def test_concat(self):
-    self.assertEqual(
-        f.FstList(_FST_A, _FST_B).concat().string(),
-        'ab'
-    )
+    self.AssertEqualFstLike(f.FstList(_FST_A, _FST_B).concat(), 'ab')
 
   def test_compose(self):
-    self.assertEqual(
-        (_FST_A @ f.FstList(_FST_AXB, _FST_BXC).compose()).string(),
-        'c'
+    self.AssertEqualFstLike(
+        (_FST_A @ f.FstList(_FST_AXB, _FST_BXC).compose()), 'c'
     )
 
   def test_item(self):
