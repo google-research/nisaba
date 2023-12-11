@@ -344,19 +344,20 @@ class FstTestCase(absltest.TestCase):
           for test_pair in test_pairs:
             self.AssertFstStrIO(fst_builder(), *test_pair)
 
+  def _FstLikeString(self, fstlike: pynini.FstLike) -> str:
+    return fstlike.string() if isinstance(fstlike, pynini.Fst) else fstlike
+
   def AssertEqualFstLike(self, fstlike: pynini.FstLike,
-                         expected_str: str) -> None:
+                         expected_fstlike: str) -> None:
     """Asserts that given FstLike is equal to expected_str.
 
     Args:
       fstlike : FST or string being tested.
-      expected_str: Expected string output.
+      expected_fstlike: Expected Fst or string output.
     """
-    if isinstance(fstlike, pynini.Fst):
-      input_str = fstlike.string()
-    else:
-      input_str = fstlike
-    self.assertEqual(input_str, expected_str)
+    self.assertEqual(
+        self._FstLikeString(fstlike),
+        self._FstLikeString(expected_fstlike))
 
   def AssertEqualFstLikeTestCases(
       self,
