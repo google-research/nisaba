@@ -40,12 +40,12 @@ def main(unused_argv):
     for jline in parsed_json:
       [Edits, RefLen] = emd_cer.emd_error_and_length(jline)
       # We don't separate subst/ins/del, hence the two zero columns in output.
-      print(RefLen + '\t' + Edits + '\t0\t0\t' + Edits/RefLen)
+      print(str(RefLen) + '\t' + str(Edits) + '\t0\t0\t' + str(Edits/RefLen))
       TotEdits += Edits
       TotLen += RefLen
-  print('Total edits:\t' + TotEdits)
-  print('Total reference length:\t' + TotLen)
-  print('Overall CER:\t' + TotEdits/TotLen)
+  print('Total edits:\t' + str(TotEdits))
+  print('Total reference length:\t' + str(TotLen))
+  print('Overall CER:\t' + str(TotEdits/TotLen))
 
 if __name__ == '__main__':
   app.run(main)
