@@ -39,11 +39,10 @@ git_repository(
 #    https://github.com/nlohmann/json
 # -------------------------------------------------------------------------
 
-http_archive(
+git_repository(
     name = "com_github_nlohmann_json",
-    urls = ["https://github.com/nlohmann/json/archive/refs/heads/develop.zip"],
-    sha256 = "5d9b3a054b4d0f51e47dc6fbb031c75166869a816cfaef08bb0f18be209dddb3",
-    strip_prefix = "json-develop"
+    remote = "https://github.com/nlohmann/json.git",
+    tag = "v3.11.3",
 )
 
 # Import external protobuf dependencies into this workspace.
@@ -84,7 +83,7 @@ pynini_version = "2.1.5-rc2-absl"
 http_archive(
     name = "org_opengrm_pynini",
     urls = ["https://github.com/agutkin/finite_state/raw/main/pynini-%s.tar.gz" % pynini_version],
-    sha256 = "6e9a06591249e31664f810097fc58e66f7f81190736efd3fbdcd75a3d65717e9",
+    sha256 = "f9efbd615c64201b8a099ab309fbc81e98624c5f4618f11e4fb808d2628bf5d7",
     strip_prefix = "pynini-%s" % pynini_version
 )
 
