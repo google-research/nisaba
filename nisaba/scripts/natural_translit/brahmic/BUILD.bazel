@@ -21,8 +21,7 @@ package(
     default_applicable_licenses = [
     ],
     default_visibility = [
-        "//nisaba/scripts/natural_translit/brahmic:__subpackages__",
-        "//nisaba/scripts/natural_translit/languages:__subpackages__",
+        "//nisaba/scripts/natural_translit:__subpackages__",
     ],
 )
 
@@ -47,6 +46,16 @@ py_library(
         ":psa_phoneme_inventory",
         "//nisaba/scripts/natural_translit/script:char",
         "//nisaba/scripts/natural_translit/utils:list_op",
+    ],
+)
+
+py_test(
+    name = "iso_inventory_test",
+    srcs = ["iso_inventory_test.py"],
+    main = "iso_inventory_test.py",
+    deps = [
+        ":iso_inventory",
+        "@io_abseil_py//absl/testing:absltest",
     ],
 )
 

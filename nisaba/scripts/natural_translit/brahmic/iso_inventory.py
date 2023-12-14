@@ -225,11 +225,96 @@ OM = [c.make_composite_char([sp.OT, sp.M], 'om', ph.O + ph.DURH + ph.M)]
 
 TWO_POINT = TWO_POINT_SIGN + INDEPENDENT_VOWEL + COMPOSITE_CONSONANT + CND + OM
 
-CHAR = (SINGLE_POINT + TWO_POINT + LONG_VOCALIC)
-STORES = [VOWEL_S, VOWEL_I, CODA, VOCALIC]
+GR_CHAR = SINGLE_POINT + TWO_POINT + LONG_VOCALIC
+CHAR = GR_CHAR + VIRAMA
+GR_STORES = [VOWEL_S, VOWEL_I, CODA, VOCALIC]
 TR_STORES = [
     VOWEL_S_TR, SCHWA_BEARING_TR, DEAD_CONSONANT_TR, ONSET_CONSONANT_TR
 ]
 
-GRAPHEME_INVENTORY = c.gr_inventory(CHAR, STORES)
-TRANSLIT_INVENTORY = c.tr_inventory(CHAR + VIRAMA, TR_STORES)
+CHAR_INVENTORY = c.char_inventory(CHAR)
+GRAPHEME_INVENTORY = c.gr_inventory(GR_CHAR, GR_STORES)
+TRANSLIT_INVENTORY = c.tr_inventory(CHAR, TR_STORES)
+
+DEVA = 'deva'
+TAML = 'taml'
+
+# Only includes the subset of ISO Chars used by deromanizers.
+TO_BRAHMIC = {
+    CHAR_INVENTORY.VIR.typ: {DEVA: '्', TAML: '்'},
+    CHAR_INVENTORY.A.typ: {DEVA: '', TAML: ''},
+    CHAR_INVENTORY.A_I.typ: {DEVA: 'अ', TAML: 'அ'},
+    CHAR_INVENTORY.AA.typ: {DEVA: 'ा', TAML: 'ா'},
+    CHAR_INVENTORY.AA_I.typ: {DEVA: 'आ', TAML: 'ஆ'},
+    CHAR_INVENTORY.E.typ: {DEVA: 'ॆ', TAML: 'ெ'},
+    CHAR_INVENTORY.E_I.typ: {DEVA: 'ऎ', TAML: 'எ'},
+    CHAR_INVENTORY.EE.typ: {DEVA: 'े', TAML: 'ே'},
+    CHAR_INVENTORY.EE_I.typ: {DEVA: 'ए', TAML: 'ஏ'},
+    CHAR_INVENTORY.I.typ: {DEVA: 'ि', TAML: 'ி'},
+    CHAR_INVENTORY.I_I.typ: {DEVA: 'इ', TAML: 'இ'},
+    CHAR_INVENTORY.II.typ: {DEVA: 'ी', TAML: 'ீ'},
+    CHAR_INVENTORY.II_I.typ: {DEVA: 'ई', TAML: 'ஈ'},
+    CHAR_INVENTORY.O.typ: {DEVA: 'ॊ', TAML: 'ொ'},
+    CHAR_INVENTORY.O_I.typ: {DEVA: 'ऒ', TAML: 'ஒ'},
+    CHAR_INVENTORY.OO.typ: {DEVA: 'ो', TAML: 'ோ'},
+    CHAR_INVENTORY.OO_I.typ: {DEVA: 'ओ', TAML: 'ஓ'},
+    CHAR_INVENTORY.U.typ: {DEVA: 'ु', TAML: 'ு'},
+    CHAR_INVENTORY.U_I.typ: {DEVA: 'उ', TAML: 'உ'},
+    CHAR_INVENTORY.UU.typ: {DEVA: 'ू', TAML: 'ூ'},
+    CHAR_INVENTORY.UU_I.typ: {DEVA: 'ऊ', TAML: 'ஊ'},
+    CHAR_INVENTORY.AI.typ: {DEVA: 'ै', TAML: 'ை'},
+    CHAR_INVENTORY.AI_I.typ: {DEVA: 'ऐ', TAML: 'ஐ'},
+    CHAR_INVENTORY.AU.typ: {DEVA: 'ौ', TAML: 'ௌ'},
+    CHAR_INVENTORY.AU_I.typ: {DEVA: 'औ', TAML: 'ஔ'},
+    CHAR_INVENTORY.B.typ: {DEVA: 'ब'},
+    CHAR_INVENTORY.BH.typ: {DEVA: 'भ'},
+    CHAR_INVENTORY.C.typ: {DEVA: 'च', TAML: 'ச'},
+    CHAR_INVENTORY.CH.typ: {DEVA: 'छ'},
+    CHAR_INVENTORY.D.typ: {DEVA: 'द'},
+    CHAR_INVENTORY.DH.typ: {DEVA: 'ध'},
+    CHAR_INVENTORY.G.typ: {DEVA: 'ग'},
+    CHAR_INVENTORY.GH.typ: {DEVA: 'घ'},
+    CHAR_INVENTORY.H.typ: {DEVA: 'ह', TAML: 'ஹ'},
+    CHAR_INVENTORY.J.typ: {DEVA: 'ज', TAML: 'ஜ'},
+    CHAR_INVENTORY.Z.typ: {DEVA: 'ज़', TAML: 'ஃஜ'},
+    CHAR_INVENTORY.JH.typ: {DEVA: 'झ'},
+    CHAR_INVENTORY.K.typ: {DEVA: 'क', TAML: 'க'},
+    CHAR_INVENTORY.KH.typ: {DEVA: 'ख'},
+    CHAR_INVENTORY.L.typ: {DEVA: 'ल', TAML: 'ல'},
+    CHAR_INVENTORY.LR.typ: {TAML: 'ழ'},
+    CHAR_INVENTORY.M.typ: {DEVA: 'म', TAML: 'ம'},
+    CHAR_INVENTORY.N.typ: {DEVA: 'न', TAML: 'ந'},
+    CHAR_INVENTORY.NA.typ: {TAML: 'ன'},
+    CHAR_INVENTORY.P.typ: {DEVA: 'प', TAML: 'ப'},
+    CHAR_INVENTORY.PH.typ: {DEVA: 'फ'},
+    CHAR_INVENTORY.F.typ: {DEVA: 'फ़', TAML: 'ஃப'},
+    CHAR_INVENTORY.R.typ: {DEVA: 'र', TAML: 'ர'},
+    CHAR_INVENTORY.RR.typ: {TAML: 'ற'},
+    CHAR_INVENTORY.S.typ: {DEVA: 'स', TAML: 'ஸ'},
+    CHAR_INVENTORY.SH.typ: {DEVA: 'श', TAML: 'ஶ'},
+    CHAR_INVENTORY.T.typ: {DEVA: 'त', TAML: 'த'},
+    CHAR_INVENTORY.TH.typ: {DEVA: 'थ'},
+    CHAR_INVENTORY.V.typ: {DEVA: 'व', TAML: 'வ'},
+    CHAR_INVENTORY.Y.typ: {DEVA: 'य', TAML: 'ய'},
+    CHAR_INVENTORY.ANS.typ: {DEVA: 'ं', TAML: ''},
+}
+
+
+def get_brh(typ: str, script: str) -> str:
+  return TO_BRAHMIC.get(typ, {}).get(script, '')
+
+
+def ls_tr2brh(script: str) -> list[list[str]]:
+  """List of arguments for rewriting tr field of Char as Brahmic characters.
+
+  Args:
+    script: script name, dictionary key for each typ's to_brahmic dictionary.
+
+  Returns:
+    List of argument lists for rewrite_ls(), which will in turn generate
+    the union of [pcross('`aa_i`', 'आ'), ...] functions.
+    In the argument list, the typ string is enclosed in translit
+    symbol boundaries `` to match the fst in the tr field of the Char tuple.
+
+  """
+  return [['`%s`' % typ, get_brh(typ, script)] for typ in TO_BRAHMIC]
