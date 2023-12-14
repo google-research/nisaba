@@ -156,3 +156,31 @@ py_test(
         "@io_abseil_py//absl/testing:absltest",
     ],
 )
+
+py_library(
+    name = "derom_inventory",
+    srcs = ["derom_inventory.py"],
+    deps = [
+        ":iso_inventory",
+        "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/utils:fst_list",
+        "//nisaba/scripts/natural_translit/utils:inventory2",
+        "//nisaba/scripts/natural_translit/utils:log_op",
+        "//nisaba/scripts/natural_translit/utils:type_op",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "derom_inventory_test",
+    srcs = ["derom_inventory_test.py"],
+    main = "derom_inventory_test.py",
+    deps = [
+        ":derom_inventory",
+        ":iso_inventory",
+        "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/utils:type_op",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
