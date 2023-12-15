@@ -184,3 +184,55 @@ py_test(
         "@io_abseil_py//absl/testing:absltest",
     ],
 )
+
+py_library(
+    name = "deromanizer",
+    srcs = ["deromanizer.py"],
+    deps = [
+        ":derom_inventory",
+        ":iso_inventory",
+        "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/script:char",
+        "//nisaba/scripts/natural_translit/utils:alignment",
+        "//nisaba/scripts/natural_translit/utils:fst_list",
+        "//nisaba/scripts/natural_translit/utils:inventory2",
+        "//nisaba/scripts/natural_translit/utils:list_op",
+        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
+        "//nisaba/scripts/natural_translit/utils:type_op",
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/export:multi_grm",
+    ],
+)
+
+py_test(
+    name = "deromanizer_test",
+    srcs = ["deromanizer_test.py"],
+    main = "deromanizer_test.py",
+    deps = [
+        ":derom_inventory",
+        ":deromanizer",
+        ":ta_params",
+        "//nisaba/scripts/natural_translit/utils:fst_list",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "hi_params",
+    srcs = ["hi_params.py"],
+    deps = [
+        ":derom_inventory",
+        ":deromanizer",
+    ],
+)
+
+py_library(
+    name = "ta_params",
+    srcs = ["ta_params.py"],
+    deps = [
+        ":derom_inventory",
+        ":deromanizer",
+    ],
+)

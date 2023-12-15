@@ -238,6 +238,7 @@ TRANSLIT_INVENTORY = c.tr_inventory(CHAR, TR_STORES)
 
 DEVA = 'deva'
 TAML = 'taml'
+DEROM_SCRIPTS = [DEVA, TAML]
 
 # Only includes the subset of ISO Chars used by deromanizers.
 TO_BRAHMIC = {

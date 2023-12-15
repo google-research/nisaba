@@ -1,0 +1,124 @@
+# Copyright 2023 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Deromanization grms.
+
+load(
+    "//nisaba/scripts/utils:grammars.bzl",
+    "nisaba_compile_multi_grm_py",
+    "nisaba_grm_textproto_test",
+)
+
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = [
+        "//nisaba/scripts/natural_translit:__subpackages__",
+    ],
+)
+
+licenses(["notice"])
+
+nisaba_compile_multi_grm_py(
+    name = "hi_deva",
+    outs = {
+        "byte": "hi_deva.far",
+        "utf8": "hi_deva_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/brahmic:hi_params",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "hi_joint",
+    outs = {
+        "byte": "hi_joint.far",
+        "utf8": "hi_joint_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/brahmic:hi_params",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "ta_taml",
+    outs = {
+        "byte": "ta_taml.far",
+        "utf8": "ta_taml_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/brahmic:ta_params",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "ta_joint",
+    outs = {
+        "byte": "ta_joint.far",
+        "utf8": "ta_joint_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/brahmic:ta_params",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+LANGUAGES = [
+    ("hi", "deva"),
+    ("ta", "taml"),
+]
+
+# Joint byte tests.
+[
+    nisaba_grm_textproto_test(
+        name = "%s_joint_test" % language,
+    )
+    for language, script in LANGUAGES
+]
+
+# Joint UTF-8 tests.
+[
+    nisaba_grm_textproto_test(
+        name = "%s_joint_utf8_test" % language,
+        textproto = "testdata/%s_joint.textproto" % language,
+        token_type = "utf8",
+    )
+    for language, script in LANGUAGES
+]
+
+# Brahmic only tests.
+[
+    nisaba_grm_textproto_test(
+        name = "%s_%s_test" % (language, script),
+    )
+    for language, script in LANGUAGES
+]
+
+# Brahmic only UTF-8 tests.
+[
+    nisaba_grm_textproto_test(
+        name = "%s_%s_utf8_test" % (language, script),
+        textproto = "testdata/%s_%s.textproto" % (language, script),
+        token_type = "utf8",
+    )
+    for language, script in LANGUAGES
+]
