@@ -16,6 +16,7 @@ jobs:
     runs-on: macos-latest
     env:
       BAZEL: bazelisk-darwin-amd64
+      USE_BAZEL_VERSION: 6.4.0
       CC: gcc
       CXX: g++
 
