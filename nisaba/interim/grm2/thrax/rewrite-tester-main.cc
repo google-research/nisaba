@@ -1,4 +1,4 @@
-// Copyright 2023 Nisaba Authors.
+// Copyright 2024 Nisaba Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 
 int main(int argc, char **argv) {
   absl::ParseCommandLine(argc, argv);
-  auto utils = std::make_unique<::thrax::RewriteTester>();
+  auto utils = std::make_unique<::::thrax::RewriteTester>();
   utils->Initialize();
   utils->Run();
 

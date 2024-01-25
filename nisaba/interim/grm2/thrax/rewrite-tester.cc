@@ -1,4 +1,4 @@
-// Copyright 2023 Nisaba Authors.
+// Copyright 2024 Nisaba Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -69,7 +69,6 @@ using ::fst::StdVectorFst;
 using ::fst::StringCompiler;
 using ::fst::SymbolTable;
 using ::fst::TokenType;
-using ::thrax::RuleTriple;
 
 using Label = StdArc::Label;
 
@@ -94,12 +93,10 @@ void RewriteTester::Initialize() {
     // the parse mode.
     if (vfst.InputSymbols()) {
       if (!byte_symtab_ &&
-          vfst.InputSymbols()->Name() ==
-              ::thrax::function::kByteSymbolTableName) {
+          vfst.InputSymbols()->Name() == function::kByteSymbolTableName) {
         byte_symtab_ = absl::WrapUnique(vfst.InputSymbols()->Copy());
-      } else if (!utf8_symtab_ &&
-                 vfst.InputSymbols()->Name() ==
-                     ::thrax::function::kUtf8SymbolTableName) {
+      } else if (!utf8_symtab_ && vfst.InputSymbols()->Name() ==
+                                      function::kUtf8SymbolTableName) {
         utf8_symtab_ = absl::WrapUnique(vfst.InputSymbols()->Copy());
       }
     }

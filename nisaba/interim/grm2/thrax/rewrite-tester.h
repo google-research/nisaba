@@ -1,4 +1,4 @@
-// Copyright 2023 Nisaba Authors.
+// Copyright 2024 Nisaba Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ class RewriteTester {
   bool AppendLabel(::fst::StdArc::Label label, std::string *path) const;
 
   ::fst::TokenType type_;
-  ::thrax::GrmManagerSpec<::fst::StdArc> grm_;
+  GrmManagerSpec<::fst::StdArc> grm_;
   std::vector<std::string> rules_;
   std::unique_ptr<::fst::StringCompiler<::fst::StdArc>> compiler_;
   std::unique_ptr<::fst::SymbolTable> byte_symtab_;
