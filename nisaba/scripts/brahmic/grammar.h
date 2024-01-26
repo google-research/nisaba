@@ -34,10 +34,10 @@ inline constexpr char kFarPath[] = "com_google_nisaba/nisaba/scripts/brahmic/";
 inline constexpr char kFarExtn[] = ".far";
 
 // Creates and loads visual_norm manager from memfile.
-absl::StatusOr<::thrax::GrmManager *> LoadVisualNormManager();
+absl::StatusOr<thrax::GrmManager *> LoadVisualNormManager();
 
 // Creates and loads wellformed manager from memfile.
-absl::StatusOr<::thrax::GrmManager *> LoadWellformedManager();
+absl::StatusOr<thrax::GrmManager *> LoadWellformedManager();
 
 // Makes the full file path for a far file.
 std::string MakeFarFilePath(absl::string_view far_path,
@@ -50,7 +50,7 @@ class Grammar {
           absl::string_view fst_name)
       : far_file_path_(MakeFarFilePath(far_path, far_name)),
         fst_name_(absl::AsciiStrToUpper(fst_name)),
-        grm_mgr_(std::make_shared<::thrax::GrmManager>()) {}
+        grm_mgr_(std::make_shared<thrax::GrmManager>()) {}
 
   Grammar(absl::string_view far_name, absl::string_view fst_name)
       : Grammar(kFarPath, far_name, fst_name) {}
@@ -58,7 +58,7 @@ class Grammar {
   // Takes a GrmManager that was previously created and loaded from a file. The
   // same manager can be shared with other Grammars.
   Grammar(absl::string_view far_name, absl::string_view fst_name,
-          ::thrax::GrmManager *grm_manager)
+          thrax::GrmManager *grm_manager)
       : far_file_path_(MakeFarFilePath(kFarPath, far_name)),
         fst_name_(absl::AsciiStrToUpper(fst_name)),
         grm_mgr_(grm_manager) {}
@@ -78,7 +78,7 @@ class Grammar {
 
   const std::string far_file_path_;
   std::string fst_name_;
-  const std::shared_ptr<::thrax::GrmManager> grm_mgr_;
+  const std::shared_ptr<thrax::GrmManager> grm_mgr_;
 };
 
 // Provides normalization of Brahmic text by composing multiple Grammar classes.
@@ -94,8 +94,8 @@ class Normalizer {
 
   // Takes a visual_norm and a wellformed GrmManagers, that are assumed to be
   // already loaded.
-  Normalizer(absl::string_view fst_name, ::thrax::GrmManager *visual_norm_manager,
-             ::thrax::GrmManager *wellformed_manager)
+  Normalizer(absl::string_view fst_name, thrax::GrmManager *visual_norm_manager,
+             thrax::GrmManager *wellformed_manager)
       : visual_norm_("visual_norm", fst_name, visual_norm_manager),
         wellformed_("wellformed", fst_name, wellformed_manager) {}
 

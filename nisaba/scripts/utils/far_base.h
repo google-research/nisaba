@@ -46,7 +46,7 @@ class FarBase {
   FarBase() = delete;
 
   const std::string far_name_;
-  ::thrax::GrmManager grm_mgr_;
+  thrax::GrmManager grm_mgr_;
 };
 
 }  // namespace nisaba

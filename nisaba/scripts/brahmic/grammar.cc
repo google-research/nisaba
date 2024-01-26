@@ -28,7 +28,7 @@ namespace nisaba {
 namespace brahmic {
 namespace {
 
-using ::thrax::GrmManager;  // Intentionally not fully-qualifying.
+using thrax::GrmManager;  // Intentionally not fully-qualifying.
 
 absl::Status LoadArchive(absl::string_view far_file_path, GrmManager &manager) {
   const auto far_path = file::GetRunfilesResourcePath(far_file_path);
