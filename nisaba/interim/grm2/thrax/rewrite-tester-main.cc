@@ -21,7 +21,7 @@
 
 int main(int argc, char **argv) {
   absl::ParseCommandLine(argc, argv);
-  auto utils = std::make_unique<::::thrax::RewriteTester>();
+  auto utils = std::make_unique<::thrax::RewriteTester>();
   utils->Initialize();
   utils->Run();
 

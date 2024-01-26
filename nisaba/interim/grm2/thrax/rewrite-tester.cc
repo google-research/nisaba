@@ -69,6 +69,7 @@ using ::fst::StdVectorFst;
 using ::fst::StringCompiler;
 using ::fst::SymbolTable;
 using ::fst::TokenType;
+using ::thrax::RuleTriple;
 
 using Label = StdArc::Label;
 
@@ -93,10 +94,12 @@ void RewriteTester::Initialize() {
     // the parse mode.
     if (vfst.InputSymbols()) {
       if (!byte_symtab_ &&
-          vfst.InputSymbols()->Name() == function::kByteSymbolTableName) {
+          vfst.InputSymbols()->Name() ==
+              ::thrax::function::kByteSymbolTableName) {
         byte_symtab_ = absl::WrapUnique(vfst.InputSymbols()->Copy());
-      } else if (!utf8_symtab_ && vfst.InputSymbols()->Name() ==
-                                      function::kUtf8SymbolTableName) {
+      } else if (!utf8_symtab_ &&
+                 vfst.InputSymbols()->Name() ==
+                     ::thrax::function::kUtf8SymbolTableName) {
         utf8_symtab_ = absl::WrapUnique(vfst.InputSymbols()->Copy());
       }
     }

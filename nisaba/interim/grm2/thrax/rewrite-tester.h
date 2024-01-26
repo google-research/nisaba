@@ -54,7 +54,7 @@ class RewriteTester {
   bool AppendLabel(::fst::StdArc::Label label, std::string *path) const;
 
   ::fst::TokenType type_;
-  GrmManagerSpec<::fst::StdArc> grm_;
+  ::thrax::GrmManagerSpec<::fst::StdArc> grm_;
   std::vector<std::string> rules_;
   std::unique_ptr<::fst::StringCompiler<::fst::StdArc>> compiler_;
   std::unique_ptr<::fst::SymbolTable> byte_symtab_;

@@ -94,7 +94,8 @@ class Normalizer {
 
   // Takes a visual_norm and a wellformed GrmManagers, that are assumed to be
   // already loaded.
-  Normalizer(absl::string_view fst_name, ::thrax::GrmManager *visual_norm_manager,
+  Normalizer(absl::string_view fst_name,
+             ::thrax::GrmManager *visual_norm_manager,
              ::thrax::GrmManager *wellformed_manager)
       : visual_norm_("visual_norm", fst_name, visual_norm_manager),
         wellformed_("wellformed", fst_name, wellformed_manager) {}
