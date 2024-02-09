@@ -22,7 +22,7 @@ from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
-class Inventory:
+class Inventory(ty.Thing):
   """Inventory is a collection of items and supplements.
 
   The items of an inventory, eg. the graphemes in a Grapheme Inventory, can be
@@ -41,7 +41,10 @@ class Inventory:
 
   _HAS_DYNAMIC_ATTRIBUTES = True
 
-  def __init__(self):
+  def __init__(self, alias: str = ''):
+    super().__init__()
+    self.set_alias(alias)
+    self.text = alias if alias else 'New Inventory'
     self._item_values = []
     self.item_aliases = []
     self.supp_aliases = []
@@ -59,9 +62,10 @@ class Inventory:
       attr: str = '',
       typed: ty.TypeOrNothing = ty.UNSPECIFIED,
       supps: ty.ListOrNothing = ty.UNSPECIFIED,
+      alias: str = '',
   ) -> 'Inventory':
     """Makes an Inventory from a list of things."""
-    new = cls()
+    new = cls(alias)
     for item in items:
       new.add_item(item, attr, typed)
     for s in ty.enforce_list(supps):
@@ -109,6 +113,7 @@ class Inventory:
       self.item_aliases.append(thing.alias)
     return added
 
+  # TODO: Rename all supp to supl.
   def add_supp(self, supp: ty.Thing) -> None:
     """Adds the value of a Thing as a supplement."""
     self.make_supp(supp.alias, supp.value)
@@ -124,3 +129,5 @@ class Inventory:
           getattr(self, alias, default), 'for alias ' + alias
       )
     return default
+
+Inventory.EMPTY = Inventory.with_alias('empty_inventory')

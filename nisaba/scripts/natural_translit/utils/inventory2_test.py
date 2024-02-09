@@ -38,6 +38,12 @@ _i2 = i.Inventory.from_list(
 
 class InventoryTest(absltest.TestCase):
 
+  def test_empty_alias(self):
+    self.assertEqual(i.Inventory.EMPTY.alias, 'empty_inventory')
+
+  def test_empty_size(self):
+    self.assertEmpty(i.Inventory.EMPTY)
+
   def test_get_field_value_default(self):
     self.assertEqual(_i1._get_field_value(_T_A_FST), _T_A_FST)
 
