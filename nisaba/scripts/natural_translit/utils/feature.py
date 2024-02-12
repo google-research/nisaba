@@ -393,10 +393,10 @@ class Feature(ty.Thing):
         aspect: The aspect that will be populated by the features in this list.
 
       Adds features in this list as items to the aspects. Updates the distance
-      dictionary. Adds self as supp to the aspect.
+      dictionary. Adds self as supplement to the aspect.
 
       """
-      aspect.add_supp(self)
+      aspect.add_supl(self)
       for i, item in enumerate(self):
         item.parent_list = self
         if isinstance(item, Feature) and item not in aspect:
@@ -515,8 +515,8 @@ class Feature(ty.Thing):
       feature.inventory = self.inventory
       self.distance_dict[feature] = {}
 
-    def supp_feature(self, feature: 'Feature') -> None:
-      self.add_supp(feature)
+    def supl_feature(self, feature: 'Feature') -> None:
+      self.add_supl(feature)
       feature.aspect = self
       feature.inventory = self.inventory
 
@@ -543,16 +543,16 @@ class Feature(ty.Thing):
       return Feature.Set.with_alias(alias, to_add)
 
     def set(self, alias: str, *features) -> None:
-      self.add_supp(self._make_set(alias, *features))
+      self.add_supl(self._make_set(alias, *features))
 
     def set_not(self, alias: str, *features) -> None:
-      self.add_supp(self._make_set(alias, *features, negation=True))
+      self.add_supl(self._make_set(alias, *features, negation=True))
 
     def set_range(
         self, alias: str,
         first: 'Feature.Aspect.VALUES', last: 'Feature.Aspect.VALUES'
     ) -> None:
-      self.add_supp(
+      self.add_supl(
           self._make_set(alias, first.parent_list.range(first, last))
       )
 
@@ -567,18 +567,18 @@ class Feature(ty.Thing):
 
       The item values of the Aspect are the features in its root_list. Max_dist
       of an aspect is the max possible distance between two features of
-      this aspect. Every aspect has two supp features: 'any' which returns 0
-      distance to all features of this aspect, and n_a (not applicable),
+      this aspect. Every aspect has two supplement features: 'any' which returns
+      0 distance to all features of this aspect, and n_a (not applicable),
       which returns max_dist to all features. The root_list and any value list
-      within are added as supps to the aspect.
+      within are added as supplements to the aspect.
 
       """
       self.inventory = inventory
       self.inventory.add_item(self)
       self.root_list.populate(self)
       self.set('all', self)
-      self.supp_feature(Feature('any'))
-      self.supp_feature(Feature('n_a', 'not_applicable'))
+      self.supl_feature(Feature('any'))
+      self.supl_feature(Feature('n_a', 'not_applicable'))
 
   class Inventory(inventory2.Inventory):
     """An inventory of Aspects and their contrastive features.
@@ -612,13 +612,13 @@ class Feature(ty.Thing):
         self, alias: str,
         *params: 'Feature.ITERABLE',
     ) -> None:
-      self.add_supp(Feature.Profile(self, alias, *params))
+      self.add_supl(Feature.Profile(self, alias, *params))
 
     def copy_and_update_profile(
         self, old: 'Feature.Profile', alias: str,
         *params: 'Feature.ITERABLE',
     ) -> None:
-      self.add_supp(old.copy_and_update(alias, *params))
+      self.add_supl(old.copy_and_update(alias, *params))
 
   class Profile(inventory2.Inventory):
     """"Feature profile for an object based on a feature inventory.

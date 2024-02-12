@@ -32,7 +32,7 @@ _T_D_INT = ty.Thing.with_alias_and_value('d', _D_INT)
 _i1 = i.Inventory.from_list([_T_B_STR])
 
 _i2 = i.Inventory.from_list(
-    [_T_B_STR, _T_C_STR], 'value', typed=str, supps=[_T_D_INT]
+    [_T_B_STR, _T_C_STR], 'value', typed=str, supls=[_T_D_INT]
 )
 
 
@@ -81,25 +81,25 @@ class InventoryTest(absltest.TestCase):
   def test_add_item_wrong_type_return_false(self):
     self.assertFalse(_i1.add_item(_T_A_FST, typed=str))
 
-  def test_add_supp(self):
-    _i1.add_supp(_T_D_INT)
+  def test_add_supl(self):
+    _i1.add_supl(_T_D_INT)
     self.assertEqual(_i1.d, 4)
 
-  def test_make_supp(self):
-    _i1.make_supp('e', 5)
+  def test_make_supl(self):
+    _i1.make_supl('e', 5)
     self.assertEqual(_i1.e, 5)
 
   def test_from_list_value(self):
     self.assertEqual(_i2.b, _B_STR)
 
-  def test_from_list_supp(self):
+  def test_from_list_supl(self):
     self.assertEqual(_i2.d, _D_INT)
 
   def test_from_list_item_aliases(self):
     self.assertEqual(_i2.item_aliases, ['b', 'c'])
 
-  def test_from_list_supp_aliases(self):
-    self.assertEqual(_i2.supp_aliases, ['d'])
+  def test_from_list_supl_aliases(self):
+    self.assertEqual(_i2.supl_aliases, ['d'])
 
   def test_add_item_recurring_item(self):
     _i2.add_item(_T_CB_STR, 'value')
@@ -108,7 +108,7 @@ class InventoryTest(absltest.TestCase):
   def test_get_item(self):
     self.assertEqual(_i2.get('b'), _B_STR)
 
-  def test_get_supp(self):
+  def test_get_supl(self):
     self.assertEqual(_i2.get('d'), _D_INT)
 
   def test_get_out_of_inventory(self):

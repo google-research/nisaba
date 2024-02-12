@@ -47,7 +47,7 @@ class Inventory(ty.Thing):
     self.text = alias if alias else 'New Inventory'
     self._item_values = []
     self.item_aliases = []
-    self.supp_aliases = []
+    self.supl_aliases = []
 
   def __iter__(self):
     return self._item_values.__iter__()
@@ -61,15 +61,15 @@ class Inventory(ty.Thing):
       items: list[ty.Thing],
       attr: str = '',
       typed: ty.TypeOrNothing = ty.UNSPECIFIED,
-      supps: ty.ListOrNothing = ty.UNSPECIFIED,
+      supls: ty.ListOrNothing = ty.UNSPECIFIED,
       alias: str = '',
   ) -> 'Inventory':
     """Makes an Inventory from a list of things."""
     new = cls(alias)
     for item in items:
       new.add_item(item, attr, typed)
-    for s in ty.enforce_list(supps):
-      new.add_supp(s)
+    for s in ty.enforce_list(supls):
+      new.add_supl(s)
     return new
 
   def _add_field(self, alias: str, value: ...) -> bool:
@@ -113,18 +113,17 @@ class Inventory(ty.Thing):
       self.item_aliases.append(thing.alias)
     return added
 
-  # TODO: Rename all supp to supl.
-  def add_supp(self, supp: ty.Thing) -> None:
+  def add_supl(self, supl: ty.Thing) -> None:
     """Adds the value of a Thing as a supplement."""
-    self.make_supp(supp.alias, supp.value)
+    self.make_supl(supl.alias, supl.value)
 
-  def make_supp(self, alias: str, value: ...) -> None:
+  def make_supl(self, alias: str, value: ...) -> None:
     """Adds the value as a supplement."""
     if self._add_field(alias, value):
-      self.supp_aliases.append(alias)
+      self.supl_aliases.append(alias)
 
   def get(self, alias: str, default: ... = ty.MISSING) -> ...:
-    if alias in self.item_aliases or alias in self.supp_aliases:
+    if alias in self.item_aliases or alias in self.supl_aliases:
       return log.dbg_return(
           getattr(self, alias, default), 'for alias ' + alias
       )

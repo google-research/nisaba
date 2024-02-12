@@ -14,7 +14,7 @@
 
 """Brahmic deromanizer."""
 
-from typing import Iterable, Union
+from typing import Any, Callable, Iterable, Union
 import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import derom_inventory as derom
 from nisaba.scripts.natural_translit.brahmic import iso_inventory
@@ -40,10 +40,10 @@ class Deromanizer(inventory2.Inventory):
 
   def __init__(self):
     super().__init__()
-    self.script = ty.UNASSIGNED
+    self.script = ''
     self.schwa_deletion = False
     self._init_items()
-    self._init_supps()
+    self._init_supls()
 
   def _add_fst_list(self, alias: str, *fsts) -> None:
     self.add_item(fl.FstList.with_alias(alias, *fsts))
@@ -51,7 +51,7 @@ class Deromanizer(inventory2.Inventory):
   def _make_mapping_group(
       self, alias: str, value: ... = ty.UNSPECIFIED
   ) -> None:
-    self.make_supp(alias, value if ty.is_specified(value) else {})
+    self.make_supl(alias, value if ty.is_specified(value) else {})
 
   def _init_items(self) -> None:
     ls.apply_foreach(self._add_fst_list, [
@@ -62,7 +62,7 @@ class Deromanizer(inventory2.Inventory):
         ['cluster_vir'], ['high_priority'], ['ind_to_sign']
     ])
 
-  def _init_supps(self) -> None:
+  def _init_supls(self) -> None:
     ls.apply_foreach(self._make_mapping_group, [
         ['vowel'], ['monophthong'], ['always_long_vowel'], ['diphthong'],
         ['consonant'], ['has_aspirated'], ['no_aspirated'], ['drops_aspirated'],
@@ -174,9 +174,9 @@ class Deromanizer(inventory2.Inventory):
       self,
       group: dict[int, list[derom.DeromMapping]],
       rule: fl.FstList,
-      rewriter: FstListArg,
+      rewriter: Callable[..., Any],
       *args
-  ) -> list[list[derom.DeromMapping]]:
+  ) -> None:
     """Fills in a rewrite template with members of a group.
 
     Currently priority is enforced by rule order.
@@ -297,6 +297,7 @@ class Deromanizer(inventory2.Inventory):
           self.typ_ops,
           self._rw_typ2brh()
       ).compose()
+    return self.to_iso()
 
   # Rewrite templates
 
@@ -308,7 +309,7 @@ class Deromanizer(inventory2.Inventory):
     """Brahmic typ to Brahmic script."""
     return ls.cross_union_star(iso_inventory.ls_tr2brh(self.script))
 
-  def _rw_typ2iso(self) -> fl.FstList:
+  def _rw_typ2iso(self) -> pyn.Fst:
     """Brahmic typ to ISO."""
     return fl.FstList(
         rw.insert(iso.A, iso.SCH_CONS),
@@ -321,13 +322,13 @@ class Deromanizer(inventory2.Inventory):
       self, mapping_list: list[derom.DeromMapping],
       old_field: str, new_field: str,
       preceding: pyn.FstLike = '', following: pyn.FstLike = ''
-  ) -> pyn.Fst:
+  ) -> fl.FstList:
     """Template for rewriting mapping fields."""
-    if not mapping_list: return []
-    return rw.rewrite_ls(
+    if not mapping_list: return fl.FstList()
+    return fl.FstList(rw.rewrite_ls(
         [[m.get(old_field), m.get(new_field)] for m in mapping_list],
         preceding, following
-    )
+    ))
 
   def _rw_vowel(
       self, mapping_list: list[derom.DeromMapping],
@@ -388,7 +389,7 @@ class Deromanizer(inventory2.Inventory):
 
   # Shortcuts for specific cases of consonant rewrites.
 
-  def _rw_gem_only(self, mapping_list: list[derom.DeromMapping]) -> pyn.Fst:
+  def _rw_gem_only(self, mapping_list: list[derom.DeromMapping]) -> fl.FstList:
     return self._rw_cons(mapping_list, single=False)
 
   def _rw_aspiration(
@@ -417,7 +418,7 @@ class Deromanizer(inventory2.Inventory):
   def _rw_cluster_wi(self) -> pyn.Fst:
     return rw.insert(iso.VIR, al.BOW + iso.SCH_CONS, iso.ONSET_CONS)
 
-  def _rw_cluster_wf(self) -> pyn.Fst:
+  def _rw_cluster_wf(self) -> fl.FstList:
     return fl.FstList(
         rw.rewrite_word_final(iso.A, iso.AA),
         rw.insert(iso.VIR, iso.SCH_CONS, iso.ONSET_CONS + al.EOW)
