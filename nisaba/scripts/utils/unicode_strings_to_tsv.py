@@ -31,7 +31,6 @@ Example:
       ꯃꯁ
 """
 
-import sys
 from typing import Sequence
 
 from absl import app
@@ -66,7 +65,9 @@ def _convert_data_proto_to_file(data_proto: unicode_strings_pb2.UnicodeStrings):
   """
   # TODO: Disallow duplicate items.
   with open(_OUTPUT.value, mode='w', encoding='utf8') as output_file:
-    output_file.write('# Auto-generated using \'%s\'\n' % sys.argv[0])
+    output_file.write(
+        "# Auto-generated using 'nisaba/scripts/utils/unicode_strings_to_tsv'\n"
+    )
     for index, item in enumerate(data_proto.item):
       try:
         source_str, dest_str = lib.convert_item(
