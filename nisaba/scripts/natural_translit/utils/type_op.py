@@ -152,6 +152,106 @@ ThingOrNothing = Union[Thing, Nothing]
 TypeOrNothing = Union[Type, Nothing]
 
 
+class IterableThing(Thing):
+  """Parent class for iterable Things.
+
+  IterableThings have size, meaning that they have length and an IterableThing
+  with 0 length will return False as boolean.
+
+  IterableThings are not subscriptable by default. Items can be accesed by
+  their index with item() method, but can't be modified.
+
+  IterableThings can be typed or untyped.
+
+  Untyped Iterable: Anything other than Nothing and its own type can be added
+  as an item. Nothing arguments are discarded. Arguments of its own type are
+  flattened, i.e. the items of the argument are added. For example:
+  ```
+  iterable1 = IterableThing(0, 1)
+  iterable2 = IterableThing(iterable1, 2, [3, 4], '567', MISSING)
+  ```
+  `iterable1 in iterable2` returns `False`: Self type is flattened.
+  `0 in iterable2` returns `True`: Added by flattening self type argument.
+  `2 in iterable2` returns `True`.
+  `[3, 4] in iterable2` returns `True`.
+  `3 in iterable2` returns `False`: Elements of items are not accesible.
+  `'567' in iterable2` returns `True`.
+  `'5' in iterable2` returns `False`.
+  `MISSING in iterable2` returns `False`: Nothing type is never added.
+
+  Typed Iterable: Only items of the specified type will be added. All
+  iterables other than strings are flattened unless explicity specified in the
+  item type. Self type can be included as a valid item type. In that case, the
+  elements of the item will be inaccesible from the outer IterableThing.
+  Arguments of other types are discarded. For example:
+  ```
+  iterable1 = IterableThing(0, 1)
+  iterable2 = IterableThing.typed(
+      Union(int, IterableThing),
+      iterable1, 2, [3, 4], '567', MISSING,
+  )
+  ```
+  `iterable1 in iterable2` returns `True`: IterableThing is a valid item type.
+  `0 in iterable2` returns `False`: Elements of items are not accessible.
+  `2 in iterable2` returns `True`.
+  `[3, 4] in iterable2` returns `False`: list is not a valid type.
+  `3 in iterable2` returns `True`: Iterables of invalid types are flattened.
+  `'567' in iterable2` returns `False`: string is not a valid type.
+  `'5' in iterable2` returns `False`: Invalid type, also strings are never
+    flattened.
+  `MISSING in iterable2` returns `False`.
+  """
+
+  def __init__(self, *items: ..., alias: str = ''):
+    super().__init__()
+    self.set_alias(alias)
+    self._items = []
+    self._item_type = UNASSIGNED
+    self.add(*items)
+
+  def __iter__(self):
+    return self._items.__iter__()
+
+  def __len__(self):
+    return len(self._items)
+
+  @classmethod
+  def typed(
+      cls, item_type: TypeOrNothing, *items: ...
+  ) -> 'IterableThing':
+    """Makes an IterableThing whose items are only of the specified type."""
+    new_iterable = cls()
+    if not_nothing(item_type): new_iterable._item_type = item_type
+    new_iterable.add(*items)
+    return new_iterable
+
+  def is_typed(self) -> bool:
+    return not_nothing(self._item_type)
+
+  def not_typed(self) -> bool:
+    return not self.is_typed()
+
+  def valid_item(self, item: ...) -> bool:
+    if self.not_typed():
+      return not_nothing(item) and type(self) is not type(item)
+    return is_instance(item, self._item_type)
+
+  def invalid_item(self, item: ...) -> bool:
+    return not self.valid_item(item)
+
+  def add(self, *items: ...) -> 'IterableThing':
+    for item in items:
+      if self.valid_item(item):
+        self._items.append(item)
+      elif isinstance(item, Iterable) and not isinstance(item, str):
+        self.add(*item)
+    return self
+
+  def item(self, index: int, default: ... = MISSING) -> ...:
+    if index in range(-len(self), len(self)-1): return self._items[index]
+    return default
+
+
 def value_of(obj: ...) -> ...:
   """If a has no value attribute, returns a."""
   return obj.value if isinstance(obj, Thing) else obj

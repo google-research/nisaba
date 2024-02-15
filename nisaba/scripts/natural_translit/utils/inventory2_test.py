@@ -67,6 +67,11 @@ class InventoryTest(absltest.TestCase):
   def test_len(self):
     self.assertLen(_i1, 1)
 
+  def test_add(self):
+    i3 = i.Inventory()
+    i3.add(_T_B_STR)
+    self.assertNotIn(_T_B_STR, i3)
+
   def test_add_item_recurring_alias(self):
     _i1.add_item(_T_BC_STR)
     self.assertEqual(_i1.b, _T_B_STR)

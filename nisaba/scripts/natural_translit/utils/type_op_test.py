@@ -302,6 +302,43 @@ class TypeOpTest(absltest.TestCase):
   def test_in_set_nothing(self):
     self.assertFalse(t.in_set(1, t.UNSPECIFIED))
 
+  def test_iterable_thing_untyped(self):
+    untyped = t.IterableThing()
+    self.assertTrue(untyped.valid_item(1))
+    self.assertTrue(untyped.invalid_item(t.MISSING))
+
+  def test_iterable_thing_typed(self):
+    typed = t.IterableThing.typed(int)
+    self.assertTrue(typed.valid_item(1))
+    self.assertTrue(typed.invalid_item('a'))
+    self.assertTrue(typed.invalid_item(t.MISSING))
+
+  def test_iterable_thing_untyped_add(self):
+    untyped1 = t.IterableThing(1)
+    untyped2 = t.IterableThing(untyped1, 'a', ['b'], t.UNASSIGNED)
+    self.assertIn(1, untyped1)
+    self.assertIn('a', untyped2)
+    self.assertIn(['b'], untyped2)
+    self.assertNotIn(untyped1, untyped2)
+    self.assertIn(1, untyped2)
+    self.assertNotIn(t.UNASSIGNED, untyped2)
+
+  def test_iterable_thing_typed_add(self):
+    untyped = t.IterableThing(1, 'a')
+    typed = t.IterableThing.typed(int, untyped, 2, [3], t.UNASSIGNED)
+    self.assertIn(1, typed)
+    self.assertIn(2, typed)
+    self.assertIn(3, typed)
+    self.assertNotIn(untyped, typed)
+    self.assertNotIn('a', typed)
+    self.assertNotIn(t.UNASSIGNED, typed)
+
+  def test_iterable_thing_item(self):
+    iterable = t.IterableThing(0, 1, 2, 3)
+    self.assertEqual(iterable.item(0), 0)
+    self.assertEqual(iterable.item(5), t.MISSING)
+    self.assertEqual(iterable.item(-4), 0)
+    self.assertIsNone(iterable.item(-5, None))
 
 if __name__ == '__main__':
   absltest.main()

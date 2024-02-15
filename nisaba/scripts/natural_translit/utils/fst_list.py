@@ -20,24 +20,17 @@ from nisaba.scripts.natural_translit.utils import type_op as ty
 from nisaba.scripts.utils import rewrite
 
 
-class FstList(ty.Thing):
+class FstList(ty.IterableThing):
   """An iterable Thing that holds a flat list of fsts."""
 
-  def __init__(self, *fsts):
-    super().__init__()
-    self._items = []
+  def __init__(self, *fsts, alias: str = ''):
+    super().__init__(alias=alias)
+    self._item_type = pyn.Fst
     self.add(*fsts)
-
-  def __iter__(self):
-    return self._items.__iter__()
-
-  def __len__(self):
-    return len(self._items)
 
   @classmethod
   def with_alias(cls, alias: str, *args):
-    new = FstList(*args)
-    new.set_alias(alias)
+    new = FstList(*args, alias=alias)
     return new
 
   def add(self, *args) -> 'FstList':
@@ -73,6 +66,3 @@ class FstList(ty.Thing):
   def compose(self) -> pyn.Fst:
     """Composes all fsts in the list."""
     return rewrite.ComposeFsts(self)
-
-  def item(self, n: int) -> pyn.Fst:
-    return self._items[n]

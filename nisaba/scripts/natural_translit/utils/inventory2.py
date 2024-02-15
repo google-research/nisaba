@@ -22,7 +22,7 @@ from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
-class Inventory(ty.Thing):
+class Inventory(ty.IterableThing):
   """Inventory is a collection of items and supplements.
 
   The items of an inventory, eg. the graphemes in a Grapheme Inventory, can be
@@ -42,18 +42,10 @@ class Inventory(ty.Thing):
   _HAS_DYNAMIC_ATTRIBUTES = True
 
   def __init__(self, alias: str = ''):
-    super().__init__()
-    self.set_alias(alias)
+    super().__init__(alias=alias)
     self.text = alias if alias else 'New Inventory'
-    self._item_values = []
     self.item_aliases = []
     self.supl_aliases = []
-
-  def __iter__(self):
-    return self._item_values.__iter__()
-
-  def __len__(self):
-    return len(self._item_values)
 
   @classmethod
   def from_list(
@@ -101,6 +93,10 @@ class Inventory(ty.Thing):
     field_value = ty.get_attribute(thing, attr) if attr else thing
     return field_value if ty.is_instance(field_value, typed) else ty.MISSING
 
+  def add(self, *args) -> 'Inventory':
+    log.dbg_message('Use add_item or add_suppl for Inventories.')
+    return self
+
   def add_item(
       self, thing: ty.Thing, attr: str = '',
       typed: ty.TypeOrNothing = ty.UNSPECIFIED
@@ -109,7 +105,7 @@ class Inventory(ty.Thing):
     if ty.is_nothing(field_value) or field_value in self: return False
     added = self._add_field(thing.alias, field_value)
     if added:
-      self._item_values.append(field_value)
+      self._items.append(field_value)
       self.item_aliases.append(thing.alias)
     return added
 
@@ -129,4 +125,4 @@ class Inventory(ty.Thing):
       )
     return default
 
-Inventory.EMPTY = Inventory.with_alias('empty_inventory')
+Inventory.EMPTY = Inventory('empty_inventory')

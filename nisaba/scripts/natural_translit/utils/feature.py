@@ -183,7 +183,7 @@ class Feature(ty.Thing):
       )
     return max_dist
 
-  class Set(ty.Thing):
+  class Set(ty.IterableThing):
     """Feature set.
 
     A set can contain a subset of an aspect's features,
@@ -194,16 +194,11 @@ class Feature(ty.Thing):
     blue_kitchen = {color.blue, function.kitchen}
     """
 
-    def __init__(self, *features):
-      super().__init__()
+    def __init__(self, *features, alias: str = ''):
+      super().__init__(alias=alias)
       self._items = set()
+      self._item_type = Feature
       self.add(*features)
-
-    def __iter__(self):
-      return self._items.__iter__()
-
-    def __len__(self):
-      return len(self._items)
 
     def __str__(self):
       items = [item.text for item in self._items]
@@ -214,8 +209,7 @@ class Feature(ty.Thing):
 
     @classmethod
     def with_alias(cls, alias: str, *features) -> 'Feature.Set':
-      new = cls(*features)
-      new.set_alias(alias)
+      new = cls(*features, alias=alias)
       new.text = alias
       return new
 
@@ -289,7 +283,7 @@ class Feature(ty.Thing):
     LINEAR = 1
     CYCLIC = 2
 
-  class ValueList(ty.Thing):
+  class ValueList(ty.IterableThing):
     """A list of contrastive features for an Aspect.
 
     The distance between the items of the list is calculated based on the list
@@ -352,20 +346,14 @@ class Feature(ty.Thing):
         list_type: 'Feature.ValueListType',
         step: float, *features: 'Feature.Aspect.VALUES',
     ):
-      super().__init__()
       alias, text = alias if isinstance(alias, tuple) else alias, alias
-      self.set_alias(alias)
+      super().__init__(alias=alias)
       self.text = text
-      self._items = list(features)
+      self._item_type = Union[Feature, Feature.ValueList]
+      self.add(*features)
       self.list_type = list_type
       self.step = step
       self.parent_list = self
-
-    def __iter__(self):
-      return self._items.__iter__()
-
-    def __len__(self):
-      return len(self._items)
 
     def distance(
         self, values1: 'Feature.Aspect.VALUES', values2: 'Feature.Aspect.VALUES'
