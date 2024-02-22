@@ -199,3 +199,22 @@ py_test(
         "@io_abseil_py//absl/testing:absltest",
     ],
 )
+
+py_library(
+    name = "expression",
+    srcs = ["expression.py"],
+    deps = [
+        ":log_op",
+        ":type_op",
+    ],
+)
+
+py_test(
+    name = "expression_test",
+    srcs = ["expression_test.py"],
+    main = "expression_test.py",
+    deps = [
+        ":expression",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
