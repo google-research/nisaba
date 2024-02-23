@@ -70,27 +70,29 @@ class InventoryTest(absltest.TestCase):
     i3 = i.Inventory()
     i3.add(_T_B_STR)
     self.assertNotIn(_T_B_STR, i3)
+    self.assertTrue(i3.add_item(_T_A_FST))
+    self.assertIn(_T_A_FST, i3)
 
   def test_add_item_recurring_alias(self):
-    _i1.add_item(_T_BC_STR)
+    self.assertFalse(_i1.add_item(_T_BC_STR))
     self.assertEqual(_i1.b, _T_B_STR)
 
   def test_add_item_recurring_alias_return_false(self):
     self.assertFalse(_i1.add_item(_T_BC_STR))
 
   def test_add_item_wrong_type(self):
-    _i2.add_item(_T_A_FST)
+    self.assertFalse(_i2.add_item(_T_A_FST))
     self.assertNotIn(_T_A_FST, _i2)
 
   def test_add_item_wrong_type_return_false(self):
     self.assertFalse(_i2.add_item(_T_A_FST))
 
   def test_add_supl(self):
-    _i1.add_supl(_T_D_INT)
+    self.assertTrue(_i1.add_supl(_T_D_INT))
     self.assertEqual(_i1.d, 4)
 
   def test_make_supl(self):
-    _i1.make_supl('e', 5)
+    self.assertTrue(_i1.make_supl('e', 5))
     self.assertEqual(_i1.e, 5)
 
   def test_from_list_value(self):
@@ -106,7 +108,7 @@ class InventoryTest(absltest.TestCase):
     self.assertEqual(_i2.supl_aliases, ['d'])
 
   def test_add_item_recurring_item(self):
-    _i2.add_item(_T_CB_STR, 'value')
+    self.assertFalse(_i2.add_item(_T_CB_STR, 'value'))
     self.assertLen(_i2, 2)
 
   def test_get_item(self):

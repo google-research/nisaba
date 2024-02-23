@@ -109,13 +109,15 @@ class Inventory(ty.IterableThing):
       self.item_aliases.append(thing.alias)
     return added
 
-  def add_supl(self, supl: ty.Thing) -> None:
+  def add_supl(self, supl: ty.Thing) -> bool:
     """Adds the value of a Thing as a supplement."""
-    self.make_supl(supl.alias, supl.value)
+    return self.make_supl(supl.alias, supl.value)
 
-  def make_supl(self, alias: str, value: ...) -> None:
+  def make_supl(self, alias: str, value: ...) -> bool:
     """Adds the value as a supplement."""
-    if self._add_field(alias, value): self.supl_aliases.append(alias)
+    added = self._add_field(alias, value)
+    if added: self.supl_aliases.append(alias)
+    return added
 
   def get(self, alias: str, default: ... = ty.MISSING) -> ...:
     if alias in self.item_aliases or alias in self.supl_aliases:
