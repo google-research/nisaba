@@ -29,7 +29,25 @@ from nisaba.scripts.natural_translit.utils import log_op as log
 # Custom types
 
 
-class Nothing:
+class _ObjectWithAliasAndValue:
+  """Parent class for Nothing and Thing. See child classes for details."""
+
+  def __init__(self, alias: str):
+    self.alias = self._set_alias(alias)
+    self.text = '%s_%s' % (log.class_of(self), self.alias)
+    self.value = self
+
+  def _set_alias(self, alias: str) -> str:
+    # TODO: ensure alias conforms to inventory field name restrictions.
+    if alias: return alias
+    return log.dbg_return(
+        '%s_%d' % (log.class_of(self), hash(self)),
+        'empty alias is not allowed',
+    )
+
+
+# TODO: Look into merging Nothing and Thing, and ditch the parent class.
+class Nothing(_ObjectWithAliasAndValue):
   """Class for defining constants that stand in for None and empty values.
 
   UNASSIGNED: Unassigned variable.
@@ -65,79 +83,63 @@ class Nothing:
   `value_from_list(things, 2, exclude=UNASSIGNED)` returns `0`
   """
 
-  def __init__(self, name: str):
-    self.alias = name.upper()
-    self.text = name
-    self.value = self
+  def __len__(self):
+    return 0
 
-UNASSIGNED = Nothing('Unassigned')
-UNSPECIFIED = Nothing('Unspecified')
-MISSING = Nothing('Missing')
+UNASSIGNED = Nothing('unassigned')
+UNSPECIFIED = Nothing('unspecified')
+MISSING = Nothing('missing')
 
 
-class Thing:
-  """Parent class for various custom classes.
+class Thing(_ObjectWithAliasAndValue):
+  """Parent class for various custom classes."""
 
-  Attributes:
-    alias: A string that will be used to refer to this object. An alias should
-      be unique in a given context. Eg, every phoneme in an inventory or every
-      token in a lexicon should have a unique alias.
-    text: A string that represents the surface form of the object. eg. bass_fish
-      and bass_instrument in an English lexicon can have the same text 'bass'.
-    value: The value of the Object. The initial value of the
-      thing is itself.
-
-    For example, the value of a phoneme in an inventory is itself. Each
-    occurence of the phoneme in a pronunciation is a new instance, but their
-    values point to the same phoneme in the inventory.
-  """
-
-  def __init__(self):
-    c = log.class_of(self)
-    self.alias = '%s_%d' % (c, hash(self))
-    self.text = 'Undefined %s' % c
-    self.value = self
-
-  @classmethod
-  def with_alias(cls, alias: str) -> 'Thing':
-    new = cls()
-    new.set_alias(alias)
-    new.text = log.class_and_alias(new)
-    return new
-
-  @classmethod
-  def from_value_of(cls, entry: ...) -> 'Thing':
-    """Makes a Thing from the value of the entry.
+  def __init__(
+      self,
+      alias: str = '',
+      text: str = '',
+      value_from: ... = UNSPECIFIED,
+      from_attribute: str = '',
+      ):
+    """Initializes a Thing.
 
     Args:
-      entry: If the entry is an object with 'value' attribute, the value is
-        set to entry.value in order to avoid nesting values in dynamically
-        created things and making their equivalence invisible to is_equal().
-        If this is undesirable, use with_alias_and_value().
+      alias: The default string that will be used to access this Thing.
+        Alias should conform to attribute naming restrictions, and every item in
+        an inventory should have a unique alias. For example, 'bass_fish' and
+        'bass_instrument' in an English lexicon.
+      text: A text that represents this Thing. Text doesn't have to be unique.
+        Eg. bass_fish and bass_instrument can have the same text 'bass'
+      value_from: The object that will be used to set the value of the Thing.
+        If value_from is not specified, the value of the Thing is itself.
+      from_attribute: The attribute of value_from that will be used to set the
+        value. When setting the value of a Thing from another object, if no
+        attribute is specified or if the object doesn't have the specified
+        attribute, the value of the Thing will be the argument object. If
+        value_from is not specified, the value of the Thing will be itself even
+        if an argument is specified.
 
-    Returns:
-      Thing
+    Example:
+    ```
+    T1 = Thing(alias='one', value_from=1)
+    T2 = Thing(value_from=T1)
+    T3 = Thing(value_from=T1, from_attribute='alias')
+    T4 = Thing(value_from=T1, from_attribute='value')
+    T5 = Thing(value_from=T1, from_attribute='features')
+    T6 = Thing(alias='six', from_attribute='alias')
+    ```
+    The value of T1 is 1.
+    The value of T2 is T1.
+    The value of T3 is 'one'.
+    The value of T4 is 1.
+    The value of T5 is T1.
+    The value of T6 is T6.
     """
-    new = cls()
-    new.text = log.from_class_and_text(entry)
-    new.value = value_of(entry)
-    return new
-
-  @classmethod
-  def with_alias_and_value(cls, alias: str, value: ...) -> 'Thing':
-    """Makes a Thing with a custom alias and value."""
-    new = cls()
-    new.set_alias(alias)
-    new.text = '%s:%s' % (log.class_and_alias(new), log.class_and_texts(value))
-    new.value = value
-    return new
-
-  def set_alias(self, alias: str) -> None:
-    # TODO: ensure alias conforms to inventory field name restrictions.
-    if alias:
-      self.alias = alias
-    else:
-      log.dbg_message('empty alias is not allowed')
+    super().__init__(alias)
+    if text: self.text = text
+    if is_specified(value_from):
+      self.value = get_attribute(value_from, from_attribute, value_from)
+      self.text += ':' + log.class_and_texts(self.value)
 
 # Union types
 
@@ -200,12 +202,15 @@ class IterableThing(Thing):
   `'5' in iterable2` returns `False`: Invalid type, also strings are never
     flattened.
   `MISSING in iterable2` returns `False`.
+
+  TODO: Move type_op and list_op functions to IterableThing where
+    possible.
   """
 
   def __init__(self, *items: ..., alias: str = ''):
-    super().__init__()
-    self.set_alias(alias)
+    super().__init__(alias)
     self._items = []
+    # TODO: Look into Generic instead of _item_type attribute.
     self._item_type = UNASSIGNED
     self.add(*items)
 
@@ -242,7 +247,8 @@ class IterableThing(Thing):
   def add(self, *items: ...) -> 'IterableThing':
     for item in items:
       if self.valid_item(item):
-        self._items.append(item)
+        if isinstance(self._items, list): self._items.append(item)
+        if isinstance(self._items, set): self._items.add(item)
       elif isinstance(item, Iterable) and not isinstance(item, str):
         self.add(*item)
     return self

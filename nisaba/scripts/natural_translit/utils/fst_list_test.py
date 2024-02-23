@@ -42,7 +42,9 @@ class FstListTest(test_util.FstTestCase):
     self.assertTrue(f.FstList('a'))
 
   def test_with_alias(self):
-    self.assertEqual(f.FstList.with_alias('a').alias, 'a')
+    fst_list = f.FstList(alias='a')
+    self.assertEqual(fst_list.alias, 'a')
+    self.assertEmpty(fst_list)
 
   def test_add_nothing(self):
     self.assertEmpty(f.FstList(ty.UNSPECIFIED))

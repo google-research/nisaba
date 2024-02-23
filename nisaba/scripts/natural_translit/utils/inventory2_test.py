@@ -22,15 +22,14 @@ _B_STR = 'b'
 _C_STR = 'c'
 _D_INT = 4
 
-_T_A_FST = ty.Thing.with_alias_and_value('a', _A_FST)
-_T_B_STR = ty.Thing.with_alias_and_value('b', _B_STR)
-_T_BC_STR = ty.Thing.with_alias_and_value('b', _C_STR)
-_T_CB_STR = ty.Thing.with_alias_and_value('c', _B_STR)
-_T_C_STR = ty.Thing.with_alias_and_value('c', _C_STR)
-_T_D_INT = ty.Thing.with_alias_and_value('d', _D_INT)
+_T_A_FST = ty.Thing('a', value_from=_A_FST)
+_T_B_STR = ty.Thing('b', value_from=_B_STR)
+_T_BC_STR = ty.Thing('b', value_from=_C_STR)
+_T_CB_STR = ty.Thing('c', value_from=_B_STR)
+_T_C_STR = ty.Thing('c', value_from=_C_STR)
+_T_D_INT = ty.Thing('d', value_from=_D_INT)
 
 _i1 = i.Inventory.from_list([_T_B_STR])
-
 _i2 = i.Inventory.from_list(
     [_T_B_STR, _T_C_STR], 'value', typed=str, supls=[_T_D_INT]
 )
@@ -80,11 +79,11 @@ class InventoryTest(absltest.TestCase):
     self.assertFalse(_i1.add_item(_T_BC_STR))
 
   def test_add_item_wrong_type(self):
-    _i1.add_item(_T_A_FST, typed=str)
-    self.assertNotIn(_T_A_FST, _i1)
+    _i2.add_item(_T_A_FST)
+    self.assertNotIn(_T_A_FST, _i2)
 
   def test_add_item_wrong_type_return_false(self):
-    self.assertFalse(_i1.add_item(_T_A_FST, typed=str))
+    self.assertFalse(_i2.add_item(_T_A_FST))
 
   def test_add_supl(self):
     _i1.add_supl(_T_D_INT)

@@ -109,6 +109,10 @@ class FeatureTest(absltest.TestCase):
   def test_set_empty(self):
     self.assertEmpty(f.Set())
 
+  def test_set_alias_text(self):
+    self.assertEqual(r.warmth.all.alias, 'all')
+    self.assertEqual(r.warmth.all.text, 'all')
+
   def test_set_reset(self):
     self.assertEmpty(f.Set(r.warmth.cold).reset())
 

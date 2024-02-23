@@ -28,11 +28,6 @@ class FstList(ty.IterableThing):
     self._item_type = pyn.Fst
     self.add(*fsts)
 
-  @classmethod
-  def with_alias(cls, alias: str, *args):
-    new = FstList(*args, alias=alias)
-    return new
-
   def add(self, *args) -> 'FstList':
     """Adds fsts to self.
 

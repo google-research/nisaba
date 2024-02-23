@@ -46,7 +46,7 @@ class Deromanizer(inventory2.Inventory):
     self._init_supls()
 
   def _add_fst_list(self, alias: str, *fsts) -> None:
-    self.add_item(fl.FstList.with_alias(alias, *fsts))
+    self.add_item(fl.FstList(*fsts, alias=alias))
 
   def _make_mapping_group(
       self, alias: str, value: ... = ty.UNSPECIFIED

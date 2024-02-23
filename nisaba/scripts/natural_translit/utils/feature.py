@@ -121,8 +121,7 @@ class Feature(ty.Thing):
   ERROR_DISTANCE = 1_000_000
 
   def __init__(self, alias: str, text: str = ''):
-    super().__init__()
-    self.set_alias(alias)
+    super().__init__(alias)
     self.text = text if text else alias
     self.aspect = inventory2.Inventory.EMPTY
     self.inventory = inventory2.Inventory.EMPTY
@@ -196,6 +195,7 @@ class Feature(ty.Thing):
 
     def __init__(self, *features, alias: str = ''):
       super().__init__(alias=alias)
+      if alias: self.text = alias
       self._items = set()
       self._item_type = Feature
       self.add(*features)
@@ -208,12 +208,6 @@ class Feature(ty.Thing):
       )
 
     @classmethod
-    def with_alias(cls, alias: str, *features) -> 'Feature.Set':
-      new = cls(*features, alias=alias)
-      new.text = alias
-      return new
-
-    @classmethod
     def aspect_dict(
         cls, *features: 'Feature.ITERABLE'
     ) -> dict['Feature.Aspect', 'Feature.Set']:
@@ -222,17 +216,6 @@ class Feature(ty.Thing):
         value_set = distances.get(feature.aspect, Feature.Set())
         distances.update({feature.aspect: value_set.add(feature)})
       return distances
-
-    # TODO: Decide what to do with any and n_a in add/remove/replace
-    def add(self, *features) -> 'Feature.Set':
-      """Adds features to the set, flattens tree structures in arguments."""
-      for f in features:
-        if isinstance(f, Feature):
-          self._items.add(f)
-        elif isinstance(f, Iterable):
-          for item in f:
-            self.add(item)
-      return self
 
     def remove(self, *features) -> 'Feature.Set':
       for feature in Feature.Set(*features):
@@ -389,6 +372,9 @@ class Feature(ty.Thing):
         item.parent_list = self
         if isinstance(item, Feature) and item not in aspect:
           aspect.add_feature(item)
+          if item in aspect:
+            if hasattr(aspect, 'any'): del aspect.any
+            if hasattr(aspect, 'n_a'): del aspect.n_a
         elif isinstance(item, Feature.ValueList):
           item.populate(aspect)
         for item2 in self._items[i+1:]:
@@ -482,9 +468,8 @@ class Feature(ty.Thing):
         self,
         feature_list: 'Feature.ValueList'
     ):
-      super().__init__()
+      super().__init__(feature_list.alias)
       self.root_list = feature_list
-      self.set_alias(feature_list.alias)
       self.text = feature_list.text
       self.inventory = ty.UNASSIGNED
       self.max_dist = 0
@@ -528,7 +513,7 @@ class Feature(ty.Thing):
     ) -> 'Feature.Set':
       filtered = self.filter(*features)
       to_add = filtered if not negation else self.all.difference(filtered)
-      return Feature.Set.with_alias(alias, to_add)
+      return Feature.Set(to_add, alias=alias)
 
     def set(self, alias: str, *features) -> None:
       self.add_supl(self._make_set(alias, *features))
@@ -648,7 +633,7 @@ class Feature(ty.Thing):
       param_dict = Feature.Set.aspect_dict(*params)
       for aspect in self.inventory:
         value = param_dict.get(aspect, aspect.any)
-        self.add_item(Feature.Set.with_alias(aspect.alias, value))
+        self.add_item(Feature.Set(value, alias=aspect.alias))
         self.max_dist += aspect.max_dist
 
     def __str__(self):

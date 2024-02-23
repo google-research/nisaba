@@ -27,7 +27,7 @@ class Inventory(ty.IterableThing):
 
   The items of an inventory, eg. the graphemes in a Grapheme Inventory, can be
   accessed by their aliases. For example, if
-  `A = ty.Thing.with_alias_and_value('a_uc', 'A')` is added to an inventory
+  `A = ty.Thing(alias='a_uc', value_from='A')` is added to an inventory
   such as `ltn` as an item, `ltn.a_uc` will point to A. All items are included
   when iterating over the inventory and the len of the inventory is the number
   of its items.
@@ -41,8 +41,9 @@ class Inventory(ty.IterableThing):
 
   _HAS_DYNAMIC_ATTRIBUTES = True
 
-  def __init__(self, alias: str = ''):
+  def __init__(self, alias: str = '', typed: ty.TypeOrNothing = ty.UNSPECIFIED):
     super().__init__(alias=alias)
+    if ty.not_nothing(typed): self._item_type = typed
     self.text = alias if alias else 'New Inventory'
     self.item_aliases = []
     self.supl_aliases = []
@@ -57,9 +58,9 @@ class Inventory(ty.IterableThing):
       alias: str = '',
   ) -> 'Inventory':
     """Makes an Inventory from a list of things."""
-    new = cls(alias)
+    new = cls(alias, typed)
     for item in items:
-      new.add_item(item, attr, typed)
+      new.add_item(item, attr)
     for s in ty.enforce_list(supls):
       new.add_supl(s)
     return new
@@ -83,7 +84,7 @@ class Inventory(ty.IterableThing):
       typed: Optional type restriction for the value.
 
     Returns:
-      Given `N1 = ty.Thing.with_alias_and_value('n', 1)`
+      Given `N1 = ty.Thing(alias='n', value_from=1)`
       `self._get_field_value(N1)` returns `N1`
       `self._get_field_value(N1, typed=int)` returns `ty.MISSING`
       `self._get_field_value(N1, 'value')` returns `1`
@@ -99,10 +100,9 @@ class Inventory(ty.IterableThing):
 
   def add_item(
       self, thing: ty.Thing, attr: str = '',
-      typed: ty.TypeOrNothing = ty.UNSPECIFIED
   ) -> bool:
-    field_value = self._get_field_value(thing, attr, typed)
-    if ty.is_nothing(field_value) or field_value in self: return False
+    field_value = self._get_field_value(thing, attr)
+    if self.invalid_item(field_value) or field_value in self: return False
     added = self._add_field(thing.alias, field_value)
     if added:
       self._items.append(field_value)
@@ -115,8 +115,7 @@ class Inventory(ty.IterableThing):
 
   def make_supl(self, alias: str, value: ...) -> None:
     """Adds the value as a supplement."""
-    if self._add_field(alias, value):
-      self.supl_aliases.append(alias)
+    if self._add_field(alias, value): self.supl_aliases.append(alias)
 
   def get(self, alias: str, default: ... = ty.MISSING) -> ...:
     if alias in self.item_aliases or alias in self.supl_aliases:

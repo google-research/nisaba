@@ -21,9 +21,9 @@ from nisaba.scripts.natural_translit.utils import type_op as t
 
 D = collections.namedtuple('D', ['k'])
 _D1 = D('v')
-_T1 = t.Thing.with_alias('T1')
-_T3 = t.Thing.with_alias_and_value('', _T1)
-_T5 = t.Thing.with_alias_and_value('T5', t.pyn.accep(''))
+_T1 = t.Thing('T1')
+_T3 = t.Thing(value_from=_T1)
+_T5 = t.Thing('T5', value_from=t.pyn.accep(''))
 Named = collections.namedtuple('Named', ['name'])
 _NAMED = Named('Jane')
 
@@ -61,7 +61,7 @@ class LoggingTest(absltest.TestCase):
     self.assertEqual(log.text_of(None), 'None')
 
   def test_text_of_nothing(self):
-    self.assertEqual(log.text_of(t.UNSPECIFIED), 'Unspecified')
+    self.assertEqual(log.text_of(t.UNSPECIFIED), 'Nothing_unspecified')
 
   def test_alias_of_thing(self):
     self.assertEqual(log.alias_of(_T1), 'T1')
@@ -87,7 +87,7 @@ class LoggingTest(absltest.TestCase):
   def test_class_and_texts(self):
     self.assertEqual(
         log.class_and_texts(1, t.MISSING, ''),
-        'int_1, Nothing_Missing, str_<no_text>'
+        'int_1, Nothing_Nothing_missing, str_<no_text>'
     )
 
   def test_frame(self):

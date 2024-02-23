@@ -136,8 +136,7 @@ class DeromMapping(ty.Thing):
     TODO: remove fields when graphemes have the corresponding methods.
     """
 
-    super().__init__()
-    self.set_alias(alias)
+    super().__init__(alias)
     self.rom_list = fl.FstList(rom_list)
     self.rom = self.rom_list.concat()
     self.brh_list = fl.FstList(brh_list)

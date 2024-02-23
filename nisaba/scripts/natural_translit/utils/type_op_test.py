@@ -19,11 +19,11 @@ from nisaba.scripts.natural_translit.utils import type_op as t
 
 # Test objects
 
-_T0 = t.Thing.with_alias_and_value('T0', 0)
-_T1 = t.Thing.with_alias('T1')
-_T2 = t.Thing.from_value_of(_T0)
-_T3 = t.Thing.with_alias_and_value('', _T1)
-_T4 = t.Thing.with_alias_and_value('T4', _T1)
+_T0 = t.Thing(alias='T0', value_from=0)
+_T1 = t.Thing(alias='T1', text='one')
+_T2 = t.Thing(value_from=_T0, from_attribute='value')
+_T3 = t.Thing(alias='', value_from=_T1)
+_T4 = t.Thing(alias='T4', value_from=_T1)
 
 
 class TypeOpTest(absltest.TestCase):
@@ -51,6 +51,15 @@ class TypeOpTest(absltest.TestCase):
 
   def test_is_assigned(self):
     self.assertTrue(t.is_assigned(0))
+
+  def test_nothing_bool(self):
+    self.assertFalse(t.UNASSIGNED)
+
+  def test_nothing_alias(self):
+    self.assertEqual(t.UNASSIGNED.alias, 'unassigned')
+
+  def test_nothing_text(self):
+    self.assertEqual(t.UNASSIGNED.text, 'Nothing_unassigned')
 
   def test_not_assigned(self):
     self.assertTrue(t.not_assigned(t.UNASSIGNED))
@@ -91,13 +100,17 @@ class TypeOpTest(absltest.TestCase):
   def test_not_instance(self):
     self.assertTrue(t.not_instance(1, str))
 
-  def test_make_thing(self):
+  def test_thing(self):
     self.assertEqual(_T0.value, 0)
 
-  def test_make_thing_default_value(self):
+  def test_thing_default_value(self):
     self.assertEqual(_T1.value, _T1)
 
-  def test_make_thing_inherit_value(self):
+  def test_thing_alias_text(self):
+    self.assertEqual(_T1.alias, 'T1')
+    self.assertEqual(_T1.text, 'one')
+
+  def test_thing_inherit_value(self):
     self.assertEqual(_T2.value, 0)
 
   def test_has_attribute(self):

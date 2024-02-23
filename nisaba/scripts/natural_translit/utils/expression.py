@@ -13,6 +13,7 @@
 # limitations under the License.
 
 """Interfaces for generating fsts from objects."""
+from typing import Union
 from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
@@ -47,8 +48,7 @@ class Symbol(ty.Thing):
   ):
     # TODO: Move alias to Thing's init() and remove set_alias() from child
     # classes.
-    super().__init__()
-    self.set_alias(alias)
+    super().__init__(alias=alias)
     self.text = text if text else self.alias
     self.raw = raw
     self.index = index if ty.is_specified(index) else hash(self)
@@ -72,7 +72,9 @@ class Expression(ty.IterableThing):
 class Atomic(Expression, Symbol):
   """An instance of a single symbol."""
 
-  def __init__(self, symbol: Symbol, alias: str = ''):
+  OR_SYMBOL = Union[Symbol, 'Atomic']
+
+  def __init__(self, symbol: 'Atomic.OR_SYMBOL', alias: str = ''):
     Expression.__init__(self, symbol.alias)
     Symbol.__init__(self, symbol.alias, symbol.text, symbol.raw, symbol.index)
     self._item_type = Atomic

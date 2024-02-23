@@ -21,10 +21,10 @@ _C_STR = 'c'
 _D_INT = 4
 
 _THINGS = [
-    ls.ty.Thing.from_value_of(_A_FST),
-    ls.ty.Thing.from_value_of(_B_STR),
-    ls.ty.Thing.from_value_of(_C_STR),
-    ls.ty.Thing.from_value_of(_D_INT),
+    ls.ty.Thing(value_from=_A_FST),
+    ls.ty.Thing(value_from=_B_STR),
+    ls.ty.Thing(value_from=_C_STR),
+    ls.ty.Thing(value_from=_D_INT),
 ]
 
 
