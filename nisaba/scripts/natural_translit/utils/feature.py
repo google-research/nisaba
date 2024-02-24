@@ -372,9 +372,6 @@ class Feature(ty.Thing):
         item.parent_list = self
         if isinstance(item, Feature) and item not in aspect:
           aspect.add_feature(item)
-          if item in aspect:
-            if hasattr(aspect, 'any'): del aspect.any
-            if hasattr(aspect, 'n_a'): del aspect.n_a
         elif isinstance(item, Feature.ValueList):
           item.populate(aspect)
         for item2 in self._items[i+1:]:
