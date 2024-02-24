@@ -204,6 +204,7 @@ py_library(
     name = "expression",
     srcs = ["expression.py"],
     deps = [
+        ":feature",
         ":log_op",
         ":type_op",
     ],
