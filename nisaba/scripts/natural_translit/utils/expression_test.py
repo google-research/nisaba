@@ -15,74 +15,133 @@
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.utils import expression as exp
 
-# TODO: move global variables into the inventory building function.
-str_schwa = 'schwa'
-str_salt = '🜔'  # Alchemical symbol for salt.
-str_a_ind = 'a_ind'
-str_a_letter = 'अ'
 
-sym_schwa = exp.Symbol(str_schwa, text=str_salt, index=1, name='SCHWA')
-sym_a_ind = exp.Symbol(
-    str_a_ind, text=str_a_letter, raw=str_a_letter, index=2, name='A LETTER'
-)
-atm_schwa = exp.Atomic(sym_schwa)
-atm_schwa2 = exp.Atomic(atm_schwa)
+def _sym_inventory() -> exp.Symbol.Inventory:
+  syms = exp.Symbol.Inventory(
+      'test',
+      exp.Symbol(
+          'schwa',
+          text='🜔',
+          index=exp.Symbol.ReservedIndex.GRAPHEME_PREFIX + 1,
+          name='SCHWA',
+      ),
+      exp.Symbol(
+          'a_ind',
+          text='अ',
+          raw='अ',
+          index=exp.Symbol.ReservedIndex.GRAPHEME_PREFIX + 2,
+          name='A LETTER',
+      ),
+  )
+  syms.make_supl('atm_sym', {exp.Atomic(sym): sym for sym in syms})
+  syms.add_supl(
+      exp.Symbol.Inventory('atm', *syms.atm_sym)
+  )
+  return syms
+_SYM = _sym_inventory()
 
 
 class ExpressionTest(absltest.TestCase):
 
   def test_symbol_abstract(self):
-    self.assertEqual(str(sym_schwa), str_salt)
-    self.assertEmpty(sym_schwa.raw)
+    self.assertEqual(str(_SYM.schwa), '🜔')
+    self.assertEmpty(_SYM.schwa.raw)
     self.assertEqual(
-        sym_schwa.description(show_features=True),
-        'alias: schwa  index: 1  text: 🜔  name: SCHWA  features: {abst}',
+        _SYM.schwa.description(show_features=True),
+        'alias: schwa  index: 2000001  text: 🜔  name: SCHWA\n'
+        '    features: {abstract}',
     )
 
   def test_symbol_raw(self):
     self.assertEqual(
-        sym_a_ind.description(show_features=True),
-        'alias: a_ind  index: 2  raw: अ  text: अ  '
-        'name: A LETTER  features: {raw}',
+        _SYM.a_ind.description(show_features=True),
+        'alias: a_ind  index: 2000002  raw: अ  text: अ  name: A LETTER\n'
+        '    features: {raw}',
     )
 
+  def test_symbol_inventory_assignment(self):
+    self.assertTrue(_SYM.a_ind.inventory, _SYM)
+    self.assertEqual(_SYM.CTRL.unk.inventory, exp.Symbol.Inventory.EMPTY)
+
+  def test_recurring_alias(self):
+    syms1 = [exp.Symbol(alias='schwa'), exp.Symbol(alias='a_ind')]
+    syms2 = [exp.Symbol(alias='schwa'), exp.Symbol(alias='a_ind')]
+    inventory = exp.Symbol.Inventory('recurring')
+    self.assertEqual(inventory.add_symbols(*syms1), syms1)
+    self.assertNotEqual(inventory.add_symbols(*syms2), syms2)
+
+  def test_symbol_inventory_lookup(self):
+    self.assertEqual(_SYM.index_lookup(2000001), _SYM.schwa)
+    self.assertEqual(_SYM.raw_lookup('अ'), _SYM.a_ind)
+    self.assertEqual(_SYM.text_lookup('🜔'), _SYM.schwa)
+    self.assertEqual(_SYM.raw_lookup('🜔'), _SYM.CTRL.unk)
+    self.assertEqual(_SYM.lookup(_SYM.atm.schwa, 'atm_sym'), _SYM.schwa)
+
   def test_atomic_from_symbol(self):
-    self.assertEqual(str(atm_schwa), str_salt)
-    self.assertEmpty(atm_schwa.raw)
-    self.assertIn(atm_schwa, atm_schwa)
-    self.assertIs(atm_schwa.symbol, sym_schwa)
-    self.assertEqual(atm_schwa.index, sym_schwa.index)
-    self.assertIn(exp.Symbol.SYM_FEATURES.type.abst, atm_schwa.features)
+    self.assertEqual(str(_SYM.atm.schwa), str(_SYM.schwa))
+    self.assertEmpty(_SYM.atm.schwa.raw)
+    self.assertIn(_SYM.atm.schwa, _SYM.atm.schwa)
+    self.assertIs(_SYM.atm.schwa.symbol, _SYM.schwa)
+    self.assertEqual(_SYM.atm.schwa.index, _SYM.schwa.index)
+    self.assertIn(exp.Symbol.SYM_FEATURES.type.abst, _SYM.atm.schwa.features)
     self.assertEqual(
-        atm_schwa.description(show_features=True),
-        'alias: schwa  index: 1  text: 🜔  name: SCHWA  features: {abst}',
+        _SYM.atm.schwa.description(show_features=True),
+        'alias: schwa  index: 2000001  text: 🜔  name: SCHWA\n'
+        '    features: {abstract}',
     )
 
   def test_atomic_from_atomic(self):
-    self.assertEqual(str(atm_schwa2), str_salt)
+    atm_schwa2 = exp.Atomic(_SYM.atm.schwa)
+    self.assertEqual(str(atm_schwa2), str(_SYM.schwa))
     self.assertEmpty(atm_schwa2.raw)
     self.assertIn(atm_schwa2, atm_schwa2)
-    self.assertNotIn(atm_schwa, atm_schwa2)
-    self.assertIs(atm_schwa2.symbol, sym_schwa)
-    self.assertEqual(atm_schwa2.index, sym_schwa.index)
+    self.assertNotIn(_SYM.atm.schwa, atm_schwa2)
+    self.assertIs(atm_schwa2.symbol, _SYM.schwa)
+    self.assertEqual(atm_schwa2.index, _SYM.schwa.index)
     self.assertEqual(
-        atm_schwa.description(),
-        'alias: schwa  index: 1  text: 🜔  name: SCHWA',
+        atm_schwa2.description(),
+        'alias: schwa  index: 2000001  text: 🜔  name: SCHWA',
     )
-
-  def test_atomic_add(self):
-    atm_schwa.add(atm_schwa2)
-    self.assertEqual(atm_schwa._items, [atm_schwa])
+    _SYM.atm.schwa.add(atm_schwa2)
+    self.assertEqual(_SYM.atm.schwa._items, [_SYM.atm.schwa])
 
   def test_controls(self):
     self.assertEqual(
-        exp.Symbol.descriptions(*exp.Symbol.CONTROL_LIST),
+        exp.Symbol.descriptions(*exp.Symbol.CTRL),
         'symbols:\n'
         '  alias: eps  index: 1000000  text: ⍷  name: EPSILON\n'
         '  alias: unk  index: 1000001  text: ⍰  name: UNKNOWN SYMBOL\n'
         '  alias: bos  index: 1000002  text: ⍄  name: BEGINNING OF SEQUENCE\n'
         '  alias: eos  index: 1000003  text: ⍃  name: END OF SEQUENCE\n'
+        '  alias: oos  index: 1000004  text: ⍔  name: OUT OF SEQUENCE\n',
+    )
+
+  def test_symbol_inventory_str(self):
+    self.assertEqual(
+        str(_SYM),
+        'test inventory:\n\n'
+        '  alias: schwa  index: 2000001  text: 🜔  name: SCHWA\n\n'
+        '  alias: a_ind  index: 2000002  raw: अ  text: अ  name: A LETTER\n\n'
+    )
+
+  def test_symbol_inventory_description(self):
+    self.assertEqual(
+        _SYM.description(show_features=True, show_control=True),
+        'test inventory:\n\n'
+        '  alias: eps  index: 1000000  text: ⍷  name: EPSILON\n'
+        '    features: {abstract, control}\n\n'
+        '  alias: unk  index: 1000001  text: ⍰  name: UNKNOWN SYMBOL\n'
+        '    features: {abstract, control}\n\n'
+        '  alias: bos  index: 1000002  text: ⍄  name: BEGINNING OF SEQUENCE\n'
+        '    features: {abstract, control}\n\n'
+        '  alias: eos  index: 1000003  text: ⍃  name: END OF SEQUENCE\n'
+        '    features: {abstract, control}\n\n'
         '  alias: oos  index: 1000004  text: ⍔  name: OUT OF SEQUENCE\n'
+        '    features: {abstract, control}\n\n'
+        '  alias: schwa  index: 2000001  text: 🜔  name: SCHWA\n'
+        '    features: {abstract}\n\n'
+        '  alias: a_ind  index: 2000002  raw: अ  text: अ  name: A LETTER\n'
+        '    features: {raw}\n\n'
     )
 
 if __name__ == '__main__':

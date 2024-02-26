@@ -14,7 +14,9 @@
 
 """Interfaces for generating fsts from objects."""
 import enum
+from typing import Any, Union
 from nisaba.scripts.natural_translit.utils import feature
+from nisaba.scripts.natural_translit.utils import inventory2
 from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
 f = feature.Feature
@@ -62,6 +64,8 @@ class Symbol(ty.Thing):
       `name=OPEN FRONT UNROUNDED VOWEL`.
     features: Features to be added to the symbol.
       Eg. `features=SYM_FEATURES.sym_type.raw` for 'अ'
+    inventory: The inventory that the symbol is first defined in. The default
+      value of the inventory is Symbol.Inventory.EMPTY.
   """
 
   SYM_FEATURES = _symbol_features()
@@ -86,11 +90,12 @@ class Symbol(ty.Thing):
     self.raw = raw
     self.index = index if ty.is_specified(index) else hash(self)
     self.name = name if name else self.alias
-    self.features = f.Set(features)
+    self.features = f.Set(features, alias='features')
     if self.raw:
       self.features.add(self.SYM_FEATURES.type.raw)
     else:
       self.features.add(self.SYM_FEATURES.type.abst)
+    self.inventory = Symbol.Inventory.EMPTY
 
   def __str__(self) -> str:
     return self.text
@@ -101,11 +106,7 @@ class Symbol(ty.Thing):
     if self.raw: text += '  raw: %s' % self.raw
     if self.text: text += '  text: %s' % self.text
     if self.name != self.alias: text += '  name: %s' % self.name
-    if show_features:
-      text += (
-          '  features: {%s}'
-          % ', '.join([feature.alias for feature in self.features])
-      )
+    if show_features: text += '\n    %s' % str(self.features)
     return text
 
   @classmethod
@@ -120,6 +121,122 @@ class Symbol(ty.Thing):
         + '\n  '.join([sym.description(show_features) for sym in syms])
         + '\n'
     )
+
+  class Inventory(inventory2.Inventory):
+    """Symbol inventory.
+
+    index_dict: A dictionary of <symbol>.index: <symbol>
+    raw_dict: A dictionary of <symbol>.raw: <symbol> for symbols with non-empty
+      raw attribute.
+    text_dict: A dictionary of <symbol>.text: <symbol> for symbols with
+      non-empty text attribute.
+
+    All Symbol inventories have the control symbols in their 'CTRL' supplement.
+    Eg. for an inventory such as deva, deva.CTRL.unk is the same object as
+    Symbol.CTRL.unk
+
+    """
+
+    def __init__(self, alias: str, *symbols: 'Symbol'):
+      super().__init__(alias, typed=Symbol)
+      self.index_dict = {}
+      self.raw_dict = {}
+      self.text_dict = {}
+      self.add_supl(Symbol.CTRL)
+      for c in self.CTRL:
+        self._add_to_dicts(c)
+      self.add_symbols(*symbols)
+
+    def __str__(self) -> str:
+      return self.description()
+
+    def description(
+        self, show_features: bool = False, show_control: bool = False
+    ) -> str:
+      text = self.alias + ' inventory:\n\n'
+      for i in sorted(self.index_dict):
+        sym = self.index_lookup(i)
+        if not show_control and sym in self.CTRL: continue
+        text += '  %s\n\n' % sym.description(show_features)
+      return text
+
+    def _add_to_dicts(self, sym: 'Symbol') -> None:
+      """Add a symbol to the inventory dicts.
+
+      Args:
+        sym: The symbol to be added.
+
+      If multiple symbols have the same non-empty value for a field, the last
+      entry overwrites the previous ones.
+      TODO: Improve handling of clashing symbol attributes.
+
+      """
+      self.index_dict[sym.index] = sym
+      if sym.text: self.text_dict[sym.text] = sym
+      if sym.raw: self.raw_dict[sym.raw] = sym
+
+    def _add_symbol(self, sym: 'Symbol') -> bool:
+      """Adds a symbol to the inventory."""
+      if not self.add_item(sym): return False
+      if (
+          sym.inventory == Symbol.Inventory.EMPTY
+          and sym not in self.CTRL
+      ):
+        sym.inventory = self
+      self._add_to_dicts(sym)
+      return True
+
+    def add_symbols(self, *symbols, list_alias: str = '') -> list['Symbol']:
+      """Adds multiple symbols to the inventory.
+
+      Args:
+        *symbols: The symbols to be added.
+        list_alias: If an alias is provided, makes a supl with the alias that
+          points to the list of succesfully added symbols.
+
+      Returns:
+        The list of symbols that are succesfully added to the inventory.
+      """
+      syms = []
+      for sym in symbols:
+        if self._add_symbol(sym): syms.append(sym)
+      if list_alias: self.make_supl(list_alias, syms)
+      return syms
+
+    def lookup(
+        self,
+        key: ...,
+        source_dict: Union[dict[Any, 'Symbol'], str],
+        default: Union['Symbol', ty.Nothing] = ty.UNSPECIFIED,
+    ) -> 'Symbol':
+      """Get symbol by key from source_dict.
+
+      Args:
+        key: A key that will be used to retrieve a symbol from source_dict.
+        source_dict: A dictionary or the alias of a dictionary in this
+          inventory.
+        default: Default return value for when the Symbol is not found. If
+          default is unspecified, the default return is Symbol.CTRL.unk
+
+      Returns:
+        Symbol
+      """
+      if isinstance(source_dict, str):
+        source_dict = ty.get_attribute(self, source_dict, {}, dict)
+      if ty.not_instance(default, Symbol): default = self.CTRL.unk
+      return log.dbg_return(ty.dict_get(source_dict, key, default))
+
+    def index_lookup(self, index: int) -> 'Symbol':
+      """Get symbol by its index field."""
+      return log.dbg_return(self.lookup(index, self.index_dict))
+
+    def raw_lookup(self, raw_text: str) -> 'Symbol':
+      """Get symbol by its raw field."""
+      return log.dbg_return(self.lookup(raw_text, self.raw_dict))
+
+    def text_lookup(self, text: str) -> 'Symbol':
+      """Get symbol by its text field."""
+      return log.dbg_return(self.lookup(text, self.text_dict))
 
 
 def _make_control_constants() -> list['Symbol']:
@@ -142,7 +259,10 @@ def _make_control_constants() -> list['Symbol']:
       )
       for alias, text, name, index in control_args
   ]
-Symbol.CONTROL_LIST = _make_control_constants()
+
+Symbol.CTRL = inventory2.Inventory.from_list(
+    _make_control_constants(), alias='CTRL'
+)
 
 
 class Expression(ty.IterableThing):
