@@ -74,5 +74,16 @@ class ExpressionTest(absltest.TestCase):
     atm_schwa.add(atm_schwa2)
     self.assertEqual(atm_schwa._items, [atm_schwa])
 
+  def test_controls(self):
+    self.assertEqual(
+        exp.Symbol.descriptions(*exp.Symbol.CONTROL_LIST),
+        'symbols:\n'
+        '  alias: eps  index: 1000000  text: ⍷  name: EPSILON\n'
+        '  alias: unk  index: 1000001  text: ⍰  name: UNKNOWN SYMBOL\n'
+        '  alias: bos  index: 1000002  text: ⍄  name: BEGINNING OF SEQUENCE\n'
+        '  alias: eos  index: 1000003  text: ⍃  name: END OF SEQUENCE\n'
+        '  alias: oos  index: 1000004  text: ⍔  name: OUT OF SEQUENCE\n'
+    )
+
 if __name__ == '__main__':
   absltest.main()

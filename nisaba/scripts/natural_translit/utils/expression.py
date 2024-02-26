@@ -13,6 +13,7 @@
 # limitations under the License.
 
 """Interfaces for generating fsts from objects."""
+import enum
 from nisaba.scripts.natural_translit.utils import feature
 from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
@@ -26,7 +27,7 @@ def _symbol_features() -> f.Inventory:
       f.Aspect(
           f.equidistant(
               'type',
-              f('abst', 'abstract'), f('raw')
+              f('abst', 'abstract'), f('ctrl', 'control'), f('raw'),
           )
       ),
   )
@@ -62,6 +63,14 @@ class Symbol(ty.Thing):
     features: Features to be added to the symbol.
       Eg. `features=SYM_FEATURES.sym_type.raw` for 'अ'
   """
+
+  SYM_FEATURES = _symbol_features()
+
+  class ReservedIndex(enum.IntEnum):
+    UNDEFINED_SUFFIX = 999_999
+    CONTROL_PREFIX = 1_000_000
+    GRAPHEME_PREFIX = 2_000_000
+    PHONEME_PREFIX = 3_000_000
 
   def __init__(
       self,
@@ -99,7 +108,41 @@ class Symbol(ty.Thing):
       )
     return text
 
-  SYM_FEATURES = _symbol_features()
+  @classmethod
+  def descriptions(
+      cls,
+      *syms: 'Symbol',
+      title: str = '',
+      show_features: bool = False,
+  ) -> str:
+    return (
+        '%s:\n  ' % (title if title else 'symbols')
+        + '\n  '.join([sym.description(show_features) for sym in syms])
+        + '\n'
+    )
+
+
+def _make_control_constants() -> list['Symbol']:
+  """Control symbol constants."""
+  # Next index = 5
+  control_args = [
+      ['eps', '⍷', 'EPSILON', 0],  # U+2377
+      ['unk', '⍰', 'UNKNOWN SYMBOL', 1],  # U+2370
+      ['bos', '⍄', 'BEGINNING OF SEQUENCE', 2],  # U+2344
+      ['eos', '⍃', 'END OF SEQUENCE', 3],  # U+2343
+      ['oos', '⍔', 'OUT OF SEQUENCE', 4],  # U+2354
+  ]
+  return [
+      Symbol(
+          alias=alias,
+          text=text,
+          name=name,
+          index=index + Symbol.ReservedIndex.CONTROL_PREFIX,
+          features=Symbol.SYM_FEATURES.type.ctrl,
+      )
+      for alias, text, name, index in control_args
+  ]
+Symbol.CONTROL_LIST = _make_control_constants()
 
 
 class Expression(ty.IterableThing):
