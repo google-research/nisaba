@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Script building modules.
-
-load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
     default_applicable_licenses = [
@@ -27,33 +24,21 @@ package(
 licenses(["notice"])
 
 py_library(
-    name = "char",
-    srcs = ["char.py"],
+    name = "latn",
+    srcs = ["latn.py"],
     deps = [
-        "//nisaba/scripts/natural_translit/utils:alignment",
-        "//nisaba/scripts/natural_translit/utils:inventory",
-        "//nisaba/scripts/natural_translit/utils:list_op",
-        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_library(
-    name = "grapheme",
-    srcs = ["grapheme.py"],
-    deps = [
-        "//nisaba/scripts/natural_translit/utils:expression",
+        "//nisaba/scripts/natural_translit/script:grapheme",
         "//nisaba/scripts/natural_translit/utils:feature",
-        requirement("pycountry"),
     ],
 )
 
 py_test(
-    name = "grapheme_test",
-    srcs = ["grapheme_test.py"],
-    main = "grapheme_test.py",
+    name = "latn_test",
+    srcs = ["latn_test.py"],
+    main = "latn_test.py",
     deps = [
-        ":grapheme",
+        ":latn",
+        "//nisaba/scripts/natural_translit/script:grapheme",
         "@io_abseil_py//absl/testing:absltest",
     ],
 )

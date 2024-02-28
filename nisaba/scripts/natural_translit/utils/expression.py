@@ -15,15 +15,15 @@
 """Interfaces for generating fsts from objects."""
 import enum
 from typing import Any, Union
-from nisaba.scripts.natural_translit.utils import feature
+from nisaba.scripts.natural_translit.utils import feature as ft
 from nisaba.scripts.natural_translit.utils import inventory2
 from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
-f = feature.Feature
 
 
-def _symbol_features() -> f.Inventory:
+def _symbol_features() -> ft.Feature.Inventory:
   """Symbol feature inventory."""
+  f = ft.Feature
   ftr = f.Inventory(
       'sym_features',
       f.Aspect(
@@ -83,14 +83,14 @@ class Symbol(ty.Thing):
       raw: str = '',
       index: ty.IntOrNothing = ty.UNSPECIFIED,
       name: str = '',
-      features: f.ITERABLE = ty.UNSPECIFIED,
+      features: ft.Feature.ITERABLE = ty.UNSPECIFIED,
   ):
     super().__init__(alias=alias)
     self.text = text if text else self.alias
     self.raw = raw
     self.index = index if ty.is_specified(index) else hash(self)
     self.name = name if name else self.alias
-    self.features = f.Set(features, alias='features')
+    self.features = ft.Feature.Set(features, alias='features')
     if self.raw:
       self.features.add(self.SYM_FEATURES.type.raw)
     else:
@@ -137,8 +137,13 @@ class Symbol(ty.Thing):
 
     """
 
-    def __init__(self, alias: str, *symbols: 'Symbol'):
-      super().__init__(alias, typed=Symbol)
+    def __init__(
+        self,
+        alias: str,
+        *symbols,
+        typed: ty.TypeOrNothing = ty.UNSPECIFIED,
+    ):
+      super().__init__(alias, typed if ty.not_nothing(typed) else Symbol)
       self.index_dict = {}
       self.raw_dict = {}
       self.text_dict = {}
@@ -192,10 +197,10 @@ class Symbol(ty.Thing):
       Args:
         *symbols: The symbols to be added.
         list_alias: If an alias is provided, makes a supl with the alias that
-          points to the list of succesfully added symbols.
+          points to the list of successfully added symbols.
 
       Returns:
-        The list of symbols that are succesfully added to the inventory.
+        The list of symbols that are successfully added to the inventory.
       """
       syms = []
       for sym in symbols:
