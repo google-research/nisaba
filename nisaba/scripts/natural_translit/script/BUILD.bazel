@@ -14,6 +14,9 @@
 
 # Script building modules.
 
+# Required for `pycountry` below.
+load("@pip_deps//:requirements.bzl", "requirement")
+
 load("@rules_python//python:py_library.bzl", "py_library")
 
 package(
