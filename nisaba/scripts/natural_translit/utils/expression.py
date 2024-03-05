@@ -100,6 +100,9 @@ class Symbol(ty.Thing):
   def __str__(self) -> str:
     return self.text
 
+  def is_control(self) -> bool:
+    return self in Symbol.CTRL
+
   def description(self, show_features: bool = False) -> str:
     """A string that describes the symbol."""
     text = 'alias: %s  index: %s' % (self.alias, self.index)
@@ -244,7 +247,7 @@ class Symbol(ty.Thing):
       return log.dbg_return(self.lookup(text, self.text_dict))
 
 
-def _make_control_constants() -> list['Symbol']:
+def _control_symbols() -> inventory2.Inventory:
   """Control symbol constants."""
   # Next index = 5
   control_args = [
@@ -254,7 +257,7 @@ def _make_control_constants() -> list['Symbol']:
       ['eos', '⍃', 'END OF SEQUENCE', 3],  # U+2343
       ['oos', '⍔', 'OUT OF SEQUENCE', 4],  # U+2354
   ]
-  return [
+  return inventory2.Inventory.from_list([
       Symbol(
           alias=alias,
           text=text,
@@ -263,11 +266,9 @@ def _make_control_constants() -> list['Symbol']:
           features=Symbol.SYM_FEATURES.type.ctrl,
       )
       for alias, text, name, index in control_args
-  ]
+  ], alias='CTRL')
 
-Symbol.CTRL = inventory2.Inventory.from_list(
-    _make_control_constants(), alias='CTRL'
-)
+Symbol.CTRL = _control_symbols()
 
 
 class Expression(ty.IterableThing):
@@ -300,6 +301,43 @@ class Atomic(Expression, Symbol):
     self._items = [self]
     self.symbol = symbol.symbol if isinstance(symbol, Atomic) else symbol
 
+  @classmethod
+  def read(cls, symbol: 'Symbol') -> 'Atomic':
+    """Reads a Symbol into an Atomic while matching corresponding constants.
+
+    Args:
+      symbol: symbol to be read.
+
+    Returns:
+      If the argument is a control Symbol or Atomic, returns the corresponding
+        Atomic constant.
+      Otherwise returns a new Atomic instance of the symbol.
+
+    """
+    if symbol in Symbol.CTRL: return Atomic.CTRL.atm_sym_dict[symbol]
+    if symbol in Atomic.CTRL and isinstance(symbol, Atomic): return symbol
+    return Atomic(symbol)
+
   def add(self, *items: ...) -> 'Atomic':
     log.dbg_message('Cannot add items to Atomic.')
     return self
+
+  def is_equal(self, other: 'Symbol') -> bool:
+    # TODO: Extend to comparison with non-atomic expressions.
+    if isinstance(other, Atomic): return other.symbol == self.symbol
+    return other == self.symbol
+
+  def is_control(self) -> bool:
+    return self in Atomic.CTRL or self.symbol in Symbol.CTRL
+
+
+def _control_atomics() -> inventory2.Inventory:
+  """Control atomic constants."""
+  atm_sym_dict = {ctrl: Atomic(ctrl) for ctrl in Symbol.CTRL}
+  atomics = inventory2.Inventory.from_list(
+      list(atm_sym_dict.values()), alias='CTRL'
+  )
+  atomics.make_supl('atm_sym_dict', atm_sym_dict)
+  return atomics
+
+Atomic.CTRL = _control_atomics()

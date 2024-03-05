@@ -59,6 +59,18 @@ class ExpressionTest(absltest.TestCase):
         '    features: {raw}',
     )
 
+  def test_symbol_atomic(self):
+    self.assertIs(exp.Atomic.read(_SYM.schwa).symbol, _SYM.schwa)
+    self.assertIs(exp.Atomic.read(exp.Symbol.CTRL.eps), exp.Atomic.CTRL.eps)
+    self.assertIs(exp.Atomic.read(exp.Atomic.CTRL.unk), exp.Atomic.CTRL.unk)
+
+  def test_control(self):
+    self.assertTrue(exp.Symbol.CTRL.eps.is_control())
+    self.assertTrue(exp.Atomic.CTRL.unk.is_control())
+
+  def test_symbol_equal(self):
+    self.assertTrue(exp.Atomic.CTRL.eps.is_equal(exp.Symbol.CTRL.eps))
+
   def test_symbol_inventory_assignment(self):
     self.assertTrue(_SYM.a_ind.inventory, _SYM)
     self.assertEqual(_SYM.CTRL.unk.inventory, exp.Symbol.Inventory.EMPTY)
@@ -91,7 +103,7 @@ class ExpressionTest(absltest.TestCase):
     )
 
   def test_atomic_from_atomic(self):
-    atm_schwa2 = exp.Atomic(_SYM.atm.schwa)
+    atm_schwa2 = exp.Atomic.read(_SYM.atm.schwa)
     self.assertEqual(str(atm_schwa2), str(_SYM.schwa))
     self.assertEmpty(atm_schwa2.raw)
     self.assertIn(atm_schwa2, atm_schwa2)
