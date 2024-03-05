@@ -16,13 +16,8 @@
 
 load("@pip_deps//:requirements.bzl", "requirement")
 
-package(
-    default_applicable_licenses = [
-    ],
-    default_visibility = [
-        "//nlp/sweet/translit:__subpackages__",
-    ],
-)
+package(default_applicable_licenses = [
+])
 
 cc_binary(
     name = "calculate_error_rate",
