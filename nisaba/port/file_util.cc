@@ -83,7 +83,7 @@ std::string JoinPath(absl::string_view dirname, absl::string_view basename) {
 std::string TempFilePath(absl::string_view filename) {
   const std::filesystem::path tmp_dir =
       std::filesystem::temp_directory_path();
-  std::filesystem::path file_path = tmp_dir / filename;
+  std::filesystem::path file_path = tmp_dir / std::string(filename);
   return file_path.string();
 }
 
