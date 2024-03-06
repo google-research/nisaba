@@ -41,10 +41,22 @@ def _sym_inventory() -> exp.Symbol.Inventory:
 _SYM = _sym_inventory()
 
 
+def _basic_atm(char):
+  return exp.Atomic(exp.Symbol(alias=char, text=char, raw=char))
+
+_ATM = exp.Symbol.Inventory(
+    'atomic_test',
+    _basic_atm('a'), _basic_atm('b'), _basic_atm('c'),
+)
+
+
 class ExpressionTest(absltest.TestCase):
 
+  def assertStrEqual(self, obj1: ..., obj2: ...):
+    return self.assertEqual(str(obj1), str(obj2))
+
   def test_symbol_abstract(self):
-    self.assertEqual(str(_SYM.schwa), '🜔')
+    self.assertStrEqual(_SYM.schwa, '🜔')
     self.assertEmpty(_SYM.schwa.raw)
     self.assertEqual(
         _SYM.schwa.description(show_features=True),
@@ -90,7 +102,7 @@ class ExpressionTest(absltest.TestCase):
     self.assertEqual(_SYM.lookup(_SYM.atm.schwa, 'atm_sym'), _SYM.schwa)
 
   def test_atomic_from_symbol(self):
-    self.assertEqual(str(_SYM.atm.schwa), str(_SYM.schwa))
+    self.assertStrEqual(_SYM.atm.schwa, _SYM.schwa)
     self.assertEmpty(_SYM.atm.schwa.raw)
     self.assertIn(_SYM.atm.schwa, _SYM.atm.schwa)
     self.assertIs(_SYM.atm.schwa.symbol, _SYM.schwa)
@@ -104,7 +116,7 @@ class ExpressionTest(absltest.TestCase):
 
   def test_atomic_from_atomic(self):
     atm_schwa2 = exp.Atomic.read(_SYM.atm.schwa)
-    self.assertEqual(str(atm_schwa2), str(_SYM.schwa))
+    self.assertStrEqual(atm_schwa2, _SYM.schwa)
     self.assertEmpty(atm_schwa2.raw)
     self.assertIn(atm_schwa2, atm_schwa2)
     self.assertNotIn(_SYM.atm.schwa, atm_schwa2)
@@ -129,8 +141,8 @@ class ExpressionTest(absltest.TestCase):
     )
 
   def test_symbol_inventory_str(self):
-    self.assertEqual(
-        str(_SYM),
+    self.assertStrEqual(
+        _SYM,
         'test inventory:\n\n'
         '  alias: schwa  index: 2000001  text: 🜔  name: SCHWA\n\n'
         '  alias: a_ind  index: 2000002  raw: अ  text: अ  name: A LETTER\n\n'
@@ -155,6 +167,36 @@ class ExpressionTest(absltest.TestCase):
         '  alias: a_ind  index: 2000002  raw: अ  text: अ  name: A LETTER\n'
         '    features: {raw}\n\n'
     )
+
+  def test_cat_empty(self):
+    empty_cat = exp.Cat()
+    self.assertEmpty(empty_cat)
+    self.assertStrEqual(empty_cat, '⍷')
+
+  def test_cat_control(self):
+    eps_cat = exp.Cat(exp.Atomic.CTRL.eps)
+    self.assertEmpty(eps_cat)
+    self.assertStrEqual(eps_cat, '⍷')
+
+  def test_cat_items(self):
+    cat = exp.Cat(_ATM.a, _ATM.b, _ATM.a)
+    self.assertLen(cat, 3)
+    self.assertStrEqual(cat, '(a b a)')
+    self.assertIsNot(cat.item(0), cat.item(2))
+    self.assertTrue(cat.item(0).is_equal(cat.item(2)))
+
+  def test_cat_nested(self):
+    cat1 = exp.Cat(_ATM.a, _ATM.b)
+    cat2 = exp.Cat(cat1, _ATM.c)
+    self.assertLen(cat2, 3)
+    self.assertStrEqual(cat2, '(a b c)')
+
+  def test_repeat(self):
+    self.assertEmpty(_ATM.a.repeat(0))
+    self.assertStrEqual(_ATM.a.repeat(), '(a a)')
+    self.assertStrEqual(_ATM.a.repeat(3), '(a a a)')
+    self.assertStrEqual(exp.Cat(_ATM.a, _ATM.b).repeat(), '(a b a b)')
+
 
 if __name__ == '__main__':
   absltest.main()

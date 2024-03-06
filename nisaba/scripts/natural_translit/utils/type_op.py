@@ -254,7 +254,7 @@ class IterableThing(Thing):
     return self
 
   def item(self, index: int, default: ... = MISSING) -> ...:
-    if index in range(-len(self), len(self)-1): return self._items[index]
+    if index in range(-len(self), len(self)): return self._items[index]
     return default
 
 

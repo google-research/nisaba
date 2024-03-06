@@ -282,6 +282,16 @@ class Expression(ty.IterableThing):
   def __str__(self) -> str:
     return self.text
 
+  def _str_items_list(self) -> list[str]:
+    return [str(item) for item in self]
+
+  def _str_enclosed(self, separator: str = ' ') -> str:
+    return '(%s)' % separator.join(self._str_items_list())
+
+  def repeat(self, n: int = 2) -> 'Cat':
+    """Returns a Cat of n repetitions of this expression."""
+    return Cat(*([self] * n))
+
 
 class Atomic(Expression, Symbol):
   """An instance of a single symbol."""
@@ -341,3 +351,35 @@ def _control_atomics() -> inventory2.Inventory:
   return atomics
 
 Atomic.CTRL = _control_atomics()
+
+
+class Cat(Expression):
+  """Concatenation of expressions."""
+
+  def __init__(self, *items: Expression, alias: str = ''):
+    super().__init__(alias)
+    self.add(*items)
+
+  def __str__(self):
+    if not self: return str(Symbol.CTRL.eps)
+    return self._str_enclosed()
+
+  def add(self, *items: Union['Expression', Symbol]) -> 'Cat':
+    """Add items to the Cat.
+
+    Args:
+      *items: Items to be concatenated.
+
+    Returns:
+      Cat
+
+    By item type:
+      Atomic: Skips controls, adds a new instance of other Atomics.
+      Cat: Adds items of the Cat.
+    """
+    for item in items:
+      if isinstance(item, Cat):
+        self.add(*item)
+      elif isinstance(item, Symbol) and not item.is_control():
+        self._items.append(Atomic.read(item))
+    return self

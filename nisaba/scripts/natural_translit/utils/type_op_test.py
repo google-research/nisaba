@@ -349,6 +349,7 @@ class TypeOpTest(absltest.TestCase):
   def test_iterable_thing_item(self):
     iterable = t.IterableThing(0, 1, 2, 3)
     self.assertEqual(iterable.item(0), 0)
+    self.assertEqual(iterable.item(3), 3)
     self.assertEqual(iterable.item(5), t.MISSING)
     self.assertEqual(iterable.item(-4), 0)
     self.assertIsNone(iterable.item(-5, None))
