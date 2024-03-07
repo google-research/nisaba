@@ -197,6 +197,17 @@ class ExpressionTest(absltest.TestCase):
     self.assertStrEqual(_ATM.a.repeat(3), '(a a a)')
     self.assertStrEqual(exp.Cat(_ATM.a, _ATM.b).repeat(), '(a b a b)')
 
+  def test_copy(self):
+    exp1 = exp.Expression('new_exp')
+    exp1_copy = exp1.copy()
+    cat1 = exp.Cat(_ATM.a, _ATM.b)
+    cat1_copy = cat1.copy()
+    self.assertIsNot(exp1, exp1_copy)
+    self.assertIs(exp.Atomic.CTRL.eps.copy(), exp.Atomic.CTRL.eps)
+    self.assertIsNot(_ATM.a.copy(), _ATM.a)
+    self.assertTrue(_ATM.a.copy().is_equal(_ATM.a))
+    self.assertIsNot(cat1.item(0), cat1_copy.item(0))
+    self.assertTrue(cat1.item(0).is_equal(cat1_copy.item(0)))
 
 if __name__ == '__main__':
   absltest.main()

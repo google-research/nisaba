@@ -282,11 +282,52 @@ class Expression(ty.IterableThing):
   def __str__(self) -> str:
     return self.text
 
-  def _str_items_list(self) -> list[str]:
-    return [str(item) for item in self]
+  def _str_items_list(self, *items: ...) -> list[str]:
+    if not items: items = self
+    return [str(item) for item in items]
 
-  def _str_enclosed(self, separator: str = ' ') -> str:
-    return '(%s)' % separator.join(self._str_items_list())
+  def _str_enclosed(
+      self,
+      str_list: ty.ListOrNothing = ty.UNSPECIFIED,
+      separator: str = ' ',
+      left: str = '(',
+      right: str = ')',
+  ) -> str:
+    if ty.is_nothing(str_list): str_list = self._str_items_list()
+    return '%s%s%s' % (left, separator.join(str_list), right)
+
+  def _add_item(self, item: 'Expression') -> None:
+    """Adds an item to the Expression.
+
+    Args:
+      item: Items to be added.
+
+    Returns:
+      Expression
+
+    By argument type:
+      Atomic: Skips controls, adds a copy of other Atomics.
+      Other Expression:
+        Same type as this Expression: Adds the items of the argument.
+        Other Expression: Adds a copy of the argument.
+    """
+    if isinstance(item, type(self)):
+      self.add(*item)
+    elif isinstance(item, Symbol) and item.is_control():
+      log.dbg_message('Skipping control symbol %s.' % str(item.symbol))
+    else:
+      self._items.append(item.copy())
+
+  def add(self, *items: ...) -> 'Expression':
+    """Default method for type consistency and debugging."""
+    log.dbg_message('Cannot add items to %s.' % log.class_and_alias(self))
+    return self
+
+  def item_list(self) -> list['Expression']:
+    return [item for item in self]
+
+  def copy(self) -> 'Expression':
+    return Expression(self.alias)
 
   def repeat(self, n: int = 2) -> 'Cat':
     """Returns a Cat of n repetitions of this expression."""
@@ -328,9 +369,8 @@ class Atomic(Expression, Symbol):
     if symbol in Atomic.CTRL and isinstance(symbol, Atomic): return symbol
     return Atomic(symbol)
 
-  def add(self, *items: ...) -> 'Atomic':
-    log.dbg_message('Cannot add items to Atomic.')
-    return self
+  def copy(self) -> 'Atomic':
+    return Atomic.read(self)
 
   def is_equal(self, other: 'Symbol') -> bool:
     # TODO: Extend to comparison with non-atomic expressions.
@@ -365,21 +405,9 @@ class Cat(Expression):
     return self._str_enclosed()
 
   def add(self, *items: Union['Expression', Symbol]) -> 'Cat':
-    """Add items to the Cat.
-
-    Args:
-      *items: Items to be concatenated.
-
-    Returns:
-      Cat
-
-    By item type:
-      Atomic: Skips controls, adds a new instance of other Atomics.
-      Cat: Adds items of the Cat.
-    """
     for item in items:
-      if isinstance(item, Cat):
-        self.add(*item)
-      elif isinstance(item, Symbol) and not item.is_control():
-        self._items.append(Atomic.read(item))
+      self._add_item(item)
     return self
+
+  def copy(self) -> 'Cat':
+    return Cat(*self.item_list(), alias=self.alias)
