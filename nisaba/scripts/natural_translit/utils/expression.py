@@ -256,6 +256,7 @@ def _control_symbols() -> inventory2.Inventory:
       ['bos', '⍄', 'BEGINNING OF SEQUENCE', 2],  # U+2344
       ['eos', '⍃', 'END OF SEQUENCE', 3],  # U+2343
       ['oos', '⍔', 'OUT OF SEQUENCE', 4],  # U+2354
+      ['nor', '⍜', 'NO ALTERNATIVE', 5]  # U+235C
   ]
   return inventory2.Inventory.from_list([
       Symbol(
@@ -311,12 +312,18 @@ class Expression(ty.IterableThing):
       Atomic: Skips controls, adds a copy of other Atomics.
       Other Expression:
         Same type as this Expression: Adds the items of the argument.
-        Other Expression: Adds a copy of the argument.
+        Other Expression: If the argument has a single item, adds the item
+          of the argument. Otherwise adds a copy of the argument.
     """
     if isinstance(item, type(self)):
       self.add(*item)
-    elif isinstance(item, Symbol) and item.is_control():
-      log.dbg_message('Skipping control symbol %s.' % str(item.symbol))
+    elif isinstance(item, Symbol):
+      if item.is_control():
+        log.dbg_message('Skipping control symbol %s.' % str(item.symbol))
+      else:
+        self._items.append(item.copy())
+    elif len(item) == 1:
+      self.add(item.item(0))
     else:
       self._items.append(item.copy())
 
@@ -342,6 +349,9 @@ class Expression(ty.IterableThing):
     for sym_list in self.symbols():
       text += '  [%s]\n' % ', '.join([str(sym) for sym in sym_list])
     return text + ']\n'
+
+  def state_count(self) -> int:
+    return sum([item.state_count() for item in self])
 
   def accepts(self, other: 'Expression.OR_SYMBOL') -> bool:
     """Checks if this expression accepts all symbol lists of the argument.
@@ -414,6 +424,9 @@ class Atomic(Expression, Symbol):
   def symbols(self) -> list[list[Symbol]]:
     return [[self.symbol]]
 
+  def state_count(self) -> int:
+    return 1
+
   def copy(self) -> 'Atomic':
     return Atomic.read(self)
 
@@ -444,18 +457,104 @@ class Cat(Expression):
     if not self: return str(Symbol.CTRL.eps)
     return self._str_enclosed()
 
-  def add(self, *items: Union['Expression', Symbol]) -> 'Cat':
+  def add(self, *items: Expression) -> 'Cat':
     for item in items:
       self._add_item(item)
     return self
 
   def symbols(self) -> list[list[Symbol]]:
-    symbols = []
+    """Returns the symbol lists for Cat.
+
+    Empty Cat returns the symbol list of CTRL.eps constant, therefore different
+    instances of empty Cat are equivalent to both each other and the Atomic
+    constant.
+    """
+    if not self:
+      return Atomic.CTRL.eps.symbols()
+    self_symbols = [[]]
     for item in self:
-      item_syms = item.symbols()
-      for sym in item_syms:
-        symbols.extend(sym)
-    return [symbols]
+      item_symbols = item.symbols()
+      for _ in range(len(self_symbols)):
+        syms = self_symbols.pop(0)
+        self_symbols += [syms.copy() + item_list for item_list in item_symbols]
+    return self_symbols
 
   def copy(self) -> 'Cat':
     return Cat(*self.item_list(), alias=self.alias)
+
+
+class Or(Expression):
+  """Alternation for expressions."""
+
+  def __init__(self, *items: Expression, alias: str = ''):
+    super().__init__(alias)
+    self.add(*items)
+
+  def __str__(self):
+    if not self: return str(Symbol.CTRL.nor)
+    separator = ' | '
+    if len(self) == 1:
+      return self._str_enclosed(
+          self._str_items_list(self.item(0), Symbol.CTRL.nor), separator
+      )
+    return self._str_enclosed(separator=separator)
+
+  def _update(self, *items: Expression) -> None:
+    self._items = []
+    self.add(*items)
+
+  def add(self, *items: Expression) -> 'Or':
+    """Adds items to Or.
+
+    Or shouldn't have recurring symbol lists.
+    If an argument is equivalent to this Or and has fewer states, or if the
+      argument accepts this Or as well as more symbol lists, existing items are
+      reset and the argument is added as an item.
+    If an argument is equivalent to this Or but has an equal number of states or
+      more, or it's accepted by this Or with fewer symbol lists, it's skipped.
+    Otherwise, the argument is added as an item.
+    TODO: Minimize the number of states during add. For example,
+    ```
+    exp.Or(
+        exp.Cat(_ATM.a, _ATM.b, _ATM.c), exp.Cat(_ATM.a, _ATM.b, _ATM.d)
+    ),
+    ```
+    should return ((a b (c | d)) | ⍜) instead of ((a b c) | (a b d))
+
+    Args:
+      *items: Items to be added.
+
+    Returns:
+      self
+    """
+    for item in items:
+      if self.accepts(item):
+        if item.accepts(self) and item.state_count() < self.state_count():
+          self._update(item)
+        else:
+          continue
+      elif item.accepts(self):
+        self._update(item)
+      else:
+        self._add_item(item)
+    return self
+
+  def copy(self) -> 'Or':
+    return Or(*self.item_list(), alias=self.alias)
+
+  def symbols(self) -> list[list[Symbol]]:
+    """Returns the symbol lists for Or.
+
+    In order to avoid accidental context matches, empty Or returns a new
+    instance of CTRL.nor instead of the constant.
+
+    For example, given a rule that requires the preceding context to be a close
+    vowel and an inventory with `close_vowel = Or(*close_vowel_list)` where
+    `close_vowel_list` is empty, the rule should never apply even if the
+    preceding context is the same empty Or.
+    """
+    if not self: return [[Atomic(Symbol.CTRL.nor)]]
+    symbols = []
+    for item in self:
+      symbols.extend(item.symbols())
+    return symbols

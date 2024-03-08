@@ -46,7 +46,7 @@ def _basic_atm(char):
 
 _ATM = exp.Symbol.Inventory(
     'atomic_test',
-    _basic_atm('a'), _basic_atm('b'), _basic_atm('c'),
+    _basic_atm('a'), _basic_atm('b'), _basic_atm('c'), _basic_atm('d'),
 )
 
 
@@ -69,6 +69,11 @@ class ExpressionTest(absltest.TestCase):
       self, expression: exp.Expression, other: exp.Expression.OR_SYMBOL
   ):
     return self.assertTrue(expression.is_equivalent(other))
+
+  def assertNotEquivalent(
+      self, expression: exp.Expression, other: exp.Expression.OR_SYMBOL
+  ):
+    return self.assertFalse(expression.is_equivalent(other))
 
   def test_symbol_abstract(self):
     self.assertStrEqual(_SYM.schwa, '🜔')
@@ -149,7 +154,8 @@ class ExpressionTest(absltest.TestCase):
         '  alias: unk  index: 1000001  text: ⍰  name: UNKNOWN SYMBOL\n'
         '  alias: bos  index: 1000002  text: ⍄  name: BEGINNING OF SEQUENCE\n'
         '  alias: eos  index: 1000003  text: ⍃  name: END OF SEQUENCE\n'
-        '  alias: oos  index: 1000004  text: ⍔  name: OUT OF SEQUENCE\n',
+        '  alias: oos  index: 1000004  text: ⍔  name: OUT OF SEQUENCE\n'
+        '  alias: nor  index: 1000005  text: ⍜  name: NO ALTERNATIVE\n'
     )
 
   def test_symbol_inventory_str(self):
@@ -173,6 +179,8 @@ class ExpressionTest(absltest.TestCase):
         '  alias: eos  index: 1000003  text: ⍃  name: END OF SEQUENCE\n'
         '    features: {abstract, control}\n\n'
         '  alias: oos  index: 1000004  text: ⍔  name: OUT OF SEQUENCE\n'
+        '    features: {abstract, control}\n\n'
+        '  alias: nor  index: 1000005  text: ⍜  name: NO ALTERNATIVE\n'
         '    features: {abstract, control}\n\n'
         '  alias: schwa  index: 2000001  text: 🜔  name: SCHWA\n'
         '    features: {abstract}\n\n'
@@ -200,14 +208,52 @@ class ExpressionTest(absltest.TestCase):
   def test_cat_nested(self):
     cat1 = exp.Cat(_ATM.a, _ATM.b)
     cat2 = exp.Cat(cat1, _ATM.c)
+    or1 = exp.Or(_ATM.a)
+    or2 = exp.Or(_ATM.b, _ATM.c)
+    cat3 = exp.Cat(or1, or2)
     self.assertLen(cat2, 3)
     self.assertStrEqual(cat2, '(a b c)')
+    self.assertStrEqual(exp.Cat(exp.Or()), '(⍜)')
+    self.assertStrEqual(cat3, '(a (b | c))')
 
   def test_repeat(self):
     self.assertEmpty(_ATM.a.repeat(0))
     self.assertStrEqual(_ATM.a.repeat(), '(a a)')
     self.assertStrEqual(_ATM.a.repeat(3), '(a a a)')
     self.assertStrEqual(exp.Cat(_ATM.a, _ATM.b).repeat(), '(a b a b)')
+
+  def test_or_no_alternative(self):
+    or_eps = exp.Or(exp.Atomic.CTRL.eps)
+    or0 = exp.Or()
+    or1 = exp.Or(_ATM.a)
+    self.assertEmpty(or_eps)
+    self.assertEmpty(or0)
+    self.assertLen(or1, 1)
+    self.assertStrEqual(or_eps, '⍜')
+    self.assertStrEqual(or0, '⍜')
+    self.assertStrEqual(or1, '(a | ⍜)')
+
+  def test_or_items(self):
+    or1 = exp.Or(_ATM.a)
+    or2 = exp.Or(_ATM.b, _ATM.c)
+    or3 = exp.Or(or1, or2)
+    or4 = exp.Or(_ATM.a, _ATM.b, _ATM.a)
+    self.assertStrEqual(or2, '(b | c)')
+    self.assertStrEqual(or3, '(a | b | c)')
+    self.assertStrEqual(or4, '(a | b)')
+    self.assertLen(or4, 2)
+
+  def test_or_nested(self):
+    cat1 = exp.Cat(_ATM.a)
+    cat2 = exp.Cat(_ATM.b, _ATM.c)
+    cat3 = exp.Cat(_ATM.a, exp.Or(_ATM.b, _ATM.c))
+    or4 = exp.Or(cat1, cat2)
+    or5 = exp.Or(cat3).add(exp.Cat(_ATM.a, _ATM.b))
+    or6 = exp.Or(cat3).add(exp.Cat(_ATM.a, exp.Or(_ATM.b, _ATM.c, _ATM.d)))
+    self.assertStrEqual(exp.Or(exp.Cat()), '(⍷ | ⍜)')
+    self.assertStrEqual(or4, '(a | (b c))')
+    self.assertStrEqual(or5, '((a (b | c)) | ⍜)')
+    self.assertStrEqual(or6, '((a (b | c | d)) | ⍜)')
 
   def test_copy(self):
     exp1 = exp.Expression('new_exp')
@@ -222,7 +268,8 @@ class ExpressionTest(absltest.TestCase):
     self.assertEquivalent(cat1, cat1_copy)
 
   def test_symbols(self):
-    cat = exp.Cat(_ATM.a, _ATM.b, _ATM.c)
+    cat = exp.Cat(_ATM.a, _ATM.b, exp.Or(_ATM.c, _ATM.d))
+    or1 = exp.Or(_ATM.a, _ATM.b, exp.Cat(_ATM.c, _ATM.d))
     self.assertEqual(
         exp.Expression().symbols_str(),
         '[\n'
@@ -244,20 +291,46 @@ class ExpressionTest(absltest.TestCase):
         cat.symbols_str(),
         '[\n'
         '  [a, b, c]\n'
+        '  [a, b, d]\n'
+        ']\n'
+    )
+    self.assertEqual(
+        or1.symbols_str(),
+        '[\n'
+        '  [a]\n'
+        '  [b]\n'
+        '  [c, d]\n'
         ']\n'
     )
 
-  def test_accepts(self):
-    cat1 = exp.Cat(_ATM.a)
-    cat2 = exp.Cat(_ATM.a, _ATM.b)
-    self.assertAccepts(exp.Atomic.CTRL.eps, exp.Symbol.CTRL.eps)
-    self.assertAccepts(cat1, _ATM.a)
-    self.assertAccepts(_ATM.a, cat1)
-    self.assertNotAccepts(cat2, _ATM.a)
+  def test_state_count(self):
+    or1 = exp.Or(
+        exp.Cat(_ATM.a, _ATM.b, _ATM.c), exp.Cat(_ATM.a, _ATM.b, _ATM.d)
+    )
+    or1_copy = or1.copy()
+    cat = exp.Cat(_ATM.a, _ATM.b, exp.Or(_ATM.c, _ATM.d))
+    self.assertEqual(exp.Atomic.CTRL.eps.state_count(), 1)
+    self.assertEqual(_ATM.a.state_count(), 1)
+    self.assertEqual(exp.Cat().state_count(), 0)
+    self.assertEqual(cat.state_count(), 4)
+    self.assertEqual(exp.Or().state_count(), 0)
+    self.assertEqual(or1.state_count(), 6)
+    self.assertEqual(or1_copy.add(cat).state_count(), 4)
 
   def test_equivalent(self):
+    or0 = exp.Or()
     self.assertEquivalent(exp.Atomic.CTRL.eps, exp.Symbol.CTRL.eps)
+    self.assertEquivalent(exp.Cat(), exp.Atomic.CTRL.eps)
+    self.assertEquivalent(exp.Cat(), exp.Cat())
+    self.assertNotEquivalent(or0, exp.Atomic.CTRL.nor)
+    self.assertNotEquivalent(or0, or0)
     self.assertEquivalent(exp.Cat(_ATM.a), _ATM.a)
+    self.assertEquivalent(
+        exp.Cat(_ATM.a, _ATM.b, exp.Or(_ATM.c, _ATM.d)),
+        exp.Or(
+            exp.Cat(_ATM.a, _ATM.b, _ATM.c), exp.Cat(_ATM.a, _ATM.b, _ATM.d)
+        ),
+    )
 
 if __name__ == '__main__':
   absltest.main()
