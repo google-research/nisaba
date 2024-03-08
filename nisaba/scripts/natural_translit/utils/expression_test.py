@@ -55,6 +55,21 @@ class ExpressionTest(absltest.TestCase):
   def assertStrEqual(self, obj1: ..., obj2: ...):
     return self.assertEqual(str(obj1), str(obj2))
 
+  def assertAccepts(
+      self, expression: exp.Expression, other: exp.Expression.OR_SYMBOL
+  ):
+    return self.assertTrue(expression.accepts(other))
+
+  def assertNotAccepts(
+      self, expression: exp.Expression, other: exp.Expression.OR_SYMBOL
+  ):
+    return self.assertFalse(expression.accepts(other))
+
+  def assertEquivalent(
+      self, expression: exp.Expression, other: exp.Expression.OR_SYMBOL
+  ):
+    return self.assertTrue(expression.is_equivalent(other))
+
   def test_symbol_abstract(self):
     self.assertStrEqual(_SYM.schwa, '🜔')
     self.assertEmpty(_SYM.schwa.raw)
@@ -79,9 +94,6 @@ class ExpressionTest(absltest.TestCase):
   def test_control(self):
     self.assertTrue(exp.Symbol.CTRL.eps.is_control())
     self.assertTrue(exp.Atomic.CTRL.unk.is_control())
-
-  def test_symbol_equal(self):
-    self.assertTrue(exp.Atomic.CTRL.eps.is_equal(exp.Symbol.CTRL.eps))
 
   def test_symbol_inventory_assignment(self):
     self.assertTrue(_SYM.a_ind.inventory, _SYM)
@@ -183,7 +195,7 @@ class ExpressionTest(absltest.TestCase):
     self.assertLen(cat, 3)
     self.assertStrEqual(cat, '(a b a)')
     self.assertIsNot(cat.item(0), cat.item(2))
-    self.assertTrue(cat.item(0).is_equal(cat.item(2)))
+    self.assertEquivalent(cat.item(0), (cat.item(2)))
 
   def test_cat_nested(self):
     cat1 = exp.Cat(_ATM.a, _ATM.b)
@@ -205,9 +217,47 @@ class ExpressionTest(absltest.TestCase):
     self.assertIsNot(exp1, exp1_copy)
     self.assertIs(exp.Atomic.CTRL.eps.copy(), exp.Atomic.CTRL.eps)
     self.assertIsNot(_ATM.a.copy(), _ATM.a)
-    self.assertTrue(_ATM.a.copy().is_equal(_ATM.a))
+    self.assertEquivalent(_ATM.a.copy(), _ATM.a)
     self.assertIsNot(cat1.item(0), cat1_copy.item(0))
-    self.assertTrue(cat1.item(0).is_equal(cat1_copy.item(0)))
+    self.assertEquivalent(cat1, cat1_copy)
+
+  def test_symbols(self):
+    cat = exp.Cat(_ATM.a, _ATM.b, _ATM.c)
+    self.assertEqual(
+        exp.Expression().symbols_str(),
+        '[\n'
+        ']\n'
+    )
+    self.assertEqual(
+        exp.Atomic.CTRL.eps.symbols_str(),
+        '[\n'
+        '  [⍷]\n'
+        ']\n'
+    )
+    self.assertEqual(
+        _ATM.a.symbols_str(),
+        '[\n'
+        '  [a]\n'
+        ']\n'
+    )
+    self.assertEqual(
+        cat.symbols_str(),
+        '[\n'
+        '  [a, b, c]\n'
+        ']\n'
+    )
+
+  def test_accepts(self):
+    cat1 = exp.Cat(_ATM.a)
+    cat2 = exp.Cat(_ATM.a, _ATM.b)
+    self.assertAccepts(exp.Atomic.CTRL.eps, exp.Symbol.CTRL.eps)
+    self.assertAccepts(cat1, _ATM.a)
+    self.assertAccepts(_ATM.a, cat1)
+    self.assertNotAccepts(cat2, _ATM.a)
+
+  def test_equivalent(self):
+    self.assertEquivalent(exp.Atomic.CTRL.eps, exp.Symbol.CTRL.eps)
+    self.assertEquivalent(exp.Cat(_ATM.a), _ATM.a)
 
 if __name__ == '__main__':
   absltest.main()

@@ -274,6 +274,8 @@ Symbol.CTRL = _control_symbols()
 class Expression(ty.IterableThing):
   """Parent class for Expressions."""
 
+  OR_SYMBOL = Union['Expression', Symbol]
+
   def __init__(self, alias: str = ''):
     super().__init__(alias=alias)
     self._item_type = Expression
@@ -326,6 +328,46 @@ class Expression(ty.IterableThing):
   def item_list(self) -> list['Expression']:
     return [item for item in self]
 
+  def symbols(self) -> list[list[Symbol]]:
+    """Default class method for type compatibilty.
+
+    Returns:
+      Lists all possible symbol sequences accepted by this expression as flat
+      lists of symbols.
+    """
+    return []
+
+  def symbols_str(self) -> str:
+    text = '[\n'
+    for sym_list in self.symbols():
+      text += '  [%s]\n' % ', '.join([str(sym) for sym in sym_list])
+    return text + ']\n'
+
+  def accepts(self, other: 'Expression.OR_SYMBOL') -> bool:
+    """Checks if this expression accepts all symbol lists of the argument.
+
+    Args:
+      other: A symbol or expression.
+
+    Returns:
+      bool
+
+    """
+    self_symbols = self.symbols()
+    if isinstance(other, Expression):
+      other_symbols = other.symbols()
+    else:
+      other_symbols = [[other]]
+    for sym_list in other_symbols:
+      if sym_list not in self_symbols: return False
+    return True
+
+  def is_equivalent(self, other: 'Expression.OR_SYMBOL') -> bool:
+    if isinstance(other, Expression):
+      return self.accepts(other) and other.accepts(self)
+    else:
+      return self.accepts(other) and len(self.symbols()) == 1
+
   def copy(self) -> 'Expression':
     return Expression(self.alias)
 
@@ -369,13 +411,11 @@ class Atomic(Expression, Symbol):
     if symbol in Atomic.CTRL and isinstance(symbol, Atomic): return symbol
     return Atomic(symbol)
 
+  def symbols(self) -> list[list[Symbol]]:
+    return [[self.symbol]]
+
   def copy(self) -> 'Atomic':
     return Atomic.read(self)
-
-  def is_equal(self, other: 'Symbol') -> bool:
-    # TODO: Extend to comparison with non-atomic expressions.
-    if isinstance(other, Atomic): return other.symbol == self.symbol
-    return other == self.symbol
 
   def is_control(self) -> bool:
     return self in Atomic.CTRL or self.symbol in Symbol.CTRL
@@ -408,6 +448,14 @@ class Cat(Expression):
     for item in items:
       self._add_item(item)
     return self
+
+  def symbols(self) -> list[list[Symbol]]:
+    symbols = []
+    for item in self:
+      item_syms = item.symbols()
+      for sym in item_syms:
+        symbols.extend(sym)
+    return [symbols]
 
   def copy(self) -> 'Cat':
     return Cat(*self.item_list(), alias=self.alias)
