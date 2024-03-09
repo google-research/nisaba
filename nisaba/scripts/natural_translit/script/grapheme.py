@@ -16,8 +16,8 @@
 
 import unicodedata
 import pycountry
-from nisaba.scripts.natural_translit.utils import expression as exp
 from nisaba.scripts.natural_translit.utils import feature as ft
+from nisaba.scripts.natural_translit.utils import symbol as sym
 
 
 class Script(ft.Feature):
@@ -86,7 +86,7 @@ def _grapheme_features() -> ft.Feature.Inventory:
   return ftr
 
 
-class Grapheme(exp.Symbol):
+class Grapheme(sym.Symbol):
   """Grapheme symbol."""
 
   GR_FEATURES = _grapheme_features()
@@ -132,7 +132,7 @@ class Grapheme(exp.Symbol):
         features=ft.Feature.Set(cls.SYM_FEATURES.type.raw, features),
     )
 
-  class Inventory(exp.Symbol.Inventory):
+  class Inventory(sym.Symbol.Inventory):
     """Grapheme inventory."""
 
     def __init__(self, script: ft.Feature):

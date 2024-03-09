@@ -145,6 +145,7 @@ class Thing(_ObjectWithAliasAndValue):
 
 # FstLike from pynini doesn't work in isinstance()
 FstLike = Union[str, pyn.Fst]
+FstIterable = Union[Nothing, FstLike, Iterable]
 # <class>OrNothing unions for arguments.
 DictOrNothing = Union[dict, Nothing]
 IntOrNothing = Union[int, Nothing]

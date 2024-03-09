@@ -14,21 +14,22 @@
 
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.script import grapheme as g
+from nisaba.scripts.natural_translit.utils import test_op
 
 _test = g.Grapheme.Inventory(g.Grapheme.GR_FEATURES.script.und)
 
 
-class GraphemeTest(absltest.TestCase):
+class GraphemeTest(test_op.TestCase):
 
   def test_script_iso(self):
-    self.assertEqual(
-        str(g.Grapheme.GR_FEATURES.script.latn),
+    self.AssertStrEqual(
+        g.Grapheme.GR_FEATURES.script.latn,
         'alias: latn text: Latin numeric: 215',
     )
 
   def test_script_custom(self):
-    self.assertEqual(
-        str(g.Grapheme.GR_FEATURES.script.br),
+    self.AssertStrEqual(
+        g.Grapheme.GR_FEATURES.script.br,
         'alias: br text: Brahmic Parent numeric: 801',
     )
 

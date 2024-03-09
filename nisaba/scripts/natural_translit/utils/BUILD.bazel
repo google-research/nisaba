@@ -40,8 +40,10 @@ py_test(
     srcs = ["list_op_test.py"],
     main = "list_op_test.py",
     deps = [
+        "test_op",
         ":list_op",
         "@io_abseil_py//absl/testing:absltest",
+        "@org_opengrm_pynini//pynini",
     ],
 )
 
@@ -92,8 +94,8 @@ py_test(
     main = "fst_list_test.py",
     deps = [
         ":fst_list",
+        ":test_op",
         ":type_op",
-        "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
         "@org_opengrm_pynini//pynini",
     ],
@@ -174,6 +176,7 @@ py_test(
     srcs = ["type_op_test.py"],
     main = "type_op_test.py",
     deps = [
+        ":test_op",
         ":type_op",
         "@io_abseil_py//absl/testing:absltest",
     ],
@@ -195,7 +198,30 @@ py_test(
     main = "feature_test.py",
     deps = [
         ":feature",
+        ":test_op",
         ":type_op",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "symbol",
+    srcs = ["symbol.py"],
+    deps = [
+        ":feature",
+        ":inventory2",
+        ":log_op",
+        ":type_op",
+    ],
+)
+
+py_test(
+    name = "symbol_test",
+    srcs = ["symbol_test.py"],
+    main = "symbol_test.py",
+    deps = [
+        ":symbol",
+        ":test_op",
         "@io_abseil_py//absl/testing:absltest",
     ],
 )
@@ -207,6 +233,7 @@ py_library(
         ":feature",
         ":inventory2",
         ":log_op",
+        ":symbol",
         ":type_op",
     ],
 )
@@ -217,6 +244,20 @@ py_test(
     main = "expression_test.py",
     deps = [
         ":expression",
+        ":symbol",
+        ":test_op",
         "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "test_op",
+    srcs = ["test_op.py"],
+    srcs_version = "PY3",
+    deps = [
+        ":expression",
+        ":feature",
+        ":type_op",
+        "//nisaba/scripts/utils:test_util",
     ],
 )
