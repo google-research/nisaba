@@ -104,3 +104,28 @@ rewrite {
   input: "haikku"
   output: "haiku"
 }
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "aṁgamāṇ"
+  output: "angamanu"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "aṭimattattilⸯ"
+  output: "adimathathil"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "akṣīṇaṁ"
+  output: "aksheenam"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "uṇṭrō"
+  output: "undro"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "aṭakkākkuṇṭ"
+  output: "adakkakkundu"
+}

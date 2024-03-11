@@ -66,6 +66,30 @@ AA_WI = rw.reassign_word_initial(
     ph.A + ph.DURH,
     tr.S_AA)
 
+EN_LIKE_LONG = cmp.ComposeFsts(ls.apply_foreach(rw.rewrite, [
+    [ph.I + ph.DURH, tr.E + tr.E],
+    [ph.U + ph.DURH, tr.O + tr.O],
+    ]))
+
+EE_AE = rw.reassign(gr.EE, ph.E + ph.DURH, tr.A + tr.E)
+OO_OA = rw.reassign(gr.OO, ph.O + ph.DURH, tr.O + tr.A, (ph.VU | ph.Y))
+OO_OA = cmp.ComposeFsts([
+    rw.reassign(gr.OO, ph.O + ph.DURH, tr.O + tr.A, ph.APPROXIMANT),
+    rw.reassign(gr.OO, ph.O + ph.DURH, tr.O + tr.A, following=ph.APPROXIMANT),
+])
+
+
+TI_TH = cmp.ComposeFsts([
+    rw.merge_repeated_alignment(gr.T, ph.TI, tr.T + tr.H),
+    rw.reassign(gr.T, ph.TI, tr.T + tr.H),
+    rw.reassign(gr.T, ph.DI, tr.T + tr.H),
+])
+
+TT_TR = rw.reassign(gr.RR + gr.RR, ph.T + ph.T, tr.T + tr.T + tr.R)
+
+NY_N = rw.rewrite(ph.NY, tr.N, following=ph.CONSONANT)
+NY_GN = rw.reassign(gr.NY, ph.NY, tr.G + tr.N, ph.VOWEL, ph.VOWEL)
+
 # Transliterate diphthong graphemes as diphthong instead of long vowel.
 
 DIPHTHONG_GR = cmp.ComposeFsts(ls.apply_foreach(rw.reassign, [

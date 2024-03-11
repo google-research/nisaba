@@ -107,6 +107,7 @@ SIMPLE_CODA = ls.apply_foreach(c.make_char, [
     ['avg', '’', ph.SIL],
     ['nkt', 'ˑ', ph.SIL],
     ['vis', 'ḥ', ph.H],
+    ['vis_ta', 'ḵ', ph.G],
     ['ans', 'ṁ', ph.NSL],
     ['cnd_dia', '̐', ph.SIL],
     ['upadh', 'ḫ', ph.H],
@@ -211,6 +212,7 @@ DEAD_CONSONANT = ls.apply_foreach(c.make_composite_char, [
 ])
 
 SCHWA_BEARING = SIMPLE_CONSONANT + ASPIRATED_CONSONANT
+SCHWA_BEARING_GR = c.store_gr_union('SCH_CONS', SCHWA_BEARING)
 SCHWA_BEARING_TR = c.store_tr_union('SCH_CONS', SCHWA_BEARING)
 DEAD_CONSONANT_TR = c.store_tr_union('DEAD_CONS', DEAD_CONSONANT)
 COMPOSITE_CONSONANT = ASPIRATED_CONSONANT + DEAD_CONSONANT
@@ -227,13 +229,13 @@ TWO_POINT = TWO_POINT_SIGN + INDEPENDENT_VOWEL + COMPOSITE_CONSONANT + CND + OM
 
 GR_CHAR = SINGLE_POINT + TWO_POINT + LONG_VOCALIC
 CHAR = GR_CHAR + VIRAMA
-GR_STORES = [VOWEL_S, VOWEL_I, CODA, VOCALIC]
+GR_STORES = [VOWEL_S, VOWEL_I, CODA, VOCALIC, SCHWA_BEARING_GR]
 TR_STORES = [
     VOWEL_S_TR, SCHWA_BEARING_TR, DEAD_CONSONANT_TR, ONSET_CONSONANT_TR
 ]
 
 CHAR_INVENTORY = c.char_inventory(CHAR)
-GRAPHEME_INVENTORY = c.gr_inventory(GR_CHAR, GR_STORES)
+GRAPHEME_INVENTORY = c.gr_inventory(CHAR, GR_STORES)
 TRANSLIT_INVENTORY = c.tr_inventory(CHAR, TR_STORES)
 
 DEVA = 'deva'

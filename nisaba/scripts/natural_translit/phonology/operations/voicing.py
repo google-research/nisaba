@@ -16,29 +16,29 @@
 
 import pynini as pyn
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as mul
-from nisaba.scripts.natural_translit.utils import list_op as ls
+from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 ph = mul.PHONEME_INVENTORY
 
 # Voicing
 
-VOICING_OP = ls.cross_union([
-    [ph.T_SH, ph.D_ZH],
-    [ph.K, ph.G],
-    [ph.P, ph.B],
-    [ph.T, ph.D],
-    [ph.TI, ph.DI],
-    [ph.TT, ph.DD]
-])
+K_G = [ph.K, ph.G]
+P_B = [ph.P, ph.B]
+T_D = [ph.T, ph.D]
+TI_DI = [ph.TI, ph.DI]
+TT_DD = [ph.TT, ph.DD]
+TSH_DZH = [ph.T_SH, ph.D_ZH]
+TSH_S = [ph.T_SH, ph.S]
 
 
 def voicing(
-    preceding: pyn.FstLike,
-    following: pyn.FstLike) -> pyn.Fst:
+    ops: list[list[pyn.Fst]],
+    preceding: pyn.FstLike = al.EPSILON,
+    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Voicing. See rewrite_by_operation for argument details."""
-  return rw.rewrite_op(
-      VOICING_OP,
+  return rw.rewrite_ls(
+      ops,
       preceding,
       following)
 

@@ -123,7 +123,9 @@ PH_MOD_STORE = ls.apply_foreach(p.store_ph_modified, [
     ['CONSONANT', CONSONANT, CONS_MOD],
 ])
 
+PH_ALL_STORE = p.store_ph_union('ALL', PHONEMES)
+
 PHONEME_INVENTORY = p.ph_inventory(
     PHONEMES,
-    PH_STORE + PH_MOD_STORE
+    PH_STORE + PH_MOD_STORE + [PH_ALL_STORE],
 )

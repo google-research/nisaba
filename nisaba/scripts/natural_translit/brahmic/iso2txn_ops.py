@@ -194,3 +194,8 @@ PHPH_TO_FF = rw.reassign_adjacent_alignments(
     gr.PH, ph.P + ph.ASP, ph.F,)
 
 RT_TO_R = rw.rewrite(ph.RT, ph.R)
+
+RR_TT = rw.merge_repeated_alignment(gr.RR, ph.R, ph.T + ph.T)
+NR_NDR = rw.merge(gr.NA, ph.N, gr.RR, ph.R, ph.N + ph.D + ph.R)
+WF_VIRAMA_U = rw.rewrite_word_final(
+    al.EPSILON, al.align(gr.U, ph.U), al.align(gr.SCH_CONS, ph.ALL.star))

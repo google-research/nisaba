@@ -24,7 +24,7 @@ from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import txn2ipa
 from nisaba.scripts.natural_translit.phonology.operations import voicing
-from nisaba.scripts.natural_translit.utils import concat as cc
+from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import list_op as ls
 
 ph = psa.PHONEME_INVENTORY
@@ -35,30 +35,44 @@ _VOICING_OP = [
     voicing.T_D,
     voicing.TI_DI,
     voicing.TT_DD,
-    voicing.TSH_DZH,
+    voicing.TSH_S,
 ]
-_VOICING_CONTEXT = ls.union_opt(ph.VOWEL, ph.APPROXIMANT, ph.NASAL)
+_VOICING_CONTEXT = ls.union_opt(ph.VOWEL, ph.APPROXIMANT, ph.NASAL, ph.RHOTIC)
 _VOICING = voicing.voicing(
     _VOICING_OP,
     _VOICING_CONTEXT,
-    cc.concat_r(ph.ASP.ques, _VOICING_CONTEXT)
+    _VOICING_CONTEXT,
 )
-_POSTNASAL_TT = voicing.voicing([voicing.TT_DD], ph.NASAL)
+_C_WI = voicing.voicing(
+    [voicing.TSH_S],
+    al.BOS,
+    _VOICING_CONTEXT,
+)
+_NY_TSH = voicing.voicing(
+    [voicing.TSH_DZH],
+    ph.NY,
+    _VOICING_CONTEXT,
+)
+
 _TXN_OPS = (
-    iso2txn_ops.WF_VIRAMA_U @
-    iso2txn_ops.VOCALIC_EC @
-    iso2txn_ops.SCHWA_A @
-    iso2txn_ops.ANUSVARA_ASSIMILATION @
-    iso2txn_ops.DEFAULT_ANUSVARA_LABIAL @
-    iso2txn_ops.RR_TT @
-    _VOICING @
-    _POSTNASAL_TT @
-    iso2txn_ops.JNY_TO_NY
+    iso2txn_ops.VOCALIC_EC
+    @ iso2txn_ops.SCHWA_A
+    @ iso2txn_ops.ANUSVARA_ASSIMILATION
+    @ iso2txn_ops.DEFAULT_ANUSVARA_LABIAL
+    @ iso2txn_ops.RR_TT
+    @ iso2txn_ops.NR_NDR
+    @ _NY_TSH
+    @ _VOICING
+    @ _C_WI
+    @ iso2txn_ops.JNY_TO_NY
 ).optimize()
 
 _NAT_OPS = (
     iso2ltn_ops.EN_LIKE_LONG
+    @ iso2ltn_ops.EE_AE
+    @ iso2ltn_ops.OO_OA
     @ iso2ltn_ops.TI_TH
+    @ iso2ltn_ops.TT_TR
     @ iso2ltn_ops.CC_TO_CCH
     @ iso2ltn_ops.CCH_TO_CHH
     @ iso2ltn_ops.S_SHSH_TO_SSH
@@ -70,34 +84,34 @@ _NAT_OPS = (
 
 def iso_to_psaf() -> pyn.Fst:
   """Pan-South Asian fine grained transliteration."""
-  return (iso2txn.iso_to_txn() @
-          _TXN_OPS @
-          iso2ltn_ops.VOCALIC_TR_I @
-          iso2ltn_ops.TXN_TO_PSAF).optimize()
+  return (
+      iso2txn.iso_to_txn()
+      @ _TXN_OPS
+      @ iso2ltn_ops.VOCALIC_TR_I
+      @ iso2ltn_ops.TXN_TO_PSAF
+  ).optimize()
 
 
 def iso_to_psac() -> pyn.Fst:
   """Pan-South Asian coarse grained transliteration."""
-  return (iso2txn.iso_to_txn() @
-          _TXN_OPS @
-          iso2ltn_ops.TXN_TO_PSAC).optimize()
+  return (iso2txn.iso_to_txn() @ _TXN_OPS @ iso2ltn_ops.TXN_TO_PSAC).optimize()
 
 
 def iso_to_nat() -> pyn.Fst:
-  """Malayalam natural transliteration."""
-  return (iso2txn.iso_to_txn() @
-          _TXN_OPS @
-          _NAT_OPS @
-          iso2ltn_ops.TXN_TO_PSA_COMMON @
-          iso2ltn_ops.TRANSLIT_BY_PSA @
-          ltn.print_only_ltn()).optimize()
+  """Tamil natural transliteration."""
+  return (
+      iso2txn.iso_to_txn()
+      @ _TXN_OPS
+      @ _NAT_OPS
+      @ iso2ltn_ops.TXN_TO_PSA_COMMON
+      @ iso2ltn_ops.TRANSLIT_BY_PSA
+      @ ltn.print_only_ltn()
+  ).optimize()
 
 
 def iso_to_ipa() -> pyn.Fst:
   """Pronunciation in IPA."""
-  return (iso2txn.iso_to_txn() @
-          _TXN_OPS @
-          txn2ipa.txn_to_ipa()).optimize()
+  return (iso2txn.iso_to_txn() @ _TXN_OPS @ txn2ipa.txn_to_ipa()).optimize()
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
