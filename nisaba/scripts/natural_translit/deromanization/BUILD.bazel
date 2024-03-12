@@ -30,79 +30,63 @@ package(
 
 licenses(["notice"])
 
-nisaba_compile_multi_grm_py(
-    name = "hi_deva",
-    outs = {
-        "byte": "hi_deva.far",
-        "utf8": "hi_deva_utf8.far",
-    },
-    visibility = ["//visibility:public"],
-    deps = [
-        "//nisaba/scripts/natural_translit/language_params:hi",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-nisaba_compile_multi_grm_py(
-    name = "hi_joint",
-    outs = {
-        "byte": "hi_joint.far",
-        "utf8": "hi_joint_utf8.far",
-    },
-    visibility = ["//visibility:public"],
-    deps = [
-        "//nisaba/scripts/natural_translit/language_params:hi",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-nisaba_compile_multi_grm_py(
-    name = "ta_taml",
-    outs = {
-        "byte": "ta_taml.far",
-        "utf8": "ta_taml_utf8.far",
-    },
-    visibility = ["//visibility:public"],
-    deps = [
-        "//nisaba/scripts/natural_translit/language_params:ta",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-nisaba_compile_multi_grm_py(
-    name = "ta_joint",
-    outs = {
-        "byte": "ta_joint.far",
-        "utf8": "ta_joint_utf8.far",
-    },
-    visibility = ["//visibility:public"],
-    deps = [
-        "//nisaba/scripts/natural_translit/language_params:ta",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
 LANGUAGES = [
     ("hi", "deva"),
     ("ta", "taml"),
 ]
 
-# Joint byte tests.
+# Compile ISO grms. Eg: //nisaba/scripts/natural_translit/deromanization:hi_iso
+
 [
-    nisaba_grm_textproto_test(
-        name = "%s_joint_test" % language,
+    nisaba_compile_multi_grm_py(
+        name = "%s_iso" % language,
+        outs = {
+            "byte": "%s_iso.far" % language,
+            "utf8": "%s_iso_utf8.far" % language,
+        },
+        visibility = ["//visibility:public"],
+        deps = [
+            "@org_opengrm_pynini//pynini",
+            "//nisaba/scripts/natural_translit/language_params:%s" % language,
+        ],
+    )
+    for language, _ in LANGUAGES
+]
+
+# Compile Brahmic grms. Eg: //nisaba/scripts/natural_translit/deromanization:hi_deva
+
+[
+    nisaba_compile_multi_grm_py(
+        name = "%s_%s" % (language, script),
+        outs = {
+            "byte": "%s_%s.far" % (language, script),
+            "utf8": "%s_%s_utf8.far" % (language, script),
+        },
+        visibility = ["//visibility:public"],
+        deps = [
+            "@org_opengrm_pynini//pynini",
+            "//nisaba/scripts/natural_translit/language_params:%s" % language,
+        ],
     )
     for language, script in LANGUAGES
 ]
 
-# Joint UTF-8 tests.
+# ISO byte tests.
 [
     nisaba_grm_textproto_test(
-        name = "%s_joint_utf8_test" % language,
-        textproto = "testdata/%s_joint.textproto" % language,
+        name = "%s_iso_test" % language,
+    )
+    for language, _ in LANGUAGES
+]
+
+# ISO UTF-8 tests.
+[
+    nisaba_grm_textproto_test(
+        name = "%s_iso_utf8_test" % language,
+        textproto = "testdata/%s_iso.textproto" % language,
         token_type = "utf8",
     )
-    for language, script in LANGUAGES
+    for language, _ in LANGUAGES
 ]
 
 # Brahmic only tests.

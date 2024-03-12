@@ -15,29 +15,14 @@
 # proto-file: nisaba/interim/testing/testdata.proto
 # proto-message: Rewrites
 rewrite {
-  rule: "DEVA"
-  input: "hindi"
-  output: "हिंदि"
-}
-rewrite {
   rule: "ISO"
   input: "hindi"
   output: "hiṁdi"
 }
 rewrite {
-  rule: "DEVA"
-  input: "thamizhi"
-  output: "थमिज़हि"
-}
-rewrite {
   rule: "ISO"
   input: "thamizhi"
   output: "tʰamizahi"
-}
-rewrite {
-  rule: "DEVA"
-  input: "gangadharan"
-  output: "गंगधरं"
 }
 rewrite {
   rule: "ISO"

@@ -28,77 +28,30 @@ package(
 
 licenses(["notice"])
 
-nisaba_compile_multi_grm_py(
-    name = "hi_iso_ipa",
-    outs = {
-        "byte": "hi_iso_ipa.far",
-        "utf8": "hi_iso_ipa_utf8.far",
-    },
-    visibility = ["//visibility:public"],
-    deps = [
-        "//nisaba/scripts/natural_translit/language_params:hi",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-nisaba_compile_multi_grm_py(
-    name = "kn_iso_ipa",
-    outs = {
-        "byte": "kn_iso_ipa.far",
-        "utf8": "kn_iso_ipa_utf8.far",
-    },
-    visibility = ["//visibility:public"],
-    deps = [
-        "//nisaba/scripts/natural_translit/language_params:kn",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-nisaba_compile_multi_grm_py(
-    name = "ml_iso_ipa",
-    outs = {
-        "byte": "ml_iso_ipa.far",
-        "utf8": "ml_iso_ipa_utf8.far",
-    },
-    visibility = ["//visibility:public"],
-    deps = [
-        "//nisaba/scripts/natural_translit/language_params:ml",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-nisaba_compile_multi_grm_py(
-    name = "ta_iso_ipa",
-    outs = {
-        "byte": "ta_iso_ipa.far",
-        "utf8": "ta_iso_ipa_utf8.far",
-    },
-    visibility = ["//visibility:public"],
-    deps = [
-        "//nisaba/scripts/natural_translit/language_params:ta",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-nisaba_compile_multi_grm_py(
-    name = "te_iso_ipa",
-    outs = {
-        "byte": "te_iso_ipa.far",
-        "utf8": "te_iso_ipa_utf8.far",
-    },
-    visibility = ["//visibility:public"],
-    deps = [
-        "//nisaba/scripts/natural_translit/language_params:te",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
 LANGUAGES = [
     "hi",
     "kn",
     "ml",
     "ta",
     "te",
+]
+
+# Compile grms. Eg: //nisaba/scripts/natural_translit/g2p:hi_iso_ipa
+
+[
+    nisaba_compile_multi_grm_py(
+        name = "%s_iso_ipa" % language,
+        outs = {
+            "byte": "%s_iso_ipa.far" % language,
+            "utf8": "%s_iso_ipa_utf8.far" % language,
+        },
+        visibility = ["//visibility:public"],
+        deps = [
+            "@org_opengrm_pynini//pynini",
+            "//nisaba/scripts/natural_translit/language_params:%s" % language,
+        ],
+    )
+    for language in LANGUAGES
 ]
 
 # Ordinary byte tests.

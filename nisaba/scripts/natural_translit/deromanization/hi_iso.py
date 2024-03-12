@@ -12,35 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# proto-file: nisaba/interim/testing/testdata.proto
-# proto-message: Rewrites
-rewrite {
-  rule: "TAML"
-  input: "thamizhi"
-  output: "தமிழி"
-}
-rewrite {
-  rule: "ISO"
-  input: "thamizhi"
-  output: "tamiḻi"
-}
-rewrite {
-  rule: "TAML"
-  input: "hindi"
-  output: "ஹிந்தி"
-}
-rewrite {
-  rule: "ISO"
-  input: "hindi"
-  output: "hinti"
-}
-rewrite {
-  rule: "TAML"
-  input: "gangadharan"
-  output: "கந்கதரந்"
-}
-rewrite {
-  rule: "ISO"
-  input: "gangadharan"
-  output: "kankataran"
-}
+"""Rule based deromanizer for hi_iso."""
+import pynini as pyn
+from pynini.export import multi_grm
+from nisaba.scripts.natural_translit.language_params import hi
+
+
+def generator_main(exporter_map: multi_grm.ExporterMapping):
+  """Generates FAR for natural transliteration."""
+  for token_type in ('byte', 'utf8'):
+    with pyn.default_token_type(token_type):
+      exporter = exporter_map[token_type]
+      exporter['ISO'] = hi.deromanize.to_iso()
+
+if __name__ == '__main__':
+  multi_grm.run(generator_main)

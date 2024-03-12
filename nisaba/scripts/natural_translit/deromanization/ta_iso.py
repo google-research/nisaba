@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Rule based deromanizer for hi_deva."""
+"""Rule based deromanizer for ta_iso."""
 import pynini as pyn
 from pynini.export import multi_grm
-from nisaba.scripts.natural_translit.language_params import hi
+from nisaba.scripts.natural_translit.language_params import ta
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
@@ -23,8 +23,7 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
   for token_type in ('byte', 'utf8'):
     with pyn.default_token_type(token_type):
       exporter = exporter_map[token_type]
-      exporter['DEVA'] = hi.deromanize.to_brahmic()
-      exporter['ISO'] = hi.deromanize.to_iso()
+      exporter['ISO'] = ta.deromanize.to_iso()
 
 if __name__ == '__main__':
   multi_grm.run(generator_main)
