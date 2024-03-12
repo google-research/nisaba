@@ -12,25 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# proto-file: nisaba/interim/testing/testdata.proto
-# proto-message: Rewrites
-rewrite {
-  rule: "ISO_TO_PSAC"
-  input: "hiṁdi"
-  output: "hindi"
-}
-rewrite {
-  rule: "ISO_TO_PSAC"
-  input: "iṁḍiyā"
-  output: "indiya"
-}
-rewrite {
-  rule: "ISO_TO_PSAC"
-  input: "jñāna"
-  output: "gnyana"
-}
-rewrite {
-  rule: "ISO_TO_PSAC"
-  input: "āḍukaṭṭā"
-  output: "adukata"
-}
+# Lint as: python3
+"""End-to-end natural transliteration for Telugu."""
+
+import pynini as pyn
+from pynini.export import multi_grm
+from nisaba.scripts.natural_translit.language_params import te
+
+
+def generator_main(exporter_map: multi_grm.ExporterMapping):
+  """Generates FAR for natural transliteration for Telugu."""
+  for token_type in ('byte', 'utf8'):
+    with pyn.default_token_type(token_type):
+      exporter = exporter_map[token_type]
+      exporter['ISO_TO_NAT'] = te.iso_to_nat().compose()
+
+
+if __name__ == '__main__':
+  multi_grm.run(generator_main)

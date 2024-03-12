@@ -29,3 +29,8 @@ rewrite {
   input: "varṇaṁlō"
   output: "varnamlo"
 }
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "tāḷḷarēvu"
+  output: "talarevu"
+}

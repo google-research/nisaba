@@ -28,18 +28,12 @@ package(
 
 licenses(["notice"])
 
-PSA_LANGUAGES = [
+LANGUAGES = [
     "hi",
     "kn",
     "ml",
     "ta",
     "te",
-]
-
-NAT_LANGUAGES = [
-    "hi",
-    "ml",
-    "ta",
 ]
 
 # Compile PSA grms. Eg:
@@ -59,7 +53,7 @@ NAT_LANGUAGES = [
             "//nisaba/scripts/natural_translit/language_params:%s" % language,
         ],
     )
-    for language in PSA_LANGUAGES
+    for language in LANGUAGES
 ]
 
 [
@@ -75,7 +69,7 @@ NAT_LANGUAGES = [
             "//nisaba/scripts/natural_translit/language_params:%s" % language,
         ],
     )
-    for language in PSA_LANGUAGES
+    for language in LANGUAGES
 ]
 
 # Compile NAT grms. Eg: //nisaba/scripts/natural_translit/romanization:hi_iso_nat
@@ -93,7 +87,7 @@ NAT_LANGUAGES = [
             "//nisaba/scripts/natural_translit/language_params:%s" % language,
         ],
     )
-    for language in NAT_LANGUAGES
+    for language in LANGUAGES
 ]
 
 # Ordinary byte tests.
@@ -101,21 +95,21 @@ NAT_LANGUAGES = [
     nisaba_grm_textproto_test(
         name = "%s_iso_psac_test" % language,
     )
-    for language in PSA_LANGUAGES
+    for language in LANGUAGES
 ]
 
 [
     nisaba_grm_textproto_test(
         name = "%s_iso_psaf_test" % language,
     )
-    for language in PSA_LANGUAGES
+    for language in LANGUAGES
 ]
 
 [
     nisaba_grm_textproto_test(
         name = "%s_iso_nat_test" % language,
     )
-    for language in NAT_LANGUAGES
+    for language in LANGUAGES
 ]
 
 # UTF-8 tests.
@@ -125,7 +119,7 @@ NAT_LANGUAGES = [
         textproto = "testdata/%s_iso_psac.textproto" % language,
         token_type = "utf8",
     )
-    for language in PSA_LANGUAGES
+    for language in LANGUAGES
 ]
 
 [
@@ -134,7 +128,7 @@ NAT_LANGUAGES = [
         textproto = "testdata/%s_iso_psaf.textproto" % language,
         token_type = "utf8",
     )
-    for language in PSA_LANGUAGES
+    for language in LANGUAGES
 ]
 
 [
@@ -143,5 +137,5 @@ NAT_LANGUAGES = [
         textproto = "testdata/%s_iso_nat.textproto" % language,
         token_type = "utf8",
     )
-    for language in NAT_LANGUAGES
+    for language in LANGUAGES
 ]

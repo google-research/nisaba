@@ -17,6 +17,7 @@
 from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
 from nisaba.scripts.natural_translit.brahmic import iso2txn
 from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
+from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import txn2ipa
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 
@@ -42,6 +43,16 @@ def iso_to_psaf() -> fl.FstList:
 def iso_to_psac() -> fl.FstList:
   """Pan-South Asian coarse grained transliteration."""
   return fl.FstList(_iso_to_txn(), iso2ltn_ops.TXN_TO_PSAC)
+
+
+def iso_to_nat() -> fl.FstList:
+  """Kannada natural transliteration."""
+  return fl.FstList(
+      _iso_to_txn(),
+      iso2ltn_ops.TXN_TO_PSA_COMMON,
+      iso2ltn_ops.TRANSLIT_BY_PSA,
+      ltn.print_only_ltn(),
+  )
 
 
 def iso_to_ipa() -> fl.FstList:

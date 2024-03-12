@@ -15,22 +15,22 @@
 # proto-file: nisaba/interim/testing/testdata.proto
 # proto-message: Rewrites
 rewrite {
-  rule: "ISO_TO_PSAC"
+  rule: "ISO_TO_NAT"
   input: "hiṁdi"
   output: "hindi"
 }
 rewrite {
-  rule: "ISO_TO_PSAC"
+  rule: "ISO_TO_NAT"
   input: "iṁḍiyā"
   output: "indiya"
 }
 rewrite {
-  rule: "ISO_TO_PSAC"
+  rule: "ISO_TO_NAT"
   input: "jñāna"
   output: "gnyana"
 }
 rewrite {
-  rule: "ISO_TO_PSAC"
+  rule: "ISO_TO_NAT"
   input: "āḍukaṭṭā"
-  output: "adukata"
+  output: "adukatta"
 }

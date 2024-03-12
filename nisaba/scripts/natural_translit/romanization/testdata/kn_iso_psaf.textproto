@@ -39,3 +39,8 @@ rewrite {
   input: "r̥tu"
   output: "rutu"
 }
+rewrite {
+  rule: "ISO_TO_PSAF"
+  input: "āḍukaṭṭā"
+  output: "aadukattaa"
+}
