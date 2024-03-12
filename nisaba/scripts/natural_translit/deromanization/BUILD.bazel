@@ -38,7 +38,7 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        "//nisaba/scripts/natural_translit/brahmic:hi_params",
+        "//nisaba/scripts/natural_translit/language_params:hi",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -51,7 +51,7 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        "//nisaba/scripts/natural_translit/brahmic:hi_params",
+        "//nisaba/scripts/natural_translit/language_params:hi",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -64,7 +64,7 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        "//nisaba/scripts/natural_translit/brahmic:ta_params",
+        "//nisaba/scripts/natural_translit/language_params:ta",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -77,7 +77,7 @@ nisaba_compile_multi_grm_py(
     },
     visibility = ["//visibility:public"],
     deps = [
-        "//nisaba/scripts/natural_translit/brahmic:ta_params",
+        "//nisaba/scripts/natural_translit/language_params:ta",
         "@org_opengrm_pynini//pynini",
     ],
 )

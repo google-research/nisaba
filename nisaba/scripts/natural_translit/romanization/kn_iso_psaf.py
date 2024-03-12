@@ -24,11 +24,8 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generates FAR for natural transliteration for Kannada."""
   for token_type in ('byte', 'utf8'):
     with pyn.default_token_type(token_type):
-
       exporter = exporter_map[token_type]
       exporter['ISO_TO_PSAF'] = kn.iso_to_psaf().compose()
-      exporter['ISO_TO_PSAC'] = kn.iso_to_psac().compose()
-      exporter['ISO_TO_IPA'] = kn.iso_to_ipa().compose()
 
 
 if __name__ == '__main__':

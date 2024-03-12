@@ -1,0 +1,77 @@
+# Copyright 2024 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/interim/testing/testdata.proto
+# proto-message: Rewrites
+
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "hiṁdī"
+  output: "hindi"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "hindī"
+  output: "hindi"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "iṁḍiyā"
+  output: "indiya"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "ākr̥tiyām̐"
+  output: "aakritiyan"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "jñānēṣvāra"
+  output: "gyaneshwar"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "śubʰēccʰā.ōṁ"
+  output: "shubhechhaon"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "uccatama"
+  output: "ucchatam"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "gapʰpʰāraśāha"
+  output: "gaffarshah"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "pīḍī.ēpʰa"
+  output: "PDF"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "bī.ēmaḍablyū"
+  output: "BMW"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "jakārtā"
+  output: "jakarta"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "akailā"
+  output: "akaila"
+}

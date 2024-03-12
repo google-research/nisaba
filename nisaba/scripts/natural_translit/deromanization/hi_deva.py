@@ -15,16 +15,15 @@
 """Rule based deromanizer for hi_deva."""
 import pynini as pyn
 from pynini.export import multi_grm
-from nisaba.scripts.natural_translit.brahmic import hi_params
+from nisaba.scripts.natural_translit.language_params import hi
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
   """Generates FAR for natural transliteration."""
-  hi = hi_params.deromanize
   for token_type in ('byte', 'utf8'):
     with pyn.default_token_type(token_type):
       exporter = exporter_map[token_type]
-      exporter['DEVA'] = hi.to_brahmic()
+      exporter['DEVA'] = hi.deromanize.to_brahmic()
 
 
 if __name__ == '__main__':

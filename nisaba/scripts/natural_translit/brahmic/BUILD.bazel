@@ -211,28 +211,10 @@ py_test(
     deps = [
         ":derom_inventory",
         ":deromanizer",
-        ":ta_params",
+        "//nisaba/scripts/natural_translit/language_params:ta",
         "//nisaba/scripts/natural_translit/utils:fst_list",
         "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
         "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_library(
-    name = "hi_params",
-    srcs = ["hi_params.py"],
-    deps = [
-        ":derom_inventory",
-        ":deromanizer",
-    ],
-)
-
-py_library(
-    name = "ta_params",
-    srcs = ["ta_params.py"],
-    deps = [
-        ":derom_inventory",
-        ":deromanizer",
     ],
 )

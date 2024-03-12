@@ -13,22 +13,19 @@
 # limitations under the License.
 
 # Lint as: python3
-"""End-to-end natural transliteration for Kannada."""
+"""End-to-end natural transliteration for Tamil."""
 
 import pynini as pyn
 from pynini.export import multi_grm
-from nisaba.scripts.natural_translit.language_params import kn
+from nisaba.scripts.natural_translit.language_params import ta
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
-  """Generates FAR for natural transliteration for Kannada."""
+  """Generates FAR for natural transliteration for Malayalam."""
   for token_type in ('byte', 'utf8'):
     with pyn.default_token_type(token_type):
-
       exporter = exporter_map[token_type]
-      exporter['ISO_TO_PSAF'] = kn.iso_to_psaf().compose()
-      exporter['ISO_TO_PSAC'] = kn.iso_to_psac().compose()
-      exporter['ISO_TO_IPA'] = kn.iso_to_ipa().compose()
+      exporter['ISO_TO_PSAC'] = ta.iso_to_psac().compose()
 
 
 if __name__ == '__main__':

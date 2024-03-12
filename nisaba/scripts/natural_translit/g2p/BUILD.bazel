@@ -29,10 +29,10 @@ package(
 licenses(["notice"])
 
 nisaba_compile_multi_grm_py(
-    name = "hi_e2e",
+    name = "hi_iso_ipa",
     outs = {
-        "byte": "hi_e2e.far",
-        "utf8": "hi_e2e_utf8.far",
+        "byte": "hi_iso_ipa.far",
+        "utf8": "hi_iso_ipa_utf8.far",
     },
     visibility = ["//visibility:public"],
     deps = [
@@ -42,10 +42,10 @@ nisaba_compile_multi_grm_py(
 )
 
 nisaba_compile_multi_grm_py(
-    name = "kn_e2e",
+    name = "kn_iso_ipa",
     outs = {
-        "byte": "kn_e2e.far",
-        "utf8": "kn_e2e_utf8.far",
+        "byte": "kn_iso_ipa.far",
+        "utf8": "kn_iso_ipa_utf8.far",
     },
     visibility = ["//visibility:public"],
     deps = [
@@ -55,10 +55,10 @@ nisaba_compile_multi_grm_py(
 )
 
 nisaba_compile_multi_grm_py(
-    name = "ml_e2e",
+    name = "ml_iso_ipa",
     outs = {
-        "byte": "ml_e2e.far",
-        "utf8": "ml_e2e_utf8.far",
+        "byte": "ml_iso_ipa.far",
+        "utf8": "ml_iso_ipa_utf8.far",
     },
     visibility = ["//visibility:public"],
     deps = [
@@ -68,10 +68,10 @@ nisaba_compile_multi_grm_py(
 )
 
 nisaba_compile_multi_grm_py(
-    name = "ta_e2e",
+    name = "ta_iso_ipa",
     outs = {
-        "byte": "ta_e2e.far",
-        "utf8": "ta_e2e_utf8.far",
+        "byte": "ta_iso_ipa.far",
+        "utf8": "ta_iso_ipa_utf8.far",
     },
     visibility = ["//visibility:public"],
     deps = [
@@ -81,10 +81,10 @@ nisaba_compile_multi_grm_py(
 )
 
 nisaba_compile_multi_grm_py(
-    name = "te_e2e",
+    name = "te_iso_ipa",
     outs = {
-        "byte": "te_e2e.far",
-        "utf8": "te_e2e_utf8.far",
+        "byte": "te_iso_ipa.far",
+        "utf8": "te_iso_ipa_utf8.far",
     },
     visibility = ["//visibility:public"],
     deps = [
@@ -104,7 +104,7 @@ LANGUAGES = [
 # Ordinary byte tests.
 [
     nisaba_grm_textproto_test(
-        name = "%s_e2e_test" % language,
+        name = "%s_iso_ipa_test" % language,
     )
     for language in LANGUAGES
 ]
@@ -112,8 +112,8 @@ LANGUAGES = [
 # UTF-8 tests.
 [
     nisaba_grm_textproto_test(
-        name = "%s_e2e_utf8_test" % language,
-        textproto = "testdata/%s_e2e.textproto" % language,
+        name = "%s_iso_ipa_utf8_test" % language,
+        textproto = "testdata/%s_iso_ipa.textproto" % language,
         token_type = "utf8",
     )
     for language in LANGUAGES

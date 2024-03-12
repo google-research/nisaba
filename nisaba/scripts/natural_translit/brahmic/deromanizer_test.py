@@ -15,7 +15,7 @@
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.brahmic import derom_inventory
 from nisaba.scripts.natural_translit.brahmic import deromanizer
-from nisaba.scripts.natural_translit.brahmic import ta_params
+from nisaba.scripts.natural_translit.language_params import ta as ta_params
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.utils import test_util
 

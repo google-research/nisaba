@@ -17,35 +17,7 @@
 
 import pynini as pyn
 from pynini.export import multi_grm
-from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
-from nisaba.scripts.natural_translit.brahmic import iso2txn
-from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
-from nisaba.scripts.natural_translit.phonology import txn2ipa
-
-
-def _iso_to_txn() -> pyn.Fst:
-  """Composes the fsts from ISO characters to final txn pronunciation."""
-  return (iso2txn.iso_to_txn() @
-          iso2txn_ops.VOCALIC_U @
-          iso2txn_ops.SCHWA_A @
-          iso2txn_ops.ANUSVARA_ASSIMILATION @
-          iso2txn_ops.DEFAULT_ANUSVARA_LABIAL @
-          iso2txn_ops.JNY_TO_GNY).optimize()
-
-
-def iso_to_psaf() -> pyn.Fst:
-  """Pan-South Asian fine grained transliteration."""
-  return (_iso_to_txn() @ iso2ltn_ops.TXN_TO_PSAF).optimize()
-
-
-def iso_to_psac() -> pyn.Fst:
-  """Pan-South Asian coarse grained transliteration."""
-  return (_iso_to_txn() @ iso2ltn_ops.TXN_TO_PSAC).optimize()
-
-
-def iso_to_ipa() -> pyn.Fst:
-  """Pronunciation in IPA."""
-  return (_iso_to_txn() @ txn2ipa.txn_to_ipa()).optimize()
+from nisaba.scripts.natural_translit.language_params import te
 
 
 def generator_main(exporter_map: multi_grm.ExporterMapping):
@@ -54,9 +26,9 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
     with pyn.default_token_type(token_type):
 
       exporter = exporter_map[token_type]
-      exporter['ISO_TO_PSAF'] = iso_to_psaf()
-      exporter['ISO_TO_PSAC'] = iso_to_psac()
-      exporter['ISO_TO_IPA'] = iso_to_ipa()
+      exporter['ISO_TO_PSAF'] = te.iso_to_psaf().compose()
+      exporter['ISO_TO_PSAC'] = te.iso_to_psac().compose()
+      exporter['ISO_TO_IPA'] = te.iso_to_ipa().compose()
 
 
 if __name__ == '__main__':

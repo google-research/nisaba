@@ -51,6 +51,23 @@ class FstList(ty.IterableThing):
         self.add(*arg)
     return self
 
+  def union(self) -> pyn.Fst:
+    """Union all fsts in the list."""
+    if not self:
+      return pyn.Fst()
+    if len(self) == 1:
+      return self.item(0)
+    else:
+      return pyn.union(*self)
+
+  def union_opt(self) -> pyn.Fst:
+    """Union all fsts in the list."""
+    return self.union().optimize()
+
+  def union_star(self) -> pyn.Fst:
+    """Union all fsts in the list."""
+    return self.union().star.optimize()
+
   def concat(self) -> pyn.Fst:
     """Concatenates all fsts in the list."""
     final_fst = pyn.accep('')

@@ -20,8 +20,7 @@ package(
     default_applicable_licenses = [
     ],
     default_visibility = [
-        "//nisaba/scripts/natural_translit/brahmic:__subpackages__",
-        "//nisaba/scripts/natural_translit/languages:__subpackages__",
+        "//nisaba/scripts/natural_translit:__subpackages__",
     ],
 )
 

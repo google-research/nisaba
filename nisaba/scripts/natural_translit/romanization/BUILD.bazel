@@ -1,0 +1,262 @@
+# Copyright 2024 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+load(
+    "//nisaba/scripts/utils:grammars.bzl",
+    "nisaba_compile_multi_grm_py",
+    "nisaba_grm_textproto_test",
+)
+
+package(
+    default_applicable_licenses = [
+    ],
+    default_visibility = [
+        "//nisaba/scripts/natural_translit/languages:__subpackages__",
+    ],
+)
+
+licenses(["notice"])
+
+nisaba_compile_multi_grm_py(
+    name = "hi_iso_psac",
+    outs = {
+        "byte": "hi_iso_psac.far",
+        "utf8": "hi_iso_psac_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:hi",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "hi_iso_psaf",
+    outs = {
+        "byte": "hi_iso_psaf.far",
+        "utf8": "hi_iso_psaf_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:hi",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "hi_iso_nat",
+    outs = {
+        "byte": "hi_iso_nat.far",
+        "utf8": "hi_iso_nat_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:hi",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "kn_iso_psac",
+    outs = {
+        "byte": "kn_iso_psac.far",
+        "utf8": "kn_iso_psac_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:kn",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "kn_iso_psaf",
+    outs = {
+        "byte": "kn_iso_psaf.far",
+        "utf8": "kn_iso_psaf_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:kn",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "ml_iso_psac",
+    outs = {
+        "byte": "ml_iso_psac.far",
+        "utf8": "ml_iso_psac_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:ml",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "ml_iso_psaf",
+    outs = {
+        "byte": "ml_iso_psaf.far",
+        "utf8": "ml_iso_psaf_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:ml",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "ml_iso_nat",
+    outs = {
+        "byte": "ml_iso_nat.far",
+        "utf8": "ml_iso_nat_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:ml",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "ta_iso_psac",
+    outs = {
+        "byte": "ta_iso_psac.far",
+        "utf8": "ta_iso_psac_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:ta",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "ta_iso_psaf",
+    outs = {
+        "byte": "ta_iso_psaf.far",
+        "utf8": "ta_iso_psaf_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:ta",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "ta_iso_nat",
+    outs = {
+        "byte": "ta_iso_nat.far",
+        "utf8": "ta_iso_nat_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:ta",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "te_iso_psac",
+    outs = {
+        "byte": "te_iso_psac.far",
+        "utf8": "te_iso_psac_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:te",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "te_iso_psaf",
+    outs = {
+        "byte": "te_iso_psaf.far",
+        "utf8": "te_iso_psaf_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/language_params:te",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+PSA_LANGUAGES = [
+    "hi",
+    "kn",
+    "ml",
+    "ta",
+    "te",
+]
+
+NAT_LANGUAGES = [
+    "hi",
+    "ml",
+    "ta",
+]
+
+# Ordinary byte tests.
+[
+    nisaba_grm_textproto_test(
+        name = "%s_iso_psac_test" % language,
+    )
+    for language in PSA_LANGUAGES
+]
+
+[
+    nisaba_grm_textproto_test(
+        name = "%s_iso_psaf_test" % language,
+    )
+    for language in PSA_LANGUAGES
+]
+
+[
+    nisaba_grm_textproto_test(
+        name = "%s_iso_nat_test" % language,
+    )
+    for language in NAT_LANGUAGES
+]
+
+# UTF-8 tests.
+[
+    nisaba_grm_textproto_test(
+        name = "%s_iso_psac_utf8_test" % language,
+        textproto = "testdata/%s_iso_psac.textproto" % language,
+        token_type = "utf8",
+    )
+    for language in PSA_LANGUAGES
+]
+
+[
+    nisaba_grm_textproto_test(
+        name = "%s_iso_psaf_utf8_test" % language,
+        textproto = "testdata/%s_iso_psaf.textproto" % language,
+        token_type = "utf8",
+    )
+    for language in PSA_LANGUAGES
+]
+
+[
+    nisaba_grm_textproto_test(
+        name = "%s_iso_nat_utf8_test" % language,
+        textproto = "testdata/%s_iso_nat.textproto" % language,
+        token_type = "utf8",
+    )
+    for language in NAT_LANGUAGES
+]
