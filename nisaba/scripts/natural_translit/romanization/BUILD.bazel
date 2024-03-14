@@ -29,9 +29,11 @@ package(
 licenses(["notice"])
 
 LANGUAGES = [
+    "gu",
     "hi",
     "kn",
     "ml",
+    "mr",
     "ta",
     "te",
 ]
@@ -90,7 +92,10 @@ LANGUAGES = [
     for language in LANGUAGES
 ]
 
-# Ordinary byte tests.
+# Ordinary byte tests. Eg:
+# //nisaba/scripts/natural_translit/romanization:hi_iso_psac_test
+# //nisaba/scripts/natural_translit/romanization:hi_iso_psaf_test
+# //nisaba/scripts/natural_translit/romanization:hi_iso_nat_test
 [
     nisaba_grm_textproto_test(
         name = "%s_iso_psac_test" % language,
@@ -112,7 +117,10 @@ LANGUAGES = [
     for language in LANGUAGES
 ]
 
-# UTF-8 tests.
+# UTF-8 tests. Eg:
+# //nisaba/scripts/natural_translit/romanization:hi_iso_psac_utf8_test
+# //nisaba/scripts/natural_translit/romanization:hi_iso_psaf_utf8_test
+# //nisaba/scripts/natural_translit/romanization:hi_iso_nat_utf8_test
 [
     nisaba_grm_textproto_test(
         name = "%s_iso_psac_utf8_test" % language,

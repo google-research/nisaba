@@ -242,7 +242,9 @@ def merge(
     right_1: pyn.FstLike,
     left_2: pyn.FstLike,
     right_2: pyn.FstLike,
-    new_right: pyn.FstLike = al.EPSILON) -> pyn.Fst:
+    new_right: pyn.FstLike = al.EPSILON,
+    preceding: pyn.FstLike = al.EPSILON,
+    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Merge and optionally assign a new right side to two alignments.
 
   Args:
@@ -251,6 +253,8 @@ def merge(
     left_2: Left side of the second alignment.
     right_2: Right side of the second alignment.
     new_right: Right side of the merged alignment.
+    preceding: Preceding context.
+    following: Following context.
 
   Returns:
     Rewrite Fst.
@@ -258,16 +262,21 @@ def merge(
   Following call:
   ```
   merge(
-      gr.C, lt.CH,
-      gr.CH, lt.CH + lt.H,
-      lt.CH + lt.H)
+    left1=L1,
+    right1=R1,
+    left2=L2,
+    right2=R2,
+    new_right=NR,
+    preceding=P,
+    following=F
+  )
   ```
   will return:
   ```
   pyn.cdrewrite(
-      pyn.cross('<c>="ch"<ch>="ch""h"', '<c><ch>="ch""h"'),
-      '',
-      '',
+      pyn.cross('L1R1L2R2, 'L1L2NR'),
+      'P',
+      'F',
       al.BYTE_STAR)).optimize()
   ```
   """
@@ -277,7 +286,8 @@ def merge(
 
   return rewrite(
       al.align(left_1, right_1) + al.align(left_2, right_2),
-      al.align(left_1 + left_2, right_side))
+      al.align(left_1 + left_2, right_side),
+      preceding, following)
 
 
 def merge_repeated_alignment(

@@ -186,6 +186,9 @@ def rewrite_jny(
 JNY_TO_GNY = rewrite_jny(ph.G, ph.NY)
 JNY_TO_GY = rewrite_jny(ph.G, ph.Y)
 JNY_TO_NY = rewrite_jny(ph.SIL, ph.NY)
+JNY_TO_DNY = rewrite_jny(ph.DI, ph.NY)
+
+PH_F = rw.reassign(gr.PH, ph.P + ph.ASP, ph.F)
 
 # <ph><ph> pronounced {f}{f}. Should only occur in Perso-Arabic words.
 # TODO: Move this when there is a Perso-Arabic module.
@@ -199,3 +202,8 @@ RR_TT = rw.merge_repeated_alignment(gr.RR, ph.R, ph.T + ph.T)
 NR_NDR = rw.merge(gr.NA, ph.N, gr.RR, ph.R, ph.N + ph.D + ph.R)
 WF_VIRAMA_U = rw.rewrite_word_final(
     al.EPSILON, al.align(gr.U, ph.U), al.align(gr.SCH_CONS, ph.ALL.star))
+
+H_ASP = rw.reassign(
+    gr.H, ph.H, ph.ASP, (ph.M | ph.NI | ph.VU | ph.L | ph.R)
+)
+

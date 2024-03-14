@@ -43,6 +43,14 @@ NON_LABIAL_ANUSVARA = rw.reassign(
     ls.union_opt(ph.NG, ph.NY),
     tr.N)
 
+GAAV_GAON = rw.merge(
+    gr.AA, ph.A + ph.DURH, gr.V, ph.VU, tr.A + tr.O + tr.N,
+    gr.G
+)
+OO_AO_BEFORE_ANUSVARA = rw.reassign(
+    gr.OO, ph.O + ph.DURH, tr.A + tr.O, following=gr.ANS
+)
+
 
 def _transliterate_vocalic(
     vcl: pyn.FstLike,
