@@ -1,0 +1,76 @@
+# Copyright 2024 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/interim/testing/testdata.proto
+# proto-message: Rewrites
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "sbarūpanagara"
+  output: "sʋɔɾuːpn̪ɔɡɔɾ"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "jʰāṛagrāma"
+  output: "d͡ʒʰaːɽɡɾaːm"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "dibāṁ"
+  output: "d̪ibaːŋ"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "bām̐kuṛā"
+  output: "baː~kuɽaː"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "gōpīballabʰapura"
+  output: "ɡoːpiːbɔllɔʋpuɾ"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "bʰagā.ōẏānagōlā"
+  output: "bʰɔɡaːʋaːn̪ɡoːlaː"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "ala.ōẏāra"
+  output: "ælʋaːɾ"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "tā.ōẏāṁ"
+  output: "t̪aːʋaːŋ"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "ulubēṛiẏā"
+  output: "ulubeːɽijaː"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "āgāẏā"
+  output: "aːɡaːjaː"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "jājñāẏāpēṭā"
+  output: "d͡ʒaːɡɡaːjaːpeːʈaː"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "samaśēragañja"
+  output: "sɔmʃeːɾɡɔɲd͡ʒ"
+}

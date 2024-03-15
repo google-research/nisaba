@@ -32,6 +32,8 @@ A_TO_EC = (
     rw.rewrite(ph.A, ph.EC) @
     rw.rewrite(ph.EC + ph.DURH, ph.A + ph.DURH)
 )
+A_AE = rw.reassign(gr.A_I, ph.A, ph.AE)
+
 # Ungliding: Diphthong to monophthong shift
 AI_TO_EH_LONG = rw.rewrite(ph.A_I, ph.EH + ph.DURH)
 AU_TO_OH_LONG = rw.rewrite(ph.A_U, ph.OH + ph.DURH)
@@ -56,6 +58,7 @@ def default_schwa(schwa: pyn.FstLike) -> pyn.Fst:
 
 SCHWA_A = default_schwa(ph.A)
 SCHWA_EC = default_schwa(ph.EC)
+SCHWA_OH = default_schwa(ph.OH)
 
 
 def vocal_schwa(
@@ -156,6 +159,7 @@ def assign_anusvara(
 
 DEFAULT_ANUSVARA_LABIAL = assign_anusvara(ph.M)
 DEFAULT_ANUSVARA_DENTAL = assign_anusvara(ph.NI)
+DEFAULT_ANUSVARA_VELAR = assign_anusvara(ph.NG)
 ANUSVARA_ASSIMILATION_LABIAL = assign_anusvara(ph.M, ph.LABIAL)
 ANUSVARA_ASSIMILATION_DENTAL = assign_anusvara(ph.NI, ph.DENTAL)
 ANUSVARA_ASSIMILATION_ALVEOLAR = assign_anusvara(ph.N, ph.ALVEOLAR)
@@ -187,8 +191,17 @@ JNY_TO_GNY = rewrite_jny(ph.G, ph.NY)
 JNY_TO_GY = rewrite_jny(ph.G, ph.Y)
 JNY_TO_NY = rewrite_jny(ph.SIL, ph.NY)
 JNY_TO_DNY = rewrite_jny(ph.DI, ph.NY)
+JNY_TO_GG = rewrite_jny(ph.G, ph.G)
+
+YY_Y = rw.delete(ph.ASP, gr.YY)
+OOYY_V = (
+    rw.merge(gr.OO_I, ph.O + ph.DURH, gr.YY, ph.Y, ph.VU)
+    @ rw.reassign(gr.A, ph.OH, ph.SIL, following=gr.OO_I + gr.YY)
+)
 
 PH_F = rw.reassign(gr.PH, ph.P + ph.ASP, ph.F)
+BH_V = rw.reassign(gr.BH, ph.B + ph.ASP, ph.VU, ph.ALL)
+B_V = rw.reassign(gr.B, ph.B, ph.VU, ph.CONSONANT)
 
 # <ph><ph> pronounced {f}{f}. Should only occur in Perso-Arabic words.
 # TODO: Move this when there is a Perso-Arabic module.

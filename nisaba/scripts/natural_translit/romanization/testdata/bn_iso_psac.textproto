@@ -1,0 +1,76 @@
+# Copyright 2024 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/interim/testing/testdata.proto
+# proto-message: Rewrites
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "sbarūpanagara"
+  output: "svarupnagar"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "jʰāṛagrāma"
+  output: "jhargram"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "dibāṁ"
+  output: "dibang"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "bām̐kuṛā"
+  output: "bankura"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "gōpīballabʰapura"
+  output: "gopibalavpur"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "bʰagā.ōẏānagōlā"
+  output: "bhagavangola"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "ala.ōẏāra"
+  output: "alvar"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "tā.ōẏāṁ"
+  output: "tavang"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "ulubēṛiẏā"
+  output: "uluberiya"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "āgāẏā"
+  output: "agaya"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "jājñāẏāpēṭā"
+  output: "jagayapeta"
+}
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "samaśēragañja"
+  output: "samsherganyj"
+}

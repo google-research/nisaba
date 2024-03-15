@@ -1,0 +1,86 @@
+# Copyright 2024 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/interim/testing/testdata.proto
+# proto-message: Rewrites
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "sbarūpanagara"
+  output: "swarupnagar"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "jʰāṛagrāma"
+  output: "jhargram"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "dibāṁ"
+  output: "dibang"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "bām̐kuṛā"
+  output: "bankura"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "banagām̐"
+  output: "bangaon"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "dʰōbāgām̐ō"
+  output: "dhobagaon"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "gōpīballabʰapura"
+  output: "gopiballavpur"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "bʰagā.ōẏānagōlā"
+  output: "bhagawangola"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "ala.ōẏāra"
+  output: "alwar"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "tā.ōẏāṁ"
+  output: "tawang"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "ulubēṛiẏā"
+  output: "uluberia"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "āgāẏā"
+  output: "agaya"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "jājñāẏāpēṭā"
+  output: "jaggayapeta"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "samaśēragañja"
+  output: "samsherganj"
+}

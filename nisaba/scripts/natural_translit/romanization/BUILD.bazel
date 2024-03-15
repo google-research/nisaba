@@ -29,6 +29,7 @@ package(
 licenses(["notice"])
 
 LANGUAGES = [
+    "bn",
     "gu",
     "hi",
     "kn",

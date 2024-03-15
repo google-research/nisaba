@@ -19,6 +19,7 @@ from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
 from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import phon
+from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 from nisaba.scripts.utils import rewrite as cmp
@@ -30,8 +31,7 @@ ph = psa.PHONEME_INVENTORY
 ## Rules to apply before txn to ltn mappings
 
 # <v> is "w" after {s}, {ss}, and {sh}.
-SIBV_TO_SIBW = rw.reassign(
-    gr.V,
+SIBV_TO_SIBW = rw.rewrite(
     ph.VU,
     tr.W,
     ph.SIBILANT)
@@ -43,6 +43,8 @@ NON_LABIAL_ANUSVARA = rw.reassign(
     ls.union_opt(ph.NG, ph.NY),
     tr.N)
 
+NYJ_NJ = rw.rewrite(ph.NY, tr.N, following=ph.D_ZH)
+
 GAAV_GAON = rw.merge(
     gr.AA, ph.A + ph.DURH, gr.V, ph.VU, tr.A + tr.O + tr.N,
     gr.G
@@ -50,6 +52,21 @@ GAAV_GAON = rw.merge(
 OO_AO_BEFORE_ANUSVARA = rw.reassign(
     gr.OO, ph.O + ph.DURH, tr.A + tr.O, following=gr.ANS
 )
+
+AE_A = rw.rewrite(ph.AE, tr.A)
+OH_A = rw.reassign(gr.A, ph.OH, tr.A)
+
+AA_AO_CND = rw.reassign(
+    gr.AA, ph.A + ph.DURH,
+    tr.A + tr.O,
+    following=(gr.CND + (al.SKIP + gr.OO).ques + al.SKIP + al.EOW)
+)
+WF_CND_OO = rw.reassign_word_final(
+    gr.OO, ph.O + ph.DURH, tr.DEL, preceding=gr.CND
+)
+
+OOYY_W = rw.reassign(gr.OO_I + gr.YY, ph.VU, tr.W)
+IYY_I = rw.reassign(gr.YY, ph.Y, tr.DEL, (ph.I | ph.U) + ph.DURH.ques)
 
 
 def _transliterate_vocalic(
@@ -94,6 +111,7 @@ TI_TH = cmp.ComposeFsts([
 ])
 
 TT_TR = rw.reassign(gr.RR + gr.RR, ph.T + ph.T, tr.T + tr.T + tr.R)
+RD_R = rw.reassign(gr.RD, ph.RD, tr.R)
 
 NY_N = rw.rewrite(ph.NY, tr.N, following=ph.CONSONANT)
 NY_GN = rw.reassign(gr.NY, ph.NY, tr.G + tr.N, ph.VOWEL, ph.VOWEL)
