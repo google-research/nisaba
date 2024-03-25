@@ -12,10 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pynini as pyn
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.utils import list_op as ls
+from nisaba.scripts.natural_translit.utils import test_op
 
-_A_FST = ls.pyn.accep('a')
+_A_FST = pyn.accep('a')
 _B_STR = 'b'
 _C_STR = 'c'
 _D_INT = 4
@@ -32,27 +34,24 @@ def _concat(a: str, b: str) -> str:
   return a + b
 
 
-class ListOpTest(absltest.TestCase):
-
-  def assertPynEqual(self, fst1, fst2):
-    self.assertTrue(ls.pyn.equal(fst1, fst2))
+class ListOpTest(test_op.TestCase):
 
   def test_star_opt(self):
-    self.assertPynEqual(
-        ls.star_opt(ls.pyn.union(_A_FST, _B_STR)),
-        ls.pyn.union(_A_FST, _B_STR).star.optimize()
+    self.AssertEqualValue(
+        ls.star_opt(pyn.union(_A_FST, _B_STR)),
+        pyn.union(_A_FST, _B_STR).star.optimize()
     )
 
   def test_union_opt(self):
-    self.assertPynEqual(
+    self.AssertEqualValue(
         ls.union_opt(_A_FST, _B_STR),
-        ls.pyn.union(_A_FST, _B_STR).optimize()
+        pyn.union(_A_FST, _B_STR).optimize()
     )
 
   def test_union_star(self):
-    self.assertPynEqual(
+    self.AssertEqualValue(
         ls.union_star(_A_FST, _B_STR),
-        ls.pyn.union(_A_FST, _B_STR).star.optimize()
+        pyn.union(_A_FST, _B_STR).star.optimize()
     )
 
   def test_apply_foreach(self):
@@ -68,38 +67,38 @@ class ListOpTest(absltest.TestCase):
     )
 
   def test_apply_union(self):
-    self.assertPynEqual(
+    self.AssertEqualValue(
         ls.apply_union(_concat, [[_B_STR, _B_STR], [_B_STR, _C_STR]]),
-        ls.pyn.union(
+        pyn.union(
             _concat(_B_STR, _B_STR),
             _concat(_B_STR, _C_STR)
         ).optimize()
     )
 
   def test_apply_union_star(self):
-    self.assertPynEqual(
+    self.AssertEqualValue(
         ls.apply_union_star(_concat, [[_B_STR, _B_STR], [_B_STR, _C_STR]]),
-        ls.pyn.union(
+        pyn.union(
             _concat(_B_STR, _B_STR),
             _concat(_B_STR, _C_STR)
         ).star.optimize()
     )
 
   def test_cross_union(self):
-    self.assertPynEqual(
+    self.AssertEqualValue(
         ls.cross_union([[_A_FST, _B_STR], [_A_FST, _C_STR]]),
-        ls.pyn.union(
-            ls.pyn.cross(_A_FST, _B_STR),
-            ls.pyn.cross(_A_FST, _C_STR)
+        pyn.union(
+            pyn.cross(_A_FST, _B_STR),
+            pyn.cross(_A_FST, _C_STR)
         ).optimize()
     )
 
   def test_cross_union_star(self):
-    self.assertPynEqual(
+    self.AssertEqualValue(
         ls.cross_union_star([[_A_FST, _B_STR], [_A_FST, _C_STR]]),
-        ls.pyn.union(
-            ls.pyn.cross(_A_FST, _B_STR),
-            ls.pyn.cross(_A_FST, _C_STR)
+        pyn.union(
+            pyn.cross(_A_FST, _B_STR),
+            pyn.cross(_A_FST, _C_STR)
         ).star.optimize()
     )
 
@@ -131,15 +130,15 @@ class ListOpTest(absltest.TestCase):
     )
 
   def test_fst_attr_list_union(self):
-    self.assertPynEqual(
+    self.AssertEqualValue(
         ls.fst_attr_list_union(_THINGS, 'value'),
-        ls.pyn.union(_A_FST, _B_STR, _C_STR).optimize()
+        pyn.union(_A_FST, _B_STR, _C_STR).optimize()
     )
 
   def test_fst_attr_list_union_star(self):
-    self.assertPynEqual(
+    self.AssertEqualValue(
         ls.fst_attr_list_union_star(_THINGS, 'value'),
-        ls.pyn.union(_A_FST, _B_STR, _C_STR).star.optimize()
+        pyn.union(_A_FST, _B_STR, _C_STR).star.optimize()
     )
 
 if __name__ == '__main__':

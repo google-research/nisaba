@@ -14,6 +14,7 @@
 
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.utils import feature
+from nisaba.scripts.natural_translit.utils import test_op
 
 f = feature.Feature
 
@@ -95,7 +96,7 @@ def _test_inventory() -> f.Inventory:
 r = _test_inventory()
 
 
-class FeatureTest(absltest.TestCase):
+class FeatureTest(test_op.TestCase):
 
   def test_feature_text(self):
     self.assertEqual(r.warmth.vcold.text, 'very_cold')
@@ -123,8 +124,8 @@ class FeatureTest(absltest.TestCase):
     self.assertIn(r.warmth.tpd, r.warmth.moderate)
 
   def test_set_range_reverse(self):
-    self.assertEqual(
-        str(r.color.has_red), 'has_red: {orange, purple, red}'
+    self.AssertStrEqual(
+        r.color.has_red, 'has_red: {orange, purple, red}'
     )
 
   def test_set_not(self):
@@ -137,38 +138,38 @@ class FeatureTest(absltest.TestCase):
     self.assertEqual(r.warmth.max_dist, 3.00)
 
   def test_feature_dist_same_feature(self):
-    self.assertEqual(r.warmth.warm.distance(r.warmth.warm), 0)
+    self.AssertFeatureDistance(r.warmth.warm, r.warmth.warm, 0)
 
   def test_feature_dist_same_aspect(self):
-    self.assertEqual(r.warmth.warm.distance(r.warmth.cold), 1.5)
+    self.AssertFeatureDistance(r.warmth.warm, r.warmth.cold, 1.5)
 
   def test_feature_dist_different_aspect(self):
-    self.assertEqual(r.warmth.warm.distance(r.color.red), f.ERROR_DISTANCE)
+    self.AssertFeatureDistance(r.warmth.warm, r.color.red, f.ERROR_DISTANCE)
 
   def test_feature_dist_any(self):
-    self.assertEqual(r.warmth.warm.distance(r.warmth.any), 0)
+    self.AssertFeatureDistance(r.warmth.warm, r.warmth.any, 0)
 
   def test_feature_dist_in_set(self):
-    self.assertEqual(r.warmth.warm.distance(r.warmth.moderate), 0)
+    self.AssertFeatureDistance(r.warmth.warm, r.warmth.moderate, 0)
 
   def test_feature_dist_out_of_set(self):
-    self.assertEqual(r.warmth.cold.distance(r.warmth.moderate), 0.5)
+    self.AssertFeatureDistance(r.warmth.cold, r.warmth.moderate, 0.5)
 
   def test_set_dist_in_set(self):
-    self.assertEqual(r.warmth.moderate.distance(r.warmth.warm), 0)
+    self.AssertFeatureDistance(r.warmth.moderate, r.warmth.warm, 0)
 
   def test_set_dist_out_of_set(self):
-    self.assertEqual(r.warmth.moderate.distance(r.warmth.vcold), 1)
+    self.AssertFeatureDistance(r.warmth.moderate, r.warmth.vcold, 1)
 
   def test_set_to_set_overlap(self):
-    self.assertEqual(r.warmth.moderate.distance(r.warmth.not_cold), 0)
+    self.AssertFeatureDistance(r.warmth.moderate, r.warmth.not_cold, 0)
 
   def test_set_to_set_no_overlap(self):
-    self.assertEqual(r.warmth.hot_end.distance(r.warmth.cold_end), 2)
+    self.AssertFeatureDistance(r.warmth.hot_end, r.warmth.cold_end, 2)
 
   def test_linear(self):
-    self.assertEqual(
-        str(r.warmth),
+    self.AssertStrEqual(
+        r.warmth,
         'warmth (3.00):\n'
         '  vcold (very_cold) = {\n'
         '        cold (cold): 0.50\n'
@@ -229,8 +230,8 @@ class FeatureTest(absltest.TestCase):
     )
 
   def test_equidistant_different(self):
-    self.assertEqual(
-        str(r.function),
+    self.AssertStrEqual(
+        r.function,
         'function (1.00):\n'
         '  bedroom (bedroom) = {\n'
         '        living_room (living_room): 1.00\n'
@@ -247,8 +248,8 @@ class FeatureTest(absltest.TestCase):
     )
 
   def test_cyclic(self):
-    self.assertEqual(
-        str(r.color),
+    self.AssertStrEqual(
+        r.color,
         'color (1.50):\n'
         '  red (red) = {\n'
         '        org (orange): 0.50\n'
@@ -295,8 +296,8 @@ class FeatureTest(absltest.TestCase):
     )
 
   def test_nested_linear_eq(self):
-    self.assertEqual(
-        str(r.door),
+    self.AssertStrEqual(
+        r.door,
         'door (1.50):\n'
         '  open (open) = {\n'
         '        ajar (ajar): 0.50\n'
@@ -331,8 +332,8 @@ class FeatureTest(absltest.TestCase):
     )
 
   def test_profile_room1(self):
-    self.assertEqual(
-        str(r.room1),
+    self.AssertStrEqual(
+        r.room1,
         'Profile: {\n'
         '    warmth: {cold}\n'
         '    lighting: {any}\n'
@@ -343,8 +344,8 @@ class FeatureTest(absltest.TestCase):
     )
 
   def test_profile_room2(self):
-    self.assertEqual(
-        str(r.room2),
+    self.AssertStrEqual(
+        r.room2,
         'Profile: {\n'
         '    warmth: {chilly, hot, tepid, very_hot, warm}\n'
         '    lighting: {fluorescent}\n'
@@ -355,8 +356,8 @@ class FeatureTest(absltest.TestCase):
     )
 
   def test_profile_room3(self):
-    self.assertEqual(
-        str(r.room3),
+    self.AssertStrEqual(
+        r.room3,
         'Profile: {\n'
         '    warmth: {cold}\n'
         '    lighting: {fluorescent}\n'

@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Grapheme class and related functions for the sequence aligner."""
+"""Grapheme class and related functions."""
 
 import unicodedata
 import pycountry
-from nisaba.scripts.natural_translit.utils import expression as exp
 from nisaba.scripts.natural_translit.utils import feature as ft
+from nisaba.scripts.natural_translit.utils import symbol as sym
 
 
 class Script(ft.Feature):
@@ -28,8 +28,8 @@ class Script(ft.Feature):
   Attributes:
     alias: ISO 15924 code in lowercase if applicable, otherwise a custom string
       that doesn't overlap with ISO 15924. Eg. alias='deva' for ISO 15924 script
-      Deva, alias='br' for the inventory of common abstractions of the
-      Brahmic family.
+      Deva, alias='br' for the inventory of common abstractions of the Brahmic
+      family.
     text: ISO 15924 name of the script if applicable, otherwise a descriptive
       string. ISO name can be simplified. Eg. text='Devanagari' for Devanagari
       (Nagari) and text='Brahmic Parent' for the Brahmic abstractions.
@@ -86,7 +86,7 @@ def _grapheme_features() -> ft.Feature.Inventory:
   return ftr
 
 
-class Grapheme(exp.Symbol):
+class Grapheme(sym.Symbol):
   """Grapheme symbol."""
 
   GR_FEATURES = _grapheme_features()
@@ -132,7 +132,7 @@ class Grapheme(exp.Symbol):
         features=ft.Feature.Set(cls.SYM_FEATURES.type.raw, features),
     )
 
-  class Inventory(exp.Symbol.Inventory):
+  class Inventory(sym.Symbol.Inventory):
     """Grapheme inventory."""
 
     def __init__(self, script: ft.Feature):

@@ -14,21 +14,22 @@
 
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.script import grapheme as g
+from nisaba.scripts.natural_translit.utils import test_op
 
 _test = g.Grapheme.Inventory(g.Grapheme.GR_FEATURES.script.und)
 
 
-class GraphemeTest(absltest.TestCase):
+class GraphemeTest(test_op.TestCase):
 
   def test_script_iso(self):
-    self.assertEqual(
-        str(g.Grapheme.GR_FEATURES.script.latn),
+    self.AssertStrEqual(
+        g.Grapheme.GR_FEATURES.script.latn,
         'alias: latn text: Latin numeric: 215',
     )
 
   def test_script_custom(self):
-    self.assertEqual(
-        str(g.Grapheme.GR_FEATURES.script.br),
+    self.AssertStrEqual(
+        g.Grapheme.GR_FEATURES.script.br,
         'alias: br text: Brahmic Parent numeric: 801',
     )
 
@@ -42,7 +43,7 @@ class GraphemeTest(absltest.TestCase):
     self.assertEqual(g.Grapheme.from_char('🐱').name, 'CAT FACE U+0X1F431')
 
   def test_from_char_name_error(self):
-    self.assertEqual(g.Grapheme.from_char(chr(0xcf3)).name, 'GRAPHEME U+0XCF3')
+    self.assertEqual(g.Grapheme.from_char(chr(0xCF3)).name, 'GRAPHEME U+0XCF3')
 
   def test_from_char_alias_explicit(self):
     self.assertEqual(g.Grapheme.from_char('ç', 'c_ced').alias, 'c_ced')
@@ -111,6 +112,7 @@ class GraphemeTest(absltest.TestCase):
 
   def test_get_grapheme_out_of_inventory_char(self):
     self.assertEqual(_test.text_lookup('🐱'), _test.CTRL.unk)
+
 
 if __name__ == '__main__':
   absltest.main()

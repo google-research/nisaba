@@ -45,8 +45,8 @@ py_library(
     name = "grapheme",
     srcs = ["grapheme.py"],
     deps = [
-        "//nisaba/scripts/natural_translit/utils:expression",
         "//nisaba/scripts/natural_translit/utils:feature",
+        "//nisaba/scripts/natural_translit/utils:symbol",
         requirement("pycountry"),
     ],
 )
@@ -57,6 +57,7 @@ py_test(
     main = "grapheme_test.py",
     deps = [
         ":grapheme",
+        "//nisaba/scripts/natural_translit/utils:test_op",
         "@io_abseil_py//absl/testing:absltest",
     ],
 )

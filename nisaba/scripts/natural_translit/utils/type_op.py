@@ -22,7 +22,7 @@ b.features = None, a and b won't be evaluated as having the same features.
 TODO(): Fix typing in natural_translit.
 """
 
-from typing import Any, Iterable, Union, Type
+from typing import Any, Iterable, Type, Union
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import log_op as log
 
@@ -39,7 +39,8 @@ class _ObjectWithAliasAndValue:
 
   def _set_alias(self, alias: str) -> str:
     # TODO: ensure alias conforms to inventory field name restrictions.
-    if alias: return alias
+    if alias:
+      return alias
     return log.dbg_return(
         '%s_%d' % (log.class_of(self), hash(self)),
         'empty alias is not allowed',
@@ -86,6 +87,7 @@ class Nothing(_ObjectWithAliasAndValue):
   def __len__(self):
     return 0
 
+
 UNASSIGNED = Nothing('unassigned')
 UNSPECIFIED = Nothing('unspecified')
 MISSING = Nothing('missing')
@@ -100,18 +102,18 @@ class Thing(_ObjectWithAliasAndValue):
       text: str = '',
       value_from: ... = UNSPECIFIED,
       from_attribute: str = '',
-      ):
+  ):
     """Initializes a Thing.
 
     Args:
-      alias: The default string that will be used to access this Thing.
-        Alias should conform to attribute naming restrictions, and every item in
-        an inventory should have a unique alias. For example, 'bass_fish' and
+      alias: The default string that will be used to access this Thing. Alias
+        should conform to attribute naming restrictions, and every item in an
+        inventory should have a unique alias. For example, 'bass_fish' and
         'bass_instrument' in an English lexicon.
       text: A text that represents this Thing. Text doesn't have to be unique.
         Eg. bass_fish and bass_instrument can have the same text 'bass'
-      value_from: The object that will be used to set the value of the Thing.
-        If value_from is not specified, the value of the Thing is itself.
+      value_from: The object that will be used to set the value of the Thing. If
+        value_from is not specified, the value of the Thing is itself.
       from_attribute: The attribute of value_from that will be used to set the
         value. When setting the value of a Thing from another object, if no
         attribute is specified or if the object doesn't have the specified
@@ -136,15 +138,18 @@ class Thing(_ObjectWithAliasAndValue):
     The value of T6 is T6.
     """
     super().__init__(alias)
-    if text: self.text = text
+    if text:
+      self.text = text
     if is_specified(value_from):
       self.value = get_attribute(value_from, from_attribute, value_from)
       self.text += ':' + log.class_and_texts(self.value)
+
 
 # Union types
 
 # FstLike from pynini doesn't work in isinstance()
 FstLike = Union[str, pyn.Fst]
+FstIterable = Union[Nothing, FstLike, Iterable]
 # <class>OrNothing unions for arguments.
 DictOrNothing = Union[dict, Nothing]
 IntOrNothing = Union[int, Nothing]
@@ -221,12 +226,11 @@ class IterableThing(Thing):
     return len(self._items)
 
   @classmethod
-  def typed(
-      cls, item_type: TypeOrNothing, *items: ...
-  ) -> 'IterableThing':
+  def typed(cls, item_type: TypeOrNothing, *items: ...) -> 'IterableThing':
     """Makes an IterableThing whose items are only of the specified type."""
     new_iterable = cls()
-    if not_nothing(item_type): new_iterable._item_type = item_type
+    if not_nothing(item_type):
+      new_iterable._item_type = item_type
     new_iterable.add(*items)
     return new_iterable
 
@@ -247,20 +251,24 @@ class IterableThing(Thing):
   def add(self, *items: ...) -> 'IterableThing':
     for item in items:
       if self.valid_item(item):
-        if isinstance(self._items, list): self._items.append(item)
-        if isinstance(self._items, set): self._items.add(item)
+        if isinstance(self._items, list):
+          self._items.append(item)
+        if isinstance(self._items, set):
+          self._items.add(item)
       elif isinstance(item, Iterable) and not isinstance(item, str):
         self.add(*item)
     return self
 
   def item(self, index: int, default: ... = MISSING) -> ...:
-    if index in range(-len(self), len(self)): return self._items[index]
+    if index in range(-len(self), len(self)):
+      return self._items[index]
     return default
 
 
 def value_of(obj: ...) -> ...:
   """If a has no value attribute, returns a."""
   return obj.value if isinstance(obj, Thing) else obj
+
 
 # Type check.
 
@@ -313,8 +321,7 @@ def not_nothing(obj: ...) -> bool:
 def exists(obj: ...) -> bool:
   """Combines checking for None and undefined Things."""
   return log.dbg_return(
-      obj is not None and not isinstance(obj, Nothing),
-      log.class_and_texts(obj)
+      obj is not None and not isinstance(obj, Nothing), log.class_and_texts(obj)
   )
 
 
@@ -328,16 +335,16 @@ def is_instance(obj: ..., typeinfo: TypeOrNothing = UNSPECIFIED) -> bool:
   Args:
     obj: Object
     typeinfo: Type. Default value is UNSPECIFIED to make type check optional in
-      functions that call is_instance, while the case of optional argument
-      and specifically checking for Null type as distinct cases.
+      functions that call is_instance, while the case of optional argument and
+      specifically checking for Null type as distinct cases.
 
   Returns:
     bool
-
   """
-  if isinstance(typeinfo, Nothing): return log.dbg_return_true(
-      'typeinfo %s for %s' % (typeinfo.text, log.class_and_texts(obj))
-  )
+  if isinstance(typeinfo, Nothing):
+    return log.dbg_return_true(
+        'typeinfo %s for %s' % (typeinfo.text, log.class_and_texts(obj))
+    )
   if isinstance(obj, typeinfo):
     return log.dbg_return_true(log.class_and_texts(obj))
   return log.dbg_return_false(
@@ -348,6 +355,7 @@ def is_instance(obj: ..., typeinfo: TypeOrNothing = UNSPECIFIED) -> bool:
 def not_instance(obj: ..., typeinfo: TypeOrNothing = UNSPECIFIED) -> bool:
   return not is_instance(obj, typeinfo)
 
+
 # Attribute functions with type check.
 
 
@@ -355,28 +363,54 @@ def has_attribute(
     obj: ..., attr: str, typeinfo: TypeOrNothing = UNSPECIFIED
 ) -> bool:
   """Adds log and optional type check to hasattr()."""
-  if not hasattr(obj, attr): return log.dbg_return_false(
-      '%s has no attribute %s' % (log.class_and_texts(obj), attr)
-  )
+  if not hasattr(obj, attr):
+    return log.dbg_return_false(
+        '%s has no attribute %s' % (log.class_and_texts(obj), attr)
+    )
   return log.dbg_return(is_instance(getattr(obj, attr), typeinfo))
 
 
 def get_attribute(
-    obj: ..., attr: str, default: ... = MISSING,
-    typeinfo: TypeOrNothing = UNSPECIFIED
+    obj: ...,
+    attr: str,
+    default: ... = MISSING,
+    typeinfo: TypeOrNothing = UNSPECIFIED,
 ) -> ...:
   """Adds log and type check to getattr()."""
   return log.dbg_return(
       getattr(obj, attr) if has_attribute(obj, attr, typeinfo) else default,
-      '%s of %s' % (attr, log.class_and_texts(obj))
+      '%s of %s' % (attr, log.class_and_texts(obj)),
   )
+
 
 # Equivalence functions.
 
 
+def is_string(obj: ...) -> bool:
+  """Returns true if the object is a string or a string Fst."""
+  if isinstance(obj, str):
+    return True
+  if isinstance(obj, pyn.Fst):
+    try:
+      obj.string()
+      return True
+    except pyn.FstOpError:
+      return False
+  return False
+
+
+def str_of_fstlike(fstlike: pyn.FstLike) -> str:
+  if isinstance(fstlike, pyn.Fst):
+    return fstlike.string()
+  return fstlike
+
+
 def is_equal(
-    obj1: ..., obj2: ...,
-    empty: bool = False, epsilon: bool = False, zero: bool = True
+    obj1: ...,
+    obj2: ...,
+    empty: bool = False,
+    epsilon: bool = False,
+    zero: bool = True,
 ) -> bool:
   """Checks equivalence.
 
@@ -393,37 +427,43 @@ def is_equal(
 
   Returns:
     bool
-
   """
   # Check Fst first, otherwise if Fst == Non-FstLike raises error.
   if isinstance(obj1, pyn.Fst) or isinstance(obj2, pyn.Fst):
-    if (
-        not isinstance(obj1, FstLike) or
-        not isinstance(obj2, FstLike) or
-        obj1 != obj2
-    ):
+    if not isinstance(obj1, FstLike) or not isinstance(obj2, FstLike):
       return log.dbg_return_false(log.class_and_texts(obj1, obj2))
-    if not epsilon and obj1 == pyn.accep(''):
-      return log.dbg_return_false('epsilon fst')
-    return log.dbg_return_true(log.class_and_texts(obj1, obj2))
+    if is_string(obj1) and is_string(obj2):
+      if str_of_fstlike(obj1) != str_of_fstlike(obj2):
+        return log.dbg_return_false(log.class_and_texts(obj1, obj2))
+      if not epsilon and pyn.equal(obj1, ''):
+        return log.dbg_return_false('epsilon fst')
+      return log.dbg_return_true(log.class_and_texts(obj1, obj2))
+    return log.dbg_return(
+        pyn.equal(obj1, obj2), log.class_and_texts(obj1, obj2)
+    )
   obj1_val = value_of(obj1)
   obj2_val = value_of(obj2)
   if obj1_val != obj2_val:
     return log.dbg_return_false(log.class_and_texts(obj1_val, obj2_val))
   if (
-      obj1_val is None or
-      isinstance(obj1_val, Nothing) or
-      (not zero and obj1_val == 0) or
-      (not empty and is_empty(obj1_val))
-  ): return log.dbg_return_false(log.class_and_texts(obj1_val))
+      obj1_val is None
+      or isinstance(obj1_val, Nothing)
+      or (not zero and obj1_val == 0)
+      or (not empty and is_empty(obj1_val))
+  ):
+    return log.dbg_return_false(log.class_and_texts(obj1_val))
   return log.dbg_return_true(log.class_and_texts(obj1_val, obj2_val))
 
 
 def not_equal(
-    obj1: ..., obj2: ...,
-    empty: bool = False, epsilon: bool = False, zero: bool = True
+    obj1: ...,
+    obj2: ...,
+    empty: bool = False,
+    epsilon: bool = False,
+    zero: bool = True,
 ) -> bool:
   return not is_equal(obj1, obj2, empty, epsilon, zero)
+
 
 # Iterable functions
 
@@ -440,13 +480,12 @@ def not_empty(obj: ...) -> bool:
   return not is_empty(obj)
 
 
-def get_element(
-    search_in: ..., index: int, default: ... = MISSING
-    ) -> ...:
+def get_element(search_in: ..., index: int, default: ... = MISSING) -> ...:
   """Returns a[index] if possible, default value if not."""
-  if not isinstance(search_in, Iterable): return log.dbg_return(
-      default, log.class_and_texts(search_in) + ' not iterable'
-  )
+  if not isinstance(search_in, Iterable):
+    return log.dbg_return(
+        default, log.class_and_texts(search_in) + ' not iterable'
+    )
   try:
     return search_in[index]
   except IndexError:
@@ -454,7 +493,8 @@ def get_element(
 
 
 def enforce_range(
-    start: IntOrNothing, stop: IntOrNothing,
+    start: IntOrNothing,
+    stop: IntOrNothing,
     default_start: IntOrNothing = UNSPECIFIED,
     default_stop: IntOrNothing = UNSPECIFIED,
 ) -> range:
@@ -493,16 +533,19 @@ def enforce_range(
   r_stop = stop if isinstance(stop, int) else default_stop
   if isinstance(r_start, int) and isinstance(r_stop, int):
     r = range(r_start, r_stop)
-  else: r = range(0)
+  else:
+    r = range(0)
   return log.dbg_return(
       r, log.class_and_texts(start, stop, default_start, default_stop)
   )
 
 
 def in_range(
-    look_for: IntOrNothing, start: IntOrNothing, stop: IntOrNothing,
+    look_for: IntOrNothing,
+    start: IntOrNothing,
+    stop: IntOrNothing,
     default_start: IntOrNothing = UNSPECIFIED,
-    default_stop: IntOrNothing = UNSPECIFIED
+    default_stop: IntOrNothing = UNSPECIFIED,
 ) -> bool:
   """Checks if look_for is in an enforced range."""
   return log.dbg_return_in(
@@ -513,7 +556,8 @@ def in_range(
 def enforce_list(obj: ListOrNothing) -> list[Any]:
   """Enforces list type for list or Nothing arguments."""
   # TODO: catch dict iterables as list
-  if isinstance(obj, list): return obj
+  if isinstance(obj, list):
+    return obj
   return log.dbg_return([], log.from_class_and_text(obj))
 
 
@@ -524,7 +568,8 @@ def in_list(look_for: ..., look_in: ListOrNothing) -> bool:
 
 def enforce_dict(obj: DictOrNothing) -> dict[Any, Any]:
   """Enforces dict type for dict or Nothing arguments."""
-  if isinstance(obj, dict): return obj
+  if isinstance(obj, dict):
+    return obj
   return log.dbg_return({}, log.from_class_and_text(obj))
 
 
@@ -537,7 +582,8 @@ def dict_get(obj: DictOrNothing, key: ..., default: ... = MISSING) -> ...:
 
 def enforce_set(obj: SetOrNothing) -> set[Any]:
   """Enforces set type for set or Nothing arguments."""
-  if isinstance(obj, set): return obj
+  if isinstance(obj, set):
+    return obj
   return log.dbg_return(set(), log.from_class_and_text(obj))
 
 
