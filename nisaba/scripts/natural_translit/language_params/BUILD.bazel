@@ -119,6 +119,22 @@ py_library(
 )
 
 py_library(
+    name = "pa",
+    srcs = ["pa.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/brahmic:iso2ltn_ops",
+        "//nisaba/scripts/natural_translit/brahmic:iso2txn",
+        "//nisaba/scripts/natural_translit/brahmic:iso2txn_ops",
+        "//nisaba/scripts/natural_translit/brahmic:psa_phoneme_inventory",
+        "//nisaba/scripts/natural_translit/brahmic/acronym:typ2acr",
+        "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/phonology:txn2ipa",
+        "//nisaba/scripts/natural_translit/utils:concat",
+        "//nisaba/scripts/natural_translit/utils:fst_list",
+    ],
+)
+
+py_library(
     name = "ta",
     srcs = ["ta.py"],
     deps = [

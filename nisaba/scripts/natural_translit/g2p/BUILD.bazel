@@ -35,6 +35,7 @@ LANGUAGES = [
     "kn",
     "ml",
     "mr",
+    "pa",
     "ta",
     "te",
 ]

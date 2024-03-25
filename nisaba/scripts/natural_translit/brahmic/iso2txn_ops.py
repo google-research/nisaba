@@ -122,7 +122,8 @@ def process_schwa(
 # Anusvara place of articulation assimilation functions
 
 
-def assign_anusvara(
+def assign_nasal(
+    nasal: pyn.FstLike,
     phoneme: pyn.FstLike,
     place: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Pronunciation of anusvara.
@@ -132,6 +133,7 @@ def assign_anusvara(
   articulation of the following phoneme.
 
   Args:
+    nasal: Nasal diacritic to be assigned.
     phoneme: Pronuncation of <ans>.
     place: Following phoneme.
 
@@ -140,7 +142,7 @@ def assign_anusvara(
 
   Following call:
   ```
-  assign_anusvara(ph.M, ph.LABIAL)
+  assign_nasal(ph.M, ph.LABIAL)
   ```
   will return:
   ```
@@ -152,29 +154,31 @@ def assign_anusvara(
   ```
   """
   return rw.reassign(
-      gr.ANS,
+      nasal,
       ph.NSL,
       phoneme,
       following=place)
 
-DEFAULT_ANUSVARA_LABIAL = assign_anusvara(ph.M)
-DEFAULT_ANUSVARA_DENTAL = assign_anusvara(ph.NI)
-DEFAULT_ANUSVARA_VELAR = assign_anusvara(ph.NG)
-ANUSVARA_ASSIMILATION_LABIAL = assign_anusvara(ph.M, ph.LABIAL)
-ANUSVARA_ASSIMILATION_DENTAL = assign_anusvara(ph.NI, ph.DENTAL)
-ANUSVARA_ASSIMILATION_ALVEOLAR = assign_anusvara(ph.N, ph.ALVEOLAR)
-ANUSVARA_ASSIMILATION_PALATAL = assign_anusvara(ph.NY, ph.PALATAL)
-ANUSVARA_ASSIMILATION_RETROFLEX = assign_anusvara(ph.NN, ph.RETROFLEX)
-ANUSVARA_ASSIMILATION_VELAR = assign_anusvara(ph.NG, ph.VELAR)
+DEFAULT_ANUSVARA_LABIAL = assign_nasal(gr.ANS, ph.M)
+DEFAULT_ANUSVARA_DENTAL = assign_nasal(gr.ANS, ph.NI)
+DEFAULT_ANUSVARA_VELAR = assign_nasal(gr.ANS, ph.NG)
 FINAL_ANUSVARA_NASALIZATION = rw.reassign_word_final(gr.ANS, ph.NASAL, ph.NSL)
 
 # Composes anusvara assimilation for all places of articulation.
-ANUSVARA_ASSIMILATION = (ANUSVARA_ASSIMILATION_LABIAL @
-                         ANUSVARA_ASSIMILATION_DENTAL @
-                         ANUSVARA_ASSIMILATION_ALVEOLAR @
-                         ANUSVARA_ASSIMILATION_PALATAL @
-                         ANUSVARA_ASSIMILATION_RETROFLEX @
-                         ANUSVARA_ASSIMILATION_VELAR).optimize()
+ANUSVARA_ASSIMILATION = (assign_nasal(gr.ANS, ph.M, ph.LABIAL) @
+                         assign_nasal(gr.ANS, ph.NI, ph.DENTAL) @
+                         assign_nasal(gr.ANS, ph.NY, ph.ALVEOLAR) @
+                         assign_nasal(gr.ANS, ph.NY, ph.PALATAL) @
+                         assign_nasal(gr.ANS, ph.NN, ph.RETROFLEX) @
+                         assign_nasal(gr.ANS, ph.NG, ph.VELAR)).optimize()
+
+TIPPI_ASSIMILATION = (assign_nasal(gr.TIP, ph.M, ph.LABIAL) @
+                      assign_nasal(gr.TIP, ph.NI, ph.DENTAL) @
+                      assign_nasal(gr.TIP, ph.NY, ph.ALVEOLAR) @
+                      assign_nasal(gr.TIP, ph.NY, ph.PALATAL) @
+                      assign_nasal(gr.TIP, ph.NN, ph.RETROFLEX) @
+                      assign_nasal(gr.TIP, ph.NG, ph.VELAR)).optimize()
+
 
 # JNY clusters
 
@@ -208,6 +212,7 @@ B_V = rw.reassign(gr.B, ph.B, ph.VU, ph.CONSONANT)
 PHPH_TO_FF = rw.reassign_adjacent_alignments(
     gr.PH, ph.P + ph.ASP, ph.F,
     gr.PH, ph.P + ph.ASP, ph.F,)
+REMOVE_ASP_FROM_GEMINATE = rw.delete(ph.ASP, following=(ph.ALL + ph.ASP))
 
 RT_TO_R = rw.rewrite(ph.RT, ph.R)
 
@@ -220,3 +225,17 @@ H_ASP = rw.reassign(
     gr.H, ph.H, ph.ASP, (ph.M | ph.NI | ph.VU | ph.L | ph.R)
 )
 
+ADDAK = rw.rewrite_ls(
+    [[char.ph, char.ph + char.ph] for char in iso.ONSET_CONSONANT], ph.SIL
+)
+
+AUM_AON = rw.reassign(gr.U_I, ph.U, ph.O, following=(gr.ANS + al.SKIP + al.EOW))
+OAM_AON = rw.merge(
+    gr.OO, ph.O + ph.DURH, gr.AA_I, ph.A + ph.DURH,
+    ph.EC + ph.O,
+    following=(gr.ANS + al.SKIP + al.EOW)
+)
+ANSVA_AON = rw.merge(
+    gr.ANS, ph.NSL, gr.V, ph.VU, ph.O + ph.NSL,
+    following=(gr.A + al.SKIP + al.EOW)
+)

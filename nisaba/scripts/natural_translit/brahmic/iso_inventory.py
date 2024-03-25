@@ -112,6 +112,8 @@ SIMPLE_CODA = ls.apply_foreach(c.make_char, [
     ['cnd_dia', '̐', ph.SIL],
     ['upadh', 'ḫ', ph.H],
     ['jihva', 'ẖ', ph.H],
+    ['add', '˖', ph.SIL],
+    ['tip', 'ṃ', ph.NSL],
 ])
 
 OM_VOWEL = [c.make_char('ot', 'õ', ph.O + ph.DURH)]

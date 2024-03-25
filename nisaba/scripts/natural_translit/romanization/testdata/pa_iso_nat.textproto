@@ -1,0 +1,81 @@
+# Copyright 2024 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: nisaba/interim/testing/testdata.proto
+# proto-message: Rewrites
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "abōhara"
+  output: "abohar"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "bʰaiṇī"
+  output: "bhaini"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "bauṛa"
+  output: "baur"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "mi˖ḍūmāna"
+  output: "midduman"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "ca˖ṭʰā"
+  output: "chattha"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "kʰēṛī"
+  output: "kheri"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "cāṁpā"
+  output: "champa"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "dʰatōṁdā"
+  output: "dhatonda"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "śaṃbʰū"
+  output: "shambhu"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "caṃdū"
+  output: "chandu"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "jagarā.uṁ"
+  output: "jagraon"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "kaṃbō.āṁ"
+  output: "kambaon"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "kʰātēgāṁva"
+  output: "khategaon"
+}

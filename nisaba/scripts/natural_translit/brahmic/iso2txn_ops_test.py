@@ -46,13 +46,13 @@ _TEST_CASES = [
         ('{a}{p}{t}{_}{s}{p}{a}', '{a}{p}{t}{_}{s}{p}{a}'),
         ('{a}{r}{t}{_}{k}{p}{a}', '{a}{r}{t}{_}{k}{p}{a}'),
     ]),
-    (lambda: iso2txn_ops.assign_anusvara('{m}'), [
+    (lambda: iso2txn_ops.assign_nasal('<ans>', '{m}'), [
         ('<a>={a}<ans>={N}<b>={b}<aa>={a}{:h}',
          '<a>={a}<ans>={m}<b>={b}<aa>={a}{:h}'),
         ('<a>={a}<ans>={N}<s>={s}<aa>={a}{:h}',
          '<a>={a}<ans>={m}<s>={s}<aa>={a}{:h}'),
     ]),
-    (lambda: iso2txn_ops.assign_anusvara('{ng}', '{g}'), [
+    (lambda: iso2txn_ops.assign_nasal('<ans>', '{ng}', '{g}'), [
         ('<a>={a}<ans>={N}<g>={g}<aa>={a}{:h}',
          '<a>={a}<ans>={ng}<g>={g}<aa>={a}{:h}'),
         ('<a>={a}<ans>={N}<s>={s}<aa>={a}{:h}',
