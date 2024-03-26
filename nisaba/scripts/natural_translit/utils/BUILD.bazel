@@ -105,7 +105,7 @@ py_library(
     name = "alignment",
     srcs = ["alignment.py"],
     deps = [
-        ":list_op",
+        ":fst_list",
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:byte",
     ],

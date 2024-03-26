@@ -17,12 +17,12 @@
 
 import pynini as pyn
 from pynini.lib import byte
-from nisaba.scripts.natural_translit.utils import list_op as ls
+from nisaba.scripts.natural_translit.utils import fst_list as fl
 
 # Constants
 
 # Default sigma for rewrites that don't involve UTF-8 character
-BYTE_STAR = ls.star_opt(byte.BYTE)
+BYTE_STAR = byte.BYTE.star.optimize()
 
 # String literals
 
@@ -54,12 +54,12 @@ AFFIX = pyn.accep(UNDERSCORE)
 COMBINE = pyn.accep(PLUS)
 GR_L = pyn.accep(LESS_THAN)  # Grapheme left boundary
 GR_R = pyn.accep(GREATER_THAN)  # Grapheme right boundary
-GR_B = [GR_L, GR_R]
-GR_BOUND = ls.union_opt(*GR_B)
+GR_B = fl.FstList(GR_L, GR_R)
+GR_BOUND = GR_B.union()
 PH_L = pyn.accep(CURLY_L)  # Phoneme left boundary
 PH_R = pyn.accep(CURLY_R)  # Phoneme right boundary
-PH_B = [PH_L, PH_R]
-PH_BOUND = ls.union_opt(*PH_B)
+PH_B = fl.FstList(PH_L, PH_R)
+PH_BOUND = PH_B.union()
 TR_B = pyn.accep(GRAVE_ACCENT)  # Translit boundary
 ALIGN_SIGN = pyn.accep(EQUAL)  # Substring alignment
 DOT = pyn.accep(FULL_STOP)
@@ -73,11 +73,10 @@ DURATION = pyn.accep(COLON)
 
 
 def _enclose(
-    base: pyn.FstLike,
-    left_boundary: pyn.FstLike,
-    right_boundary: pyn.FstLike) -> pyn.Fst:
+    base: pyn.FstLike, left_boundary: pyn.FstLike, right_boundary: pyn.FstLike
+) -> pyn.Fst:
   """Encloses a string with the boundary symbols of the relevant type."""
-  return left_boundary + base + right_boundary
+  return fl.FstList(left_boundary, base, right_boundary).concat()
 
 
 def enclose_grapheme(base: pyn.FstLike) -> pyn.Fst:
@@ -101,47 +100,42 @@ def align(left_side: pyn.FstLike, right_side: pyn.FstLike) -> pyn.Fst:
 
 
 def realign(
-    left_side: pyn.FstLike,
-    old: pyn.FstLike,
-    new: pyn.FstLike) -> pyn.Fst:
+    left_side: pyn.FstLike, old: pyn.FstLike, new: pyn.FstLike
+) -> pyn.Fst:
   """Changes the right side assignment of a specified left side."""
-  return pyn.cross(
-      align(left_side, old),
-      align(left_side, new))
+  return pyn.cross(align(left_side, old), align(left_side, new))
 
 
 def assign(left_side: pyn.FstLike, right_side: pyn.FstLike) -> pyn.Fst:
   """Takes left side, returns an alignment of left and right sides."""
   return pyn.cross(left_side, align(left_side, right_side))
 
-PUNCTUATION = (
-    AFFIX | COMBINE | DOT | STRESS | PITCH | CONTOUR | INTONATION | DURATION
+
+PUNCTUATION_LIST = fl.FstList(
+    AFFIX, COMBINE, DOT, STRESS, PITCH, CONTOUR, INTONATION, DURATION
 )
-SYM = ls.union_star(byte.ALPHA, PUNCTUATION)
+PUNCTUATION = PUNCTUATION_LIST.union()
+SYM = fl.FstList(byte.ALPHA, PUNCTUATION_LIST).union_star()
 GRAPHEME = enclose_grapheme(SYM)
-GRAPHEMES = ls.star_opt(GRAPHEME)
+GRAPHEMES = GRAPHEME.star.optimize()
 PHONEME = enclose_phoneme(SYM)
-PHONEMES = ls.star_opt(PHONEME)
+PHONEMES = PHONEME.star.optimize()
 TRANSLIT = enclose_translit(SYM)
-TRANSLITS = ls.star_opt(TRANSLIT)
+TRANSLITS = TRANSLIT.star.optimize()
 
 # Right side of an alignment can be phonemes or transliteration string
-R_SYM = ls.union_star(PHONEME, TRANSLIT)
-R_SYMS = ls.union_star(PHONEMES, TRANSLITS)
+R_SYMS = fl.FstList(PHONEME, TRANSLIT).union_star()
 
-SYMS = ls.union_opt(GRAPHEMES, R_SYMS)
+SYMS = fl.FstList(GRAPHEME, PHONEME, TRANSLIT).union_star()
 
 # Skip sequences to look at either the adjacent symbol, the closest left or
 # right side symbol of an adjacent alignment.
-SKIP_LEFT_SIDE = (GRAPHEME.plus + ALIGN_SIGN).ques
-SKIP_RIGHT_SIDE = (ALIGN_SIGN + R_SYM.plus).ques
-SKIP = ls.union_opt(SKIP_LEFT_SIDE, SKIP_RIGHT_SIDE).ques
-
+SKIP_LEFT_SIDE = (GRAPHEMES + ALIGN_SIGN).ques
+SKIP_RIGHT_SIDE = (ALIGN_SIGN + R_SYMS).ques
+SKIP = fl.FstList(SKIP_LEFT_SIDE, SKIP_RIGHT_SIDE).union_opt()
 
 # Beginning of word
 BOW = BOS + SKIP_LEFT_SIDE.ques
 
 # End of word
 EOW = SKIP_RIGHT_SIDE.ques + EOS
-
-
