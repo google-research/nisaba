@@ -104,8 +104,8 @@ class FeatureTest(test_op.TestCase):
   def test_aspect_of_feature(self):
     self.assertEqual(r.warmth.warm.aspect, r.warmth)
 
-  def test_list_as_supl(self):
-    self.assertIn('cls', r.door.supl_aliases)
+  def test_list_as_suppl(self):
+    self.assertIn('cls', r.door.suppl_aliases)
 
   def test_set_empty(self):
     self.assertEmpty(f.Set())

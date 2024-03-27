@@ -367,7 +367,7 @@ class Feature(ty.Thing):
       dictionary. Adds self as supplement to the aspect.
 
       """
-      aspect.add_supl(self)
+      aspect.add_suppl(self)
       for i, item in enumerate(self):
         item.parent_list = self
         if isinstance(item, Feature) and item not in aspect:
@@ -485,8 +485,8 @@ class Feature(ty.Thing):
       feature.inventory = self.inventory
       self.distance_dict[feature] = {}
 
-    def supl_feature(self, feature: 'Feature') -> None:
-      self.add_supl(feature)
+    def suppl_feature(self, feature: 'Feature') -> None:
+      self.add_suppl(feature)
       feature.aspect = self
       feature.inventory = self.inventory
 
@@ -513,16 +513,16 @@ class Feature(ty.Thing):
       return Feature.Set(to_add, alias=alias)
 
     def set(self, alias: str, *features) -> None:
-      self.add_supl(self._make_set(alias, *features))
+      self.add_suppl(self._make_set(alias, *features))
 
     def set_not(self, alias: str, *features) -> None:
-      self.add_supl(self._make_set(alias, *features, negation=True))
+      self.add_suppl(self._make_set(alias, *features, negation=True))
 
     def set_range(
         self, alias: str,
         first: 'Feature.Aspect.VALUES', last: 'Feature.Aspect.VALUES'
     ) -> None:
-      self.add_supl(
+      self.add_suppl(
           self._make_set(alias, first.parent_list.range(first, last))
       )
 
@@ -547,8 +547,8 @@ class Feature(ty.Thing):
       self.inventory.add_item(self)
       self.root_list.populate(self)
       self.set('all', self)
-      self.supl_feature(Feature('any'))
-      self.supl_feature(Feature('n_a', 'not_applicable'))
+      self.suppl_feature(Feature('any'))
+      self.suppl_feature(Feature('n_a', 'not_applicable'))
 
   class Inventory(inventory2.Inventory):
     """An inventory of Aspects and their contrastive features.
@@ -582,13 +582,13 @@ class Feature(ty.Thing):
         self, alias: str,
         *params: 'Feature.ITERABLE',
     ) -> None:
-      self.add_supl(Feature.Profile(self, alias, *params))
+      self.add_suppl(Feature.Profile(self, alias, *params))
 
     def copy_and_update_profile(
         self, old: 'Feature.Profile', alias: str,
         *params: 'Feature.ITERABLE',
     ) -> None:
-      self.add_supl(old.copy_and_update(alias, *params))
+      self.add_suppl(old.copy_and_update(alias, *params))
 
   class Profile(inventory2.Inventory):
     """"Feature profile for an object based on a feature inventory.

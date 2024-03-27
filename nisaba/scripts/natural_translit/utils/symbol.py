@@ -156,7 +156,7 @@ class Symbol(ty.Thing):
       self.index_dict = {}
       self.raw_dict = {}
       self.text_dict = {}
-      self.add_supl(Symbol.CTRL)
+      self.add_suppl(Symbol.CTRL)
       for c in self.CTRL:
         self._add_to_dicts(c)
       self.add_symbols(*symbols)
@@ -205,7 +205,7 @@ class Symbol(ty.Thing):
 
       Args:
         *symbols: The symbols to be added.
-        list_alias: If an alias is provided, makes a supl with the alias that
+        list_alias: If an alias is provided, makes a suppl with the alias that
           points to the list of successfully added symbols.
 
       Returns:
@@ -216,7 +216,7 @@ class Symbol(ty.Thing):
         if self._add_symbol(sym):
           syms.append(sym)
       if list_alias:
-        self.make_supl(list_alias, syms)
+        self.make_suppl(list_alias, syms)
       return syms
 
     def lookup(

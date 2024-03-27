@@ -34,7 +34,7 @@ _SYM = sym.Symbol.Inventory(
 
 def _atomic_inventory() -> exp.Atomic.Inventory:
   atomics = exp.Atomic.Inventory('atomic')
-  atomics.make_supl('atm_sym', {exp.Atomic.read(sym): sym for sym in _SYM})
+  atomics.make_suppl('atm_sym', {exp.Atomic.read(sym): sym for sym in _SYM})
   atomics.add_symbols(*atomics.atm_sym)
   return atomics
 

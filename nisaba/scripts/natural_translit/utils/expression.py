@@ -192,7 +192,7 @@ def _control_atomics() -> inventory2.Inventory:
   atomics = inventory2.Inventory.from_list(
       list(atm_sym_dict.values()), alias='CTRL'
   )
-  atomics.make_supl('atm_sym_dict', atm_sym_dict)
+  atomics.make_suppl('atm_sym_dict', atm_sym_dict)
   return atomics
 
 

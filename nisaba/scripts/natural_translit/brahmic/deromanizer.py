@@ -43,7 +43,7 @@ class Deromanizer(inventory2.Inventory):
     self.script = ''
     self.schwa_deletion = False
     self._init_items()
-    self._init_supls()
+    self._init_suppls()
 
   def _add_fst_list(self, alias: str, *fsts) -> None:
     self.add_item(fl.FstList(*fsts, alias=alias))
@@ -51,7 +51,7 @@ class Deromanizer(inventory2.Inventory):
   def _make_mapping_group(
       self, alias: str, value: ... = ty.UNSPECIFIED
   ) -> None:
-    self.make_supl(alias, value if ty.is_specified(value) else {})
+    self.make_suppl(alias, value if ty.is_specified(value) else {})
 
   def _init_items(self) -> None:
     ls.apply_foreach(self._add_fst_list, [
@@ -62,7 +62,7 @@ class Deromanizer(inventory2.Inventory):
         ['cluster_vir'], ['high_priority'], ['ind_to_sign']
     ])
 
-  def _init_supls(self) -> None:
+  def _init_suppls(self) -> None:
     ls.apply_foreach(self._make_mapping_group, [
         ['vowel'], ['monophthong'], ['always_long_vowel'], ['diphthong'],
         ['consonant'], ['has_aspirated'], ['no_aspirated'], ['drops_aspirated'],
