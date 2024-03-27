@@ -14,7 +14,7 @@
 
 """Class for holding and handling lists of fsts."""
 
-from typing import Iterable
+from typing import Any, Callable, Iterable
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import type_op as ty
 from nisaba.scripts.utils import rewrite
@@ -28,19 +28,57 @@ class FstList(ty.IterableThing):
     self._item_type = pyn.Fst
     self.add(*fsts)
 
+  @classmethod
+  def make(
+      cls, maker: Callable[..., pyn.Fst], *args: tuple[Any, ...]
+  ) -> 'FstList':
+    """Creates an FstList from a maker function and a list of arguments.
+
+    Args:
+      maker: A function that returns an fst.
+      *args: Argument tuples for the maker function.
+
+    Returns:
+      FstList.
+
+    Following call:
+    ```
+    FstList.make(
+        maker_function,
+        [
+            (arg1, arg2, arg3),
+            (arg3, arg4),
+            (arg5, arg6, arg7),
+        ]
+    )
+    ```
+    will return:
+    ```
+    FstList(
+        maker_function(arg1, arg2, arg3),
+        maker_function(arg3, arg4),
+        maker_function(arg5, arg6, arg7),
+    )
+    ```
+    """
+    return FstList([maker(*arg) for arg in args])
+
+  @classmethod
+  def cross(cls, *args: tuple[Any, Any]):
+    """Shorthand for when the maker function is pyn.cross."""
+    return cls.make(pyn.cross, *args)
+
   def add(self, *args) -> 'FstList':
     """Adds fsts to self.
 
     Args:
       *args: If the arg is an fst, adds it to the list. If the arg is a string,
-      adds the acceptor fst.
-      If the args are iterable, flattens tree structures into a list and adds
-      the fsts and the acceptors of strings.
-      Ignores args and elements of args of other types.
+        adds the acceptor fst. If the args are iterable, flattens tree
+        structures into a list and adds the fsts and the acceptors of strings.
+        Ignores args and elements of args of other types.
 
     Returns:
       Self
-
     """
     for arg in args:
       if isinstance(arg, str):

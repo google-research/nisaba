@@ -14,7 +14,6 @@
 
 # Script definitions for Malayalam.
 
-load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "component_tsv")
 load(
     "//nisaba/scripts/brahmic/data:components_tsv.bzl",
     "components_tsv_from_common",
@@ -22,6 +21,7 @@ load(
     "components_tsv_local_with_common",
     "empty_components_tsv",
 )
+load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "component_tsv")
 
 package(
     default_applicable_licenses = [
