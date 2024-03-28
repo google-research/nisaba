@@ -19,7 +19,6 @@ import pynini as pyn
 from nisaba.scripts.natural_translit.phonology import feature
 from nisaba.scripts.natural_translit.phonology import phon as p
 from nisaba.scripts.natural_translit.utils import alignment as al
-from nisaba.scripts.natural_translit.utils import list_op as ls
 
 f = feature.FEATURE_INVENTORY
 
@@ -48,7 +47,7 @@ def qualified_modifier(
 
 COMBINER = [modifier_phon('CMB', '+', [f.composite], '͡')]
 
-MODIFIER_FEATURE = ls.apply_foreach(modifier_phon, [
+MODIFIER_FEATURE = [modifier_phon(*args) for args in [
     ['DVC', 'o', [f.devoiced], '̥'],  # devoiced
     ['NPL', 'e', [f.nonpulmonic], '`'],  # nonpulmonic
     ['DUR', ':', [f.duration], 'ː'],
@@ -56,10 +55,10 @@ MODIFIER_FEATURE = ls.apply_foreach(modifier_phon, [
     ['TPT', '^', [f.pitch], ''],
     ['TCN', '&', [f.contour], ''],
     ['INT', '!', [f.intonation], ''],
-])
+]]
 _M = p.phon_inventory(MODIFIER_FEATURE)
 
-FEATURE_QUALIFIER = ls.apply_foreach(modifier_phon, [
+FEATURE_QUALIFIER = [modifier_phon(*args) for args in [
     ['TOP', 't', [f.top], ''],
     ['HGH', 'h', [f.high], ''],
     ['MDL', 'm', [f.middle], ''],
@@ -68,19 +67,19 @@ FEATURE_QUALIFIER = ls.apply_foreach(modifier_phon, [
     ['RSN', 'r', [f.rising], ''],
     ['FLN', 'f', [f.falling], ''],
     ['TRP', 'k', [f.interrupt], ''],
-])
+]]
 _F = p.phon_inventory(FEATURE_QUALIFIER)
 
 
 def duration(value: p.Phon, ipa: str) -> p.Phon:
   return qualified_modifier(_M.DUR, value, ipa)
 
-DURATION = ls.apply_foreach(duration, [
+DURATION = [duration(*args) for args in [
     [_F.BTM, '̆'],
     [_F.MDL, 'ˑ'],
     [_F.HGH, 'ː'],
     [_F.TOP, 'ːː']
-])
+]]
 
 MOD = p.phon_inventory(
     COMBINER + MODIFIER_FEATURE + FEATURE_QUALIFIER + DURATION

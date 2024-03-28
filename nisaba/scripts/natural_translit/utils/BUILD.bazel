@@ -26,27 +26,6 @@ package(
 licenses(["notice"])
 
 py_library(
-    name = "list_op",
-    srcs = ["list_op.py"],
-    deps = [
-        ":type_op",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_test(
-    name = "list_op_test",
-    srcs = ["list_op_test.py"],
-    main = "list_op_test.py",
-    deps = [
-        "test_op",
-        ":list_op",
-        "@io_abseil_py//absl/testing:absltest",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_library(
     name = "inventory",
     srcs = ["inventory.py"],
     deps = [
@@ -58,7 +37,6 @@ py_library(
     name = "inventory2",
     srcs = ["inventory2.py"],
     deps = [
-        ":list_op",
         ":log_op",
         ":type_op",
         "@org_opengrm_pynini//pynini",
@@ -127,7 +105,7 @@ py_library(
     deps = [
         ":alignment",
         ":concat",
-        ":list_op",
+        ":fst_list",
         "@org_opengrm_pynini//pynini",
     ],
 )

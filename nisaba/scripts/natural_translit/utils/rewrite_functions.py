@@ -18,7 +18,7 @@
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import concat as cc
-from nisaba.scripts.natural_translit.utils import list_op as ls
+from nisaba.scripts.natural_translit.utils import fst_list as fl
 
 
 def rewrite_op(
@@ -77,12 +77,12 @@ def rewrite(
 
 
 def rewrite_ls(
-    list_comp: [[pyn.FstLike]],
+    list_comp: list[tuple[pyn.FstLike, pyn.FstLike]],
     preceding: pyn.FstLike = al.EPSILON,
     following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Shorthand for when the op loops over a list."""
   return rewrite_op(
-      ls.cross_union(list_comp),
+      fl.FstList.cross(*list_comp).union_opt(),
       preceding,
       following)
 
@@ -127,6 +127,17 @@ def rewrite_repeated(
       following)
 
 
+def rewrite_repeated_ls(
+    list_comp: list[tuple[pyn.FstLike, ...]],
+    preceding: pyn.FstLike = al.EPSILON,
+    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
+  """Rewrites a repeated string or fst. By default reduces it to one."""
+  return rewrite_op(
+      fl.FstList.make(rewrite_repeated, *list_comp).union_opt(),
+      preceding,
+      following)
+
+
 # TODO: Update to accept union fst on the left side.
 def reassign(
     left_side: pyn.FstLike,
@@ -165,6 +176,17 @@ def reassign(
   """
   return rewrite_op(
       al.realign(left_side, old, new),
+      preceding,
+      following)
+
+
+def reassign_ls(
+    list_comp: list[tuple[pyn.FstLike, ...]],
+    preceding: pyn.FstLike = al.EPSILON,
+    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
+  """Shorthand for when the op loops over a list."""
+  return rewrite_op(
+      fl.FstList.make(reassign, *list_comp).union_opt(),
       preceding,
       following)
 
@@ -327,4 +349,4 @@ def delete(
 
 
 # Removes graphemes and returns a sequence of phonemes or translit substrings.
-EXTRACT_RIGHT_SIDE = delete(ls.union_opt(al.GRAPHEMES, al.ALIGN_SIGN))
+EXTRACT_RIGHT_SIDE = delete(fl.FstList(al.GRAPHEMES, al.ALIGN_SIGN).union_opt())

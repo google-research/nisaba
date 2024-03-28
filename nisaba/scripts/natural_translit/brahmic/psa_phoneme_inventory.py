@@ -18,7 +18,6 @@ from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import feature
 from nisaba.scripts.natural_translit.phonology import phon as p
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory
-from nisaba.scripts.natural_translit.utils import list_op as ls
 
 f = feature.FEATURE_INVENTORY
 ph = phoneme_inventory.PHON_INVENTORY
@@ -44,51 +43,49 @@ def _import_to_psa(
 
 SILENCE = [_import_to_psa(ph.SIL)]
 
-VOWEL_MOD = ls.apply_foreach(_import_to_psa, (
-    [ph.NSY], [ph.NSL], [mod.DURH],
-))
+VOWEL_MOD = [
+    _import_to_psa(phon) for phon in [ph.NSY, ph.NSL, mod.DURH]
+]
 
 CONS_MOD = [_import_to_psa(ph.ASP)]
 
-VOWEL = ls.apply_foreach(_import_to_psa, [
+VOWEL = [_import_to_psa(*args) for args in [
     [ph.V_TNT], [ph.V_PRN], [ph.SYL, tr.I],
     [ph.A], [ph.AE, tr.S_AE],
     [ph.E], [ph.EC, tr.A], [ph.EH],
     [ph.I], [ph.O], [ph.OH], [ph.U],
     [ph.A_I], [ph.A_U],
-])
+]]
 
-NASAL = ls.apply_foreach(_import_to_psa, [
-    [ph.M], [ph.NI], [ph.N], [ph.NN], [ph.NY], [ph.NG],
-])
+NASAL = [
+    _import_to_psa(phon) for phon in [ph.M, ph.NI, ph.N, ph.NN, ph.NY, ph.NG]
+]
 
-VOICELESS_STOP = ls.apply_foreach(_import_to_psa, [
-    [ph.P], [ph.TI], [ph.T], [ph.TT], [ph.K], [ph.Q],
-])
+VOICELESS_STOP = [
+    _import_to_psa(phon) for phon in [ph.P, ph.TI, ph.T, ph.TT, ph.K, ph.Q]
+]
 
-VOICED_STOP = ls.apply_foreach(_import_to_psa, [
-    [ph.B], [ph.DI], [ph.D], [ph.DD], [ph.G],
-])
+VOICED_STOP = [
+    _import_to_psa(phon) for phon in [ph.B, ph.DI, ph.D, ph.DD, ph.G]
+]
 
-VOICELESS_FRICATIVE = ls.apply_foreach(_import_to_psa, [
+VOICELESS_FRICATIVE = [_import_to_psa(*args) for args in [
     [ph.F], [ph.S], [ph.SH], [ph.SS], [ph.KH, tr.S_KH], [ph.H],
-])
+]]
 
-VOICED_FRICATIVE = ls.apply_foreach(_import_to_psa, [
+VOICED_FRICATIVE = [_import_to_psa(*args) for args in [
     [ph.Z], [ph.ZH], [ph.GH, tr.G],
-])
+]]
 
 VOICELESS_AFFRICATE = [_import_to_psa(ph.T_SH)]
 
 VOICED_AFFRICATE = [_import_to_psa(ph.D_ZH)]
 
-APPROXIMANT = ls.apply_foreach(_import_to_psa, [
+APPROXIMANT = [_import_to_psa(*args) for args in [
     [ph.VU], [ph.RRU, tr.S_ZH], [ph.Y], [ph.L], [ph.LL],
-])
+]]
 
-TAP_TRILL = ls.apply_foreach(_import_to_psa, [
-    [ph.R], [ph.RT], [ph.RD],
-])
+TAP_TRILL = [_import_to_psa(phon) for phon in [ph.R, ph.RT, ph.RD]]
 
 CONSONANT = (
     NASAL + VOICELESS_STOP + VOICED_STOP +
@@ -100,7 +97,7 @@ CONSONANT = (
 PHONEMES = SILENCE + VOWEL_MOD + CONS_MOD + VOWEL + CONSONANT
 PH = p.phon_inventory(PHONEMES)
 
-PH_STORE = ls.apply_foreach(p.store_ph_union, [
+PH_STORE = [p.store_ph_union(*args) for args in [
     ['NASAL', NASAL],
     ['FRICATIVE', VOICELESS_FRICATIVE + VOICED_FRICATIVE],
     ['VOICED', VOICED_STOP + VOICED_FRICATIVE + VOICED_AFFRICATE],
@@ -114,14 +111,14 @@ PH_STORE = ls.apply_foreach(p.store_ph_union, [
     ['PALATAL', [PH.NY, PH.Y]],
     ['RETROFLEX', [PH.NN, PH.DD, PH.TT]],
     ['VELAR', [PH.NG, PH.G, PH.K]],
-])
+]]
 
-PH_MOD_STORE = ls.apply_foreach(p.store_ph_modified, [
+PH_MOD_STORE = [p.store_ph_modified(*args) for args in [
     ['VOWEL', VOWEL, VOWEL_MOD],
     ['STOP', VOICELESS_STOP + VOICED_STOP, CONS_MOD],
     ['AFFRICATE', VOICELESS_AFFRICATE + VOICED_AFFRICATE, CONS_MOD],
     ['CONSONANT', CONSONANT, CONS_MOD],
-])
+]]
 
 PH_ALL_STORE = p.store_ph_union('ALL', PHONEMES)
 

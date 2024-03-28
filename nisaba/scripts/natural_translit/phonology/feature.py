@@ -16,7 +16,6 @@
 
 import collections
 from nisaba.scripts.natural_translit.utils import inventory as i
-from nisaba.scripts.natural_translit.utils import list_op as ls
 
 # cat: category, val: value
 PhonFeature = collections.namedtuple(
@@ -30,7 +29,7 @@ def ft_inventory(
   return i.make_inventory(i.alias_list(feature_list), feature_list, store_list)
 
 # TODO:Enum features by category
-ARTICULATION_FEATURE = ls.apply_foreach(PhonFeature, [
+ARTICULATION_FEATURE = [PhonFeature(alias, cat) for alias, cat in [
     ['silent', 'pronunciation'],
     ['syllabic', 'syllabicity'],
     ['nonsyllabic', 'syllabicity'],
@@ -89,9 +88,9 @@ ARTICULATION_FEATURE = ls.apply_foreach(PhonFeature, [
     ['pitch', 'suprasegmental'],
     ['contour', 'suprasegmental'],
     ['intonation', 'suprasegmental'],
-])
+]]
 
-FEATURE_QUALIFIER = ls.apply_foreach(PhonFeature, [
+FEATURE_QUALIFIER = [PhonFeature(alias, cat) for alias, cat in [
     ['top', 'degree'],
     ['high', 'degree'],
     ['middle', 'degree'],
@@ -100,12 +99,12 @@ FEATURE_QUALIFIER = ls.apply_foreach(PhonFeature, [
     ['rising', 'change'],
     ['falling', 'change'],
     ['interrupt', 'change'],
-])
+]]
 
 FEATURES = ARTICULATION_FEATURE + FEATURE_QUALIFIER
 _F = ft_inventory(FEATURES)
 
-ROWS = ls.apply_foreach(i.store_as, [
+ROWS = [i.store_as(alias, features) for alias, features in [
     ['close_vwl', [_F.vowel, _F.close]],
     ['n_close_vwl', [_F.vowel, _F.near_close]],
     ['c_mid_vwl', [_F.vowel, _F.close_mid]],
@@ -138,6 +137,6 @@ ROWS = ls.apply_foreach(i.store_as, [
     ['vcd_flap', [_F.flap, _F.voiced]],
     ['vcd_trill', [_F.trill, _F.voiced]],
     ['click_release', [_F.click, _F.nonpulmonic]],
-])
+]]
 
 FEATURE_INVENTORY = ft_inventory(FEATURES, ROWS)

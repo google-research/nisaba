@@ -40,7 +40,7 @@ py_library(
     srcs = ["syllable.py"],
     deps = [
         "//nisaba/scripts/natural_translit/utils:concat",
-        "//nisaba/scripts/natural_translit/utils:list_op",
+        "//nisaba/scripts/natural_translit/utils:fst_list",
         "@org_opengrm_pynini//pynini",
     ],
 )

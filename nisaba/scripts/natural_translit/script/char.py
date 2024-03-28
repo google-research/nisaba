@@ -17,8 +17,8 @@
 import collections
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import alignment as al
+from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import inventory as i
-from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 # See README for Char tuple details.
@@ -193,8 +193,7 @@ def compose_from_gr(char_list: [Char]) -> pyn.Fst:
   )
   ```
   """
-  cross_list = [pyn.cross(char.cmp, char.gr) for char in char_list]
-  return rw.rewrite_op(ls.union_opt(*cross_list))
+  return rw.rewrite_ls((char.cmp, char.gr) for char in char_list)
 
 # Functions for listing the .gr or .tr fields of a list of Chars.
 
@@ -222,19 +221,19 @@ def store_tr_list(alias: str, char_list: [Char]) -> i.Store:
 
 
 def store_gr_union(alias: str, char_list: [Char]) -> i.Store:
-  return i.store_as(alias, ls.union_opt(*gr_list(char_list)))
+  return i.store_as(alias, fl.FstList(gr_list(char_list)).union_opt())
 
 
 def store_gr_star(alias: str, char_list: [Char]) -> i.Store:
-  return i.store_as(alias, ls.union_star(*gr_list(char_list)))
+  return i.store_as(alias, fl.FstList(gr_list(char_list)).union_star())
 
 
 def store_tr_union(alias: str, char_list: [Char]) -> i.Store:
-  return i.store_as(alias, ls.union_opt(*tr_list(char_list)))
+  return i.store_as(alias, fl.FstList(tr_list(char_list)).union_opt())
 
 
 def store_tr_star(alias: str, char_list: [Char]) -> i.Store:
-  return i.store_as(alias, ls.union_star(*tr_list(char_list)))
+  return i.store_as(alias, fl.FstList(tr_list(char_list)).union_star())
 
 # Functions for building grapheme and translit inventories from a list of
 # Chars and Stores.
@@ -263,14 +262,22 @@ def tr_inventory(
 
 
 def read_glyph(char_list: [Char]) -> pyn.Fst:
-  glyph_to_gr = [pyn.cross(char.glyph, char.gr) for char in char_list]
-  return ls.union_star(*glyph_to_gr)
+  return fl.FstList.cross(
+      *[(char.glyph, char.gr) for char in char_list]
+  ).union_star()
 
 
 def print_glyph(char_list: [Char]) -> pyn.Fst:
-  tr_to_glyph = [pyn.cross(char.tr, char.glyph) for char in char_list]
-  return ls.union_star(*tr_to_glyph)
+  return fl.FstList.cross(
+      *[(char.tr, char.glyph) for char in char_list]
+  ).union_star()
 
 
 def print_only_glyph(char_list: [Char]) -> pyn.Fst:
   return (rw.EXTRACT_RIGHT_SIDE @ print_glyph(char_list)).optimize()
+
+
+def remove_repeated_glyph(char_list: [Char]) -> pyn.Fst:
+  return rw.rewrite_ls(
+      (char.glyph + char.glyph, char.glyph) for char in char_list
+  )

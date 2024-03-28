@@ -23,22 +23,19 @@ ph = mul.PHONEME_INVENTORY
 
 # Voicing
 
-K_G = [ph.K, ph.G]
-P_B = [ph.P, ph.B]
-T_D = [ph.T, ph.D]
-TI_DI = [ph.TI, ph.DI]
-TT_DD = [ph.TT, ph.DD]
-TSH_DZH = [ph.T_SH, ph.D_ZH]
-TSH_S = [ph.T_SH, ph.S]
+K_G = (ph.K, ph.G)
+P_B = (ph.P, ph.B)
+T_D = (ph.T, ph.D)
+TI_DI = (ph.TI, ph.DI)
+TT_DD = (ph.TT, ph.DD)
+TSH_DZH = (ph.T_SH, ph.D_ZH)
+TSH_S = (ph.T_SH, ph.S)
 
 
 def voicing(
-    ops: list[list[pyn.Fst]],
+    ops: list[tuple[pyn.FstLike, pyn.FstLike]],
     preceding: pyn.FstLike = al.EPSILON,
-    following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
+    following: pyn.FstLike = al.EPSILON,
+) -> pyn.Fst:
   """Voicing. See rewrite_by_operation for argument details."""
-  return rw.rewrite_ls(
-      ops,
-      preceding,
-      following)
-
+  return rw.rewrite_ls(ops, preceding, following)

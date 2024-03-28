@@ -25,10 +25,10 @@ class IsoInventoryTest(absltest.TestCase):
     self.assertEqual(iso.get_brh('kh', iso.TAML), '')
 
   def test_ls_tr2brh(self):
-    self.assertIn(['`a_i`', 'अ'], iso.ls_tr2brh(iso.DEVA))
+    self.assertIn(('`a_i`', 'अ'), iso.ls_tr2brh(iso.DEVA))
 
   def test_ls_tr2brh_missing(self):
-    self.assertIn(['`kh`', ''], iso.ls_tr2brh(iso.TAML))
+    self.assertIn(('`kh`', ''), iso.ls_tr2brh(iso.TAML))
 
 if __name__ == '__main__':
   absltest.main()

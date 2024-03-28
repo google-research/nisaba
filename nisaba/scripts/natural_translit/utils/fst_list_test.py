@@ -23,6 +23,8 @@ _FST_B = pyn.accep('b')
 _FST_C = pyn.accep('c')
 _FST_AXB = pyn.cross(_FST_A, _FST_B)
 _FST_BXC = pyn.cross(_FST_B, _FST_C)
+_ALPHA = _FST_A | _FST_B | _FST_C
+_SIGMA = _ALPHA.star.optimize()
 
 
 class FstListTest(test_op.TestCase):
@@ -68,13 +70,35 @@ class FstListTest(test_op.TestCase):
     self.AssertEqualValue(f.FstList(_FST_A, _FST_B).concat(), 'ab')
 
   def test_compose(self):
-    self.AssertEqualValue(
-        f.FstList(_FST_A, _FST_AXB, _FST_BXC).compose(), 'c'
-    )
+    self.AssertEqualValue(f.FstList(_FST_A, _FST_AXB, _FST_BXC).compose(), 'c')
 
   def test_item(self):
     self.assertEqual(f.FstList(_FST_A, _FST_B).item(0), _FST_A)
     self.assertEqual(f.FstList(_FST_A, _FST_B).item(-1), _FST_B)
+
+  def test_make(self):
+
+    def rewrite(
+        old: pyn.FstLike, new: pyn.FstLike, l: pyn.FstLike, r: pyn.FstLike
+    ):
+      return pyn.cdrewrite(pyn.cross(old, new), l, r, _SIGMA)
+
+    rewrite_abc = f.FstList.make(
+        rewrite,
+        (_ALPHA, _FST_A, '', f.FstList(_FST_B, _FST_C).concat()),
+        (_ALPHA, _FST_B, _FST_A, _FST_C),
+        (_ALPHA, _FST_C, f.FstList(_FST_A, _FST_B).concat(), ''),
+    ).compose()
+
+    self.AssertEqualValue('bbc' @ rewrite_abc, 'abc')
+    self.AssertEqualValue('acc' @ rewrite_abc, 'abc')
+    self.AssertEqualValue('abb' @ rewrite_abc, 'abc')
+
+  def test_cross(self):
+    self.AssertEqualItems(
+        f.FstList.cross((_FST_A, _FST_B), (_FST_B, _FST_C)),
+        f.FstList(_FST_AXB, _FST_BXC),
+    )
 
 
 if __name__ == '__main__':

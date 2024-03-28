@@ -34,8 +34,8 @@ py_library(
     srcs = ["char.py"],
     deps = [
         "//nisaba/scripts/natural_translit/utils:alignment",
+        "//nisaba/scripts/natural_translit/utils:fst_list",
         "//nisaba/scripts/natural_translit/utils:inventory",
-        "//nisaba/scripts/natural_translit/utils:list_op",
         "//nisaba/scripts/natural_translit/utils:rewrite_functions",
         "@org_opengrm_pynini//pynini",
     ],

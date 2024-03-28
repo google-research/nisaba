@@ -39,7 +39,6 @@ ISO - typ mapping
 
 from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
 from nisaba.scripts.natural_translit.script import char as c
-from nisaba.scripts.natural_translit.utils import list_op as ls
 
 ph = psa.PHONEME_INVENTORY
 
@@ -47,7 +46,7 @@ ph = psa.PHONEME_INVENTORY
 
 INHERENT_VOWEL = [c.make_char('a', 'a', ph.V_TNT)]
 
-SIMPLE_VOWEL_SIGN = ls.apply_foreach(c.make_char, [
+SIMPLE_VOWEL_SIGN = [c.make_char(*args) for args in [
     ['aa', 'ā', ph.A + ph.DURH],
     ['ac', 'æ', ph.AE],
     ['an', 'ạ', ph.A],
@@ -61,11 +60,11 @@ SIMPLE_VOWEL_SIGN = ls.apply_foreach(c.make_char, [
     ['oc', 'ô', ph.OH],
     ['u', 'u', ph.U],
     ['uu', 'ū', ph.U + ph.DURH],
-])
+]]
 
 SIMPLE_VOWEL = INHERENT_VOWEL + SIMPLE_VOWEL_SIGN
 
-SIMPLE_CONSONANT = ls.apply_foreach(c.make_char, [
+SIMPLE_CONSONANT = [c.make_char(*args) for args in [
     ['b', 'b', ph.B],
     ['c', 'c', ph.T_SH],
     ['d', 'd', ph.DI],
@@ -101,9 +100,9 @@ SIMPLE_CONSONANT = ls.apply_foreach(c.make_char, [
     ['y', 'y', ph.Y],
     ['yy', 'ẏ', ph.Y + ph.ASP],
     ['z', 'z', ph.Z],
-])
+]]
 
-SIMPLE_CODA = ls.apply_foreach(c.make_char, [
+SIMPLE_CODA = [c.make_char(*args) for args in [
     ['avg', '’', ph.SIL],
     ['nkt', 'ˑ', ph.SIL],
     ['vis', 'ḥ', ph.H],
@@ -114,25 +113,25 @@ SIMPLE_CODA = ls.apply_foreach(c.make_char, [
     ['jihva', 'ẖ', ph.H],
     ['add', '˖', ph.SIL],
     ['tip', 'ṃ', ph.NSL],
-])
+]]
 
 OM_VOWEL = [c.make_char('ot', 'õ', ph.O + ph.DURH)]
 
-MODIFIER = ls.apply_foreach(c.make_char, [
+MODIFIER = [c.make_char(*args) for args in [
     ['asp', 'ʰ', ph.ASP],
     ['vcl', '̥', ph.SYL],
     ['long', '̄', ph.SIL],
     ['chl', 'ⸯ', ph.SIL],
     ['eye', '̆', ph.SIL],
-])
+]]
 
 VIRAMA = [c.make_char('vir', '', ph.SIL)]
 
-SYMBOL = ls.apply_foreach(c.make_char, [
+SYMBOL = [c.make_char(*args) for args in [
     ['ind', '.', ph.SIL],
     ['zwj', '+', ph.SIL],
     ['zwn', '|', ph.SIL],
-])
+]]
 
 SINGLE_POINT = (
     SIMPLE_VOWEL + SIMPLE_CONSONANT + SIMPLE_CODA +
@@ -143,22 +142,22 @@ sp = c.char_inventory(SINGLE_POINT)
 # Composite vowels
 
 # Three point vowel sign
-LONG_VOCALIC = ls.apply_foreach(c.make_composite_char, [
+LONG_VOCALIC = [c.make_composite_char(*args) for args in [
     [[sp.L, sp.VCL, sp.LONG], 'llv', ph.L + ph.SYL + ph.DURH],
     [[sp.R, sp.VCL, sp.LONG], 'rrv', ph.R + ph.SYL + ph.DURH],
-])
+]]
 
-SHORT_VOCALIC = ls.apply_foreach(c.make_composite_char, [
+SHORT_VOCALIC = [c.make_composite_char(*args) for args in [
     [[sp.L, sp.VCL], 'lv', ph.L + ph.SYL],
     [[sp.R, sp.VCL], 'rv', ph.R + ph.SYL],
-])
+]]
 
 VOCALIC_SIGN = SHORT_VOCALIC + LONG_VOCALIC
 
-DIPHTHONG_SIGN = ls.apply_foreach(c.make_composite_char, [
+DIPHTHONG_SIGN = [c.make_composite_char(*args) for args in [
     [[sp.A, sp.I], 'ai', ph.A_I],
     [[sp.A, sp.U], 'au', ph.A_U],
-])
+]]
 
 SANTAL_AAN = [c.make_composite_char([sp.AN, sp.LONG], 'aan', ph.A + ph.DURH)]
 
@@ -197,12 +196,12 @@ def _make_aspirated(char: c.Char) -> c.Char:
       char.typ + 'h',
       char.ph + ph.ASP)
 
-ASPIRATED_CONSONANT = ls.apply_foreach(_make_aspirated, [
-    [sp.B], [sp.C], [sp.D], [sp.DD], [sp.G], [sp.J],
-    [sp.K], [sp.P], [sp.RD], [sp.T], [sp.TT],
-])
+ASPIRATED_CONSONANT = [_make_aspirated(char) for char in [
+    sp.B, sp.C, sp.D, sp.DD, sp.G, sp.J,
+    sp.K, sp.P, sp.RD, sp.T, sp.TT,
+]]
 
-DEAD_CONSONANT = ls.apply_foreach(c.make_composite_char, [
+DEAD_CONSONANT = [c.make_composite_char(*args) for args in [
     [[sp.K, sp.CHL], 'k_chl', sp.K.ph],
     [[sp.L, sp.CHL], 'l_chl', sp.L.ph],
     [[sp.LL, sp.CHL], 'll_chl', sp.LL.ph],
@@ -211,7 +210,7 @@ DEAD_CONSONANT = ls.apply_foreach(c.make_composite_char, [
     [[sp.RR, sp.CHL], 'rr_chl', sp.RR.ph],
     [[sp.R, sp.CHL], 'reph', ph.RT],
     [[sp.R, sp.EYE], 'r_eye', ph.RT]
-])
+]]
 
 SCHWA_BEARING = SIMPLE_CONSONANT + ASPIRATED_CONSONANT
 SCHWA_BEARING_GR = c.store_gr_union('SCH_CONS', SCHWA_BEARING)
@@ -309,7 +308,7 @@ def get_brh(typ: str, script: str) -> str:
   return TO_BRAHMIC.get(typ, {}).get(script, '')
 
 
-def ls_tr2brh(script: str) -> list[list[str]]:
+def ls_tr2brh(script: str) -> list[tuple[str, str]]:
   """List of arguments for rewriting tr field of Char as Brahmic characters.
 
   Args:
@@ -322,4 +321,4 @@ def ls_tr2brh(script: str) -> list[list[str]]:
     symbol boundaries `` to match the fst in the tr field of the Char tuple.
 
   """
-  return [['`%s`' % typ, get_brh(typ, script)] for typ in TO_BRAHMIC]
+  return [('`%s`' % typ, get_brh(typ, script)) for typ in TO_BRAHMIC]

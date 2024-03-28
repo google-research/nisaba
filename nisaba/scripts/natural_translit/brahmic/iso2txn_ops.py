@@ -20,7 +20,6 @@ from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
 from nisaba.scripts.natural_translit.phonology.operations import syllable as syl
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import concat as cc
-from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 gr = iso.GRAPHEME_INVENTORY
@@ -54,7 +53,7 @@ VOCALIC_EC = vocalic(ph.EC, ph.EC + ph.DURH)
 
 def default_schwa(schwa: pyn.FstLike) -> pyn.Fst:
   """Pronounces unassigned schwas as the default phoneme for the language."""
-  return rw.rewrite(ls.union_opt(ph.V_TNT, ph.V_PRN), schwa)
+  return rw.rewrite((ph.V_TNT | ph.V_PRN), schwa)
 
 SCHWA_A = default_schwa(ph.A)
 SCHWA_EC = default_schwa(ph.EC)
@@ -88,9 +87,7 @@ def silent_schwa(
 _SCHWA_BEFORE_CODA = vocal_schwa(following=gr.CODA)
 _SCHWA_BEFORE_IND_VOWEL = vocal_schwa(following=gr.VOWEL_I)
 # Schwa is pronounced after {i}{y} and {i}{:h}{y}
-_SCHWA_AFTER_IY = vocal_schwa(
-    cc.concat_r(ls.union_opt(ph.I, ph.I + ph.DURH), ph.Y)
-)
+_SCHWA_AFTER_IY = vocal_schwa(cc.concat_r((ph.I | (ph.I + ph.DURH)), ph.Y))
 
 
 def schwa_eow(coda_cl) -> pyn.Fst:

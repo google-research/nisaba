@@ -23,7 +23,6 @@ from nisaba.scripts.natural_translit.script import char as c
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import inventory2
-from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
@@ -54,20 +53,24 @@ class Deromanizer(inventory2.Inventory):
     self.make_suppl(alias, value if ty.is_specified(value) else {})
 
   def _init_items(self) -> None:
-    ls.apply_foreach(self._add_fst_list, [
+    args_list = [
         ['ltn2typ', self._rw_ltn2typ()],
         ['typ_ops'], ['anusvara'], ['cons_foreign'],
         ['cons_drop_asp'], ['cons_asp'], ['cons_gem_only'], ['cons_base'],
         ['mono_long'], ['mono_base_long'], ['mono_base'], ['diph_base'],
         ['cluster_vir'], ['high_priority'], ['ind_to_sign']
-    ])
+    ]
+    for args in args_list:
+      self._add_fst_list(*args)
 
   def _init_suppls(self) -> None:
-    ls.apply_foreach(self._make_mapping_group, [
+    args_list = [
         ['vowel'], ['monophthong'], ['always_long_vowel'], ['diphthong'],
         ['consonant'], ['has_aspirated'], ['no_aspirated'], ['drops_aspirated'],
         ['only_geminated'], ['foreign'],
-    ])
+    ]
+    for args in args_list:
+      self._make_mapping_group(*args)
 
   @classmethod
   def params(
@@ -307,7 +310,7 @@ class Deromanizer(inventory2.Inventory):
 
   def _rw_typ2brh(self) -> pyn.Fst:
     """Brahmic typ to Brahmic script."""
-    return ls.cross_union_star(iso_inventory.ls_tr2brh(self.script))
+    return fl.FstList.cross(*iso_inventory.ls_tr2brh(self.script)).union_star()
 
   def _rw_typ2iso(self) -> pyn.Fst:
     """Brahmic typ to ISO."""
@@ -326,8 +329,8 @@ class Deromanizer(inventory2.Inventory):
     """Template for rewriting mapping fields."""
     if not mapping_list: return fl.FstList()
     return fl.FstList(rw.rewrite_ls(
-        [[m.get(old_field), m.get(new_field)] for m in mapping_list],
-        preceding, following
+        [(m.get(old_field), m.get(new_field)) for m in mapping_list],
+        preceding=preceding, following=following
     ))
 
   def _rw_vowel(

@@ -17,8 +17,8 @@
 import collections
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import alignment as al
+from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import inventory as i
-from nisaba.scripts.natural_translit.utils import list_op as ls
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 # See README for Phon tuple details.
@@ -95,12 +95,12 @@ def ph_list(phon_list: [Phon]) -> [pyn.Fst]:
   return [phon.ph for phon in phon_list]
 
 
-def ph_union(phon_list: [Phon]) -> [pyn.Fst]:
-  return ls.union_opt(*ph_list(phon_list))
+def ph_union(phon_list: [Phon]) -> pyn.Fst:
+  return fl.FstList(ph_list(phon_list)).union_opt()
 
 
-def ph_star(phon_list: [Phon]) -> [pyn.Fst]:
-  return ls.union_star(*ph_list(phon_list))
+def ph_star(phon_list: [Phon]) -> pyn.Fst:
+  return fl.FstList(ph_list(phon_list)).union_star()
 
 
 def store_ph_list(alias: str, phon_list: [Phon]) ->i.Store:
@@ -178,9 +178,9 @@ def translit_ipa(phon: Phon) -> pyn.Fst:
 
 
 def ls_translit_by_key(phon_list: [Phon], key: str) -> pyn.Fst:
-  ph_to_tr = [
-      pyn.cross(phon.ph, phon.tr_dict[check_key(key)]) for phon in phon_list]
-  return rw.rewrite_op(ls.union_opt(*ph_to_tr))
+  return rw.rewrite_ls(
+      (phon.ph, phon.tr_dict[check_key(key)]) for phon in phon_list
+  )
 
 
 def ls_translit_base(phon_list: [Phon]) -> pyn.Fst:
@@ -188,8 +188,9 @@ def ls_translit_base(phon_list: [Phon]) -> pyn.Fst:
 
 
 def ls_translit_ipa(phon_list: [Phon]) -> pyn.Fst:
-  ph_to_ipa = [pyn.cross(phon.ph, phon.ipa) for phon in phon_list]
-  return ls.union_star(*ph_to_ipa)
+  return fl.FstList.cross(
+      *[(phon.ph, phon.ipa) for phon in phon_list]
+  ).union_star()
 
 
 def print_only_ipa(phon_list: [Phon]) -> pyn.Fst:

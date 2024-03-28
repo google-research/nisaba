@@ -16,7 +16,7 @@
 
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import concat as cc
-from nisaba.scripts.natural_translit.utils import list_op as ls
+from nisaba.scripts.natural_translit.utils import fst_list as fl
 
 
 def legal_onset(
@@ -55,7 +55,7 @@ def legal_onset(
   )
   ```
   """
-  return cc.concat_r(ls.union_opt(non_nucleic, onset_cl), nucleic)
+  return cc.concat_r(fl.FstList(non_nucleic, onset_cl).union_opt(), nucleic)
 
 
 def legal_coda(
@@ -93,4 +93,4 @@ def legal_coda(
   )
   ```
   """
-  return cc.concat_r(nucleic, ls.union_opt(non_nucleic, coda_cl).ques)
+  return cc.concat_r(nucleic, fl.FstList(non_nucleic, coda_cl).union_opt().ques)
