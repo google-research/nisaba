@@ -1,5 +1,5 @@
-networkx>=2.5
-numpy>=1.26.1
-pandas>=1.0.5
-pycountry>=22.3.5
+networkx>=3.2.1
+numpy>=1.26.4
+pandas>=2.2.1
+pycountry>=23.12.11
 pyemd>=0.4.1
