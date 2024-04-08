@@ -150,8 +150,8 @@ def nisaba_compile_script_lang_multi_grm_py(
         for script, lang in script_langs:
             # Generates copies of the .py with different flag value defaults for each
             # script, language and token-type values.
-            # Example: reading_norm_utf8.Deva.hi.py.
-            out_py_file = "%s.%s.%s.py" % (name_token_type, script, lang)
+            # Example: reading_norm_utf8_Deva_hi.py.
+            out_py_file = "%s_%s_%s.py" % (name_token_type, script, lang)
             native.genrule(
                 name = "make_%s" % out_py_file,
                 srcs = ["%s.py" % name],
@@ -170,6 +170,7 @@ def nisaba_compile_script_lang_multi_grm_py(
             lang_dir = "%s/%s" % (script_dir, lang)
             nisaba_compile_grm_py(
                 name = "%s.%s.%s" % (name_token_type, script, lang),
+                src = out_py_file,
                 data = data + [
                     "%s:%s.tsv" % (lang_dir, entry)
                     for entry in data_per_lang
