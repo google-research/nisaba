@@ -14,9 +14,27 @@
 
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
+from nisaba.scripts.natural_translit.utils import test_op
 
 
-class IsoInventoryTest(absltest.TestCase):
+class IsoInventoryTest(test_op.TestCase):
+
+  def test_to_typ(self):
+    self.AssertEqualValue(iso.to_typ('a'), '<a_i>')
+    self.AssertEqualValue(iso.to_typ('.a'), '<a_i>')
+    self.AssertEqualValue(iso.to_typ('ạ̄'), '<aan>')
+    self.AssertEqualValue(iso.to_typ('ba'), '<b><a>')
+    self.AssertEqualValue(iso.to_typ('ba.i'), '<b><a><i_i>')
+    self.AssertEqualValue(iso.to_typ('bai'), '<b><ai>')
+    self.AssertEqualValue(iso.to_typ('bʰ'), '<bh>')
+    self.AssertEqualValue(iso.to_typ('l̥'), '<lv_i>')
+    self.AssertEqualValue(iso.to_typ('l̥̄'), '<llv_i>')
+    self.AssertEqualValue(iso.to_typ('m̐'), '<cnd>')
+    self.AssertEqualValue(iso.to_typ('mô'), '<m><oc>')
+    self.AssertEqualValue(iso.to_typ('õm'), '<om>')
+    self.AssertEqualValue(iso.to_typ('r̆'), '<r_eye>')
+    self.AssertEqualValue(iso.to_typ('rⸯ'), '<reph>')
+    self.AssertEqualValue(iso.to_typ('ṟⸯ'), '<rr_chl>')
 
   def test_get_brh(self):
     self.assertEqual(iso.get_brh('a_i', iso.DEVA), 'अ')

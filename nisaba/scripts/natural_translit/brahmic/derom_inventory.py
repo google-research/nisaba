@@ -14,7 +14,7 @@
 
 """Latin Brahmic character mappings."""
 
-from typing import Any, Callable, Iterable, Union
+from typing import Any, Callable, Iterable
 import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import iso_inventory
 from nisaba.scripts.natural_translit.latin import ltn_inventory
@@ -23,7 +23,6 @@ from nisaba.scripts.natural_translit.utils import inventory2
 from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
-FstListArg = Union[ty.Nothing, pyn.FstLike, Iterable]
 
 ltn = ltn_inventory.GRAPHEME_INVENTORY
 iso = iso_inventory.TRANSLIT_INVENTORY
@@ -100,20 +99,29 @@ class DeromMapping(ty.Thing):
 
   def __init__(
       self,
-      alias: str, rom_list: FstListArg, brh_list: FstListArg,
-      priority: int = 0
+      alias: str,
+      rom_list: ty.FstIterable,
+      brh_list: ty.FstIterable,
+      priority: int = 0,
   ) -> None:
     """Initializes common attributes of deromanization mappings.
 
     Args:
       alias: The string which will be used to refer to this mapping.
-      rom_list: rom_list: FstList of latin characters in romanization.
-        Eg. FstList('<i>') for 'i' and FstList('<p>', '<h>') for string 'ph'.
-      brh_list: FstList of corresponding Brahmic characters.
-        Eg. FstList('`i`') for ISO 'i' and deva 'ि' or
+      rom_list: A string, an Fst, or an Iterable of Latin characters in
+      romanization.
+        Eg. '<i>' for 'i' and FstList('<p>', '<h>') for string 'ph'.
+      brh_list: A string, an Fst, or an Iterable of corresponding Brahmic
+        characters.
+        Eg. '`i`' for ISO 'i' and deva 'ि' or
         FstList('`k`', '`vir`', '`s`', '`a`') for ISO 'ksa' and deva 'क्स'
-      priority: Moves the rules for the mapping to the top of the rule order.
-        Eg. Ensures that 'zh' will be transliterated as 'ழ' before 'z' as 'ஃஜ'.
+      priority: By default, deromanizer.py applies the mapping rules in
+        descending order of the number of Latin characters in rom_list. Setting
+        the priority higher than 0 will move up the rules for this mapping in
+        the final rule list.
+        Eg. `DeromMapping('zh_lr', [ltn.Z, ltn.H], iso.LR, 1)`, increases the
+        priority of zh_lr mapping from 2 to 3, placing it before other 2-letter
+        rules.
 
     In order to restrict sigma to ASCII, and to distinguish between the input
     symbol and the output symbols, we use the [typ representation]
@@ -146,8 +154,11 @@ class DeromMapping(ty.Thing):
 
   @ classmethod
   def vowel(
-      cls, alias: str, rom_list: FstListArg, brh_list: FstListArg,
-      priority: int = 0
+      cls,
+      alias: str,
+      rom_list: ty.FstIterable,
+      brh_list: ty.FstIterable,
+      priority: int = 0,
   ) -> 'DeromMapping':
     new = cls(alias, rom_list, brh_list, priority)
     new.add_fst_fields([
@@ -160,8 +171,11 @@ class DeromMapping(ty.Thing):
 
   @classmethod
   def consonant(
-      cls, alias: str, rom_list: FstListArg, brh_list: FstListArg,
-      priority: int = 0
+      cls,
+      alias: str,
+      rom_list: ty.FstIterable,
+      brh_list: ty.FstIterable,
+      priority: int = 0,
   ) -> 'DeromMapping':
     new = cls(alias, rom_list, brh_list, priority)
     brh_v = new.brh + iso.VIR
@@ -192,9 +206,12 @@ class DeromMapping(ty.Thing):
 
   @classmethod
   def foreign_consonant(
-      cls, alias: str,
-      rom_list: FstListArg, brh_list: pyn.FstLike, frg: pyn.FstLike,
-      priority: int = 0
+      cls,
+      alias: str,
+      rom_list: ty.FstIterable,
+      brh_list: pyn.FstLike,
+      frg: pyn.FstLike,
+      priority: int = 0,
   ) -> 'DeromMapping':
     new = cls.consonant(alias, rom_list, brh_list, priority)
     frg_v = frg + iso.VIR

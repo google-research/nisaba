@@ -30,7 +30,6 @@ ltn = ltn_inventory.GRAPHEME_INVENTORY
 iso = iso_inventory.TRANSLIT_INVENTORY
 drm = derom.DEROMANIZATION_INVENTORY
 
-FstListArg = Union[ty.Nothing, pyn.FstLike, Iterable]
 ParamArg = Union[ty.Nothing, derom.DeromMapping, Iterable]
 
 

@@ -32,7 +32,7 @@ class FstList(ty.IterableThing):
   def make(
       cls, maker: Callable[..., pyn.Fst], *args: tuple[Any, ...]
   ) -> 'FstList':
-    """Creates an FstList from a maker function and a list of arguments.
+    """Creates an FstList from a maker function and argument tuples.
 
     Args:
       maker: A function that returns an fst.
@@ -99,11 +99,11 @@ class FstList(ty.IterableThing):
       return pyn.union(*self)
 
   def union_opt(self) -> pyn.Fst:
-    """Union all fsts in the list."""
+    """Optimized union all fsts in the list."""
     return self.union().optimize()
 
   def union_star(self) -> pyn.Fst:
-    """Union all fsts in the list."""
+    """Starred and optimized union of all fsts in the list."""
     return self.union().star.optimize()
 
   def concat(self) -> pyn.Fst:

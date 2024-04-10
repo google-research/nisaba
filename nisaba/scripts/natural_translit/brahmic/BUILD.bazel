@@ -44,6 +44,8 @@ py_library(
     deps = [
         ":psa_phoneme_inventory",
         "//nisaba/scripts/natural_translit/script:char",
+        "//nisaba/scripts/natural_translit/utils:fst_list",
+        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
     ],
 )
 
@@ -53,29 +55,7 @@ py_test(
     main = "iso_inventory_test.py",
     deps = [
         ":iso_inventory",
-        "@io_abseil_py//absl/testing:absltest",
-    ],
-)
-
-py_library(
-    name = "iso2typ",
-    srcs = ["iso2typ.py"],
-    deps = [
-        ":iso_inventory",
-        "//nisaba/scripts/natural_translit/script:char",
-        "//nisaba/scripts/natural_translit/utils:alignment",
-        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_test(
-    name = "iso2typ_test_py",
-    srcs = ["iso2typ_test.py"],
-    main = "iso2typ_test.py",
-    deps = [
-        ":iso2typ",
-        "//nisaba/scripts/utils:test_util",
+        "//nisaba/scripts/natural_translit/utils:test_op",
         "@io_abseil_py//absl/testing:absltest",
     ],
 )
@@ -84,7 +64,6 @@ py_library(
     name = "iso2txn",
     srcs = ["iso2txn.py"],
     deps = [
-        ":iso2typ",
         ":iso_inventory",
         "//nisaba/scripts/natural_translit/utils:alignment",
         "//nisaba/scripts/natural_translit/utils:fst_list",
@@ -195,7 +174,6 @@ py_library(
         "//nisaba/scripts/natural_translit/utils:rewrite_functions",
         "//nisaba/scripts/natural_translit/utils:type_op",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/export:multi_grm",
     ],
 )
 

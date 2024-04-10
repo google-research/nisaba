@@ -139,9 +139,15 @@ _TEST_CASES = [
 
 class Typ2TxnTest(test_util.FstTestCase):
 
-  def test_all(self):
+  def test_typ_to_txn(self):
     self.AssertFstStrIoTestCases(_TEST_CASES)
 
+  def test_iso_to_txn(self):
+    self.AssertFstStrIO(
+        iso2txn.iso_to_txn(),
+        'hiṁdī',
+        '<h>={h}<i>={i}<ans>={N}<d>={di}<ii>={i}{:h}',
+    )
 
 if __name__ == '__main__':
   absltest.main()

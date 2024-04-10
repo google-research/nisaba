@@ -39,6 +39,8 @@ ISO - typ mapping
 
 from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
 from nisaba.scripts.natural_translit.script import char as c
+from nisaba.scripts.natural_translit.utils import fst_list as fl
+from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
 ph = psa.PHONEME_INVENTORY
 
@@ -238,6 +240,33 @@ TR_STORES = [
 CHAR_INVENTORY = c.char_inventory(CHAR)
 GRAPHEME_INVENTORY = c.gr_inventory(CHAR, GR_STORES)
 TRANSLIT_INVENTORY = c.tr_inventory(CHAR, TR_STORES)
+
+
+# TODO: Move into inventory as a class method after inventory2 conversion.
+def iso_to_typ_rules() -> fl.FstList:
+  """Makes an FstList of ISO to typ rewrites."""
+  return fl.FstList(
+      c.read_glyph(SINGLE_POINT),
+      ## Compose typ for brahmic characters with multi-point ISO.
+      c.compose_from_gr(LONG_VOCALIC),
+      c.compose_from_gr(TWO_POINT_SIGN),
+      # Word initial vowels are independent but not marked in ISO.
+      rw.rewrite_word_initial(
+          '',
+          GRAPHEME_INVENTORY.IND,
+          GRAPHEME_INVENTORY.VOWEL_S - GRAPHEME_INVENTORY.AAN,
+      ),
+      c.compose_from_gr(INDEPENDENT_VOWEL),
+      c.compose_from_gr(COMPOSITE_CONSONANT),
+      c.compose_from_gr(OM + CND),
+      alias='iso_to_typ',
+  )
+
+
+def to_typ(iso: str) -> str:
+  """Temporary function for testing purposes."""
+  return fl.FstList(iso, iso_to_typ_rules()).compose()
+
 
 DEVA = 'deva'
 TAML = 'taml'
