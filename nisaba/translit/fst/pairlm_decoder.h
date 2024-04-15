@@ -25,6 +25,7 @@
 #include "absl/strings/string_view.h"
 #include "absl/synchronization/mutex.h"
 #include "nisaba/translit/fst/pairlm_decoder_options.pb.h"
+#include "nisaba/translit/fst/wordpiece-segmenter.h"
 
 namespace nisaba {
 namespace translit {
@@ -143,6 +144,11 @@ class PairLMDecoder {
                      ::fst::StdVectorFst *word_transliterations)
       ABSL_LOCKS_EXCLUDED(mutex_);
 
+  // Segments candidate word symbol into word pieces in language model and
+  // returns any out-of-vocabulary costs.
+  double SegmentCandWordPiece(absl::string_view new_symbol,
+                              std::vector<int> *lm_syms) const;
+
   // Parses candidate word symbol into word pieces in language model and returns
   // any out-of-vocabulary costs.
   double ParseCandWordPiece(absl::string_view new_symbol,
@@ -200,6 +206,9 @@ class PairLMDecoder {
 
   // FST that encodes a trie of word-piece symbols.
   std::unique_ptr<::fst::StdVectorFst> word_piece_trie_fst_;
+
+  // Word-piece model.
+  std::unique_ptr<const WordpieceSegmenter> wpm_;
 
   // Start state for matching word-pieces word-internally, i.e., after prefix.
   int word_internal_cands_to_lm_start_state_;

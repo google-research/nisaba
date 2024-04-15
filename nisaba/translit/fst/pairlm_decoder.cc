@@ -60,6 +60,7 @@
 #include "absl/synchronization/mutex.h"
 #include "nisaba/port/file_util.h"
 #include "nisaba/port/utf8_util.h"
+#include "nisaba/translit/fst/wordpiece-segmenter.h"
 #include "nisaba/port/thread_pool.h"
 
 using ::fst::ArcIterator;
@@ -235,7 +236,7 @@ void WordToFst(absl::string_view input_word, StdVectorFst *string_fst) {
     const int token_idx = GetUtf8Codepoint(letter_str);
     const int next_state = string_fst->AddState();
     string_fst->AddArc(curr_state,
-                      StdArc(token_idx, token_idx, 0.0, next_state));
+                       StdArc(token_idx, token_idx, 0.0, next_state));
     curr_state = next_state;
   }
   string_fst->SetFinal(curr_state, 0.0);
@@ -452,8 +453,18 @@ void PairLMDecoder::InitializeLanguageModel(
                                          ? symbols::kUnknownSymbol
                                          : pairlm_config.oov_symbol();
     lm_oov_index_ = lm_fst_->InputSymbols()->Find(oov_symbol);
-    if (pairlm_config.has_word_piece_internal_prefix() &&
-        !pairlm_config.word_piece_internal_prefix().empty()) {
+    if (pairlm_config.has_word_piece_model()) {
+      auto wpm = std::make_unique<WordpieceSegmenter>(
+          pairlm_config.word_piece_word_initial_prefix());
+      QCHECK_OK(wpm->InitWordpieces(pairlm_config.word_piece_model()))
+          << "Failed to read wordpiece model from "
+          << pairlm_config.word_piece_model();
+      wpm_ = std::move(wpm);
+    } else if (pairlm_config.has_word_piece_internal_prefix() &&
+               !pairlm_config.word_piece_internal_prefix().empty()) {
+      // Only follow word_piece_internal_prefix methods if no word piece model.
+      // Builds a special purpose word piece trie for these cases. Included for
+      // backwards compatibility.
       InitializeWordPieceTrie(pairlm_config);
     }
   }
@@ -629,13 +640,34 @@ double PairLMDecoder::ParseCandWordPiece(absl::string_view new_symbol,
   return cost;
 }
 
+double PairLMDecoder::SegmentCandWordPiece(absl::string_view new_symbol,
+                                           std::vector<int> *lm_syms) const {
+  double cost = 0;
+  const auto wp_status = wpm_->GetWordpieces(new_symbol);
+  QCHECK_OK(wp_status);
+  for (const auto &wordpiece : wp_status.value()) {
+    int lm_sym = lm_fst_->InputSymbols()->Find(wordpiece);
+    if (lm_sym < 0) {
+      lm_sym = lm_oov_index_;
+      cost += oov_cost_;
+    } else {
+      QCHECK_GT(lm_sym, 0);  // Checks that found symbol is not epsilon.
+    }
+    lm_syms->push_back(lm_sym);
+  }
+  return cost;
+}
+
 void PairLMDecoder::AddToCandsToLMFst(absl::string_view new_symbol,
                                       int cand_sym,
                                       TranslitContext &fst_params) {
   if (lm_fst_ == nullptr) return;
   double cost = 0.0;
   std::vector<int> lm_syms;
-  if (word_piece_trie_fst_ != nullptr) {
+  if (wpm_ != nullptr) {
+    cost = SegmentCandWordPiece(new_symbol, &lm_syms);
+  } else if (word_piece_trie_fst_ != nullptr) {
+    // Legacy word piece methods included for backwards compatibility.
     cost = ParseCandWordPiece(new_symbol, &lm_syms);
   } else {
     int lm_sym = lm_fst_->InputSymbols()->Find(new_symbol);
@@ -660,7 +692,7 @@ void PairLMDecoder::AddToCandsToLMFst(absl::string_view new_symbol,
         curr_state, StdArc(cand_ilabel, lm_syms[i], cost, dest_state));
     curr_state = dest_state;
     cand_ilabel = 0;
-    cost = 0.0;
+    cost = 0.0;  // Accrues cost only on initial arc.
   }
 }
 
@@ -1016,6 +1048,8 @@ StdVectorFst PairLMDecoder::ComposeLatticeWithLM(
 std::vector<double> PairLMDecoder::CollectUniqueArcCosts(
     const StdVectorFst &string_lm_composed_fst,
     const std::vector<int> &unique_arc_id) const {
+  QCHECK_GT(string_lm_composed_fst.NumStates(), 0)
+      << "input string fst is empty.";
   // Initializes costs to 9999 (i.e., probability ~ 0) for all indices.
   std::vector<double> unique_arc_cost(unique_arc_id.size(), 9999);
 

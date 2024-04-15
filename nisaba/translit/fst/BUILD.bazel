@@ -84,6 +84,7 @@ cc_library(
     hdrs = ["pairlm_decoder.h"],
     deps = [
         ":pairlm_decoder_options_cc_proto",
+        ":wordpiece-segmenter-lib",
         "//nisaba/port:file_util",
         "//nisaba/port:integral_types",
         "//nisaba/port:thread_pool",
@@ -114,6 +115,41 @@ cc_test(
         "@com_google_googletest//:gtest_main",
         "@org_openfst//:fst",
         "@org_openfst//:symbol-table",
+    ],
+)
+
+cc_library(
+    name = "wordpiece-segmenter-lib",
+    srcs = [
+        "wordpiece-segmenter.cc",
+    ],
+    hdrs = [
+        "wordpiece-segmenter.h",
+    ],
+    deps = [
+        "//nisaba/port:utf8_util",
+        "@com_google_absl//absl/container:flat_hash_map",
+        "@com_google_absl//absl/log:check",
+        "@com_google_absl//absl/status",
+        "@com_google_absl//absl/status:statusor",
+        "@com_google_absl//absl/strings",
+        "@org_openfst//:lib_lite",
+        "@org_openfst//:symbol-table",
+    ],
+)
+
+cc_test(
+    name = "wordpiece-segmenter_test",
+    srcs = ["wordpiece-segmenter_test.cc"],
+    data = [
+        "testdata/wp_earnest.50.model.txt",
+    ],
+    deps = [
+        ":wordpiece-segmenter-lib",
+        "//nisaba/port:file_util",
+        "//nisaba/port:status-matchers",
+        "//nisaba/port:test_utils",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 

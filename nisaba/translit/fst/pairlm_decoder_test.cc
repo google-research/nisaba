@@ -16,8 +16,11 @@
 
 #include <cmath>
 #include <cstdlib>
+#include <string>
+#include <tuple>
 #include <vector>
 
+#include "fst/arc.h"
 #include "fst/symbol-table.h"
 #include "fst/vector-fst.h"
 #include "gmock/gmock.h"
@@ -126,16 +129,16 @@ class PairLMDecoderTest : public ::testing::Test {
 
   // Creates wordpiece language model for character word pieces, with one
   // character (C) only occurring word-internally.
-  void CreateWordpieceLMFile() {
+  void CreateWordpieceInternalLMFile() {
     SymbolTable syms;
     syms.AddSymbol("<epsilon>");
     syms.AddSymbol("A");
-    syms.AddSymbol(absl::StrCat(wordpiece_internal_prefix_, "A"));
+    syms.AddSymbol(absl::StrCat(wordpiece_prefix_, "A"));
     syms.AddSymbol("B");
-    syms.AddSymbol(absl::StrCat(wordpiece_internal_prefix_, "B"));
-    syms.AddSymbol(absl::StrCat(wordpiece_internal_prefix_, "C"));
+    syms.AddSymbol(absl::StrCat(wordpiece_prefix_, "B"));
+    syms.AddSymbol(absl::StrCat(wordpiece_prefix_, "C"));
     syms.AddSymbol("D");
-    syms.AddSymbol(absl::StrCat(wordpiece_internal_prefix_, "D"));
+    syms.AddSymbol(absl::StrCat(wordpiece_prefix_, "D"));
     syms.AddSymbol("<unk>");
 
     // Creates 2-state automaton: everything but <unk> labeling arcs to/from
@@ -157,7 +160,61 @@ class PairLMDecoderTest : public ::testing::Test {
     fst.AddArc(other_state, StdArc(8, 8, cost, fst.Start()));
     fst.SetInputSymbols(&syms);
     fst.SetOutputSymbols(&syms);
-    fst.Write(wordpiece_lm_file_);
+    fst.Write(lm_wp_internal_file_);
+  }
+
+  void CreateWordpieceModelFile() {
+    // Wordpiece model that omits K, B has no word initial wordpiece, and there
+    // are two two-character wordpieces starting with B.
+    const std::string &file_contents = absl::StrJoin(
+        std::make_tuple(wordpiece_prefix_, "A", "B", "C", "D",
+                        absl::StrCat(wordpiece_prefix_, "A"),
+                        absl::StrCat(wordpiece_prefix_, "C"),
+                        absl::StrCat(wordpiece_prefix_, "D"), "BC", "BD"),
+        "\n");
+    ASSERT_OK(file::WriteTextFile(wordpiece_model_file_, file_contents));
+  }
+
+  // Creates wordpiece language model for character word pieces, with one
+  // character (B) only occurring word-internally and 2 two-character word
+  // pieces.
+  void CreateWordpieceInitialLMFile() {
+    SymbolTable syms;
+    syms.AddSymbol("<epsilon>");
+    syms.AddSymbol(wordpiece_prefix_);
+    syms.AddSymbol("A");
+    syms.AddSymbol(absl::StrCat(wordpiece_prefix_, "A"));
+    syms.AddSymbol("B");
+    syms.AddSymbol("C");
+    syms.AddSymbol(absl::StrCat(wordpiece_prefix_, "C"));
+    syms.AddSymbol("D");
+    syms.AddSymbol(absl::StrCat(wordpiece_prefix_, "D"));
+    syms.AddSymbol("BC");
+    syms.AddSymbol("BD");
+    syms.AddSymbol("<unk>");
+
+    // Creates 2-state automaton: those with wordpiece_prefix_ (indices 1, 3, 6
+    // and 8) from the start state 0 to state 1, everything else from state 1 to
+    // state 1, which is the final state.
+    StdVectorFst fst;
+    fst.SetStart(fst.AddState());
+    double cost = 5.0;
+    int other_state = fst.AddState();
+    fst.SetFinal(other_state, 0.0);
+    fst.AddArc(fst.Start(), StdArc(1, 1, cost, other_state));
+    fst.AddArc(fst.Start(), StdArc(3, 3, cost, other_state));
+    fst.AddArc(fst.Start(), StdArc(6, 6, cost, other_state));
+    fst.AddArc(fst.Start(), StdArc(8, 8, cost, other_state));
+    fst.AddArc(other_state, StdArc(2, 2, cost, other_state));
+    fst.AddArc(other_state, StdArc(4, 4, cost, other_state));
+    fst.AddArc(other_state, StdArc(5, 5, cost, other_state));
+    fst.AddArc(other_state, StdArc(7, 7, cost, other_state));
+    fst.AddArc(other_state, StdArc(9, 9, cost, other_state));
+    fst.AddArc(other_state, StdArc(10, 10, cost, other_state));
+    fst.AddArc(other_state, StdArc(11, 11, cost, other_state));
+    fst.SetInputSymbols(&syms);
+    fst.SetOutputSymbols(&syms);
+    fst.Write(lm_wp_initial_file_);
   }
 
   // Creates external transliteration candidates file, mapping input words to
@@ -177,9 +234,13 @@ class PairLMDecoderTest : public ::testing::Test {
     CreatePairLMTransducerFile();
     lm_file_ = file::TempFilePath("lm.fst");
     CreateLMFile();
-    wordpiece_internal_prefix_ = "##";
-    wordpiece_lm_file_ = file::TempFilePath("wordpiece_lm.fst");
-    CreateWordpieceLMFile();
+    wordpiece_prefix_ = "##";
+    lm_wp_internal_file_ = file::TempFilePath("wordpiece_internal_lm.fst");
+    CreateWordpieceInternalLMFile();
+    wordpiece_model_file_ = file::TempFilePath("wordpiece_model.txt");
+    CreateWordpieceModelFile();
+    lm_wp_initial_file_ = file::TempFilePath("wordpiece_initial_lm.fst");
+    CreateWordpieceInitialLMFile();
     translit_cands_file_ = file::TempFilePath("translit_cands.tsv");
     CreateTranslitCandsFile();
   }
@@ -188,9 +249,11 @@ class PairLMDecoderTest : public ::testing::Test {
   std::string
       pairlm_transducer_file_;  // File name of created pair LM Transducer.
   std::string lm_file_;      // File name of created word-based LM.
-  std::string wordpiece_lm_file_;    // File name of created word piece LM.
-  std::string translit_cands_file_;  // File name of created translit cands.
-  std::string wordpiece_internal_prefix_;  // Word-internal word piece prefix.
+  std::string lm_wp_internal_file_;    // File name of internal word piece LM.
+  std::string wordpiece_model_file_;   // File name of created word piece model.
+  std::string lm_wp_initial_file_;     // File name of initial word piece LM.
+  std::string translit_cands_file_;    // File name of created translit cands.
+  std::string wordpiece_prefix_;  // Word piece prefix, internal or initial.
 };
 
 // Initializing with no model files results in outputs identical to inputs.
@@ -376,12 +439,12 @@ TEST_F(PairLMDecoderTest, MultiWordStandardTransducerPairLMExpectedOutput) {
 }
 
 // Multi word translit works as advertised with failure-class pair LM and
-// word-piece LM.
-TEST_F(PairLMDecoderTest, MultiWordWordpieceExpectedOutput) {
+// word-piece (w/word_piece_internal_prefix) LM.
+TEST_F(PairLMDecoderTest, MultiWordWordpieceInternalExpectedOutput) {
   PairLMDecoderOptions pairlm_config;
   pairlm_config.set_pairlm_file(pairlm_file_);
-  pairlm_config.set_lm_file(wordpiece_lm_file_);
-  pairlm_config.set_word_piece_internal_prefix(wordpiece_internal_prefix_);
+  pairlm_config.set_lm_file(lm_wp_internal_file_);
+  pairlm_config.set_word_piece_internal_prefix(wordpiece_prefix_);
   pairlm_config.set_oov_symbol("<unk>");
   pairlm_config.set_oov_cost(0.0);
   PairLMDecoder pairlm_decoder(pairlm_config);
@@ -409,6 +472,68 @@ TEST_F(PairLMDecoderTest, MultiWordWordpieceExpectedOutput) {
         // If more than one arc, this corresponds to the CA/KA ambigutity and
         // the difference between two costs should be ~1.0.
         ASSERT_NEAR(std::abs(arc.weight.Value() - output_scores.back()), 1.0,
+                    kFloatDelta);
+      }
+      output_scores.push_back(arc.weight.Value());
+      sum_prob += exp(-arc.weight.Value());
+    }
+    if (transliterations.NumArcs(s) > 0) {
+      // Checks that probabilities of arcs leaving (non-final) state sum to 1.
+      ASSERT_NEAR(sum_prob, 1.0, kFloatDelta);
+    }
+  }
+  ASSERT_EQ(output_strings.size(), output_scores.size());
+  for (int i = 0; i < output_strings.size(); ++i) {
+    // Adds scores to candidate strings to compare with Print() method.
+    output_strings[i] = absl::StrJoin(
+        std::make_tuple(output_strings[i], output_scores[i]), "\t");
+  }
+  ASSERT_EQ(absl::StrJoin(output_strings, "\n"),
+            pairlm_decoder.PrintTransliterations(
+                /*line_prefix=*/"", transliterations,
+                /*include_final_endline=*/false));
+}
+
+// Multi word translit works as advertised with failure-class pair LM and
+// word-piece (w/word_piece_initial_prefix) LM.
+TEST_F(PairLMDecoderTest, MultiWordWordpieceInitialExpectedOutput) {
+  PairLMDecoderOptions pairlm_config;
+  pairlm_config.set_pairlm_file(pairlm_file_);
+  pairlm_config.set_lm_file(lm_wp_initial_file_);
+  pairlm_config.set_apply_closure_to_lm(true);
+  pairlm_config.set_word_piece_word_initial_prefix(wordpiece_prefix_);
+  pairlm_config.set_word_piece_model(wordpiece_model_file_);
+  pairlm_config.set_oov_symbol("<unk>");
+  pairlm_config.set_oov_cost(0.0);
+  PairLMDecoder pairlm_decoder(pairlm_config);
+  StdVectorFst transliterations =
+      pairlm_decoder.TransliterateString("ab bca ef dd", /*k_best=*/2);
+
+  // ef is out of vocabulary in the transliteration model, hence that token
+  // fails and is in output unchanged. Only ambiguity is c:C and c:K, with cost
+  // difference of 1 from the translit pair LM, due to use of phi-arc in pair LM
+  // (with cost of 1), plus an additional difference of 5, due to an extra token
+  // in the wordpiece tokenizer (each costs 5), for a total difference of 6.
+  // BCA -> _ BC A  versus  BKA -> _ B K A  (since K is not in the wordpiece
+  // model). K ends up being mapped to <unk>.
+  std::vector<std::string> output_strings;
+  output_strings.push_back(absl::StrJoin(std::make_tuple(0, "ab", "AB"), "\t"));
+  output_strings.push_back(
+      absl::StrJoin(std::make_tuple(1, "bca", "BCA"), "\t"));
+  output_strings.push_back(
+      absl::StrJoin(std::make_tuple(1, "bca", "BKA"), "\t"));
+  output_strings.push_back(absl::StrJoin(std::make_tuple(2, "ef", "ef"), "\t"));
+  output_strings.push_back(absl::StrJoin(std::make_tuple(3, "dd", "DD"), "\t"));
+  std::vector<float> output_scores;
+  for (int s = 0; s < transliterations.NumStates(); ++s) {
+    float sum_prob = 0.0;
+    for (ArcIterator<StdVectorFst> aiter(transliterations, s);
+         !aiter.Done(); aiter.Next()) {
+      StdArc arc = aiter.Value();
+      if (sum_prob > 0.0) {
+        // If more than one arc, this corresponds to the BCA/BKA ambigutity and
+        // the difference between two costs should be ~6.0.
+        ASSERT_NEAR(std::abs(arc.weight.Value() - output_scores.back()), 6.0,
                     kFloatDelta);
       }
       output_scores.push_back(arc.weight.Value());
