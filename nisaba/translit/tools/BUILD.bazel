@@ -105,3 +105,75 @@ py_test(
         "@io_abseil_py//absl/testing:absltest",
     ],
 )
+
+cc_binary(
+    name = "extract-kbest-full-string",
+    srcs = [
+        "extract-kbest-full-string_main.cc",
+    ],
+    deps = [
+        ":kbest-full-string-util-lib",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/flags:parse",
+        "@com_google_absl//absl/log:check",
+    ],
+)
+
+cc_binary(
+    name = "rejoin-kbest-full-string",
+    srcs = [
+        "rejoin-kbest-full-string_main.cc",
+    ],
+    deps = [
+        ":kbest-full-string-util-lib",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/flags:parse",
+        "@com_google_absl//absl/log:check",
+    ],
+)
+
+cc_binary(
+    name = "ensemble-full-string",
+    srcs = [
+        "ensemble-full-string_main.cc",
+    ],
+    deps = [
+        ":kbest-full-string-util-lib",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/flags:parse",
+        "@com_google_absl//absl/log:check",
+    ],
+)
+
+cc_library(
+    name = "kbest-full-string-util-lib",
+    srcs = [
+        "kbest-full-string-util.cc",
+    ],
+    hdrs = [
+        "kbest-full-string-util.h",
+    ],
+    deps = [
+        "//nisaba/port:file_util",
+        "//nisaba/port:utf8_util",
+        "@com_google_absl//absl/container:flat_hash_set",
+        "@com_google_absl//absl/log:check",
+        "@com_google_absl//absl/strings",
+        "@com_google_absl//absl/types:span",
+        "@org_openfst//:lib_lite",
+        "@org_openfst//:symbol-table",
+        "@org_openfst//:weight",
+        "@org_opengrm_ngram//:opengrm-ngram-lib",
+    ],
+)
+
+cc_test(
+    name = "kbest-full-string-util_test",
+    srcs = ["kbest-full-string-util_test.cc"],
+    deps = [
+        ":kbest-full-string-util-lib",
+        "//nisaba/port:status-matchers",
+        "@com_google_absl//absl/strings",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
