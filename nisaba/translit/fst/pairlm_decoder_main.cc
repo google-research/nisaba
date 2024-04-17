@@ -27,15 +27,16 @@
 
 #include <string>
 
-#include "google/protobuf/text_format.h"
 #include "absl/flags/flag.h"
 #include "absl/flags/parse.h"
 #include "absl/log/check.h"
+#include "absl/log/initialize.h"
 #include "absl/log/log.h"
 #include "absl/status/status.h"
 #include "nisaba/port/file_util.h"
 #include "nisaba/translit/fst/pairlm_decoder_options.pb.h"
 #include "nisaba/translit/fst/pairlm_decoder_runner.h"
+#include "google/protobuf/text_format.h"
 
 ABSL_FLAG(std::string, ifile, "",
           "Input filename in text format. One input item per line.");
@@ -97,6 +98,7 @@ bool Run() {
 
 int main(int argc, char** argv) {
   absl::ParseCommandLine(argc, argv);
+  absl::InitializeLog();
 
   if (!nisaba::Run()) {
     LOG(ERROR) << "Decoder failed";
