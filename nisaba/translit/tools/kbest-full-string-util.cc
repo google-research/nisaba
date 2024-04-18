@@ -619,15 +619,15 @@ void KbestExtractor::RunExtractorAndOutput(const std::string &ofile, int kbest,
 void KbestRejoiner::InitializeKbestRejoiner(absl::string_view ifile,
                                             absl::string_view split_file,
                                             int kbest) {
+  const auto &input_lines_status = nisaba::file::ReadLines(ifile, kMaxLine);
+  QCHECK_OK(input_lines_status) << "Failed to read " << ifile;
   const auto &split_lines_status =
       nisaba::file::ReadLines(split_file, kMaxLine);
   QCHECK_OK(split_lines_status) << "Failed to read " << split_file;
-  const auto &input_lines_status = nisaba::file::ReadLines(ifile, kMaxLine);
-  QCHECK_OK(input_lines_status) << "Failed to read " << ifile;
-  const std::vector<std::string> split_lines = split_lines_status.value();
   std::vector<int> output_indices;
-  for (const std::string &str : split_lines) {
-    output_indices_.push_back(std::stoi(str));
+  output_indices.reserve(split_lines_status.value().size());
+  for (const auto &str : split_lines_status.value()) {
+    output_indices.push_back(std::stoi(str));
   }
   InitializeKbestRejoiner(input_lines_status.value(), output_indices, kbest);
 }
@@ -646,10 +646,10 @@ void KbestRejoiner::InitializeKbestRejoiner(
     std::vector<std::vector<std::pair<std::string, double>>> curr_list(1);
     std::string last_input;
     int output_idx = 0;
-    for (const std::string &str : input_lines) {
+    for (const std::string &input_line : input_lines) {
       std::vector<std::string> seq =
-          absl::StrSplit(str, '\t', absl::SkipEmpty());
-      QCHECK_EQ(seq.size(), 3) << str;
+          absl::StrSplit(input_line, '\t', absl::SkipEmpty());
+      QCHECK_EQ(seq.size(), 3) << input_line;
       if (!last_input.empty() && seq[0] != last_input) {
         QCHECK_LT(output_idx, output_indices_.size() - 1);
         if (output_indices_[output_idx] != output_indices_[output_idx + 1]) {

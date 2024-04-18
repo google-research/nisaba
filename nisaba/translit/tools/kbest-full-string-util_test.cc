@@ -15,12 +15,15 @@
 #include "nisaba/translit/tools/kbest-full-string-util.h"
 
 #include <cmath>
+#include <filesystem>  // NOLINT
+#include <fstream>
 #include <string>
 #include <tuple>
 #include <utility>
 #include <vector>
 
 #include "gtest/gtest.h"
+#include "absl/strings/str_cat.h"
 #include "absl/strings/str_join.h"
 
 namespace nisaba {
@@ -124,10 +127,34 @@ class KbestFullStringUtilTest : public ::testing::Test {
         absl::StrJoin(std::make_tuple(3, "LAST ONE", -log(0.6)), "\t"));
     rejoiner_input_lines_.push_back(
         absl::StrJoin(std::make_tuple(3, "LAST WON", -log(0.4)), "\t"));
+    // Write these input lines to file to test file-based initialization.
+    const std::filesystem::path tmp_dir =
+        std::filesystem::temp_directory_path();
+    std::filesystem::path file_path = tmp_dir / "rejoiner_input.txt";
+    rejoiner_input_file_ = file_path.string();
+    std::ofstream input_lines_file(rejoiner_input_file_);
+    EXPECT_TRUE(input_lines_file.good())
+        << "Failed to open: " << rejoiner_input_file_;
+    for (int i = 0; i < rejoiner_input_lines_.size(); ++i) {
+      input_lines_file << absl::StrCat(rejoiner_input_lines_[i], "\n");
+    }
+    EXPECT_TRUE(input_lines_file.good())
+        << "Failed to write to: " << rejoiner_input_file_;
     output_indices_.push_back(0);
     output_indices_.push_back(1);
     output_indices_.push_back(1);
     output_indices_.push_back(2);
+    // Write these output indices to file to test file-based initialization.
+    file_path = tmp_dir / "rejoiner_indices.txt";
+    rejoiner_indices_file_ = file_path.string();
+    std::ofstream indices_lines_file(rejoiner_indices_file_);
+    EXPECT_TRUE(indices_lines_file.good())
+        << "Failed to open: " << rejoiner_indices_file_;
+    for (int i = 0; i < output_indices_.size(); ++i) {
+      indices_lines_file << absl::StrCat(output_indices_[i], "\n");
+    }
+    EXPECT_TRUE(indices_lines_file.good())
+        << "Failed to write to: " << rejoiner_indices_file_;
     std::vector<std::pair<std::string, double>> expected_output0;
     expected_output0.push_back(std::make_pair("MY LEFT FOOT", -log(0.7)));
     expected_output0.push_back(std::make_pair("MY LEFT FOOD", -log(0.3)));
@@ -150,6 +177,10 @@ class KbestFullStringUtilTest : public ::testing::Test {
     SetUpRejoinerData();
   }
 
+  // Kbest rejoiner file names.
+  std::string rejoiner_input_file_;
+  std::string rejoiner_indices_file_;
+
   // Kbest rejoiner data.
   std::vector<std::string> rejoiner_input_lines_;
   std::vector<int> output_indices_;
@@ -170,7 +201,7 @@ class KbestFullStringUtilTest : public ::testing::Test {
 TEST_F(KbestFullStringUtilTest, InitEnsembleTest) {
   std::vector<std::pair<std::string, double>> empty_cands;
   EnsembleFullString input_ensemble(empty_cands);
-  ASSERT_TRUE(input_ensemble.GetOutputs(/*kbest=*/10).empty());
+  EXPECT_TRUE(input_ensemble.GetOutputs(/*kbest=*/10).empty());
 }
 
 TEST_F(KbestFullStringUtilTest, EnsembleTest) {
@@ -179,10 +210,10 @@ TEST_F(KbestFullStringUtilTest, EnsembleTest) {
     input_ensemble.RunEnsemble(ensemble_input_lengths_[i]);
     const auto kbest_outputs = input_ensemble.GetOutputs(
         /*kbest=*/ensemble_expected_outputs_[i].size());
-    ASSERT_EQ(kbest_outputs.size(), ensemble_expected_outputs_[i].size());
+    EXPECT_EQ(kbest_outputs.size(), ensemble_expected_outputs_[i].size());
     for (int j = 0; j < ensemble_expected_outputs_[i].size(); ++j) {
-      ASSERT_EQ(kbest_outputs[j].first, ensemble_expected_outputs_[i][j].first);
-      ASSERT_NEAR(kbest_outputs[j].second,
+      EXPECT_EQ(kbest_outputs[j].first, ensemble_expected_outputs_[i][j].first);
+      EXPECT_NEAR(kbest_outputs[j].second,
                   ensemble_expected_outputs_[i][j].second, kFloatDelta);
     }
   }
@@ -191,18 +222,18 @@ TEST_F(KbestFullStringUtilTest, EnsembleTest) {
 TEST_F(KbestFullStringUtilTest, InitExtractionTest) {
   std::vector<std::string> empty_lines;
   KbestExtractor kbest_extractor(empty_lines);
-  ASSERT_TRUE(kbest_extractor.GetBests(/*kbest=*/10).empty());
+  EXPECT_TRUE(kbest_extractor.GetBests(/*kbest=*/10).empty());
 }
 
 TEST_F(KbestFullStringUtilTest, ExtractionTest) {
   KbestExtractor kbest_extractor(extractor_input_lines_);
   const auto kbest_outputs = kbest_extractor.GetBests(/*kbest=*/3);
-  ASSERT_EQ(kbest_outputs.size(), expected_kbests_.size());
+  EXPECT_EQ(kbest_outputs.size(), expected_kbests_.size());
   for (int i = 0; i < expected_kbests_.size(); ++i) {
-    ASSERT_EQ(kbest_outputs[i].size(), expected_kbests_[i].size());
+    EXPECT_EQ(kbest_outputs[i].size(), expected_kbests_[i].size());
     for (int j = 0; j < expected_kbests_[i].size(); ++j) {
-      ASSERT_EQ(kbest_outputs[i][j].first, expected_kbests_[i][j].first);
-      ASSERT_NEAR(kbest_outputs[i][j].second,
+      EXPECT_EQ(kbest_outputs[i][j].first, expected_kbests_[i][j].first);
+      EXPECT_NEAR(kbest_outputs[i][j].second,
                   expected_kbests_[i][j].second, kFloatDelta);
     }
   }
@@ -212,18 +243,32 @@ TEST_F(KbestFullStringUtilTest, InitRejoinerTest) {
   std::vector<std::string> empty_lines;
   std::vector<int> empty_indices;
   KbestRejoiner kbest_rejoiner(empty_lines, empty_indices, /*kbest=*/10);
-  ASSERT_EQ(kbest_rejoiner.NumKbestLists(), 0);
+  EXPECT_EQ(kbest_rejoiner.NumKbestLists(), 0);
 }
 
 TEST_F(KbestFullStringUtilTest, RejoinerTest) {
   KbestRejoiner kbest_rejoiner(rejoiner_input_lines_, output_indices_,
                                /*kbest=*/2);
-  ASSERT_EQ(kbest_rejoiner.NumKbestLists(), expected_rejoined_lists_.size());
+  EXPECT_EQ(kbest_rejoiner.NumKbestLists(), expected_rejoined_lists_.size());
   for (int i = 0; i < expected_rejoined_lists_.size(); ++i) {
     const auto kbest_list = kbest_rejoiner.GetRejoinedList(i);
     for (int j = 0; j < expected_rejoined_lists_[i].size(); ++j) {
-      ASSERT_EQ(kbest_list[j].first, expected_rejoined_lists_[i][j].first);
-      ASSERT_NEAR(kbest_list[j].second, expected_rejoined_lists_[i][j].second,
+      EXPECT_EQ(kbest_list[j].first, expected_rejoined_lists_[i][j].first);
+      EXPECT_NEAR(kbest_list[j].second, expected_rejoined_lists_[i][j].second,
+                  kFloatDelta);
+    }
+  }
+}
+
+TEST_F(KbestFullStringUtilTest, RejoinerFileTest) {
+  KbestRejoiner kbest_rejoiner(rejoiner_input_file_, rejoiner_indices_file_,
+                               /*kbest=*/2);
+  EXPECT_EQ(kbest_rejoiner.NumKbestLists(), expected_rejoined_lists_.size());
+  for (int i = 0; i < expected_rejoined_lists_.size(); ++i) {
+    const auto kbest_list = kbest_rejoiner.GetRejoinedList(i);
+    for (int j = 0; j < expected_rejoined_lists_[i].size(); ++j) {
+      EXPECT_EQ(kbest_list[j].first, expected_rejoined_lists_[i][j].first);
+      EXPECT_NEAR(kbest_list[j].second, expected_rejoined_lists_[i][j].second,
                   kFloatDelta);
     }
   }
