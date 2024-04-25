@@ -18,7 +18,7 @@
 // bool RewriteLattice(absl::string_view input,
 //                     MutableTransducer *lattice) const;
 //
-// const ::fst::SymbolTable *GeneratedSymbols() const;
+// const ::::fst::SymbolTable *GeneratedSymbols() const;
 
 #ifndef NISABA_INTERIM_GRM2_REWRITE_BASE_RULE_CASCADE_H_
 #define NISABA_INTERIM_GRM2_REWRITE_BASE_RULE_CASCADE_H_
@@ -48,12 +48,11 @@ class BaseRuleCascade {
  public:
   using Label = typename Arc::Label;
 
-  using Transducer = ::fst::Fst<Arc>;
-  using MutableTransducer = ::fst::VectorFst<Arc>;
+  using Transducer = ::::fst::Fst<Arc>;
+  using MutableTransducer = ::::fst::VectorFst<Arc>;
 
   // TODO: Add symbol table support, or YAGNI?
-  explicit BaseRuleCascade(
-      ::fst::TokenType token_type = ::fst::TokenType::BYTE)
+  explicit BaseRuleCascade(::::fst::TokenType token_type = ::::fst::TokenType::BYTE)
       : compiler_(token_type), token_type_(token_type) {}
 
   virtual ~BaseRuleCascade() = default;
@@ -69,9 +68,7 @@ class BaseRuleCascade {
 
   // Returns the symbol table for generated output symbols when available, or
   // nullptr otherwise.
-  virtual const ::fst::SymbolTable *GeneratedSymbols() const {
-    return nullptr;
-  }
+  virtual const ::::fst::SymbolTable *GeneratedSymbols() const { return nullptr; }
 
   // TopRewrite() computes one top rewrite, returning false if composition
   // fails. Requires a semiring with the path property.
@@ -197,8 +194,8 @@ class BaseRuleCascade {
   bool RewriteLattice(absl::string_view input,
                       MutableTransducer *lattice) const;
 
-  const ::fst::StringCompiler<Arc> compiler_;
-  const ::fst::TokenType token_type_;
+  const ::::fst::StringCompiler<Arc> compiler_;
+  const ::::fst::TokenType token_type_;
 };
 
 // Computes one top rewrite, returning false if composition fails. Requires a
@@ -218,7 +215,7 @@ bool BaseRuleCascade<Arc>::TopRewrite(
   output->clear();
   MutableTransducer lattice;
   if (!TopRewrite(input, &lattice)) return false;
-  return ::fst::StringFstToOutputLabels(lattice, output);
+  return ::::fst::StringFstToOutputLabels(lattice, output);
 }
 
 template <class Arc>
@@ -238,7 +235,7 @@ bool BaseRuleCascade<Arc>::TopRewrite(absl::string_view input,
   debug->clear();
   std::vector<Label> labels;
   if (!TopRewrite(input, &labels)) return false;
-  if (!::fst::LabelsToString(labels, output, token_type_)) return false;
+  if (!::::fst::LabelsToString(labels, output, token_type_)) return false;
   LabelsToDebugString(*output, labels, debug);
   return true;
 }
@@ -252,8 +249,8 @@ bool BaseRuleCascade<Arc>::OneTopRewrite(absl::string_view input,
   if (!RewriteLattice(input, output)) return false;
   LatticeToDfa(output, /*optimal_only=*/true);
   // Make sure there is only one path.
-  for (::fst::StateIterator<MutableTransducer> siter(*output);
-       !siter.Done(); siter.Next()) {
+  for (::::fst::StateIterator<MutableTransducer> siter(*output); !siter.Done();
+       siter.Next()) {
     if (output->NumArcs(siter.Value()) > 1) return false;
   }
   return true;
@@ -265,7 +262,7 @@ bool BaseRuleCascade<Arc>::OneTopRewrite(
   output->clear();
   MutableTransducer lattice;
   if (!OneTopRewrite(input, &lattice)) return false;
-  return ::fst::StringFstToOutputLabels(lattice, output);
+  return ::::fst::StringFstToOutputLabels(lattice, output);
 }
 
 template <class Arc>
@@ -285,7 +282,7 @@ bool BaseRuleCascade<Arc>::OneTopRewrite(absl::string_view input,
   debug->clear();
   std::vector<Label> labels;
   if (!OneTopRewrite(input, &labels)) return false;
-  if (!::fst::LabelsToString(labels, output, token_type_)) return false;
+  if (!::::fst::LabelsToString(labels, output, token_type_)) return false;
   LabelsToDebugString(*output, labels, debug);
   return true;
 }
@@ -336,7 +333,7 @@ bool BaseRuleCascade<Arc>::TopRewrites(absl::string_view input,
   for (const auto &labels : labelss) {
     output->emplace_back();
     debug->emplace_back();
-    if (!::fst::LabelsToString(labels, &output->back(), token_type_)) {
+    if (!::::fst::LabelsToString(labels, &output->back(), token_type_)) {
       return false;
     }
     LabelsToDebugString(output->back(), labels, &debug->back());
@@ -398,7 +395,7 @@ bool BaseRuleCascade<Arc>::TopRewrites(absl::string_view input,
   for (const auto &labels : labelss) {
     output->emplace_back();
     debug->emplace_back();
-    if (!::fst::LabelsToString(labels, &output->back(), token_type_)) {
+    if (!::::fst::LabelsToString(labels, &output->back(), token_type_)) {
       return false;
     }
     LabelsToDebugString(output->back(), labels, &debug->back());
@@ -459,7 +456,7 @@ bool BaseRuleCascade<Arc>::Rewrites(absl::string_view input,
   for (const auto &labels : labelss) {
     output->emplace_back();
     debug->emplace_back();
-    if (!::fst::LabelsToString(labels, &output->back(), token_type_)) {
+    if (!::::fst::LabelsToString(labels, &output->back(), token_type_)) {
       return false;
     }
     LabelsToDebugString(output->back(), labels, &debug->back());
@@ -490,11 +487,11 @@ bool BaseRuleCascade<Arc>::Matches(absl::string_view input,
   if (!RewriteLattice(input, &lattice)) return false;
   MutableTransducer output_fst;
   compiler_(output, &output_fst);
-  static const ::fst::OLabelCompare<Arc> ocomp;
+  static const ::::fst::OLabelCompare<Arc> ocomp;
   ArcSort(&lattice, ocomp);
-  static const ::fst::ComposeOptions opts(true, ::fst::SEQUENCE_FILTER);
-  ::fst::Compose(lattice, output_fst, &lattice, opts);
-  return lattice.Start() != ::fst::kNoStateId;
+  static const ::::fst::ComposeOptions opts(true, ::::fst::SEQUENCE_FILTER);
+  ::::fst::Compose(lattice, output_fst, &lattice, opts);
+  return lattice.Start() != ::::fst::kNoStateId;
 }
 
 // Private methods.
@@ -505,7 +502,7 @@ bool BaseRuleCascade<Arc>::LabelsToDebugString(const std::string &output,
                                                std::string *debug) const {
   debug->clear();
   // This really only makes sense in BYTE mode.
-  if (token_type_ != ::fst::TokenType::BYTE) {
+  if (token_type_ != ::::fst::TokenType::BYTE) {
     *debug = output;
     return true;
   }

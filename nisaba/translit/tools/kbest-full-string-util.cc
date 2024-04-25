@@ -46,21 +46,21 @@ namespace nisaba {
 namespace translit {
 namespace tools {
 
-using ::fst::ArcIterator;
-using ::fst::Compose;
-using ::fst::ILabelCompare;
-using ::fst::Log64Weight;
-using ::fst::LogArc;
-using ::fst::OLabelCompare;
-using ::fst::Project;
-using ::fst::PROJECT_INPUT;
-using ::fst::PROJECT_OUTPUT;
-using ::fst::ShortestPath;
-using ::fst::StdArc;
-using ::fst::StdToLogMapper;
-using ::fst::StdVectorFst;
-using ::fst::SymbolTable;
-using ::fst::VectorFst;
+using ::nlp_::fst::ArcIterator;
+using ::nlp_::fst::Compose;
+using ::nlp_::fst::ILabelCompare;
+using ::nlp_::fst::Log64Weight;
+using ::nlp_::fst::LogArc;
+using ::nlp_::fst::OLabelCompare;
+using ::nlp_::fst::Project;
+using ::nlp_::fst::PROJECT_INPUT;
+using ::nlp_::fst::PROJECT_OUTPUT;
+using ::nlp_::fst::ShortestPath;
+using ::nlp_::fst::StdArc;
+using ::nlp_::fst::StdToLogMapper;
+using ::nlp_::fst::StdVectorFst;
+using ::nlp_::fst::SymbolTable;
+using ::nlp_::fst::VectorFst;
 
 namespace impl {
 namespace {

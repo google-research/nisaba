@@ -43,7 +43,7 @@ namespace {
 // Transliterates a given line and converts the result to string.
 std::string Transliterate(absl::string_view input_line, int k_best, int index,
                           PairLMDecoder *decoder) {
-  const ::fst::StdVectorFst translit_fst =
+  const ::::fst::StdVectorFst translit_fst =
       decoder->TransliterateString(input_line, k_best);
   return decoder->PrintTransliterations(std::to_string(index++), translit_fst);
 }

@@ -68,8 +68,8 @@ ABSL_FLAG(std::string, mode, "exact",
 namespace testing {
 namespace {
 
-using ::fst::TokenType;
-using ::fst::script::GetTokenType;
+using ::::fst::TokenType;
+using ::::fst::script::GetTokenType;
 using ::rewrite::StdRuleCascade;
 using ::testing::IsSupersetOf;
 using ::testing::SizeIs;

@@ -63,46 +63,46 @@
 #include "nisaba/translit/fst/wordpiece-segmenter.h"
 #include "nisaba/port/thread_pool.h"
 
-using ::fst::ArcIterator;
-using ::fst::ArcMap;
-using ::fst::CacheOptions;
-using ::fst::Closure;
-using ::fst::CLOSURE_PLUS;
-using ::fst::Compose;
-using ::fst::ComposeFstOptions;
-using ::fst::Concat;
-using ::fst::Connect;
-using ::fst::Invert;
-using ::fst::kDelta;
-using ::fst::kNoLabel;
-using ::fst::kNoStateId;
-using ::fst::LabelsToUTF8String;
-using ::fst::Log64Weight;
-using ::fst::LogArc;
-using ::fst::LogToStdMapper;
-using ::fst::MATCH_INPUT;
-using ::fst::MATCH_NONE;
-using ::fst::Matcher;
-using ::fst::MATCHER_REWRITE_NEVER;
-using ::fst::MutableArcIterator;
-using ::fst::OLabelCompare;
-using ::fst::PhiMatcher;
-using ::fst::Project;
-using ::fst::Prune;
-using ::fst::Push;
-using ::fst::REWEIGHT_TO_INITIAL;
-using ::fst::RmEpsilon;
-using ::fst::ShortestPath;
-using ::fst::StdArc;
-using ::fst::StdComposeFst;
-using ::fst::StdFst;
-using ::fst::StdILabelCompare;
-using ::fst::StdToLogMapper;
-using ::fst::StdVectorFst;
-using ::fst::SymbolTable;
-using ::fst::TopSort;
-using ::fst::Union;
-using ::fst::VectorFst;
+using ::::fst::ArcIterator;
+using ::::fst::ArcMap;
+using ::::fst::CacheOptions;
+using ::::fst::Closure;
+using ::::fst::CLOSURE_PLUS;
+using ::::fst::Compose;
+using ::::fst::ComposeFstOptions;
+using ::::fst::Concat;
+using ::::fst::Connect;
+using ::::fst::Invert;
+using ::::fst::kDelta;
+using ::::fst::kNoLabel;
+using ::::fst::kNoStateId;
+using ::::fst::LabelsToUTF8String;
+using ::::fst::Log64Weight;
+using ::::fst::LogArc;
+using ::::fst::LogToStdMapper;
+using ::::fst::MATCH_INPUT;
+using ::::fst::MATCH_NONE;
+using ::::fst::Matcher;
+using ::::fst::MATCHER_REWRITE_NEVER;
+using ::::fst::MutableArcIterator;
+using ::::fst::OLabelCompare;
+using ::::fst::PhiMatcher;
+using ::::fst::Project;
+using ::::fst::Prune;
+using ::::fst::Push;
+using ::::fst::REWEIGHT_TO_INITIAL;
+using ::::fst::RmEpsilon;
+using ::::fst::ShortestPath;
+using ::::fst::StdArc;
+using ::::fst::StdComposeFst;
+using ::::fst::StdFst;
+using ::::fst::StdILabelCompare;
+using ::::fst::StdToLogMapper;
+using ::::fst::StdVectorFst;
+using ::::fst::SymbolTable;
+using ::::fst::TopSort;
+using ::::fst::Union;
+using ::::fst::VectorFst;
 
 namespace nisaba {
 namespace translit {
@@ -578,7 +578,7 @@ StdVectorFst PairLMDecoder::GetWordTransliterations(
   } else {
     StdVectorFst pair_lattice;
     Compose(string_fst, *unicode_to_pair_fst_, &pair_lattice);
-    Project(&pair_lattice, ::fst::ProjectType::OUTPUT);
+    Project(&pair_lattice, ::::fst::ProjectType::OUTPUT);
     ArcSort(&pair_lattice, OLabelCompare<StdArc>());
 
     // Composes lattice of pair strings with pair language model.
@@ -600,7 +600,7 @@ StdVectorFst PairLMDecoder::GetWordTransliterations(
   if (prune_lattice) {
     Prune(&pair_lm_composed_output, /*weight_threshold=*/word_cand_thresh_);
   }
-  Project(&pair_lm_composed_output, ::fst::ProjectType::OUTPUT);
+  Project(&pair_lm_composed_output, ::::fst::ProjectType::OUTPUT);
   return pair_lm_composed_output;
 }
 
@@ -702,7 +702,7 @@ void PairLMDecoder::AddCandSymArc(absl::string_view new_symbol, double cost,
                                   StdVectorFst *word_transliterations) {
   // Look for candidate symbol in the symbol list, add if not there.
   int cand_sym = fst_params.cand_syms.Find(new_symbol);
-  if (cand_sym == ::fst::kNoSymbol) {
+  if (cand_sym == ::::fst::kNoSymbol) {
     cand_sym = fst_params.cand_syms.AddSymbol(new_symbol);
     AddToCandsToLMFst(new_symbol, cand_sym, fst_params);
   }
@@ -805,7 +805,7 @@ StdVectorFst PairLMDecoder::TransliterateSegmentedWord(
 
 void PairLMDecoder::ExtractCachedWordTransliterations(
     absl::string_view input_word, TranslitContext &fst_params,
-    ::fst::StdVectorFst &cached) {
+    ::::fst::StdVectorFst &cached) {
   mutex_.ReaderLock();
   const auto cached_pairs = global_word_transliteration_cache_.at(input_word);
   mutex_.ReaderUnlock();
@@ -1038,7 +1038,7 @@ StdVectorFst PairLMDecoder::ComposeLatticeWithLM(
           new PhiMatcher<Matcher<StdFst>>(transliteration_fst, MATCH_NONE, -1),
           new PhiMatcher<Matcher<StdFst>>(*lm_fst_, MATCH_INPUT, kPhiSymbol,
                                           true, MATCHER_REWRITE_NEVER))));
-  Project(&string_lm_composed_fst, ::fst::ProjectType::INPUT);
+  Project(&string_lm_composed_fst, ::::fst::ProjectType::INPUT);
   Connect(&string_lm_composed_fst);
   impl::PushInLogSemiring(&string_lm_composed_fst);
   TopSort(&string_lm_composed_fst);

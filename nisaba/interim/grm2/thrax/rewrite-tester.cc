@@ -57,18 +57,18 @@ ABSL_FLAG(std::string, field_separator, "\t ",
 
 namespace thrax {
 
-using ::fst::kNoStateId;
-using ::fst::LabelsToUTF8String;
-using ::fst::PathIterator;
-using ::fst::Project;
-using ::fst::ProjectType;
-using ::fst::RmEpsilon;
-using ::fst::ShortestPath;
-using ::fst::StdArc;
-using ::fst::StdVectorFst;
-using ::fst::StringCompiler;
-using ::fst::SymbolTable;
-using ::fst::TokenType;
+using ::::fst::kNoStateId;
+using ::::fst::LabelsToUTF8String;
+using ::::fst::PathIterator;
+using ::::fst::Project;
+using ::::fst::ProjectType;
+using ::::fst::RmEpsilon;
+using ::::fst::ShortestPath;
+using ::::fst::StdArc;
+using ::::fst::StdVectorFst;
+using ::::fst::StringCompiler;
+using ::::fst::SymbolTable;
+using ::::fst::TokenType;
 
 using Label = StdArc::Label;
 

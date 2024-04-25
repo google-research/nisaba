@@ -62,7 +62,7 @@ namespace nisaba {
 
 bool Run() {
   // Read the configuration from string or file.
-  translit::fst::PairLMDecoderOptions config;
+  translit::::fst::PairLMDecoderOptions config;
   std::string config_contents;
   if (!absl::GetFlag(FLAGS_pairlm_config).empty()) {
     config_contents = absl::GetFlag(FLAGS_pairlm_config);
@@ -88,7 +88,7 @@ bool Run() {
   }
 
   // Run the decoder.
-  return translit::fst::RunPairLMDecoder(
+  return translit::::fst::RunPairLMDecoder(
       config, absl::GetFlag(FLAGS_kbest),
       absl::GetFlag(FLAGS_num_workers),
       absl::GetFlag(FLAGS_ifile), absl::GetFlag(FLAGS_ofile)).ok();

@@ -50,17 +50,17 @@ namespace internal {
 
 // Post-composition check and cleanup.
 template <class Arc>
-inline bool CheckNonEmptyAndCleanup(::fst::MutableFst<Arc> *lattice) {
-  if (lattice->Start() == ::fst::kNoStateId) return false;
+inline bool CheckNonEmptyAndCleanup(::::fst::MutableFst<Arc> *lattice) {
+  if (lattice->Start() == ::::fst::kNoStateId) return false;
   // Projects output side if not already known to be an acceptor.
-  if (lattice->Properties(::fst::kAcceptor, /*test=*/false) !=
-      ::fst::kAcceptor) {
-    ::fst::Project(lattice, ::fst::ProjectType::OUTPUT);
+  if (lattice->Properties(::::fst::kAcceptor, /*test=*/false) !=
+      ::::fst::kAcceptor) {
+    ::::fst::Project(lattice, ::::fst::ProjectType::OUTPUT);
   }
   // Removes epsilons if not already known to be epsilon-free.
-  if (lattice->Properties(::fst::kNoEpsilons, /*test=*/false) !=
-      ::fst::kNoEpsilons) {
-    ::fst::RmEpsilon(lattice);
+  if (lattice->Properties(::::fst::kNoEpsilons, /*test=*/false) !=
+      ::::fst::kNoEpsilons) {
+    ::::fst::RmEpsilon(lattice);
   }
   return true;
 }
@@ -72,39 +72,37 @@ inline bool CheckNonEmptyAndCleanup(::fst::MutableFst<Arc> *lattice) {
 //
 // Callers may wish to arc-sort the input side of the rule ahead of time.
 template <class Arc>
-bool RewriteLattice(const ::fst::Fst<Arc> &input,
-                    const ::fst::Fst<Arc> &rule,
-                    ::fst::MutableFst<Arc> *lattice) {
-  static const ::fst::ComposeOptions opts(true,
-                                              ::fst::ALT_SEQUENCE_FILTER);
-  ::fst::Compose(input, rule, lattice, opts);
+bool RewriteLattice(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
+                    ::::fst::MutableFst<Arc> *lattice) {
+  static const ::::fst::ComposeOptions opts(true, ::::fst::ALT_SEQUENCE_FILTER);
+  ::::fst::Compose(input, rule, lattice, opts);
   return internal::CheckNonEmptyAndCleanup(lattice);
 }
 
 // Same as above but supports PDT composition.
 template <class Arc>
 bool RewriteLattice(
-    const ::fst::Fst<Arc> &input, const ::fst::Fst<Arc> &rule,
-    ::fst::MutableFst<Arc> *lattice,
+    const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
+    ::::fst::MutableFst<Arc> *lattice,
     const std::vector<std::pair<typename Arc::Label, typename Arc::Label>>
         &pdt_parens) {
-  static const ::fst::PdtComposeOptions opts(
-      true, ::fst::PdtComposeFilter::EXPAND);
-  ::fst::Compose(input, rule, pdt_parens, lattice, opts);
+  static const ::::fst::PdtComposeOptions opts(true,
+                                             ::::fst::PdtComposeFilter::EXPAND);
+  ::::fst::Compose(input, rule, pdt_parens, lattice, opts);
   return internal::CheckNonEmptyAndCleanup(lattice);
 }
 
 // Same as above but supports MPDT composition.
 template <class Arc>
 bool RewriteLattice(
-    const ::fst::Fst<Arc> &input, const ::fst::Fst<Arc> &rule,
-    ::fst::MutableFst<Arc> *lattice,
+    const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
+    ::::fst::MutableFst<Arc> *lattice,
     const std::vector<std::pair<typename Arc::Label, typename Arc::Label>>
         &pdt_parens,
     const std::vector<typename Arc::Label> &mpdt_assignments) {
-  static const ::fst::MPdtComposeOptions opts(
-      true, ::fst::PdtComposeFilter::EXPAND);
-  ::fst::Compose(input, rule, pdt_parens, mpdt_assignments, lattice, opts);
+  static const ::::fst::MPdtComposeOptions opts(true,
+                                              ::::fst::PdtComposeFilter::EXPAND);
+  ::::fst::Compose(input, rule, pdt_parens, mpdt_assignments, lattice, opts);
   return internal::CheckNonEmptyAndCleanup(lattice);
 }
 
@@ -119,15 +117,15 @@ bool RewriteLattice(
 // plus a small constant factor. This is intended to be a sensible default
 // and is not an inherently meaningful value in and of itself.
 template <class Arc>
-void LatticeToDfa(::fst::MutableFst<Arc> *lattice, bool optimal_only,
+void LatticeToDfa(::::fst::MutableFst<Arc> *lattice, bool optimal_only,
                   typename Arc::StateId state_multiplier = 4) {
   using StateId = typename Arc::StateId;
   using Weight = typename Arc::Weight;
   const auto &weight_threshold = optimal_only ? Weight::One() : Weight::Zero();
   const StateId state_threshold = 256 + state_multiplier * lattice->NumStates();
-  const ::fst::DeterminizeOptions<Arc> opts(
-      ::fst::kDelta, weight_threshold, state_threshold);
-  ::fst::Determinize(*lattice, lattice, opts);
+  const ::::fst::DeterminizeOptions<Arc> opts(::::fst::kDelta, weight_threshold,
+                                            state_threshold);
+  ::::fst::Determinize(*lattice, lattice, opts);
   // Warns if we actually hit the state threshold; if so, we do not have the
   // full set of (optimal) rewrites; there may be cycles of unweighted
   // insertions, or the state threshold may just be too low.
@@ -141,11 +139,10 @@ void LatticeToDfa(::fst::MutableFst<Arc> *lattice, bool optimal_only,
 // RewriteLattice), extracts n-shortest unique strings. This is only valid in a
 // semiring with the path property.
 template <class Arc>
-void LatticeToShortest(::fst::MutableFst<Arc> *lattice,
-                       int32_t nshortest = 1) {
-  ::fst::VectorFst<Arc> shortest;
+void LatticeToShortest(::::fst::MutableFst<Arc> *lattice, int32_t nshortest = 1) {
+  ::::fst::VectorFst<Arc> shortest;
   // By requesting unique solutions we request on-the-fly determinization.
-  ::fst::ShortestPath(*lattice, &shortest, nshortest, /*unique=*/true);
+  ::::fst::ShortestPath(*lattice, &shortest, nshortest, /*unique=*/true);
   *lattice = shortest;
 }
 
@@ -153,35 +150,34 @@ void LatticeToShortest(::fst::MutableFst<Arc> *lattice,
 // RewriteLattice), extracts a single top string. This is only valid in a
 // semiring with the path property.
 template <class Arc>
-bool LatticeToTopString(const ::fst::Fst<Arc> &lattice, std::string *output,
-                        ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                        const ::fst::SymbolTable *syms = nullptr) {
-  ::fst::VectorFst<Arc> ofst;
-  ::fst::ShortestPath(lattice, &ofst);
-  return ::fst::StringPrint(ofst, output, ttype, syms);
+bool LatticeToTopString(const ::::fst::Fst<Arc> &lattice, std::string *output,
+                        ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                        const ::::fst::SymbolTable *syms = nullptr) {
+  ::::fst::VectorFst<Arc> ofst;
+  ::::fst::ShortestPath(lattice, &ofst);
+  return ::::fst::StringPrint(ofst, output, ttype, syms);
 }
 
 // Same as above but overloaded to also compute the path weight as a float.
 template <class Arc>
-bool LatticeToTopString(const ::fst::Fst<Arc> &lattice, std::string *output,
+bool LatticeToTopString(const ::::fst::Fst<Arc> &lattice, std::string *output,
                         float *weight,
-                        ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                        const ::fst::SymbolTable *syms = nullptr) {
-  ::fst::VectorFst<Arc> ofst;
-  ::fst::ShortestPath(lattice, &ofst);
-  return ::fst::StringPrint(ofst, output, weight, ttype, syms);
+                        ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                        const ::::fst::SymbolTable *syms = nullptr) {
+  ::::fst::VectorFst<Arc> ofst;
+  ::::fst::ShortestPath(lattice, &ofst);
+  return ::::fst::StringPrint(ofst, output, weight, ttype, syms);
 }
 
 // Attempts to extract a single top rewrite from a optimized DFA, logging a
 // warning and returning false if there's a tie. This is only valid in a
 // semiring with the path property.
 template <class Arc>
-bool LatticeToOneTopString(
-    const ::fst::Fst<Arc> &lattice, std::string *output,
-    ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-    const ::fst::SymbolTable *syms = nullptr) {
-  ::fst::StringPathIterator<Arc> paths(lattice, ttype, syms,
-                                           /*check_acyclic=*/false);
+bool LatticeToOneTopString(const ::::fst::Fst<Arc> &lattice, std::string *output,
+                           ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                           const ::::fst::SymbolTable *syms = nullptr) {
+  ::::fst::StringPathIterator<Arc> paths(lattice, ttype, syms,
+                                       /*check_acyclic=*/false);
   if (paths.Error() || paths.Done()) return false;
   *output = paths.OString();
   // Checks for uniqueness.
@@ -196,12 +192,12 @@ bool LatticeToOneTopString(
 
 // Same as above but overloaded to also compute the path weight as a float.
 template <class Arc>
-bool LatticeToOneTopString(
-    const ::fst::Fst<Arc> &lattice, std::string *output, float *weight,
-    ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-    const ::fst::SymbolTable *syms = nullptr) {
-  ::fst::StringPathIterator<Arc> paths(lattice, ttype, syms,
-                                           /*check_acyclic=*/false);
+bool LatticeToOneTopString(const ::::fst::Fst<Arc> &lattice, std::string *output,
+                           float *weight,
+                           ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                           const ::::fst::SymbolTable *syms = nullptr) {
+  ::::fst::StringPathIterator<Arc> paths(lattice, ttype, syms,
+                                       /*check_acyclic=*/false);
   if (paths.Error() || paths.Done()) return false;
   *output = paths.OString();
   *weight = paths.Weight().Value();
@@ -217,10 +213,10 @@ bool LatticeToOneTopString(
 
 // Clears vector and writes lattice labels to it.
 template <class Arc>
-bool LatticeToLabels(const ::fst::Fst<Arc> &lattice,
+bool LatticeToLabels(const ::::fst::Fst<Arc> &lattice,
                      std::vector<std::vector<typename Arc::Label>> *output) {
   output->clear();
-  ::fst::PathIterator<Arc> paths(lattice);
+  ::::fst::PathIterator<Arc> paths(lattice);
   if (paths.Error()) return false;
   for (; !paths.Done(); paths.Next()) output->emplace_back(paths.OLabels());
   return true;
@@ -228,20 +224,20 @@ bool LatticeToLabels(const ::fst::Fst<Arc> &lattice,
 
 // Clears vector and writes lattice strings to it.
 template <class Arc>
-bool LatticeToStrings(const ::fst::Fst<Arc> &lattice,
+bool LatticeToStrings(const ::::fst::Fst<Arc> &lattice,
                       std::vector<std::string> *output,
-                      ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                      const ::fst::SymbolTable *syms = nullptr) {
+                      ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                      const ::::fst::SymbolTable *syms = nullptr) {
   output->clear();
   // We have to do this check manually since StringPathIterator's check is
   // potentially fatal.
-  if (lattice.Properties(::fst::kAcyclic, true) != ::fst::kAcyclic) {
+  if (lattice.Properties(::::fst::kAcyclic, true) != ::::fst::kAcyclic) {
     LOG(ERROR) << "Lattice is unexpectedly cyclic";
     return false;
   }
   // Input token type and symbol table will be ignored.
-  ::fst::StringPathIterator<Arc> paths(lattice, ttype, syms,
-                                           /*check_acyclic=*/false);
+  ::::fst::StringPathIterator<Arc> paths(lattice, ttype, syms,
+                                       /*check_acyclic=*/false);
   if (paths.Error()) return false;
   for (; !paths.Done(); paths.Next()) {
     // Constructs these in-place.
@@ -254,20 +250,20 @@ bool LatticeToStrings(const ::fst::Fst<Arc> &lattice,
 #ifndef NO_GOOGLE
 // Same as above but with repeated string fields.
 template <class Arc>
-bool LatticeToStrings(const ::fst::Fst<Arc> &lattice,
+bool LatticeToStrings(const ::::fst::Fst<Arc> &lattice,
                       google::protobuf::RepeatedPtrField<std::string> *output,
-                      ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                      const ::fst::SymbolTable *syms = nullptr) {
+                      ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                      const ::::fst::SymbolTable *syms = nullptr) {
   output->Clear();
   // We have to do this check manually since StringPathIterator's check is
   // potentially fatal.
-  if (lattice.Properties(::fst::kAcyclic, true) != ::fst::kAcyclic) {
+  if (lattice.Properties(::::fst::kAcyclic, true) != ::::fst::kAcyclic) {
     LOG(ERROR) << "Lattice is unexpectedly cyclic";
     return false;
   }
   // Input token type and symbol table will be ignored.
-  ::fst::StringPathIterator<Arc> paths(lattice, ttype, syms,
-                                           /*check_acyclic=*/false);
+  ::::fst::StringPathIterator<Arc> paths(lattice, ttype, syms,
+                                       /*check_acyclic=*/false);
   if (paths.Error() || paths.Done()) return false;
   for (; !paths.Done(); paths.Next()) output->Add(paths.OString());
   return true;
@@ -276,20 +272,20 @@ bool LatticeToStrings(const ::fst::Fst<Arc> &lattice,
 
 // Same as above but overloaded to also compute the path weights as floats.
 template <class Arc>
-bool LatticeToStrings(const ::fst::Fst<Arc> &lattice,
+bool LatticeToStrings(const ::::fst::Fst<Arc> &lattice,
                       std::vector<std::pair<std::string, float>> *output,
-                      ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                      const ::fst::SymbolTable *syms = nullptr) {
+                      ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                      const ::::fst::SymbolTable *syms = nullptr) {
   output->clear();
   // We have to do this check manually since StringPathIterator's check is
   // potentially fatal.
-  if (lattice.Properties(::fst::kAcyclic, true) != ::fst::kAcyclic) {
+  if (lattice.Properties(::::fst::kAcyclic, true) != ::::fst::kAcyclic) {
     LOG(ERROR) << "Lattice is unexpectedly cyclic";
     return false;
   }
   // Input token type and symbol table will be ignored.
-  ::fst::StringPathIterator<Arc> paths(lattice, ttype, syms,
-                                           /*check_acyclic=*/false);
+  ::::fst::StringPathIterator<Arc> paths(lattice, ttype, syms,
+                                       /*check_acyclic=*/false);
   if (paths.Error()) return false;
   for (; !paths.Done(); paths.Next()) {
     output->emplace_back(paths.OString(), paths.Weight().Value());
@@ -299,11 +295,11 @@ bool LatticeToStrings(const ::fst::Fst<Arc> &lattice,
 
 // Top rewrite.
 template <class Arc>
-bool TopRewrite(const ::fst::Fst<Arc> &input,
-                const ::fst::Fst<Arc> &rule, std::string *output,
-                ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                const ::fst::SymbolTable *syms = nullptr) {
-  ::fst::VectorFst<Arc> lattice;
+bool TopRewrite(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
+                std::string *output,
+                ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                const ::::fst::SymbolTable *syms = nullptr) {
+  ::::fst::VectorFst<Arc> lattice;
   return RewriteLattice(input, rule, &lattice) &&
          LatticeToTopString(lattice, output, ttype, syms);
 }
@@ -311,24 +307,23 @@ bool TopRewrite(const ::fst::Fst<Arc> &input,
 // Same as above but overloaded to also compute the path weight as a float.
 // Top rewrite.
 template <class Arc>
-bool TopRewrite(const ::fst::Fst<Arc> &input,
-                const ::fst::Fst<Arc> &rule, std::string *output,
-                float *weight,
-                ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                const ::fst::SymbolTable *syms = nullptr) {
-  ::fst::VectorFst<Arc> lattice;
+bool TopRewrite(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
+                std::string *output, float *weight,
+                ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                const ::::fst::SymbolTable *syms = nullptr) {
+  ::::fst::VectorFst<Arc> lattice;
   return RewriteLattice(input, rule, &lattice) &&
          LatticeToTopString(lattice, output, weight, ttype, syms);
 }
 
 // Top rewrite, returning false and logging if there's a tie.
 template <class Arc>
-bool OneTopRewrite(const ::fst::Fst<Arc> &input,
-                   const ::fst::Fst<Arc> &rule, std::string *output,
-                   ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                   const ::fst::SymbolTable *syms = nullptr,
+bool OneTopRewrite(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
+                   std::string *output,
+                   ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                   const ::::fst::SymbolTable *syms = nullptr,
                    typename Arc::StateId state_multiplier = 4) {
-  ::fst::VectorFst<Arc> lattice;
+  ::::fst::VectorFst<Arc> lattice;
   if (!RewriteLattice(input, rule, &lattice)) return false;
   LatticeToDfa(&lattice, /*optimal_only=*/true, state_multiplier);
   return LatticeToOneTopString(lattice, output, ttype, syms);
@@ -336,13 +331,12 @@ bool OneTopRewrite(const ::fst::Fst<Arc> &input,
 
 // Same as above but overloaded to also compute the path weight as a float.
 template <class Arc>
-bool OneTopRewrite(const ::fst::Fst<Arc> &input,
-                   const ::fst::Fst<Arc> &rule, std::string *output,
-                   float *weight,
-                   ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                   const ::fst::SymbolTable *syms = nullptr,
+bool OneTopRewrite(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
+                   std::string *output, float *weight,
+                   ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                   const ::::fst::SymbolTable *syms = nullptr,
                    typename Arc::StateId state_multiplier = 4) {
-  ::fst::VectorFst<Arc> lattice;
+  ::::fst::VectorFst<Arc> lattice;
   if (!RewriteLattice(input, rule, &lattice)) return false;
   LatticeToDfa(&lattice, /*optimal_only=*/true, state_multiplier);
   return LatticeToOneTopString(lattice, output, weight, ttype, syms);
@@ -350,12 +344,12 @@ bool OneTopRewrite(const ::fst::Fst<Arc> &input,
 
 // All rewrites.
 template <class Arc>
-bool Rewrites(const ::fst::Fst<Arc> &input, const ::fst::Fst<Arc> &rule,
+bool Rewrites(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
               std::vector<std::string> *output,
-              ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-              const ::fst::SymbolTable *syms = nullptr,
+              ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+              const ::::fst::SymbolTable *syms = nullptr,
               typename Arc::StateId state_multiplier = 4) {
-  ::fst::VectorFst<Arc> lattice;
+  ::::fst::VectorFst<Arc> lattice;
   if (!RewriteLattice(input, rule, &lattice)) return false;
   LatticeToDfa(&lattice, /*optimal_only=*/false, state_multiplier);
   return LatticeToStrings(lattice, output, ttype, syms);
@@ -364,12 +358,12 @@ bool Rewrites(const ::fst::Fst<Arc> &input, const ::fst::Fst<Arc> &rule,
 #ifndef NO_GOOGLE
 // Same as above but overloaded to write into a repeated proto string field.
 template <class Arc>
-bool Rewrites(const ::fst::Fst<Arc> &input, const ::fst::Fst<Arc> &rule,
+bool Rewrites(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
               google::protobuf::RepeatedPtrField<std::string> *output,
-              ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-              const ::fst::SymbolTable *syms = nullptr,
+              ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+              const ::::fst::SymbolTable *syms = nullptr,
               typename Arc::StateId state_multiplier = 4) {
-  ::fst::VectorFst<Arc> lattice;
+  ::::fst::VectorFst<Arc> lattice;
   if (!RewriteLattice(input, rule, &lattice)) return false;
   LatticeToDfa(&lattice, /*optimal_only=*/false, state_multiplier);
   return LatticeToStrings(lattice, output, ttype, syms);
@@ -378,12 +372,12 @@ bool Rewrites(const ::fst::Fst<Arc> &input, const ::fst::Fst<Arc> &rule,
 
 // Same as above but overloaded to also compute the path weights as floats.
 template <class Arc>
-bool Rewrites(const ::fst::Fst<Arc> &input, const ::fst::Fst<Arc> &rule,
+bool Rewrites(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
               std::vector<std::pair<std::string, float>> *output,
-              ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-              const ::fst::SymbolTable *syms = nullptr,
+              ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+              const ::::fst::SymbolTable *syms = nullptr,
               typename Arc::StateId state_multiplier = 4) {
-  ::fst::VectorFst<Arc> lattice;
+  ::::fst::VectorFst<Arc> lattice;
   if (!RewriteLattice(input, rule, &lattice)) return false;
   LatticeToDfa(&lattice, /*optimal_only=*/false, state_multiplier);
   return LatticeToStrings(lattice, output, ttype, syms);
@@ -391,13 +385,12 @@ bool Rewrites(const ::fst::Fst<Arc> &input, const ::fst::Fst<Arc> &rule,
 
 // All optimal rewrites.
 template <class Arc>
-bool TopRewrites(const ::fst::Fst<Arc> &input,
-                 const ::fst::Fst<Arc> &rule,
+bool TopRewrites(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
                  std::vector<std::string> *output,
-                 ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                 const ::fst::SymbolTable *syms = nullptr,
+                 ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                 const ::::fst::SymbolTable *syms = nullptr,
                  typename Arc::StateId state_multiplier = 4) {
-  ::fst::VectorFst<Arc> lattice;
+  ::::fst::VectorFst<Arc> lattice;
   if (!RewriteLattice(input, rule, &lattice)) return false;
   LatticeToDfa(&lattice, /*optimal_only=*/true, state_multiplier);
   return LatticeToStrings(lattice, output, ttype, syms);
@@ -406,13 +399,12 @@ bool TopRewrites(const ::fst::Fst<Arc> &input,
 #ifndef NO_GOOGLE
 // Same as above but overloaded to write into a repeated proto string field.
 template <class Arc>
-bool TopRewrites(const ::fst::Fst<Arc> &input,
-                 const ::fst::Fst<Arc> &rule,
+bool TopRewrites(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
                  google::protobuf::RepeatedPtrField<std::string> *output,
-                 ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                 const ::fst::SymbolTable *syms = nullptr,
+                 ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                 const ::::fst::SymbolTable *syms = nullptr,
                  typename Arc::StateId state_multiplier = 4) {
-  ::fst::VectorFst<Arc> lattice;
+  ::::fst::VectorFst<Arc> lattice;
   if (!RewriteLattice(input, rule, &lattice)) return false;
   LatticeToDfa(&lattice, /*optimal_only=*/true, state_multiplier);
   return LatticeToStrings(lattice, output, ttype, syms);
@@ -421,13 +413,12 @@ bool TopRewrites(const ::fst::Fst<Arc> &input,
 
 // Same as above but overloaded to also compute the path weights as floats.
 template <class Arc>
-bool TopRewrites(const ::fst::Fst<Arc> &input,
-                 const ::fst::Fst<Arc> &rule,
+bool TopRewrites(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
                  std::vector<std::pair<std::string, float>> *output,
-                 ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                 const ::fst::SymbolTable *syms = nullptr,
+                 ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                 const ::::fst::SymbolTable *syms = nullptr,
                  typename Arc::StateId state_multiplier = 4) {
-  ::fst::VectorFst<Arc> lattice;
+  ::::fst::VectorFst<Arc> lattice;
   if (!RewriteLattice(input, rule, &lattice)) return false;
   LatticeToDfa(&lattice, /*optimal_only=*/true, state_multiplier);
   return LatticeToStrings(lattice, output, ttype, syms);
@@ -435,12 +426,11 @@ bool TopRewrites(const ::fst::Fst<Arc> &input,
 
 // The top n rewrites.
 template <class Arc>
-bool TopRewrites(const ::fst::Fst<Arc> &input,
-                 const ::fst::Fst<Arc> &rule, int32_t nshortest,
-                 std::vector<std::string> *output,
-                 ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                 const ::fst::SymbolTable *syms = nullptr) {
-  ::fst::VectorFst<Arc> lattice;
+bool TopRewrites(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
+                 int32_t nshortest, std::vector<std::string> *output,
+                 ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                 const ::::fst::SymbolTable *syms = nullptr) {
+  ::::fst::VectorFst<Arc> lattice;
   if (!RewriteLattice(input, rule, &lattice)) return false;
   LatticeToShortest(&lattice, nshortest);
   return LatticeToStrings(lattice, output, ttype, syms);
@@ -449,12 +439,12 @@ bool TopRewrites(const ::fst::Fst<Arc> &input,
 #ifndef NO_GOOGLE
 // Same as above but overloaded to write into a repeated proto string field.
 template <class Arc>
-bool TopRewrites(const ::fst::Fst<Arc> &input,
-                 const ::fst::Fst<Arc> &rule, int32_t nshortest,
+bool TopRewrites(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
+                 int32_t nshortest,
                  google::protobuf::RepeatedPtrField<std::string> *output,
-                 ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                 const ::fst::SymbolTable *syms = nullptr) {
-  ::fst::VectorFst<Arc> lattice;
+                 ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                 const ::::fst::SymbolTable *syms = nullptr) {
+  ::::fst::VectorFst<Arc> lattice;
   if (!RewriteLattice(input, rule, &lattice)) return false;
   LatticeToShortest(&lattice, nshortest);
   return LatticeToStrings(lattice, ttype, syms);
@@ -463,12 +453,12 @@ bool TopRewrites(const ::fst::Fst<Arc> &input,
 
 // Same as above but overloaded to also compute the path weights as floats.
 template <class Arc>
-bool TopRewrites(const ::fst::Fst<Arc> &input,
-                 const ::fst::Fst<Arc> &rule, int32_t nshortest,
+bool TopRewrites(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &rule,
+                 int32_t nshortest,
                  std::vector<std::pair<std::string, float>> *output,
-                 ::fst::TokenType ttype = ::fst::TokenType::BYTE,
-                 const ::fst::SymbolTable *syms = nullptr) {
-  ::fst::VectorFst<Arc> lattice;
+                 ::::fst::TokenType ttype = ::::fst::TokenType::BYTE,
+                 const ::::fst::SymbolTable *syms = nullptr) {
+  ::::fst::VectorFst<Arc> lattice;
   if (!RewriteLattice(input, rule, &lattice)) return false;
   LatticeToShortest(&lattice, nshortest);
   return LatticeToStrings(lattice, output, ttype, syms);
@@ -476,17 +466,15 @@ bool TopRewrites(const ::fst::Fst<Arc> &input,
 
 // Determines whether a rule allows an input/output pair.
 template <class Arc>
-bool Matches(const ::fst::Fst<Arc> &input,
-             const ::fst::Fst<Arc> &output,
-             const ::fst::Fst<Arc> &rule) {
-  ::fst::VectorFst<Arc> lattice;
+bool Matches(const ::::fst::Fst<Arc> &input, const ::::fst::Fst<Arc> &output,
+             const ::::fst::Fst<Arc> &rule) {
+  ::::fst::VectorFst<Arc> lattice;
   if (!RewriteLattice(input, rule, &lattice)) return false;
-  static const ::fst::OLabelCompare<Arc> ocomp;
-  ::fst::ArcSort(&lattice, ocomp);
-  static const ::fst::IntersectOptions opts(true,
-                                                ::fst::SEQUENCE_FILTER);
-  ::fst::Intersect(lattice, output, &lattice, opts);
-  return lattice.Start() != ::fst::kNoStateId;
+  static const ::::fst::OLabelCompare<Arc> ocomp;
+  ::::fst::ArcSort(&lattice, ocomp);
+  static const ::::fst::IntersectOptions opts(true, ::::fst::SEQUENCE_FILTER);
+  ::::fst::Intersect(lattice, output, &lattice, opts);
+  return lattice.Start() != ::::fst::kNoStateId;
 }
 
 }  // namespace rewrite
