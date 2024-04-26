@@ -226,6 +226,15 @@ class ExpressionTest(test_op.TestCase):
         ),
     )
 
+  def test_operator_add(self):
+    self.AssertEquivalent(
+        _ATM.a + _ATM.b + _ATM.c, exp.Cat(_ATM.a, _ATM.b, _ATM.c)
+    )
+
+  def test_operator_or(self):
+    self.AssertEquivalent(
+        _ATM.a | _ATM.b | _ATM.c, exp.Or(_ATM.a, _ATM.b, _ATM.c)
+    )
 
 if __name__ == '__main__':
   absltest.main()

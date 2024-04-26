@@ -132,6 +132,12 @@ class Expression(ty.IterableThing):
   def copy(self) -> 'Expression':
     return Expression(self.alias)
 
+  def __add__(self, other: 'Expression') -> 'Cat':
+    return Cat(self, other)
+
+  def __or__(self, other: 'Expression') -> 'Or':
+    return Or(self, other)
+
   def repeat(self, n: int = 2) -> 'Cat':
     """Returns a Cat of n repetitions of this expression."""
     return Cat(*([self] * n))
