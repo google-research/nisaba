@@ -104,30 +104,41 @@ class Expression(ty.IterableThing):
   def state_count(self) -> int:
     return sum([item.state_count() for item in self])
 
-  def accepts(self, other: 'Expression.OR_SYMBOL') -> bool:
+  def _symbols_of(
+      self, other: 'Expression.OR_SYMBOL'
+  ) -> list[list[sym.Symbol]]:
+    if isinstance(other, Expression):
+      return other.symbols()
+    else:
+      return [[other]]
+
+  def accepts(
+      self, other: 'Expression.OR_SYMBOL', equivalent: bool = False
+  ) -> bool:
     """Checks if this expression accepts all symbol lists of the argument.
 
     Args:
       other: A symbol or expression.
+      equivalent: If True, the argument must accept this expression too.
 
     Returns:
       bool
     """
-    self_symbols = self.symbols()
-    if isinstance(other, Expression):
-      other_symbols = other.symbols()
-    else:
-      other_symbols = [[other]]
+    self_symbols, other_symbols = self.symbols(), self._symbols_of(other)
+    self_len, other_len = len(self_symbols), len(other_symbols)
+    if (
+        not self_len
+        or self_len < other_len
+        or (equivalent and self_len != other_len)
+    ):
+      return False
     for sym_list in other_symbols:
       if sym_list not in self_symbols:
         return False
     return True
 
   def is_equivalent(self, other: 'Expression.OR_SYMBOL') -> bool:
-    if isinstance(other, Expression):
-      return self.accepts(other) and other.accepts(self)
-    else:
-      return self.accepts(other) and len(self.symbols()) == 1
+    return self.accepts(other, equivalent=True)
 
   def copy(self) -> 'Expression':
     return Expression(self.alias)
