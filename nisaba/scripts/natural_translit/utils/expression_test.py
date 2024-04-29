@@ -226,6 +226,43 @@ class ExpressionTest(test_op.TestCase):
         ),
     )
 
+  def test_contains_controls(self):
+    eps = exp.Atomic.CTRL.eps
+    nor = exp.Atomic.CTRL.nor
+    self.AssertContains(eps, eps)
+    self.AssertContains(nor, eps)
+    self.AssertNotContains(eps, nor)
+    self.AssertNotContains(nor, nor)
+
+  def test_contains_expressions(self):
+    cat_abc = _ATM.a + _ATM.b + _ATM.c
+    self.AssertContains(cat_abc, exp.Cat())
+    self.AssertNotContains(cat_abc, exp.Or())
+    self.AssertContains(cat_abc, exp.Or(exp.Cat()))
+    self.AssertNotContains(cat_abc, exp.Cat(exp.Or()))
+    self.AssertContains(cat_abc, _ATM.b)
+    self.AssertNotContains(_ATM.b, cat_abc)
+    self.assertTrue(exp.Cat().is_contained(_SYM.a))
+    self.assertFalse(exp.Or().is_contained(_SYM.a))
+    self.assertTrue(_ATM.b.is_contained(cat_abc))
+    self.assertTrue(_ATM.a.is_contained(_SYM.a))
+
+  def test_matches(self):
+    abc_or_cd = (_ATM.a + _ATM.b + _ATM.c) | (_ATM.c + _ATM.d)
+    a_or_c_b_or_d = (_ATM.a | _ATM.c) + (_ATM.b | _ATM.d)
+    self.AssertMatches(abc_or_cd, a_or_c_b_or_d)
+    self.AssertNotMatches(abc_or_cd, _ATM.a + _ATM.b + _ATM.d)
+    self.assertTrue(exp.Cat().is_prefix(exp.Cat()))
+    self.assertTrue(exp.Cat().is_suffix(exp.Cat()))
+    self.assertFalse(exp.Cat().is_prefix(abc_or_cd))
+    self.assertFalse(exp.Cat().is_suffix(abc_or_cd))
+    self.assertTrue(_ATM.c.is_prefix(abc_or_cd))
+    self.assertTrue(_ATM.c.is_prefix(abc_or_cd))
+    self.assertTrue((_ATM.a | (_ATM.b + _ATM.c)).is_prefix(_SYM.a))
+    self.assertTrue((_ATM.a + _ATM.d).is_suffix(a_or_c_b_or_d))
+    self.assertTrue(_ATM.a.is_prefix(_SYM.a))
+    self.assertTrue(_ATM.a.is_suffix(_SYM.a))
+
   def test_operator_add(self):
     self.AssertEquivalent(
         _ATM.a + _ATM.b + _ATM.c, exp.Cat(_ATM.a, _ATM.b, _ATM.c)

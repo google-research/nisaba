@@ -140,6 +140,168 @@ class Expression(ty.IterableThing):
   def is_equivalent(self, other: 'Expression.OR_SYMBOL') -> bool:
     return self.accepts(other, equivalent=True)
 
+  def contains_symbol_list(
+      self,
+      search_for: list[sym.Symbol],
+      head: bool = False,
+      tail: bool = False,
+  ) -> bool:
+    """Checks if this expression contains the given symbol list.
+
+    The symbols in the argument must be adjacent and in the same order in at
+    least one symbol list of the expression.
+
+    Args:
+      search_for: Symbol list to be searched for.
+      head: If True, the argument must match the beginning of at least one
+        symbol list of this expression.
+      tail: If True, the argument must match the end of at least one symbol list
+        of this expression.
+
+    If both head and tail are true, the argument must be equal to at least one
+    symbol list of this expression.
+
+    All expressions contain epsilon list [⍷] in all conditions. No expression
+    contains empty Or list [⍜], even if both expressions are empty Ors.
+
+    Returns:
+      bool.
+
+    Example:
+    a.symbols() = [[a, b, c, d], [e, f, g], [h]]
+    a.contains_symbol_list(arg, head, tail) for arguments:
+      head=False, tail=False
+        [⍷]: True.
+        [a, b, c, d]: True, [a, b, c, d] is in the symbol list.
+        [b, c]: True, [b, c] is a sublist of [a, b, c, d].
+        [a, b, c, d, e, f, g]: False, symbols aren't in the same list.
+        [a, c]: False, symbols aren't adjacent in [a, b, c, d].
+        [c, b]: False, symbol order doesn't match [a, b, c, d].
+      if head=True, tail=False
+        [a]: True
+        [a, b]: True
+        [b, c, d]: False
+        [h]: True
+      if head=False, tail=True
+        [d]: True
+        [c, d]: True
+        [a, b, c]: False
+        [h]: True
+      if head=True tail=True
+        [a, b, c, d]: True
+        [e, f, g]: True
+        [h]: True
+        [⍷]: True
+        any other argument returns False
+    """
+    if search_for == [sym.Symbol.CTRL.eps]:
+      return True
+    if search_for == [sym.Symbol.CTRL.nor]:
+      return False
+    # Loop over symbol lists, eg: [[a, b, c, d], [e, f, g]]
+    for symbol_list in self.symbols():
+      while symbol_list:
+        search_in = symbol_list.copy()  # [a, b, c, d]
+        while search_in:
+          if search_in == search_for:
+            return True
+          # head=True, tail=True means full match.
+          # Move onto the next list [e, f, g]
+          if head and tail:
+            break
+          # tail=True: trim search_in from start: [b, c, d], [c, d], [d]
+          # tail=False: trim search_in from end: [a, b, c], [a, b], [a]
+          search_in.pop(0 if tail else -1)
+        # If head=True or tail=True, move onto the next list [e, f, g]
+        if head or tail:
+          break
+        # if head=False and tail=False, continue trimming the symbol list
+        # The first pass searched in [a, b, c, d], [a, b, c], [a, b], [a]
+        # Continue searching in [b, c, d], [b, c], [b], [c, d], [c], [d]
+        symbol_list.pop(0)
+    return False
+
+  def contains(
+      self,
+      other: 'Expression.OR_SYMBOL',
+      head: bool = False,
+      tail: bool = False,
+  ) -> bool:
+    """Checks if this expression contains a symbol list of the argument.
+
+    Args:
+      other: A symbol or expression to search for. If the argument is an
+        expression, it's sufficient that at least one symbol list of the
+        argument is contained by this expression. It's not necessary for all
+        symbol lists of the argument to be contained.
+      head: If True, at least one symbol list of the argument should be
+        contained at the beginning of a symbol list of this expression.
+      tail: If True, at least one symbol list of the argument should be
+        contained at the end of a symbol list of this expression.
+
+    Returns:
+      bool
+
+    Example:
+      a.symbols() = [[a, b, c, d], [h]]
+      b.symbols() = [[a, b], [c], [a, d], [i]]
+
+      a.contains(b): True, a contains [a, b] and [c].
+      b.contains(a): False, b doesn't contain [a, b, c, d] or [h].
+      a.contains(b, head=True): [a, b, c, d] starts with [a, b]
+      a.contains(b, tail=True): False
+    """
+    for sym_list in self._symbols_of(other):
+      if self.contains_symbol_list(sym_list, head, tail):
+        return True
+    return False
+
+  def _symbol_contains(self, other: sym.Symbol) -> bool:
+    self_symbols = self.symbols()
+    return [sym.Symbol.CTRL.eps] in self_symbols or (
+        other != sym.Symbol.CTRL.nor and [other] in self_symbols
+    )
+
+  def is_contained(
+      self,
+      other: 'Expression.OR_SYMBOL',
+      head: bool = False,
+      tail: bool = False,
+  ) -> bool:
+    if isinstance(other, Expression):
+      return other.contains(self, head, tail)
+    return self._symbol_contains(other)
+
+  # Shorthands for containment conditions
+
+  def matches(self, other: 'Expression.OR_SYMBOL') -> bool:
+    return self.contains(other, head=True, tail=True)
+
+  # head_matches and tail_matches require at least one symbol match unless
+  # both expressions are empty Cats. For example, if a rule requires a vowel as
+  # following context but there is no following context, the rule shouldn't
+  # apply.
+
+  def head_matches(self, other: 'Expression.OR_SYMBOL') -> bool:
+    if self and not other:
+      return False
+    return self.contains(other, head=True)
+
+  def is_prefix(self, other: 'Expression.OR_SYMBOL') -> bool:
+    if isinstance(other, Expression):
+      return other.head_matches(self)
+    return self._symbol_contains(other)
+
+  def tail_matches(self, other: 'Expression.OR_SYMBOL') -> bool:
+    if self and not other:
+      return False
+    return self.contains(other, tail=True)
+
+  def is_suffix(self, other: 'Expression.OR_SYMBOL') -> bool:
+    if isinstance(other, Expression):
+      return other.tail_matches(self)
+    return self._symbol_contains(other)
+
   def copy(self) -> 'Expression':
     return Expression(self.alias)
 

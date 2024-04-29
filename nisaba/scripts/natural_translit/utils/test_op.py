@@ -73,6 +73,34 @@ class TestCase(absltest.TestCase):
   ):
     return self.assertFalse(expression_1.is_equivalent(expression_2))
 
+  def AssertContains(
+      self,
+      expression_1: exp.Expression,
+      expression_2: exp.Expression.OR_SYMBOL,
+      head: bool = False,
+      tail: bool = False,
+  ):
+    return self.assertTrue(expression_1.contains(expression_2, head, tail))
+
+  def AssertNotContains(
+      self,
+      expression_1: exp.Expression,
+      expression_2: exp.Expression.OR_SYMBOL,
+      head: bool = False,
+      tail: bool = False,
+  ):
+    return self.assertFalse(expression_1.contains(expression_2, head, tail))
+
+  def AssertMatches(
+      self, expression_1: exp.Expression, expression_2: exp.Expression.OR_SYMBOL
+  ):
+    return self.assertTrue(expression_1.matches(expression_2))
+
+  def AssertNotMatches(
+      self, expression_1: exp.Expression, expression_2: exp.Expression.OR_SYMBOL
+  ):
+    return self.assertFalse(expression_1.matches(expression_2))
+
   # Feature asserts
 
   def AssertFeatureDistance(
