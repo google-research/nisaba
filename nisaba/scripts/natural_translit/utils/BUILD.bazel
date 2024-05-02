@@ -228,6 +228,25 @@ py_test(
 )
 
 py_library(
+    name = "operation",
+    srcs = ["operation.py"],
+    deps = [
+        ":inventory2",
+        ":type_op",
+    ],
+)
+
+py_test(
+    name = "operation_test",
+    srcs = ["operation_test.py"],
+    main = "operation_test.py",
+    deps = [
+        ":operation",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
     name = "test_op",
     srcs = ["test_op.py"],
     srcs_version = "PY3",
