@@ -49,10 +49,12 @@ class ExpressionTest(test_op.TestCase):
     self.assertIs(exp.Atomic.read(exp.Atomic.CTRL.unk), exp.Atomic.CTRL.unk)
     self.assertIs(_ATM.a.symbol, _SYM.a)
 
-  def test_control(self):
+  def test_constants(self):
     self.assertTrue(exp.Atomic.CTRL.unk.is_control())
     self.assertTrue(exp.Atomic.CTRL.eps.is_eps())
     self.assertTrue(exp.Atomic.CTRL.nor.is_nor())
+    self.assertTrue(exp.Expression.ANY.is_any())
+    self.AssertStrEqual(exp.Expression.ANY, '🝓*')
 
   def test_symbol_inventory_lookup(self):
     self.assertEqual(_ATM.lookup(_ATM.a, 'atm_sym'), _SYM.a)
@@ -87,12 +89,12 @@ class ExpressionTest(test_op.TestCase):
   def test_cat_empty(self):
     empty_cat = exp.Cat()
     self.assertEmpty(empty_cat)
-    self.AssertStrEqual(empty_cat, '⍷')
+    self.AssertStrEqual(empty_cat, '🝗')
 
   def test_cat_control(self):
     eps_cat = exp.Cat(exp.Atomic.CTRL.eps)
     self.assertEmpty(eps_cat)
-    self.AssertStrEqual(eps_cat, '⍷')
+    self.AssertStrEqual(eps_cat, '🝗')
 
   def test_cat_items(self):
     cat = exp.Cat(_ATM.a, _ATM.b, _ATM.a)
@@ -110,7 +112,7 @@ class ExpressionTest(test_op.TestCase):
     cat3 = exp.Cat(or1, or2)
     self.assertLen(cat2, 3)
     self.AssertStrEqual(cat2, '(a b c)')
-    self.AssertStrEqual(exp.Cat(exp.Or()), '(⍜)')
+    self.AssertStrEqual(exp.Cat(exp.Or()), '(⏣)')
     self.AssertStrEqual(cat3, '(a (b | c))')
 
   def test_repeat(self):
@@ -126,9 +128,9 @@ class ExpressionTest(test_op.TestCase):
     self.assertEmpty(or_eps)
     self.assertEmpty(or0)
     self.assertLen(or1, 1)
-    self.AssertStrEqual(or_eps, '⍜')
-    self.AssertStrEqual(or0, '⍜')
-    self.AssertStrEqual(or1, '(a | ⍜)')
+    self.AssertStrEqual(or_eps, '⏣')
+    self.AssertStrEqual(or0, '⏣')
+    self.AssertStrEqual(or1, '(a | ⏣)')
 
   def test_or_items(self):
     or1 = exp.Or(_ATM.a)
@@ -150,16 +152,17 @@ class ExpressionTest(test_op.TestCase):
     or4 = exp.Or(cat1, cat2)
     or5 = exp.Or(cat3).add(exp.Cat(_ATM.a, _ATM.b))
     or6 = exp.Or(cat3).add(exp.Cat(_ATM.a, exp.Or(_ATM.b, _ATM.c, _ATM.d)))
-    self.AssertStrEqual(exp.Or(exp.Cat()), '(⍷ | ⍜)')
+    self.AssertStrEqual(exp.Or(exp.Cat()), '(🝗 | ⏣)')
     self.AssertStrEqual(or4, '(a | (b c))')
-    self.AssertStrEqual(or5, '((a (b | c)) | ⍜)')
-    self.AssertStrEqual(or6, '((a (b | c | d)) | ⍜)')
+    self.AssertStrEqual(or5, '((a (b | c)) | ⏣)')
+    self.AssertStrEqual(or6, '((a (b | c | d)) | ⏣)')
 
   def test_copy(self):
     exp1 = exp.Expression('new_exp')
     exp1_copy = exp1.copy()
     cat1 = exp.Cat(_ATM.a, _ATM.b)
     cat1_copy = cat1.copy()
+    self.assertIs(exp.Expression.ANY.copy(), exp.Expression.ANY)
     self.assertIsNot(exp1, exp1_copy)
     self.assertIs(exp.Atomic.CTRL.eps.copy(), exp.Atomic.CTRL.eps)
     self.assertIsNot(_ATM.a.copy(), _ATM.a)
@@ -178,7 +181,7 @@ class ExpressionTest(test_op.TestCase):
     self.assertEqual(
         exp.Atomic.CTRL.eps.symbols_str(),
         '[\n'
-        '  [⍷]\n'
+        '  [🝗]\n'
         ']\n'
     )
     self.assertEqual(

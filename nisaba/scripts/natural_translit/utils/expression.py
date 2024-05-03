@@ -32,6 +32,8 @@ class Expression(ty.IterableThing):
     self.index = hash(self)
 
   def __str__(self) -> str:
+    if self.is_any():
+      return '🝓*'  # U+1F753
     return self.text
 
   def _str_items_list(self, *items: ...) -> list[str]:
@@ -178,8 +180,8 @@ class Expression(ty.IterableThing):
     If both head and tail are true, the argument must be equal to at least one
     symbol list of this expression.
 
-    All expressions contain epsilon list [⍷] in all conditions. No expression
-    contains empty Or list [⍜], even if both expressions are empty Ors.
+    All expressions contain epsilon list [🝗] in all conditions. No expression
+    contains empty Or list [⏣], even if both expressions are empty Ors.
 
     Returns:
       bool.
@@ -188,7 +190,7 @@ class Expression(ty.IterableThing):
     a.symbols() = [[a, b, c, d], [e, f, g], [h]]
     a.contains_symbol_list(arg, head, tail) for arguments:
       head=False, tail=False
-        [⍷]: True.
+        [🝗]: True.
         [a, b, c, d]: True, [a, b, c, d] is in the symbol list.
         [b, c]: True, [b, c] is a sublist of [a, b, c, d].
         [a, b, c, d, e, f, g]: False, symbols aren't in the same list.
@@ -208,7 +210,7 @@ class Expression(ty.IterableThing):
         [a, b, c, d]: True
         [e, f, g]: True
         [h]: True
-        [⍷]: True
+        [🝗]: True
         any other argument returns False
     """
     if search_for == [sym.Symbol.CTRL.eps]:
@@ -326,6 +328,8 @@ class Expression(ty.IterableThing):
     return self._symbol_contains(other)
 
   def copy(self) -> 'Expression':
+    if self == Expression.ANY:
+      return self
     return Expression(self.alias)
 
   def __add__(self, other: 'Expression') -> 'Cat':
@@ -482,7 +486,7 @@ class Or(Expression):
         exp.Cat(_ATM.a, _ATM.b, _ATM.c), exp.Cat(_ATM.a, _ATM.b, _ATM.d)
     ),
     ```
-    should return ((a b (c | d)) | ⍜) instead of ((a b c) | (a b d))
+    should return ((a b (c | d)) | ⏣) instead of ((a b c) | (a b d))
 
     Args:
       *items: Items to be added.
