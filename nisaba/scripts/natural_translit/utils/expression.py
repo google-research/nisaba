@@ -112,6 +112,19 @@ class Expression(ty.IterableThing):
     else:
       return [[other]]
 
+  def is_any(self) -> bool:
+    if isinstance(self, sym.Symbol):
+      return False
+    if len(self) == 1:
+      return self.item(0).is_any()
+    return self is Expression.ANY
+
+  def is_eps(self) -> bool:
+    return isinstance(self, sym.Symbol) and self.symbol.is_eps()
+
+  def is_nor(self) -> bool:
+    return isinstance(self, sym.Symbol) and self.symbol.is_nor()
+
   def accepts(
       self, other: 'Expression.OR_SYMBOL', equivalent: bool = False
   ) -> bool:
@@ -124,6 +137,10 @@ class Expression(ty.IterableThing):
     Returns:
       bool
     """
+    if self.is_any() or other.is_any():
+      if equivalent:
+        return self.is_any() and other.is_any()
+      return True
     self_symbols, other_symbols = self.symbols(), self._symbols_of(other)
     self_len, other_len = len(self_symbols), len(other_symbols)
     if (
@@ -198,6 +215,8 @@ class Expression(ty.IterableThing):
       return True
     if search_for == [sym.Symbol.CTRL.nor]:
       return False
+    if self.is_any():
+      return True
     # Loop over symbol lists, eg: [[a, b, c, d], [e, f, g]]
     for symbol_list in self.symbols():
       while symbol_list:
@@ -251,15 +270,19 @@ class Expression(ty.IterableThing):
       a.contains(b, head=True): [a, b, c, d] starts with [a, b]
       a.contains(b, tail=True): False
     """
+    if self.is_any() or other.is_any():
+      return not self.is_nor() and not other.is_nor()
     for sym_list in self._symbols_of(other):
       if self.contains_symbol_list(sym_list, head, tail):
         return True
     return False
 
   def _symbol_contains(self, other: sym.Symbol) -> bool:
+    if other.is_any():
+      return True
     self_symbols = self.symbols()
     return [sym.Symbol.CTRL.eps] in self_symbols or (
-        other != sym.Symbol.CTRL.nor and [other] in self_symbols
+        not other.is_nor() and [other] in self_symbols
     )
 
   def is_contained(
@@ -278,13 +301,13 @@ class Expression(ty.IterableThing):
     return self.contains(other, head=True, tail=True)
 
   # head_matches and tail_matches require at least one symbol match unless
-  # both expressions are empty Cats. For example, if a rule requires a vowel as
-  # following context but there is no following context, the rule shouldn't
-  # apply.
+  # both expressions are empty Cats or one of the expressions is Expression.ANY
+  # For example, if a rule requires a vowel as following context but there is no
+  # following context, the rule shouldn't apply.
 
   def head_matches(self, other: 'Expression.OR_SYMBOL') -> bool:
     if self and not other:
-      return False
+      return other.is_any()
     return self.contains(other, head=True)
 
   def is_prefix(self, other: 'Expression.OR_SYMBOL') -> bool:
@@ -294,7 +317,7 @@ class Expression(ty.IterableThing):
 
   def tail_matches(self, other: 'Expression.OR_SYMBOL') -> bool:
     if self and not other:
-      return False
+      return other.is_any()
     return self.contains(other, tail=True)
 
   def is_suffix(self, other: 'Expression.OR_SYMBOL') -> bool:
@@ -314,6 +337,9 @@ class Expression(ty.IterableThing):
   def repeat(self, n: int = 2) -> 'Cat':
     """Returns a Cat of n repetitions of this expression."""
     return Cat(*([self] * n))
+
+
+Expression.ANY = Expression('any_expression')
 
 
 class Atomic(Expression, sym.Symbol):
@@ -392,7 +418,10 @@ class Cat(Expression):
 
   def add(self, *items: Expression) -> 'Cat':
     for item in items:
-      self._add_item(item)
+      if item.is_any():
+        self._items.append(item)
+      else:
+        self._add_item(item)
     return self
 
   def symbols(self) -> list[list[sym.Symbol]]:
@@ -462,6 +491,13 @@ class Or(Expression):
       self
     """
     for item in items:
+      # If the Expression.ANY is in Or, don't add any items.
+      if Expression.ANY in self:
+        break
+      # If the item is any, the other items are irrelevant.
+      if item.is_any():
+        self._items = [item]
+        break
       if self.accepts(item):
         if item.accepts(self) and item.state_count() < self.state_count():
           self._update(item)

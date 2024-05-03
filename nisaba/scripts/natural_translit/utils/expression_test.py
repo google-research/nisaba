@@ -51,6 +51,8 @@ class ExpressionTest(test_op.TestCase):
 
   def test_control(self):
     self.assertTrue(exp.Atomic.CTRL.unk.is_control())
+    self.assertTrue(exp.Atomic.CTRL.eps.is_eps())
+    self.assertTrue(exp.Atomic.CTRL.nor.is_nor())
 
   def test_symbol_inventory_lookup(self):
     self.assertEqual(_ATM.lookup(_ATM.a, 'atm_sym'), _SYM.a)
@@ -98,6 +100,7 @@ class ExpressionTest(test_op.TestCase):
     self.AssertStrEqual(cat, '(a b a)')
     self.assertIsNot(cat.item(0), cat.item(2))
     self.AssertEquivalent(cat.item(0), (cat.item(2)))
+    self.assertTrue(exp.Cat(exp.Expression.ANY).is_any())
 
   def test_cat_nested(self):
     cat1 = exp.Cat(_ATM.a, _ATM.b)
@@ -132,10 +135,13 @@ class ExpressionTest(test_op.TestCase):
     or2 = exp.Or(_ATM.b, _ATM.c)
     or3 = exp.Or(or1, or2)
     or4 = exp.Or(_ATM.a, _ATM.b, _ATM.a)
+    or5 = or1.copy().add(exp.Expression.ANY)
     self.AssertStrEqual(or2, '(b | c)')
     self.AssertStrEqual(or3, '(a | b | c)')
     self.AssertStrEqual(or4, '(a | b)')
     self.assertLen(or4, 2)
+    self.assertNotIn(_ATM.a, or5)
+    self.AssertAccepts(or5, _ATM.a)
 
   def test_or_nested(self):
     cat1 = exp.Cat(_ATM.a)
@@ -214,6 +220,8 @@ class ExpressionTest(test_op.TestCase):
   def test_equivalent(self):
     or0 = exp.Or()
     self.AssertEquivalent(exp.Atomic.CTRL.eps, sym.Symbol.CTRL.eps)
+    self.AssertEquivalent(exp.Expression.ANY, exp.Expression.ANY)
+    self.AssertNotEquivalent(exp.Expression.ANY, exp.Atomic.CTRL.eps)
     self.AssertEquivalent(exp.Cat(), exp.Atomic.CTRL.eps)
     self.AssertEquivalent(exp.Cat(), exp.Cat())
     self.AssertNotEquivalent(or0, exp.Atomic.CTRL.nor)
@@ -229,13 +237,21 @@ class ExpressionTest(test_op.TestCase):
   def test_contains_controls(self):
     eps = exp.Atomic.CTRL.eps
     nor = exp.Atomic.CTRL.nor
+    any_exp = exp.Expression.ANY
     self.AssertContains(eps, eps)
     self.AssertContains(nor, eps)
+    self.AssertNotContains(nor, any_exp)
     self.AssertNotContains(eps, nor)
     self.AssertNotContains(nor, nor)
+    self.AssertNotContains(any_exp, nor)
 
   def test_contains_expressions(self):
     cat_abc = _ATM.a + _ATM.b + _ATM.c
+    any_exp = exp.Expression.ANY
+    self.AssertContains(any_exp, _ATM.a)
+    self.AssertContains(_ATM.a, any_exp)
+    self.AssertContains(any_exp, cat_abc)
+    self.AssertContains(cat_abc, any_exp)
     self.AssertContains(cat_abc, exp.Cat())
     self.AssertNotContains(cat_abc, exp.Or())
     self.AssertContains(cat_abc, exp.Or(exp.Cat()))
@@ -250,8 +266,15 @@ class ExpressionTest(test_op.TestCase):
   def test_matches(self):
     abc_or_cd = (_ATM.a + _ATM.b + _ATM.c) | (_ATM.c + _ATM.d)
     a_or_c_b_or_d = (_ATM.a | _ATM.c) + (_ATM.b | _ATM.d)
+    any_exp = exp.Expression.ANY
+    self.AssertMatches(any_exp, a_or_c_b_or_d)
+    self.AssertMatches(a_or_c_b_or_d, any_exp)
     self.AssertMatches(abc_or_cd, a_or_c_b_or_d)
     self.AssertNotMatches(abc_or_cd, _ATM.a + _ATM.b + _ATM.d)
+    self.assertTrue(any_exp.is_prefix(abc_or_cd))
+    self.assertTrue(any_exp.is_suffix(abc_or_cd))
+    self.assertTrue(abc_or_cd.is_prefix(any_exp))
+    self.assertTrue(abc_or_cd.is_suffix(any_exp))
     self.assertTrue(exp.Cat().is_prefix(exp.Cat()))
     self.assertTrue(exp.Cat().is_suffix(exp.Cat()))
     self.assertFalse(exp.Cat().is_prefix(abc_or_cd))

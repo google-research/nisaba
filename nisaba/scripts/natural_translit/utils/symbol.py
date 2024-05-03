@@ -106,6 +106,15 @@ class Symbol(ty.Thing):
   def is_control(self) -> bool:
     return self in Symbol.CTRL
 
+  def is_any(self) -> bool:
+    return False
+
+  def is_eps(self) -> bool:
+    return self is Symbol.CTRL.eps
+
+  def is_nor(self) -> bool:
+    return self is Symbol.CTRL.nor
+
   def description(self, show_features: bool = False) -> str:
     """A string that describes the symbol."""
     text = 'alias: %s  index: %s' % (self.alias, self.index)
