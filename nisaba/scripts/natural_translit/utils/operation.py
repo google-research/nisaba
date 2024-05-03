@@ -98,7 +98,7 @@ class Operation(ty.Thing):
     self.unexpected = self
 
   def __str__(self):
-    return '%s (%d)' % (self.text, self.base_cost)
+    return '%s (%.3f)' % (self.text, self.base_cost)
 
   def is_assigned(self) -> bool:
     return not (
@@ -193,7 +193,14 @@ class Operation(ty.Thing):
         self.add_item(operation)
 
     def __str__(self):
-      return '\n'.join([operation.text for operation in self])
+      return (
+          '\n'.join([
+              str(operation)
+              for operation in self
+              if operation.match == operation
+          ])
+          + '\n'
+      )
 
 
 # Current base costs in the common operation inventory are rough estimations and
