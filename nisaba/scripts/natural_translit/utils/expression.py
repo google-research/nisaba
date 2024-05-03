@@ -32,6 +32,8 @@ class Expression(ty.IterableThing):
     self.index = hash(self)
 
   def __str__(self) -> str:
+    if self.is_any():
+      return '⍙*'  # U+2359
     return self.text
 
   def _str_items_list(self, *items: ...) -> list[str]:
@@ -326,6 +328,8 @@ class Expression(ty.IterableThing):
     return self._symbol_contains(other)
 
   def copy(self) -> 'Expression':
+    if self == Expression.ANY:
+      return self
     return Expression(self.alias)
 
   def __add__(self, other: 'Expression') -> 'Cat':

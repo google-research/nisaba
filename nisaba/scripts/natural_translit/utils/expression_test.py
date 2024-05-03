@@ -49,10 +49,12 @@ class ExpressionTest(test_op.TestCase):
     self.assertIs(exp.Atomic.read(exp.Atomic.CTRL.unk), exp.Atomic.CTRL.unk)
     self.assertIs(_ATM.a.symbol, _SYM.a)
 
-  def test_control(self):
+  def test_constants(self):
     self.assertTrue(exp.Atomic.CTRL.unk.is_control())
     self.assertTrue(exp.Atomic.CTRL.eps.is_eps())
     self.assertTrue(exp.Atomic.CTRL.nor.is_nor())
+    self.assertTrue(exp.Expression.ANY.is_any())
+    self.AssertStrEqual(exp.Expression.ANY, '⍙*')
 
   def test_symbol_inventory_lookup(self):
     self.assertEqual(_ATM.lookup(_ATM.a, 'atm_sym'), _SYM.a)
@@ -160,6 +162,7 @@ class ExpressionTest(test_op.TestCase):
     exp1_copy = exp1.copy()
     cat1 = exp.Cat(_ATM.a, _ATM.b)
     cat1_copy = cat1.copy()
+    self.assertIs(exp.Expression.ANY.copy(), exp.Expression.ANY)
     self.assertIsNot(exp1, exp1_copy)
     self.assertIs(exp.Atomic.CTRL.eps.copy(), exp.Atomic.CTRL.eps)
     self.assertIsNot(_ATM.a.copy(), _ATM.a)
