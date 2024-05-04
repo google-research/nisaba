@@ -14,6 +14,7 @@
 
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.utils import expression as exp
+from nisaba.scripts.natural_translit.utils import operation as op
 from nisaba.scripts.natural_translit.utils import symbol as sym
 from nisaba.scripts.natural_translit.utils import test_op
 
@@ -298,6 +299,104 @@ class ExpressionTest(test_op.TestCase):
     self.AssertEquivalent(
         _ATM.a | _ATM.b | _ATM.c, exp.Or(_ATM.a, _ATM.b, _ATM.c)
     )
+
+  def test_operator_rshift(self):
+    self.assertEqual(
+        ((_ATM.a | _ATM.b) >> (_ATM.c + _ATM.d)).string(), '((a | b)∶(c d))'
+    )
+
+  def test_alignment(self):
+    alignment = exp.Alignment('test')
+    self.assertEqual(alignment.left, exp.Expression.ANY)
+    self.assertFalse(alignment.from_bos)
+    self.assertFalse(alignment.to_eos)
+    self.assertEqual(alignment.operation, op.Operation.COMMON.unassigned)
+
+  def test_alignment_constants(self):
+    self.assertEqual(exp.Alignment.ANY.string(), '(​🝓⋆​∶​🝓⋆​)')
+    self.assertEqual(exp.Alignment.ANY.source, exp.Alignment.CONSTANT)
+    self.assertEqual(exp.Alignment.EPS.string(), '(​ℰ​∶​ℰ​)')
+    self.assertEqual(exp.Alignment.NOR.string(), '(​◎​∶​◎​)')
+    self.assertEqual(exp.Alignment.NOR.operation, op.Operation.COMMON.error)
+
+  def test_alignment_bools(self):
+    self.assertTrue(exp.Alignment.ANY.is_any())
+    self.assertFalse(exp.Alignment.simple(left=_ATM.a).is_any())
+    self.assertFalse(exp.Alignment.simple(right=_ATM.a).is_any())
+    self.assertTrue(exp.Alignment.EPS.is_eps())
+    self.assertFalse(exp.Alignment.simple(left=exp.Atomic.CTRL.eps).is_eps())
+    self.assertFalse(exp.Alignment.simple(right=exp.Atomic.CTRL.eps).is_eps())
+    self.assertTrue(exp.Alignment.NOR.is_nor())
+    self.assertFalse(exp.Alignment.simple(left=exp.Atomic.CTRL.nor).is_nor())
+    self.assertFalse(exp.Alignment.simple(right=exp.Atomic.CTRL.nor).is_nor())
+    self.assertFalse(
+        exp.Alignment.simple(
+            left=_ATM.a, right=exp.Atomic.CTRL.eps
+        ).is_assigned()
+    )
+    self.assertTrue(exp.Alignment.deletion(left=_ATM.a).is_assigned())
+
+  def test_alignment_simple(self):
+    simple = exp.Alignment.simple(_SYM.a, _ATM.b + _ATM.c)
+    self.assertIsInstance(simple.left, exp.Atomic)
+    self.assertEqual(simple.string(), '(a∶(b c))')
+
+  def test_rule(self):
+    rule = exp.Alignment.rule(
+        'test',
+        _ATM.a,
+        _ATM.b,
+        preceding_left=_ATM.c,
+        following_right=_ATM.d,
+        applied_cost=0.1,
+    )
+    self.AssertEquivalent(rule.left, _ATM.a)
+    self.AssertEquivalent(rule.right, _ATM.b)
+    self.assertEqual(rule.operation, op.Operation.COMMON.alignable)
+    self.assertEqual(rule.string(), '(⌈c∶​🝓⋆​⌋ a∶b ⌈​🝓⋆​∶d⌋, alignable (0.000))')
+    self.assertEqual(rule.tsv_row(), 'test	a	b	alignable (0.000)	0.1')
+    self.assertFalse(rule.preceding.is_any())
+    self.assertFalse(rule.following.is_any())
+
+  def test_deletion(self):
+    rule = exp.Alignment.deletion(
+        'a_deletion',
+        _ATM.a,
+        preceding_right=_ATM.b,
+        from_bos=True,
+    )
+    self.assertEqual(rule.string(), '(⌈​⊳​​🝓⋆​∶b⌋ a∶​ℰ​, deletion (1.000))')
+
+  def test_insertion(self):
+    rule = exp.Alignment.insertion(
+        'a_insertion',
+        _ATM.a,
+        following_right=_ATM.b,
+        to_eos=True,
+    )
+    self.assertEqual(rule.string(), '(​ℰ​∶a ⌈​🝓⋆​∶b​⊲​⌋, insertion (1.000))')
+
+  def test_interchangeable(self):
+    rule1, rule2 = exp.Alignment.interchangeable('a_b', _ATM.a, _ATM.b)
+    self.assertEqual(rule1.string(), '(a∶b, interchangeable (0.100))')
+    self.assertEqual(rule2.string(), '(b∶a, interchangeable (0.100))')
+
+  def test_alignment_copy(self):
+    rule1 = exp.Alignment.rule(
+        'test',
+        _ATM.a,
+        _ATM.b,
+        preceding_left=_ATM.c,
+        applied_cost=0.1,
+    )
+    rule2 = rule1.copy()
+    self.assertIs(exp.Alignment.NOR.copy(), exp.Alignment.NOR)
+    self.assertIs(exp.Alignment().copy().preceding, exp.Alignment.ANY)
+    self.assertIs(rule2.following, exp.Alignment.ANY)
+    self.assertEqual(rule1.string(), rule2.string())
+    self.assertEqual(rule1.applied_cost, rule2.applied_cost)
+    self.assertEqual(rule1.source, rule2.source)
+
 
 if __name__ == '__main__':
   absltest.main()

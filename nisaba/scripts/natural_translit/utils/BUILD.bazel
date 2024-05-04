@@ -210,6 +210,7 @@ py_library(
         ":feature",
         ":inventory2",
         ":log_op",
+        ":operation",
         ":symbol",
         ":type_op",
     ],
@@ -221,6 +222,7 @@ py_test(
     main = "expression_test.py",
     deps = [
         ":expression",
+        ":operation",
         ":symbol",
         ":test_op",
         "@io_abseil_py//absl/testing:absltest",
