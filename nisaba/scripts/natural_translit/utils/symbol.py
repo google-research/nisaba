@@ -269,12 +269,12 @@ def _control_symbols() -> inventory2.Inventory:
   """Control symbol constants."""
   # Next index = 5
   control_args = [
-      ['eps', '⍷', 'EPSILON', 0],  # U+2377
-      ['unk', '⍰', 'UNKNOWN SYMBOL', 1],  # U+2370
-      ['bos', '⍄', 'BEGINNING OF SEQUENCE', 2],  # U+2344
-      ['eos', '⍃', 'END OF SEQUENCE', 3],  # U+2343
-      ['oos', '⍔', 'OUT OF SEQUENCE', 4],  # U+2354
-      ['nor', '⍜', 'NO ALTERNATIVE', 5],  # U+235C
+      ['eps', '​ℰ​', 'EPSILON', 0],  # U+200B + U+2130 + U+200B
+      ['unk', '​␦​', 'UNKNOWN SYMBOL', 1],  # U+200B + U+2426 + U+200B
+      ['bos', '​⊳​', 'BEGINNING OF SEQUENCE', 2],  # U+200B + U+22B3 + U+200B
+      ['eos', '​⊲​', 'END OF SEQUENCE', 3],  # U+200B + U+22B2 + U+200B
+      ['oos', '​⊽​', 'OUT OF SEQUENCE', 4],  # U+200B + U+22BD + U+200B
+      ['nor', '​◎​', 'NO ALTERNATIVE', 5],  # U+200B + U+25CE + U+200B
   ]
   return inventory2.Inventory.from_list(
       [

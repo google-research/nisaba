@@ -63,12 +63,24 @@ class OperationTest(absltest.TestCase):
     self.assertEqual(_OPS.alignable.inventory, _OPS)
     self.assertEqual(_OPS.index_lookup(101), _OPS.alignable)
     self.assertEqual(_OPS.index_lookup(120), _OPS.error)
+    self.assertEqual(
+        str(_OPS),
+        'alignable (0.000)\n'
+        'boundary (0.125)\n'
+        'deletion (1.000)\n'
+        'error (100.000)\n'
+        'identity (0.100)\n'
+        'insertion (1.000)\n'
+        'interchangeable (0.100)\n'
+        'punctuation (0.250)\n'
+        'substitution (1.250)\n'
+        'unassigned (10.000)\n',
+    )
 
   def test_add_operations(self):
-    test = op.Operation('test', 1)
-    _OPS.add_operations(test)
-    self.assertIn(test, _OPS)
-    self.assertFalse(test.inventory, _OPS)
+    ops2 = op.Operation.Inventory('copy', *_OPS)
+    self.assertIn(_OPS.alignable, ops2)
+    self.assertNotEqual(_OPS.alignable.inventory, ops2)
 
 
 if __name__ == '__main__':
