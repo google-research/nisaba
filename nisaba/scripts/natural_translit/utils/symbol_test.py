@@ -37,7 +37,31 @@ def _sym_inventory() -> sym.Symbol.Inventory:
   return syms
 
 
+def _latn_inventory() -> sym.Symbol.Inventory:
+  syms = sym.Symbol.Inventory(
+      'test',
+      sym.Symbol(
+          'a',
+          text='a',
+          raw='a',
+          index=sym.Symbol.ReservedIndex.GRAPHEME_PREFIX + 3,
+          name='LETTER A',
+      ),
+      sym.Symbol(
+          'b',
+          text='b',
+          raw='b',
+          index=sym.Symbol.ReservedIndex.GRAPHEME_PREFIX + 4,
+          name='LETTER B',
+      ),
+  )
+  return syms
+
+
 _SYM = _sym_inventory()
+_DEVA = sym.Symbol.Inventory('deva', *_SYM)
+_LATN = _latn_inventory()
+_COMBINED = sym.Symbol.Inventory('combined', *_DEVA, *_LATN)
 
 
 class SymbolTest(test_op.TestCase):
@@ -120,6 +144,25 @@ class SymbolTest(test_op.TestCase):
         '    features: {raw}\n\n',
     )
 
+  def test_raw_from_unknown(self):
+    _LATN.raw_from_unknown('c')
+    self.assertEqual(
+        _LATN.from_unk_1.description(),
+        'alias: from_unk_1  index: 9000001  raw: c  text: <from_unk_1_c>'
+        '  name: from_unk_1_c',
+    )
+
+  def test_raw_list(self):
+    self.assertEqual(_DEVA.raw_list('अ🐱'), [_DEVA.a_ind, _DEVA.from_unk_1])
+    self.assertEqual(
+        _SYM.raw_list('अ🐶', _DEVA), [_DEVA.a_ind, _DEVA.from_unk_2]
+    )
+    self.assertEqual(_SYM.raw_lookup('🐶'), _SYM.CTRL.unk)
+
+  def test_parse(self):
+    self.assertEqual(_DEVA.parse('अa', _COMBINED), [_DEVA.a_ind, _LATN.a])
+    self.assertEqual(_DEVA.parse('🦄', _COMBINED), [_COMBINED.from_unk_1])
+    self.assertEqual(_LATN.parse('🦄', _COMBINED), [_COMBINED.from_unk_1])
 
 if __name__ == '__main__':
   absltest.main()

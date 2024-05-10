@@ -15,7 +15,7 @@
 """Interfaces for generating fsts from objects."""
 
 import enum
-from typing import Any, Union
+from typing import Any, Iterable, Union
 from nisaba.scripts.natural_translit.utils import feature as ft
 from nisaba.scripts.natural_translit.utils import inventory2
 from nisaba.scripts.natural_translit.utils import log_op as log
@@ -78,6 +78,7 @@ class Symbol(ty.Thing):
     CONTROL_PREFIX = 1_000_000
     GRAPHEME_PREFIX = 2_000_000
     PHONEME_PREFIX = 3_000_000
+    UNDEFINED_PREFIX = 9_000_000
 
   def __init__(
       self,
@@ -155,6 +156,8 @@ class Symbol(ty.Thing):
     Symbol.CTRL.unk
     """
 
+    OR_NOTHING = Union['Symbol.Inventory', ty.Nothing]
+
     def __init__(
         self,
         alias: str,
@@ -165,6 +168,8 @@ class Symbol(ty.Thing):
       self.index_dict = {}
       self.raw_dict = {}
       self.text_dict = {}
+      self.prefix = Symbol.ReservedIndex.UNDEFINED_PREFIX
+      self.unknown_count = 0
       self.add_suppl(Symbol.CTRL)
       for c in self.CTRL:
         self._add_to_dicts(c)
@@ -263,6 +268,62 @@ class Symbol(ty.Thing):
     def text_lookup(self, text: str) -> 'Symbol':
       """Get symbol by its text field."""
       return log.dbg_return(self.lookup(text, self.text_dict))
+
+    def raw_from_unknown(self, raw: str = '') -> 'Symbol':
+      """Makes and adds a new raw symbol to the inventory from a string."""
+      self.unknown_count += 1
+      alias = 'from_unk_' + str(self.unknown_count)
+      name = alias + '_' + raw
+      text = '<' + name + '>'
+      index = self.prefix + self.unknown_count
+      new = Symbol(alias, text, raw, index, name)
+      self._add_symbol(new)
+      return new
+
+    def raw_list(
+        self,
+        raw_text: str,
+        inventory: 'Symbol.Inventory.OR_NOTHING' = ty.UNSPECIFIED,
+    ) -> Iterable['Symbol']:
+      """Makes an iterable of symbols from a string.
+
+      Args:
+        raw_text: The string to be converted to an iterable of symbols.
+        inventory: The inventory which the symbols will be based on. If the
+          inventory is not provided, the symbols are based on the current
+          inventory.
+
+        For example, a Deva-Latn aligner will use a symbol inventory that
+        contains both the Deva and Latn symbols. If the input string is mixed
+        script, Deva.raw_list() will recognize the Latn characters as existing
+        symbols instead of dynamically creating new symbols from unknown. If the
+        input string contains a character that doesn't belong to either script,
+        for example an emoji, the new symbol will be added to the combined
+        inventory so that when the Latn.raw_list() is called, it will recognize
+        the emoji as the same symbol.
+
+      Returns:
+        An iterable of symbols.
+
+      """
+      if not isinstance(inventory, Symbol.Inventory):
+        inventory = self
+      symbols = []
+      for char in raw_text:
+        symbol = inventory.raw_lookup(char)
+        if symbol == inventory.CTRL.unk:
+          symbol = inventory.raw_from_unknown(char)
+        symbols.append(symbol)
+      return symbols
+
+    # Default parser to avoid attribute error in mixed inventory parsing.
+    def parse(
+        self,
+        raw_text: str,
+        inventory: 'Symbol.Inventory.OR_NOTHING' = ty.UNSPECIFIED,
+    ) -> Iterable['Symbol']:
+      """Takes a string and returns an iterable of symbols."""
+      return self.raw_list(raw_text, inventory)
 
 
 def _control_symbols() -> inventory2.Inventory:
