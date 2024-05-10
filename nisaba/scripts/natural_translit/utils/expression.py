@@ -163,8 +163,8 @@ class Expression(ty.IterableThing):
   def contains_symbol_list(
       self,
       search_for: list[sym.Symbol],
-      head: bool = False,
-      tail: bool = False,
+      match_head: bool = False,
+      match_tail: bool = False,
   ) -> bool:
     """Checks if this expression contains the given symbol list.
 
@@ -173,10 +173,10 @@ class Expression(ty.IterableThing):
 
     Args:
       search_for: Symbol list to be searched for.
-      head: If True, the argument must match the beginning of at least one
+      match_head: If True, the argument must match the beginning of at least one
         symbol list of this expression.
-      tail: If True, the argument must match the end of at least one symbol list
-        of this expression.
+      match_tail: If True, the argument must match the end of at least one
+        symbol list of this expression.
 
     If both head and tail are true, the argument must be equal to at least one
     symbol list of this expression.
@@ -229,13 +229,13 @@ class Expression(ty.IterableThing):
             return True
           # head=True, tail=True means full match.
           # Move onto the next list [e, f, g]
-          if head and tail:
+          if match_head and match_tail:
             break
           # tail=True: trim search_in from start: [b, c, d], [c, d], [d]
           # tail=False: trim search_in from end: [a, b, c], [a, b], [a]
-          search_in.pop(0 if tail else -1)
+          search_in.pop(0 if match_tail else -1)
         # If head=True or tail=True, move onto the next list [e, f, g]
-        if head or tail:
+        if match_head or match_tail:
           break
         # if head=False and tail=False, continue trimming the symbol list
         # The first pass searched in [a, b, c, d], [a, b, c], [a, b], [a]
@@ -246,8 +246,8 @@ class Expression(ty.IterableThing):
   def contains(
       self,
       other: 'Expression.OR_SYMBOL',
-      head: bool = False,
-      tail: bool = False,
+      match_head: bool = False,
+      match_tail: bool = False,
   ) -> bool:
     """Checks if this expression contains a symbol list of the argument.
 
@@ -256,9 +256,9 @@ class Expression(ty.IterableThing):
         expression, it's sufficient that at least one symbol list of the
         argument is contained by this expression. It's not necessary for all
         symbol lists of the argument to be contained.
-      head: If True, at least one symbol list of the argument should be
+      match_head: If True, at least one symbol list of the argument should be
         contained at the beginning of a symbol list of this expression.
-      tail: If True, at least one symbol list of the argument should be
+      match_tail: If True, at least one symbol list of the argument should be
         contained at the end of a symbol list of this expression.
 
     Returns:
@@ -276,7 +276,7 @@ class Expression(ty.IterableThing):
     if self.is_any() or other.is_any():
       return not self.is_nor() and not other.is_nor()
     for sym_list in self._symbols_of(other):
-      if self.contains_symbol_list(sym_list, head, tail):
+      if self.contains_symbol_list(sym_list, match_head, match_tail):
         return True
     return False
 
@@ -291,17 +291,17 @@ class Expression(ty.IterableThing):
   def is_contained(
       self,
       other: 'Expression.OR_SYMBOL',
-      head: bool = False,
-      tail: bool = False,
+      match_head: bool = False,
+      match_tail: bool = False,
   ) -> bool:
     if isinstance(other, Expression):
-      return other.contains(self, head, tail)
+      return other.contains(self, match_head, match_tail)
     return self._symbol_contains(other)
 
   # Shorthands for containment conditions
 
   def matches(self, other: 'Expression.OR_SYMBOL') -> bool:
-    return self.contains(other, head=True, tail=True)
+    return self.contains(other, match_head=True, match_tail=True)
 
   # head_matches and tail_matches require at least one symbol match unless
   # both expressions are empty Cats or one of the expressions is Expression.ANY
@@ -311,7 +311,7 @@ class Expression(ty.IterableThing):
   def head_matches(self, other: 'Expression.OR_SYMBOL') -> bool:
     if self and not other:
       return other.is_any()
-    return self.contains(other, head=True)
+    return self.contains(other, match_head=True)
 
   def is_prefix(self, other: 'Expression.OR_SYMBOL') -> bool:
     if isinstance(other, Expression):
@@ -321,7 +321,7 @@ class Expression(ty.IterableThing):
   def tail_matches(self, other: 'Expression.OR_SYMBOL') -> bool:
     if self and not other:
       return other.is_any()
-    return self.contains(other, tail=True)
+    return self.contains(other, match_tail=True)
 
   def is_suffix(self, other: 'Expression.OR_SYMBOL') -> bool:
     if isinstance(other, Expression):
@@ -590,6 +590,54 @@ class _BaseAlignment(Expression):
   def is_nor(self) -> bool:
     return self.left.is_nor() and self.right.is_nor()
 
+  def _compare(
+      self, other: Expression.OR_SYMBOL, checker_name: str, *args
+  ) -> bool:
+    if not isinstance(other, _BaseAlignment):
+      return False
+    left = getattr(self.left, checker_name)
+    right = getattr(self.right, checker_name)
+    return left(other.left, *args) and right(other.right, *args)
+
+  def accepts(
+      self, other: Expression.OR_SYMBOL, equivalent: bool = False
+  ) -> bool:
+    return self._compare(other, 'accepts', equivalent)
+
+  def is_equivalent(self, other: Expression.OR_SYMBOL) -> bool:
+    return self._compare(other, 'is_equivalent')
+
+  def contains(
+      self,
+      other: Expression.OR_SYMBOL,
+      match_head: bool = False,
+      match_tail: bool = False,
+  ) -> bool:
+    return self._compare(other, 'contains', match_head, match_tail)
+
+  def is_contained(
+      self,
+      other: Expression.OR_SYMBOL,
+      match_head: bool = False,
+      match_tail: bool = False,
+  ) -> bool:
+    return self._compare(other, 'is_contained', match_head, match_tail)
+
+  def matches(self, other: Expression.OR_SYMBOL) -> bool:
+    return self._compare(other, 'matches')
+
+  def head_matches(self, other: Expression.OR_SYMBOL) -> bool:
+    return self._compare(other, 'head_matches')
+
+  def is_prefix(self, other: Expression.OR_SYMBOL) -> bool:
+    return self._compare(other, 'is_prefix')
+
+  def tail_matches(self, other: Expression.OR_SYMBOL) -> bool:
+    return self._compare(other, 'tail_matches')
+
+  def is_suffix(self, other: Expression.OR_SYMBOL) -> bool:
+    return self._compare(other, 'is_suffix')
+
 
 class Alignment(_BaseAlignment):
   """Alignment class for defining a relation between two expressions.
@@ -650,8 +698,8 @@ class Alignment(_BaseAlignment):
       source: str = 'Alignment.UNSPECIFIED_SOURCE',
   ):
     super().__init__(left, right, alias)
-    # TODO: Expand context to allow Cat and Or of alignments.
-    # Eg. `preceding=((vowel_grapheme:any) | (any:vowel_phoneme)))`
+    # TODO(): Expand context to allow Cat and Or of alignments.
+    # Eg. `preceding=((vowel_grapheme >> ANY) | (ANY >> vowel_phoneme)))`
     # will apply if it's preceded by an alignment that has a vowel grapheme on
     # the left side or a vowel phoneme on the right side, regardless of what
     # they are aligned with.
@@ -883,6 +931,17 @@ class Alignment(_BaseAlignment):
 
   def is_assigned(self) -> bool:
     return self.operation.is_assigned()
+
+  def context_matches(
+      self, preceding: _BaseAlignment, following: _BaseAlignment
+  ) -> bool:
+    return (
+        (self.from_bos and self.preceding.matches(preceding))
+        or (not self.from_bos and self.preceding.is_suffix(preceding))
+    ) and (
+        (self.to_eos and self.following.matches(following))
+        or (not self.to_eos and self.following.is_prefix(following))
+    )
 
 
 def _constants() -> tuple[Alignment, Alignment, Alignment]:

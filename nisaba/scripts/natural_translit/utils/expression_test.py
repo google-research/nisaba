@@ -397,6 +397,72 @@ class ExpressionTest(test_op.TestCase):
     self.assertEqual(rule1.applied_cost, rule2.applied_cost)
     self.assertEqual(rule1.source, rule2.source)
 
+  def test_alignment_compare(self):
+    alg_a_b = _ATM.a >> _ATM.b
+    alg_a_c = _ATM.a >> _ATM.c
+    alg_a_bc = _ATM.a >> (_ATM.b + _ATM.c)
+    alg_a_or_bc__b_cat_a_or_c = (_ATM.a | (_ATM.b + _ATM.c)) >> (
+        _ATM.b + (_ATM.a | _ATM.c)
+    )
+    alg_a_or_bc__ba_or_bc = (_ATM.a | (_ATM.b + _ATM.c)) >> (
+        (_ATM.b + _ATM.a) | (_ATM.b + _ATM.c)
+    )
+    self.AssertNotAccepts(alg_a_b, _ATM.a)
+    self.AssertAccepts(alg_a_or_bc__b_cat_a_or_c, alg_a_bc)
+    self.AssertNotAccepts(alg_a_bc, alg_a_or_bc__b_cat_a_or_c)
+    self.AssertEquivalent(alg_a_or_bc__b_cat_a_or_c, alg_a_or_bc__ba_or_bc)
+    self.AssertContains(alg_a_or_bc__ba_or_bc, alg_a_bc)
+    self.AssertNotContains(alg_a_b, alg_a_or_bc__ba_or_bc)
+    self.assertTrue(alg_a_c.is_contained(alg_a_or_bc__ba_or_bc))
+    self.assertFalse(
+        alg_a_c.is_contained(alg_a_or_bc__ba_or_bc, match_head=True)
+    )
+    self.assertTrue(alg_a_b.is_contained(alg_a_or_bc__ba_or_bc))
+    self.assertFalse(
+        alg_a_b.is_contained(alg_a_or_bc__ba_or_bc, match_tail=True)
+    )
+    self.assertFalse(alg_a_or_bc__ba_or_bc.is_contained(alg_a_b))
+    self.assertTrue(alg_a_bc.matches(alg_a_or_bc__ba_or_bc))
+    self.assertTrue(alg_a_bc.head_matches(alg_a_b))
+    self.assertFalse(alg_a_c.head_matches(alg_a_or_bc__ba_or_bc))
+    self.assertTrue(alg_a_b.is_prefix(alg_a_bc))
+    self.assertFalse(alg_a_c.is_prefix(alg_a_bc))
+    self.assertTrue(alg_a_bc.tail_matches(alg_a_c))
+    self.assertFalse(alg_a_b.tail_matches(alg_a_c))
+    self.assertTrue(alg_a_c.is_suffix(alg_a_bc))
+    self.assertFalse(alg_a_b.is_suffix(alg_a_bc))
+
+  def test_context_matches(self):
+    ctx_a_any = _ATM.a >> exp.Expression.ANY
+    ctx_b_any = _ATM.b >> exp.Expression.ANY
+    ctx_ba_any = (_ATM.b + _ATM.a) >> exp.Expression.ANY
+    rule1 = exp.Alignment.rule(
+        left=_ATM.c,
+        right=_ATM.d,
+        preceding_left=_ATM.a,
+        following_left=_ATM.b,
+        from_bos=True,
+    )
+    rule2 = exp.Alignment.rule(
+        left=_ATM.c,
+        right=_ATM.d,
+        preceding_left=_ATM.a,
+        following_left=_ATM.b,
+        to_eos=True,
+    )
+    self.assertTrue(
+        rule1.context_matches(preceding=ctx_a_any, following=ctx_ba_any)
+    )
+    self.assertFalse(
+        rule1.context_matches(preceding=ctx_ba_any, following=ctx_b_any)
+    )
+    self.assertTrue(
+        rule2.context_matches(preceding=ctx_ba_any, following=ctx_b_any)
+    )
+    self.assertFalse(
+        rule2.context_matches(preceding=ctx_a_any, following=ctx_ba_any)
+    )
+
 
 if __name__ == '__main__':
   absltest.main()
