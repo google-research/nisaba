@@ -16,6 +16,7 @@
 
 import collections
 from nisaba.scripts.natural_translit.utils import inventory as i
+from nisaba.scripts.natural_translit.utils import type_op as ty
 
 # cat: category, val: value
 PhonFeature = collections.namedtuple(
@@ -24,9 +25,9 @@ PhonFeature = collections.namedtuple(
 
 def ft_inventory(
     feature_list: [PhonFeature],
-    store_list: [i.Store] = None
-) -> collections.namedtuple:
-  return i.make_inventory(i.alias_list(feature_list), feature_list, store_list)
+    suppl_list: [ty.Thing] = None
+) -> i.Inventory:
+  return i.Inventory.from_list(feature_list, attr='alias', suppls=suppl_list)
 
 # TODO:Enum features by category
 ARTICULATION_FEATURE = [PhonFeature(alias, cat) for alias, cat in [
@@ -104,7 +105,7 @@ FEATURE_QUALIFIER = [PhonFeature(alias, cat) for alias, cat in [
 FEATURES = ARTICULATION_FEATURE + FEATURE_QUALIFIER
 _F = ft_inventory(FEATURES)
 
-ROWS = [i.store_as(alias, features) for alias, features in [
+ROWS = [ty.Thing(alias, value_from=features) for alias, features in [
     ['close_vwl', [_F.vowel, _F.close]],
     ['n_close_vwl', [_F.vowel, _F.near_close]],
     ['c_mid_vwl', [_F.vowel, _F.close_mid]],

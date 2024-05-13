@@ -15,7 +15,7 @@
 """Interfaces for generating fsts from objects."""
 
 from typing import Union
-from nisaba.scripts.natural_translit.utils import inventory2
+from nisaba.scripts.natural_translit.utils import inventory
 from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import operation as op
 from nisaba.scripts.natural_translit.utils import symbol as sym
@@ -399,10 +399,10 @@ class Atomic(Expression, sym.Symbol):
     return self in Atomic.CTRL or self.symbol in sym.Symbol.CTRL
 
 
-def _control_atomics() -> inventory2.Inventory:
+def _control_atomics() -> inventory.Inventory:
   """Control atomic constants."""
   atm_sym_dict = {ctrl: Atomic(ctrl) for ctrl in sym.Symbol.CTRL}
-  atomics = inventory2.Inventory.from_list(
+  atomics = inventory.Inventory.from_list(
       list(atm_sym_dict.values()), alias='CTRL'
   )
   atomics.make_suppl('atm_sym_dict', atm_sym_dict)

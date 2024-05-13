@@ -29,14 +29,6 @@ py_library(
     name = "inventory",
     srcs = ["inventory.py"],
     deps = [
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_library(
-    name = "inventory2",
-    srcs = ["inventory2.py"],
-    deps = [
         ":log_op",
         ":type_op",
         "@org_opengrm_pynini//pynini",
@@ -44,11 +36,11 @@ py_library(
 )
 
 py_test(
-    name = "inventory2_test",
-    srcs = ["inventory2_test.py"],
-    main = "inventory2_test.py",
+    name = "inventory_test",
+    srcs = ["inventory_test.py"],
+    main = "inventory_test.py",
     deps = [
-        ":inventory2",
+        ":inventory",
         ":type_op",
         "@io_abseil_py//absl/testing:absltest",
         "@org_opengrm_pynini//pynini",
@@ -163,7 +155,7 @@ py_library(
     name = "feature",
     srcs = ["feature.py"],
     deps = [
-        ":inventory2",
+        ":inventory",
         ":log_op",
         ":type_op",
     ],
@@ -186,7 +178,7 @@ py_library(
     srcs = ["symbol.py"],
     deps = [
         ":feature",
-        ":inventory2",
+        ":inventory",
         ":log_op",
         ":type_op",
     ],
@@ -208,7 +200,7 @@ py_library(
     srcs = ["expression.py"],
     deps = [
         ":feature",
-        ":inventory2",
+        ":inventory",
         ":log_op",
         ":operation",
         ":symbol",
@@ -233,7 +225,7 @@ py_library(
     name = "operation",
     srcs = ["operation.py"],
     deps = [
-        ":inventory2",
+        ":inventory",
         ":type_op",
     ],
 )

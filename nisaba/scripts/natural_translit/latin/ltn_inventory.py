@@ -58,10 +58,10 @@ SUBSTRING = DOUBLE_SUBSTRING + OTHER_SUBSTRING
 
 DEL = [c.make_char('DEL', '')]
 
-EN_LETTERS = c.store_tr_star('EN_LETTERS', ASCII_UC)
+EN_LETTERS = c.thing_tr_star('EN_LETTERS', ASCII_UC)
 
-VOWEL_GR = c.store_gr_union('VOWEL', ASCII_VOWEL)
-CONS_GR = c.store_gr_union('CONS', ASCII_CONS)
+VOWEL_GR = c.thing_gr_union('VOWEL', ASCII_VOWEL)
+CONS_GR = c.thing_gr_union('CONS', ASCII_CONS)
 
 CHARS = ASCII_LC + ASCII_UC + SUBSTRING + DEL
 GRAPHEME_INVENTORY = c.gr_inventory(CHARS, [VOWEL_GR, CONS_GR])

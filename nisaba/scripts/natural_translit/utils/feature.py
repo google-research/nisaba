@@ -101,7 +101,7 @@ builds a profile for phoneme 'k' as follows:
 
 import enum
 from typing import Iterable, Union
-from nisaba.scripts.natural_translit.utils import inventory2
+from nisaba.scripts.natural_translit.utils import inventory
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
@@ -123,8 +123,8 @@ class Feature(ty.Thing):
   def __init__(self, alias: str, text: str = ''):
     super().__init__(alias)
     self.text = text if text else alias
-    self.aspect = inventory2.Inventory.EMPTY
-    self.inventory = inventory2.Inventory.EMPTY
+    self.aspect = inventory.Inventory.EMPTY
+    self.inventory = inventory.Inventory.EMPTY
     self.parent_list = []
 
   def __str__(self):
@@ -439,7 +439,7 @@ class Feature(ty.Thing):
       if i1 < i2: return between.union(first, last)
       return self.set().difference(between)
 
-  class Aspect(inventory2.Inventory):
+  class Aspect(inventory.Inventory):
     """An aspect that can be defined by a list of contrastive values.
 
     Each aspect has a distance dictionary with pre-calculated distances to
@@ -528,12 +528,12 @@ class Feature(ty.Thing):
 
     def populate(
         self,
-        inventory: inventory2.Inventory
+        ft_inventory: inventory.Inventory
     ) -> None:
       """Populates the aspect from its root_list and adds it to inventory.
 
       Args:
-        inventory: The Feature inventory this Aspect is defined in.
+        ft_inventory: The Feature inventory this Aspect is defined in.
 
       The item values of the Aspect are the features in its root_list. Max_dist
       of an aspect is the max possible distance between two features of
@@ -543,14 +543,14 @@ class Feature(ty.Thing):
       within are added as supplements to the aspect.
 
       """
-      self.inventory = inventory
+      self.inventory = ft_inventory
       self.inventory.add_item(self)
       self.root_list.populate(self)
       self.set('all', self)
       self.suppl_feature(Feature('any'))
       self.suppl_feature(Feature('n_a', 'not_applicable'))
 
-  class Inventory(inventory2.Inventory):
+  class Inventory(inventory.Inventory):
     """An inventory of Aspects and their contrastive features.
 
     The structure of a feature inventory:
@@ -590,7 +590,7 @@ class Feature(ty.Thing):
     ) -> None:
       self.add_suppl(old.copy_and_update(alias, *params))
 
-  class Profile(inventory2.Inventory):
+  class Profile(inventory.Inventory):
     """"Feature profile for an object based on a feature inventory.
 
     The item aliases of a profile are the aspect aliases in the feature

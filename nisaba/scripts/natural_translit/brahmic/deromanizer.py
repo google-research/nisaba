@@ -22,7 +22,7 @@ from nisaba.scripts.natural_translit.latin import ltn_inventory
 from nisaba.scripts.natural_translit.script import char as c
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import fst_list as fl
-from nisaba.scripts.natural_translit.utils import inventory2
+from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
@@ -33,7 +33,7 @@ drm = derom.DEROMANIZATION_INVENTORY
 ParamArg = Union[ty.Nothing, derom.DeromMapping, Iterable]
 
 
-class Deromanizer(inventory2.Inventory):
+class Deromanizer(i.Inventory):
   """Rule inventory for Brahmic deromanization."""
 
   def __init__(self):

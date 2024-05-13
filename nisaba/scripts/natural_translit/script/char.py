@@ -20,6 +20,7 @@ from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
+from nisaba.scripts.natural_translit.utils import type_op as ty
 
 # See README for Char tuple details.
 Char = collections.namedtuple(
@@ -209,31 +210,31 @@ def tr_list(char_list: [Char]) -> [pyn.Fst]:
 # `for coda in CODA_LIST:`
 
 
-def store_gr_list(alias: str, char_list: [Char]) -> i.Store:
-  return i.store_as(alias, gr_list(char_list))
+def thing_gr_list(alias: str, char_list: [Char]) -> ty.Thing:
+  return ty.Thing(alias, value_from=gr_list(char_list))
 
 
-def store_tr_list(alias: str, char_list: [Char]) -> i.Store:
-  return i.store_as(alias, tr_list(char_list))
+def thing_tr_list(alias: str, char_list: [Char]) -> ty.Thing:
+  return ty.Thing(alias, value_from=tr_list(char_list))
 
 # Functions for storing union of fields for rules like
 # `schwa_before_coda(vocal_schwa(), following=gr.CODA)`
 
 
-def store_gr_union(alias: str, char_list: [Char]) -> i.Store:
-  return i.store_as(alias, fl.FstList(gr_list(char_list)).union_opt())
+def thing_gr_union(alias: str, char_list: [Char]) -> ty.Thing:
+  return ty.Thing(alias, value_from=fl.FstList(gr_list(char_list)).union_opt())
 
 
-def store_gr_star(alias: str, char_list: [Char]) -> i.Store:
-  return i.store_as(alias, fl.FstList(gr_list(char_list)).union_star())
+def thing_gr_star(alias: str, char_list: [Char]) -> ty.Thing:
+  return ty.Thing(alias, value_from=fl.FstList(gr_list(char_list)).union_star())
 
 
-def store_tr_union(alias: str, char_list: [Char]) -> i.Store:
-  return i.store_as(alias, fl.FstList(tr_list(char_list)).union_opt())
+def thing_tr_union(alias: str, char_list: [Char]) -> ty.Thing:
+  return ty.Thing(alias, value_from=fl.FstList(tr_list(char_list)).union_opt())
 
 
-def store_tr_star(alias: str, char_list: [Char]) -> i.Store:
-  return i.store_as(alias, fl.FstList(tr_list(char_list)).union_star())
+def thing_tr_star(alias: str, char_list: [Char]) -> ty.Thing:
+  return ty.Thing(alias, value_from=fl.FstList(tr_list(char_list)).union_star())
 
 # Functions for building grapheme and translit inventories from a list of
 # Chars and Stores.
@@ -241,22 +242,20 @@ def store_tr_star(alias: str, char_list: [Char]) -> i.Store:
 
 def char_inventory(
     char_list: [Char],
-    store_list: [i.Store] = None) -> collections.namedtuple:
-  return i.make_inventory(char_list, char_list, store_list)
+    suppl_list: [ty.Thing] = None) -> i.Inventory:
+  return i.Inventory.from_list(char_list, suppls=suppl_list)
 
 
 def gr_inventory(
     char_list: [Char],
-    store_list: [i.Store] = None) -> collections.namedtuple:
-  fst_list = gr_list(char_list)
-  return i.make_inventory(fst_list, char_list, store_list)
+    suppl_list: [ty.Thing] = None) -> i.Inventory:
+  return i.Inventory.from_list(char_list, attr='gr', suppls=suppl_list)
 
 
 def tr_inventory(
     char_list: [Char],
-    store_list: [i.Store] = None) -> collections.namedtuple:
-  fst_list = tr_list(char_list)
-  return i.make_inventory(fst_list, char_list, store_list)
+    suppl_list: [ty.Thing] = None) -> i.Inventory:
+  return i.Inventory.from_list(char_list, attr='tr', suppls=suppl_list)
 
 # Functions for reading and printing glyphs
 

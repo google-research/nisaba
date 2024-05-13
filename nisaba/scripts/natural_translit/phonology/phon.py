@@ -20,6 +20,7 @@ from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
+from nisaba.scripts.natural_translit.utils import type_op as ty
 
 # See README for Phon tuple details.
 Phon = collections.namedtuple(
@@ -82,8 +83,8 @@ def new_tr(key: str, new: str, base: str) -> dict[str, str]:
 
 # Shortcut functions for building Phon and ph inventories from Phon lists.
 
-# In a phon_inventory, the non-store aliases refer to Phons, allowing access to
-# all fields of the tuple. In a ph_inventory, non-store aliases refer to the
+# In a phon_inventory, the item aliases refer to Phons, allowing access to
+# all fields of the tuple. In a ph_inventory, item aliases refer to the
 # fsts in the ph field.
 
 # CAVEAT: There is no type restriction on Stores in inventories.
@@ -103,39 +104,38 @@ def ph_star(phon_list: [Phon]) -> pyn.Fst:
   return fl.FstList(ph_list(phon_list)).union_star()
 
 
-def store_ph_list(alias: str, phon_list: [Phon]) ->i.Store:
-  return i.store_as(alias, ph_list(phon_list))
+def thing_ph_list(alias: str, phon_list: [Phon]) ->ty.Thing:
+  return ty.Thing(alias, value_from=ph_list(phon_list))
 
 
-def store_ph_union(alias: str, phon_list: [Phon]) -> i.Store:
-  return i.store_as(alias, ph_union(phon_list))
+def thing_ph_union(alias: str, phon_list: [Phon]) -> ty.Thing:
+  return ty.Thing(alias, value_from=ph_union(phon_list))
 
 
-def store_ph_star(alias: str, phon_list: [Phon]) -> i.Store:
-  return i.store_as(alias, ph_star(phon_list))
+def thing_ph_star(alias: str, phon_list: [Phon]) -> ty.Thing:
+  return ty.Thing(alias, value_from=ph_star(phon_list))
 
 
 # Shortcut for phonemes with optional modifiers.
 # eg. ph.VOWEL + ph.VOWEL_MOD.star
 # TODO: Possibly update + to rw.concat_r
-def store_ph_modified(
+def thing_ph_modified(
     alias: str,
     phon_list: [Phon],
-    mod_list: [Phon]) -> i.Store:
-  return i.store_as(alias, ph_union(phon_list) + ph_star(mod_list))
+    mod_list: [Phon]) -> ty.Thing:
+  return ty.Thing(alias, value_from=ph_union(phon_list) + ph_star(mod_list))
 
 
 def phon_inventory(
     phon_list: [Phon],
-    store_list: [i.Store] = None) -> collections.namedtuple:
-  return i.make_inventory(phon_list, phon_list, store_list)
+    suppl_list: [ty.Thing] = None) -> i.Inventory:
+  return i.Inventory.from_list(phon_list, suppl_list)
 
 
 def ph_inventory(
     phon_list: [Phon],
-    store_list: [i.Store] = None) -> collections.namedtuple:
-  fst_list = ph_list(phon_list)
-  return i.make_inventory(fst_list, phon_list, store_list)
+    suppl_list: [ty.Thing] = None) -> i.Inventory:
+  return i.Inventory.from_list(phon_list, attr='ph', suppls=suppl_list)
 
 
 def import_phon(

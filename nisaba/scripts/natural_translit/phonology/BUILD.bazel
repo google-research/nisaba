@@ -28,6 +28,7 @@ py_library(
         "//nisaba/scripts/natural_translit/utils:fst_list",
         "//nisaba/scripts/natural_translit/utils:inventory",
         "//nisaba/scripts/natural_translit/utils:rewrite_functions",
+        "//nisaba/scripts/natural_translit/utils:type_op",
         "@org_opengrm_pynini//pynini",
     ],
 )
@@ -37,6 +38,7 @@ py_library(
     srcs = ["feature.py"],
     deps = [
         "//nisaba/scripts/natural_translit/utils:inventory",
+        "//nisaba/scripts/natural_translit/utils:type_op",
     ],
 )
 

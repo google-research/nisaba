@@ -14,7 +14,7 @@
 
 import pynini as pyn
 from absl.testing import absltest
-from nisaba.scripts.natural_translit.utils import inventory2 as i
+from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 _A_FST = pyn.accep('a')

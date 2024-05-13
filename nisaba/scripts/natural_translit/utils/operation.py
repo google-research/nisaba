@@ -15,7 +15,7 @@
 """Operations."""
 
 import enum
-from nisaba.scripts.natural_translit.utils import inventory2
+from nisaba.scripts.natural_translit.utils import inventory
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
@@ -90,7 +90,7 @@ class Operation(ty.Thing):
   def __init__(self, alias: str, cost: float):
     super().__init__(alias)
     self.text = alias
-    self.inventory = inventory2.Inventory.EMPTY
+    self.inventory = inventory.Inventory.EMPTY
     self.index = 0
     self.base_cost = cost
     self.match = self
@@ -111,7 +111,7 @@ class Operation(ty.Thing):
   def is_cheaper_than(self, operation: 'Operation') -> bool:
     return self.base_cost < operation.base_cost
 
-  class Inventory(inventory2.Inventory):
+  class Inventory(inventory.Inventory):
     """An inventory of operations.
 
     Attributes:
@@ -162,20 +162,20 @@ class Operation(ty.Thing):
         prefix: 'Operation.ReservedIndex',
         *args: tuple[str, float]
     ) -> 'Operation.Inventory':
-      inventory = cls(alias)
-      inventory.prefix = prefix
+      op_inventory = cls(alias)
+      op_inventory.prefix = prefix
       for alias, cost in args:
-        match = inventory._make_operation(alias, cost)
+        match = op_inventory._make_operation(alias, cost)
         # Base cost of a partial operation is the same as the match operation.
         # The arc weight is calculated based on the length of the substring.
-        partial = inventory._make_operation('partial_' + alias, cost)
+        partial = op_inventory._make_operation('partial_' + alias, cost)
         # TODO: Dynamically adjust the arc weight of unexpected
         # applications based on context match scores instead of using a
         # constant.
-        unexpected = inventory._make_operation(
+        unexpected = op_inventory._make_operation(
             'unexpected_' + alias, cost + Operation.UNEXPECTED_PENALTY
         )
-        unexpected_partial = inventory._make_operation(
+        unexpected_partial = op_inventory._make_operation(
             'unexpected_partial_' + alias,
             cost + Operation.UNEXPECTED_PENALTY,
         )
@@ -186,7 +186,7 @@ class Operation(ty.Thing):
         unexpected.match = match
         unexpected.partial = unexpected_partial
         unexpected_partial.match = match
-      return inventory
+      return op_inventory
 
     def add_operations(self, *operations: 'Operation') -> None:
       for operation in operations:

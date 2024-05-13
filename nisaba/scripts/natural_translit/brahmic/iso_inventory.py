@@ -166,8 +166,8 @@ SANTAL_AAN = [c.make_composite_char([sp.AN, sp.LONG], 'aan', ph.A + ph.DURH)]
 TWO_POINT_SIGN = SHORT_VOCALIC + DIPHTHONG_SIGN + SANTAL_AAN
 
 VOWEL_SIGN = SIMPLE_VOWEL + TWO_POINT_SIGN + LONG_VOCALIC
-VOWEL_S = c.store_gr_union('VOWEL_S', VOWEL_SIGN)
-VOWEL_S_TR = c.store_tr_union('VOWEL_S', VOWEL_SIGN)
+VOWEL_S = c.thing_gr_union('VOWEL_S', VOWEL_SIGN)
+VOWEL_S_TR = c.thing_tr_union('VOWEL_S', VOWEL_SIGN)
 
 
 def _independent(sign: c.Char):
@@ -185,9 +185,9 @@ INDEPENDENT_VOCALIC = [_independent(sign) for sign in VOCALIC_SIGN]
 INDEPENDENT_A = [c.make_composite_char([sp.IND, sp.A], sp.A.typ + '_i', ph.A)]
 
 INDEPENDENT_VOWEL = INDEPENDENT_NONVOCALIC + INDEPENDENT_VOCALIC + INDEPENDENT_A
-VOWEL_I = c.store_gr_union('VOWEL_I', INDEPENDENT_VOWEL)
+VOWEL_I = c.thing_gr_union('VOWEL_I', INDEPENDENT_VOWEL)
 
-VOCALIC = c.store_gr_union('VOCALIC', VOCALIC_SIGN + INDEPENDENT_VOCALIC)
+VOCALIC = c.thing_gr_union('VOCALIC', VOCALIC_SIGN + INDEPENDENT_VOCALIC)
 
 #  Composite consonants
 
@@ -215,15 +215,15 @@ DEAD_CONSONANT = [c.make_composite_char(*args) for args in [
 ]]
 
 SCHWA_BEARING = SIMPLE_CONSONANT + ASPIRATED_CONSONANT
-SCHWA_BEARING_GR = c.store_gr_union('SCH_CONS', SCHWA_BEARING)
-SCHWA_BEARING_TR = c.store_tr_union('SCH_CONS', SCHWA_BEARING)
-DEAD_CONSONANT_TR = c.store_tr_union('DEAD_CONS', DEAD_CONSONANT)
+SCHWA_BEARING_GR = c.thing_gr_union('SCH_CONS', SCHWA_BEARING)
+SCHWA_BEARING_TR = c.thing_tr_union('SCH_CONS', SCHWA_BEARING)
+DEAD_CONSONANT_TR = c.thing_tr_union('DEAD_CONS', DEAD_CONSONANT)
 COMPOSITE_CONSONANT = ASPIRATED_CONSONANT + DEAD_CONSONANT
 ONSET_CONSONANT = SIMPLE_CONSONANT + COMPOSITE_CONSONANT
-ONSET_CONSONANT_TR = c.store_tr_union('ONSET_CONS', ONSET_CONSONANT)
+ONSET_CONSONANT_TR = c.thing_tr_union('ONSET_CONS', ONSET_CONSONANT)
 
 CND = [c.make_composite_char([sp.M, sp.CND_DIA], 'cnd', ph.NSL)]
-CODA = c.store_gr_union('CODA', SIMPLE_CODA + CND)
+CODA = c.thing_gr_union('CODA', SIMPLE_CODA + CND)
 
 # Om
 OM = [c.make_composite_char([sp.OT, sp.M], 'om', ph.O + ph.DURH + ph.M)]
@@ -242,7 +242,7 @@ GRAPHEME_INVENTORY = c.gr_inventory(CHAR, GR_STORES)
 TRANSLIT_INVENTORY = c.tr_inventory(CHAR, TR_STORES)
 
 
-# TODO: Move into inventory as a class method after inventory2 conversion.
+# TODO: Move into inventory as a class method after symbol conversion.
 def iso_to_typ_rules() -> fl.FstList:
   """Makes an FstList of ISO to typ rewrites."""
   return fl.FstList(

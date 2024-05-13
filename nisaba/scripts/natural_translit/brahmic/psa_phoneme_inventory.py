@@ -97,7 +97,7 @@ CONSONANT = (
 PHONEMES = SILENCE + VOWEL_MOD + CONS_MOD + VOWEL + CONSONANT
 PH = p.phon_inventory(PHONEMES)
 
-PH_STORE = [p.store_ph_union(*args) for args in [
+PH_STORE = [p.thing_ph_union(*args) for args in [
     ['NASAL', NASAL],
     ['FRICATIVE', VOICELESS_FRICATIVE + VOICED_FRICATIVE],
     ['VOICED', VOICED_STOP + VOICED_FRICATIVE + VOICED_AFFRICATE],
@@ -113,14 +113,14 @@ PH_STORE = [p.store_ph_union(*args) for args in [
     ['VELAR', [PH.NG, PH.G, PH.K]],
 ]]
 
-PH_MOD_STORE = [p.store_ph_modified(*args) for args in [
+PH_MOD_STORE = [p.thing_ph_modified(*args) for args in [
     ['VOWEL', VOWEL, VOWEL_MOD],
     ['STOP', VOICELESS_STOP + VOICED_STOP, CONS_MOD],
     ['AFFRICATE', VOICELESS_AFFRICATE + VOICED_AFFRICATE, CONS_MOD],
     ['CONSONANT', CONSONANT, CONS_MOD],
 ]]
 
-PH_ALL_STORE = p.store_ph_union('ALL', PHONEMES)
+PH_ALL_STORE = p.thing_ph_union('ALL', PHONEMES)
 
 PHONEME_INVENTORY = p.ph_inventory(
     PHONEMES,

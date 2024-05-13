@@ -17,7 +17,7 @@
 import enum
 from typing import Any, Iterable, Union
 from nisaba.scripts.natural_translit.utils import feature as ft
-from nisaba.scripts.natural_translit.utils import inventory2
+from nisaba.scripts.natural_translit.utils import inventory
 from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
@@ -142,7 +142,7 @@ class Symbol(ty.Thing):
         + '\n'
     )
 
-  class Inventory(inventory2.Inventory):
+  class Inventory(inventory.Inventory):
     """Symbol inventory.
 
     index_dict: A dictionary of <symbol>.index: <symbol>
@@ -283,14 +283,14 @@ class Symbol(ty.Thing):
     def str_to_raw_symbols(
         self,
         raw_text: str,
-        inventory: 'Symbol.Inventory.OR_NOTHING' = ty.UNSPECIFIED,
+        sym_inventory: 'Symbol.Inventory.OR_NOTHING' = ty.UNSPECIFIED,
     ) -> Iterable['Symbol']:
       """Makes an iterable of raw symbols from a string.
 
       Args:
         raw_text: The string to be converted to an iterable of symbols.
-        inventory: The inventory which the symbols will be based on. If the
-          inventory is not provided, the symbols are based on the current
+        sym_inventory: The inventory which the symbols will be based on. If
+          the inventory is not provided, the symbols are based on the current
           inventory.
 
         For example, a Deva-Latn aligner will use a symbol inventory that
@@ -305,20 +305,20 @@ class Symbol(ty.Thing):
       Returns:
         An iterable of raw symbols.
       """
-      if not isinstance(inventory, Symbol.Inventory):
-        inventory = self
+      if not isinstance(sym_inventory, Symbol.Inventory):
+        sym_inventory = self
       symbols = []
       for char in raw_text:
-        symbol = inventory.raw_lookup(char)
-        if symbol == inventory.CTRL.unk:
-          symbol = inventory.raw_from_unknown(char)
+        symbol = sym_inventory.raw_lookup(char)
+        if symbol == sym_inventory.CTRL.unk:
+          symbol = sym_inventory.raw_from_unknown(char)
         symbols.append(symbol)
       return symbols
 
     def parse(
         self,
         raw_text: str,
-        inventory: 'Symbol.Inventory.OR_NOTHING' = ty.UNSPECIFIED,
+        sym_inventory: 'Symbol.Inventory.OR_NOTHING' = ty.UNSPECIFIED,
     ) -> Iterable['Symbol']:
       """Takes a string and returns an iterable of processed symbols.
 
@@ -331,15 +331,15 @@ class Symbol(ty.Thing):
 
       Args:
         raw_text: The string to be parsed.
-        inventory: The inventory which the symbols will be based on.
+        sym_inventory: The inventory which the symbols will be based on.
 
       Returns:
         An iterable of processed symbols.
       """
-      return self.str_to_raw_symbols(raw_text, inventory)
+      return self.str_to_raw_symbols(raw_text, sym_inventory)
 
 
-def _control_symbols() -> inventory2.Inventory:
+def _control_symbols() -> inventory.Inventory:
   """Control symbol constants."""
   # Next index = 5
   control_args = [
@@ -350,7 +350,7 @@ def _control_symbols() -> inventory2.Inventory:
       ['oos', '​⊽​', 'OUT OF SEQUENCE', 4],  # U+200B + U+22BD + U+200B
       ['nor', '​◎​', 'NO ALTERNATIVE', 5],  # U+200B + U+25CE + U+200B
   ]
-  return inventory2.Inventory.from_list(
+  return inventory.Inventory.from_list(
       [
           Symbol(
               alias=alias,

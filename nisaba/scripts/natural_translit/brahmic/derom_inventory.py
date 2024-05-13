@@ -19,7 +19,7 @@ import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import iso_inventory
 from nisaba.scripts.natural_translit.latin import ltn_inventory
 from nisaba.scripts.natural_translit.utils import fst_list as fl
-from nisaba.scripts.natural_translit.utils import inventory2
+from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
@@ -250,7 +250,7 @@ class DeromMapping(ty.Thing):
     return self.priority > len(self.rom_list)
 
 
-class _DeromMappingInventory(inventory2.Inventory):
+class _DeromMappingInventory(i.Inventory):
   """Latin to Brahmic rewrite inventory."""
 
   def __init__(self) -> None:

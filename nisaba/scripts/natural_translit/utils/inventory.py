@@ -12,100 +12,120 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Inventory building functions.
+"""Inventory class.
 
-* Store is a versatile named tuple that has an alias field and a content field,
-  that allows access to its content by its alias.
-
-* Inventory is a is dynamically created named tuple that has the aliases of the
-  items as field names. It is populated with the corresponding lists and fsts.
-
-  Example:
-
-  In a phoneme inventory, `VOWEL_LIST = Store('VOWEL_LIST', [ph.A, ph.E, ...])`
-  allows the list of vowels to be accessed by `VOWEL_LIST.content`, and
-  `VOWEL = Store('VOWEL', ls.union_opt(*VOWEL_LIST))` allows the union of vowels
-  to be accessed by `VOWEL.content` in the inventory.
-
-  When imported as ph = phonemes.ph_inventory in a grammar, they can be used
-  for functions like `for vowel in ph.VOWEL_LIST:` and rules like
-  `rw.rewrite(voiceless, voiced, ph.VOWEL, ph.VOWEL)`.
+This class will replace the named tuples in inventory.py and the functions used
+to build or process the inventories currently scattered accross modules.
 """
 
-import collections
-from typing import Union, List
-import pynini as pyn
-
-Store = collections.namedtuple(
-    'Store', ['alias', 'content'])
-
-Storable = Union[collections.namedtuple, List, pyn.FstLike]
+from nisaba.scripts.natural_translit.utils import log_op as log
+from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
-def store_as(
-    alias: str,
-    content: Storable) -> Store:
-  """Makes a Store.
+class Inventory(ty.IterableThing):
+  """Inventory is a collection of items and supplements.
 
-  Args:
-    alias: The alias that will be used in grammars.
-    content: The content of the Store.
+  The items of an inventory, eg. the graphemes in a Grapheme Inventory, can be
+  accessed by their aliases. For example, if
+  `A = ty.Thing(alias='a_uc', value_from='A')` is added to an inventory
+  such as `ltn` as an item, `ltn.a_uc` will point to A. All items are included
+  when iterating over the inventory and the len of the inventory is the number
+  of its items.
 
-  Returns:
-    Store
-
-  Following call:
-  ```
-  store_as('my_list', [item1, item2, item3])
-  ```
-  will return a store. If this store is added to an inventory 'i', it
-  can be accessed from another file as:
-  ```
-  for item in i.my_list:
-    ...
-  ```
+  The supplements can also be accessed by an alias, but they are not included
+  in iterations.
+  For example, the list `L = [A, ...]` can be added to `ltn` as a
+  supplement with alias `vowels`. In this case, `ltn.vowels` will point to L,
+  but it won't be included in iterations like 'for gr in ltn`.
   """
-  return Store(alias, content)
 
+  _HAS_DYNAMIC_ATTRIBUTES = True
 
-def alias_list(store_list: List[Store]) -> List[str]:
-  return [store.alias for store in store_list]
+  def __init__(self, alias: str = '', typed: ty.TypeOrNothing = ty.UNSPECIFIED):
+    super().__init__(alias=alias)
+    if ty.not_nothing(typed): self._item_type = typed
+    self.text = alias if alias else 'New Inventory'
+    self.item_aliases = []
+    self.suppl_aliases = []
 
+  @classmethod
+  def from_list(
+      cls,
+      items: list[ty.Thing],
+      attr: str = '',
+      typed: ty.TypeOrNothing = ty.UNSPECIFIED,
+      suppls: ty.ListOrNothing = ty.UNSPECIFIED,
+      alias: str = '',
+  ) -> 'Inventory':
+    """Makes an Inventory from a list of things."""
+    new = cls(alias, typed)
+    for item in items:
+      new.add_item(item, attr)
+    for s in ty.enforce_list(suppls):
+      new.add_suppl(s)
+    return new
 
-def content_list(store_list: List[Store]) -> List[Storable]:
-  return [store.content for store in store_list]
+  def _add_field(self, alias: str, value: ...) -> bool:
+    if alias in self.__dict__.keys():
+      return log.dbg_return_false('skipping recurring alias %s' % alias)
+    self.__dict__[alias] = value
+    return True
 
+  def _get_field_value(
+      self, thing: ty.Thing, attr: str = '',
+      typed: ty.TypeOrNothing = ty.UNSPECIFIED
+  ) -> ...:
+    """Gets the value for a field from a Thing.
 
-def make_inventory(
-    item_list: List[Storable],
-    sym_list: List[collections.namedtuple],
-    store_list: List[Store] = None) -> collections.namedtuple:
-  """Makes an inventory from lists of items, symbols and stores.
+    Args:
+      thing: The source for the field value.
+      attr: The attribute of the Thing that will become the value of the field.
+        If attr isn't specified, the value will be the Thing itself.
+      typed: Optional type restriction for the value.
 
-  Args:
-    item_list: The list of contents that will be accessed by the aliases of the
-      symbols and the stores.
-    sym_list: The list of symbols the fields will be curated from.
-    store_list: The list of additional stores in the inventory.
+    Returns:
+      Given `N1 = ty.Thing(alias='n', value_from=1)`
+      `self._get_field_value(N1)` returns `N1`
+      `self._get_field_value(N1, typed=int)` returns `ty.MISSING`
+      `self._get_field_value(N1, 'value')` returns `1`
+      `self._get_field_value(N1, 'value', typed=ty.Thing)` returns `ty.MISSING`
 
-  Returns:
-    Inventory
+    """
+    field_value = ty.get_attribute(thing, attr) if attr else thing
+    return field_value if ty.is_instance(field_value, typed) else ty.MISSING
 
-  Following call:
-  ```
-  i = make_inventory(
-      [a, b, c],
-      [Store('A', a), Store('B', b), Store('C', c), Store('AC', [a, c])])
-  ```
-  will create an Inventory tuple, and return a populated inventory:
-  ```
-  Inventory('Inventory', ['A', 'B', 'C', 'AB'])
-  i = Inventory(a, b, c, [a, c])
-  ```
-  """
-  fields = alias_list(sym_list)
-  items = item_list
-  if store_list is not None:
-    fields = fields + alias_list(store_list)
-    items = items + content_list(store_list)
-  return collections.namedtuple('Inventory', [*fields])(*items)
+  def add(self, *args) -> 'Inventory':
+    log.dbg_message('Use add_item or add_suppl for Inventories.')
+    return self
+
+  def add_item(
+      self, thing: ty.Thing, attr: str = '',
+  ) -> bool:
+    field_value = self._get_field_value(thing, attr)
+    if self.invalid_item(field_value) or field_value in self: return False
+    added = self._add_field(thing.alias, field_value)
+    if added:
+      self._items.append(field_value)
+      self.item_aliases.append(thing.alias)
+    return added
+
+  def add_suppl(self, suppl: ty.Thing) -> bool:
+    """Adds the value of a Thing as a supplement."""
+    return self.make_suppl(suppl.alias, suppl.value)
+
+  def make_suppl(self, alias: str, value: ...) -> bool:
+    """Adds the value as a supplement."""
+    added = self._add_field(alias, value)
+    if added: self.suppl_aliases.append(alias)
+    return added
+
+  def get(self, alias: str, default: ... = ty.MISSING) -> ...:
+    if alias in self.item_aliases or alias in self.suppl_aliases:
+      return log.dbg_return(
+          getattr(self, alias, default), 'for alias ' + alias
+      )
+    return log.dbg_return(
+        default, 'default value due to missing alias ' + alias
+    )
+
+Inventory.EMPTY = Inventory('empty_inventory')

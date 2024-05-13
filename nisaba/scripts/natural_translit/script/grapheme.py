@@ -18,7 +18,7 @@ import unicodedata
 import pycountry
 from nisaba.scripts.natural_translit.utils import expression as exp
 from nisaba.scripts.natural_translit.utils import feature as ft
-from nisaba.scripts.natural_translit.utils import inventory2
+from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import symbol as sym
 
 
@@ -142,7 +142,7 @@ class Grapheme(sym.Symbol):
       super().__init__(alias=script.alias, typed=Grapheme)
       self.script = script
       self.prefix = self._prefix()
-      self.atomics = inventory2.Inventory()
+      self.atomics = i.Inventory()
 
     def _prefix(self) -> int:
       return (
