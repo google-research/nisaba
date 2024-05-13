@@ -369,7 +369,7 @@ class Atomic(Expression, sym.Symbol):
     self.symbol = symbol.symbol if isinstance(symbol, Atomic) else symbol
 
   @classmethod
-  def read(cls, symbol: sym.Symbol) -> 'Atomic':
+  def get_instance(cls, symbol: sym.Symbol) -> 'Atomic':
     """Reads a Symbol into an Atomic while matching corresponding constants.
 
     Args:
@@ -393,7 +393,7 @@ class Atomic(Expression, sym.Symbol):
     return 1
 
   def copy(self) -> 'Atomic':
-    return Atomic.read(self)
+    return Atomic.get_instance(self)
 
   def is_control(self) -> bool:
     return self in Atomic.CTRL or self.symbol in sym.Symbol.CTRL
@@ -554,7 +554,7 @@ class _BaseAlignment(Expression):
 
   def _set_side(self, side: Expression.OR_SYMBOL) -> Expression:
     if not isinstance(side, Expression):
-      return Atomic.read(side)
+      return Atomic.get_instance(side)
     return side
 
   # String formatting functions.

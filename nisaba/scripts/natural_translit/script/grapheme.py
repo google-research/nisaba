@@ -16,7 +16,9 @@
 
 import unicodedata
 import pycountry
+from nisaba.scripts.natural_translit.utils import expression as exp
 from nisaba.scripts.natural_translit.utils import feature as ft
+from nisaba.scripts.natural_translit.utils import inventory2
 from nisaba.scripts.natural_translit.utils import symbol as sym
 
 
@@ -90,6 +92,7 @@ class Grapheme(sym.Symbol):
   """Grapheme symbol."""
 
   GR_FEATURES = _grapheme_features()
+  SCRIPT_PREFIX_MULTIPLIER = 1_000
 
   @classmethod
   def from_char(
@@ -135,6 +138,31 @@ class Grapheme(sym.Symbol):
   class Inventory(sym.Symbol.Inventory):
     """Grapheme inventory."""
 
-    def __init__(self, script: ft.Feature):
+    def __init__(self, script: Script):
       super().__init__(alias=script.alias, typed=Grapheme)
       self.script = script
+      self.prefix = self._prefix()
+      self.atomics = inventory2.Inventory()
+
+    def _prefix(self) -> int:
+      return (
+          sym.Symbol.ReservedIndex.GRAPHEME_PREFIX
+          + int(self.script.numeric) * Grapheme.SCRIPT_PREFIX_MULTIPLIER
+      )  # Eg. 2_215_000 for Latn, 2_800_000 for und
+
+    def _add_grapheme(self, grapheme: 'Grapheme') -> bool:
+      return self._add_symbol(grapheme) and self.atomics.add_item(
+          exp.Atomic.get_instance(grapheme)
+      )
+
+    def add_graphemes(
+        self, *graphemes: 'Grapheme', list_alias: str = ''
+    ) -> list['Grapheme']:
+      grs = [gr for gr in graphemes if self._add_grapheme(gr)]
+      if list_alias:
+        self.make_suppl(list_alias, grs)
+      return grs
+
+    def raw_from_unknown(self, raw: str = '') -> 'Grapheme':
+      new = Grapheme.from_char(raw)
+      return new if self._add_grapheme(new) else self.CTRL.nor

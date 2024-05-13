@@ -280,12 +280,12 @@ class Symbol(ty.Thing):
       self._add_symbol(new)
       return new
 
-    def raw_list(
+    def str_to_raw_symbols(
         self,
         raw_text: str,
         inventory: 'Symbol.Inventory.OR_NOTHING' = ty.UNSPECIFIED,
     ) -> Iterable['Symbol']:
-      """Makes an iterable of symbols from a string.
+      """Makes an iterable of raw symbols from a string.
 
       Args:
         raw_text: The string to be converted to an iterable of symbols.
@@ -295,16 +295,15 @@ class Symbol(ty.Thing):
 
         For example, a Deva-Latn aligner will use a symbol inventory that
         contains both the Deva and Latn symbols. If the input string is mixed
-        script, Deva.raw_list() will recognize the Latn characters as existing
-        symbols instead of dynamically creating new symbols from unknown. If the
-        input string contains a character that doesn't belong to either script,
-        for example an emoji, the new symbol will be added to the combined
-        inventory so that when the Latn.raw_list() is called, it will recognize
-        the emoji as the same symbol.
+        script, Deva.str_to_raw_symbols() will recognize the Latn characters as
+        existing symbols instead of dynamically creating new symbols from
+        unknown. If the input string contains a character that doesn't belong
+        to either script, for example an emoji, the new symbol will be added to
+        the combined inventory so that when the Latn.str_to_raw_symbols() is
+        called, it will recognize the emoji as the same symbol.
 
       Returns:
-        An iterable of symbols.
-
+        An iterable of raw symbols.
       """
       if not isinstance(inventory, Symbol.Inventory):
         inventory = self
@@ -316,14 +315,28 @@ class Symbol(ty.Thing):
         symbols.append(symbol)
       return symbols
 
-    # Default parser to avoid attribute error in mixed inventory parsing.
     def parse(
         self,
         raw_text: str,
         inventory: 'Symbol.Inventory.OR_NOTHING' = ty.UNSPECIFIED,
     ) -> Iterable['Symbol']:
-      """Takes a string and returns an iterable of symbols."""
-      return self.raw_list(raw_text, inventory)
+      """Takes a string and returns an iterable of processed symbols.
+
+      The default parser is the same as str_to_raw_symbols. Subclasses
+      can override this method to provide different parsing behavior. For
+      example, the Brahmic parser can insert an abstract symbol for schwa after
+      consonants that aren't followed by a vowel sign, or it can compose the
+      raw symbols for 'ja' and 'nukta' into a single abstract symbol 'ja_nukta',
+      which can then use the same alignables as 'za'.
+
+      Args:
+        raw_text: The string to be parsed.
+        inventory: The inventory which the symbols will be based on.
+
+      Returns:
+        An iterable of processed symbols.
+      """
+      return self.str_to_raw_symbols(raw_text, inventory)
 
 
 def _control_symbols() -> inventory2.Inventory:

@@ -152,10 +152,13 @@ class SymbolTest(test_op.TestCase):
         '  name: from_unk_1_c',
     )
 
-  def test_raw_list(self):
-    self.assertEqual(_DEVA.raw_list('अ🐱'), [_DEVA.a_ind, _DEVA.from_unk_1])
+  def test_str_to_raw_symbols(self):
     self.assertEqual(
-        _SYM.raw_list('अ🐶', _DEVA), [_DEVA.a_ind, _DEVA.from_unk_2]
+        _DEVA.str_to_raw_symbols('अ🐱'), [_DEVA.a_ind, _DEVA.from_unk_1]
+    )
+    self.assertEqual(
+        _SYM.str_to_raw_symbols('अ🐶', _DEVA),
+        [_DEVA.a_ind, _DEVA.from_unk_2],
     )
     self.assertEqual(_SYM.raw_lookup('🐶'), _SYM.CTRL.unk)
 
@@ -163,6 +166,7 @@ class SymbolTest(test_op.TestCase):
     self.assertEqual(_DEVA.parse('अa', _COMBINED), [_DEVA.a_ind, _LATN.a])
     self.assertEqual(_DEVA.parse('🦄', _COMBINED), [_COMBINED.from_unk_1])
     self.assertEqual(_LATN.parse('🦄', _COMBINED), [_COMBINED.from_unk_1])
+
 
 if __name__ == '__main__':
   absltest.main()

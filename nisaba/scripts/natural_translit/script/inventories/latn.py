@@ -36,7 +36,7 @@ def _build_inventory() -> grapheme.Grapheme.Inventory:
       ['s', grf.ph_class.cons],
       ['u', grf.ph_class.vwl],
   ]
-  inventory.add_symbols(
+  inventory.add_graphemes(
       *[
           g.from_char(char, char, f.Set(lowercase_features, features))
           for char, features in lowercase_args

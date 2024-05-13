@@ -35,7 +35,9 @@ _SYM = sym.Symbol.Inventory(
 
 def _atomic_inventory() -> exp.Atomic.Inventory:
   atomics = exp.Atomic.Inventory('atomic')
-  atomics.make_suppl('atm_sym', {exp.Atomic.read(sym): sym for sym in _SYM})
+  atomics.make_suppl(
+      'atm_sym', {exp.Atomic.get_instance(sym): sym for sym in _SYM}
+  )
   atomics.add_symbols(*atomics.atm_sym)
   return atomics
 
@@ -46,8 +48,12 @@ _ATM = _atomic_inventory()
 class ExpressionTest(test_op.TestCase):
 
   def test_atomic_read(self):
-    self.assertIs(exp.Atomic.read(sym.Symbol.CTRL.eps), exp.Atomic.CTRL.eps)
-    self.assertIs(exp.Atomic.read(exp.Atomic.CTRL.unk), exp.Atomic.CTRL.unk)
+    self.assertIs(
+        exp.Atomic.get_instance(sym.Symbol.CTRL.eps), exp.Atomic.CTRL.eps
+    )
+    self.assertIs(
+        exp.Atomic.get_instance(exp.Atomic.CTRL.unk), exp.Atomic.CTRL.unk
+    )
     self.assertIs(_ATM.a.symbol, _SYM.a)
 
   def test_constants(self):
@@ -73,7 +79,7 @@ class ExpressionTest(test_op.TestCase):
     )
 
   def test_atomic_from_atomic(self):
-    atm_nul2 = exp.Atomic.read(_ATM.nul)
+    atm_nul2 = exp.Atomic.get_instance(_ATM.nul)
     self.AssertStrEqual(atm_nul2, _SYM.nul)
     self.assertEmpty(atm_nul2.raw)
     self.assertIn(atm_nul2, atm_nul2)
