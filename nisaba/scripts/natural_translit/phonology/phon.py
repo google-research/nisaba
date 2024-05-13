@@ -14,7 +14,6 @@
 
 """Phon building functions."""
 
-import collections
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import fst_list as fl
@@ -22,50 +21,69 @@ from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
-# See README for Phon tuple details.
-Phon = collections.namedtuple(
-    'Phon', ['alias', 'txn', 'ftr', 'ph', 'ipa', 'tr_dict', 'cmp'])
 
+class Phon(ty.Thing):
+  """See README for Phon attributes."""
 
-def base_phon(
-    txn: str,
-    ftr: [str],
-    ipa: str,
-    base_tr: pyn.FstLike = None,
-    alias: str = None
-) -> Phon:
-  """Makes a base Phon.
+  def __init__(
+      self,
+      alias: str,
+      txn: str,
+      ftr: list[str],
+      ph: pyn.Fst,
+      ipa: str,
+      tr_dict: dict[str, str],
+      cmp: list['Phon']
+  ):
+    super().__init__(alias, ipa)
+    self.txn = txn
+    self.ftr = ftr
+    self.ph = ph
+    self.ipa = ipa
+    self.tr_dict = tr_dict
+    self.cmp = cmp
 
-  The default alias is txn in uppercase. The translit dictionary is set up with
-  the key 'base'. The ph fst is the txn enclosed in { }. A base phone has no
-  components.
+  @classmethod
+  def base(
+      cls,
+      txn: str,
+      ftr: list[str],
+      ipa: str,
+      base_tr: pyn.FstLike = None,
+      alias: str = None
+  ) -> 'Phon':
+    """Makes a base Phon.
 
-  Args:
-    txn: The txn of the Phon.
-    ftr: The phonological features, currently as a list of str.
-    ipa: The IPA representation of the Phon.
-    base_tr: The default transliteration of the Phon.
-    alias: The alias of the Phon that will be used in grammars.
+    The default alias is txn in uppercase. The translit dictionary is set up
+    with the key 'base'. The ph fst is the txn enclosed in { }. A base phone has
+    no components.
 
-  Returns:
-    Phon
+    Args:
+      txn: The txn of the Phon.
+      ftr: The phonological features, currently as a list of str.
+      ipa: The IPA representation of the Phon.
+      base_tr: The default transliteration of the Phon.
+      alias: The alias of the Phon that will be used in grammars.
 
-  Following call:
-  ```
-  base_phon('ec', ['vowel'], 'ə', tr.A)
-  ```
-  will return:
-  ```
-  Phon(alias='EC', txn='ec', ftr=['vowel'], ph={ec}, ipa='a', {'base': tr.A})
-  ```
-  """
-  if alias:
-    new_alias = alias
-  else:
-    new_alias = txn.upper()
-  ph = al.enclose_phoneme(txn)
-  tr_dict = new_tr('base', base_tr, al.enclose_translit('DEL'))
-  return Phon(new_alias, txn, ftr, ph, ipa, tr_dict, None)
+    Returns:
+      Phon
+
+    Following call:
+    ```
+    base_phon('ec', ['vowel'], 'ə', tr.A)
+    ```
+    will return:
+    ```
+    Phon(alias='EC', txn='ec', ftr=['vowel'], ph={ec}, ipa='a', {'base': tr.A})
+    ```
+    """
+    if alias:
+      new_alias = alias
+    else:
+      new_alias = txn.upper()
+    ph = al.enclose_phoneme(txn)
+    tr_dict = new_tr('base', base_tr, al.enclose_translit('DEL'))
+    return Phon(new_alias, txn, ftr, ph, ipa, tr_dict, None)
 
 
 def get_cmp_list(phon: Phon) -> [Phon]:

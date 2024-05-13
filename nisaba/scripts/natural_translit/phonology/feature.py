@@ -14,13 +14,16 @@
 
 """Simple placeholder for the phonological feature structure."""
 
-import collections
 from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
-# cat: category, val: value
-PhonFeature = collections.namedtuple(
-    'PhonFeature', ['alias', 'cat'])
+
+class PhonFeature(ty.Thing):
+  """Phonological feature."""
+
+  def __init__(self, alias: str, category: str):
+    super().__init__(alias, alias)
+    self.category = category
 
 
 def ft_inventory(

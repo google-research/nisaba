@@ -27,7 +27,7 @@ from nisaba.scripts.natural_translit.script import char as c
 
 
 def make_ascii_char(glyph: str) -> c.Char:
-  return c.make_char(glyph, glyph)
+  return c.Char(glyph, glyph)
 
 
 ASCII_VOWEL = [make_ascii_char(vowel) for vowel in [
@@ -56,7 +56,7 @@ OTHER_SUBSTRING = [c.make_substring(sub) for sub in [
 
 SUBSTRING = DOUBLE_SUBSTRING + OTHER_SUBSTRING
 
-DEL = [c.make_char('DEL', '')]
+DEL = [c.Char('DEL', '')]
 
 EN_LETTERS = c.thing_tr_star('EN_LETTERS', ASCII_UC)
 

@@ -14,7 +14,6 @@
 
 """Char building functions."""
 
-import collections
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import fst_list as fl
@@ -22,83 +21,74 @@ from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
-# See README for Char tuple details.
-Char = collections.namedtuple(
-    'Char', ['alias', 'typ', 'gr', 'tr', 'glyph', 'ph', 'cmp'])
 
+class Char(ty.Thing):
+  """See README for Char attributes."""
 
-def make_char(
-    typ: str,
-    glyph: str,
-    ph: pyn.Fst = al.EPSILON,
-    alias: str = al.EMPTY_STR,
-    cmp: pyn.Fst = None) -> Char:
-  """Makes a Char with the default alias typ in uppercase.
+  def __init__(
+      self,
+      typ: str,
+      glyph: str,
+      ph: pyn.Fst = al.EPSILON,
+      alias: str = '',
+      cmp: pyn.Fst = None,
+  ):
+    """Makes a Char with the default alias as typ in uppercase.
 
-  Args:
-    typ: The typ of the Char.
-    glyph: The glyph of the character in the source script.
-    ph: The default phoneme assignment of the character.
-    alias: The alias of the character that will be used in grammars.
-    cmp: The components of a composite character.
+    Args:
+      typ: The typ of the Char.
+      glyph: The glyph of the character in the source script.
+      ph: The default phoneme assignment of the character.
+      alias: The alias of the character that will be used in grammars.
+      cmp: The concatenation of the gr fields of the components of a composite
+        character.
 
-  Returns:
-    Char
+    Returns:
+      Char
 
-  Following call:
-  ```
-  make_char('aa', 'ā', ph.A + ph.DURH)
-  ```
-  will return:
-  ```
-  Char(
-      alias='AA',
-      typ='aa',
-      gr=<aa>,
-      tr=`aa`,
-      glyph='ā',
-      ph=ph.A + ph.DURH,
-      cmp=None)
-  ```
-  """
-  if alias == al.EMPTY_STR:
-    char_alias = typ.upper()
-  else:
-    char_alias = alias
-  return Char(
-      char_alias,
-      typ,
-      al.enclose_grapheme(typ),
-      al.enclose_translit(typ),
-      glyph,
-      ph,
-      cmp)
+    Following call:
+    ```
+    Char('aa', 'ā', ph.A + ph.DURH)
+    ```
+    will return:
+    ```
+    Char(
+        alias='AA',
+        typ='aa',
+        gr=<aa>,
+        tr=`aa`,
+        glyph='ā',
+        ph=ph.A + ph.DURH,
+        cmp=None
+    )
+    ```
+    """
+    super().__init__(alias if alias else typ.upper(), glyph)
+    self.typ = typ
+    self.gr = al.enclose_grapheme(typ)
+    self.tr = al.enclose_translit(typ)
+    self.glyph = glyph
+    self.ph = ph
+    self.cmp = cmp
 
 
 def uppercase_list(char_list: [Char]) -> [Char]:
   """Returns a list of uppercase Chars from a Char list."""
-  upper_list = []
-  for char in char_list:
-    upper = make_char(
-        char.typ.upper() + '_uc',
-        char.glyph.upper(),
-        char.ph)
-    upper_list.append(upper)
-  return upper_list
+  return [
+      Char(char.typ.upper() + '_uc', char.glyph.upper(), char.ph)
+      for char in char_list
+  ]
 
 
 # TODO: Convert substrings to composite Chars.
 def make_substring(substring: str) -> Char:
   """Makes a substring Char with 's_' prefix."""
-  typ = 's_' + substring
-  return make_char(typ, substring)
+  return Char('s_' + substring, substring)
 
 
 def double_substring(char: Char) -> Char:
   """Makes a substring Char by repeating the glyph of the arg Char."""
-  new_typ = 's_' + char.typ + char.typ
-  new_glyph = char.glyph + char.glyph
-  return make_char(new_typ, new_glyph)
+  return Char('s_' + char.typ + char.typ, char.glyph + char.glyph)
 
 
 def ls_double_substring(chars: [Char]) -> ([Char], dict[str, pyn.Fst]):
@@ -168,7 +158,7 @@ def make_composite_char(
   for char in chars:
     glyph = glyph + char.glyph
     gr = gr + char.gr
-  return make_char(typ, glyph, ph, alias, gr)
+  return Char(typ, glyph, ph, alias, gr)
 
 
 def compose_from_gr(char_list: [Char]) -> pyn.Fst:

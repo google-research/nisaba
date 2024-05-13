@@ -23,20 +23,13 @@ from nisaba.scripts.natural_translit.utils import alignment as al
 f = feature.FEATURE_INVENTORY
 
 
-def modifier_phon(
-    mod_alias: str,
-    txn: str,
-    ftr: [str],
-    ipa: str
-) -> p.Phon:
-  return p.base_phon(txn, ftr, ipa, alias=mod_alias)
+def modifier_phon(mod_alias: str, txn: str, ftr: list[str], ipa: str) -> p.Phon:
+  return p.Phon.base(txn, ftr, ipa, alias=mod_alias)
 
 
 def qualified_modifier(
-    modifier: p.Phon,
-    qualifier: p.Phon,
-    ipa: str
-) -> [p.Phon]:
+    modifier: p.Phon, qualifier: p.Phon, ipa: str
+) -> list[p.Phon]:
   """Derives a modifier feature with a qualifier."""
   return modifier_phon(
       modifier.alias + qualifier.txn.upper(),

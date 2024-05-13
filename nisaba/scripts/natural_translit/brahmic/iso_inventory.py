@@ -46,9 +46,9 @@ ph = psa.PHONEME_INVENTORY
 
 # Single point characters
 
-INHERENT_VOWEL = [c.make_char('a', 'a', ph.V_TNT)]
+INHERENT_VOWEL = [c.Char('a', 'a', ph.V_TNT)]
 
-SIMPLE_VOWEL_SIGN = [c.make_char(*args) for args in [
+SIMPLE_VOWEL_SIGN = [c.Char(*args) for args in [
     ['aa', 'ā', ph.A + ph.DURH],
     ['ac', 'æ', ph.AE],
     ['an', 'ạ', ph.A],
@@ -66,7 +66,7 @@ SIMPLE_VOWEL_SIGN = [c.make_char(*args) for args in [
 
 SIMPLE_VOWEL = INHERENT_VOWEL + SIMPLE_VOWEL_SIGN
 
-SIMPLE_CONSONANT = [c.make_char(*args) for args in [
+SIMPLE_CONSONANT = [c.Char(*args) for args in [
     ['b', 'b', ph.B],
     ['c', 'c', ph.T_SH],
     ['d', 'd', ph.DI],
@@ -104,7 +104,7 @@ SIMPLE_CONSONANT = [c.make_char(*args) for args in [
     ['z', 'z', ph.Z],
 ]]
 
-SIMPLE_CODA = [c.make_char(*args) for args in [
+SIMPLE_CODA = [c.Char(*args) for args in [
     ['avg', '’', ph.SIL],
     ['nkt', 'ˑ', ph.SIL],
     ['vis', 'ḥ', ph.H],
@@ -117,9 +117,9 @@ SIMPLE_CODA = [c.make_char(*args) for args in [
     ['tip', 'ṃ', ph.NSL],
 ]]
 
-OM_VOWEL = [c.make_char('ot', 'õ', ph.O + ph.DURH)]
+OM_VOWEL = [c.Char('ot', 'õ', ph.O + ph.DURH)]
 
-MODIFIER = [c.make_char(*args) for args in [
+MODIFIER = [c.Char(*args) for args in [
     ['asp', 'ʰ', ph.ASP],
     ['vcl', '̥', ph.SYL],
     ['long', '̄', ph.SIL],
@@ -127,9 +127,9 @@ MODIFIER = [c.make_char(*args) for args in [
     ['eye', '̆', ph.SIL],
 ]]
 
-VIRAMA = [c.make_char('vir', '', ph.SIL)]
+VIRAMA = [c.Char('vir', '', ph.SIL)]
 
-SYMBOL = [c.make_char(*args) for args in [
+SYMBOL = [c.Char(*args) for args in [
     ['ind', '.', ph.SIL],
     ['zwj', '+', ph.SIL],
     ['zwn', '|', ph.SIL],

@@ -12,20 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import collections
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as t
 
 # Test objects
 
-D = collections.namedtuple('D', ['k'])
-_D1 = D('v')
 _T1 = t.Thing('T1')
 _T3 = t.Thing(value_from=_T1)
 _T5 = t.Thing('T5', value_from=t.pyn.accep(''))
-Named = collections.namedtuple('Named', ['name'])
-_NAMED = Named('Jane')
 
 
 class LoggingTest(absltest.TestCase):
@@ -51,9 +46,6 @@ class LoggingTest(absltest.TestCase):
   def test_text_of_fst_non_string(self):
     self.assertEqual(log.text_of(t.pyn.union('a', 'b')), '<non_string_fst>')
 
-  def test_text_of_namedtuple(self):
-    self.assertEqual(log.text_of(_D1), 'D(k=\'v\')')
-
   def test_text_of_int(self):
     self.assertEqual(log.text_of('0'), '0')
 
@@ -71,9 +63,6 @@ class LoggingTest(absltest.TestCase):
 
   def test_alias_of_list(self):
     self.assertEqual(log.alias_of([0, 1]), '[0, 1]')
-
-  def test_name_of_named(self):
-    self.assertEqual(log.name_of(_NAMED), 'Jane')
 
   def test_name_of_type(self):
     self.assertEqual(log.name_of(int), 'int')
