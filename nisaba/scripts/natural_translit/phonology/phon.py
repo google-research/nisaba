@@ -14,6 +14,7 @@
 
 """Phon building functions."""
 
+from typing import Union
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import fst_list as fl
@@ -25,23 +26,25 @@ from nisaba.scripts.natural_translit.utils import type_op as ty
 class Phon(ty.Thing):
   """See README for Phon attributes."""
 
+  OR_NOTHING = Union['Phon', ty.Nothing]
+
   def __init__(
       self,
       alias: str,
       txn: str,
-      ftr: list[str],
-      ph: pyn.Fst,
-      ipa: str,
-      tr_dict: dict[str, str],
-      cmp: list['Phon']
+      ftr: ty.ListOrNothing = ty.UNSPECIFIED,
+      ph: pyn.Fst = pyn.Fst(),
+      ipa: str = '',
+      tr_dict: ty.DictOrNothing = ty.UNSPECIFIED,
+      cmp: ty.ListOrNothing = ty.UNSPECIFIED,
   ):
     super().__init__(alias, ipa)
     self.txn = txn
-    self.ftr = ftr
+    self.ftr = ftr if isinstance(ftr, list) else []
     self.ph = ph
     self.ipa = ipa
-    self.tr_dict = tr_dict
-    self.cmp = cmp
+    self.tr_dict = tr_dict if isinstance(tr_dict, dict) else {}
+    self.cmp = cmp if isinstance(cmp, list) else [self]
 
   @classmethod
   def base(
@@ -49,8 +52,8 @@ class Phon(ty.Thing):
       txn: str,
       ftr: list[str],
       ipa: str,
-      base_tr: pyn.FstLike = None,
-      alias: str = None
+      base_tr: ty.FstIterable = ty.UNSPECIFIED,
+      alias: str = ''
   ) -> 'Phon':
     """Makes a base Phon.
 
@@ -77,27 +80,28 @@ class Phon(ty.Thing):
     Phon(alias='EC', txn='ec', ftr=['vowel'], ph={ec}, ipa='a', {'base': tr.A})
     ```
     """
-    if alias:
-      new_alias = alias
-    else:
-      new_alias = txn.upper()
-    ph = al.enclose_phoneme(txn)
-    tr_dict = new_tr('base', base_tr, al.enclose_translit('DEL'))
-    return Phon(new_alias, txn, ftr, ph, ipa, tr_dict, None)
+    return Phon(
+        alias if alias else txn.upper(),
+        txn,
+        ftr,
+        al.enclose_phoneme(txn),
+        ipa,
+        new_tr('base', base_tr, al.enclose_translit('DEL')),
+    )
+
+Phon.UNSPECIFIED = Phon('unspecified', 'unspecified')
 
 
-def get_cmp_list(phon: Phon) -> [Phon]:
-  if phon.cmp:
-    return phon.cmp
-  else:
-    return [phon]
-
-
-def new_tr(key: str, new: str, base: str) -> dict[str, str]:
-  if new:
+def new_tr(
+    key: str,
+    new: ty.FstIterable = ty.UNSPECIFIED,
+    base: ty.FstIterable = ty.UNSPECIFIED
+) -> dict[str, pyn.Fst]:
+  if isinstance(new, pyn.Fst):
     return {key: new}
-  else:
+  if isinstance(base, pyn.Fst):
     return {key: base}
+  return {key: al.EPSILON}
 
 # Shortcut functions for building Phon and ph inventories from Phon lists.
 
@@ -110,27 +114,27 @@ def new_tr(key: str, new: str, base: str) -> dict[str, str]:
 # content will still refer to Phons, not their ph fields.
 
 
-def ph_list(phon_list: [Phon]) -> [pyn.Fst]:
+def ph_list(phon_list: list[Phon]) -> list[pyn.Fst]:
   return [phon.ph for phon in phon_list]
 
 
-def ph_union(phon_list: [Phon]) -> pyn.Fst:
+def ph_union(phon_list: list[Phon]) -> pyn.Fst:
   return fl.FstList(ph_list(phon_list)).union_opt()
 
 
-def ph_star(phon_list: [Phon]) -> pyn.Fst:
+def ph_star(phon_list: list[Phon]) -> pyn.Fst:
   return fl.FstList(ph_list(phon_list)).union_star()
 
 
-def thing_ph_list(alias: str, phon_list: [Phon]) ->ty.Thing:
+def thing_ph_list(alias: str, phon_list: list[Phon]) ->ty.Thing:
   return ty.Thing(alias, value_from=ph_list(phon_list))
 
 
-def thing_ph_union(alias: str, phon_list: [Phon]) -> ty.Thing:
+def thing_ph_union(alias: str, phon_list: list[Phon]) -> ty.Thing:
   return ty.Thing(alias, value_from=ph_union(phon_list))
 
 
-def thing_ph_star(alias: str, phon_list: [Phon]) -> ty.Thing:
+def thing_ph_star(alias: str, phon_list: list[Phon]) -> ty.Thing:
   return ty.Thing(alias, value_from=ph_star(phon_list))
 
 
@@ -138,36 +142,35 @@ def thing_ph_star(alias: str, phon_list: [Phon]) -> ty.Thing:
 # eg. ph.VOWEL + ph.VOWEL_MOD.star
 # TODO: Possibly update + to rw.concat_r
 def thing_ph_modified(
-    alias: str,
-    phon_list: [Phon],
-    mod_list: [Phon]) -> ty.Thing:
+    alias: str, phon_list: list[Phon], mod_list: list[Phon]
+) -> ty.Thing:
   return ty.Thing(alias, value_from=ph_union(phon_list) + ph_star(mod_list))
 
 
 def phon_inventory(
-    phon_list: [Phon],
-    suppl_list: [ty.Thing] = None) -> i.Inventory:
-  return i.Inventory.from_list(phon_list, suppl_list)
+    phon_list: list[Phon], suppl_list: ty.ListOrNothing = ty.UNSPECIFIED
+) -> i.Inventory:
+  return i.Inventory.from_list(phon_list, suppls=suppl_list)
 
 
 def ph_inventory(
-    phon_list: [Phon],
-    suppl_list: [ty.Thing] = None) -> i.Inventory:
+    phon_list: list[Phon], suppl_list: ty.ListOrNothing = ty.UNSPECIFIED
+) -> i.Inventory:
   return i.Inventory.from_list(phon_list, attr='ph', suppls=suppl_list)
 
 
 def import_phon(
     phon: Phon,
-    add_ftr: [str] = None,
-    alt_tr_dict: dict[str] = None
-) -> pyn.Fst:
+    add_ftr: ty.ListOrNothing = ty.UNSPECIFIED,
+    alt_tr_dict: ty.DictOrNothing = ty.UNSPECIFIED
+) -> Phon:
   """Copies a Phon, optionally add features and translits."""
   new_ftr = phon.ftr.copy()
-  if add_ftr:
-    new_ftr.extend(add_ftr)
+  if isinstance(add_ftr, list):
+    new_ftr += add_ftr
   new_tr_dict = phon.tr_dict.copy()
-  if alt_tr_dict:
-    new_tr_dict.update(alt_tr_dict)
+  if isinstance(alt_tr_dict, dict):
+    new_tr_dict |= alt_tr_dict
   return Phon(
       phon.alias, phon.txn, new_ftr, phon.ph, phon.ipa, new_tr_dict, phon.cmp
       )
@@ -177,10 +180,7 @@ def import_phon(
 
 def check_key(key: str) -> str:
   """Failsafe for translit_by_key_functions."""
-  if key:
-    return key
-  else:
-    return 'base'
+  return key if key else 'base'
 
 
 def translit_by_key(phon: Phon, key: str) -> pyn.Fst:
@@ -195,21 +195,21 @@ def translit_ipa(phon: Phon) -> pyn.Fst:
   return rw.rewrite(phon.ph, phon.ipa)
 
 
-def ls_translit_by_key(phon_list: [Phon], key: str) -> pyn.Fst:
+def ls_translit_by_key(phon_list: list[Phon], key: str) -> pyn.Fst:
   return rw.rewrite_ls(
-      (phon.ph, phon.tr_dict[check_key(key)]) for phon in phon_list
+      [(phon.ph, phon.tr_dict[check_key(key)]) for phon in phon_list]
   )
 
 
-def ls_translit_base(phon_list: [Phon]) -> pyn.Fst:
+def ls_translit_base(phon_list: list[Phon]) -> pyn.Fst:
   return ls_translit_by_key(phon_list, 'base')
 
 
-def ls_translit_ipa(phon_list: [Phon]) -> pyn.Fst:
+def ls_translit_ipa(phon_list: list[Phon]) -> pyn.Fst:
   return fl.FstList.cross(
       *[(phon.ph, phon.ipa) for phon in phon_list]
   ).union_star()
 
 
-def print_only_ipa(phon_list: [Phon]) -> pyn.Fst:
+def print_only_ipa(phon_list: list[Phon]) -> pyn.Fst:
   return (rw.EXTRACT_RIGHT_SIDE @ ls_translit_ipa(phon_list)).optimize()

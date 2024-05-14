@@ -27,8 +27,8 @@ class PhonFeature(ty.Thing):
 
 
 def ft_inventory(
-    feature_list: [PhonFeature],
-    suppl_list: [ty.Thing] = None
+    feature_list: list[PhonFeature],
+    suppl_list: ty.ListOrNothing = ty.UNSPECIFIED,
 ) -> i.Inventory:
   return i.Inventory.from_list(feature_list, attr='alias', suppls=suppl_list)
 

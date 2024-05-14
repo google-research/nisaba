@@ -31,7 +31,7 @@ class Char(ty.Thing):
       glyph: str,
       ph: pyn.Fst = al.EPSILON,
       alias: str = '',
-      cmp: pyn.Fst = None,
+      cmp: ty.FstIterable = ty.UNSPECIFIED
   ):
     """Makes a Char with the default alias as typ in uppercase.
 
@@ -72,7 +72,7 @@ class Char(ty.Thing):
     self.cmp = cmp
 
 
-def uppercase_list(char_list: [Char]) -> [Char]:
+def uppercase_list(char_list: list[Char]) -> list[Char]:
   """Returns a list of uppercase Chars from a Char list."""
   return [
       Char(char.typ.upper() + '_uc', char.glyph.upper(), char.ph)
@@ -91,7 +91,9 @@ def double_substring(char: Char) -> Char:
   return Char('s_' + char.typ + char.typ, char.glyph + char.glyph)
 
 
-def ls_double_substring(chars: [Char]) -> ([Char], dict[str, pyn.Fst]):
+def ls_double_substring(
+    chars: list[Char],
+) -> tuple[list[Char], dict[str, pyn.Fst]]:
   """Makes a list of double substring Chars from a list of Chars.
 
   Also makes a dictionary of corresponding tr fields.
@@ -124,15 +126,13 @@ def ls_double_substring(chars: [Char]) -> ([Char], dict[str, pyn.Fst]):
   for char in chars:
     double = double_substring(char)
     doubles.append(double)
-    double_dict.update({char.tr.string(): double.tr})
+    double_dict |= {char.tr.string(): double.tr}
   return doubles, double_dict
 
 
 def make_composite_char(
-    chars: [Char],
-    typ: str,
-    ph: pyn.Fst = al.EPSILON,
-    alias: str = al.EMPTY_STR) -> Char:
+    chars: list[Char], typ: str, ph: pyn.Fst = al.EPSILON, alias: str = ''
+) -> Char:
   """Makes a new Char from a list of Chars and keeps their grs in the cmp.
 
   Args:
@@ -153,15 +153,16 @@ def make_composite_char(
   Char('LV', 'lv', <lv>, `lv`, 'l̥', ph.L + ph.SYL, <l><vcl>)
   ```
   """
-  glyph = al.EMPTY_STR
-  gr = al.EPSILON
-  for char in chars:
-    glyph = glyph + char.glyph
-    gr = gr + char.gr
-  return Char(typ, glyph, ph, alias, gr)
+  return Char(
+      typ,
+      ''.join([c.glyph for c in chars]),
+      ph,
+      alias,
+      fl.FstList(*[c.gr for c in chars]).concat(),
+  )
 
 
-def compose_from_gr(char_list: [Char]) -> pyn.Fst:
+def compose_from_gr(char_list: list[Char]) -> pyn.Fst:
   """Composes a list of Chars from the graphemes of their components.
 
   Args:
@@ -184,46 +185,46 @@ def compose_from_gr(char_list: [Char]) -> pyn.Fst:
   )
   ```
   """
-  return rw.rewrite_ls((char.cmp, char.gr) for char in char_list)
+  return rw.rewrite_ls([(char.cmp, char.gr) for char in char_list])
 
 # Functions for listing the .gr or .tr fields of a list of Chars.
 
 
-def gr_list(char_list: [Char]) -> [pyn.Fst]:
+def gr_list(char_list: list[Char]) -> list[pyn.Fst]:
   return [char.gr for char in char_list]
 
 
-def tr_list(char_list: [Char]) -> [pyn.Fst]:
+def tr_list(char_list: list[Char]) -> list[pyn.Fst]:
   return [char.tr for char in char_list]
 
 # Functions for storing lists of fields for functions like
 # `for coda in CODA_LIST:`
 
 
-def thing_gr_list(alias: str, char_list: [Char]) -> ty.Thing:
+def thing_gr_list(alias: str, char_list: list[Char]) -> ty.Thing:
   return ty.Thing(alias, value_from=gr_list(char_list))
 
 
-def thing_tr_list(alias: str, char_list: [Char]) -> ty.Thing:
+def thing_tr_list(alias: str, char_list: list[Char]) -> ty.Thing:
   return ty.Thing(alias, value_from=tr_list(char_list))
 
 # Functions for storing union of fields for rules like
 # `schwa_before_coda(vocal_schwa(), following=gr.CODA)`
 
 
-def thing_gr_union(alias: str, char_list: [Char]) -> ty.Thing:
+def thing_gr_union(alias: str, char_list: list[Char]) -> ty.Thing:
   return ty.Thing(alias, value_from=fl.FstList(gr_list(char_list)).union_opt())
 
 
-def thing_gr_star(alias: str, char_list: [Char]) -> ty.Thing:
+def thing_gr_star(alias: str, char_list: list[Char]) -> ty.Thing:
   return ty.Thing(alias, value_from=fl.FstList(gr_list(char_list)).union_star())
 
 
-def thing_tr_union(alias: str, char_list: [Char]) -> ty.Thing:
+def thing_tr_union(alias: str, char_list: list[Char]) -> ty.Thing:
   return ty.Thing(alias, value_from=fl.FstList(tr_list(char_list)).union_opt())
 
 
-def thing_tr_star(alias: str, char_list: [Char]) -> ty.Thing:
+def thing_tr_star(alias: str, char_list: list[Char]) -> ty.Thing:
   return ty.Thing(alias, value_from=fl.FstList(tr_list(char_list)).union_star())
 
 # Functions for building grapheme and translit inventories from a list of
@@ -231,42 +232,42 @@ def thing_tr_star(alias: str, char_list: [Char]) -> ty.Thing:
 
 
 def char_inventory(
-    char_list: [Char],
-    suppl_list: [ty.Thing] = None) -> i.Inventory:
+    char_list: list[Char], suppl_list: ty.ListOrNothing = ty.UNSPECIFIED
+) -> i.Inventory:
   return i.Inventory.from_list(char_list, suppls=suppl_list)
 
 
 def gr_inventory(
-    char_list: [Char],
-    suppl_list: [ty.Thing] = None) -> i.Inventory:
+    char_list: list[Char], suppl_list: ty.ListOrNothing = ty.UNSPECIFIED
+) -> i.Inventory:
   return i.Inventory.from_list(char_list, attr='gr', suppls=suppl_list)
 
 
 def tr_inventory(
-    char_list: [Char],
-    suppl_list: [ty.Thing] = None) -> i.Inventory:
+    char_list: list[Char], suppl_list: ty.ListOrNothing = ty.UNSPECIFIED
+) -> i.Inventory:
   return i.Inventory.from_list(char_list, attr='tr', suppls=suppl_list)
 
 # Functions for reading and printing glyphs
 
 
-def read_glyph(char_list: [Char]) -> pyn.Fst:
+def read_glyph(char_list: list[Char]) -> pyn.Fst:
   return fl.FstList.cross(
       *[(char.glyph, char.gr) for char in char_list]
   ).union_star()
 
 
-def print_glyph(char_list: [Char]) -> pyn.Fst:
+def print_glyph(char_list: list[Char]) -> pyn.Fst:
   return fl.FstList.cross(
       *[(char.tr, char.glyph) for char in char_list]
   ).union_star()
 
 
-def print_only_glyph(char_list: [Char]) -> pyn.Fst:
+def print_only_glyph(char_list: list[Char]) -> pyn.Fst:
   return (rw.EXTRACT_RIGHT_SIDE @ print_glyph(char_list)).optimize()
 
 
-def remove_repeated_glyph(char_list: [Char]) -> pyn.Fst:
+def remove_repeated_glyph(char_list: list[Char]) -> pyn.Fst:
   return rw.rewrite_ls(
-      (char.glyph + char.glyph, char.glyph) for char in char_list
+      [(char.glyph + char.glyph, char.glyph) for char in char_list]
   )

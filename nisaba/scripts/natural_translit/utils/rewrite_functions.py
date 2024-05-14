@@ -113,16 +113,13 @@ def rewrite_word_final(
 
 def rewrite_repeated(
     repeated: pyn.FstLike,
-    new: pyn.FstLike = None,
+    new: pyn.FstLike = '',
     preceding: pyn.FstLike = al.EPSILON,
     following: pyn.FstLike = al.EPSILON) -> pyn.Fst:
   """Rewrites a repeated string or fst. By default reduces it to one."""
-  change_to = repeated
-  if new:
-    change_to = new
   return rewrite(
       cc.repeat(repeated),
-      change_to,
+      new if new else repeated,
       preceding,
       following)
 

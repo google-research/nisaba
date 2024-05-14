@@ -15,8 +15,6 @@
 """Resources for Brahmic scripts.
    Input format is ISO strings following the specifications of nisaba/scripts/brahmic:iso"""
 
-load("@rules_python//python:py_library.bzl", "py_library")
-
 package(
     default_applicable_licenses = [
     ],
@@ -35,6 +33,8 @@ py_library(
         "//nisaba/scripts/natural_translit/phonology:feature",
         "//nisaba/scripts/natural_translit/phonology:phon",
         "//nisaba/scripts/natural_translit/phonology:phoneme_inventory",
+        "//nisaba/scripts/natural_translit/utils:type_op",
+        "@org_opengrm_pynini//pynini",
     ],
 )
 
@@ -46,6 +46,7 @@ py_library(
         "//nisaba/scripts/natural_translit/script:char",
         "//nisaba/scripts/natural_translit/utils:fst_list",
         "//nisaba/scripts/natural_translit/utils:rewrite_functions",
+        "@org_opengrm_pynini//pynini",
     ],
 )
 
@@ -115,6 +116,7 @@ py_library(
         ":psa_phoneme_inventory",
         "//nisaba/scripts/natural_translit/latin:ltn_inventory",
         "//nisaba/scripts/natural_translit/phonology:phon",
+        "//nisaba/scripts/natural_translit/utils:alignment",
         "//nisaba/scripts/natural_translit/utils:fst_list",
         "//nisaba/scripts/natural_translit/utils:rewrite_functions",
         "@org_opengrm_pynini//pynini",

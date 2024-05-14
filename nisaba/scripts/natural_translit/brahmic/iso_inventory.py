@@ -36,7 +36,7 @@ ISO - typ mapping
 'ạ': 'an'
 
 """
-
+import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
 from nisaba.scripts.natural_translit.script import char as c
 from nisaba.scripts.natural_translit.utils import fst_list as fl
@@ -263,7 +263,7 @@ def iso_to_typ_rules() -> fl.FstList:
   )
 
 
-def to_typ(iso: str) -> str:
+def to_typ(iso: str) -> pyn.Fst:
   """Temporary function for testing purposes."""
   return fl.FstList(iso, iso_to_typ_rules()).compose()
 

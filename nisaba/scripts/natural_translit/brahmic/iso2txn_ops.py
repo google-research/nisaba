@@ -223,7 +223,7 @@ H_ASP = rw.reassign(
 )
 
 ADDAK = rw.rewrite_ls(
-    [[char.ph, char.ph + char.ph] for char in iso.ONSET_CONSONANT], ph.SIL
+    [(char.ph, char.ph + char.ph) for char in iso.ONSET_CONSONANT], ph.SIL
 )
 
 AUM_AON = rw.reassign(gr.U_I, ph.U, ph.O, following=(gr.ANS + al.SKIP + al.EOW))

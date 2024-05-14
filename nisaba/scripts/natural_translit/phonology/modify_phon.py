@@ -19,6 +19,7 @@ import pynini as pyn
 from nisaba.scripts.natural_translit.phonology import feature
 from nisaba.scripts.natural_translit.phonology import phon as p
 from nisaba.scripts.natural_translit.utils import alignment as al
+from nisaba.scripts.natural_translit.utils import type_op as ty
 
 f = feature.FEATURE_INVENTORY
 
@@ -27,9 +28,7 @@ def modifier_phon(mod_alias: str, txn: str, ftr: list[str], ipa: str) -> p.Phon:
   return p.Phon.base(txn, ftr, ipa, alias=mod_alias)
 
 
-def qualified_modifier(
-    modifier: p.Phon, qualifier: p.Phon, ipa: str
-) -> list[p.Phon]:
+def qualified_modifier(modifier: p.Phon, qualifier: p.Phon, ipa: str) -> p.Phon:
   """Derives a modifier feature with a qualifier."""
   return modifier_phon(
       modifier.alias + qualifier.txn.upper(),
@@ -84,7 +83,7 @@ MOD = p.phon_inventory(
 def derive_with_suffix(
     phon: p.Phon,
     modifier: p.Phon,
-    new_tr: pyn.FstLike = None
+    new_tr: pyn.Fst = pyn.Fst()
 ) -> p.Phon:
   """Makes a new Phon from a phoneme Phon and a suffix Phon.
 
@@ -116,14 +115,15 @@ def derive_with_suffix(
   )
   ```
   """
-  alias = phon.alias + modifier.txn.upper()
   txn = phon.txn + modifier.txn
-  ftr = phon.ftr + modifier.ftr
-  ph = al.enclose_phoneme(txn)
-  ipa = phon.ipa + modifier.ipa
-  tr_dict = phon.tr_dict.copy()
-  tr_dict.update(p.new_tr(modifier.ftr[0], new_tr, phon.tr_dict['base']))
-  return p.Phon(alias, txn, ftr, ph, ipa, tr_dict, cmp=None)
+  return p.Phon(
+      phon.alias + modifier.txn.upper(),
+      txn,
+      phon.ftr + modifier.ftr,
+      al.enclose_phoneme(txn),
+      phon.ipa + modifier.ipa,
+      phon.tr_dict | p.new_tr(modifier.ftr[0], new_tr, phon.tr_dict['base'])
+  )
 
 
 def devoiced(phon: p.Phon) -> p.Phon:
@@ -158,10 +158,10 @@ def intonation(value: p.Phon, ipa: str) -> p.Phon:
 
 
 def compose(
-    phons: [p.Phon],
+    phons: list[p.Phon],
     ftr: str,
-    new_tr: str = None,
-    alt_tr_dict: dict[str] = None,
+    new_tr: ty.FstIterable = ty.UNSPECIFIED,
+    alt_tr_dict: ty.DictOrNothing = ty.UNSPECIFIED,
 ) -> p.Phon:
   """Makes a composite Phon.
 
@@ -202,52 +202,53 @@ def compose(
   """
   cmp_list = []
   for phon in phons:
-    cmp_list.extend(p.get_cmp_list(phon))
-  alias = cmp_list[0].alias
-  new_txn = cmp_list[0].txn
-  new_ftr = [ftr] + cmp_list[0].ftr
-  new_ph = cmp_list[0].ph
-  new_ipa = cmp_list[0].ipa
-  new_base_tr = cmp_list[0].tr_dict['base'].copy()
-  new_cmp = [cmp_list[0]]
+    cmp_list += phon.cmp
+  composed = p.Phon(
+      cmp_list[0].alias,
+      cmp_list[0].txn,
+      [ftr] + cmp_list[0].ftr,
+      cmp_list[0].ph,
+      cmp_list[0].ipa,
+      cmp=[cmp_list[0]],
+  )
+  base_tr = cmp_list[0].tr_dict['base'].copy()
   for cmp in cmp_list[1:]:
-    alias += '_' + cmp.alias
-    new_txn += MOD.CMB.txn + cmp.txn
-    new_ftr.extend(cmp.ftr)
-    new_ph = new_ph + MOD.CMB.ph + cmp.ph
-    new_ipa += MOD.CMB.ipa + cmp.ipa
-    new_base_tr += cmp.tr_dict['base']
-    new_cmp.append(cmp)
-  new_tr_dict = {'base': new_base_tr}
-  new_tr_dict.update(p.new_tr(ftr, new_tr, new_base_tr))
-  if alt_tr_dict:
-    new_tr_dict.update(alt_tr_dict)
-  return p.Phon(alias, new_txn, new_ftr, new_ph, new_ipa, new_tr_dict, new_cmp)
+    composed.alias += '_' + cmp.alias
+    composed.txn += MOD.CMB.txn + cmp.txn
+    composed.ftr += cmp.ftr
+    composed.ph = composed.ph + MOD.CMB.ph + cmp.ph
+    composed.ipa += MOD.CMB.ipa + cmp.ipa
+    composed.cmp.append(cmp)
+    base_tr = base_tr + cmp.tr_dict['base']
+  composed.tr_dict = {'base': base_tr} | p.new_tr(ftr, new_tr, base_tr)
+  if isinstance(alt_tr_dict, dict):
+    composed.tr_dict |= alt_tr_dict
+  return composed
 
 
 def diphthong(
-    vowels: [p.Phon], diph: pyn.FstLike,
-    semi: pyn.FstLike = None, mono: pyn.FstLike = None
+    vowels: list[p.Phon],
+    diph: pyn.FstLike,
+    semi: ty.FstIterable = ty.UNSPECIFIED,
+    mono: ty.FstIterable = ty.UNSPECIFIED,
 ) -> p.Phon:
   """Composes a diphthong."""
   tr_dict = {}
-  if semi:
+  if isinstance(semi, pyn.Fst):
     tr_dict['semivowel'] = semi
-  if mono:
+  if isinstance(mono, pyn.Fst):
     tr_dict['monophthong'] = mono
   return compose(vowels, f.diphthong, diph, tr_dict)
 
 
-def affricate(
-    cons: [p.Phon], affr: pyn.FstLike
-) -> p.Phon:
+def affricate(cons: list[p.Phon], affr: pyn.FstLike) -> p.Phon:
   """Composes an affricate."""
   return compose(cons, f.affricate, affr)
 
 
 def ls_affricate(
-    stop: p.Phon, frics: [p.Phon], tr: pyn.FstLike
-) -> [p.Phon]:
+    stop: p.Phon, frics: list[p.Phon], tr: pyn.FstLike
+) -> list[p.Phon]:
   """Composes list of affricates and their geminations."""
   affr = []
   for fric in frics:
@@ -258,14 +259,12 @@ def ls_affricate(
   return affr
 
 
-def click(
-    stop: p.Phon, release: p.Phon
-) -> p.Phon:
+def click(stop: p.Phon, release: p.Phon) -> p.Phon:
   """Composes a click Phon from a stop and a click release."""
   return compose([stop, release], f.coarticulated)
 
 
-def ls_click(stops: [p.Phon], releases: [p.Phon]) -> [p.Phon]:
+def ls_click(stops: list[p.Phon], releases: list[p.Phon]) -> list[p.Phon]:
   """Composes list of click co-articulations from stops and releases."""
   clicks = []
   for stop in stops:

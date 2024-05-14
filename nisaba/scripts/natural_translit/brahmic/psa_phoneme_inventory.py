@@ -14,10 +14,12 @@
 
 """Pan South Asian phoneme inventory."""
 
+import pynini as pyn
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import feature
 from nisaba.scripts.natural_translit.phonology import phon as p
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory
+from nisaba.scripts.natural_translit.utils import type_op as ty
 
 f = feature.FEATURE_INVENTORY
 ph = phoneme_inventory.PHON_INVENTORY
@@ -27,11 +29,11 @@ tr = ltn.TRANSLIT_INVENTORY
 
 def _import_to_psa(
     phon: p.Phon,
-    psa: str = None,
+    psa: ty.FstIterable = ty.UNSPECIFIED,
 ) -> p.Phon:
   """Import Phons and add Pan South Asian translits."""
   # Check phon class to set the default translit.
-  if psa:
+  if isinstance(psa, pyn.Fst):
     psa_tr = psa
   elif f.affricate in phon.ftr:
     psa_tr = phon.tr_dict[f.affricate]

@@ -25,8 +25,8 @@ TRANSLIT_DIPHTHONG = p.ls_translit_by_key(ph.DIPHTHONG, 'diphthong')
 TRANSLIT_AFFRICATE = p.ls_translit_by_key(ph.AFFRICATE, 'affricate')
 TRANSLIT_BASE = p.ls_translit_base(ph.PHONEMES)
 IGNORE_MODIFIERS = rw.rewrite_ls(
-    [mod.ph, tr.DEL] for mod in ph.COMBINING_MODIFIERS
+    [(mod.ph, tr.DEL) for mod in ph.COMBINING_MODIFIERS]
 )
 DEL_REPEATED_SUBSTRING = rw.rewrite_ls(
-    [char.tr + char.tr, char.tr] for char in ltn.OTHER_SUBSTRING
+    [(char.tr + char.tr, char.tr) for char in ltn.OTHER_SUBSTRING]
 )
