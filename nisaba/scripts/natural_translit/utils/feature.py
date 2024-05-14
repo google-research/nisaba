@@ -207,6 +207,17 @@ class Feature(ty.Thing):
           self.alias, ', '.join(items)
       )
 
+    def _item_set(self) -> set['Feature']:
+      return self._items if isinstance(self._items, set) else set(self._items)
+
+    def add(self, *features: 'Feature.ITERABLE') -> 'Feature.Set':
+      for feature in features:
+        if isinstance(feature, Feature):
+          self._item_set().add(feature)
+        elif isinstance(feature, Iterable):
+          self.add(*feature)
+      return self
+
     @classmethod
     def aspect_dict(
         cls, *features: 'Feature.ITERABLE'
@@ -219,7 +230,7 @@ class Feature(ty.Thing):
 
     def remove(self, *features) -> 'Feature.Set':
       for feature in Feature.Set(*features):
-        self._items.discard(feature)
+        self._item_set().discard(feature)
       return self
 
     def replace(
@@ -243,13 +254,13 @@ class Feature(ty.Thing):
       return Feature.Set(self)
 
     def difference(self, *features) -> 'Feature.Set':
-      return Feature.Set(*self._items.difference(Feature.Set(*features)))
+      return Feature.Set(*self._item_set().difference(Feature.Set(*features)))
 
     def union(self, *features) -> 'Feature.Set':
-      return Feature.Set(*self._items.union(Feature.Set(*features)))
+      return Feature.Set(*self._item_set().union(Feature.Set(*features)))
 
     def intersection(self, *features) -> 'Feature.Set':
-      return Feature.Set(*self._items.intersection(Feature.Set(*features)))
+      return Feature.Set(*self._item_set().intersection(Feature.Set(*features)))
 
     def distance(self, features: 'Feature.ITERABLE') -> float:
       """Returns the minimum distance between the items in this set and f."""

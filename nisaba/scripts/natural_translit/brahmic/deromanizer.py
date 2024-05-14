@@ -168,7 +168,7 @@ class Deromanizer(i.Inventory):
     members = derom.DeromMapping.as_list(member_list)
     for member in members:
       for group in groups:
-        p_list = ty.dict_get(group, member.priority, [])
+        p_list = group.get(member.priority, [])
         if member not in p_list: p_list.append(member)
         group[member.priority] = p_list
 

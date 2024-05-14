@@ -27,8 +27,11 @@ type_op.py/enforce_list: returns [5]
 
 import inspect
 import pathlib
+from typing import TypeVar
 from absl import logging
 import pynini as pyn
+
+T = TypeVar('T')
 
 
 def _add_caller(message: str, callstack_index: int) -> str:
@@ -77,10 +80,10 @@ def dbg_message(
 
 
 def dbg_return(
-    return_value: ...,
+    return_value: T,
     message: str = '',
     callstack_index: int = 0
-) -> ...:
+) -> T:
   if logging.level_debug():
     dbg_message(_return_message(return_value, message), callstack_index + 1)
   return return_value

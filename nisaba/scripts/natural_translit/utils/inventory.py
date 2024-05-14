@@ -18,8 +18,11 @@ This class will replace the named tuples in inventory.py and the functions used
 to build or process the inventories currently scattered accross modules.
 """
 
+from typing import TypeVar
 from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
+
+T = TypeVar('T')
 
 
 class Inventory(ty.IterableThing):
@@ -38,8 +41,6 @@ class Inventory(ty.IterableThing):
   supplement with alias `vowels`. In this case, `ltn.vowels` will point to L,
   but it won't be included in iterations like 'for gr in ltn`.
   """
-
-  _HAS_DYNAMIC_ATTRIBUTES = True
 
   def __init__(self, alias: str = '', typed: ty.TypeOrNothing = ty.UNSPECIFIED):
     super().__init__(alias=alias)
@@ -61,8 +62,9 @@ class Inventory(ty.IterableThing):
     new = cls(alias, typed)
     for item in items:
       new.add_item(item, attr)
-    for s in ty.enforce_list(suppls):
-      new.add_suppl(s)
+    if isinstance(suppls, list):
+      for s in suppls:
+        new.add_suppl(s)
     return new
 
   def _add_field(self, alias: str, value: ...) -> bool:
@@ -119,7 +121,7 @@ class Inventory(ty.IterableThing):
     if added: self.suppl_aliases.append(alias)
     return added
 
-  def get(self, alias: str, default: ... = ty.MISSING) -> ...:
+  def get(self, alias: str, default: T = ty.MISSING) -> T:
     if alias in self.item_aliases or alias in self.suppl_aliases:
       return log.dbg_return(
           getattr(self, alias, default), 'for alias ' + alias
