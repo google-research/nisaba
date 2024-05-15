@@ -24,25 +24,44 @@ def _build_inventory() -> grapheme.Grapheme.Inventory:
   g = grapheme.Grapheme
   grf = g.GR_FEATURES
   inventory = g.Inventory(g.GR_FEATURES.script.latn)
-  lowercase_features = f.Set(
-      grf.script.latn,
-      grf.case.lower,
-  )
   lowercase_args = [
       ['a', grf.ph_class.vwl],
+      ['b', grf.ph_class.cons],
+      ['c', grf.ph_class.cons],
+      ['d', grf.ph_class.cons],
+      ['e', grf.ph_class.vwl],
+      ['f', grf.ph_class.cons],
+      ['g', grf.ph_class.cons],
+      ['h', grf.ph_class.cons],
+      ['i', grf.ph_class.vwl],
+      ['j', grf.ph_class.cons],
       ['k', grf.ph_class.cons],
       ['l', grf.ph_class.cons],
+      ['m', grf.ph_class.cons],
+      ['n', grf.ph_class.cons],
+      ['o', grf.ph_class.vwl],
       ['p', grf.ph_class.cons],
+      ['q', grf.ph_class.cons],
+      ['r', grf.ph_class.cons],
       ['s', grf.ph_class.cons],
+      ['t', grf.ph_class.cons],
       ['u', grf.ph_class.vwl],
+      ['v', grf.ph_class.cons],
+      ['w', grf.ph_class.cons],
+      ['x', grf.ph_class.cons],
+      ['y', [grf.ph_class.cons, grf.ph_class.vwl]],
+      ['z', grf.ph_class.cons],
   ]
   inventory.add_graphemes(
       *[
-          g.from_char(char, char, f.Set(lowercase_features, features))
+          g.from_char(char, char, f.Set(grf.script.latn, features))
           for char, features in lowercase_args
       ],
       list_alias='lower',
   )
+  for lower in inventory.lower:
+    upper = g.from_char(lower.raw.upper(), lower.alias + '_uc', lower.features)
+    inventory.add_pairs(grf.case.lower, grf.case.upper, (lower, upper))
   return inventory
 
 graphemes = _build_inventory()

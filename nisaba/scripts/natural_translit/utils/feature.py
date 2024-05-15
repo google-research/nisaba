@@ -228,14 +228,15 @@ class Feature(ty.Thing):
         distances.update({feature.aspect: value_set.add(feature)})
       return distances
 
-    def remove(self, *features) -> 'Feature.Set':
+    def remove(self, *features: 'Feature.ITERABLE') -> 'Feature.Set':
       for feature in Feature.Set(*features):
         self._item_set().discard(feature)
       return self
 
     def replace(
-        self, old: tuple['Feature.ITERABLE', ...],
-        new: tuple['Feature.ITERABLE', ...]
+        self,
+        old: 'Feature.ITERABLE',
+        new: 'Feature.ITERABLE',
     ) -> 'Feature.Set':
       for feature in Feature.Set(old):
         self.remove(feature)
@@ -329,7 +330,7 @@ class Feature(ty.Thing):
           isoceles: 0.00
           round: 1.00
       }
-    resulting in all troangular rooms to match in terms of shape, but
+    resulting in all triangular rooms to match in terms of shape, but
     there can be different rules for the precise shapes eg.
     if room.has_feature(equilateral): do x
 
