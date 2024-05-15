@@ -71,6 +71,7 @@ class Symbol(ty.Thing):
       value of the inventory is Symbol.Inventory.EMPTY.
   """
 
+  OR_NOTHING = Union['Symbol', ty.Nothing]
   SYM_FEATURES = _symbol_features()
 
   class ReservedIndex(enum.IntEnum):
@@ -141,6 +142,33 @@ class Symbol(ty.Thing):
         + '\n  '.join([sym.description(show_features) for sym in syms])
         + '\n'
     )
+
+  # Stub functions to avoid rewrites when symbol features are profiles instead
+  # of sets.
+  def has_feature(self, feature: ft.Feature) -> bool:
+    return feature in self.features
+
+  def add_features(self, *features: ft.Feature.ITERABLE) -> None:
+    self.features.add(features)
+
+  def remove_features(self, *features: ft.Feature.ITERABLE) -> None:
+    self.features.remove(features)
+
+  def replace_features(
+      self, old: ft.Feature.ITERABLE, new: ft.Feature.ITERABLE
+  ) -> None:
+    self.features.replace(old, new)
+
+  def pair(
+      self,
+      from_feature: ft.Feature,
+      to_feature: ft.Feature,
+      symbol: 'Symbol',
+  ) -> None:
+    setattr(self, to_feature.text, symbol)
+    setattr(symbol, from_feature.text, self)
+    self.replace_features(to_feature, from_feature)
+    symbol.replace_features(from_feature, to_feature)
 
   class Inventory(inventory.Inventory):
     """Symbol inventory.
@@ -237,7 +265,7 @@ class Symbol(ty.Thing):
         self,
         key: ...,
         source_dict: Union[dict[Any, 'Symbol'], str],
-        default: Union['Symbol', ty.Nothing] = ty.UNSPECIFIED,
+        default: 'Symbol.OR_NOTHING' = ty.UNSPECIFIED,
     ) -> 'Symbol':
       """Get symbol by key from source_dict.
 
@@ -271,6 +299,42 @@ class Symbol(ty.Thing):
     def text_lookup(self, text: str) -> 'Symbol':
       """Get symbol by its text field."""
       return log.dbg_return(self.lookup(text, self.text_dict))
+
+    def add_pairs(
+        self,
+        from_feature: ft.Feature,
+        to_feature: ft.Feature,
+        *pairs: tuple['Symbol', 'Symbol'],
+    ) -> None:
+      self.make_suppl(from_feature.alias, [])
+      self.make_suppl(to_feature.alias, [])
+      from_list = self.get(from_feature.alias)
+      to_list = self.get(to_feature.alias)
+      for sym1, sym2 in pairs:
+        self.add_symbols(sym1, sym2)
+        sym1.pair(from_feature, to_feature, sym2)
+        if sym1 not in from_list:
+          from_list.append(sym1)
+        if sym2 not in to_list:
+          to_list.append(sym2)
+
+    def pair_lookup(self, symbol: 'Symbol', feature: ft.Feature) -> 'Symbol':
+      """Gets feature pair of a symbol.
+
+      Args:
+        symbol: The symbol whose pair is being looked up.
+        feature: The opposing feature that the target symbol differs from the
+          given symbol.
+
+      Returns:
+        The symbol that is paired with the given symbol and feature. If no pair
+          is found, returns the symbol itself.
+      """
+      if hasattr(symbol, feature.text):
+        pair = getattr(symbol, feature.text)
+        if isinstance(pair, Symbol):
+          return pair
+      return symbol
 
     def raw_from_unknown(self, raw: str = '') -> 'Symbol':
       """Makes and adds a new raw symbol to the inventory from a string."""

@@ -34,5 +34,11 @@ class BasicLatinTest(absltest.TestCase):
   def test_lowercase_list(self):
     self.assertIn(_latn.a, _latn.lower)
 
+  def test_uppercase(self):
+    self.assertEqual(_latn.text_lookup('A'), _latn.a_uc)
+    self.assertEqual(_latn.a.upper, _latn.a_uc)
+    self.assertEqual(_latn.a_uc.lower, _latn.a)
+    self.assertIn(_latn.a_uc, _latn.upper)
+
 if __name__ == '__main__':
   absltest.main()
