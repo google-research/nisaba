@@ -252,10 +252,13 @@ class Symbol(ty.Thing):
         Symbol
       """
       if isinstance(source_dict, str):
-        source_dict = ty.get_attribute(self, source_dict, {}, dict)
-      if ty.not_instance(default, Symbol):
-        default = self.CTRL.unk
-      return log.dbg_return(ty.dict_get(source_dict, key, default))
+        source_dict = getattr(self, source_dict, {})
+      default = default if ty.not_nothing(default) else Symbol.CTRL.unk
+      return log.dbg_return(
+          source_dict.get(
+              key, default if isinstance(default, Symbol) else Symbol()
+          )
+      )
 
     def index_lookup(self, index: int) -> 'Symbol':
       """Get symbol by its index field."""

@@ -30,6 +30,16 @@ iso = iso_inventory.TRANSLIT_INVENTORY
 # TODO: Remove dicts and private functions when graphemes have these
 # conversions as class methods.
 
+
+def _get_from_dict(
+    dictionary: dict[str, pyn.FstLike], key: pyn.FstLike
+) -> ty.FstIterable:
+  try:
+    return log.dbg_return(log.text_of(dictionary[key]))
+  except KeyError:
+    return log.dbg_return(ty.MISSING, 'invalid key')
+
+
 _BRH_MONO_DICT_ARGS = [
     [iso.A, iso.A_I, iso.AA, iso.AA_I],
     [iso.E, iso.E_I, iso.EE, iso.EE_I],
@@ -58,8 +68,8 @@ def _sign_independent_dict():
 _SIGN_INDEPENDENT_DICT = _sign_independent_dict()
 
 
-def _independent_vowel(vowel_sign: pyn.FstLike) -> pyn.FstLike:
-  return ty.dict_get(_SIGN_INDEPENDENT_DICT, log.text_of(vowel_sign))
+def _independent_vowel(vowel_sign: pyn.FstLike) -> ty.FstIterable:
+  return _get_from_dict(_SIGN_INDEPENDENT_DICT, log.text_of(vowel_sign))
 
 
 def _short_long_dict():
@@ -72,8 +82,8 @@ def _short_long_dict():
 _SHORT_LONG_DICT = _short_long_dict()
 
 
-def _long_vowel(arg: pyn.FstLike) -> pyn.FstLike:
-  return ty.dict_get(_SHORT_LONG_DICT, log.text_of(arg))
+def _long_vowel(arg: pyn.FstLike) -> ty.FstIterable:
+  return _get_from_dict(_SHORT_LONG_DICT, log.text_of(arg))
 
 _BRH_ASP_DICT_ARGS = [
     [iso.B, iso.BH],
@@ -88,8 +98,8 @@ _BRH_ASP_DICT_ARGS = [
 _UNASP_ASP_DICT = {log.text_of(arg[0]): arg[1] for arg in _BRH_ASP_DICT_ARGS}
 
 
-def _aspirated_consonant(arg: pyn.FstLike) -> pyn.FstLike:
-  return ty.dict_get(_UNASP_ASP_DICT, log.text_of(arg))
+def _aspirated_consonant(arg: pyn.FstLike) -> ty.FstIterable:
+  return _get_from_dict(_UNASP_ASP_DICT, log.text_of(arg))
 
 
 class DeromMapping(ty.Thing):

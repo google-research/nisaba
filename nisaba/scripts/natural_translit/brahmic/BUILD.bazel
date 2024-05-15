@@ -156,8 +156,8 @@ py_test(
         ":derom_inventory",
         ":iso_inventory",
         "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/utils:test_op",
         "//nisaba/scripts/natural_translit/utils:type_op",
-        "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
     ],
 )

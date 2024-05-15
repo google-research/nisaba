@@ -22,15 +22,18 @@ b.features = None, a and b won't be evaluated as having the same features.
 TODO(): Fix typing in natural_translit.
 """
 
-from typing import Any, Iterable, Type, Union
+from typing import Iterable, Type, TypeVar, Union
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import log_op as log
 
 # Custom types
+T = TypeVar('T')
 
 
 class _ObjectWithAliasAndValue:
   """Parent class for Nothing and Thing. See child classes for details."""
+
+  _HAS_DYNAMIC_ATTRIBUTES = True
 
   def __init__(self, alias: str):
     self.alias = self._set_alias(alias)
@@ -253,13 +256,11 @@ class IterableThing(Thing):
       if self.valid_item(item):
         if isinstance(self._items, list):
           self._items.append(item)
-        if isinstance(self._items, set):
-          self._items.add(item)
       elif isinstance(item, Iterable) and not isinstance(item, str):
         self.add(*item)
     return self
 
-  def item(self, index: int, default: ... = MISSING) -> ...:
+  def item(self, index: int, default: T = MISSING) -> T:
     if index in range(-len(self), len(self)):
       return self._items[index]
     return default
@@ -478,114 +479,3 @@ def is_empty(obj: ...) -> bool:
 
 def not_empty(obj: ...) -> bool:
   return not is_empty(obj)
-
-
-def get_element(search_in: ..., index: int, default: ... = MISSING) -> ...:
-  """Returns a[index] if possible, default value if not."""
-  if not isinstance(search_in, Iterable):
-    return log.dbg_return(
-        default, log.class_and_texts(search_in) + ' not iterable'
-    )
-  try:
-    return search_in[index]
-  except IndexError:
-    return log.dbg_return(default, 'index error')
-
-
-def enforce_range(
-    start: IntOrNothing,
-    stop: IntOrNothing,
-    default_start: IntOrNothing = UNSPECIFIED,
-    default_stop: IntOrNothing = UNSPECIFIED,
-) -> range:
-  """Enforces range type for int or Nothing arguments.
-
-  Args:
-    start: Start of range.
-    stop: Stop of range.
-    default_start: Optional start value if start is Nothing.
-    default_stop: Optional stop value if stop is Nothing.
-
-  Fail value is range(0) to ensure type but in_range() always returns false.
-
-  Eg.
-  `enforce_range(1, 5)` returns `range(1, 5)`
-  `enforce_range(MISSING, 5)` returns `range(0)`
-  `enforce_range(1, 5, 0, 10)` returns `range(1, 5)`
-  `enforce_range(MISSING, 5, 0, 10)` returns `range(0, 5)`
-  `enforce_range(1, MISSING, 0, 10)` returns `range(1, 10)`
-  `enforce_range(1, MISSING, 0, MISSING)` returns `range(0)`
-
-  default_start and default_stop values for Nothing start and stop args for
-  cases like:
-  ```
-    enforce_range(
-        previous_vowel_index,
-        next_vowel_index,
-        default_start=0,
-        default_stop=len(word))
-  ```
-
-  Returns:
-    range
-  """
-  r_start = start if isinstance(start, int) else default_start
-  r_stop = stop if isinstance(stop, int) else default_stop
-  if isinstance(r_start, int) and isinstance(r_stop, int):
-    r = range(r_start, r_stop)
-  else:
-    r = range(0)
-  return log.dbg_return(
-      r, log.class_and_texts(start, stop, default_start, default_stop)
-  )
-
-
-def in_range(
-    look_for: IntOrNothing,
-    start: IntOrNothing,
-    stop: IntOrNothing,
-    default_start: IntOrNothing = UNSPECIFIED,
-    default_stop: IntOrNothing = UNSPECIFIED,
-) -> bool:
-  """Checks if look_for is in an enforced range."""
-  return log.dbg_return_in(
-      look_for, enforce_range(start, stop, default_start, default_stop)
-  )
-
-
-def enforce_list(obj: ListOrNothing) -> list[Any]:
-  """Enforces list type for list or Nothing arguments."""
-  # TODO: catch dict iterables as list
-  if isinstance(obj, list):
-    return obj
-  return log.dbg_return([], log.from_class_and_text(obj))
-
-
-def in_list(look_for: ..., look_in: ListOrNothing) -> bool:
-  """Checks if look_for is an element of a list enforced from look_in."""
-  return log.dbg_return_in(look_for, enforce_list(look_in))
-
-
-def enforce_dict(obj: DictOrNothing) -> dict[Any, Any]:
-  """Enforces dict type for dict or Nothing arguments."""
-  if isinstance(obj, dict):
-    return obj
-  return log.dbg_return({}, log.from_class_and_text(obj))
-
-
-def dict_get(obj: DictOrNothing, key: ..., default: ... = MISSING) -> ...:
-  try:
-    return log.dbg_return(enforce_dict(obj).get(key, default))
-  except TypeError:
-    return log.dbg_return(default, 'invalid key type')
-
-
-def enforce_set(obj: SetOrNothing) -> set[Any]:
-  """Enforces set type for set or Nothing arguments."""
-  if isinstance(obj, set):
-    return obj
-  return log.dbg_return(set(), log.from_class_and_text(obj))
-
-
-def in_set(look_for: ..., look_in: ...) -> bool:
-  return log.dbg_return_in(look_for, enforce_set(look_in))
