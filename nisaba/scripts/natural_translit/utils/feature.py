@@ -182,6 +182,13 @@ class Feature(ty.Thing):
       )
     return max_dist
 
+  def is_in(self, obj: ...) -> bool:
+    """Checks if this feature is contained within the given object."""
+    return value_in(self, obj)
+
+  def not_in(self, obj: ...) -> bool:
+    return not value_in(self, obj)
+
   class Set(ty.IterableThing):
     """Feature set.
 
@@ -272,6 +279,15 @@ class Feature(ty.Thing):
         if dist < min_dist: min_dist = dist
       return min_dist
 
+    def has_feature(self, value: 'Feature.Aspect.VALUES'):
+      """Checks if the given value or one of its children is in this set."""
+      if value in self:
+        return True
+      for feature in self:
+        if value in feature.parent_list:
+          return True
+      return False
+
   class ValueListType(enum.Enum):
     EQUIDISTANT = 0
     LINEAR = 1
@@ -347,7 +363,7 @@ class Feature(ty.Thing):
       self.add(*features)
       self.list_type = list_type
       self.step = step
-      self.parent_list = self
+      self.parent_list = []
 
     def distance(
         self, values1: 'Feature.Aspect.VALUES', values2: 'Feature.Aspect.VALUES'
@@ -380,7 +396,7 @@ class Feature(ty.Thing):
       """
       aspect.add_suppl(self)
       for i, item in enumerate(self):
-        item.parent_list = self
+        item.parent_list = [self] + self.parent_list
         if isinstance(item, Feature) and item not in aspect:
           aspect.add_feature(item)
         elif isinstance(item, Feature.ValueList):
@@ -442,13 +458,24 @@ class Feature(ty.Thing):
       of nesting, especially with mixed list types.
       ```
       """
-      if first.parent_list != self or last.parent_list != self:
+      if first.parent_list[0] != self or last.parent_list[0] != self:
         return Feature.Set()
       i1, i2 = self._items.index(first), self._items.index(last)
       start, stop = min(i1, i2), max(i1, i2)
       between = Feature.Set(self._items[start+1:stop])
       if i1 < i2: return between.union(first, last)
       return self.set().difference(between)
+
+    def has_feature(self, value: 'Feature.Aspect.VALUES') -> bool:
+      """Checks if the given value or one of its children is in this list."""
+      return value.is_in(self)
+
+    def is_in(self, obj: ...) -> bool:
+      """Checks if this list is contained within the given object."""
+      return value_in(self, obj)
+
+    def not_in(self, iterable: Iterable['Feature']) -> bool:
+      return not self.is_in(iterable)
 
   class Aspect(inventory.Inventory):
     """An aspect that can be defined by a list of contrastive values.
@@ -534,7 +561,7 @@ class Feature(ty.Thing):
         first: 'Feature.Aspect.VALUES', last: 'Feature.Aspect.VALUES'
     ) -> None:
       self.add_suppl(
-          self._make_set(alias, first.parent_list.range(first, last))
+          self._make_set(alias, first.parent_list[0].range(first, last))
       )
 
     def populate(
@@ -560,6 +587,10 @@ class Feature(ty.Thing):
       self.set('all', self)
       self.suppl_feature(Feature('any'))
       self.suppl_feature(Feature('n_a', 'not_applicable'))
+
+    def has_feature(self, value: 'VALUES') -> bool:
+      """Checks if the given value or one of its children is in this aspect."""
+      return value.is_in(self)
 
   class Inventory(inventory.Inventory):
     """An inventory of Aspects and their contrastive features.
@@ -602,7 +633,7 @@ class Feature(ty.Thing):
       self.add_suppl(old.copy_and_update(alias, *params))
 
   class Profile(inventory.Inventory):
-    """"Feature profile for an object based on a feature inventory.
+    """Feature profile for an object based on a feature inventory.
 
     The item aliases of a profile are the aspect aliases in the feature
     inventory, and item values are the features that apply to the object.
@@ -741,6 +772,12 @@ class Feature(ty.Thing):
     ) -> float:
       return self.compare(p, aspects)[1]
 
+    def has_feature(self, value: 'Feature.Aspect.VALUES') -> bool:
+      """Checks if the given value or one of its children is in this profile."""
+      for feature_set in self:
+        if feature_set.has_feature(value): return True
+      return False
+
   @classmethod
   def equidistant(
       cls, alias: Union[str, tuple[str, str]],
@@ -762,3 +799,44 @@ class Feature(ty.Thing):
   ) -> ValueList:
     return cls.ValueList(alias, cls.ValueListType.CYCLIC, step, *values)
 
+
+def value_in(value: 'Feature.Aspect.VALUES', obj: ...) -> bool:
+  """Checks if a feature value is contained within an object.
+
+  Args:
+    value: The value to be checked.
+    obj: The object to be checked.
+
+  Returns:
+    If the object is the same as the value or the object is an iterable and
+      the value is in the iterable, returns True.
+    If the object, for example a symbol, has a has_feature method, returns the
+      result of has_feature.
+    If the value is a ValueList, recursively checks all values contained within
+      the list and returns true if a match is found.
+    Example:
+      ```
+      f.Aspect(
+          f.equidistant('gr_class',
+              f.equidistant('boundary',
+                  f.equidistant('punct',
+                      f('end'), f('left'), f('right'), f('split'),
+                      step=0.25,
+                  ),
+                  f('space'),
+                  step=0.25,
+          ),
+      hyphen = Symbol(features={left, right, split})
+      ```
+      `value_in(gr_class.split, hyphen.features)`: `True`
+      `value_in(gr_class.left, hyphen.features)`: `True`
+      `value_in(gr_class.punct, hyphen.features)`: `True`
+      `value_in(gr_class.boundary, hyphen.features)`: `True`
+      `value_in(gr_class.space, hyphen.features)`: `False`
+  """
+  return (
+      obj == value
+      or obj in value.parent_list
+      or (isinstance(obj, Iterable) and value in Feature.Set(obj))
+      or (hasattr(obj, 'has_feature') and obj.has_feature(value))
+  )

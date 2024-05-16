@@ -32,6 +32,7 @@ def _symbol_features() -> ft.Feature.Inventory:
               'type',
               f('abst', 'abstract'),
               f('ctrl', 'control'),
+              f('imp', 'implicit'),
               f('raw'),
           )
       ),
@@ -141,6 +142,9 @@ class Symbol(ty.Thing):
         + '\n  '.join([sym.description(show_features) for sym in syms])
         + '\n'
     )
+
+  def has_feature(self, value: ft.Feature.Aspect.VALUES) -> bool:
+    return value.is_in(self.features)
 
   class Inventory(inventory.Inventory):
     """Symbol inventory.

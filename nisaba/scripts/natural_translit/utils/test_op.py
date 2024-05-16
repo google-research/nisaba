@@ -115,6 +115,28 @@ class TestCase(absltest.TestCase):
       distance = ftr.Feature.ERROR_DISTANCE
     self.assertEqual(distance, expected_distance)
 
+  def AssertFeatureIn(self, value: ftr.Feature.Aspect.VALUES, obj: ...) -> None:
+    self.assertTrue(ftr.value_in(value, obj))
+
+  def AssertFeatureNotIn(
+      self, value: ftr.Feature.Aspect.VALUES, obj: ...
+  ) -> None:
+    self.assertFalse(ftr.value_in(value, obj))
+
+  def AssertHasFeature(
+      self,
+      obj: ...,
+      value: ftr.Feature.Aspect.VALUES,
+  ):
+    self.assertTrue(ftr.value_in(value, obj))
+
+  def AssertNotHasFeature(
+      self,
+      obj: ...,
+      value: ftr.Feature.Aspect.VALUES,
+  ):
+    self.assertFalse(ftr.value_in(value, obj))
+
   # Iterable asserts
 
   def AssertEqualItems(

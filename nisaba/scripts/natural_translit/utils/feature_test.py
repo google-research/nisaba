@@ -134,6 +134,24 @@ class FeatureTest(test_op.TestCase):
   def test_set_not_false(self):
     self.assertNotIn(r.warmth.cold, r.warmth.not_cold)
 
+  def test_feature_in(self):
+    self.assertTrue(r.door.shut.is_in([r.warmth.warm, r.door.cls]))
+    self.assertTrue(r.door.shut.not_in([r.warmth.cold, r.door.closed]))
+    self.assertTrue(r.door.cls.is_in(r.room2.door))
+    self.assertTrue(r.door.open.not_in(r.room2.door))
+    self.AssertFeatureIn(r.door.cls, r.room2)
+    self.AssertFeatureNotIn(r.door.open, r.room2)
+
+  def test_has_feature(self):
+    self.AssertHasFeature([r.warmth.warm, r.door.cls], r.door.shut)
+    self.AssertNotHasFeature([r.warmth.cold, r.door.closed], r.door.shut)
+    self.assertTrue(r.room2.door.has_feature(r.door.shut))
+    self.assertTrue(r.room2.door.has_feature(r.door.cls))
+    self.AssertNotHasFeature(r.room2.door, r.door.open)
+    self.assertTrue(r.room2.has_feature(r.door.shut))
+    self.assertTrue(r.room2.has_feature(r.door.cls))
+    self.AssertNotHasFeature(r.room2, r.door.open)
+
   def test_max_dist(self):
     self.assertEqual(r.warmth.max_dist, 3.00)
 

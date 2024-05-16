@@ -62,6 +62,7 @@ _SYM = _sym_inventory()
 _DEVA = sym.Symbol.Inventory('deva', *_SYM)
 _LATN = _latn_inventory()
 _COMBINED = sym.Symbol.Inventory('combined', *_DEVA, *_LATN)
+_FTR = sym.Symbol.SYM_FEATURES
 
 
 class SymbolTest(test_op.TestCase):
@@ -167,6 +168,13 @@ class SymbolTest(test_op.TestCase):
     self.assertEqual(_DEVA.parse('🦄', _COMBINED), [_COMBINED.from_unk_1])
     self.assertEqual(_LATN.parse('🦄', _COMBINED), [_COMBINED.from_unk_1])
 
+  def test_has_feature(self):
+    x = sym.Symbol('x', 'x')
+    x.features = _FTR.type.imp
+    self.AssertHasFeature(x, _FTR.type.imp)
+    self.AssertNotHasFeature(x, _FTR.type.raw)
+    self.AssertHasFeature(_DEVA.a_ind, _FTR.type.raw)
+    self.AssertNotHasFeature(_DEVA.a_ind, _FTR.type.imp)
 
 if __name__ == '__main__':
   absltest.main()
