@@ -44,13 +44,12 @@ namespace {
 
 // Uses composition and shortest path to return min cost alignment.
 ::fst::StdVectorFst GetMinErrorAlignment(const ::fst::StdVectorFst &ifst,
-                                           const ::fst::StdVectorFst &ofst,
-                                           ::fst::StdVectorFst *align_mod) {
+                                       const ::fst::StdVectorFst &ofst,
+                                       ::fst::StdVectorFst *align_mod) {
   ArcSort(align_mod, ::fst::ILabelCompare<::fst::StdArc>());
   ::fst::StdVectorFst ifst_o_align_mod;
   ::fst::Compose(ifst, *align_mod, &ifst_o_align_mod);
-  ::fst::ArcSort(&ifst_o_align_mod,
-                   ::fst::OLabelCompare<::fst::StdArc>());
+  ::fst::ArcSort(&ifst_o_align_mod, ::fst::OLabelCompare<::fst::StdArc>());
   ::fst::StdVectorFst ifst_o_align_mod_o_ofst;
   ::fst::Compose(ifst_o_align_mod, ofst, &ifst_o_align_mod_o_ofst);
   ::fst::StdVectorFst alignment;
@@ -79,7 +78,7 @@ bool BetterErrorValues(const EditDistanceDouble &this_min_error_values,
 
 // Creates linear string Fst from vector of symbols, adding to symbol table.
 ::fst::StdVectorFst GetStringFst(absl::Span<const std::string> token_string,
-                                   ::fst::SymbolTable *syms) {
+                               ::fst::SymbolTable *syms) {
   ::fst::StdVectorFst fst;
   fst.SetStart(fst.AddState());
   int curr_state = fst.Start();
@@ -98,8 +97,8 @@ bool BetterErrorValues(const EditDistanceDouble &this_min_error_values,
 
 // Finds minimum cost alignment between two string automata.
 ::fst::StdVectorFst AlignStringFsts(const ::fst::StdVectorFst &ref_fst,
-                                      const ::fst::StdVectorFst &test_fst,
-                                      int num_symbols) {
+                                  const ::fst::StdVectorFst &test_fst,
+                                  int num_symbols) {
   ::fst::StdVectorFst align_mod;
   align_mod.SetStart(align_mod.AddState());
   align_mod.SetFinal(align_mod.Start(), 0.0);
@@ -113,7 +112,7 @@ bool BetterErrorValues(const EditDistanceDouble &this_min_error_values,
       // If sym == sub_sym, cost is 0.0, otherwise 1.0.
       align_mod.AddArc(align_mod.Start(),
                        ::fst::StdArc(sym, sub_sym, sym == sub_sym ? 0.0 : 1.0,
-                                       align_mod.Start()));
+                                   align_mod.Start()));
     }
   }
   return impl::GetMinErrorAlignment(test_fst, ref_fst, &align_mod);
@@ -130,8 +129,7 @@ EditDistanceInt CalculatePairEditDistance(const ::fst::StdVectorFst &ref_fst,
   ed_int.reference_length = ref_fst.NumStates() - 1;
   while (curr_state >= 0 && min_cost_alignment.NumArcs(curr_state) > 0) {
     QCHECK_EQ(min_cost_alignment.NumArcs(curr_state), 1);
-    ::fst::ArcIterator<::fst::StdVectorFst> aiter(min_cost_alignment,
-                                                      curr_state);
+    ::fst::ArcIterator<::fst::StdVectorFst> aiter(min_cost_alignment, curr_state);
     ::fst::StdArc arc = aiter.Value();
     if (arc.ilabel != arc.olabel) {  // This is an edit in the alignment.
       if (arc.ilabel == 0) {

@@ -49,14 +49,13 @@ namespace rewrite {
 template <class Arc>
 class RewriteManager {
  public:
-  using Transducer = ::fst::Fst<Arc>;
-  using MutableTransducer = ::fst::VectorFst<Arc>;
-  using SymbolTable = ::fst::SymbolTable;
+  using Transducer = ::::fst::Fst<Arc>;
+  using MutableTransducer = ::::fst::VectorFst<Arc>;
+  using SymbolTable = ::::fst::SymbolTable;
 
   // Do not use the manager until FSTs are loaded with Load.
   // TODO: Add symbol table support, or YAGNI?
-  explicit RewriteManager(
-      ::fst::TokenType token_type = ::fst::TokenType::BYTE)
+  explicit RewriteManager(::::fst::TokenType token_type = ::::fst::TokenType::BYTE)
       : compiler_(token_type), token_type_(token_type) {}
 
   // FAR IO.
@@ -174,8 +173,8 @@ class RewriteManager {
   // Resets all the private fields.
   void Reset();
 
-  const ::fst::StringCompiler<Arc> compiler_;
-  const ::fst::TokenType token_type_;
+  const ::::fst::StringCompiler<Arc> compiler_;
+  const ::::fst::TokenType token_type_;
   absl::flat_hash_map<std::string, std::unique_ptr<const Transducer>> map_;
   std::unique_ptr<const SymbolTable> gensyms_;
 };
@@ -183,8 +182,8 @@ class RewriteManager {
 template <class Arc>
 bool RewriteManager<Arc>::Load(const std::string &filename) {
   Reset();
-  std::unique_ptr<::fst::STTableFarReader<Arc>> reader(
-      ::fst::STTableFarReader<Arc>::Open(filename));
+  std::unique_ptr<::::fst::STTableFarReader<Arc>> reader(
+      ::::fst::STTableFarReader<Arc>::Open(filename));
   if (!reader) {
     LOG(ERROR) << "Unable to read FAR: " << filename;
     return false;
@@ -357,14 +356,13 @@ bool RewriteManager<Arc>::Matches(
                       mpdt_assignments_rule)) {
     return false;
   }
-  static const ::fst::OLabelCompare<Arc> ocomp;
-  ::fst::ArcSort(&lattice, ocomp);
+  static const ::::fst::OLabelCompare<Arc> ocomp;
+  ::::fst::ArcSort(&lattice, ocomp);
   MutableTransducer output_fst;
   compiler_(output, &output_fst);
-  static const ::fst::IntersectOptions opts(true,
-                                                ::fst::SEQUENCE_FILTER);
-  ::fst::Intersect(lattice, output_fst, &lattice, opts);
-  return lattice.Start() != ::fst::kNoStateId;
+  static const ::::fst::IntersectOptions opts(true, ::::fst::SEQUENCE_FILTER);
+  ::::fst::Intersect(lattice, output_fst, &lattice, opts);
+  return lattice.Start() != ::::fst::kNoStateId;
 }
 
 template <class Arc>
@@ -427,8 +425,8 @@ void RewriteManager<Arc>::AddToMap(absl::string_view rule,
     gensyms_.reset(fst.InputSymbols()->Copy());
   } else {
     auto sorted_fst = std::make_unique<MutableTransducer>(fst);
-    static const ::fst::ILabelCompare<Arc> icomp;
-    ::fst::ArcSort(sorted_fst.get(), icomp);
+    static const ::::fst::ILabelCompare<Arc> icomp;
+    ::::fst::ArcSort(sorted_fst.get(), icomp);
     map_[rule] = std::move(sorted_fst);
   }
 }
@@ -439,7 +437,7 @@ void RewriteManager<Arc>::Reset() {
   gensyms_.reset();
 }
 
-using StdRewriteManager = RewriteManager<::fst::StdArc>;
+using StdRewriteManager = RewriteManager<::::fst::StdArc>;
 
 }  // namespace rewrite
 

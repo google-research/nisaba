@@ -48,7 +48,7 @@ class GrmManagerSpec : public AbstractGrmManager<Arc> {
   bool LoadArchive(const std::string &filename);
 
   // Returns the generated symbol table.
-  std::unique_ptr<::fst::SymbolTable> GetGeneratedSymbolTable() const;
+  std::unique_ptr<::::fst::SymbolTable> GetGeneratedSymbolTable() const;
 
  private:
   GrmManagerSpec(const GrmManagerSpec &) = delete;
@@ -57,8 +57,8 @@ class GrmManagerSpec : public AbstractGrmManager<Arc> {
 
 template <typename Arc>
 bool GrmManagerSpec<Arc>::LoadArchive(const std::string &filename) {
-  std::unique_ptr<::fst::FarReader<Arc>> reader(
-         ::fst::STTableFarReader<Arc>::Open(filename));
+  std::unique_ptr<::::fst::FarReader<Arc>> reader(
+     ::::fst::STTableFarReader<Arc>::Open(filename));
   if (!reader) {
     LOG(ERROR) << "Unable to open FAR: " << filename;
     return false;
@@ -67,7 +67,7 @@ bool GrmManagerSpec<Arc>::LoadArchive(const std::string &filename) {
 }
 
 template <typename Arc>
-std::unique_ptr<::fst::SymbolTable>
+std::unique_ptr<::::fst::SymbolTable>
 GrmManagerSpec<Arc>::GetGeneratedSymbolTable() const {
   const auto *symbolfst = GetFst("*StringFstSymbolTable");
   return symbolfst ? absl::WrapUnique(symbolfst->InputSymbols()->Copy())
@@ -75,11 +75,11 @@ GrmManagerSpec<Arc>::GetGeneratedSymbolTable() const {
 }
 
 // A lot of code outside this build uses GrmManager with the old meaning of
-// GrmManagerSpec<::fst::StdArc>, forward-declaring it as a class. To
+// GrmManagerSpec<::::fst::StdArc>, forward-declaring it as a class. To
 // obviate the need to change all that outside code, we provide this derived
 // class:
 
-class GrmManager : public GrmManagerSpec<::fst::StdArc> {};
+class GrmManager : public GrmManagerSpec<::::fst::StdArc> {};
 
 }  // namespace thrax
 

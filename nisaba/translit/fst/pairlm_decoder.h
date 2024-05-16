@@ -48,13 +48,13 @@ class PairLMDecoder {
   }
 
   // Transliterates a full string, returning an Fst of results.
-  ::fst::StdVectorFst TransliterateString(absl::string_view input_line,
-                                            int k_best);
+  ::::fst::StdVectorFst TransliterateString(absl::string_view input_line,
+                                          int k_best);
 
   // Prints output from transliteration along with user provided line prefix.
   std::string PrintTransliterations(
       absl::string_view line_prefix,
-      const ::fst::StdVectorFst &transliteration_fst,
+      const ::::fst::StdVectorFst &transliteration_fst,
       bool include_final_endline = true) const;
 
   // Check if input word is in global cache.
@@ -69,14 +69,14 @@ class PairLMDecoder {
     TranslitContext(std::string epsilon_symbol) {
       cand_syms.AddSymbol(epsilon_symbol);
       input_syms.AddSymbol(epsilon_symbol);
-      cands_to_lm_fst = std::make_unique<::fst::StdVectorFst>();
+      cands_to_lm_fst = std::make_unique<::::fst::StdVectorFst>();
       cands_to_lm_fst->SetStart(cands_to_lm_fst->AddState());
       cands_to_lm_fst->SetFinal(cands_to_lm_fst->Start(), 0.0);
     }
-    ::fst::SymbolTable cand_syms;
-    ::fst::SymbolTable input_syms;
-    std::unique_ptr<::fst::StdVectorFst> cands_to_lm_fst;
-    absl::flat_hash_map<std::string, ::fst::StdVectorFst>
+    ::::fst::SymbolTable cand_syms;
+    ::::fst::SymbolTable input_syms;
+    std::unique_ptr<::::fst::StdVectorFst> cands_to_lm_fst;
+    absl::flat_hash_map<std::string, ::::fst::StdVectorFst>
         word_transliteration_cache;
     absl::flat_hash_map<std::string, bool> mixed_with_precomputed;
     absl::Mutex mutex;
@@ -84,19 +84,19 @@ class PairLMDecoder {
 
   // Transliterates a segmented word, concatenating the result from each segment
   // and returning an Fst of results.
-  ::fst::StdVectorFst TransliterateSegmentedWord(
+  ::::fst::StdVectorFst TransliterateSegmentedWord(
       const std::vector<std::string> &segmented_word, int k_best,
       TranslitContext &fst_params);
 
   // Transliterates an unsegmented word, returning an Fst of results.
-  ::fst::StdVectorFst TransliterateUnsegmentedWord(
-      absl::string_view input_word, int k_best, TranslitContext &fst_params)
+  ::::fst::StdVectorFst TransliterateUnsegmentedWord(absl::string_view input_word,
+                                                   int k_best,
+                                                   TranslitContext &fst_params)
       ABSL_LOCKS_EXCLUDED(mutex_);
 
   // Transliterates a single word, returning an Fst of results.
-  ::fst::StdVectorFst TransliterateWord(absl::string_view input_word,
-                                          int k_best,
-                                          TranslitContext &fst_params)
+  ::::fst::StdVectorFst TransliterateWord(absl::string_view input_word,
+                                        int k_best, TranslitContext &fst_params)
       ABSL_LOCKS_EXCLUDED(mutex_);
 
   // Initializes full class for transliteration.
@@ -129,8 +129,8 @@ class PairLMDecoder {
       absl::string_view input_word) const;
 
   // Returns a lattice of possible single word transliterations.
-  ::fst::StdVectorFst GetWordTransliterations(absl::string_view input_word,
-                                                bool prune_lattice) const;
+  ::::fst::StdVectorFst GetWordTransliterations(absl::string_view input_word,
+                                              bool prune_lattice) const;
 
   // Puts arc in Fst that maps from candidate to lm_fst_ symbols.
   void AddToCandsToLMFst(absl::string_view new_symbol, int cand_sym,
@@ -141,7 +141,7 @@ class PairLMDecoder {
   // will have the correct language model symbol on the olabel if required.
   void AddCandSymArc(absl::string_view new_symbol, double cost,
                      int destination_state, TranslitContext &fst_params,
-                     ::fst::StdVectorFst *word_transliterations)
+                     ::::fst::StdVectorFst *word_transliterations)
       ABSL_LOCKS_EXCLUDED(mutex_);
 
   // Segments candidate word symbol into word pieces in language model and
@@ -156,26 +156,27 @@ class PairLMDecoder {
 
   // Builds Fst mapping from candidate transliteration to lm_fst_ symbol(s).
   void BuildCandToLMFst(absl::string_view new_symbol,
-                        ::fst::StdVectorFst *cand_to_lm);
+                        ::::fst::StdVectorFst *cand_to_lm);
 
   // Build FST containing transliterations from global cache
   void ExtractCachedWordTransliterations(absl::string_view input_word,
                                          TranslitContext &fst_params,
-                                         ::fst::StdVectorFst &cached);
+                                         ::::fst::StdVectorFst &cached);
 
   // Builds the transliteration Fst word-by-word from input_line string.
-  ::fst::StdVectorFst BuildTransliterationFst(
-      absl::string_view input_line, int k_best, TranslitContext &fst_params,
-      std::vector<int> *unique_arc_id);
+  ::::fst::StdVectorFst BuildTransliterationFst(absl::string_view input_line,
+                                              int k_best,
+                                              TranslitContext &fst_params,
+                                              std::vector<int> *unique_arc_id);
 
   // Composes input word lattice with n-gram language model.
-  ::fst::StdVectorFst ComposeLatticeWithLM(
-      const ::fst::StdVectorFst &transliteration_fst) const;
+  ::::fst::StdVectorFst ComposeLatticeWithLM(
+      const ::::fst::StdVectorFst &transliteration_fst) const;
 
   // Collects the costs for each unique arc in the transliteration Fst lattice,
   // which, because it is pushed, represents the arc's posterior probability.
   std::vector<double> CollectUniqueArcCosts(
-      const ::fst::StdVectorFst &string_lm_composed_fst,
+      const ::::fst::StdVectorFst &string_lm_composed_fst,
       const std::vector<int> &unique_arc_id) const;
 
   // Puts posterior probabilities and output labels on arcs of transliteration
@@ -184,28 +185,28 @@ class PairLMDecoder {
       const std::vector<int> &unique_arc_id,
       const std::vector<double> &unique_arc_cost, int k_best,
       absl::string_view input_line, TranslitContext &fst_params,
-      ::fst::StdVectorFst *transliteration_fst) const;
+      ::::fst::StdVectorFst *transliteration_fst) const;
 
   // Performs a final pruning of transliterations per word position.
   void ApplyFinalKBestFilter(int k_best,
-                             ::fst::StdVectorFst *transliteration_fst) const;
+                             ::::fst::StdVectorFst *transliteration_fst) const;
 
-  std::unique_ptr<::fst::StdVectorFst> translit_fst_;  // PairLM model.
+  std::unique_ptr<::::fst::StdVectorFst> translit_fst_;  // PairLM model.
   bool translit_fst_is_transducer_;  // Whether PairLM model is transducer.
   bool add_to_cache_;  // Whether to cache word transliterations internally.
 
   // FSTs for mapping from unicode codepoints to/from pair symbols.
-  std::unique_ptr<::fst::StdVectorFst> unicode_to_pair_fst_;
-  std::unique_ptr<::fst::StdVectorFst> pair_to_unicode_fst_;
+  std::unique_ptr<::::fst::StdVectorFst> unicode_to_pair_fst_;
+  std::unique_ptr<::::fst::StdVectorFst> pair_to_unicode_fst_;
   absl::flat_hash_set<int> covered_input_chars_;   // Set of input characters.
-  std::unique_ptr<::fst::StdVectorFst> lm_fst_;  // Language model fst.
+  std::unique_ptr<::::fst::StdVectorFst> lm_fst_;    // Language model fst.
   int lm_oov_index_;  // Index of OOV symbol in language model.
   double oov_cost_;  // Cost of OOV beyond that given by language model.
   std::string word_piece_internal_prefix_;  // Word-internal word-piece prefix.
   bool apply_lm_at_word_level_;  // Whether to apply LM at word level or not.
 
   // FST that encodes a trie of word-piece symbols.
-  std::unique_ptr<::fst::StdVectorFst> word_piece_trie_fst_;
+  std::unique_ptr<::::fst::StdVectorFst> word_piece_trie_fst_;
 
   // Word-piece model.
   std::unique_ptr<const WordpieceSegmenter> wpm_;

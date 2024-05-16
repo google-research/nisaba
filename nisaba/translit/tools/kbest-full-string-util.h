@@ -62,13 +62,13 @@ class EnsembleFullString {
   // Adds symbol to the weighted FST for extracting k-best.
   int AddSymToKbestWfst(int sym, int curr_state);
 
-  ::fst::SymbolTable syms_;
-  ::fst::StdVectorFst align_wfst_;
-  ::fst::StdVectorFst align_fst_;
-  ::fst::StdVectorFst kbest_wfst_;
+  nlp_::fst::SymbolTable syms_;
+  nlp_::fst::StdVectorFst align_wfst_;
+  nlp_::fst::StdVectorFst align_fst_;
+  nlp_::fst::StdVectorFst kbest_wfst_;
   std::vector<int> word_counts_;
   std::vector<std::vector<int>> ws_states_;
-  std::vector<::fst::StdVectorFst> multi_aligns_;
+  std::vector<nlp_::fst::StdVectorFst> multi_aligns_;
   std::vector<std::pair<std::string, double>> input_lists_;
 };
 

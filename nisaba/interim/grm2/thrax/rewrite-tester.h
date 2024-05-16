@@ -47,21 +47,21 @@ class RewriteTester {
   // Reader for the input in interactive version.
   bool ReadInput(std::string* s);
 
-  bool FstToStrings(const ::fst::StdVectorFst &fst,
+  bool FstToStrings(const ::::fst::StdVectorFst &fst,
                     std::vector<std::pair<std::string, float>> *strings,
                     size_t n) const;
 
-  bool AppendLabel(::fst::StdArc::Label label, std::string *path) const;
+  bool AppendLabel(::::fst::StdArc::Label label, std::string *path) const;
 
-  ::fst::TokenType type_;
-  GrmManagerSpec<::fst::StdArc> grm_;
+  ::::fst::TokenType type_;
+  GrmManagerSpec<::::fst::StdArc> grm_;
   std::vector<std::string> rules_;
-  std::unique_ptr<::fst::StringCompiler<::fst::StdArc>> compiler_;
-  std::unique_ptr<::fst::SymbolTable> byte_symtab_;
-  std::unique_ptr<::fst::SymbolTable> utf8_symtab_;
-  std::unique_ptr<::fst::SymbolTable> generated_symtab_;
-  std::unique_ptr<::fst::SymbolTable> input_symtab_;
-  std::unique_ptr<::fst::SymbolTable> output_symtab_;
+  std::unique_ptr<::::fst::StringCompiler<::::fst::StdArc>> compiler_;
+  std::unique_ptr<::::fst::SymbolTable> byte_symtab_;
+  std::unique_ptr<::::fst::SymbolTable> utf8_symtab_;
+  std::unique_ptr<::::fst::SymbolTable> generated_symtab_;
+  std::unique_ptr<::::fst::SymbolTable> input_symtab_;
+  std::unique_ptr<::::fst::SymbolTable> output_symtab_;
 
   RewriteTester(const RewriteTester&) = delete;
   RewriteTester& operator=(const RewriteTester&) = delete;

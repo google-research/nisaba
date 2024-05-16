@@ -27,8 +27,8 @@
 namespace thrax {
 namespace function {
 
-const ::fst::SymbolTable* GetByteSymbolTable();
-const ::fst::SymbolTable* GetUtf8SymbolTable();
+const ::::fst::SymbolTable* GetByteSymbolTable();
+const ::::fst::SymbolTable* GetUtf8SymbolTable();
 
 void AddToByteSymbolTable(std::string symbol, int64_t label);
 void AddToUtf8SymbolTable(std::string symbol, int64_t label);
@@ -40,8 +40,8 @@ class SymbolTableBuilder {
  public:
   SymbolTableBuilder();
 
-  const ::fst::SymbolTable* GetByteSymbolTable();
-  const ::fst::SymbolTable* GetUtf8SymbolTable();
+  const ::::fst::SymbolTable* GetByteSymbolTable();
+  const ::::fst::SymbolTable* GetUtf8SymbolTable();
 
   void AddToByteSymbolTable(std::string symbol, int64_t label);
 
@@ -53,8 +53,8 @@ class SymbolTableBuilder {
   inline void GenerateUtf8SymbolTable();
 
   absl::Mutex map_mutex_;
-  std::unique_ptr<::fst::SymbolTable> byte_symbols_;
-  std::unique_ptr<::fst::SymbolTable> utf8_symbols_;
+  std::unique_ptr<::::fst::SymbolTable> byte_symbols_;
+  std::unique_ptr<::::fst::SymbolTable> utf8_symbols_;
 };
 
 }  // namespace function

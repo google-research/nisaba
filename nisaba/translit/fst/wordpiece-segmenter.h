@@ -49,10 +49,9 @@ class WordpieceSegmenter {
 
   // Returns a transducer from word indices to wordpiece indices for word
   // indices included in input_words vector.
-  absl::StatusOr<::fst::StdVectorFst> GetWordpieceTransducer(
-      const std::vector<int> &input_words,
-      const ::fst::SymbolTable &word_syms,
-      const ::fst::SymbolTable &wordpiece_syms,
+  absl::StatusOr<::::fst::StdVectorFst> GetWordpieceTransducer(
+      const std::vector<int> &input_words, const ::::fst::SymbolTable &word_syms,
+      const ::::fst::SymbolTable &wordpiece_syms,
       const std::string &wordpiece_unk) const;
 
   // Segments input string into vector of wordpieces.

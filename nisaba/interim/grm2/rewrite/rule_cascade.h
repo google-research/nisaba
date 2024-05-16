@@ -80,14 +80,13 @@ class RuleTriple {
 template <class Arc>
 class RuleCascade : public BaseRuleCascade<Arc> {
  public:
-  using Transducer = ::fst::Fst<Arc>;
-  using MutableTransducer = ::fst::VectorFst<Arc>;
-  using SymbolTable = ::fst::SymbolTable;
+  using Transducer = ::::fst::Fst<Arc>;
+  using MutableTransducer = ::::fst::VectorFst<Arc>;
+  using SymbolTable = ::::fst::SymbolTable;
 
   // Do not use the manager until FSTs are loaded (with Load) and rules are
   // set (with SetRules).
-  explicit RuleCascade(
-      ::fst::TokenType token_type = ::fst::TokenType::BYTE)
+  explicit RuleCascade(::::fst::TokenType token_type = ::::fst::TokenType::BYTE)
       : BaseRuleCascade<Arc>(token_type), manager_(token_type) {}
 
   // Loads rules from a FAR.
@@ -179,7 +178,7 @@ bool RuleCascade<Arc>::ValidateRules() {
   return true;
 }
 
-using StdRuleCascade = RuleCascade<::fst::StdArc>;
+using StdRuleCascade = RuleCascade<::::fst::StdArc>;
 
 }  // namespace rewrite
 
