@@ -146,6 +146,114 @@ class Symbol(ty.Thing):
   def has_feature(self, value: ft.Feature.Aspect.VALUES) -> bool:
     return value.is_in(self.features)
 
+  # Placeholder function to avoid rewrites when the features attribute is
+  # changed from feature set to multiple feature profiles.
+  def add_features(self, *features: ft.Feature.ITERABLE) -> None:
+    self.features.add(features)
+
+  def set_attribute(
+      self,
+      attribute: str,
+      value: ...,
+      features_to_add: ft.Feature.ITERABLE = ty.UNSPECIFIED,
+  ) -> None:
+    """Sets the attribute of the symbol as value. Optionally adds features.
+
+    Args:
+      attribute: The to be set.
+      value: The value to assigned to the attribute.
+      features_to_add: If specified, features will be added to the symbol.
+
+    If the symbol is a control symbol, the attributes and features are not
+      changed.
+
+    Example:
+    For given roman_five = Symbol('roman_five', 'V'), the call:
+    ```
+    roman_five.set_feature_attribute('numeric', 5, gr_class.digit)
+    ```
+    results in:
+    ```
+    roman_five.numeric = 5
+    roman_five.features = {gr_class.digit}
+    ```
+    """
+    if not self.is_control():
+      setattr(self, attribute, value)
+      self.add_features(features_to_add)
+
+  def feature_pair(
+      self,
+      symbol: 'Symbol',
+      from_feature: ft.Feature,
+      to_feature: ft.Feature,
+      add_aspect: bool = True,
+      add_features: bool = True,
+  ) -> None:
+    """Defines a relation from this symbol to another based on a feature pair.
+
+    For both symbols, sets attributes for each feature, and assigns the symbol
+    associated with that feature. The attributes and features of control
+    symbols are never changed.
+
+    Args:
+      symbol: The symbol to be paired.
+      from_feature: The feature that is associated with this symbol.
+      to_feature: The feature that is associated with the other symbol.
+      add_aspect: If true, the feature of each symbol will be set as its
+        attribute named after the aspect of the feature.
+      add_features: If True, the feature associated with each symbol will be
+        added to its features.
+
+    Example:
+      Given the phonemes /k/, /g/ and /ɰ/ (alias=gu), the call for compiling
+      the protypical phoneme inventory:
+      ```
+      for vcl, vcd in [(k, g), (unk, gu), ...]:
+        vcl.pair(vcd, voiceless, voiced, add_aspect=True, add_features=True)
+      for stp, app in [(k, unk), (g, gu), ...]:
+        stp.pair(app, stop, approximant, add_aspect=True, add_features=True)
+      ```
+      results in:
+      ```
+      k.voiceless = k, k.voiced = g, k.stop = k, k.approximant = unk
+        k.voicing = voiceless, k.manner = stop, k.features = {voiceless, stop}
+      g.voiceless = k, g.voiced = g, g.stop = g, g.approximant = gu
+        g.voicing = voiced, k.manner = stop, g.features = {voiced, stop}
+      gu.voiceless = unk, gu.voiced = gu, gu.stop = g, gu.approximant = gu
+        gu.voicing = voiced, gu.manner = approximant,
+        gu.features = {voiced, approximant}
+      ```
+      The attributes and features of the control symbol `unk` remains unchanged.
+
+      After importing the same phonemes from the protypical phoneme inventory,
+      the call for Turkish voicing pair:
+      ```
+      k.pair(gu, voiceless, voiced, add_aspect=False, add_features=False)
+      ```
+      results in:
+      ```
+      k.voiceless = k, k.voiced = gu
+      gu.voiceless = k, g.voiced = gu
+      ```
+      No other attribute or any of the features are changed.
+    """
+    self.set_attribute(from_feature.text, self)
+    symbol.set_attribute(to_feature.text, symbol)
+    self.set_attribute(
+        to_feature.text,
+        symbol if not symbol.is_control() else Symbol.CTRL.unk,
+        from_feature if add_features else ty.UNSPECIFIED,
+    )
+    symbol.set_attribute(
+        from_feature.text,
+        self if not self.is_control() else Symbol.CTRL.unk,
+        to_feature if add_features else ty.UNSPECIFIED,
+    )
+    if add_aspect:
+      self.set_attribute(from_feature.aspect.text, from_feature)
+      symbol.set_attribute(to_feature.aspect.text, to_feature)
+
   class Inventory(inventory.Inventory):
     """Symbol inventory.
 
