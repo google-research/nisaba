@@ -43,8 +43,7 @@ class Inventory(ty.IterableThing):
   """
 
   def __init__(self, alias: str = '', typed: ty.TypeOrNothing = ty.UNSPECIFIED):
-    super().__init__(alias=alias)
-    if ty.not_nothing(typed): self._item_type = typed
+    super().__init__(alias=alias, typed=typed)
     self.text = alias if alias else 'New Inventory'
     self.item_aliases = []
     self.suppl_aliases = []
@@ -62,9 +61,8 @@ class Inventory(ty.IterableThing):
     new = cls(alias, typed)
     for item in items:
       new.add_item(item, attr)
-    if isinstance(suppls, list):
-      for s in suppls:
-        new.add_suppl(s)
+    for s in ty.type_check(suppls, []):
+      new.add_suppl(s)
     return new
 
   def _add_field(self, alias: str, value: ...) -> bool:
@@ -73,29 +71,6 @@ class Inventory(ty.IterableThing):
     self.__dict__[alias] = value
     return True
 
-  def _get_field_value(
-      self, thing: ty.Thing, attr: str = '',
-      typed: ty.TypeOrNothing = ty.UNSPECIFIED
-  ) -> ...:
-    """Gets the value for a field from a Thing.
-
-    Args:
-      thing: The source for the field value.
-      attr: The attribute of the Thing that will become the value of the field.
-        If attr isn't specified, the value will be the Thing itself.
-      typed: Optional type restriction for the value.
-
-    Returns:
-      Given `N1 = ty.Thing(alias='n', value_from=1)`
-      `self._get_field_value(N1)` returns `N1`
-      `self._get_field_value(N1, typed=int)` returns `ty.MISSING`
-      `self._get_field_value(N1, 'value')` returns `1`
-      `self._get_field_value(N1, 'value', typed=ty.Thing)` returns `ty.MISSING`
-
-    """
-    field_value = ty.get_attribute(thing, attr) if attr else thing
-    return field_value if ty.is_instance(field_value, typed) else ty.MISSING
-
   def add(self, *args) -> 'Inventory':
     log.dbg_message('Use add_item or add_suppl for Inventories.')
     return self
@@ -103,8 +78,8 @@ class Inventory(ty.IterableThing):
   def add_item(
       self, thing: ty.Thing, attr: str = '',
   ) -> bool:
-    field_value = self._get_field_value(thing, attr)
-    if self.invalid_item(field_value) or field_value in self: return False
+    field_value = getattr(thing, attr, ty.MISSING) if attr else thing
+    if not self.valid_item(field_value) or field_value in self: return False
     added = self._add_field(thing.alias, field_value)
     if added:
       self._items.append(field_value)

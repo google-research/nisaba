@@ -14,6 +14,7 @@
 
 """Interfaces for generating fsts from objects."""
 
+import itertools
 from typing import Union
 from nisaba.scripts.natural_translit.utils import inventory
 from nisaba.scripts.natural_translit.utils import log_op as log
@@ -38,9 +39,7 @@ class Expression(ty.IterableThing):
     return self.text
 
   def _str_items_list(self, *items: ...) -> list[str]:
-    if not items:
-      items = self
-    return [str(item) for item in items]
+    return [str(item) for item in (items if items else self)]
 
   def _str_enclosed(
       self,
@@ -49,9 +48,11 @@ class Expression(ty.IterableThing):
       left: str = '(',
       right: str = ')',
   ) -> str:
-    if ty.is_nothing(str_list):
-      str_list = self._str_items_list()
-    return '%s%s%s' % (left, separator.join(str_list), right)
+    return (
+        left
+        + separator.join(ty.type_check(str_list, self._str_items_list()))
+        + right
+    )
 
   def _add_item(self, item: 'Expression') -> None:
     """Adds an item to the Expression.
@@ -110,10 +111,7 @@ class Expression(ty.IterableThing):
   def _symbols_of(
       self, other: 'Expression.OR_SYMBOL'
   ) -> list[list[sym.Symbol]]:
-    if isinstance(other, Expression):
-      return other.symbols()
-    else:
-      return [[other]]
+    return other.symbols() if isinstance(other, Expression) else [[other]]
 
   def is_any(self) -> bool:
     if isinstance(self, sym.Symbol):
@@ -141,9 +139,7 @@ class Expression(ty.IterableThing):
       bool
     """
     if self.is_any() or other.is_any():
-      if equivalent:
-        return self.is_any() and other.is_any()
-      return True
+      return (equivalent and self.is_any() and other.is_any()) or not equivalent
     self_symbols, other_symbols = self.symbols(), self._symbols_of(other)
     self_len, other_len = len(self_symbols), len(other_symbols)
     if (
@@ -152,10 +148,7 @@ class Expression(ty.IterableThing):
         or (equivalent and self_len != other_len)
     ):
       return False
-    for sym_list in other_symbols:
-      if sym_list not in self_symbols:
-        return False
-    return True
+    return all(sym_list in self_symbols for sym_list in other_symbols)
 
   def is_equivalent(self, other: 'Expression.OR_SYMBOL') -> bool:
     return self.accepts(other, equivalent=True)
@@ -275,10 +268,10 @@ class Expression(ty.IterableThing):
     """
     if self.is_any() or other.is_any():
       return not self.is_nor() and not other.is_nor()
-    for sym_list in self._symbols_of(other):
-      if self.contains_symbol_list(sym_list, match_head, match_tail):
-        return True
-    return False
+    return any(
+        self.contains_symbol_list(sym_list, match_head, match_tail)
+        for sym_list in other.symbols()
+    )
 
   def _symbol_contains(self, other: sym.Symbol) -> bool:
     if other.is_any():
@@ -533,10 +526,7 @@ class Or(Expression):
     """
     if not self:
       return [[Atomic(sym.Symbol.CTRL.nor)]]
-    symbols = []
-    for item in self:
-      symbols.extend(item.symbols())
-    return symbols
+    return list(itertools.chain.from_iterable(item.symbols() for item in self))
 
 
 class _BaseAlignment(Expression):
@@ -659,17 +649,18 @@ class Alignment(_BaseAlignment):
     source: Alignments can be defined in an inventory as a set of rules to build
       grammars, or they can be formed by an aligner to assess the structural
       correspondence of two expressions.
-      Source Constants:
-        ALIGNER: Alignments from an aligner output that doesn't correspond to a
-          predefined rule. Eg. identity or token boundary alignments.
-        CONSTANT: Alignment class constants.
-        ENGLISH: English alignables.
-        FOREIGN: Alignables for foreign languages other than English
-        LEXICON: Alignables that come from a lexicon that will be prioritised
-          over other rules. Eg. frequent affixes or high profile entity names.
-        NATIVE: Alignables for the native language.
-        SPELLOUT: Alignables for spelled out letters.
-        UNSPECIFIED_SOURCE = Alignments from an unspecified source.
+
+  Source Constants:
+    ALIGNER: Alignments from an aligner output that doesn't correspond to a
+      predefined rule. Eg. identity or token boundary alignments.
+    CONSTANT: Alignment class constants.
+    ENGLISH: English alignables.
+    FOREIGN: Alignables for foreign languages other than English
+    LEXICON: Alignables that come from a lexicon that will be prioritised
+      over other rules. Eg. frequent affixes or high profile entity names.
+    NATIVE: Alignables for the native language.
+    SPELLOUT: Alignables for spelled out letters.
+    UNSPECIFIED_SOURCE = Alignments from an unspecified source.
   """
 
   ALIGNER = 'aligner'
@@ -709,10 +700,9 @@ class Alignment(_BaseAlignment):
     self.to_eos = to_eos
     self.operation = operation
     self.priority = priority
-    if isinstance(applied_cost, float):
-      self.applied_cost = applied_cost
-    else:
-      self.applied_cost = self.operation.base_cost
+    self.applied_cost = ty.type_check(
+        applied_cost, float(self.operation.base_cost)
+    )
     self.source = source
 
   def _context_str(

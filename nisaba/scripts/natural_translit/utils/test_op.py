@@ -32,21 +32,15 @@ class TestCase(absltest.TestCase):
       self,
       obj_1: ...,
       obj_2: ...,
-      empty: bool = False,
-      epsilon: bool = False,
-      zero: bool = True,
   ):
-    self.assertTrue(ty.is_equal(obj_1, obj_2, empty, epsilon, zero))
+    self.assertTrue(ty.is_equal(obj_1, obj_2))
 
   def AssertNotEqualValue(
       self,
       obj_1: ...,
       obj_2: ...,
-      empty: bool = False,
-      epsilon: bool = False,
-      zero: bool = True,
   ):
-    self.assertTrue(ty.not_equal(obj_1, obj_2, empty, epsilon, zero))
+    self.assertFalse(ty.is_equal(obj_1, obj_2))
 
   def AssertStrEqual(self, obj_1: ..., obj_2: ...):
     self.assertEqual(str(obj_1), str(obj_2))

@@ -49,7 +49,7 @@ class Deromanizer(i.Inventory):
   def _make_mapping_group(
       self, alias: str, value: ... = ty.UNSPECIFIED
   ) -> None:
-    self.make_suppl(alias, value if ty.is_specified(value) else {})
+    self.make_suppl(alias, ty.type_check(value, {}))
 
   def _init_items(self) -> None:
     args_list = [

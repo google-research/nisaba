@@ -43,20 +43,6 @@ class InventoryTest(absltest.TestCase):
   def test_empty_size(self):
     self.assertEmpty(i.Inventory.EMPTY)
 
-  def test_get_field_value_default(self):
-    self.assertEqual(_i1._get_field_value(_T_A_FST), _T_A_FST)
-
-  def test_get_field_value_typed(self):
-    self.assertEqual(_i1._get_field_value(_T_A_FST, typed=int), ty.MISSING)
-
-  def test_get_field_value_attr(self):
-    self.assertEqual(_i1._get_field_value(_T_A_FST, 'value'), _A_FST)
-
-  def test_get_field_value_attr_typed(self):
-    self.assertEqual(
-        _i1._get_field_value(_T_A_FST, 'value', typed=int), ty.MISSING
-    )
-
   def test_alias(self):
     self.assertEqual(_i1.b, _T_B_STR)
 

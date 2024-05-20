@@ -186,9 +186,6 @@ class Feature(ty.Thing):
     """Checks if this feature is contained within the given object."""
     return value_in(self, obj)
 
-  def not_in(self, obj: ...) -> bool:
-    return not value_in(self, obj)
-
   class Set(ty.IterableThing):
     """Feature set.
 
@@ -215,7 +212,7 @@ class Feature(ty.Thing):
       )
 
     def _item_set(self) -> set['Feature']:
-      return self._items if isinstance(self._items, set) else set(self._items)
+      return ty.type_check(self._items, set(self._items))
 
     def add(self, *features: 'Feature.ITERABLE') -> 'Feature.Set':
       for feature in features:
@@ -232,7 +229,7 @@ class Feature(ty.Thing):
       distances = {}
       for feature in Feature.Set(*features):
         value_set = distances.get(feature.aspect, Feature.Set())
-        distances.update({feature.aspect: value_set.add(feature)})
+        distances |= {feature.aspect: value_set.add(feature)}
       return distances
 
     def remove(self, *features) -> 'Feature.Set':
@@ -244,10 +241,8 @@ class Feature(ty.Thing):
         self, old: tuple['Feature.ITERABLE', ...],
         new: tuple['Feature.ITERABLE', ...]
     ) -> 'Feature.Set':
-      for feature in Feature.Set(old):
-        self.remove(feature)
-      for feature in Feature.Set(new):
-        self.add(feature)
+      self.remove(*Feature.Set(old))
+      self.add(*Feature.Set(new))
       return self
 
     def reset(self) -> 'Feature.Set':
@@ -283,10 +278,7 @@ class Feature(ty.Thing):
       """Checks if the given value or one of its children is in this set."""
       if value in self:
         return True
-      for feature in self:
-        if value in feature.parent_list:
-          return True
-      return False
+      return any(value in feature.parent_list for feature in self)
 
   class ValueListType(enum.Enum):
     EQUIDISTANT = 0
@@ -473,9 +465,6 @@ class Feature(ty.Thing):
     def is_in(self, obj: ...) -> bool:
       """Checks if this list is contained within the given object."""
       return value_in(self, obj)
-
-    def not_in(self, iterable: Iterable['Feature']) -> bool:
-      return not self.is_in(iterable)
 
   class Aspect(inventory.Inventory):
     """An aspect that can be defined by a list of contrastive values.
@@ -745,7 +734,7 @@ class Feature(ty.Thing):
       )
       if p.inventory != self.inventory:
         return '    not comparable\n    Similarity = 0\n', 0
-      if ty.is_nothing(aspects): aspects = self.inventory
+      if isinstance(aspects, ty.Nothing): aspects = self.inventory
       total_dist = 0
       max_dist = 0
       for aspect in aspects:
@@ -774,9 +763,7 @@ class Feature(ty.Thing):
 
     def has_feature(self, value: 'Feature.Aspect.VALUES') -> bool:
       """Checks if the given value or one of its children is in this profile."""
-      for feature_set in self:
-        if feature_set.has_feature(value): return True
-      return False
+      return any(feature_set.has_feature(value) for feature_set in self)
 
   @classmethod
   def equidistant(

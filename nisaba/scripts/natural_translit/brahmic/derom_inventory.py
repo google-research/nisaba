@@ -32,7 +32,7 @@ iso = iso_inventory.TRANSLIT_INVENTORY
 
 
 def _get_from_dict(
-    dictionary: dict[str, pyn.FstLike], key: pyn.FstLike
+    dictionary: dict[str, pyn.FstLike], key: str
 ) -> ty.FstIterable:
   try:
     return log.dbg_return(log.text_of(dictionary[key]))
@@ -159,8 +159,7 @@ class DeromMapping(ty.Thing):
     self.rom = self.rom_list.concat()
     self.brh_list = fl.FstList(brh_list)
     self.brh = self.brh_list.concat()
-    self.priority = len(self.rom_list)
-    if ty.is_specified(priority): self.priority += priority
+    self.priority = len(self.rom_list) + ty.type_check(priority, 0)
 
   @ classmethod
   def vowel(
@@ -200,7 +199,7 @@ class DeromMapping(ty.Thing):
         ['brh_l_v', brh_v + brh_v],  # eg. iso pp
     ])
     asp = _aspirated_consonant(new.brh)
-    if ty.is_found(asp):
+    if not isinstance(asp, ty.Nothing):
       asp_v = asp + iso.VIR
       new.add_fst_fields([
           ['rom_l_h', new.rom_l + ltn.H],  # eg. latin pph

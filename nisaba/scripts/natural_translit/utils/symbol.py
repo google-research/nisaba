@@ -93,7 +93,7 @@ class Symbol(ty.Thing):
     super().__init__(alias=alias)
     self.text = text if text else self.alias
     self.raw = raw
-    self.index = index if ty.is_specified(index) else hash(self)
+    self.index = ty.type_check(index, hash(self))
     self.name = name if name else self.alias
     self.features = ft.Feature.Set(features, alias='features')
     if self.raw:
@@ -168,7 +168,7 @@ class Symbol(ty.Thing):
         *symbols,
         typed: ty.TypeOrNothing = ty.UNSPECIFIED,
     ):
-      super().__init__(alias, typed if ty.not_nothing(typed) else Symbol)
+      super().__init__(alias, ty.type_check(typed, Symbol))
       self.index_dict = {}
       self.raw_dict = {}
       self.text_dict = {}
@@ -229,10 +229,7 @@ class Symbol(ty.Thing):
       Returns:
         The list of symbols that are successfully added to the inventory.
       """
-      syms = []
-      for sym in symbols:
-        if self._add_symbol(sym):
-          syms.append(sym)
+      syms = list(filter(self._add_symbol, [sym for sym in symbols]))
       if list_alias:
         self.make_suppl(list_alias, syms)
       return syms
@@ -257,11 +254,8 @@ class Symbol(ty.Thing):
       """
       if isinstance(source_dict, str):
         source_dict = getattr(self, source_dict, {})
-      default = default if ty.not_nothing(default) else Symbol.CTRL.unk
       return log.dbg_return(
-          source_dict.get(
-              key, default if isinstance(default, Symbol) else Symbol()
-          )
+          source_dict.get(key, ty.type_check(default, Symbol.CTRL.unk))
       )
 
     def index_lookup(self, index: int) -> 'Symbol':
@@ -312,15 +306,13 @@ class Symbol(ty.Thing):
       Returns:
         An iterable of raw symbols.
       """
-      if not isinstance(sym_inventory, Symbol.Inventory):
-        sym_inventory = self
-      symbols = []
-      for char in raw_text:
-        symbol = sym_inventory.raw_lookup(char)
-        if symbol == sym_inventory.CTRL.unk:
-          symbol = sym_inventory.raw_from_unknown(char)
-        symbols.append(symbol)
-      return symbols
+      sym_inventory = ty.type_check(sym_inventory, self)
+      return [
+          sym_inventory.raw_lookup(char)
+          if char in sym_inventory.raw_dict
+          else sym_inventory.raw_from_unknown(char)
+          for char in raw_text
+      ]
 
     def parse(
         self,

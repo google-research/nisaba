@@ -29,18 +29,6 @@ _T4 = ty.Thing(alias='T4', value_from=_T1)
 
 class TypeOpTest(test_op.TestCase):
 
-  def test_is_none(self):
-    self.assertTrue(ty.is_none(None))
-
-  def test_not_none_zero(self):
-    self.assertTrue(ty.not_none(0))
-
-  def test_not_none_list(self):
-    self.assertTrue(ty.not_none([]))
-
-  def test_is_assigned(self):
-    self.assertTrue(ty.is_assigned(0))
-
   def test_nothing_bool(self):
     self.assertFalse(ty.UNASSIGNED)
 
@@ -49,45 +37,6 @@ class TypeOpTest(test_op.TestCase):
 
   def test_nothing_text(self):
     self.assertEqual(ty.UNASSIGNED.text, 'Nothing_unassigned')
-
-  def test_not_assigned(self):
-    self.assertTrue(ty.not_assigned(ty.UNASSIGNED))
-
-  def test_is_specified(self):
-    self.assertTrue(ty.is_specified(None))
-
-  def test_not_specified(self):
-    self.assertTrue(ty.not_specified(ty.UNSPECIFIED))
-
-  def test_is_found(self):
-    self.assertTrue(ty.is_found(0))
-
-  def test_not_found(self):
-    self.assertTrue(ty.not_found(ty.MISSING))
-
-  def test_is_nothing(self):
-    self.assertTrue(ty.is_nothing(ty.MISSING))
-
-  def test_not_nothing(self):
-    self.assertTrue(ty.not_nothing(None))
-
-  def test_exists(self):
-    self.assertTrue(ty.exists(0))
-
-  def test_not_exists_none(self):
-    self.assertTrue(ty.not_exists(None))
-
-  def test_not_exists_nothing(self):
-    self.assertTrue(ty.not_exists(ty.UNSPECIFIED))
-
-  def test_not_exists_empty(self):
-    self.assertTrue(ty.not_exists(ty.MISSING))
-
-  def test_is_instance(self):
-    self.assertTrue(ty.is_instance(1, int))
-
-  def test_not_instance(self):
-    self.assertTrue(ty.not_instance(1, str))
 
   def test_thing(self):
     self.assertEqual(_T0.value, 0)
@@ -101,32 +50,6 @@ class TypeOpTest(test_op.TestCase):
 
   def test_thing_inherit_value(self):
     self.assertEqual(_T2.value, 0)
-
-  def test_has_attribute(self):
-    self.assertTrue(ty.has_attribute(complex(1, 2), 'real'))
-
-  def test_has_attribute_false(self):
-    self.assertFalse(ty.has_attribute(complex(1, 2), 'rea'))
-
-  def test_has_attribute_none(self):
-    self.assertFalse(ty.has_attribute(None, 'real'))
-
-  def test_has_attribute_type(self):
-    self.assertTrue(ty.has_attribute(complex(1, 2), 'real', typeinfo=float))
-
-  def test_has_attribute_type_false(self):
-    self.assertFalse(ty.has_attribute(complex(1, 2), 'real', typeinfo=str))
-
-  def test_get_attribute(self):
-    self.assertEqual(ty.get_attribute(complex(1, 2), 'real'), 1.0)
-
-  def test_get_attribute_default(self):
-    self.assertEqual(ty.get_attribute(complex(1, 2), 'rea', default=0), 0)
-
-  def test_get_attribute_type(self):
-    self.assertEqual(
-        ty.get_attribute(complex(1, 2), 'real', typeinfo=int, default=-1), -1
-    )
 
   def test_is_equal(self):
     self.AssertEqualValue(1, 1)
@@ -152,14 +75,8 @@ class TypeOpTest(test_op.TestCase):
   def test_equal_int_float(self):
     self.AssertEqualValue(0, 0.0)
 
-  def test_not_equal_zero(self):
-    self.AssertNotEqualValue(0.0, 0.0, zero=False)
-
-  def test_not_equal_empty(self):
-    self.AssertNotEqualValue({}, {})
-
-  def test_is_equal_empty(self):
-    self.AssertEqualValue(range(0), range(0), empty=True)
+  def test_equal_empty(self):
+    self.AssertEqualValue({}, {})
 
   def test_is_equal_fst(self):
     self.AssertEqualValue(ty.pyn.accep('a'), ty.pyn.accep('a'))
@@ -170,23 +87,11 @@ class TypeOpTest(test_op.TestCase):
   def test_not_equal_fst(self):
     self.AssertNotEqualValue(ty.pyn.accep('a'), ty.pyn.accep('b'))
 
-  def test_not_equal_epsilon(self):
-    self.AssertNotEqualValue(ty.pyn.accep(''), ty.pyn.accep(''))
+  def test_equal_epsilon(self):
+    self.AssertEqualValue(ty.pyn.accep(''), ty.pyn.accep(''))
 
-  def test_not_equal_epsilon_2(self):
-    self.AssertNotEqualValue('', ty.pyn.accep(''))
-
-  def test_is_equal_epsilon(self):
-    self.AssertEqualValue(ty.pyn.accep(''), ty.pyn.accep(''), epsilon=True)
-
-  def test_is_equal_epsilon_str(self):
-    self.AssertEqualValue(ty.pyn.accep(''), '', epsilon=True)
-
-  def test_not_equal_epsilon_zero(self):
-    self.AssertNotEqualValue(ty.pyn.accep(''), 0, epsilon=True)
-
-  def test_not_equal_zero_epsilon(self):
-    self.AssertNotEqualValue(0, ty.pyn.accep(''), epsilon=True)
+  def test_equal_epsilon_2(self):
+    self.AssertEqualValue('', ty.pyn.accep(''))
 
   def test_not_equal_none_1(self):
     self.AssertNotEqualValue(None, 1)
@@ -194,43 +99,22 @@ class TypeOpTest(test_op.TestCase):
   def test_not_equal_none_2(self):
     self.AssertNotEqualValue(1, None)
 
-  def test_not_equal_none_both(self):
-    self.AssertNotEqualValue(None, None)
+  def test_equal_none_both(self):
+    self.AssertEqualValue(None, None)
 
   def test_not_equal_nothing(self):
     self.AssertNotEqualValue(ty.UNSPECIFIED, ty.UNSPECIFIED)
 
-  def test_is_empty_list(self):
-    self.assertTrue(ty.is_empty([]))
-
-  def test_is_empty_range(self):
-    self.assertTrue(ty.is_empty(range(0)))
-
-  def test_is_empty_set(self):
-    self.assertTrue(ty.is_empty(set()))
-
-  def test_not_empty_set(self):
-    self.assertTrue(ty.not_empty({1}))
-
-  def test_is_empty_non_iterable(self):
-    self.assertFalse(ty.is_empty(_T1))
-
-  def test_is_empty_none(self):
-    self.assertFalse(ty.is_empty(None))
-
-  def test_not_empty_none(self):
-    self.assertTrue(ty.not_empty(None))
-
   def test_iterable_thing_untyped(self):
     untyped = ty.IterableThing()
     self.assertTrue(untyped.valid_item(1))
-    self.assertTrue(untyped.invalid_item(ty.MISSING))
+    self.assertFalse(untyped.valid_item(ty.MISSING))
 
   def test_iterable_thing_typed(self):
-    typed = ty.IterableThing.typed(int)
+    typed = ty.IterableThing(typed=int)
     self.assertTrue(typed.valid_item(1))
-    self.assertTrue(typed.invalid_item('a'))
-    self.assertTrue(typed.invalid_item(ty.MISSING))
+    self.assertFalse(typed.valid_item('a'))
+    self.assertFalse(typed.valid_item(ty.MISSING))
 
   def test_iterable_thing_untyped_add(self):
     untyped1 = ty.IterableThing(1)
@@ -244,7 +128,7 @@ class TypeOpTest(test_op.TestCase):
 
   def test_iterable_thing_typed_add(self):
     untyped = ty.IterableThing(1, 'a')
-    typed = ty.IterableThing.typed(int, untyped, 2, [3], ty.UNASSIGNED)
+    typed = ty.IterableThing(int, untyped, 2, [3], ty.UNASSIGNED, typed=int)
     self.assertIn(1, typed)
     self.assertIn(2, typed)
     self.assertIn(3, typed)

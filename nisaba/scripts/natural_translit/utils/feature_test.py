@@ -136,9 +136,9 @@ class FeatureTest(test_op.TestCase):
 
   def test_feature_in(self):
     self.assertTrue(r.door.shut.is_in([r.warmth.warm, r.door.cls]))
-    self.assertTrue(r.door.shut.not_in([r.warmth.cold, r.door.closed]))
+    self.assertFalse(r.door.shut.is_in([r.warmth.cold, r.door.closed]))
     self.assertTrue(r.door.cls.is_in(r.room2.door))
-    self.assertTrue(r.door.open.not_in(r.room2.door))
+    self.assertFalse(r.door.open.is_in(r.room2.door))
     self.AssertFeatureIn(r.door.cls, r.room2)
     self.AssertFeatureNotIn(r.door.open, r.room2)
 
