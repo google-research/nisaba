@@ -146,6 +146,105 @@ class Symbol(ty.Thing):
   def has_feature(self, value: ft.Feature.Aspect.VALUES) -> bool:
     return value.is_in(self.features)
 
+  # Placeholder function to avoid rewrites when the features attribute is
+  # changed from feature set to multiple feature profiles.
+  def add_features(self, *features: ft.Feature.ITERABLE) -> None:
+    self.features.add(features)
+
+  def set_attribute(
+      self,
+      attribute: str,
+      value: ...,
+      features_to_add: ft.Feature.ITERABLE = ty.UNSPECIFIED,
+  ) -> None:
+    """Sets the attribute of the symbol as value. Optionally adds features.
+
+    Args:
+      attribute: The name of the attribute to be set.
+      value: The value to be assigned to the attribute.
+      features_to_add: If specified, features will be added to the symbol.
+
+    If the symbol is a control symbol, the attributes and features are not
+      changed.
+
+    Example:
+    Given `roman_five = Symbol('roman_five', 'V')`, the call:
+    ```
+    roman_five.set_attribute('numeric', 5, gr_class.digit)
+    ```
+    results in:
+    ```
+    roman_five.numeric = 5
+    roman_five.features = {gr_class.digit}
+    ```
+    """
+    if not self.is_control():
+      setattr(self, attribute, value)
+      self.add_features(features_to_add)
+
+  def feature_pair(
+      self,
+      symbol: 'Symbol',
+      from_feature: ft.Feature,
+      to_feature: ft.Feature,
+      add_aspect: bool = True,
+      add_features: bool = True,
+  ) -> None:
+    """Defines a relation from this symbol to another based on a feature pair.
+
+    For both symbols, sets attributes for each feature as the other symbol.
+    Optionally sets the aspect of the feature as an attribute and/or adds the
+    given features to the symbol's compositional features. The attributes and
+    features of control symbols are never changed. If a non-control symbol is
+    paired with a control symbol, the pair of the non-control symbol will be
+    set as Symbol.CTRL.nos (NO SYMBOL).
+
+    Feature pairs are Symbols that are behavioral counterparts of each other in
+    terms of a pair of features, regardless of the compositional features of the
+    Symbols.
+
+    Example:
+
+    /tʃ/: `tsh.features = {voiceless, post_alveolar, affricate}`
+    /dʒ/: `dzh.features = {voiced, post_alveolar, affricate}`
+    is a prototypical voicing pair. However in Tamil `tsh` changes to `s`
+    instead of `dzh` in voicing context, even though the features of `s` are
+    `{voiceless, alveolar, fricative}`.
+    Setting `ta.t.voiced = ta.s` allows the voicing rule to be generalized as
+    `([vowel], phoneme >> phoneme.voiced, [vowel])` instead of having to list
+    the phoneme pairs for each language, while setting
+    `ta.s.voicing = voiced, ta.s.voiceless = ta.tsh` results in the correct
+    deromanization of 'selloor' to 'செல்லூர்' (cellūr). At the same time,
+    preserving the compositional features of `ta.s` allows for a more accurate
+    description of its actual articulation so that it doesn't affect other
+    applications, for example when assessing the similarity of `ta.s` to other
+    voiceless or fricative consonants.
+
+    Args:
+      symbol: The symbol to be paired.
+      from_feature: The feature that is associated with this symbol.
+      to_feature: The feature that is associated with the other symbol.
+      add_aspect: If true, the feature of each symbol will be set as its
+        attribute named after the aspect of the feature.
+      add_features: If True, the feature associated with each symbol will be
+        added to its features.
+    """
+    self.set_attribute(from_feature.text, self)
+    symbol.set_attribute(to_feature.text, symbol)
+    self.set_attribute(
+        to_feature.text,
+        symbol if not symbol.is_control() else Symbol.CTRL.nos,
+        from_feature if add_features else ty.UNSPECIFIED,
+    )
+    symbol.set_attribute(
+        from_feature.text,
+        self if not self.is_control() else Symbol.CTRL.nos,
+        to_feature if add_features else ty.UNSPECIFIED,
+    )
+    if add_aspect:
+      self.set_attribute(from_feature.aspect.text, from_feature)
+      symbol.set_attribute(to_feature.aspect.text, to_feature)
+
   class Inventory(inventory.Inventory):
     """Symbol inventory.
 
@@ -348,6 +447,7 @@ def _control_symbols() -> inventory.Inventory:
       ['eos', '​⊲​', 'END OF SEQUENCE', 3],  # U+200B + U+22B2 + U+200B
       ['oos', '​⊽​', 'OUT OF SEQUENCE', 4],  # U+200B + U+22BD + U+200B
       ['nor', '​◎​', 'NO ALTERNATIVE', 5],  # U+200B + U+25CE + U+200B
+      ['nos', '​⨱​', 'NO SYMBOL', 6],  # U+200B + U+2A31 + U+200B
   ]
   return inventory.Inventory.from_list(
       [

@@ -188,6 +188,7 @@ py_test(
     srcs = ["symbol_test.py"],
     main = "symbol_test.py",
     deps = [
+        ":feature",
         ":symbol",
         ":test_op",
         "@io_abseil_py//absl/testing:absltest",
