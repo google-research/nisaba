@@ -55,7 +55,7 @@ This scheme disambiguates substrings for grammars. For example, a rule that
 changes the transliteration of the diphthong `ph.AU` from 'au' to 'o' only
 applies to `` `s_au` `` substrings and not `` `au` `` or `` `a` `u` ``.
 
-[`iso_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic/iso_inventory.py) is a library that contains the `typ`-ISO mapping and makes `Char` for ISO characters.
+[`grapheme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic/grapheme_inventory.py) is a library that contains the `typ`-ISO mapping and makes `Char` for ISO characters.
 
 [`ltn_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/latin/ltn_inventory.py) is a library that makes `Char` for Latin script characters and transliteration substrings for romanization grammars.
 
@@ -153,7 +153,7 @@ in addition to a 'base' that is composed from its components.
 
 [`phoneme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/phonology/phoneme_inventory.py) is a library that builds a multilingual `Phon` inventory. The complete list of `Phon`s can be found [here](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/phonology/doc/phon_table.md) along with [IPA](https://www.internationalphoneticassociation.org/content/ipa-chart) mapping. The IPA symbols in this table are meant to be descriptive rather than definitive. Since related `Phon`s are derived from each other, the IPA strings are created dynamically during the derivation process. As a result, some phonemes with dedicated IPA symbols are represented as a symbol and diacritic instead. For example, the voiced bilabial implosive is represented as `bʼ` rather than the dedicated IPA symbol `ɓ`.
 
-Language specific phoneme inventories can be built by importing phonemes from the multilingual inventory. For example, the [Pan South Asian phoneme inventory](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic/psa_phoneme_inventory.py) contains the phonemes covering the unified South Asian phoneme inventory presented in [Demirsahin et al. (2018)](https://research.google/pubs/pub47341/).
+Language specific phoneme inventories can be built by importing phonemes from the multilingual inventory. For example, the [Pan South Asian phoneme inventory](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic/phoneme_inventory.py) contains the phonemes covering the unified South Asian phoneme inventory presented in [Demirsahin et al. (2018)](https://research.google/pubs/pub47341/).
 
 ## iso2txn grammars
 

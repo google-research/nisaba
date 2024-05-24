@@ -12,13 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""IPA pronunciation output."""
+"""Multilingual phoneme romanization rules."""
 
-import pynini as pyn
+from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import phon as p
 from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
+from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 
+tr = ltn.TRANSLIT_INVENTORY
 
-def txn_to_ipa() -> pyn.Fst:
-  """Converts txn to IPA and outputs only transcription strings."""
-  return p.print_only_ipa(ph.PHONEMES + [ph.MOD_INVENTORY.DURH])
+TRANSLIT_DIPHTHONG = p.ls_translit_by_key(ph.DIPHTHONG, 'diphthong')
+TRANSLIT_AFFRICATE = p.ls_translit_by_key(ph.AFFRICATE, 'affricate')
+TRANSLIT_BASE = p.ls_translit_base(ph.PHONEMES)
+IGNORE_MODIFIERS = rw.rewrite_ls(
+    [(mod.ph, tr.DEL) for mod in ph.COMBINING_MODIFIERS]
+)
+DEL_REPEATED_SUBSTRING = rw.rewrite_ls(
+    [(char.tr + char.tr, char.tr) for char in ltn.OTHER_SUBSTRING]
+)

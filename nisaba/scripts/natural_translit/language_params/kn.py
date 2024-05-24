@@ -14,47 +14,46 @@
 
 """Grammar parameters for Kannada."""
 
-from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
-from nisaba.scripts.natural_translit.brahmic import iso2txn
-from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
+from nisaba.scripts.natural_translit.brahmic import g2p
+from nisaba.scripts.natural_translit.brahmic import romanizer
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
-from nisaba.scripts.natural_translit.phonology import txn2ipa
+from nisaba.scripts.natural_translit.phonology import transcriptor
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 
 
 def _iso_to_txn() -> fl.FstList:
   """Composes the fsts from ISO characters to final txn pronunciation."""
   return fl.FstList(
-      iso2txn.iso_to_txn(),
-      iso2txn_ops.RT_TO_R,
-      iso2txn_ops.VOCALIC_U,
-      iso2txn_ops.SCHWA_A,
-      iso2txn_ops.ANUSVARA_ASSIMILATION,
-      iso2txn_ops.DEFAULT_ANUSVARA_LABIAL,
-      iso2txn_ops.JNY_TO_GNY,
+      g2p.iso_to_txn(),
+      g2p.RT_TO_R,
+      g2p.VOCALIC_U,
+      g2p.SCHWA_A,
+      g2p.ANUSVARA_ASSIMILATION,
+      g2p.DEFAULT_ANUSVARA_LABIAL,
+      g2p.JNY_TO_GNY,
   )
 
 
 def iso_to_psaf() -> fl.FstList:
   """Pan-South Asian fine grained transliteration."""
-  return fl.FstList(_iso_to_txn(), iso2ltn_ops.TXN_TO_PSAF)
+  return fl.FstList(_iso_to_txn(), romanizer.TXN_TO_PSAF)
 
 
 def iso_to_psac() -> fl.FstList:
   """Pan-South Asian coarse grained transliteration."""
-  return fl.FstList(_iso_to_txn(), iso2ltn_ops.TXN_TO_PSAC)
+  return fl.FstList(_iso_to_txn(), romanizer.TXN_TO_PSAC)
 
 
 def iso_to_nat() -> fl.FstList:
   """Kannada natural transliteration."""
   return fl.FstList(
       _iso_to_txn(),
-      iso2ltn_ops.TXN_TO_PSA_COMMON,
-      iso2ltn_ops.TRANSLIT_BY_PSA,
+      romanizer.TXN_TO_PSA_COMMON,
+      romanizer.TRANSLIT_BY_PSA,
       ltn.print_only_ltn(),
   )
 
 
 def iso_to_ipa() -> fl.FstList:
   """Pronunciation in IPA."""
-  return fl.FstList(_iso_to_txn(), txn2ipa.txn_to_ipa())
+  return fl.FstList(_iso_to_txn(), transcriptor.txn_to_ipa())

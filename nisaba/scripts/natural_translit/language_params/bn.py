@@ -13,13 +13,11 @@
 # limitations under the License.
 
 """Grammar parameters for Bengali."""
-
-from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
-from nisaba.scripts.natural_translit.brahmic import iso2txn
-from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
-from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
+from nisaba.scripts.natural_translit.brahmic import g2p
+from nisaba.scripts.natural_translit.brahmic import phoneme_inventory as psa
+from nisaba.scripts.natural_translit.brahmic import romanizer
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
-from nisaba.scripts.natural_translit.phonology import txn2ipa
+from nisaba.scripts.natural_translit.phonology import transcriptor
 from nisaba.scripts.natural_translit.utils import concat as cc
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 
@@ -43,52 +41,52 @@ _CODA_CL = fl.FstList(
     cc.concat_r(ph.RHOTIC, ph.RHOTIC),
 ).union_opt()
 
-_PROCESS_SCHWA = iso2txn_ops.process_schwa(_ONSET_CL, _CODA_CL)
+_PROCESS_SCHWA = g2p.process_schwa(_ONSET_CL, _CODA_CL)
 
 
 _TXN_OPS = fl.FstList(
-    iso2txn_ops.A_AE,
-    iso2txn_ops.VOCALIC_I,
+    g2p.A_AE,
+    g2p.VOCALIC_I,
     _PROCESS_SCHWA,
-    iso2txn_ops.SCHWA_OH,
-    iso2txn_ops.DEFAULT_ANUSVARA_VELAR,
-    iso2txn_ops.JNY_TO_GG,
-    iso2txn_ops.YY_Y,
-    iso2txn_ops.OOYY_V,
-    iso2txn_ops.BH_V,
-    iso2txn_ops.B_V,
-    iso2txn_ops.PH_F,
+    g2p.SCHWA_OH,
+    g2p.DEFAULT_ANUSVARA_VELAR,
+    g2p.JNY_TO_GG,
+    g2p.YY_Y,
+    g2p.OOYY_V,
+    g2p.BH_V,
+    g2p.B_V,
+    g2p.PH_F,
 )
 
 _PSA_OPS = fl.FstList(
-    iso2ltn_ops.AE_A,
-    iso2ltn_ops.OH_A,
-    iso2ltn_ops.RD_R,
+    romanizer.AE_A,
+    romanizer.OH_A,
+    romanizer.RD_R,
 )
 
 _NAT_OPS = fl.FstList(
-    iso2ltn_ops.SIBV_TO_SIBW,
-    iso2ltn_ops.NYJ_NJ,
-    iso2ltn_ops.AA_AO_CND,
-    iso2ltn_ops.WF_CND_OO,
-    iso2ltn_ops.OOYY_W,
-    iso2ltn_ops.IYY_I,
-    iso2ltn_ops.IGNORE_LONG,
-    iso2ltn_ops.TRANSLIT_BY_PSA,
-    iso2ltn_ops.CC_TO_CCH,
-    iso2ltn_ops.CCH_TO_CHH,
-    iso2ltn_ops.S_SHSH_TO_SSH,
+    romanizer.SIBV_TO_SIBW,
+    romanizer.NYJ_NJ,
+    romanizer.AA_AO_CND,
+    romanizer.WF_CND_OO,
+    romanizer.OOYY_W,
+    romanizer.IYY_I,
+    romanizer.IGNORE_LONG,
+    romanizer.TRANSLIT_BY_PSA,
+    romanizer.CC_TO_CCH,
+    romanizer.CCH_TO_CHH,
+    romanizer.S_SHSH_TO_SSH,
 )
 
 
 def _iso_to_txn() -> fl.FstList:
   """Composes the fsts from ISO characters to final txn pronunciation."""
-  return fl.FstList(iso2txn.iso_to_txn(), _TXN_OPS)
+  return fl.FstList(g2p.iso_to_txn(), _TXN_OPS)
 
 
 def iso_to_ipa() -> fl.FstList:
   """Pronunciation in IPA."""
-  return fl.FstList(_iso_to_txn(), txn2ipa.txn_to_ipa())
+  return fl.FstList(_iso_to_txn(), transcriptor.txn_to_ipa())
 
 
 def iso_to_psaf() -> fl.FstList:
@@ -96,8 +94,8 @@ def iso_to_psaf() -> fl.FstList:
   return fl.FstList(
       _iso_to_txn(),
       _PSA_OPS,
-      iso2ltn_ops.TRANSLIT_LONG,
-      iso2ltn_ops.TRANSLIT_BY_PSA,
+      romanizer.TRANSLIT_LONG,
+      romanizer.TRANSLIT_BY_PSA,
       ltn.print_only_ltn(),
   )
 
@@ -107,10 +105,10 @@ def iso_to_psac() -> fl.FstList:
   return fl.FstList(
       _iso_to_txn(),
       _PSA_OPS,
-      iso2ltn_ops.IGNORE_LONG,
-      iso2ltn_ops.TRANSLIT_BY_PSA,
+      romanizer.IGNORE_LONG,
+      romanizer.TRANSLIT_BY_PSA,
       ltn.print_only_ltn(),
-      iso2ltn_ops.REMOVE_REPEATED_LTN,
+      romanizer.REMOVE_REPEATED_LTN,
   )
 
 

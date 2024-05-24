@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from absl.testing import absltest
-from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
+from nisaba.scripts.natural_translit.brahmic import grapheme_inventory as iso
 from nisaba.scripts.natural_translit.utils import test_op
 
 

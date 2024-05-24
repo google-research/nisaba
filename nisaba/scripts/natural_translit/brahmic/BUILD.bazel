@@ -26,111 +26,15 @@ package(
 licenses(["notice"])
 
 py_library(
-    name = "psa_phoneme_inventory",
-    srcs = ["psa_phoneme_inventory.py"],
+    name = "acronym",
+    srcs = ["acronym.py"],
     deps = [
+        "//nisaba/scripts/natural_translit/brahmic:grapheme_inventory",
         "//nisaba/scripts/natural_translit/latin:ltn_inventory",
-        "//nisaba/scripts/natural_translit/phonology:feature",
-        "//nisaba/scripts/natural_translit/phonology:phon",
-        "//nisaba/scripts/natural_translit/phonology:phoneme_inventory",
-        "//nisaba/scripts/natural_translit/utils:type_op",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_library(
-    name = "iso_inventory",
-    srcs = ["iso_inventory.py"],
-    deps = [
-        ":psa_phoneme_inventory",
-        "//nisaba/scripts/natural_translit/script:char",
-        "//nisaba/scripts/natural_translit/utils:fst_list",
-        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_test(
-    name = "iso_inventory_test",
-    srcs = ["iso_inventory_test.py"],
-    main = "iso_inventory_test.py",
-    deps = [
-        ":iso_inventory",
-        "//nisaba/scripts/natural_translit/utils:test_op",
-        "@io_abseil_py//absl/testing:absltest",
-    ],
-)
-
-py_library(
-    name = "iso2txn",
-    srcs = ["iso2txn.py"],
-    deps = [
-        ":iso_inventory",
-        "//nisaba/scripts/natural_translit/utils:alignment",
-        "//nisaba/scripts/natural_translit/utils:fst_list",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_test(
-    name = "iso2txn_test_py",
-    srcs = ["iso2txn_test.py"],
-    main = "iso2txn_test.py",
-    deps = [
-        ":iso2txn",
-        "//nisaba/scripts/utils:test_util",
-        "@io_abseil_py//absl/testing:absltest",
-    ],
-)
-
-py_library(
-    name = "iso2txn_ops",
-    srcs = ["iso2txn_ops.py"],
-    deps = [
-        ":iso_inventory",
-        ":psa_phoneme_inventory",
-        "//nisaba/scripts/natural_translit/phonology/operations:syllable",
-        "//nisaba/scripts/natural_translit/utils:alignment",
-        "//nisaba/scripts/natural_translit/utils:concat",
-        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_test(
-    name = "iso2txn_ops_test_py",
-    srcs = ["iso2txn_ops_test.py"],
-    main = "iso2txn_ops_test.py",
-    deps = [
-        ":iso2txn_ops",
-        "//nisaba/scripts/utils:test_util",
-        "@io_abseil_py//absl/testing:absltest",
-    ],
-)
-
-py_library(
-    name = "iso2ltn_ops",
-    srcs = ["iso2ltn_ops.py"],
-    deps = [
-        ":iso_inventory",
-        ":psa_phoneme_inventory",
-        "//nisaba/scripts/natural_translit/latin:ltn_inventory",
-        "//nisaba/scripts/natural_translit/phonology:phon",
         "//nisaba/scripts/natural_translit/utils:alignment",
         "//nisaba/scripts/natural_translit/utils:fst_list",
         "//nisaba/scripts/natural_translit/utils:rewrite_functions",
         "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_test(
-    name = "iso2ltn_ops_test_py",
-    srcs = ["iso2ltn_ops_test.py"],
-    main = "iso2ltn_ops_test.py",
-    deps = [
-        ":iso2ltn_ops",
-        "//nisaba/scripts/utils:test_util",
-        "@io_abseil_py//absl/testing:absltest",
     ],
 )
 
@@ -138,7 +42,7 @@ py_library(
     name = "derom_inventory",
     srcs = ["derom_inventory.py"],
     deps = [
-        ":iso_inventory",
+        ":grapheme_inventory",
         "//nisaba/scripts/natural_translit/latin:ltn_inventory",
         "//nisaba/scripts/natural_translit/utils:fst_list",
         "//nisaba/scripts/natural_translit/utils:inventory",
@@ -154,7 +58,7 @@ py_test(
     main = "derom_inventory_test.py",
     deps = [
         ":derom_inventory",
-        ":iso_inventory",
+        ":grapheme_inventory",
         "//nisaba/scripts/natural_translit/latin:ltn_inventory",
         "//nisaba/scripts/natural_translit/utils:test_op",
         "//nisaba/scripts/natural_translit/utils:type_op",
@@ -167,7 +71,7 @@ py_library(
     srcs = ["deromanizer.py"],
     deps = [
         ":derom_inventory",
-        ":iso_inventory",
+        ":grapheme_inventory",
         "//nisaba/scripts/natural_translit/latin:ltn_inventory",
         "//nisaba/scripts/natural_translit/script:char",
         "//nisaba/scripts/natural_translit/utils:alignment",
@@ -191,5 +95,93 @@ py_test(
         "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
         "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "g2p",
+    srcs = ["g2p.py"],
+    deps = [
+        ":grapheme_inventory",
+        ":phoneme_inventory",
+        "//nisaba/scripts/natural_translit/phonology/operations:syllable",
+        "//nisaba/scripts/natural_translit/utils:alignment",
+        "//nisaba/scripts/natural_translit/utils:concat",
+        "//nisaba/scripts/natural_translit/utils:fst_list",
+        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "g2p_test",
+    srcs = ["g2p_test.py"],
+    main = "g2p_test.py",
+    deps = [
+        ":g2p",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "grapheme_inventory",
+    srcs = ["grapheme_inventory.py"],
+    deps = [
+        ":phoneme_inventory",
+        "//nisaba/scripts/natural_translit/script:char",
+        "//nisaba/scripts/natural_translit/utils:fst_list",
+        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "grapheme_inventory_test",
+    srcs = ["grapheme_inventory_test.py"],
+    main = "grapheme_inventory_test.py",
+    deps = [
+        ":grapheme_inventory",
+        "//nisaba/scripts/natural_translit/utils:test_op",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "phoneme_inventory",
+    srcs = ["phoneme_inventory.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/phonology:feature",
+        "//nisaba/scripts/natural_translit/phonology:phon",
+        "//nisaba/scripts/natural_translit/phonology:phoneme_inventory",
+        "//nisaba/scripts/natural_translit/utils:type_op",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
+    name = "romanizer",
+    srcs = ["romanizer.py"],
+    deps = [
+        ":grapheme_inventory",
+        ":phoneme_inventory",
+        "//nisaba/scripts/natural_translit/latin:ltn_inventory",
+        "//nisaba/scripts/natural_translit/phonology:phon",
+        "//nisaba/scripts/natural_translit/utils:alignment",
+        "//nisaba/scripts/natural_translit/utils:fst_list",
+        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "romanizer_test",
+    srcs = ["romanizer_test.py"],
+    main = "romanizer_test.py",
+    deps = [
+        ":romanizer",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
     ],
 )

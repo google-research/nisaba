@@ -12,29 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Tests for txn2ltn."""
+"""Tests for romanizer."""
 
 from absl.testing import absltest
-
-from nisaba.scripts.natural_translit.phonology import txn2ltn
+from nisaba.scripts.natural_translit.phonology import romanizer
 from nisaba.scripts.utils import test_util
 
 _TEST_CASES = [
-    (lambda: txn2ltn.TRANSLIT_DIPHTHONG, [
-        ('{a}{+}{i}', '`s_ai`'),
-    ]),
-    (lambda: txn2ltn.TRANSLIT_AFFRICATE, [
-        ('{t}{+}{sh}', '`s_ch`'),
-    ]),
-    (lambda: txn2ltn.TRANSLIT_BASE, [
-        ('{t}{sh}', '`t``s_sh`'),
-    ]),
-    (lambda: txn2ltn.IGNORE_MODIFIERS, [
-        ('{:h}', '`DEL`'),
-    ]),
-    (lambda: txn2ltn.DEL_REPEATED_SUBSTRING, [
-        ('`s_sh``s_sh`', '`s_sh`'),
-    ]),
+    (lambda: romanizer.TRANSLIT_DIPHTHONG, [('{a}{+}{i}', '`s_ai`')]),
+    (lambda: romanizer.TRANSLIT_AFFRICATE, [('{t}{+}{sh}', '`s_ch`')]),
+    (lambda: romanizer.TRANSLIT_BASE, [('{t}{sh}', '`t``s_sh`')]),
+    (lambda: romanizer.IGNORE_MODIFIERS, [('{:h}', '`DEL`')]),
+    (lambda: romanizer.DEL_REPEATED_SUBSTRING, [('`s_sh``s_sh`', '`s_sh`')]),
 ]
 
 

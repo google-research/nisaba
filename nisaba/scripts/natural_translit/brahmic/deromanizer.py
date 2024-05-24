@@ -17,7 +17,7 @@
 from typing import Any, Callable, Iterable, Union
 import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import derom_inventory as derom
-from nisaba.scripts.natural_translit.brahmic import iso_inventory
+from nisaba.scripts.natural_translit.brahmic import grapheme_inventory as gr
 from nisaba.scripts.natural_translit.latin import ltn_inventory
 from nisaba.scripts.natural_translit.script import char as c
 from nisaba.scripts.natural_translit.utils import alignment as al
@@ -27,7 +27,7 @@ from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 ltn = ltn_inventory.GRAPHEME_INVENTORY
-iso = iso_inventory.TRANSLIT_INVENTORY
+iso = gr.TRANSLIT_INVENTORY
 drm = derom.DEROMANIZATION_INVENTORY
 
 ParamArg = Union[ty.Nothing, derom.DeromMapping, Iterable]
@@ -293,7 +293,7 @@ class Deromanizer(i.Inventory):
 
   def to_brahmic(self) -> pyn.Fst:
     """Composes end-to-end fst for latin to Brahmic deromanization."""
-    if self.script in iso_inventory.DEROM_SCRIPTS:
+    if self.script in gr.DEROM_SCRIPTS:
       return fl.FstList(
           self.ltn2typ,
           self.typ_ops,
@@ -309,7 +309,7 @@ class Deromanizer(i.Inventory):
 
   def _rw_typ2brh(self) -> pyn.Fst:
     """Brahmic typ to Brahmic script."""
-    return fl.FstList.cross(*iso_inventory.ls_tr2brh(self.script)).union_star()
+    return fl.FstList.cross(*gr.ls_tr2brh(self.script)).union_star()
 
   def _rw_typ2iso(self) -> pyn.Fst:
     """Brahmic typ to ISO."""
@@ -317,7 +317,7 @@ class Deromanizer(i.Inventory):
         rw.insert(iso.A, iso.SCH_CONS),
         rw.delete(iso.A, following=pyn.union(iso.VOWEL_S, iso.VIR)),
         self.ind_to_sign,
-        c.print_glyph(iso_inventory.CHAR)
+        c.print_glyph(gr.CHAR)
     ).compose()
 
   def _rw_fields(

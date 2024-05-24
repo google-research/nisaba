@@ -12,19 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""South Asian multilingual phoneme assignment."""
+"""Phonological transcription rules."""
 
 import pynini as pyn
-from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
-from nisaba.scripts.natural_translit.utils import alignment as al
-from nisaba.scripts.natural_translit.utils import fst_list as fl
+from nisaba.scripts.natural_translit.phonology import phon as p
+from nisaba.scripts.natural_translit.phonology import phoneme_inventory as ph
 
 
-TYP_TO_TXN = fl.FstList.make(
-    al.assign, *[(char.gr, char.ph) for char in iso.CHAR]
-).union_star()
-
-
-def iso_to_txn() -> pyn.Fst:
-  """ISO graphemes to txn pronunciation."""
-  return iso.iso_to_typ_rules().add(TYP_TO_TXN).compose()
+def txn_to_ipa() -> pyn.Fst:
+  """Converts txn to IPA and outputs only transcription strings."""
+  return p.print_only_ipa(ph.PHONEMES + [ph.MOD_INVENTORY.DURH])

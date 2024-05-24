@@ -14,14 +14,14 @@
 
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.brahmic import derom_inventory as dm
-from nisaba.scripts.natural_translit.brahmic import iso_inventory
+from nisaba.scripts.natural_translit.brahmic import grapheme_inventory
 from nisaba.scripts.natural_translit.latin import ltn_inventory
 from nisaba.scripts.natural_translit.utils import test_op
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
 ltn = ltn_inventory.GRAPHEME_INVENTORY
-iso = iso_inventory.TRANSLIT_INVENTORY
+iso = grapheme_inventory.TRANSLIT_INVENTORY
 drm = dm.DEROMANIZATION_INVENTORY
 
 

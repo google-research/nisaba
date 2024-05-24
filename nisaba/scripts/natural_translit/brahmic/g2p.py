@@ -12,15 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Phonological operations that depend on iso graphemes."""
+"""Brahmic g2p rules."""
 
 import pynini as pyn
-from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
-from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
+from nisaba.scripts.natural_translit.brahmic import grapheme_inventory as iso
+from nisaba.scripts.natural_translit.brahmic import phoneme_inventory as psa
 from nisaba.scripts.natural_translit.phonology.operations import syllable as syl
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import concat as cc
+from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
+
+
+TYP_TO_TXN = fl.FstList.make(
+    al.assign, *[(char.gr, char.ph) for char in iso.CHAR]
+).union_star()
+
+
+def iso_to_txn() -> pyn.Fst:
+  """ISO graphemes to txn pronunciation."""
+  return iso.iso_to_typ_rules().add(TYP_TO_TXN).compose()
+
 
 gr = iso.GRAPHEME_INVENTORY
 ph = psa.PHONEME_INVENTORY

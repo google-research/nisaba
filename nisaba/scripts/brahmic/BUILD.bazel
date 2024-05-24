@@ -422,7 +422,7 @@ py_library(
         ":visual_norm.far",
         ":wellformed.far",
     ] + [
-        "//nisaba/scripts/natural_translit/languages:{}_e2e.far".format(lang)
+        "//nisaba/scripts/natural_translit/romanization:{}_iso_nat.far".format(lang)
         for lang in NATURAL_TRANSLIT_LANGS
     ],
     srcs_version = "PY3",

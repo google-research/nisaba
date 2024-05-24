@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Lint as: python3
-"""ISO inventory.
+"""Brahmic grapheme inventory.
 
 ISO - typ mapping
 
@@ -37,7 +37,7 @@ ISO - typ mapping
 
 """
 import pynini as pyn
-from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
+from nisaba.scripts.natural_translit.brahmic import phoneme_inventory as psa
 from nisaba.scripts.natural_translit.script import char as c
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw

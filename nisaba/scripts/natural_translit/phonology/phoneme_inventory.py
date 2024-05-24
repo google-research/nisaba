@@ -17,7 +17,7 @@
 
 This library builds a high coverage Phon inventory. Language specific phoneme
 inventories can be built by importing the relevant subset of Phons.
-For example: /nisaba/scripts/natural_translit/brahmic/psa_phoneme_inventory.py
+For example: /nisaba/scripts/natural_translit/brahmic/phoneme_inventory.py
 
 The multilingual inventory is used for shared multilingual or
 language agnostic modules. For example:
@@ -324,7 +324,7 @@ DIPHTHONG = [mod.diphthong(*args) for args in [
 ]]
 
 # Only the affricates whose default romanizations are different to the
-# concatenation of its componenets are listed.
+# concatenation of its components are listed.
 # For simplicity, stop parts of affricates are conflated.
 # The T in T_SS is implicitly retroflex (TT).
 VOICELESS_AFFRICATE = mod.ls_affricate(_S.T, [_S.SH, _S.SS, _S.SY], tr.S_CH)

@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Romanization rules that depend on iso graphemes."""
+"""Brahmic romanization rules."""
 
 import pynini as pyn
-from nisaba.scripts.natural_translit.brahmic import iso_inventory as iso
-from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
+from nisaba.scripts.natural_translit.brahmic import grapheme_inventory as iso
+from nisaba.scripts.natural_translit.brahmic import phoneme_inventory as psa
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
 from nisaba.scripts.natural_translit.phonology import phon
 from nisaba.scripts.natural_translit.utils import alignment as al

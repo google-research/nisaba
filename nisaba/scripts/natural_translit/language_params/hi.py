@@ -14,15 +14,14 @@
 
 """Grammar parameters for Hi."""
 
+from nisaba.scripts.natural_translit.brahmic import acronym
 from nisaba.scripts.natural_translit.brahmic import derom_inventory as derom
 from nisaba.scripts.natural_translit.brahmic import deromanizer
-from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
-from nisaba.scripts.natural_translit.brahmic import iso2txn
-from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
-from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
-from nisaba.scripts.natural_translit.brahmic.acronym import typ2acr
+from nisaba.scripts.natural_translit.brahmic import g2p
+from nisaba.scripts.natural_translit.brahmic import phoneme_inventory as psa
+from nisaba.scripts.natural_translit.brahmic import romanizer
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
-from nisaba.scripts.natural_translit.phonology import txn2ipa
+from nisaba.scripts.natural_translit.phonology import transcriptor
 from nisaba.scripts.natural_translit.utils import concat as cc
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 
@@ -65,57 +64,57 @@ _CODA_CL = fl.FstList(
     cc.concat_r(ph.RHOTIC, ph.RHOTIC),
 ).union_opt()
 
-_PROCESS_SCHWA = iso2txn_ops.process_schwa(_ONSET_CL, _CODA_CL)
+_PROCESS_SCHWA = g2p.process_schwa(_ONSET_CL, _CODA_CL)
 
 
 _TXN_OPS = fl.FstList(
-    iso2txn_ops.AI_TO_EH_LONG,
-    iso2txn_ops.AU_TO_OH_LONG,
-    iso2txn_ops.A_TO_EC,
-    iso2txn_ops.VOCALIC_I,
-    iso2txn_ops.ANUSVARA_ASSIMILATION,
+    g2p.AI_TO_EH_LONG,
+    g2p.AU_TO_OH_LONG,
+    g2p.A_TO_EC,
+    g2p.VOCALIC_I,
+    g2p.ANUSVARA_ASSIMILATION,
     _PROCESS_SCHWA,
-    iso2txn_ops.SCHWA_EC,
-    iso2txn_ops.DEFAULT_ANUSVARA_DENTAL,
-    iso2txn_ops.FINAL_ANUSVARA_NASALIZATION,
-    iso2txn_ops.JNY_TO_GY,
-    iso2txn_ops.PHPH_TO_FF,
+    g2p.SCHWA_EC,
+    g2p.DEFAULT_ANUSVARA_DENTAL,
+    g2p.FINAL_ANUSVARA_NASALIZATION,
+    g2p.JNY_TO_GY,
+    g2p.PHPH_TO_FF,
 )
 
 
 def _iso_to_txn() -> fl.FstList:
   """Composes the fsts from ISO characters to final txn pronunciation."""
-  return fl.FstList(iso2txn.iso_to_txn(), _TXN_OPS)
+  return fl.FstList(g2p.iso_to_txn(), _TXN_OPS)
 
 
 def iso_to_psaf() -> fl.FstList:
   """Pan-South Asian fine grained transliteration."""
-  return fl.FstList(_iso_to_txn(), iso2ltn_ops.TXN_TO_PSAF)
+  return fl.FstList(_iso_to_txn(), romanizer.TXN_TO_PSAF)
 
 
 def iso_to_psac() -> fl.FstList:
   """Pan-South Asian coarse grained transliteration."""
-  return fl.FstList(_iso_to_txn(), iso2ltn_ops.TXN_TO_PSAC)
+  return fl.FstList(_iso_to_txn(), romanizer.TXN_TO_PSAC)
 
 
 def iso_to_ipa() -> fl.FstList:
   """Pronunciation in IPA."""
-  return fl.FstList(_iso_to_txn(), txn2ipa.txn_to_ipa())
+  return fl.FstList(_iso_to_txn(), transcriptor.txn_to_ipa())
 
 
 def iso_to_nat() -> fl.FstList:
   """Natural transliteration."""
   return fl.FstList(
-      iso2txn.iso_to_txn(),
-      typ2acr.HI_ACR_TYP_TO_TR,
+      g2p.iso_to_txn(),
+      acronym.HI_ACR_TYP_TO_TR,
       _TXN_OPS,
-      iso2ltn_ops.SIBV_TO_SIBW,
-      iso2ltn_ops.AA_WI,
-      iso2ltn_ops.TXN_TO_PSA_COMMON,
-      iso2ltn_ops.IGNORE_LONG,
-      iso2ltn_ops.TRANSLIT_BY_PSA,
-      iso2ltn_ops.CC_TO_CCH,
-      iso2ltn_ops.CCH_TO_CHH,
-      iso2ltn_ops.S_SHSH_TO_SSH,
+      romanizer.SIBV_TO_SIBW,
+      romanizer.AA_WI,
+      romanizer.TXN_TO_PSA_COMMON,
+      romanizer.IGNORE_LONG,
+      romanizer.TRANSLIT_BY_PSA,
+      romanizer.CC_TO_CCH,
+      romanizer.CCH_TO_CHH,
+      romanizer.S_SHSH_TO_SSH,
       ltn.print_only_ltn(),
   )

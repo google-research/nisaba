@@ -19,19 +19,6 @@ package(
 )
 
 py_library(
-    name = "phon",
-    srcs = ["phon.py"],
-    deps = [
-        "//nisaba/scripts/natural_translit/utils:alignment",
-        "//nisaba/scripts/natural_translit/utils:fst_list",
-        "//nisaba/scripts/natural_translit/utils:inventory",
-        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
-        "//nisaba/scripts/natural_translit/utils:type_op",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_library(
     name = "feature",
     srcs = ["feature.py"],
     deps = [
@@ -53,6 +40,19 @@ py_library(
 )
 
 py_library(
+    name = "phon",
+    srcs = ["phon.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/utils:alignment",
+        "//nisaba/scripts/natural_translit/utils:fst_list",
+        "//nisaba/scripts/natural_translit/utils:inventory",
+        "//nisaba/scripts/natural_translit/utils:rewrite_functions",
+        "//nisaba/scripts/natural_translit/utils:type_op",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_library(
     name = "phoneme_inventory",
     srcs = ["phoneme_inventory.py"],
     deps = [
@@ -64,29 +64,8 @@ py_library(
 )
 
 py_library(
-    name = "txn2ipa",
-    srcs = ["txn2ipa.py"],
-    deps = [
-        ":phon",
-        ":phoneme_inventory",
-        "@org_opengrm_pynini//pynini",
-    ],
-)
-
-py_test(
-    name = "txn2ipa_test_py",
-    srcs = ["txn2ipa_test.py"],
-    main = "txn2ipa_test.py",
-    deps = [
-        ":txn2ipa",
-        "//nisaba/scripts/utils:test_util",
-        "@io_abseil_py//absl/testing:absltest",
-    ],
-)
-
-py_library(
-    name = "txn2ltn",
-    srcs = ["txn2ltn.py"],
+    name = "romanizer",
+    srcs = ["romanizer.py"],
     deps = [
         ":phon",
         ":phoneme_inventory",
@@ -96,11 +75,32 @@ py_library(
 )
 
 py_test(
-    name = "txn2ltn_test_py",
-    srcs = ["txn2ltn_test.py"],
-    main = "txn2ltn_test.py",
+    name = "romanizer_test",
+    srcs = ["romanizer_test.py"],
+    main = "romanizer_test.py",
     deps = [
-        ":txn2ltn",
+        ":romanizer",
+        "//nisaba/scripts/utils:test_util",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
+    name = "transcriptor",
+    srcs = ["transcriptor.py"],
+    deps = [
+        ":phon",
+        ":phoneme_inventory",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "transcriptor_test",
+    srcs = ["transcriptor_test.py"],
+    main = "transcriptor_test.py",
+    deps = [
+        ":transcriptor",
         "//nisaba/scripts/utils:test_util",
         "@io_abseil_py//absl/testing:absltest",
     ],

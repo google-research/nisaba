@@ -16,7 +16,7 @@
 
 from typing import Any, Callable, Iterable
 import pynini as pyn
-from nisaba.scripts.natural_translit.brahmic import iso_inventory
+from nisaba.scripts.natural_translit.brahmic import grapheme_inventory
 from nisaba.scripts.natural_translit.latin import ltn_inventory
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import inventory as i
@@ -25,7 +25,7 @@ from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
 ltn = ltn_inventory.GRAPHEME_INVENTORY
-iso = iso_inventory.TRANSLIT_INVENTORY
+iso = grapheme_inventory.TRANSLIT_INVENTORY
 
 # TODO: Remove dicts and private functions when graphemes have these
 # conversions as class methods.

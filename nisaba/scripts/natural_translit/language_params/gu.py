@@ -14,12 +14,11 @@
 
 """Grammar parameters for Gujarati."""
 
-from nisaba.scripts.natural_translit.brahmic import iso2ltn_ops
-from nisaba.scripts.natural_translit.brahmic import iso2txn
-from nisaba.scripts.natural_translit.brahmic import iso2txn_ops
-from nisaba.scripts.natural_translit.brahmic import psa_phoneme_inventory as psa
+from nisaba.scripts.natural_translit.brahmic import g2p
+from nisaba.scripts.natural_translit.brahmic import phoneme_inventory as psa
+from nisaba.scripts.natural_translit.brahmic import romanizer
 from nisaba.scripts.natural_translit.latin import ltn_inventory as ltn
-from nisaba.scripts.natural_translit.phonology import txn2ipa
+from nisaba.scripts.natural_translit.phonology import transcriptor
 from nisaba.scripts.natural_translit.utils import concat as cc
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 
@@ -43,57 +42,57 @@ _CODA_CL = fl.FstList(
     cc.concat_r(ph.RHOTIC, ph.RHOTIC),
 ).union_opt()
 
-_PROCESS_SCHWA = iso2txn_ops.process_schwa(_ONSET_CL, _CODA_CL)
+_PROCESS_SCHWA = g2p.process_schwa(_ONSET_CL, _CODA_CL)
 
 
 _TXN_OPS = fl.FstList(
-    iso2txn_ops.A_TO_EC,
-    iso2txn_ops.VOCALIC_U,
-    iso2txn_ops.ANUSVARA_ASSIMILATION,
+    g2p.A_TO_EC,
+    g2p.VOCALIC_U,
+    g2p.ANUSVARA_ASSIMILATION,
     _PROCESS_SCHWA,
-    iso2txn_ops.SCHWA_EC,
-    iso2txn_ops.DEFAULT_ANUSVARA_DENTAL,
-    iso2txn_ops.JNY_TO_DNY,
-    iso2txn_ops.PH_F,
+    g2p.SCHWA_EC,
+    g2p.DEFAULT_ANUSVARA_DENTAL,
+    g2p.JNY_TO_DNY,
+    g2p.PH_F,
 )
 
 _NAT_OPS = fl.FstList(
-    iso2ltn_ops.SIBV_TO_SIBW,
-    iso2ltn_ops.OO_AO_BEFORE_ANUSVARA,
-    iso2ltn_ops.GAAV_GAON,
-    iso2ltn_ops.TXN_TO_PSA_COMMON,
-    iso2ltn_ops.IGNORE_LONG,
-    iso2ltn_ops.TRANSLIT_BY_PSA,
-    iso2ltn_ops.CC_TO_CCH,
-    iso2ltn_ops.CCH_TO_CHH,
-    iso2ltn_ops.S_SHSH_TO_SSH,
+    romanizer.SIBV_TO_SIBW,
+    romanizer.OO_AO_BEFORE_ANUSVARA,
+    romanizer.GAAV_GAON,
+    romanizer.TXN_TO_PSA_COMMON,
+    romanizer.IGNORE_LONG,
+    romanizer.TRANSLIT_BY_PSA,
+    romanizer.CC_TO_CCH,
+    romanizer.CCH_TO_CHH,
+    romanizer.S_SHSH_TO_SSH,
 )
 
 
 def _iso_to_txn() -> fl.FstList:
   """Composes the fsts from ISO characters to final txn pronunciation."""
-  return fl.FstList(iso2txn.iso_to_txn(), _TXN_OPS)
+  return fl.FstList(g2p.iso_to_txn(), _TXN_OPS)
 
 
 def iso_to_psaf() -> fl.FstList:
   """Pan-South Asian fine grained transliteration."""
-  return fl.FstList(_iso_to_txn(), iso2ltn_ops.TXN_TO_PSAF)
+  return fl.FstList(_iso_to_txn(), romanizer.TXN_TO_PSAF)
 
 
 def iso_to_psac() -> fl.FstList:
   """Pan-South Asian coarse grained transliteration."""
-  return fl.FstList(_iso_to_txn(), iso2ltn_ops.TXN_TO_PSAC)
+  return fl.FstList(_iso_to_txn(), romanizer.TXN_TO_PSAC)
 
 
 def iso_to_ipa() -> fl.FstList:
   """Pronunciation in IPA."""
-  return fl.FstList(_iso_to_txn(), txn2ipa.txn_to_ipa())
+  return fl.FstList(_iso_to_txn(), transcriptor.txn_to_ipa())
 
 
 def iso_to_nat() -> fl.FstList:
   """Natural transliteration."""
   return fl.FstList(
-      iso2txn.iso_to_txn(),
+      g2p.iso_to_txn(),
       _TXN_OPS,
       _NAT_OPS,
       ltn.print_only_ltn(),
