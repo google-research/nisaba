@@ -1,271 +1,115 @@
-# Natural Transliteration for Brahmic Scripts
+# Natural Transliteration
 
-This collection of [OpenGrm Pynini](http://www.opengrm.org/twiki/bin/view/GRM/Pynini) grammars takes the [ISO 15919](https://en.wikipedia.org/wiki/ISO_15919) transliteration of a Brahmic script that is normalized and converted by the [Nisaba Brahmic library](https://github.com/google-research/nisaba/tree/main/nisaba/nisaba/scripts/brahmic/README.md), and converts it to a Latin transliteration based on language specific pronunciation. For example, the natural transliteration of the same ISO string `apa` would be `ap` in Hindi, and `aba` in Malayalam.
+[TOC]
 
-The natural transliteration grammars use internal notations that only contain ASCII characters for ease of input. All substrings are enclosed in type specific boundary marks. `< >` denotes a [grapheme](#typ-representation-and-iso-inventory), `{ }` denotes a [phoneme](#txn-representation-and-phoneme-inventory), and `` ` ` `` denotes a [transliteration](#transliteration-strings-and-ltn-inventory) substring.
+## Overview
 
-## typ representation and script inventories
-The characters of a script is defined as a `Char` with the following
-attributes:
+This collection of [OpenGrm Pynini](http://www.opengrm.org/twiki/bin/view/GRM/Pynini) grammars provide rule based transliteration between scripts, currently [romanization](#romanization) and [deromanization](#deromanization), as well as a [phonological transcription](#g2p) in cases where a grapheme-to-phoneme grammar is used to inform the transliteration.
 
-**alias:** A string that will be used to refer to the character in grammars. For
-example, if the alias of a character is 'A', in the grammar file this character
-will be referred to as `gr.A` or `tr.A`. The default value is the uppercase of
-`typ` as this is the most common case.
+Natural transliteration refers to the way the users transliterate between scripts in daily use, as opposed to the official or reversible transliteration schemes such as the extended [ISO 15919](https://github.com/google-research/nisaba/blob/main/nisaba/nisaba/scripts/brahmic/README.md#iso) for Brahmic scripts, which used for the examples below for readability.
 
-**typ:** An internal, byte-only string to represent the character.
+In some cases natural transliteration is pronunciation-driven rather that reflecting the exact spelling in the source script. For example, Hindi, 'कांके' (`kāṁkē`) is transliterated as 'kanke', whereas 'चंबा' (`caṁbā`) is transliterated as 'chamba', reflecting different pronunciations of `ṁ` in different contexts.
 
-**gr:** `typ` enclosed in `< >`. It is used to represent the characters of the
-source script.
+Most natural transliteration exclusively uses the Basic Latin characters in the English alphabet, resulting in ambiguity where one to one mapping of characters is not possible. For example, the distinction between the native Brahmic letters `t` or `ṭ` are lost as they are both transliterated as 't'.
 
-**tr:** `typ` enclosed in `` ` ` ``. It is used to represent the characters of the
-target script.
+Natural transliteration can be non-standardized and highly variable. For example when transliterating Brahmic scripts to Latin, the vowel length of the long `ī` in the source script can be represented by 'ii' which repeats the short form, or using an English-like spelling such as 'ee'. The vowel length can also be completely dropped, using the short form 'i'.
 
-**glyph:** The glyph of the character in the original script.
+In addition, natural transliteration can revert to the spelling of loanwords in the language of origin, even though their nativization is based on the pronunciation rather than the spelling in the original script. For example, the English words 'here' and 'hear' can be transliterated in Devanagari as `hi.ara` or `hiyara`. When transliterating these Devanagari strings back to Latin, usually the English spelling of the intended word is used.
 
-**ph:** A default pronunciation assignment for the character. ph is optional.
+Moreover, there can be regional conventions. For example in Bengali or Hindi native words, 'th' almost exclusively represents the aspirated letters `tʰ` or `ṭʰ`, whereas in Malayalam and Tamil it can be used to distinguish letter `t` from letter `ṯ`.
 
-**cmp:** Graphemes of the parts for composite characters.
+Natural transliteration aims to capture these variances to the extent that they can be predicted by rule based grammars.
 
-tr and gr are the underlying representations for the rewrite rules. For
-example, rules with `gr.A` apply to `<a>`, and rules with `tr.A` apply to `` `a` ``.
+### Languages
 
-Conventions for assigning a `typ` to a character:
+* bn: Bengali
+* gu: Gujarati
+* hi: Hindi
+* kn: Kannada
+* ml: Malayalam
+* mr: Marathi
+* pa: Punjabi
+* ta: Tamil
+* te: Telugu
 
-* `typ` of ASCII characters are the same as the letter.
+### Scripts
 
-* `typ` of non-ASCII characters are a sequence of lowercase letters.
+* beng: Bengali
+* deva: Devanagari
+* gujr: Gujarati
+* guru: Gurmukhi
+* iso: Extended ISO 15919
+* knda: Kannada
+* latn: Latin
+* mlym: Malayalam
+* orya: Oriya
+* taml: Tamil
+* telu: Telugu
 
-* `typ` of the uppercase letters have `_uc` suffix.
+### Phonological transcription
 
-* `typ` of substrings have `s_` prefix.
+* ipa: [IPA](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet) (International phonetic alphabet)
 
-  **Example:**
+## Grammars
 
-             | a         | u         | ä         | Ä           | au         |
-   ----------|:---------:|:---------:|:---------:|:-----------:|:----------:|
-   **alias** | A         | U         | AU        | AU_UC       | S_AU       |
-   **typ**   | a         | u         | au        | au_uc       | s_au       |
-   **gr**    | `<a>`     | `<u>`     | `<au>`    | `<au_uc>`   | `<s_au>`   |
-   **tr**    | `` `a` `` | `` `u` `` |`` `au` `` |`` `au_uc` ``|`` `s_au` ``|
-   **glyph** | a         | u         | ä         | Ä           | au         |
-   **ph**    | ph.A      | ph.U      | ph.E      | ph.E        | ph.AU      |
+### Deromanization
 
-This scheme disambiguates substrings for grammars. For example, a rule that
-changes the transliteration of the diphthong `ph.AU` from 'au' to 'o' only
-applies to `` `s_au` `` substrings and not `` `au` `` or `` `a` `u` ``.
-
-[`grapheme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic/grapheme_inventory.py) is a library that contains the `typ`-ISO mapping and makes `Char` for ISO characters.
-
-[`ltn_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/latin/ltn_inventory.py) is a library that makes `Char` for Latin script characters and transliteration substrings for romanization grammars.
-
-## iso2typ grammar
-
-`iso2typ` grammar rewrites an ISO string as a series of `typ` characters.
-
-**Examples**
-
-* `ā` -> `<aa>`
-* `ṭ` -> `<tt>`
-* `nⸯ` -> `<n_chl>`
-* `āṭānⸯ` -> `<aa><tt><aa><n_chl>`
-
-## txn representation and phoneme_inventory
-
-`txn` is an internal, high coverage, typable representation for multilingual phoneme inventories.
-
-For parsimony, txn uses a featurised representation for  diphthongs, affricates,
-coarticulation, secondary articulation and features like phonation. Where a sequence of symbols need to be disambiguated, eg, a phoneme
-sequence vs diphthong or affricate, or distinguishing between nasalization that
-affects the whole phoneme vs. prenasalization and nasal release,
-the combining symbol {+} is used.
-
-In order to keep the number of primitives to a minimum, features that can be
-present at different levels are modified by a shared set of qualifiers.
-For example, instead of using {primary, secondary} for stress,
-{extra-short, short, half-long, long, extra-long} for duration and
-various qualifiers for tone and intonation, they use a shared set of level
-modifiers {bottom, low, middle, high, top} and change modifiers {rising,
-falling, interrupt}.
-
-With this scheme some suprasegmental features can be represented as:
-
-* Rising tone: [contour, rising]
-* Mid rising tone: [pitch, mid] + [contour, rising]
-* Falling tone: [contour, falling]
-* Global rise in intonation: [intonation, rising]
-* Global fall in intonation: [intonation, falling]
-
-The subset of modifiers are defined within feature. For example, primary stress
-is represented as [stress, high] and secondary stress is represented as
-[stress, middle]. However this doesn't necessarily imply the existence of
-'top' level stress.
-
-The default level of a feature is also defined within feature. For example, the
-default value for duration can be 'low' in order to accomodate other possible
-durations.
-
-* Unmarked phoneme is implicitly [duration, low]
-* Long phoneme: [duration, high]
-* Extra-long phoneme: [duration, top]
-* Half-long phoneme: [duration, middle]
-* Extra-short phoneme: [duration, bottom]
-
-For another feature, the default can be 'bottom' or 'middle' depending on the
-general usage of the feature and the semantics attributed to it.
-
-Phonemes and standalone features are defined as `Phon`s with the following attributes:
-
-**alias:** A string that will be used to refer to the phoneme in grammars. For
-example, if the alias of a character is 'A', in the grammar file this Phon
-can be referred to as `ph.A`.
-
-**txn:** An internal, byte-only string to represent the character.
-
-**ftr:** A list of phonological features.
-
-**ph:** The acceptor fst of the `Phon`. The ph of a simple phoneme is its `txn`
-enclosed in `{ }`.
-
-**ipa:** The representation of the `Phon` in International Phonetic Alphabet.
-
-**tr_dict:** A dictionary of transliteration strings in `tr` format.
-Every `tr` dictionary has a 'base' key. For a simple `Phon`, 'base' is its
-default transliteration. Derived and composite phonemes can have additional `tr`s,
-in addition to a 'base' that is composed from its components.
-
-**cmp:** The components of a derived or composite `Phon`.
-
-  **Example:**
-
-               | a            | u            | au
-   ------------|:------------:|:------------:|:----------------:
-   **alias**   | A            | U            | A_U
-   **txn**     | a            | u            | a+u
-   **ftr**     | vowel        | vowel        | diph, vowel, ...
-   **ph**      | `{a}`        | `{u}`        | `{a}{+}{u}`
-   **ipa**     | a            | u            | a͡u
-   **tr_dict** |``base: `a` ``|``base: `u` ``|``base: `a` `u` ``
-               |              |              |``diph: `au` ``
-               |              |              |``semi: `aw` ``
-               |              |              |``mono: `o` ``
-
-
-[`phoneme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/phonology/phoneme_inventory.py) is a library that builds a multilingual `Phon` inventory. The complete list of `Phon`s can be found [here](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/phonology/doc/phon_table.md) along with [IPA](https://www.internationalphoneticassociation.org/content/ipa-chart) mapping. The IPA symbols in this table are meant to be descriptive rather than definitive. Since related `Phon`s are derived from each other, the IPA strings are created dynamically during the derivation process. As a result, some phonemes with dedicated IPA symbols are represented as a symbol and diacritic instead. For example, the voiced bilabial implosive is represented as `bʼ` rather than the dedicated IPA symbol `ɓ`.
-
-Language specific phoneme inventories can be built by importing phonemes from the multilingual inventory. For example, the [Pan South Asian phoneme inventory](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic/phoneme_inventory.py) contains the phonemes covering the unified South Asian phoneme inventory presented in [Demirsahin et al. (2018)](https://research.google/pubs/pub47341/).
-
-## iso2txn grammars
-
-`iso2txn` grammar assigns a naive orthography to phonology mapping for iso graphemes prior to the phonological operations. The format of an assignment is `<iso_graphemes>={txn_phonemes}`.
+Deromanization is a special case of transliteration where the source script is Latin.
 
 **Example**
-
-* `<aa><tt><aa><n_chl>` -> `<aa>={a}{:h}<tt>={tt}<aa>={a}{:h}<n_chl>={n}`
-
-`iso2txn_ops` grammar contains phonological operations that depend on the iso graphemes that are on the left side of the alignment, and therefore don't fit the language agnostic phonological operations in the `phon_ops` grammar.
-
-## phon_ops grammar
-
-`phon_ops` grammar contains common phonological operations on the pronunciation side, independent of the source language or script.
-
-**Example**: Malayalam voicing
-
-* `<aa>={a}{:h}<tt>={tt}<aa>={a}{:h}<n_chl>={n}` -> `<aa>={a}{:h}<tt>={dd}<aa>={a}{:h}<n_chl>={n}`
-
-## txn2ltn and iso2ltn_ops grammars
-
-`txn2ltn` grammar contains a default txn pronunciation romanization.
-
-`iso2ltn_ops` grammar contains romanization rules that depend on the iso graphemes that are on the left side of the alignment. In addition to providing rules for the language specific natural transliteration rules imported by the end to end grammar of each language, it has two Pan South Asian romanization outputs.
-
-**PSAF**: Fine grained Pan South Asian representation. Fine grained in this context means that for characters that have more than one conventional transliteration, it uses the most informative one. For example, long vowels can be transliterated as one or two characters. PSAF uses the two character version to retain the vowel length information.
-
-**Example**
-
-* `<aa>={a}{:h}<tt>={dd}<aa>={a}{:h}<n_chl>={n}` ->
-
- `` <aa>=`aa`<tt>=`d`<aa>=`aa`<n_chl>=`n` `` ->
-
-   `aadaan`
-
-In this format different spellings of the same word in one language are likely to have closer romanizations, but they may differ across languages. For example, two Hindi spellings of the word "hindi", `hiṁdī` and `hindī` in ISO, will retain the long vowel ii and have the same PSAF, `hindii`. Whereas the Malayalam spelling of the same word will have a different PSAF `hindi` because the word ends with a short vowel in the native spelling, `hindi` in ISO.
-
-**PSAC**: Coarse grained Pan South Asian representation. Coarse grained in this context means that PSAC conflates some transliteration substrings in order to simplify the romanization as much as possible. Fine details such as vowel length are lost in this format.
-
-**Example**
-
-* `<aa>={a}{:h}<tt>={dd}<aa>={a}{:h}<n_chl>={n}` ->
-
- ``<aa>=`a`<tt>=`d`<aa>=`a`<n_chl>=`n` `` ->
-
-   `aadaan`
-
-Discarding finer details makes it possible to have much closer PSAC romanizations of the same word across languages. For example, PSAC for "hindi" will be `hindi` for both Hindi and Malayalam, regardless of the vowel length in the source language.
-
-## txn2ipa grammar
-
-`txn2ipa` grammar converts the `txn` pronunciation to IPA using the mapping in the [`phoneme_inventory`](#txn-representation-and-phoneme-inventory).
-
-**Example**
-
-* `<aa>{a}{:h}<tt>{dd}<aa>{a}{:h}<n_chl>{ni}` ->
-
- `<aa>aː<tt>ɖ<aa>aː<n_chl>n` ->
-
-   `aːɖaːn`
-
-## e2e grammars
-
-These are end-to-end grammars for individual languages.
-
-**Example**
-
-* `hi_e2e`: End-to-end grammar for Hindi
-
-* `ml_e2e`: End-to-end grammar for Malayalam
-
-End-to-end grammars compose the relevant fsts from grammars and pass arguments to functions where necessary.
-
-**Example**
-
-* `voicing` is a phon_ops function that takes the preceding and following phonological context as arguments. The ml_e2e grammar passes the arguments `ph.VOWEL, ph.NASAL, ph.APPROXIMANT` for the phonological context, so that voicing happens between vowels, nasals, and approximants.
 
 ```
-_VOICING = ops.voicing(
-    pyn.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT).optimize(),  # Preceding context
-    rw.concat_r(
-        ph.ASP.ques,
-        pyn.union(ph.VOWEL, ph.NASAL, ph.APPROXIMANT)).optimize())  # Following context
+atin -> अतिन
 ```
 
-Natural transliteration, which aims to capture the romanization of the source language by the users, is composed in the end to end grammar of the specific language. For example, the users of a language might prefer to use a long aa at the beginning of a word, but shorten it in other positions.
+* Directory: [deromanization](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/deromanization)
+* Naming format: `<language>_<target_script>`
 
-**NAT**: Regional natural transliteration.
+For example, `hi_deva` is a deromanization grammar for Hindi where the source script is Latin and the target script is Devanagari, whereas `hi_iso` means the target script is ISO. Deromanization is currently available for Hindi and Tamil to ISO and the native scripts.
+
+### G2P
+
+Grapheme to phoneme alignments are used to inform pronunciation-driven transliterations and therefore only aim to cover phonological phenomena to the extent that it is relevant to transliteration rather than offering a high-coverage, high accuracy grapheme to phoneme conversion for each language. The output of g2p modules are also exported as phonological transcription grammars.
 
 **Example**
 
-* `<aa>={a}{:h}<tt>={dd}<aa>={a}{:h}<n_chl>={n}` ->
+```
+āṭīna -> aːʈaːn̪
+```
 
- ``<aa>`aa`<tt>`d`<aa>`a`<n_chl>`n` `` ->
+* Directory: [g2p](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/g2p)
+* Naming format: `<language>_<source_script>_<transcription_script>`
 
-   `aadan`
+For example, `hi_iso_ipa` is a phonological transcription grammar for Hindi where the source script is ISO, and the phonological transcription is in IPA. G2p is currently available from ISO to IPA for Bengali, Gujarati, Hindi, Kannada, Malayalam, Marathi, Punjabi, Tamil, and Telugu.
 
-The natural transliteration of the same word might differ for each language and might include conventions that don't directly match the pronunciation of the word in the conventional sense. For example, some languages might favour using `ee` for a long i or `oo` for a long u, while in other languages `ee` could only mean a long e. The guideline for the natural transliteration grammars is to approximate the most conventional way the users of that language in the appropriate context. For example, if the ISO string `ēpʰabī.ā.ī` will be `eephbiiaaii` in PSAF and `ephbiai` in PSAC, but the natural romanization could be `FBI` if it's the native spelling of the English acronym FBI and it's the way most users would romanize it. This acronym conversion is handled by the `typ2acr` grammar.
+### Romanization
 
-## util library
+Romanization is another special case of transliteration where the target script is Latin.
 
-This library holds most common constants such as SIGMA_STAR and boundary signs for enclosing different types of strings, as well as basic operations for aligning and assigning strings.
+**Example**
 
-## rewrite_functions library
+```
+āṭīna -> ateen
+```
 
-This library contains common rewrite functions shared across grammars, which modify an alignment dependent on the context.
+Due to the non-standardized nature of romanization in some languages, we provide more than one romanization scheme.
+
+* Directory: [romanization](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/romanization)
+* Naming format: `<language>_<source_script>_<romanization_scheme>`
+
+For example, `hi_iso_nat` is the natural romanization grammar for Hindi where the source script is ISO. Romanization is currently available for Bengali, Gujarati, Hindi, Kannada, Malayalam, Marathi, Punjabi, Tamil, and Telugu, from ISO to natural romanization [NAT](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic/README.md#nat), and Pan South Asian romanizations [PSAC](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic/README.md#psac) and [PSAF](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic/README.md#psaf).
+
+## Resource libraries
+
+* [**brahmic:**](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic) Libraries for processing South Asian languages that use Brahmic scripts.
+* [**language_params:**](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/language_params) Language parameters for compiling grammars using modular FST builders.
+* [**phonology:**](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/phonology) Libraries for representing multilingual phonology and common phonological operations.
+* [**script:**](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/script) Libraries for representing scripts and building script inventories.
+* [**utils:**](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/utils) Libraries for constructing modular, parametrizable FST builders.
 
 ## Citing
 
-If you use this software in a publication, please cite the accompanying
-[paper](http://www.lrec-conf.org/proceedings/lrec2022/pdf/2022.lrec-1.718.pdf) from
-[LREC 2022](https://lrec2022.lrec-conf.org/en/):
+If you use this software in a publication, please cite the accompanying [paper](http://www.lrec-conf.org/proceedings/lrec2022/pdf/2022.lrec-1.718.pdf) from [LREC 2022](https://lrec2022.lrec-conf.org/en/):
 
 ```bibtex
 @InProceedings{demirsahin-natural2022,
