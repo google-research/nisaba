@@ -42,18 +42,18 @@ Conventions for assigning a `typ` to a character:
 
 * `typ` of substrings have `s_` prefix.
 
-  **Example:**
+**Example:**
 
-             | a         | u         | ä         | Ä           | au
-   ----------|:---------:|:---------:|:---------:|:-----------:|:----------:
-   **alias** | A         | U         | AU        | AU_UC       | S_AU
-   **typ**   | a         | u         | au        | au_uc       | s_au
-   **gr**    | `<a>`     | `<u>`     | `<au>`    | `<au_uc>`   | `<s_au>`
-   **tr**    | `ˋaˋ`     | `ˋuˋ`     |`ˋauˋ`     |`ˋau_ucˋ`    |`ˋs_auˋ`
-   **glyph** | a         | u         | ä         | Ä           | au
-   **ph**    | `ph.A`    | `ph.U`    | `ph.E`    | `ph.E`      | `ph.AU`
+Char      | a         | u         | ä         | Ä           | au
+:---      | :---      | :---      | :---      | :---        | :---
+**alias** | A         | U         | AU        | AU_UC       | S_AU
+**typ**   | a         | u         | au        | au_uc       | s_au
+**gr**    | `<a>`     | `<u>`     | `<au>`    | `<au_uc>`   | `<s_au>`
+**tr**    | `ˋaˋ`     | `ˋuˋ`     | `ˋauˋ`    | `ˋau_ucˋ`   | `ˋs_auˋ`
+**glyph** | a         | u         | ä         | Ä           | au
+**ph**    | `ph.A`    | `ph.U`    | `ph.E`    | `ph.E`      | `ph.AU`
 
-This scheme disambiguates substrings for grammars. For example, a rule that changes the transliteration of the diphthong `ph.AU` from 'au' to 'o' only applies to `ˋs_auˋ` substrings and not `ˋauˋ` or `ˋa` `uˋ`.
+This scheme disambiguates substrings for grammars. For example, a rule that changes the transliteration of the diphthong `ph.AU` from 'au' to 'o' only applies to `ˋs_auˋ` substrings and not `ˋauˋ` or `ˋa``uˋ`.
 
 ## Script inventories
 

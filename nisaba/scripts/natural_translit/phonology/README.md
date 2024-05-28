@@ -48,19 +48,19 @@ Phonemes and standalone features are represented as `Phon` objects with followin
 
 **cmp:** The components of a derived or composite `Phon`.
 
-  **Example:**
+**Example:**
 
-               | a            | u            | au
-   ------------|:------------:|:------------:|:----------------:
-   **alias**   | A            | U            | A_U
-   **txn**     | a            | u            | a+u
-   **ftr**     | vowel        | vowel        | diph, vowel, ...
-   **ph**      | `{a}`        | `{u}`        | `{a}{+}{u}`
-   **ipa**     | a            | u            | a͡u
-   **tr_dict** |`base: ˋaˋ`   |`base: ˋuˋ`   |`base: ˋaˋ ˋuˋ`
-               |              |              |`diph: ˋauˋ`
-               |              |              |`semi: ˋawˋ`
-               |              |              |`mono: ˋoˋ`
+Phon        | a            | u            | au
+:---        | :---         | :---         | :---
+**alias**   | A            | U            | A_U
+**txn**     | a            | u            | a+u
+**ftr**     | vowel        | vowel        | diph, vowel, ...
+**ph**      | `{a}`        | `{u}`        | `{a}{+}{u}`
+**ipa**     | a            | u            | a͡u
+**tr_dict** | `base: ˋaˋ`  | `base: ˋuˋ`  | `base: ˋaˋˋuˋ`
+            |              |              | `diph: ˋauˋ`
+            |              |              | `semi: ˋawˋ`
+            |              |              | `mono: ˋoˋ`
 
 ## Multilingual phoneme inventory
 

@@ -37,7 +37,7 @@ The [`g2p`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/n
 ```
 āṭīna -> <aa><tt><ii><n><a> ->
 
-<aa>={a}{:h}<tt>={tt}<ii>={i}{:h}<n>={ni}<a>={sil} -> aːʈaːn̪
+<aa>={a}{:h}<tt>={tt}<ii>={i}{:h}<n>={ni}<a>={sil} -> aːʈiːn̪
 ```
 
 ### Romanization
@@ -58,7 +58,7 @@ Natural transliteration aims to capture the romanization of the source language 
 
 For non standardized cases, for example when choosing between the 'ii', 'ee' or 'i' transliteration of the long vowel `ī`, NAT follows the most frequent romanization observed in a given context.
 
-The intended romanization of loanwords, for example the Hindi strings `hi.ara` or `hiyara` for the English words 'here' and 'hear', cannot be predicted by the current rule based grammars. They are romanized using the same rules as the native strings, resulting in 'hiar' and 'hiyar', respectively. When there are more recognizable patterns, NAT generates the intended romanization where possible. For example, `ēpʰabī.ā.ī` is romanized as 'FBI' rather than 'ephbiai' since this pattern is highly unlikely in native words and it can be easily recognized by the acronym rules.
+The intended romanization of loanwords, for example the Hindi strings `hi.ara` (or `hiyara`) for the English words 'here' and 'hear', cannot be predicted by the current rule based grammars. They are romanized using the same rules as the native strings, resulting in 'hiar' or 'hiyar', respectively. When there are more recognizable patterns, NAT generates the intended romanization where possible. For example, `ēpʰabī.ā.ī` is romanized as 'FBI' rather than 'ephbiai' since this pattern is highly unlikely in native words and it can be easily recognized by the acronym rules.
 
 NAT takes regional conventions into account. For example, in Malayalam and Tamil, the dental `t` is romanized as 'th', as opposed to only 't' like other PSA languages such as Bengali or Hindi where 'th' almost exclusively represents the aspirated letters `tʰ` or `ṭʰ`.
 
@@ -76,8 +76,7 @@ PSAC is the coarse grained PSA representation. Coarse grained in this context me
 <aa>={a}{:h}<tt>={tt}<ii>={i}{:h}<n>={ni}<a>={sil} -> atin
 ```
 
-Discarding finer details makes it possible to have much closer PSAC romanizations of the same word across languages. For example, the native spellings for the English loanword 'political' is `pôliṭikala`
-and `pōliṭikala` in Hindi and `poḷiṟṟikkalⸯ` in Malayalam. The PSAC romanization of all three ISO strings is 'politikal' despite the differences in vowel and consonant lengths and places of articulation in native scripts.
+Discarding finer details makes it possible to have much closer PSAC romanizations of the same word across languages. For example, the native spellings for the English loanword 'political' is `pôliṭikala` and `pōliṭikala` in Hindi and `poḷiṟṟikkalⸯ` in Malayalam. The PSAC romanization of all three ISO strings is 'politikal' despite the differences in vowel and consonant lengths and places of articulation in native scripts.
 
 #### PSAF
 

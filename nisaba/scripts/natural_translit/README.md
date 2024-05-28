@@ -6,7 +6,7 @@
 
 This collection of [OpenGrm Pynini](http://www.opengrm.org/twiki/bin/view/GRM/Pynini) grammars provide rule based transliteration between scripts, currently [romanization](#romanization) and [deromanization](#deromanization), as well as a [phonological transcription](#g2p) in cases where a grapheme-to-phoneme grammar is used to inform the transliteration.
 
-Natural transliteration refers to the way the users transliterate between scripts in daily use, as opposed to the official or reversible transliteration schemes such as the extended [ISO 15919](https://github.com/google-research/nisaba/blob/main/nisaba/nisaba/scripts/brahmic/README.md#iso) for Brahmic scripts, which used for the examples below for readability.
+Natural transliteration refers to the way the users transliterate between scripts in daily use, as opposed to the official or reversible transliteration schemes such as the extended [ISO 15919](https://github.com/google-research/nisaba/blob/main/nisaba/nisaba/scripts/brahmic/README.md#iso) for Brahmic scripts, which is used for the examples below for readability.
 
 In some cases natural transliteration is pronunciation-driven rather that reflecting the exact spelling in the source script. For example, Hindi, 'कांके' (`kāṁkē`) is transliterated as 'kanke', whereas 'चंबा' (`caṁbā`) is transliterated as 'chamba', reflecting different pronunciations of `ṁ` in different contexts.
 
@@ -14,7 +14,7 @@ Most natural transliteration exclusively uses the Basic Latin characters in the 
 
 Natural transliteration can be non-standardized and highly variable. For example when transliterating Brahmic scripts to Latin, the vowel length of the long `ī` in the source script can be represented by 'ii' which repeats the short form, or using an English-like spelling such as 'ee'. The vowel length can also be completely dropped, using the short form 'i'.
 
-In addition, natural transliteration can revert to the spelling of loanwords in the language of origin, even though their nativization is based on the pronunciation rather than the spelling in the original script. For example, the English words 'here' and 'hear' can be transliterated in Devanagari as `hi.ara` or `hiyara`. When transliterating these Devanagari strings back to Latin, usually the English spelling of the intended word is used.
+In addition, natural transliteration can revert to the spelling of loanwords in the language of origin, even though their nativization is based on the pronunciation rather than the spelling in the original script. For example, the English words 'here' and 'hear' are transliterated as the same Devanagari string `hi.ara` (alternatively `hiyara`). When transliterating these Devanagari strings back to Latin, usually the English spelling of the intended word is used.
 
 Moreover, there can be regional conventions. For example in Bengali or Hindi native words, 'th' almost exclusively represents the aspirated letters `tʰ` or `ṭʰ`, whereas in Malayalam and Tamil it can be used to distinguish letter `t` from letter `ṯ`.
 
@@ -74,7 +74,7 @@ Grapheme to phoneme alignments are used to inform pronunciation-driven translite
 **Example**
 
 ```
-āṭīna -> aːʈaːn̪
+āṭīna -> aːʈiːn̪
 ```
 
 * Directory: [g2p](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/g2p)
