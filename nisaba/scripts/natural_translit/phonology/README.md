@@ -57,10 +57,7 @@ Phon        | a            | u            | au
 **ftr**     | vowel        | vowel        | diph, vowel, ...
 **ph**      | `{a}`        | `{u}`        | `{a}{+}{u}`
 **ipa**     | a            | u            | a͡u
-**tr_dict** | `base: ˋaˋ`  | `base: ˋuˋ`  | `base: ˋaˋˋuˋ`
-            |              |              | `diph: ˋauˋ`
-            |              |              | `semi: ˋawˋ`
-            |              |              | `mono: ˋoˋ`
+**tr_dict** | `base: ˋaˋ`  | `base: ˋuˋ`  | `base: ˋaˋˋuˋ`</br>`diph: ˋauˋ`</br>`semi: ˋawˋ`</br>`mono: ˋoˋ`
 
 ## Multilingual phoneme inventory
 
