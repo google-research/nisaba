@@ -25,8 +25,6 @@
 #include <utility>
 #include <vector>
 
-#ifndef NO_GOOGLE
-#endif  // NO_GOOGLE
 #include "fst/extensions/mpdt/compose.h"
 #include "fst/extensions/pdt/compose.h"
 #include "fst/arcsort.h"
@@ -42,6 +40,7 @@
 #include "absl/log/log.h"
 #include "nisaba/interim/grm2/paths/paths.h"
 #include "nisaba/interim/grm2/string/stringprint.h"
+#include "google/protobuf/repeated_ptr_field.h"
 
 // Generic rewrite utilities for string inputs.
 

@@ -24,15 +24,7 @@
 #include <utility>
 #include <vector>
 
-#ifndef NO_GOOGLE
-#include "google/protobuf/repeated_field.h"
-#endif  // NO_GOOGLE
 #include "fst/extensions/far/far.h"
-#include "fst/extensions/mpdt/compose.h"
-#include "fst/extensions/mpdt/mpdt.h"
-#include "fst/extensions/pdt/compose.h"
-#include "fst/extensions/pdt/pdt.h"
-#include "fst/extensions/pdt/shortest-path.h"
 #include "fst/arcsort.h"
 #include "fst/fst-decl.h"
 #include "fst/intersect.h"
@@ -43,6 +35,7 @@
 #include "absl/strings/string_view.h"
 #include "nisaba/interim/grm2/rewrite/parentheses.h"
 #include "nisaba/interim/grm2/rewrite/rewrite.h"
+#include "google/protobuf/repeated_ptr_field.h"
 
 namespace rewrite {
 

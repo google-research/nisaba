@@ -21,5 +21,6 @@ cc_library(
     hdrs = ["paths.h"],
     deps = [
         "@org_openfst//:fst",
+        "@org_openfst//:util",
     ],
 )

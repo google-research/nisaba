@@ -25,8 +25,10 @@
 #include <vector>
 
 #include "absl/log/log.h"
+#include "absl/strings/string_view.h"
 #include "nisaba/interim/grm2/rewrite/base_rule_cascade.h"
 #include "nisaba/interim/grm2/rewrite/rewrite_manager.h"
+#include "google/protobuf/repeated_ptr_field.h"
 
 namespace rewrite {
 namespace internal {
@@ -35,7 +37,7 @@ namespace internal {
 // optional MPDT assignment rule name).
 class RuleTriple {
  public:
-  explicit RuleTriple(const std::string &rule_def)
+  explicit RuleTriple(absl::string_view rule_def)
       : RuleTriple(RuleTriple::ParseRuleDef(rule_def)) {}
 
   const std::string &Rule() const { return rules_[0]; }
@@ -53,7 +55,7 @@ class RuleTriple {
       : rules_(std::move(rules)) {}
 
   // Actually parses the rules into the pieces we need.
-  static std::array<std::string, 3> ParseRuleDef(const std::string &rule_def) {
+  static std::array<std::string, 3> ParseRuleDef(absl::string_view rule_def) {
     std::array<std::string, 3> result;
     auto main_pos = rule_def.find('$');
     if (main_pos == std::string::npos) main_pos = rule_def.find(':');

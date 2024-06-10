@@ -22,6 +22,7 @@
 
 #include "fst/fst.h"
 #include "absl/log/log.h"
+#include "absl/types/span.h"
 
 // This is used by (M)PdtCompose and and associated grammar managers when they
 // express parentheses and/or assignments as transducers.
@@ -76,8 +77,8 @@ void MakeParenthesesVector(
 template <class Arc>
 void MakeAssignmentsVector(
     const ::fst::Fst<Arc> &assignments_transducer,
-    const std::vector<std::pair<typename Arc::Label, typename Arc::Label>>
-        &parens,
+    absl::Span<const std::pair<typename Arc::Label, typename Arc::Label>>
+        parens,
     std::vector<typename Arc::Label> *assignments) {
   using Label = typename Arc::Label;
   std::map<Label, Label> assignment_map;

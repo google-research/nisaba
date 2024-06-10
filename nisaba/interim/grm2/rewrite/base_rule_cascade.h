@@ -29,17 +29,16 @@
 #include <string>
 #include <vector>
 
-#ifndef NO_GOOGLE
-#include "google/protobuf/repeated_field.h"
-#endif  // NO_GOOGLE
 #include "fst/arcsort.h"
 #include "fst/compose.h"
 #include "fst/fst.h"
 #include "fst/string.h"
 #include "fst/symbol-table.h"
-#include "absl/log/log.h"
+#include "fst/vector-fst.h"
 #include "absl/strings/string_view.h"
+#include "absl/types/span.h"
 #include "nisaba/interim/grm2/rewrite/rewrite.h"
+#include "google/protobuf/repeated_ptr_field.h"
 
 namespace rewrite {
 
@@ -188,8 +187,8 @@ class BaseRuleCascade {
   bool Matches(absl::string_view input, absl::string_view output) const;
 
  private:
-  bool LabelsToDebugString(const std::string &output,
-                           const std::vector<Label> &labels,
+  bool LabelsToDebugString(absl::string_view output,
+                           absl::Span<const Label> labels,
                            std::string *debug) const;
 
   void PrintDebugSymbol(Label label, std::ostream &ostrm) const;
@@ -500,8 +499,8 @@ bool BaseRuleCascade<Arc>::Matches(absl::string_view input,
 // Private methods.
 
 template <class Arc>
-bool BaseRuleCascade<Arc>::LabelsToDebugString(const std::string &output,
-                                               const std::vector<Label> &labels,
+bool BaseRuleCascade<Arc>::LabelsToDebugString(absl::string_view output,
+                                               absl::Span<const Label> labels,
                                                std::string *debug) const {
   debug->clear();
   // This really only makes sense in BYTE mode.
