@@ -106,3 +106,18 @@ item {
   uname: ["SIGN AU", "SIGN I"] raw: "ௌி"
   to_uname: ["SIGN E", "LLA", "SIGN I"] to_raw: "ெளி"
 }
+
+# Flipped two-part vowel signs.
+# The non-flipped sequence is covered by NFC.
+item {
+  uname: ["SIGN AA", "SIGN E"] raw: "ாெ"
+  to_uname: ["SIGN O"] to_raw: "ொ"
+}
+item {
+  uname: ["SIGN AA", "SIGN EE"] raw: "ாே"
+  to_uname: ["SIGN OO"] to_raw: "ோ"
+}
+item {
+  uname: ["AU LENGTH MARK", "SIGN E"] raw: "ௗெ"
+  to_uname: ["SIGN AU"] to_raw: "ௌ"
+}
