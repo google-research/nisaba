@@ -33,6 +33,159 @@ rewrite {
   input: "ँ"
 }
 
+# Accept tests from CDAC's (http://www.cdac.in) Working Group on Script Grammar.
+# Unfortunately there are no public documents to link.
+rewrite {
+  rule: "DEVA"
+  input: "अं"
+  output: "अं"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "अँ"
+  output: "अँ"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "अः"
+  output: "अः"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "क़"
+  output: "क़"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "कं"
+  output: "कं"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "कँ"
+  output: "कँ"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "कः"
+  output: "कः"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "क्"
+  output: "क्"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "कीं"
+  output: "कीं"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "काँ"
+  output: "काँ"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "कीः"
+  output: "कीः"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "न्त्र"
+  output: "न्त्र"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "न्क्र्य"
+  output: "न्क्र्य"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "क्की"
+  output: "क्की"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "क्कं"
+  output: "क्कं"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "क्कँ"
+  output: "क्कँ"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "क्कः"
+  output: "क्कः"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "क्कीं"
+  output: "क्कीं"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "क्कीँ"
+  output: "क्कीँ"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "क्कीः"
+  output: "क्कीः"
+}
+
+# Reject tests from CDAC's Working Group on Script Grammar.
+rewrite {
+  rule: "DEVA"
+  input: "ँ"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "सू्त्रों"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "सहयाेग"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "हैंः"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "मँंडरा"
+}
+
+rewrite {
+  rule: "DEVA"
+  input: "मु्ँह"
+}
+
 # TODO: Allow initial position of Khanda Ta & Chillus.
 rewrite {
   rule: "BENG"
@@ -273,6 +426,7 @@ rewrite {
   input: "ऽ"
   output: "ऽ"
 }
+
 
 # Words with Zero-Width-Non-Joiner.
 rewrite {
