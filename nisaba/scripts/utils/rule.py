@@ -59,17 +59,18 @@ rules in feeding order. This is implemented as a sequential composition of
 CDRewrites of the FSTs from each rule.
 """
 
+import csv
 import itertools as it
 import os
 from typing import Iterable, Iterator, List, NamedTuple
 
 import networkx as nx
-import pandas as pd
 
 import pynini
 import pathlib
 import nisaba.scripts.utils.file as uf
 import nisaba.scripts.utils.rewrite as ur
+
 
 Rule = NamedTuple('Rule', [('lhs', str), ('rhs', str)])
 RuleSet = Iterable[Rule]
@@ -84,12 +85,20 @@ def rules_from_string_file(file: os.PathLike) -> Iterator[Rule]:
 def rules_from_string_path(file: os.PathLike) -> Iterator[Rule]:
   """Yields string rules from a text file with unweighted string maps."""
   with pathlib.Path(file).open('rt') as f:
-    df = pd.read_csv(f, sep='\t', comment='#', escapechar='\\',
-                     names=['lhs', 'rhs'], na_filter=False)
-    for row in df.itertuples(index=False, name='Rule'):
-      if not row.lhs:
+    csv_reader = csv.reader(
+        (row for row in f if not row.startswith('#')),
+        delimiter='\t',
+        escapechar='\\',
+    )
+    for row in csv_reader:
+      if not row:
+        continue
+      if not row[0]:
         raise ValueError('Rule expects an LHS: {}'.format(row))
-      yield row
+      rhs = ''
+      if len(row) > 1:
+        rhs = row[1]
+      yield Rule(lhs=row[0], rhs=rhs)
 
 
 def _match_lhs_in_lhs(rule_a: Rule, rule_b: Rule) -> bool:
@@ -115,8 +124,11 @@ def partition_unordered(rules: RuleSet) -> List[RuleSet]:
 
   g = nx.DiGraph()
   g.add_nodes_from(rules)
-  g.add_edges_from((p1, p2) for p1, p2 in it.product(rules, rules)
-                   if p1 != p2 and _match_lhs_in_lhs(p1, p2))
+  g.add_edges_from(
+      (p1, p2)
+      for p1, p2 in it.product(rules, rules)
+      if p1 != p2 and _match_lhs_in_lhs(p1, p2)
+  )
   partition = []
   while g.number_of_nodes() > 0:
     leaves = [node for node in g.nodes if g.out_degree(node) == 0]
@@ -138,8 +150,10 @@ def fst_from_rules(rules: RuleSet, sigma: pynini.Fst) -> pynini.Fst:
     The Rewrite FST for the specified rule file.
   """
 
-  fsts = [pynini.optimize(pynini.string_map(rule_set))
-          for rule_set in partition_unordered(rules)]
+  fsts = [
+      pynini.optimize(pynini.string_map(rule_set))
+      for rule_set in partition_unordered(rules)
+  ]
   return ur.RewriteAndComposeFsts(fsts, sigma)
 
 
@@ -172,8 +186,9 @@ def _fst_from_cascading_rules(rules: RuleSet, sigma: pynini.Fst) -> pynini.Fst:
   return ur.RewriteAndComposeFsts(fsts, sigma)
 
 
-def fst_from_cascading_rule_file(rule_file: os.PathLike,
-                                 sigma: pynini.Fst) -> pynini.Fst:
+def fst_from_cascading_rule_file(
+    rule_file: os.PathLike, sigma: pynini.Fst
+) -> pynini.Fst:
   """Gets rewrite FST from a given rewrite rule file.
 
   Args:
