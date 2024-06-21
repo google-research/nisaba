@@ -171,7 +171,6 @@ py_library(
         "@org_opengrm_pynini//pynini",
         "@org_opengrm_pynini//pynini/lib:byte",
         "@rules_python//python/runfiles",
-        requirement("pandas"),
     ],
 )
 

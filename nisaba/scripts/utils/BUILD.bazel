@@ -101,7 +101,6 @@ py_library(
         ":rewrite",
         "@org_opengrm_pynini//pynini",
         requirement("networkx"),
-        requirement("pandas"),
     ],
 )
 
