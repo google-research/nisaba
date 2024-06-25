@@ -81,8 +81,11 @@ std::string JoinPath(absl::string_view dirname, absl::string_view basename) {
 }
 
 std::string TempFilePath(absl::string_view filename) {
-  const std::filesystem::path tmp_dir =
-      std::filesystem::temp_directory_path();
+#if defined(__IPHONE_13_0) && __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_13_0
+  const std::filesystem::path tmp_dir = "/tmp";
+#else
+  const std::filesystem::path tmp_dir = std::filesystem::temp_directory_path();
+#endif  // __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_13_0
   std::filesystem::path file_path = tmp_dir / std::string(filename);
   return file_path.string();
 }
