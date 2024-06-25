@@ -81,13 +81,13 @@ std::string JoinPath(absl::string_view dirname, absl::string_view basename) {
 }
 
 std::string TempFilePath(absl::string_view filename) {
-#if defined(__IPHONE_13_0) && __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_13_0
-  const std::filesystem::path tmp_dir = "/tmp";
+#if defined(__IPHONE_13_0) && __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_13_0
+  return absl::StrCat("/tmp", filename);
 #else
   const std::filesystem::path tmp_dir = std::filesystem::temp_directory_path();
-#endif  // __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_13_0
   std::filesystem::path file_path = tmp_dir / std::string(filename);
   return file_path.string();
+#endif  // __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_13_0
 }
 
 absl::StatusOr<std::string> WriteTempTextFile(absl::string_view filename,
