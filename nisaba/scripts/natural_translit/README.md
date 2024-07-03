@@ -29,11 +29,15 @@ Natural transliteration aims to capture these variances to the extent that they 
 * ml: Malayalam
 * mr: Marathi
 * pa: Punjabi
+* sd: Sindhi
+* si: Sinhala
 * ta: Tamil
 * te: Telugu
+* ur: Urdu
 
 ### Scripts
 
+* arab: Arabic
 * beng: Bengali
 * deva: Devanagari
 * gujr: Gujarati
@@ -43,6 +47,7 @@ Natural transliteration aims to capture these variances to the extent that they 
 * latn: Latin
 * mlym: Malayalam
 * orya: Oriya
+* sinh: Sinhala
 * taml: Tamil
 * telu: Telugu
 
@@ -66,6 +71,20 @@ atin -> अतिन
 * Naming format: `<language>_<target_script>`
 
 For example, `hi_deva` is a deromanization grammar for Hindi where the source script is Latin and the target script is Devanagari, whereas `hi_iso` means the target script is ISO. Deromanization is currently available for Hindi and Tamil to ISO and the native scripts.
+
+English spell-out grammars deromanize Latin strings by spelling out each letter.
+
+**Example**
+
+```
+atin -> एटीआईएन (ēṭī.ā.ī.ēna)
+```
+
+* Directory: [deromanization](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/deromanization)
+* Naming format: `en_spellout_<language>_<target_script>`
+
+For example, `en_spellout_hi_deva` is an English spell-out grammar for Hindi where the source script is Latin and the target script is Devanagari. English spell-out is currently available for Bengali, Gujarati, Hindi, Kannada, Malayalam, Marathi, Oriya, Punjabi, Sindi, Sinhala, Tamil, Telugu, and Urdu.
+
 
 ### G2P
 

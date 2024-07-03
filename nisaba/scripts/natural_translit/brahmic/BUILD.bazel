@@ -99,6 +99,28 @@ py_test(
 )
 
 py_library(
+    name = "en_spellout",
+    srcs = ["en_spellout.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/utils:fst_list",
+        "//nisaba/scripts/natural_translit/utils:inventory",
+        "//nisaba/scripts/natural_translit/utils:type_op",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+py_test(
+    name = "en_spellout_test",
+    srcs = ["en_spellout_test.py"],
+    main = "en_spellout_test.py",
+    deps = [
+        ":en_spellout",
+        "//nisaba/scripts/natural_translit/utils:test_op",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
     name = "g2p",
     srcs = ["g2p.py"],
     deps = [

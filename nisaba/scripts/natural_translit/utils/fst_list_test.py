@@ -76,6 +76,9 @@ class FstListTest(test_op.TestCase):
     self.assertEqual(f.FstList(_FST_A, _FST_B).item(0), _FST_A)
     self.assertEqual(f.FstList(_FST_A, _FST_B).item(-1), _FST_B)
 
+  def test_accep(self):
+    self.AssertEqualValue(f.FstList.accep('a', 'b').concat(), 'ab')
+
   def test_make(self):
 
     def rewrite(

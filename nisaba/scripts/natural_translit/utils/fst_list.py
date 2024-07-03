@@ -29,6 +29,11 @@ class FstList(ty.IterableThing):
     self.add(*fsts)
 
   @classmethod
+  def accep(cls, *strings: str) -> 'FstList':
+    """Creates an FstList from acceptors of strings."""
+    return FstList([pyn.accep(s) for s in strings])
+
+  @classmethod
   def make(
       cls, maker: Callable[..., pyn.Fst], *args: tuple[Any, ...]
   ) -> 'FstList':
