@@ -196,7 +196,7 @@ def _spellout_inventory() -> i.Inventory:
           'ਐੱਫ਼',  # pa_guru
           'ايف',  # sd_arab
           'එෆ්',  # si_sinh
-          'எஃப்‌',  # ta_taml
+          'எஃப்',  # ta_taml
           'ఎఫ్‌',  # te_telu
           'ایف',  # ur_arab
       ),
@@ -228,7 +228,7 @@ def _spellout_inventory() -> i.Inventory:
           'ਐੱਚ',  # pa_guru
           'ايڇ',  # sd_arab
           'එච්',  # si_sinh
-          'ஹெச்‌',  # ta_taml
+          'ஹெச்',  # ta_taml
           'హెచ్‌',  # te_telu
           'ایچ',  # ur_arab
       ),
@@ -292,7 +292,7 @@ def _spellout_inventory() -> i.Inventory:
           'ਐੱਲ',  # pa_guru
           'ايل',  # sd_arab
           'එල්',  # si_sinh
-          'எல்‌',  # ta_taml
+          'எல்',  # ta_taml
           'ఎల్‌',  # te_telu
           'ایل',  # ur_arab
       ),
@@ -308,7 +308,7 @@ def _spellout_inventory() -> i.Inventory:
           'ਐੱਮ',  # pa_guru
           'ايم',  # sd_arab
           'එම්',  # si_sinh
-          'எம்‌',  # ta_taml
+          'எம்',  # ta_taml
           'ఎం',  # te_telu
           'ایم',  # ur_arab
       ),
@@ -324,7 +324,7 @@ def _spellout_inventory() -> i.Inventory:
           'ਐੱਨ',  # pa_guru
           'اين',  # sd_arab
           'එන්',  # si_sinh
-          'என்‌',  # ta_taml
+          'என்',  # ta_taml
           'ఎన్‌',  # te_telu
           'این',  # ur_arab
       ),
@@ -388,7 +388,7 @@ def _spellout_inventory() -> i.Inventory:
           'ਆਰ',  # pa_guru
           'آر',  # sd_arab
           'ආර්',  # si_sinh
-          'ஆர்‌',  # ta_taml
+          'ஆர்',  # ta_taml
           'ఆర్‌',  # te_telu
           'آر',  # ur_arab
       ),
@@ -404,7 +404,7 @@ def _spellout_inventory() -> i.Inventory:
           'ਐੱਸ',  # pa_guru
           'ايس',  # sd_arab
           'එස්',  # si_sinh
-          'எஸ்‌',  # ta_taml
+          'எஸ்',  # ta_taml
           'ఎస్‌',  # te_telu
           'ایس',  # ur_arab
       ),
@@ -484,7 +484,7 @@ def _spellout_inventory() -> i.Inventory:
           'ਐੱਕਸ',  # pa_guru
           'ايڪس',  # sd_arab
           'එක්ස්',  # si_sinh
-          'எக்ஸ்‌',  # ta_taml
+          'எக்ஸ்',  # ta_taml
           'ఎక్స్‌',  # te_telu
           'ایکس',  # ur_arab
       ),
@@ -500,7 +500,7 @@ def _spellout_inventory() -> i.Inventory:
           'ਵਾਈ',  # pa_guru
           'وائي',  # sd_arab
           'වයි',  # si_sinh
-          'ஒய்‌',  # ta_taml
+          'ஒய்',  # ta_taml
           'వై',  # te_telu
           'وائے',  # ur_arab
       ),
@@ -516,7 +516,7 @@ def _spellout_inventory() -> i.Inventory:
           'ਜ਼ੈਡ',  # pa_guru
           'زيڊ',  # sd_arab
           'සඩ්',  # si_sinh
-          'இஜட்‌',  # ta_taml
+          'இஜட்',  # ta_taml
           'జడ్‌',  # te_telu
           'زیڈ',  # ur_arab
       ),
@@ -556,7 +556,7 @@ def _separated(
 
 def speller(language: Language, script: Script) -> pyn.Fst:
   """Builds a speller FST for the given language and script."""
-  has_zwnj = [Script.KNDA, Script.MLYM, Script.TAML, Script.TELU]
+  has_zwnj = [Script.KNDA, Script.MLYM, Script.TELU]
   spellouts = i.Inventory.from_list([
       ty.Thing(
           letter.letter, value_from=_get_spellout(letter, language, script)

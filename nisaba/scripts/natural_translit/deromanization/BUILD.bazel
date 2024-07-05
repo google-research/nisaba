@@ -35,22 +35,6 @@ LANGUAGES = [
     ("ta", "taml"),
 ]
 
-SPELLOUT_LANGUAGES = [
-    "bn_beng",
-    "gu_gujr",
-    "hi_deva",
-    "kn_knda",
-    "ml_mlym",
-    "mr_deva",
-    "or_orya",
-    "pa_guru",
-    "sd_arab",
-    "si_sinh",
-    "ta_taml",
-    "te_telu",
-    "ur_arab",
-]
-
 # Compile ISO grms. Eg: //nisaba/scripts/natural_translit/deromanization:hi_iso
 
 [
@@ -87,22 +71,6 @@ SPELLOUT_LANGUAGES = [
     for language, script in LANGUAGES
 ]
 
-[
-    nisaba_compile_multi_grm_py(
-        name = "en_spellout_%s" % language,
-        outs = {
-            "byte": "en_spellout_%s.far" % language,
-            "utf8": "en_spellout_%s_utf8.far" % language,
-        },
-        visibility = ["//visibility:public"],
-        deps = [
-            "//nisaba/scripts/natural_translit/brahmic:en_spellout",
-            "@org_opengrm_pynini//pynini",
-        ],
-    )
-    for language in SPELLOUT_LANGUAGES
-]
-
 # Byte tests. Eg: //nisaba/scripts/natural_translit/deromanization:hi_iso_test
 
 [
@@ -117,13 +85,6 @@ SPELLOUT_LANGUAGES = [
         name = "%s_%s_test" % (language, script),
     )
     for language, script in LANGUAGES
-]
-
-[
-    nisaba_grm_textproto_test(
-        name = "en_spellout_%s_test" % language,
-    )
-    for language in SPELLOUT_LANGUAGES
 ]
 
 # UTF-8 tests. Eg: //nisaba/scripts/natural_translit/deromanization:hi_iso_utf8_test
@@ -145,11 +106,25 @@ SPELLOUT_LANGUAGES = [
     for language, script in LANGUAGES
 ]
 
-[
-    nisaba_grm_textproto_test(
-        name = "en_spellout_%s_utf8_test" % language,
-        textproto = "testdata/en_spellout_%s.textproto" % language,
-        token_type = "utf8",
-    )
-    for language in SPELLOUT_LANGUAGES
-]
+nisaba_compile_multi_grm_py(
+    name = "en_spellout",
+    outs = {
+        "byte": "en_spellout.far",
+        "utf8": "en_spellout_utf8.far",
+    },
+    visibility = ["//visibility:public"],
+    deps = [
+        "//nisaba/scripts/natural_translit/brahmic:en_spellout",
+        "@org_opengrm_pynini//pynini",
+    ],
+)
+
+nisaba_grm_textproto_test(
+    name = "en_spellout_test",
+)
+
+nisaba_grm_textproto_test(
+    name = "en_spellout_utf8_test",
+    textproto = "testdata/en_spellout.textproto",
+    token_type = "utf8",
+)

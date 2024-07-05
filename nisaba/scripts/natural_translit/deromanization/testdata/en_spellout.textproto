@@ -1,0 +1,198 @@
+# Copyright 2024 Nisaba Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# proto-file: third_party/nisaba/interim/testing/testdata.proto
+# proto-message: Rewrites
+
+rewrite { rule: "BN_BENG" input: "api" output: "এপিআই" }
+rewrite { rule: "BN_BENG" input: "bmw" output: "বিএমডাবলিউ" }
+rewrite { rule: "BN_BENG" input: "cut" output: "সিইউটি" }
+rewrite { rule: "BN_BENG" input: "dhal" output: "ডিএইচএএল" }
+rewrite { rule: "BN_BENG" input: "espn" output: "ইএসপিএন" }
+rewrite { rule: "BN_BENG" input: "fbi" output: "এফবিআই" }
+rewrite { rule: "BN_BENG" input: "irs" output: "আইআরএস" }
+rewrite { rule: "BN_BENG" input: "jpeg" output: "জেপিইজি" }
+rewrite { rule: "BN_BENG" input: "lazy" output: "এলএজেডওয়াই" }
+rewrite { rule: "BN_BENG" input: "sql" output: "এসকিউএল" }
+rewrite { rule: "BN_BENG" input: "tv" output: "টিভি" }
+rewrite { rule: "BN_BENG" input: "uk" output: "ইউকে" }
+rewrite { rule: "BN_BENG" input: "xbox" output: "এক্সবিওএক্স" }
+
+rewrite { rule: "GU_GUJR" input: "api" output: "એપીઆઇ" }
+rewrite { rule: "GU_GUJR" input: "bmw" output: "બીએમડબ્લ્યુ" }
+rewrite { rule: "GU_GUJR" input: "cut" output: "સીયુટી" }
+rewrite { rule: "GU_GUJR" input: "dhal" output: "ડીએચએએલ" }
+rewrite { rule: "GU_GUJR" input: "espn" output: "ઈએસપીએન" }
+rewrite { rule: "GU_GUJR" input: "fbi" output: "એફબીઆઇ" }
+rewrite { rule: "GU_GUJR" input: "irs" output: "આઇઆરએસ" }
+rewrite { rule: "GU_GUJR" input: "jpeg" output: "જેપીઈજી" }
+rewrite { rule: "GU_GUJR" input: "lazy" output: "એલએઝેડવાય" }
+rewrite { rule: "GU_GUJR" input: "sql" output: "એસક્યુએલ" }
+rewrite { rule: "GU_GUJR" input: "tv" output: "ટીવી" }
+rewrite { rule: "GU_GUJR" input: "uk" output: "યુકે" }
+rewrite { rule: "GU_GUJR" input: "xbox" output: "એક્સબીઓએક્સ" }
+
+rewrite { rule: "HI_DEVA" input: "api" output: "एपीआई" }
+rewrite { rule: "HI_DEVA" input: "bmw" output: "बीएमडब्ल्यू" }
+rewrite { rule: "HI_DEVA" input: "cut" output: "सीयूटी" }
+rewrite { rule: "HI_DEVA" input: "dhal" output: "डीएचएएल" }
+rewrite { rule: "HI_DEVA" input: "espn" output: "ईएसपीएन" }
+rewrite { rule: "HI_DEVA" input: "fbi" output: "एफ़बीआई" }
+rewrite { rule: "HI_DEVA" input: "irs" output: "आईआरएस" }
+rewrite { rule: "HI_DEVA" input: "jpeg" output: "जेपीईजी" }
+rewrite { rule: "HI_DEVA" input: "lazy" output: "एलएज़ेडवाई" }
+rewrite { rule: "HI_DEVA" input: "sql" output: "एसक्यूएल" }
+rewrite { rule: "HI_DEVA" input: "tv" output: "टीवी" }
+rewrite { rule: "HI_DEVA" input: "uk" output: "यूके" }
+rewrite { rule: "HI_DEVA" input: "xbox" output: "एक्सबीओएक्स" }
+
+rewrite { rule: "KN_KNDA" input: "api" output: "ಎಪಿಐ" }
+rewrite { rule: "KN_KNDA" input: "bmw" output: "ಬಿಎಂಡಬ್ಲೂ" }
+rewrite { rule: "KN_KNDA" input: "cut" output: "ಸಿಯುಟಿ" }
+rewrite { rule: "KN_KNDA" input: "dhal" output: "ಡಿಎಚ್‌ಎಎಲ್" }
+rewrite { rule: "KN_KNDA" input: "espn" output: "ಇಎಸ್‌ಪಿಎನ್" }
+rewrite { rule: "KN_KNDA" input: "fbi" output: "ಎಫ್‌ಬಿಐ" }
+rewrite { rule: "KN_KNDA" input: "irs" output: "ಐಆರ್‌ಎಸ್" }
+rewrite { rule: "KN_KNDA" input: "jpeg" output: "ಜೆಪಿಇಜಿ" }
+rewrite { rule: "KN_KNDA" input: "lazy" output: "ಎಲ್‌ಎಝಡ್‌ವೈ" }
+rewrite { rule: "KN_KNDA" input: "sql" output: "ಎಸ್‌ಕ್ಯೂಎಲ್" }
+rewrite { rule: "KN_KNDA" input: "tv" output: "ಟಿವಿ" }
+rewrite { rule: "KN_KNDA" input: "uk" output: "ಯುಕೆ" }
+rewrite { rule: "KN_KNDA" input: "xbox" output: "ಎಕ್ಸ್‌ಬಿಒಎಕ್ಸ್" }
+
+rewrite { rule: "ML_MLYM" input: "api" output: "എപിഐ" }
+rewrite { rule: "ML_MLYM" input: "bmw" output: "ബിഎംഡബ്ല്യു" }
+rewrite { rule: "ML_MLYM" input: "cut" output: "സിയുടി" }
+rewrite { rule: "ML_MLYM" input: "dhal" output: "ഡിഎച്ച്‌എഎൽ" }
+rewrite { rule: "ML_MLYM" input: "espn" output: "ഇഎസ്‌പിഎൻ" }
+rewrite { rule: "ML_MLYM" input: "fbi" output: "എഫ്‌ബിഐ" }
+rewrite { rule: "ML_MLYM" input: "irs" output: "ഐആർഎസ്" }
+rewrite { rule: "ML_MLYM" input: "jpeg" output: "ജെപിഇജി" }
+rewrite { rule: "ML_MLYM" input: "lazy" output: "എൽഎഇസെഡ്‌വൈ" }
+rewrite { rule: "ML_MLYM" input: "sql" output: "എസ്‌ക്യുഎൽ" }
+rewrite { rule: "ML_MLYM" input: "tv" output: "ടിവി" }
+rewrite { rule: "ML_MLYM" input: "uk" output: "യുകെ" }
+rewrite { rule: "ML_MLYM" input: "xbox" output: "എക്സ്‌ബിഒഎക്സ്" }
+
+rewrite { rule: "MR_DEVA" input: "api" output: "एपीआय" }
+rewrite { rule: "MR_DEVA" input: "bmw" output: "बीएमडब्ल्यू" }
+rewrite { rule: "MR_DEVA" input: "cut" output: "सीयूटी" }
+rewrite { rule: "MR_DEVA" input: "dhal" output: "डीएचएएल" }
+rewrite { rule: "MR_DEVA" input: "espn" output: "ईएसपीएन" }
+rewrite { rule: "MR_DEVA" input: "fbi" output: "एफबीआय" }
+rewrite { rule: "MR_DEVA" input: "irs" output: "आयआरएस" }
+rewrite { rule: "MR_DEVA" input: "jpeg" output: "जेपीईजी" }
+rewrite { rule: "MR_DEVA" input: "lazy" output: "एलएझेडवाय" }
+rewrite { rule: "MR_DEVA" input: "sql" output: "एसक्यूएल" }
+rewrite { rule: "MR_DEVA" input: "tv" output: "टीव्ही" }
+rewrite { rule: "MR_DEVA" input: "uk" output: "यूके" }
+rewrite { rule: "MR_DEVA" input: "xbox" output: "एक्सबीओएक्स" }
+
+rewrite { rule: "OR_ORYA" input: "api" output: "ଏପିଆଇ" }
+rewrite { rule: "OR_ORYA" input: "bmw" output: "ବିଏମଡବ୍ଲୁ" }
+rewrite { rule: "OR_ORYA" input: "cut" output: "ସିଇଉଟି" }
+rewrite { rule: "OR_ORYA" input: "dhal" output: "ଡିଏଇଚଏଏଲ" }
+rewrite { rule: "OR_ORYA" input: "espn" output: "ଇଏସପିଏନ" }
+rewrite { rule: "OR_ORYA" input: "fbi" output: "ଏଫବିଆଇ" }
+rewrite { rule: "OR_ORYA" input: "irs" output: "ଆଇଆରଏସ" }
+rewrite { rule: "OR_ORYA" input: "jpeg" output: "ଜେପିଇଜି" }
+rewrite { rule: "OR_ORYA" input: "lazy" output: "ଏଲଏଜେଡୱାଇ" }
+rewrite { rule: "OR_ORYA" input: "sql" output: "ଏସକିଉଏଲ" }
+rewrite { rule: "OR_ORYA" input: "tv" output: "ଟିଭି" }
+rewrite { rule: "OR_ORYA" input: "uk" output: "ଇଉକେ" }
+rewrite { rule: "OR_ORYA" input: "xbox" output: "ଏକ୍ସବିଓଏକ୍ସ" }
+
+rewrite { rule: "PA_GURU" input: "api" output: "ਏਪੀਆਈ" }
+rewrite { rule: "PA_GURU" input: "bmw" output: "ਬੀਐੱਮਡੱਬਲਿਊ" }
+rewrite { rule: "PA_GURU" input: "cut" output: "ਸੀਯੂਟੀ" }
+rewrite { rule: "PA_GURU" input: "dhal" output: "ਡੀਐੱਚਏਐੱਲ" }
+rewrite { rule: "PA_GURU" input: "espn" output: "ਈਐੱਸਪੀਐੱਨ" }
+rewrite { rule: "PA_GURU" input: "fbi" output: "ਐੱਫ਼ਬੀਆਈ" }
+rewrite { rule: "PA_GURU" input: "irs" output: "ਆਈਆਰਐੱਸ" }
+rewrite { rule: "PA_GURU" input: "jpeg" output: "ਜੇਪੀਈਜੀ" }
+rewrite { rule: "PA_GURU" input: "lazy" output: "ਐੱਲਏਜ਼ੈਡਵਾਈ" }
+rewrite { rule: "PA_GURU" input: "sql" output: "ਐੱਸਕਿਊਐੱਲ" }
+rewrite { rule: "PA_GURU" input: "tv" output: "ਟੀਵੀ" }
+rewrite { rule: "PA_GURU" input: "uk" output: "ਯੂਕੇ" }
+rewrite { rule: "PA_GURU" input: "xbox" output: "ਐੱਕਸਬੀਓਐੱਕਸ" }
+
+rewrite { rule: "SD_ARAB" input: "api" output: "اي پي آءِ" }
+rewrite { rule: "SD_ARAB" input: "bmw" output: "بي ايم ڊبليو" }
+rewrite { rule: "SD_ARAB" input: "cut" output: "سي يو ٽي" }
+rewrite { rule: "SD_ARAB" input: "dhal" output: "ڊي ايڇ اي ايل" }
+rewrite { rule: "SD_ARAB" input: "espn" output: "اي ايس پي اين" }
+rewrite { rule: "SD_ARAB" input: "fbi" output: "ايف بي آءِ" }
+rewrite { rule: "SD_ARAB" input: "irs" output: "آءِ آر ايس" }
+rewrite { rule: "SD_ARAB" input: "jpeg" output: "جي پي اي جي" }
+rewrite { rule: "SD_ARAB" input: "lazy" output: "ايل اي زيڊ وائي" }
+rewrite { rule: "SD_ARAB" input: "sql" output: "ايس کيو ايل" }
+rewrite { rule: "SD_ARAB" input: "tv" output: "ٽي وي" }
+rewrite { rule: "SD_ARAB" input: "uk" output: "يو ڪي" }
+rewrite { rule: "SD_ARAB" input: "xbox" output: "ايڪس بي او ايڪس" }
+
+rewrite { rule: "SI_SINH" input: "api" output: "ඒපීඅයි" }
+rewrite { rule: "SI_SINH" input: "bmw" output: "බීඑම්ඩබ්ලිව්" }
+rewrite { rule: "SI_SINH" input: "cut" output: "සීයූටී" }
+rewrite { rule: "SI_SINH" input: "dhal" output: "ඩීඑච්ඒඑල්" }
+rewrite { rule: "SI_SINH" input: "espn" output: "ඊඑස්පීඑන්" }
+rewrite { rule: "SI_SINH" input: "fbi" output: "එෆ්බීඅයි" }
+rewrite { rule: "SI_SINH" input: "irs" output: "අයිආර්එස්" }
+rewrite { rule: "SI_SINH" input: "jpeg" output: "ජේපීඊජී" }
+rewrite { rule: "SI_SINH" input: "lazy" output: "එල්ඒසඩ්වයි" }
+rewrite { rule: "SI_SINH" input: "sql" output: "එස්කියුඑල්" }
+rewrite { rule: "SI_SINH" input: "tv" output: "ටීවී" }
+rewrite { rule: "SI_SINH" input: "uk" output: "යූකේ" }
+rewrite { rule: "SI_SINH" input: "xbox" output: "එක්ස්බීඕඑක්ස්" }
+
+rewrite { rule: "TA_TAML" input: "api" output: "ஏபிஐ" }
+rewrite { rule: "TA_TAML" input: "bmw" output: "பிஎம்டபிள்யூ" }
+rewrite { rule: "TA_TAML" input: "cut" output: "சியூடி" }
+rewrite { rule: "TA_TAML" input: "dhal" output: "டிஹெச்ஏஎல்" }
+rewrite { rule: "TA_TAML" input: "espn" output: "இஎஸ்பிஎன்" }
+rewrite { rule: "TA_TAML" input: "fbi" output: "எஃப்பிஐ" }
+rewrite { rule: "TA_TAML" input: "irs" output: "ஐஆர்எஸ்" }
+rewrite { rule: "TA_TAML" input: "jpeg" output: "ஜேபிஇஜி" }
+rewrite { rule: "TA_TAML" input: "lazy" output: "எல்ஏஇஜட்ஒய்" }
+rewrite { rule: "TA_TAML" input: "sql" output: "எஸ்கியூஎல்" }
+rewrite { rule: "TA_TAML" input: "tv" output: "டிவி" }
+rewrite { rule: "TA_TAML" input: "uk" output: "யூகே" }
+rewrite { rule: "TA_TAML" input: "xbox" output: "எக்ஸ்பிஓஎக்ஸ்" }
+
+rewrite { rule: "TE_TELU" input: "api" output: "ఎపిఐ" }
+rewrite { rule: "TE_TELU" input: "bmw" output: "బిఎండబ్ల్యు" }
+rewrite { rule: "TE_TELU" input: "cut" output: "సియుటి" }
+rewrite { rule: "TE_TELU" input: "dhal" output: "డిహెచ్‌ఎఎల్" }
+rewrite { rule: "TE_TELU" input: "espn" output: "ఇఎస్‌పిఎన్" }
+rewrite { rule: "TE_TELU" input: "fbi" output: "ఎఫ్‌బిఐ" }
+rewrite { rule: "TE_TELU" input: "irs" output: "ఐఆర్‌ఎస్" }
+rewrite { rule: "TE_TELU" input: "jpeg" output: "జెపిఇజి" }
+rewrite { rule: "TE_TELU" input: "lazy" output: "ఎల్‌ఎజడ్‌వై" }
+rewrite { rule: "TE_TELU" input: "sql" output: "ఎస్‌క్యుఎల్" }
+rewrite { rule: "TE_TELU" input: "tv" output: "టివి" }
+rewrite { rule: "TE_TELU" input: "uk" output: "యుకె" }
+rewrite { rule: "TE_TELU" input: "xbox" output: "ఎక్స్‌బిఒఎక్స్" }
+
+rewrite { rule: "UR_ARAB" input: "api" output: "اے پی آئی" }
+rewrite { rule: "UR_ARAB" input: "bmw" output: "بی ایم ڈبلیو" }
+rewrite { rule: "UR_ARAB" input: "cut" output: "سی یو ٹی" }
+rewrite { rule: "UR_ARAB" input: "dhal" output: "ڈی ایچ اے ایل" }
+rewrite { rule: "UR_ARAB" input: "espn" output: "ای ایس پی این" }
+rewrite { rule: "UR_ARAB" input: "fbi" output: "ایف بی آئی" }
+rewrite { rule: "UR_ARAB" input: "irs" output: "آئی آر ایس" }
+rewrite { rule: "UR_ARAB" input: "jpeg" output: "جے پی ای جی" }
+rewrite { rule: "UR_ARAB" input: "lazy" output: "ایل اے زیڈ وائے" }
+rewrite { rule: "UR_ARAB" input: "sql" output: "ایس کیو ایل" }
+rewrite { rule: "UR_ARAB" input: "tv" output: "ٹی وی" }
+rewrite { rule: "UR_ARAB" input: "uk" output: "یو کے" }
+rewrite { rule: "UR_ARAB" input: "xbox" output: "ایکس بی او ایکس" }
