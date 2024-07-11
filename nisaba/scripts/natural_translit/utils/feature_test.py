@@ -72,6 +72,16 @@ def _test_inventory() -> f.Inventory:
   room_features.color.set_range(
       'has_red', room_features.color.prp, room_features.color.org
   )
+  room_features.make_sets(
+      ('calming',
+       [
+           room_features.warmth.moderate,
+           room_features.color.grn,
+           room_features.color.blue,
+           room_features.lighting.inc,
+       ]
+      )
+  )
   room_features.add_profile(
       'room1',
       room_features.function.bedroom,
@@ -347,6 +357,11 @@ class FeatureTest(test_op.TestCase):
         '        closed (closed): 0.50\n'
         '        shut (shut): 0.50\n'
         '  }\n'
+    )
+
+  def test_inventory_set(self):
+    self.AssertStrEqual(
+        r.calming, 'calming: {blue, chilly, green, incandescent, tepid, warm}'
     )
 
   def test_profile_room1(self):

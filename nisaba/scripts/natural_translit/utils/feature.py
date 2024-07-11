@@ -621,6 +621,13 @@ class Feature(ty.Thing):
     ) -> None:
       self.add_suppl(old.copy_and_update(alias, *params))
 
+    def make_sets(
+        self, *alias_features: tuple[str, 'Feature.ITERABLE']
+    ) -> None:
+      """Adds mixed-aspect feature sets to the inventory as supplements."""
+      for alias, features in alias_features:
+        self.add_suppl(Feature.Set(features, alias=alias))
+
   class Profile(inventory.Inventory):
     """Feature profile for an object based on a feature inventory.
 

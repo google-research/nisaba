@@ -19,6 +19,26 @@ package(
 )
 
 py_library(
+    name = "descriptive_features",
+    srcs = ["descriptive_features.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/utils:feature",
+    ],
+)
+
+py_test(
+    name = "descriptive_features_test",
+    srcs = ["descriptive_features_test.py"],
+    main = "descriptive_features_test.py",
+    deps = [
+        ":descriptive_features",
+        "//nisaba/scripts/natural_translit/utils:inventory",
+        "//nisaba/scripts/natural_translit/utils:test_op",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
     name = "feature",
     srcs = ["feature.py"],
     deps = [
