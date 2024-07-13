@@ -13,6 +13,9 @@
 # limitations under the License.
 
 
+# Required for `tabulate` below.
+load("@pip_deps//:requirements.bzl", "requirement")
+
 package(
     default_applicable_licenses = [
     ],
@@ -157,6 +160,7 @@ py_library(
         ":inventory",
         ":log_op",
         ":type_op",
+        requirement("tabulate"),
     ],
 )
 

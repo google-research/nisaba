@@ -74,79 +74,67 @@ class DescriptiveFeaturesTest(test_op.TestCase):
         '}\n',
     )
 
+  def test_compare_p_f_verbose(self):
+    self.assertEqual(
+        _P.p.comparison_table(_P.f, verbose=True),
+        'phonology_descriptive comparison (max distance = 23.50):\n\n'
+        '| aspect         | p              | f              |   distance |\n'
+        '|----------------|----------------|----------------|------------|\n'
+        '| ph_class       | consonant      | consonant      |      0     |\n'
+        '| airstream      | pulmonic       | pulmonic       |      0     |\n'
+        '| manner         | stop           | non_sibilant   |      1     |\n'
+        '| place          | labial         | dental         |      0.5   |\n'
+        '| articulator    | labial         | labial         |      0     |\n'
+        '| height         | not_applicable | not_applicable |      0     |\n'
+        '| backness       | not_applicable | not_applicable |      0     |\n'
+        '| breathiness    | any            | any            |      0     |\n'
+        '| voicing        | voiceless      | voiceless      |      0     |\n'
+        '| labialization  | labialized     | labialized     |      0     |\n'
+        '| lateralization | none           | none           |      0     |\n'
+        '| nasalization   | none           | none           |      0     |\n'
+        '| palatalization | none           | none           |      0     |\n'
+        '| rhoticization  | none           | none           |      0     |\n'
+        '| duration       | any            | any            |      0     |\n'
+        '| syllabicity    | none           | none           |      0     |\n'
+        '| Total distance |                |                |      1.5   |\n'
+        '| Similarity     |                |                |      0.936 |\n',
+    )
+
   def test_compare_p_f(self):
     self.assertEqual(
-        _P.p.comparison(_P.f),
-        'p - f phonology_descriptive comparison:\n'
-        '    ph_class: {consonant} vs ph_class: {consonant} = 0.00\n'
-        '    airstream: {pulmonic} vs airstream: {pulmonic} = 0.00\n'
-        '    manner: {stop} vs manner: {non_sibilant} = 1.00\n'
-        '    place: {labial} vs place: {dental} = 0.50\n'
-        '    articulator: {labial} vs articulator: {labial} = 0.00\n'
-        '    height: {not_applicable} vs height: {not_applicable} = 0.00\n'
-        '    backness: {not_applicable} vs backness: {not_applicable} = 0.00\n'
-        '    breathiness: {any} vs breathiness: {any} = 0.00\n'
-        '    voicing: {voiceless} vs voicing: {voiceless} = 0.00\n'
-        '    labialization: {labialized} vs labialization: {labialized} = 0.00'
-        '\n'
-        '    lateralization: {none} vs lateralization: {none} = 0.00\n'
-        '    nasalization: {none} vs nasalization: {none} = 0.00\n'
-        '    palatalization: {none} vs palatalization: {none} = 0.00\n'
-        '    rhoticization: {none} vs rhoticization: {none} = 0.00\n'
-        '    duration: {any} vs duration: {any} = 0.00\n'
-        '    syllabicity: {none} vs syllabicity: {none} = 0.00\n'
-        '    Total distance = 1.50/23.50\n'
-        '    Similarity = 0.936\n',
+        _P.p.comparison_table(_P.f),
+        'phonology_descriptive comparison (max distance = 23.50):\n\n'
+        '| aspect         | p      | f            |   distance |\n'
+        '|----------------|--------|--------------|------------|\n'
+        '| manner         | stop   | non_sibilant |      1     |\n'
+        '| place          | labial | dental       |      0.5   |\n'
+        '| Total distance |        |              |      1.5   |\n'
+        '| Similarity     |        |              |      0.936 |\n',
     )
 
   def test_compare_f_s(self):
     self.assertEqual(
-        _P.f.comparison(_P.s),
-        'f - s phonology_descriptive comparison:\n'
-        '    ph_class: {consonant} vs ph_class: {consonant} = 0.00\n'
-        '    airstream: {pulmonic} vs airstream: {pulmonic} = 0.00\n'
-        '    manner: {non_sibilant} vs manner: {sibilant} = 0.50\n'
-        '    place: {dental} vs place: {alveolar, dental, postalveolar} = 0.00'
-        '\n'
-        '    articulator: {labial} vs articulator: {apical, laminal} = 0.50\n'
-        '    height: {not_applicable} vs height: {not_applicable} = 0.00\n'
-        '    backness: {not_applicable} vs backness: {not_applicable} = 0.00\n'
-        '    breathiness: {any} vs breathiness: {any} = 0.00\n'
-        '    voicing: {voiceless} vs voicing: {voiceless} = 0.00\n'
-        '    labialization: {labialized} vs labialization: {none} = 1.00\n'
-        '    lateralization: {none} vs lateralization: {none} = 0.00\n'
-        '    nasalization: {none} vs nasalization: {none} = 0.00\n'
-        '    palatalization: {none} vs palatalization: {none} = 0.00\n'
-        '    rhoticization: {none} vs rhoticization: {none} = 0.00\n'
-        '    duration: {any} vs duration: {any} = 0.00\n'
-        '    syllabicity: {none} vs syllabicity: {none} = 0.00\n'
-        '    Total distance = 2.00/23.50\n'
-        '    Similarity = 0.915\n',
+        _P.f.comparison_table(_P.s),
+        'phonology_descriptive comparison (max distance = 23.50):\n\n'
+        '| aspect         | f            | s               |   distance |\n'
+        '|----------------|--------------|-----------------|------------|\n'
+        '| manner         | non_sibilant | sibilant        |      0.5   |\n'
+        '| articulator    | labial       | apical, laminal |      0.5   |\n'
+        '| labialization  | labialized   | none            |      1     |\n'
+        '| Total distance |              |                 |      2     |\n'
+        '| Similarity     |              |                 |      0.915 |\n',
     )
 
   def test_compare_f_s_low_amplitude(self):
     self.assertEqual(
-        _P.f.comparison(_P.s_low_amplitude),
-        'f - s_low_amplitude phonology_descriptive comparison:\n'
-        '    ph_class: {consonant} vs ph_class: {consonant} = 0.00\n'
-        '    airstream: {pulmonic} vs airstream: {pulmonic} = 0.00\n'
-        '    manner: {non_sibilant} vs manner: {non_sibilant} = 0.00\n'
-        '    place: {dental} vs place: {alveolar, dental, postalveolar} = 0.00'
-        '\n'
-        '    articulator: {labial} vs articulator: {apical, laminal} = 0.50\n'
-        '    height: {not_applicable} vs height: {not_applicable} = 0.00\n'
-        '    backness: {not_applicable} vs backness: {not_applicable} = 0.00\n'
-        '    breathiness: {any} vs breathiness: {any} = 0.00\n'
-        '    voicing: {voiceless} vs voicing: {voiceless} = 0.00\n'
-        '    labialization: {labialized} vs labialization: {none} = 1.00\n'
-        '    lateralization: {none} vs lateralization: {none} = 0.00\n'
-        '    nasalization: {none} vs nasalization: {none} = 0.00\n'
-        '    palatalization: {none} vs palatalization: {none} = 0.00\n'
-        '    rhoticization: {none} vs rhoticization: {none} = 0.00\n'
-        '    duration: {any} vs duration: {any} = 0.00\n'
-        '    syllabicity: {none} vs syllabicity: {none} = 0.00\n'
-        '    Total distance = 1.50/23.50\n'
-        '    Similarity = 0.936\n',
+        _P.f.comparison_table(_P.s_low_amplitude),
+        'phonology_descriptive comparison (max distance = 23.50):\n\n'
+        '| aspect         | f          | s_low_amplitude   |   distance |\n'
+        '|----------------|------------|-------------------|------------|\n'
+        '| articulator    | labial     | apical, laminal   |      0.5   |\n'
+        '| labialization  | labialized | none              |      1     |\n'
+        '| Total distance |            |                   |      1.5   |\n'
+        '| Similarity     |            |                   |      0.936 |\n',
     )
 
 if __name__ == '__main__':

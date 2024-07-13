@@ -101,6 +101,9 @@ builds a profile for phoneme 'k' as follows:
 
 import enum
 from typing import Iterable, Union
+
+import tabulate
+
 from nisaba.scripts.natural_translit.utils import inventory
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
@@ -205,11 +208,12 @@ class Feature(ty.Thing):
       self.add(*features)
 
     def __str__(self):
-      items = [item.text for item in self._items]
-      items.sort()
       return '%s: {%s}' % (
-          self.alias, ', '.join(items)
+          self.alias, ', '.join(self.sorted_item_texts())
       )
+
+    def sorted_item_texts(self) -> list[str]:
+      return sorted(item.text for item in self._items)
 
     def _item_set(self) -> set['Feature']:
       return ty.type_check(self._items, set(self._items))
@@ -500,11 +504,17 @@ class Feature(ty.Thing):
       self.distance_dict = {}
 
     def __str__(self):
-      """String representation of distance dicts of features for this aspect."""
-      text = '%s (%.2f):\n' % (self.text, self.max_dist)
-      for feature in self:
-        text += str(feature)
-      return text
+      """Distance matrix of this aspect as table in github format."""
+      headers = ['distances'] + [feature.text for feature in self]
+      table = [
+          [feature1.text] + [feature1.distance(feature2) for feature2 in self]
+          for feature1 in self
+      ]
+      return (
+          'aspect: %s, max_dist: %.2f\n\n' % (self.text, self.max_dist)
+          + tabulate.tabulate(table, headers, tablefmt='github')
+          + '\n'
+      )
 
     def add_feature(self, feature: 'Feature') -> None:
       self.add_item(feature)
@@ -723,50 +733,74 @@ class Feature(ty.Thing):
       return new
 
     def compare(
-        self, p: 'Feature.Profile', aspects: 'Feature.ASPECTS' = ty.UNSPECIFIED,
-    ) -> tuple[str, float]:
+        self,
+        p: 'Feature.Profile',
+        aspects: 'Feature.ASPECTS' = ty.UNSPECIFIED,
+        verbose: bool = False,
+    ) -> dict[str, Union[str, float]]:
       """Compares this Profile to another Profile.
 
       Args:
         p: Profile to be compared.
         aspects: contrastive aspects to be included while calculating the
         distance and similarity.
+        verbose: If false, aspects with zero distance are not included in the
+          output table.
 
       Returns:
-        Similarity score
+        Comparison table as string, similarity score as float
 
       """
-      text = '%s - %s %s comparison:\n' % (
-          self.alias, p.alias, self.inventory.alias
-      )
       if p.inventory != self.inventory:
-        return '    not comparable\n    Similarity = 0\n', 0
+        return {
+            'text':
+            '%s and %s profiles are not comparable\n    Similarity = 0\n'
+            % (self.inventory.alias, p.inventory.alias),
+            'similarity': 0,
+        }
       if isinstance(aspects, ty.Nothing): aspects = self.inventory
       total_dist = 0
       max_dist = 0
+      headers = ['aspect', self.text, p.text, 'distance']
+      table = []
       for aspect in aspects:
         item1 = self.get(aspect.alias)
         item2 = p.get(aspect.alias)
         dist = item1.distance(item2)
         total_dist += dist
         max_dist += aspect.max_dist
-        text += '    %s vs %s = %.2f\n' % (
-            str(item1), str(item2), dist
-        )
+        if verbose or dist:
+          table.append([
+              aspect.alias,
+              ', '.join(item1.sorted_item_texts()),
+              ', '.join(item2.sorted_item_texts()),
+              '%.2f' % dist,
+          ])
       similarity = 1 - total_dist / max_dist
-      text += '    Total distance = %.2f/%.2f\n' % (total_dist, max_dist)
-      text += '    Similarity = %.3f\n' % similarity
-      return text, similarity
+      table.extend([
+          ['Total distance', '', '', '%.2f' % total_dist],
+          ['Similarity', '', '', '%.3f' % similarity],
+      ])
+      text = (
+          self.inventory.alias
+          + ' comparison (max distance = %.2f):\n\n' % max_dist
+          + tabulate.tabulate(table, headers, tablefmt='github')
+          + '\n'
+      )
+      return {'text': text, 'similarity': similarity}
 
-    def comparison(
-        self, p: 'Feature.Profile', aspects: 'Feature.ASPECTS' = ty.UNSPECIFIED,
+    def comparison_table(
+        self,
+        p: 'Feature.Profile',
+        aspects: 'Feature.ASPECTS' = ty.UNSPECIFIED,
+        verbose: bool = False,
     ) -> str:
-      return self.compare(p, aspects)[0]
+      return self.compare(p, aspects, verbose)['text']
 
     def similarity(
         self, p: 'Feature.Profile', aspects: 'Feature.ASPECTS' = ty.UNSPECIFIED,
     ) -> float:
-      return self.compare(p, aspects)[1]
+      return self.compare(p, aspects)['similarity']
 
     def has_feature(self, value: 'Feature.Aspect.VALUES') -> bool:
       """Checks if the given value or one of its children is in this profile."""

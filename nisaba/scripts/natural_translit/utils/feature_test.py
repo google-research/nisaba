@@ -19,7 +19,7 @@ from nisaba.scripts.natural_translit.utils import test_op
 f = feature.Feature
 
 
-def _test_inventory() -> f.Inventory:
+def _room_features() -> f.Inventory:
   room_features = f.Inventory(
       'room_features',
       f.Aspect(f.linear(
@@ -103,270 +103,224 @@ def _test_inventory() -> f.Inventory:
   )
   return room_features
 
-r = _test_inventory()
+_R = _room_features()
+
+
+def _animal_features() -> f.Inventory:
+  animal_features = f.Inventory(
+      'animal_features',
+      f.Aspect(f.linear(
+          'size',
+          f('tiny'), f('small'), f('medium'), f('large'), f('huge'),
+          step=0.5,
+      )),
+      f.Aspect(f.linear(
+          'weight',
+          f('light'), f('medium'), f('heavy'),
+          step=0.5,
+      )),
+      f.Aspect(f.linear(
+          'speed',
+          f('slow'), f('medium'), f('fast'),
+          step=0.5,
+      )),
+      f.Aspect(f.linear(
+          'life_span',
+          f('short'), f('medium'), f('long'),
+          step=0.5,
+      )),
+      f.Aspect(f.linear(
+          'gestation',
+          f('short'), f('medium'), f('long'),
+          step=0.5,
+      )),
+      f.Aspect(f.linear(
+          'litter_size',
+          f('small'), f('medium'), f('large'),
+          step=0.5,
+      )),
+  )
+  animal_features.add_profile(
+      'cat',
+      animal_features.size.small,
+      animal_features.weight.light,
+      animal_features.speed.fast,
+      animal_features.life_span.medium,
+      animal_features.gestation.medium,
+      animal_features.litter_size.medium,
+  )
+  return animal_features
+
+_A = _animal_features()
 
 
 class FeatureTest(test_op.TestCase):
 
   def test_feature_text(self):
-    self.assertEqual(r.warmth.vcold.text, 'very_cold')
+    self.assertEqual(_R.warmth.vcold.text, 'very_cold')
 
   def test_aspect_of_feature(self):
-    self.assertEqual(r.warmth.warm.aspect, r.warmth)
+    self.assertEqual(_R.warmth.warm.aspect, _R.warmth)
 
   def test_list_as_suppl(self):
-    self.assertIn('cls', r.door.suppl_aliases)
+    self.assertIn('cls', _R.door.suppl_aliases)
 
   def test_set_empty(self):
     self.assertEmpty(f.Set())
 
   def test_set_alias_text(self):
-    self.assertEqual(r.warmth.all.alias, 'all')
-    self.assertEqual(r.warmth.all.text, 'all')
+    self.assertEqual(_R.warmth.all.alias, 'all')
+    self.assertEqual(_R.warmth.all.text, 'all')
 
   def test_set_reset(self):
-    self.assertEmpty(f.Set(r.warmth.cold).reset())
+    self.assertEmpty(f.Set(_R.warmth.cold).reset())
 
   def test_set_all(self):
-    self.assertIn(r.warmth.warm, r.warmth.all)
+    self.assertIn(_R.warmth.warm, _R.warmth.all)
 
   def test_set_range(self):
-    self.assertIn(r.warmth.tpd, r.warmth.moderate)
+    self.assertIn(_R.warmth.tpd, _R.warmth.moderate)
 
   def test_set_range_reverse(self):
     self.AssertStrEqual(
-        r.color.has_red, 'has_red: {orange, purple, red}'
+        _R.color.has_red, 'has_red: {orange, purple, red}'
     )
 
   def test_set_not(self):
-    self.assertIn(r.warmth.warm, r.warmth.not_cold)
+    self.assertIn(_R.warmth.warm, _R.warmth.not_cold)
 
   def test_set_not_false(self):
-    self.assertNotIn(r.warmth.cold, r.warmth.not_cold)
+    self.assertNotIn(_R.warmth.cold, _R.warmth.not_cold)
 
   def test_feature_in(self):
-    self.assertTrue(r.door.shut.is_in([r.warmth.warm, r.door.cls]))
-    self.assertFalse(r.door.shut.is_in([r.warmth.cold, r.door.closed]))
-    self.assertTrue(r.door.cls.is_in(r.room2.door))
-    self.assertFalse(r.door.open.is_in(r.room2.door))
-    self.AssertFeatureIn(r.door.cls, r.room2)
-    self.AssertFeatureNotIn(r.door.open, r.room2)
+    self.assertTrue(_R.door.shut.is_in([_R.warmth.warm, _R.door.cls]))
+    self.assertFalse(_R.door.shut.is_in([_R.warmth.cold, _R.door.closed]))
+    self.assertTrue(_R.door.cls.is_in(_R.room2.door))
+    self.assertFalse(_R.door.open.is_in(_R.room2.door))
+    self.AssertFeatureIn(_R.door.cls, _R.room2)
+    self.AssertFeatureNotIn(_R.door.open, _R.room2)
 
   def test_has_feature(self):
-    self.AssertHasFeature([r.warmth.warm, r.door.cls], r.door.shut)
-    self.AssertNotHasFeature([r.warmth.cold, r.door.closed], r.door.shut)
-    self.assertTrue(r.room2.door.has_feature(r.door.shut))
-    self.assertTrue(r.room2.door.has_feature(r.door.cls))
-    self.AssertNotHasFeature(r.room2.door, r.door.open)
-    self.assertTrue(r.room2.has_feature(r.door.shut))
-    self.assertTrue(r.room2.has_feature(r.door.cls))
-    self.AssertNotHasFeature(r.room2, r.door.open)
+    self.AssertHasFeature([_R.warmth.warm, _R.door.cls], _R.door.shut)
+    self.AssertNotHasFeature([_R.warmth.cold, _R.door.closed], _R.door.shut)
+    self.assertTrue(_R.room2.door.has_feature(_R.door.shut))
+    self.assertTrue(_R.room2.door.has_feature(_R.door.cls))
+    self.AssertNotHasFeature(_R.room2.door, _R.door.open)
+    self.assertTrue(_R.room2.has_feature(_R.door.shut))
+    self.assertTrue(_R.room2.has_feature(_R.door.cls))
+    self.AssertNotHasFeature(_R.room2, _R.door.open)
 
   def test_max_dist(self):
-    self.assertEqual(r.warmth.max_dist, 3.00)
+    self.assertEqual(_R.warmth.max_dist, 3.00)
 
   def test_feature_dist_same_feature(self):
-    self.AssertFeatureDistance(r.warmth.warm, r.warmth.warm, 0)
+    self.AssertFeatureDistance(_R.warmth.warm, _R.warmth.warm, 0)
 
   def test_feature_dist_same_aspect(self):
-    self.AssertFeatureDistance(r.warmth.warm, r.warmth.cold, 1.5)
+    self.AssertFeatureDistance(_R.warmth.warm, _R.warmth.cold, 1.5)
 
   def test_feature_dist_different_aspect(self):
-    self.AssertFeatureDistance(r.warmth.warm, r.color.red, f.ERROR_DISTANCE)
+    self.AssertFeatureDistance(_R.warmth.warm, _R.color.red, f.ERROR_DISTANCE)
 
   def test_feature_dist_any(self):
-    self.AssertFeatureDistance(r.warmth.warm, r.warmth.any, 0)
+    self.AssertFeatureDistance(_R.warmth.warm, _R.warmth.any, 0)
 
   def test_feature_dist_in_set(self):
-    self.AssertFeatureDistance(r.warmth.warm, r.warmth.moderate, 0)
+    self.AssertFeatureDistance(_R.warmth.warm, _R.warmth.moderate, 0)
 
   def test_feature_dist_out_of_set(self):
-    self.AssertFeatureDistance(r.warmth.cold, r.warmth.moderate, 0.5)
+    self.AssertFeatureDistance(_R.warmth.cold, _R.warmth.moderate, 0.5)
 
   def test_set_dist_in_set(self):
-    self.AssertFeatureDistance(r.warmth.moderate, r.warmth.warm, 0)
+    self.AssertFeatureDistance(_R.warmth.moderate, _R.warmth.warm, 0)
 
   def test_set_dist_out_of_set(self):
-    self.AssertFeatureDistance(r.warmth.moderate, r.warmth.vcold, 1)
+    self.AssertFeatureDistance(_R.warmth.moderate, _R.warmth.vcold, 1)
 
   def test_set_to_set_overlap(self):
-    self.AssertFeatureDistance(r.warmth.moderate, r.warmth.not_cold, 0)
+    self.AssertFeatureDistance(_R.warmth.moderate, _R.warmth.not_cold, 0)
 
   def test_set_to_set_no_overlap(self):
-    self.AssertFeatureDistance(r.warmth.hot_end, r.warmth.cold_end, 2)
+    self.AssertFeatureDistance(_R.warmth.hot_end, _R.warmth.cold_end, 2)
 
   def test_linear(self):
     self.AssertStrEqual(
-        r.warmth,
-        'warmth (3.00):\n'
-        '  vcold (very_cold) = {\n'
-        '        cold (cold): 0.50\n'
-        '        chl (chilly): 1.00\n'
-        '        tpd (tepid): 1.50\n'
-        '        warm (warm): 2.00\n'
-        '        hot (hot): 2.50\n'
-        '        vhot (very_hot): 3.00\n'
-        '  }\n'
-        '  cold (cold) = {\n'
-        '        vcold (very_cold): 0.50\n'
-        '        chl (chilly): 0.50\n'
-        '        tpd (tepid): 1.00\n'
-        '        warm (warm): 1.50\n'
-        '        hot (hot): 2.00\n'
-        '        vhot (very_hot): 2.50\n'
-        '  }\n'
-        '  chl (chilly) = {\n'
-        '        vcold (very_cold): 1.00\n'
-        '        cold (cold): 0.50\n'
-        '        tpd (tepid): 0.50\n'
-        '        warm (warm): 1.00\n'
-        '        hot (hot): 1.50\n'
-        '        vhot (very_hot): 2.00\n'
-        '  }\n'
-        '  tpd (tepid) = {\n'
-        '        vcold (very_cold): 1.50\n'
-        '        cold (cold): 1.00\n'
-        '        chl (chilly): 0.50\n'
-        '        warm (warm): 0.50\n'
-        '        hot (hot): 1.00\n'
-        '        vhot (very_hot): 1.50\n'
-        '  }\n'
-        '  warm (warm) = {\n'
-        '        vcold (very_cold): 2.00\n'
-        '        cold (cold): 1.50\n'
-        '        chl (chilly): 1.00\n'
-        '        tpd (tepid): 0.50\n'
-        '        hot (hot): 0.50\n'
-        '        vhot (very_hot): 1.00\n'
-        '  }\n'
-        '  hot (hot) = {\n'
-        '        vcold (very_cold): 2.50\n'
-        '        cold (cold): 2.00\n'
-        '        chl (chilly): 1.50\n'
-        '        tpd (tepid): 1.00\n'
-        '        warm (warm): 0.50\n'
-        '        vhot (very_hot): 0.50\n'
-        '  }\n'
-        '  vhot (very_hot) = {\n'
-        '        vcold (very_cold): 3.00\n'
-        '        cold (cold): 2.50\n'
-        '        chl (chilly): 2.00\n'
-        '        tpd (tepid): 1.50\n'
-        '        warm (warm): 1.00\n'
-        '        hot (hot): 0.50\n'
-        '  }\n'
+        _R.warmth,
+        'aspect: warmth, max_dist: 3.00\n\n'
+        '| distances   |   very_cold |   cold |   chilly |   tepid |   warm |'
+        '   hot |   very_hot |\n'
+        '|-------------|-------------|--------|----------|---------|--------|'
+        '-------|------------|\n'
+        '| very_cold   |         0   |    0.5 |      1   |     1.5 |    2   |'
+        '   2.5 |        3   |\n'
+        '| cold        |         0.5 |    0   |      0.5 |     1   |    1.5 |'
+        '   2   |        2.5 |\n'
+        '| chilly      |         1   |    0.5 |      0   |     0.5 |    1   |'
+        '   1.5 |        2   |\n'
+        '| tepid       |         1.5 |    1   |      0.5 |     0   |    0.5 |'
+        '   1   |        1.5 |\n'
+        '| warm        |         2   |    1.5 |      1   |     0.5 |    0   |'
+        '   0.5 |        1   |\n'
+        '| hot         |         2.5 |    2   |      1.5 |     1   |    0.5 |'
+        '   0   |        0.5 |\n'
+        '| very_hot    |         3   |    2.5 |      2   |     1.5 |    1   |'
+        '   0.5 |        0   |\n',
     )
 
   def test_equidistant_different(self):
     self.AssertStrEqual(
-        r.function,
-        'function (1.00):\n'
-        '  bedroom (bedroom) = {\n'
-        '        living_room (living_room): 1.00\n'
-        '        office (office): 1.00\n'
-        '  }\n'
-        '  living_room (living_room) = {\n'
-        '        bedroom (bedroom): 1.00\n'
-        '        office (office): 1.00\n'
-        '  }\n'
-        '  office (office) = {\n'
-        '        bedroom (bedroom): 1.00\n'
-        '        living_room (living_room): 1.00\n'
-        '  }\n'
+        _R.function,
+        'aspect: function, max_dist: 1.00\n\n'
+        '| distances   |   bedroom |   living_room |   office |\n'
+        '|-------------|-----------|---------------|----------|\n'
+        '| bedroom     |         0 |             1 |        1 |\n'
+        '| living_room |         1 |             0 |        1 |\n'
+        '| office      |         1 |             1 |        0 |\n',
     )
 
   def test_cyclic(self):
     self.AssertStrEqual(
-        r.color,
-        'color (1.50):\n'
-        '  red (red) = {\n'
-        '        org (orange): 0.50\n'
-        '        ylw (yellow): 1.00\n'
-        '        grn (green): 1.50\n'
-        '        blue (blue): 1.00\n'
-        '        prp (purple): 0.50\n'
-        '  }\n'
-        '  org (orange) = {\n'
-        '        red (red): 0.50\n'
-        '        ylw (yellow): 0.50\n'
-        '        grn (green): 1.00\n'
-        '        blue (blue): 1.50\n'
-        '        prp (purple): 1.00\n'
-        '  }\n'
-        '  ylw (yellow) = {\n'
-        '        red (red): 1.00\n'
-        '        org (orange): 0.50\n'
-        '        grn (green): 0.50\n'
-        '        blue (blue): 1.00\n'
-        '        prp (purple): 1.50\n'
-        '  }\n'
-        '  grn (green) = {\n'
-        '        red (red): 1.50\n'
-        '        org (orange): 1.00\n'
-        '        ylw (yellow): 0.50\n'
-        '        blue (blue): 0.50\n'
-        '        prp (purple): 1.00\n'
-        '  }\n'
-        '  blue (blue) = {\n'
-        '        red (red): 1.00\n'
-        '        org (orange): 1.50\n'
-        '        ylw (yellow): 1.00\n'
-        '        grn (green): 0.50\n'
-        '        prp (purple): 0.50\n'
-        '  }\n'
-        '  prp (purple) = {\n'
-        '        red (red): 0.50\n'
-        '        org (orange): 1.00\n'
-        '        ylw (yellow): 1.50\n'
-        '        grn (green): 1.00\n'
-        '        blue (blue): 0.50\n'
-        '  }\n'
+        _R.color,
+        'aspect: color, max_dist: 1.50\n\n'
+        '| distances   |   red |   orange |   yellow |   green |   blue |'
+        '   purple |\n'
+        '|-------------|-------|----------|----------|---------|--------|'
+        '----------|\n'
+        '| red         |   0   |      0.5 |      1   |     1.5 |    1   |'
+        '      0.5 |\n'
+        '| orange      |   0.5 |      0   |      0.5 |     1   |    1.5 |'
+        '      1   |\n'
+        '| yellow      |   1   |      0.5 |      0   |     0.5 |    1   |'
+        '      1.5 |\n'
+        '| green       |   1.5 |      1   |      0.5 |     0   |    0.5 |'
+        '      1   |\n'
+        '| blue        |   1   |      1.5 |      1   |     0.5 |    0   |'
+        '      0.5 |\n'
+        '| purple      |   0.5 |      1   |      1.5 |     1   |    0.5 |'
+        '      0   |\n',
     )
 
   def test_nested_linear_eq(self):
     self.AssertStrEqual(
-        r.door,
-        'door (1.50):\n'
-        '  open (open) = {\n'
-        '        ajar (ajar): 0.50\n'
-        '        closed (closed): 1.00\n'
-        '        shut (shut): 1.00\n'
-        '        locked (locked): 1.50\n'
-        '  }\n'
-        '  ajar (ajar) = {\n'
-        '        open (open): 0.50\n'
-        '        closed (closed): 0.50\n'
-        '        shut (shut): 0.50\n'
-        '        locked (locked): 1.00\n'
-        '  }\n'
-        '  closed (closed) = {\n'
-        '        open (open): 1.00\n'
-        '        ajar (ajar): 0.50\n'
-        '        shut (shut): 0.00\n'
-        '        locked (locked): 0.50\n'
-        '  }\n'
-        '  shut (shut) = {\n'
-        '        open (open): 1.00\n'
-        '        ajar (ajar): 0.50\n'
-        '        closed (closed): 0.00\n'
-        '        locked (locked): 0.50\n'
-        '  }\n'
-        '  locked (locked) = {\n'
-        '        open (open): 1.50\n'
-        '        ajar (ajar): 1.00\n'
-        '        closed (closed): 0.50\n'
-        '        shut (shut): 0.50\n'
-        '  }\n'
+        _R.door,
+        'aspect: door, max_dist: 1.50\n\n'
+        '| distances   |   open |   ajar |   closed |   shut |   locked |\n'
+        '|-------------|--------|--------|----------|--------|----------|\n'
+        '| open        |    0   |    0.5 |      1   |    1   |      1.5 |\n'
+        '| ajar        |    0.5 |    0   |      0.5 |    0.5 |      1   |\n'
+        '| closed      |    1   |    0.5 |      0   |    0   |      0.5 |\n'
+        '| shut        |    1   |    0.5 |      0   |    0   |      0.5 |\n'
+        '| locked      |    1.5 |    1   |      0.5 |    0.5 |      0   |\n',
     )
 
   def test_inventory_set(self):
     self.AssertStrEqual(
-        r.calming, 'calming: {blue, chilly, green, incandescent, tepid, warm}'
+        _R.calming, 'calming: {blue, chilly, green, incandescent, tepid, warm}'
     )
 
   def test_profile_room1(self):
     self.AssertStrEqual(
-        r.room1,
+        _R.room1,
         'Profile: {\n'
         '    warmth: {cold}\n'
         '    lighting: {any}\n'
@@ -378,7 +332,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_profile_room2(self):
     self.AssertStrEqual(
-        r.room2,
+        _R.room2,
         'Profile: {\n'
         '    warmth: {chilly, hot, tepid, very_hot, warm}\n'
         '    lighting: {fluorescent}\n'
@@ -390,7 +344,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_profile_room3(self):
     self.AssertStrEqual(
-        r.room3,
+        _R.room3,
         'Profile: {\n'
         '    warmth: {cold}\n'
         '    lighting: {fluorescent}\n'
@@ -402,40 +356,81 @@ class FeatureTest(test_op.TestCase):
 
   def test_profile_compare_all(self):
     self.assertEqual(
-        r.room1.comparison(r.room2),
-        'room1 - room2 room_features comparison:\n'
-        '    warmth: {cold} vs warmth: {chilly, hot, tepid, very_hot, warm} '
-        '= 0.50\n'
-        '    lighting: {any} vs lighting: {fluorescent} = 0.00\n'
-        '    function: {bedroom} vs function: {living_room} = 1.00\n'
-        '    color: {red} vs color: {not_applicable} = 1.50\n'
-        '    door: {closed} vs door: {shut} = 0.00\n'
-        '    Total distance = 3.00/8.00\n'
-        '    Similarity = 0.625\n'
+        _R.room1.comparison_table(_R.room2),
+        'room_features comparison (max distance = 8.00):\n\n'
+        '| aspect         | room1   | room2                              |'
+        '   distance |\n'
+        '|----------------|---------|------------------------------------|'
+        '------------|\n'
+        '| warmth         | cold    | chilly, hot, tepid, very_hot, warm |'
+        '      0.5   |\n'
+        '| function       | bedroom | living_room                        |'
+        '      1     |\n'
+        '| color          | red     | not_applicable                     |'
+        '      1.5   |\n'
+        '| Total distance |         |                                    |'
+        '      3     |\n'
+        '| Similarity     |         |                                    |'
+        '      0.625 |\n',
+    )
+
+  def test_profile_compare_verbose(self):
+    self.assertEqual(
+        _R.room1.comparison_table(_R.room2, verbose=True),
+        'room_features comparison (max distance = 8.00):\n\n'
+        '| aspect         | room1   | room2                              |'
+        '   distance |\n'
+        '|----------------|---------|------------------------------------|'
+        '------------|\n'
+        '| warmth         | cold    | chilly, hot, tepid, very_hot, warm |'
+        '      0.5   |\n'
+        '| lighting       | any     | fluorescent                        |'
+        '      0     |\n'
+        '| function       | bedroom | living_room                        |'
+        '      1     |\n'
+        '| color          | red     | not_applicable                     |'
+        '      1.5   |\n'
+        '| door           | closed  | shut                               |'
+        '      0     |\n'
+        '| Total distance |         |                                    |'
+        '      3     |\n'
+        '| Similarity     |         |                                    |'
+        '      0.625 |\n',
     )
 
   def test_profile_compare_aspect_list(self):
     self.assertEqual(
-        r.room1.comparison(r.room2, [r.function, r.color]),
-        'room1 - room2 room_features comparison:\n'
-        '    function: {bedroom} vs function: {living_room} = 1.00\n'
-        '    color: {red} vs color: {not_applicable} = 1.50\n'
-        '    Total distance = 2.50/2.50\n'
-        '    Similarity = 0.000\n'
+        _R.room1.comparison_table(_R.room2, [_R.function, _R.color]),
+        'room_features comparison (max distance = 2.50):\n\n'
+        '| aspect         | room1   | room2          |   distance |\n'
+        '|----------------|---------|----------------|------------|\n'
+        '| function       | bedroom | living_room    |        1   |\n'
+        '| color          | red     | not_applicable |        1.5 |\n'
+        '| Total distance |         |                |        2.5 |\n'
+        '| Similarity     |         |                |        0   |\n',
     )
 
   def test_profile_compare_with_copy(self):
     self.assertEqual(
-        r.room2.comparison(r.room3),
-        'room2 - room3 room_features comparison:\n'
-        '    warmth: {chilly, hot, tepid, very_hot, warm}'
-        ' vs warmth: {cold} = 0.50\n'
-        '    lighting: {fluorescent} vs lighting: {fluorescent} = 0.00\n'
-        '    function: {living_room} vs function: {living_room} = 0.00\n'
-        '    color: {not_applicable} vs color: {not_applicable} = 0.00\n'
-        '    door: {shut} vs door: {shut} = 0.00\n'
-        '    Total distance = 0.50/8.00\n'
-        '    Similarity = 0.938\n'
+        _R.room2.comparison_table(_R.room3),
+        'room_features comparison (max distance = 8.00):\n\n'
+        '| aspect         | room2                              | room3   |'
+        '   distance |\n'
+        '|----------------|------------------------------------|---------|'
+        '------------|\n'
+        '| warmth         | chilly, hot, tepid, very_hot, warm | cold    |'
+        '      0.5   |\n'
+        '| Total distance |                                    |         |'
+        '      0.5   |\n'
+        '| Similarity     |                                    |         |'
+        '      0.938 |\n',
+    )
+
+  def test_profile_compare_inventory_mismatch(self):
+    self.assertEqual(
+        _R.room1.comparison_table(_A.cat),
+        'room_features and animal_features profiles are not comparable\n'
+        '    Similarity = 0\n',
     )
 
 if __name__ == '__main__':
