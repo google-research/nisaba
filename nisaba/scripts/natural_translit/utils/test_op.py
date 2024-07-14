@@ -15,12 +15,10 @@
 """A library for making unit tests for natural translit."""
 
 from typing import Any, Iterable
-
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.utils import expression as exp
 from nisaba.scripts.natural_translit.utils import feature as ftr
 from nisaba.scripts.natural_translit.utils import type_op as ty
-# from nisaba.scripts.utils import test_util
 
 
 class TestCase(absltest.TestCase):
@@ -44,6 +42,10 @@ class TestCase(absltest.TestCase):
 
   def AssertStrEqual(self, obj_1: ..., obj_2: ...):
     self.assertEqual(str(obj_1), str(obj_2))
+
+  def AssertFileContentEndsWith(self, file_path: str, obj: ...):
+    with open('nisaba/scripts/' + file_path, 'r') as f:
+      self.assertTrue(f.read().strip().endswith(str(obj).strip()))
 
   # Expression asserts
 

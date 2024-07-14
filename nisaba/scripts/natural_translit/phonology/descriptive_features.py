@@ -171,6 +171,7 @@ def _features() -> feature.Feature.Inventory:
           )
       ),
       f.Aspect(f.equidistant('syllabicity', f('syllabic'), f('none'))),
+      text='Descriptive phonological features',
   )
   for alias, feature_list in [
       ('close_like', [features.height.close, features.height.near_close]),

@@ -607,17 +607,18 @@ class Feature(ty.Thing):
 
     """
 
-    def __init__(self, alias: str, *aspects: 'Feature.Aspect'):
+    def __init__(self, alias: str, *aspects: 'Feature.Aspect', text: str = ''):
       super().__init__(alias)
+      if text:
+        self.text = text
       for aspect in aspects:
         aspect.populate(self)
 
     def __str__(self):
-      """String representation of all distance dicts in the inventory."""
-      text = 'Inventory: %s\n' % self.text
-      for a in self:
-        text += str(a)
-      return text
+      """String representation of all aspects in the inventory."""
+      return f'## Inventory: {self.text}\n\n' + '\n\n'.join(
+          f'* {a}' for a in self
+      )
 
     def add_profile(
         self, alias: str,
