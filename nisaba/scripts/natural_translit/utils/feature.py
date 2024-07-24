@@ -670,15 +670,29 @@ class Feature(ty.Thing):
     """
 
     def __init__(
-        self, feature_inventory: 'Feature.Inventory', alias: str,
-        *params: 'Feature.ITERABLE'
+        self,
+        feature_inventory: 'Feature.Inventory',
+        alias: str,
+        *features: 'Feature.ITERABLE',
+        unspecified_aspect_n_a: bool = False,
     ):
+      """Creates a feature profile for a given inventory.
+
+      Args:
+        feature_inventory: The inventory of features to be used in this profile.
+        alias: The alias of the feature profile.
+        *features: Features to be added to the profile.
+        unspecified_aspect_n_a: If true, the default value for an aspect is
+          n_a (not available) instead of any.
+      """
       super().__init__(alias)
       self.inventory = feature_inventory
       self.max_dist = 0
-      param_dict = Feature.Set.aspect_dict(*params)
+      aspect_dict = Feature.Set.aspect_dict(*features)
       for aspect in self.inventory:
-        value = param_dict.get(aspect, aspect.any)
+        value = aspect_dict.get(
+            aspect, aspect.n_a if unspecified_aspect_n_a else aspect.any
+        )
         self.add_item(Feature.Set(value, alias=aspect.alias))
         self.max_dist += aspect.max_dist
 

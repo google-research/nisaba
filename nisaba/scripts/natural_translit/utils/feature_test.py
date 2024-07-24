@@ -354,6 +354,25 @@ class FeatureTest(test_op.TestCase):
         '}\n'
     )
 
+  def test_profile_default_value_n_a(self):
+    self.AssertStrEqual(
+        f.Profile(
+            _A,
+            'ornamental',
+            _A.size.any,
+            _A.weight.any,
+            unspecified_aspect_n_a=True,
+        ),
+        'Profile: {\n'
+        '    size: {any}\n'
+        '    weight: {any}\n'
+        '    speed: {not_applicable}\n'
+        '    life_span: {not_applicable}\n'
+        '    gestation: {not_applicable}\n'
+        '    litter_size: {not_applicable}\n'
+        '}\n',
+    )
+
   def test_profile_compare_all(self):
     self.assertEqual(
         _R.room1.comparison_table(_R.room2),
