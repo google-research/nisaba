@@ -210,6 +210,12 @@ class FeatureTest(test_op.TestCase):
     self.assertTrue(_R.room2.has_feature(_R.door.cls))
     self.AssertNotHasFeature(_R.room2, _R.door.open)
 
+  def test_set_non_generic(self):
+    non_generic = f.Set(
+        _R.warmth.cold, _R.lighting.n_a, _R.color.any, alias='set1'
+    ).non_generic(alias='non_generic')
+    self.AssertStrEqual(non_generic, 'non_generic: {cold}')
+
   def test_max_dist(self):
     self.assertEqual(_R.warmth.max_dist, 3.00)
 
@@ -371,6 +377,17 @@ class FeatureTest(test_op.TestCase):
         '    gestation: {not_applicable}\n'
         '    litter_size: {not_applicable}\n'
         '}\n',
+    )
+
+  def test_profile_aspect_applicable(self):
+    self.assertTrue(_R.color.is_applicable(_R.room1))
+    self.assertFalse(_R.color.is_applicable(_R.room2))
+    self.assertFalse(_R.color.is_applicable(_A.cat))
+
+  def test_profile_get(self):
+    self.AssertStrEqual(_R.room1.get(_R.warmth), 'warmth: {cold}')
+    self.AssertStrEqual(
+        _R.room1.get(_A.size), 'animal_features_size: {not_applicable}'
     )
 
   def test_profile_compare_all(self):

@@ -284,6 +284,13 @@ class Feature(ty.Thing):
         return True
       return any(value in feature.parent_list for feature in self)
 
+    def non_generic(self, alias: str = '') -> 'Feature.Set':
+      """Returns a copy of set without aspect.any and aspect.n_a features."""
+      return Feature.Set([
+          feature for feature in self
+          if feature != feature.aspect.any and feature != feature.aspect.n_a
+      ], alias=(alias if alias else self.alias + '_non_generic'))
+
   class ValueListType(enum.Enum):
     EQUIDISTANT = 0
     LINEAR = 1
@@ -368,8 +375,10 @@ class Feature(ty.Thing):
         return Feature.ERROR_DISTANCE
       delta = self._items.index(values2) - self._items.index(values1)
       match self.list_type:
-        case Feature.ValueListType.EQUIDISTANT: return self.step
-        case Feature.ValueListType.LINEAR: return delta * self.step
+        case Feature.ValueListType.EQUIDISTANT:
+          return self.step
+        case Feature.ValueListType.LINEAR:
+          return delta * self.step
         case Feature.ValueListType.CYCLIC:
           return min(delta, len(self) - delta) * self.step
       return Feature.ERROR_DISTANCE
@@ -591,6 +600,13 @@ class Feature(ty.Thing):
       """Checks if the given value or one of its children is in this aspect."""
       return value.is_in(self)
 
+    def is_applicable(self, profile: 'Feature.Profile') -> bool:
+      """Checks if this aspect is applicable to the given profile."""
+      return (
+          profile.inventory == self.inventory
+          and self.n_a not in profile.get(self)
+      )
+
   class Inventory(inventory.Inventory):
     """An inventory of Aspects and their contrastive features.
 
@@ -683,7 +699,7 @@ class Feature(ty.Thing):
         alias: The alias of the feature profile.
         *features: Features to be added to the profile.
         unspecified_aspect_n_a: If true, the default value for an aspect is
-          n_a (not available) instead of any.
+          n_a (not_applicable) instead of any.
       """
       super().__init__(alias)
       self.inventory = feature_inventory
@@ -702,6 +718,22 @@ class Feature(ty.Thing):
         text += '    ' + str(item) + '\n'
       text += '}\n'
       return text
+
+    def get(self, aspect: 'Feature.Aspect') -> 'Feature.Set':
+      """Gets the value set for the given aspect."""
+      return super().get(
+          aspect.alias,
+          Feature.Set(
+              aspect.n_a,
+              alias='%s_%s'
+              % (
+                  'missing'
+                  if aspect.inventory == self.inventory
+                  else aspect.inventory.alias,
+                  aspect.alias,
+              ),
+          ),
+      )
 
     def copy_and_update(
         self, alias: str,
@@ -744,7 +776,7 @@ class Feature(ty.Thing):
       new = Feature.Profile(self.inventory, alias, *self)
       update_dict = Feature.Set.aspect_dict(*updates)
       for aspect, value in update_dict.items():
-        new.get(aspect.alias).update(value)
+        new.get(aspect).update(value)
       return new
 
     def compare(
@@ -779,8 +811,8 @@ class Feature(ty.Thing):
       headers = ['aspect', self.text, p.text, 'distance']
       table = []
       for aspect in aspects:
-        item1 = self.get(aspect.alias)
-        item2 = p.get(aspect.alias)
+        item1 = self.get(aspect)
+        item2 = p.get(aspect)
         dist = item1.distance(item2)
         total_dist += dist
         max_dist += aspect.max_dist
