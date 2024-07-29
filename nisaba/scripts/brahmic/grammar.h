@@ -120,6 +120,28 @@ class Normalizer {
   Grammar wellformed_;
 };
 
+// Provides reading normalization of Brahmic text after composing it with
+// visual normalization.
+class ReadingNorm {
+ public:
+  ReadingNorm(absl::string_view far_path, absl::string_view fst_name)
+      : visual_norm_(far_path, "visual_norm", fst_name),
+        reading_norm_(far_path, "reading_norm", fst_name){}
+
+  explicit ReadingNorm(absl::string_view fst_name) :
+      visual_norm_("visual_norm", fst_name),
+      reading_norm_("reading_norm", fst_name) {}
+
+  absl::Status Load();
+  absl::Status Rewrite(absl::string_view input, std::string *output) const;
+
+ private:
+  ReadingNorm() = delete;
+
+  Grammar visual_norm_;
+  Grammar reading_norm_;
+};
+
 }  // namespace brahmic
 }  // namespace nisaba
 

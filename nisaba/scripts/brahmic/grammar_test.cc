@@ -161,6 +161,64 @@ TEST(PreLoadedNormalizerTest, NormalizerWithPreLoadedManagers) {
   EXPECT_FALSE(normalizer.Rewrite("काु", &output).ok());
 }
 
+void CheckReadingNormLoadOk(absl::string_view language_or_script) {
+  ReadingNorm reading_norm(language_or_script);
+  EXPECT_OK(reading_norm.Load());
+}
+
+void CheckReadingNormLoadError(absl::string_view language_or_script) {
+  ReadingNorm reading_norm(language_or_script);
+  EXPECT_EQ(reading_norm.Load().code(), absl::StatusCode::kInternal);
+}
+
+TEST(ReadingNorm, CheckLoad) {
+  // For language.
+  CheckReadingNormLoadOk("bn");
+  CheckReadingNormLoadOk("hi");
+  CheckReadingNormLoadOk("ml");
+  // For script.
+  CheckReadingNormLoadOk("Beng");
+  CheckReadingNormLoadOk("Mlym");
+  CheckReadingNormLoadOk("Lepc");
+  // No reading norm.
+  CheckReadingNormLoadError("Deva");
+  CheckReadingNormLoadError("mr");
+}
+
+// TODO: Consider adding tests based on the data from the file
+// nisaba/scripts/brahmic/testdata/reading_norm.tsv file.
+void TestReadingNorm(absl::string_view language,
+                     const std::vector<std::string>& inputs,
+                     const std::vector<std::string>& expected_outputs) {
+  ReadingNorm reading_norm(language);
+  ASSERT_OK(reading_norm.Load());
+  for (size_t n = 0; n < inputs.size(); ++n) {
+    std::string output_word;
+    EXPECT_OK(reading_norm.Rewrite(inputs[n], &output_word));
+    EXPECT_EQ(output_word, expected_outputs[n]);
+  }
+}
+
+TEST(ReadingNorm, bn) {
+  const std::vector<std::string> inputs({"সংগে"});
+  const std::vector<std::string> expected_outputs({"সঙ্গে"});
+  TestReadingNorm("bn", inputs, expected_outputs);
+}
+
+TEST(ReadingNorm, hi) {
+  const std::vector<std::string> inputs({"काङ्ग्रेस"});
+  const std::vector<std::string> expected_outputs({"कांग्रेस"});
+  TestReadingNorm("hi", inputs, expected_outputs);
+}
+
+TEST(ReadingNorm, ml) {
+  // clang-format off
+  const std::vector<std::string> inputs({"​സ​ന്യാ​സി​വ​ൎയ്യ​ന്മാ​ർ​ക്ക"});
+  const std::vector<std::string> expected_outputs({"സന്യാസിവര്യന്മാർക്ക"});
+  // clang-format on
+  TestReadingNorm("ml", inputs, expected_outputs);
+}
+
 }  // namespace
 }  // namespace brahmic
 }  // namespace nisaba

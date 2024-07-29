@@ -141,5 +141,19 @@ bool Normalizer::SupportsFst(absl::string_view fst_name) {
   return Normalizer{fst_name}.Load().ok();
 }
 
+absl::Status ReadingNorm::Load() {
+  RETURN_IF_ERROR(visual_norm_.Load());
+  RETURN_IF_ERROR(reading_norm_.Load());
+  return absl::OkStatus();
+}
+
+absl::Status ReadingNorm::Rewrite(absl::string_view input,
+                                  std::string *output) const {
+  std::string temp;
+  RETURN_IF_ERROR(visual_norm_.Rewrite(input, &temp));
+  RETURN_IF_ERROR(reading_norm_.Rewrite(temp, output));
+  return absl::OkStatus();
+}
+
 }  // namespace brahmic
 }  // namespace nisaba

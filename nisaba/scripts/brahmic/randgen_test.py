@@ -37,6 +37,15 @@ class FstRandgenTest(parameterized.TestCase, tu.FstRandgenTestCase):
     fst = u.OpenFstFromBrahmicFar('visual_norm', script, token_type)
     self.AssertFstProbablyFunctional(fst, token_type)
 
+  @parameterized.parameters(
+      itertools.product(u.READING_NORM_LANGS, ('byte', 'utf8'))
+  )
+  def test_reading_norm(self, script_lang: str, token_type: pynini.TokenType):
+    script, lang = script_lang
+    tag = lang if lang else script
+    fst = u.OpenFstFromBrahmicFar('reading_norm', tag, token_type)
+    self.AssertFstProbablyFunctional(fst, token_type)
+
   @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   def test_from_iso_to_native_single_best(
       self, script: str, token_type: pynini.TokenType
