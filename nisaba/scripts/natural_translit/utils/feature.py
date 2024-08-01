@@ -640,16 +640,16 @@ class Feature(ty.Thing):
       )
 
     def add_profile(
-        self, alias: str,
-        *params: 'Feature.ITERABLE',
-    ) -> None:
-      self.add_suppl(Feature.Profile(self, alias, *params))
+        self, alias: str, *features: 'Feature.ITERABLE'
+    ) -> 'Feature.Profile':
+      new = Feature.Profile(self, alias, *features)
+      self.add_suppl(new)
+      return new
 
-    def copy_and_update_profile(
-        self, old: 'Feature.Profile', alias: str,
-        *params: 'Feature.ITERABLE',
-    ) -> None:
-      self.add_suppl(old.copy_and_update(alias, *params))
+    def copy_profile(
+        self, old: 'Feature.Profile', alias: str
+    ) -> 'Feature.Profile':
+      return self.add_profile(alias, *old)
 
     def make_sets(
         self, *alias_features: tuple[str, 'Feature.ITERABLE']
@@ -716,7 +716,7 @@ class Feature(ty.Thing):
         self.max_dist += aspect.max_dist
 
     def __str__(self):
-      text = 'Profile: {\n'
+      text = self.alias + ' profile: {\n'
       for item in self:
         text += '    ' + str(item) + '\n'
       text += '}\n'
@@ -738,20 +738,20 @@ class Feature(ty.Thing):
           ),
       )
 
-    def copy_and_update(
-        self, alias: str,
-        *updates: 'Feature.ITERABLE'
-    ) -> 'Feature.Profile':
-      """Copies the whole profile and applies the updates if provided..
+    def copy(self, alias: str) -> 'Feature.Profile':
+      return Feature.Profile(self.inventory, alias, *self)
+
+    def update(self, *features: 'Feature.ITERABLE') -> 'Feature.Profile':
+      """Updates the profile with the given features.
 
       Args:
-        alias: alias of the new profile.
-        *updates: values to be replaced in the new profile.
+        *features: values to be replaced.
       Returns:
         Profile.
 
       Example:
-      room_features.add_profile(
+      Feature.Profile(
+          room_features,
           'white_office'
           room_features.function.office,
           room_features.color.white,
@@ -759,16 +759,13 @@ class Feature(ty.Thing):
           room_features.warmth.any,
           room_features.door.any,
       )
-
-      white_office.copy_and_update(
-          'wo_hot'
-          room_features.warmth.hot
-      )
+      white_office.update(room_features.warmth.hot)
 
       yields
 
-      Profile(
-          'wo_hot'
+      Feature.Profile(
+          room_features,
+          'white_office'
           room_features.function.office,
           room_features.color.white,
           room_features.ligthing.any,
@@ -776,11 +773,9 @@ class Feature(ty.Thing):
           room_features.door.any,
       )
       """
-      new = Feature.Profile(self.inventory, alias, *self)
-      update_dict = Feature.Set.aspect_dict(*updates)
-      for aspect, value in update_dict.items():
-        new.get(aspect).update(value)
-      return new
+      for aspect, value in Feature.Set.aspect_dict(*features).items():
+        self.get(aspect).update(value)
+      return self
 
     def compare(
         self,

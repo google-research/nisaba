@@ -97,8 +97,7 @@ def _room_features() -> f.Inventory:
       room_features.color.n_a,
       room_features.door.shut,
   )
-  room_features.copy_and_update_profile(
-      room_features.room2, 'room3',
+  room_features.copy_profile(room_features.room2, 'room3').update(
       room_features.warmth.cold,
   )
   return room_features
@@ -344,7 +343,7 @@ class FeatureTest(test_op.TestCase):
   def test_profile_room1(self):
     self.AssertStrEqual(
         _R.room1,
-        'Profile: {\n'
+        'room1 profile: {\n'
         '    warmth: {cold}\n'
         '    lighting: {any}\n'
         '    function: {bedroom}\n'
@@ -356,7 +355,7 @@ class FeatureTest(test_op.TestCase):
   def test_profile_room2(self):
     self.AssertStrEqual(
         _R.room2,
-        'Profile: {\n'
+        'room2 profile: {\n'
         '    warmth: {chilly, hot, tepid, very_hot, warm}\n'
         '    lighting: {fluorescent}\n'
         '    function: {living_room}\n'
@@ -368,13 +367,39 @@ class FeatureTest(test_op.TestCase):
   def test_profile_room3(self):
     self.AssertStrEqual(
         _R.room3,
-        'Profile: {\n'
+        'room3 profile: {\n'
         '    warmth: {cold}\n'
         '    lighting: {fluorescent}\n'
         '    function: {living_room}\n'
         '    color: {not_applicable}\n'
         '    door: {shut}\n'
         '}\n'
+    )
+
+  def test_profile_copy(self):
+    self.AssertStrEqual(
+        _A.cat.copy('copycat'),
+        'copycat profile: {\n'
+        '    size: {small}\n'
+        '    weight: {light}\n'
+        '    speed: {fast}\n'
+        '    life_span: {medium}\n'
+        '    gestation: {medium}\n'
+        '    litter_size: {medium}\n'
+        '}\n',
+    )
+
+  def test_profile_update(self):
+    self.AssertStrEqual(
+        _A.cat.copy('kitten').update(_A.size.tiny),
+        'kitten profile: {\n'
+        '    size: {tiny}\n'
+        '    weight: {light}\n'
+        '    speed: {fast}\n'
+        '    life_span: {medium}\n'
+        '    gestation: {medium}\n'
+        '    litter_size: {medium}\n'
+        '}\n',
     )
 
   def test_profile_default_value_n_a(self):
@@ -386,7 +411,7 @@ class FeatureTest(test_op.TestCase):
             _A.weight.any,
             unspecified_aspect_n_a=True,
         ),
-        'Profile: {\n'
+        'ornamental profile: {\n'
         '    size: {any}\n'
         '    weight: {any}\n'
         '    speed: {not_applicable}\n'

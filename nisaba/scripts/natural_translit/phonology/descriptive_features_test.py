@@ -21,27 +21,24 @@ from nisaba.scripts.natural_translit.utils import test_op
 def _profiles() -> inventory.Inventory:
   f = descriptive_features.FEATURES
   profiles = inventory.Inventory.from_list([
-      f.consonant.copy_and_update(
-          'p',
+      f.consonant.copy('p').update(
           f.manner.stop,
           f.bilabial,
           f.voicing.voiceless,
       ),
-      f.consonant.copy_and_update(
-          'f',
+      f.consonant.copy('f').update(
           f.manner.non_sibilant,
           f.labiodental,
           f.voicing.voiceless,
       ),
-      f.consonant.copy_and_update(
-          's',
+      f.consonant.copy('s').update(
           f.manner.sibilant,
           f.para_alveolar,
           f.voicing.voiceless,
       ),
   ])
   profiles.add_item(
-      profiles.s.copy_and_update('s_low_amplitude', f.manner.non_sibilant)
+      profiles.s.copy('s_low_amplitude').update(f.manner.non_sibilant)
   )
   return profiles
 
@@ -54,7 +51,7 @@ class DescriptiveFeaturesTest(test_op.TestCase):
   def test_profile_p(self):
     self.AssertStrEqual(
         _P.p,
-        'Profile: {\n'
+        'p profile: {\n'
         '    ph_class: {consonant}\n'
         '    airstream: {pulmonic}\n'
         '    manner: {stop}\n'
