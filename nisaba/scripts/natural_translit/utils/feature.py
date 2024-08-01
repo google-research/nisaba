@@ -291,6 +291,9 @@ class Feature(ty.Thing):
           if feature != feature.aspect.any and feature != feature.aspect.n_a
       ], alias=(alias if alias else self.alias + '_non_generic'))
 
+    def is_equal(self, feature_set: 'Feature.Set') -> bool:
+      return feature_set is self or set(self) == set(feature_set)
+
   class ValueListType(enum.Enum):
     EQUIDISTANT = 0
     LINEAR = 1

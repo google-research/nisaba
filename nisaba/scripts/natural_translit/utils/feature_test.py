@@ -216,6 +216,23 @@ class FeatureTest(test_op.TestCase):
     ).non_generic(alias='non_generic')
     self.AssertStrEqual(non_generic, 'non_generic: {cold}')
 
+  def test_set_is_equal(self):
+    self.assertTrue(
+        f.Set(_R.warmth.chl, _R.warmth.tpd, _R.warmth.warm).is_equal(
+            _R.warmth.moderate
+        )
+    )
+    self.assertFalse(
+        f.Set(_R.warmth.tpd, _R.warmth.warm).is_equal(
+            _R.warmth.moderate
+        )
+    )
+    self.assertFalse(
+        f.Set(
+            _R.warmth.chl, _R.warmth.tpd, _R.warmth.warm, _R.warmth.hot
+        ).is_equal(_R.warmth.moderate)
+    )
+
   def test_max_dist(self):
     self.assertEqual(_R.warmth.max_dist, 3.00)
 
