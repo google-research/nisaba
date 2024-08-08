@@ -628,6 +628,8 @@ class _BaseAlignment(Expression):
   def is_suffix(self, other: Expression.OR_SYMBOL) -> bool:
     return self._compare(other, 'is_suffix')
 
+_BASE_ANY = _BaseAlignment(Expression.ANY, Expression.ANY)
+
 
 class Alignment(_BaseAlignment):
   """Alignment class for defining a relation between two expressions.
@@ -768,13 +770,10 @@ class Alignment(_BaseAlignment):
   @classmethod
   def rule(
       cls,
-      alias: str = '',
-      left: Expression.OR_SYMBOL = Expression.ANY,
-      right: Expression.OR_SYMBOL = Expression.ANY,
-      preceding_left: Expression.OR_SYMBOL = Expression.ANY,
-      preceding_right: Expression.OR_SYMBOL = Expression.ANY,
-      following_left: Expression.OR_SYMBOL = Expression.ANY,
-      following_right: Expression.OR_SYMBOL = Expression.ANY,
+      alias: str,
+      alignment: 'Alignment',
+      preceding: 'Alignment' = _BASE_ANY,
+      following: 'Alignment' = _BASE_ANY,
       from_bos: bool = False,
       to_eos: bool = False,
       operation: op.Operation = op.Operation.COMMON.alignable,
@@ -784,12 +783,12 @@ class Alignment(_BaseAlignment):
   ) -> 'Alignment':
     rule = cls(
         alias,
-        left,
-        right,
-        preceding_left,
-        preceding_right,
-        following_left,
-        following_right,
+        alignment.left,
+        alignment.right,
+        preceding.left,
+        preceding.right,
+        following.left,
+        following.right,
         from_bos,
         to_eos,
         operation,
@@ -806,12 +805,10 @@ class Alignment(_BaseAlignment):
   @classmethod
   def deletion(
       cls,
-      alias: str = '',
-      left: Expression.OR_SYMBOL = Expression.ANY,
-      preceding_left: Expression.OR_SYMBOL = Expression.ANY,
-      preceding_right: Expression.OR_SYMBOL = Expression.ANY,
-      following_left: Expression.OR_SYMBOL = Expression.ANY,
-      following_right: Expression.OR_SYMBOL = Expression.ANY,
+      alias: str,
+      left: Expression.OR_SYMBOL,
+      preceding: 'Alignment' = _BASE_ANY,
+      following: 'Alignment' = _BASE_ANY,
       from_bos: bool = False,
       to_eos: bool = False,
       operation: op.Operation = op.Operation.COMMON.deletion,
@@ -821,12 +818,9 @@ class Alignment(_BaseAlignment):
   ) -> 'Alignment':
     return cls.rule(
         alias,
-        left,
-        Atomic.CTRL.eps,
-        preceding_left,
-        preceding_right,
-        following_left,
-        following_right,
+        left >> Atomic.CTRL.eps,
+        preceding,
+        following,
         from_bos,
         to_eos,
         operation,
@@ -838,12 +832,10 @@ class Alignment(_BaseAlignment):
   @classmethod
   def insertion(
       cls,
-      alias: str = '',
-      right: Expression.OR_SYMBOL = Expression.ANY,
-      preceding_left: Expression.OR_SYMBOL = Expression.ANY,
-      preceding_right: Expression.OR_SYMBOL = Expression.ANY,
-      following_left: Expression.OR_SYMBOL = Expression.ANY,
-      following_right: Expression.OR_SYMBOL = Expression.ANY,
+      alias: str,
+      right: Expression.OR_SYMBOL,
+      preceding: 'Alignment' = _BASE_ANY,
+      following: 'Alignment' = _BASE_ANY,
       from_bos: bool = False,
       to_eos: bool = False,
       operation: op.Operation = op.Operation.COMMON.insertion,
@@ -853,12 +845,9 @@ class Alignment(_BaseAlignment):
   ) -> 'Alignment':
     return cls.rule(
         alias,
-        Atomic.CTRL.eps,
-        right,
-        preceding_left,
-        preceding_right,
-        following_left,
-        following_right,
+        Atomic.CTRL.eps >> right,
+        preceding,
+        following,
         from_bos,
         to_eos,
         operation,
@@ -870,13 +859,10 @@ class Alignment(_BaseAlignment):
   @classmethod
   def interchangeable(
       cls,
-      alias: str = '',
-      left: Expression.OR_SYMBOL = Expression.ANY,
-      right: Expression.OR_SYMBOL = Expression.ANY,
-      preceding_left: Expression.OR_SYMBOL = Expression.ANY,
-      preceding_right: Expression.OR_SYMBOL = Expression.ANY,
-      following_left: Expression.OR_SYMBOL = Expression.ANY,
-      following_right: Expression.OR_SYMBOL = Expression.ANY,
+      alias: str,
+      alignment: 'Alignment',
+      preceding: 'Alignment' = _BASE_ANY,
+      following: 'Alignment' = _BASE_ANY,
       from_bos: bool = False,
       to_eos: bool = False,
       operation: op.Operation = op.Operation.COMMON.interchangeable,
@@ -885,10 +871,8 @@ class Alignment(_BaseAlignment):
       source: str = 'Alignment.NATIVE',
   ) -> tuple['Alignment', 'Alignment']:
     common = (
-        preceding_left,
-        preceding_right,
-        following_left,
-        following_right,
+        preceding,
+        following,
         from_bos,
         to_eos,
         operation,
@@ -896,8 +880,12 @@ class Alignment(_BaseAlignment):
         applied_cost,
         source,
     )
-    left_to_right = cls.rule(alias + '_l2r', left, right, *common)
-    right_to_left = cls.rule(alias + '_r2l', right, left, *common)
+    left_to_right = cls.rule(
+        alias + '_l2r', alignment.left >> alignment.right, *common
+    )
+    right_to_left = cls.rule(
+        alias + '_r2l', alignment.right >> alignment.left, *common
+    )
     return left_to_right, right_to_left
 
   def copy(self) -> 'Alignment':
@@ -905,12 +893,9 @@ class Alignment(_BaseAlignment):
       return self
     return Alignment.rule(
         self.alias,
-        self.left.copy(),
-        self.right.copy(),
-        self.preceding.left.copy(),
-        self.preceding.right.copy(),
-        self.following.left.copy(),
-        self.following.right.copy(),
+        self.left.copy() >> self.right.copy(),
+        self.preceding.left.copy() >> self.preceding.right.copy(),
+        self.following.left.copy() >> self.following.right.copy(),
         self.from_bos,
         self.to_eos,
         self.operation,

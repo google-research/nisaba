@@ -340,7 +340,7 @@ class ExpressionTest(test_op.TestCase):
             left=_ATM.a, right=exp.Atomic.CTRL.eps
         ).is_assigned()
     )
-    self.assertTrue(exp.Alignment.deletion(left=_ATM.a).is_assigned())
+    self.assertTrue(exp.Alignment.deletion('a', left=_ATM.a).is_assigned())
 
   def test_alignment_simple(self):
     simple = exp.Alignment.simple(_SYM.a, _ATM.b + _ATM.c)
@@ -348,12 +348,12 @@ class ExpressionTest(test_op.TestCase):
     self.assertEqual(simple.string(), '(a∶(b c))')
 
   def test_rule(self):
+    exp_any = exp.Expression.ANY
     rule = exp.Alignment.rule(
         'test',
-        _ATM.a,
-        _ATM.b,
-        preceding_left=_ATM.c,
-        following_right=_ATM.d,
+        _ATM.a >> _ATM.b,
+        preceding=_ATM.c >> exp_any,
+        following=exp_any >> _ATM.d,
         applied_cost=0.1,
     )
     self.AssertEquivalent(rule.left, _ATM.a)
@@ -368,7 +368,7 @@ class ExpressionTest(test_op.TestCase):
     rule = exp.Alignment.deletion(
         'a_deletion',
         _ATM.a,
-        preceding_right=_ATM.b,
+        preceding=exp.Expression.ANY >> _ATM.b,
         from_bos=True,
     )
     self.assertEqual(rule.string(), '(⌈​⊳​​🝓⋆​∶b⌋ a∶​ℰ​, deletion (1.000))')
@@ -377,22 +377,21 @@ class ExpressionTest(test_op.TestCase):
     rule = exp.Alignment.insertion(
         'a_insertion',
         _ATM.a,
-        following_right=_ATM.b,
+        following=exp.Expression.ANY >> _ATM.b,
         to_eos=True,
     )
     self.assertEqual(rule.string(), '(​ℰ​∶a ⌈​🝓⋆​∶b​⊲​⌋, insertion (1.000))')
 
   def test_interchangeable(self):
-    rule1, rule2 = exp.Alignment.interchangeable('a_b', _ATM.a, _ATM.b)
+    rule1, rule2 = exp.Alignment.interchangeable('a_b', _ATM.a >> _ATM.b)
     self.assertEqual(rule1.string(), '(a∶b, interchangeable (0.100))')
     self.assertEqual(rule2.string(), '(b∶a, interchangeable (0.100))')
 
   def test_alignment_copy(self):
     rule1 = exp.Alignment.rule(
         'test',
-        _ATM.a,
-        _ATM.b,
-        preceding_left=_ATM.c,
+        _ATM.a >> _ATM.b,
+        preceding=_ATM.c >> exp.Expression.ANY,
         applied_cost=0.1,
     )
     rule2 = rule1.copy()
@@ -439,21 +438,22 @@ class ExpressionTest(test_op.TestCase):
     self.assertFalse(alg_a_b.is_suffix(alg_a_bc))
 
   def test_context_matches(self):
-    ctx_a_any = _ATM.a >> exp.Expression.ANY
-    ctx_b_any = _ATM.b >> exp.Expression.ANY
-    ctx_ba_any = (_ATM.b + _ATM.a) >> exp.Expression.ANY
+    exp_any = exp.Expression.ANY
+    ctx_a_any = _ATM.a >> exp_any
+    ctx_b_any = _ATM.b >> exp_any
+    ctx_ba_any = (_ATM.b + _ATM.a) >> exp_any
     rule1 = exp.Alignment.rule(
-        left=_ATM.c,
-        right=_ATM.d,
-        preceding_left=_ATM.a,
-        following_left=_ATM.b,
+        'rule1',
+        _ATM.c >> _ATM.d,
+        preceding=_ATM.a >> exp_any,
+        following=_ATM.b >> exp_any,
         from_bos=True,
     )
     rule2 = exp.Alignment.rule(
-        left=_ATM.c,
-        right=_ATM.d,
-        preceding_left=_ATM.a,
-        following_left=_ATM.b,
+        'rule2',
+        _ATM.c >> _ATM.d,
+        preceding=_ATM.a >> exp_any,
+        following=_ATM.b >> exp_any,
         to_eos=True,
     )
     self.assertTrue(
