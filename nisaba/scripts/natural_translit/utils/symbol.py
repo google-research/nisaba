@@ -22,6 +22,242 @@ from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
+class Item(ty.Thing):
+  """Parent class for arguments of add and contain methods of Expressions."""
+
+  def __init__(
+      self,
+      alias: str = '',
+      text: str = '',
+      index: ty.IntOrNothing = ty.UNSPECIFIED,
+  ):
+    super().__init__(alias, text)
+    self.index = ty.type_check(index, hash(self))
+
+  # Default methods for type compatibility.
+
+  def __str__(self):
+    return self.text
+
+  def copy(self) -> 'Item':
+    return Item(self.alias + '_copy')
+
+  def is_control(self) -> bool:
+    return False
+
+  def is_any(self) -> bool:
+    return False
+
+  def is_expression_any(self) -> bool:
+    return not isinstance(self, Symbol) and self.is_any()
+
+  def is_eps(self) -> bool:
+    return False
+
+  def is_nor(self) -> bool:
+    return False
+
+  def state_count(self) -> int:
+    return 1 if isinstance(self, Symbol) else 0
+
+  def symbols(self) -> list[list['Symbol']]:
+    """Default class method for type compatibilty.
+
+    Returns:
+      Lists all possible symbol sequences accepted by this expression as flat
+      lists of symbols.
+    """
+    return []
+
+  def symbols_str(self) -> str:
+    text = '[\n'
+    for sym_list in self.symbols():
+      text += '  [%s]\n' % ', '.join([str(sym) for sym in sym_list])
+    return text + ']\n'
+
+  def accepts(self, other: 'Item', equivalent: bool = False) -> bool:
+    """Checks if this Item accepts all symbol lists of the argument.
+
+    Args:
+      other: Item to be checked.
+      equivalent: If True, the argument must accept this item too.
+
+    Returns:
+      bool
+    """
+    if self.is_expression_any() or other.is_expression_any():
+      return (
+          equivalent and self.is_expression_any() and other.is_expression_any()
+      ) or not equivalent
+    self_symbols, other_symbols = self.symbols(), other.symbols()
+    self_len, other_len = len(self_symbols), len(other_symbols)
+    if (
+        not self_len
+        or self_len < other_len
+        or (equivalent and self_len != other_len)
+    ):
+      return False
+    return all(sym_list in self_symbols for sym_list in other_symbols)
+
+  def is_equivalent(self, other: 'Item') -> bool:
+    return self.accepts(other, equivalent=True)
+
+  def contains_symbol_list(
+      self,
+      search_for: list['Symbol'],
+      match_head: bool = False,
+      match_tail: bool = False,
+  ) -> bool:
+    """Checks if this this contains the given symbol list.
+
+    The symbols in the argument must be adjacent and in the same order in at
+    least one symbol list of the item.
+
+    Args:
+      search_for: Symbol list to be searched for.
+      match_head: If True, the argument must match the beginning of at least one
+        symbol list of this item.
+      match_tail: If True, the argument must match the end of at least one
+        symbol list of this item.
+
+    If both head and tail are true, the argument must be equal to at least one
+    symbol list of this item.
+
+    All items contain eps list [ℰ] in all conditions. No item contains nor list
+      [◎], even if the nor symbols are the same instance.
+
+    Returns:
+      bool.
+
+    Example:
+    a.symbols() = [[a, b, c, d], [e, f, g], [h]]
+    a.contains_symbol_list(arg, head, tail) for arguments:
+      head=False, tail=False
+        [ℰ]: True.
+        [a, b, c, d]: True, [a, b, c, d] is in the symbol list.
+        [b, c]: True, [b, c] is a sublist of [a, b, c, d].
+        [a, b, c, d, e, f, g]: False, symbols aren't in the same list.
+        [a, c]: False, symbols aren't adjacent in [a, b, c, d].
+        [c, b]: False, symbol order doesn't match [a, b, c, d].
+      if head=True, tail=False
+        [a]: True
+        [a, b]: True
+        [b, c, d]: False
+        [h]: True
+      if head=False, tail=True
+        [d]: True
+        [c, d]: True
+        [a, b, c]: False
+        [h]: True
+      if head=True tail=True
+        [a, b, c, d]: True
+        [e, f, g]: True
+        [h]: True
+        [ℰ]: True
+        any other argument returns False
+    """
+    if search_for == [Symbol.CTRL.eps]:
+      return True
+    if search_for == [Symbol.CTRL.nor]:
+      return False
+    if self.is_expression_any():
+      return True
+    # Loop over symbol lists, eg: [[a, b, c, d], [e, f, g]]
+    for symbol_list in self.symbols():
+      while symbol_list:
+        search_in = symbol_list.copy()  # [a, b, c, d]
+        while search_in:
+          if search_in == search_for:
+            return True
+          # head=True, tail=True means full match.
+          # Move onto the next list [e, f, g]
+          if match_head and match_tail:
+            break
+          # tail=True: trim search_in from start: [b, c, d], [c, d], [d]
+          # tail=False: trim search_in from end: [a, b, c], [a, b], [a]
+          search_in.pop(0 if match_tail else -1)
+        # If head=True or tail=True, move onto the next list [e, f, g]
+        if match_head or match_tail:
+          break
+        # if head=False and tail=False, continue trimming the symbol list
+        # The first pass searched in [a, b, c, d], [a, b, c], [a, b], [a]
+        # Continue searching in [b, c, d], [b, c], [b], [c, d], [c], [d]
+        symbol_list.pop(0)
+    return False
+
+  def contains(
+      self,
+      other: 'Item',
+      match_head: bool = False,
+      match_tail: bool = False,
+  ) -> bool:
+    """Checks if this item contains a symbol list of the argument.
+
+    Args:
+      other: A symbol or expression to search for. If the argument is an
+        expression, it's sufficient that at least one symbol list of the
+        argument is contained by this expression. It's not necessary for all
+        symbol lists of the argument to be contained.
+      match_head: If True, at least one symbol list of the argument should be
+        contained at the beginning of a symbol list of this expression.
+      match_tail: If True, at least one symbol list of the argument should be
+        contained at the end of a symbol list of this expression.
+
+    Returns:
+      bool
+
+    Example:
+      a.symbols() = [[a, b, c, d], [h]]
+      b.symbols() = [[a, b], [c], [a, d], [i]]
+
+      a.contains(b): True, a contains [a, b] and [c].
+      b.contains(a): False, b doesn't contain [a, b, c, d] or [h].
+      a.contains(b, head=True): [a, b, c, d] starts with [a, b]
+      a.contains(b, tail=True): False
+    """
+    if self.is_expression_any() or other.is_expression_any():
+      return not self.is_nor() and not other.is_nor()
+    return any(
+        self.contains_symbol_list(sym_list, match_head, match_tail)
+        for sym_list in other.symbols()
+    )
+
+  # Shorthands for containment conditions
+
+  def is_contained(
+      self,
+      other: 'Item',
+      match_head: bool = False,
+      match_tail: bool = False,
+  ) -> bool:
+    return other.contains(self, match_head, match_tail)
+
+  def matches(self, other: 'Item') -> bool:
+    return self.contains(other, match_head=True, match_tail=True)
+
+  # head_matches and tail_matches require at least one symbol match unless
+  # both expressions are only contain [ℰ] or one of the arguments is
+  # Expression.ANY.
+  # For example, if a rule requires a vowel as following context but there is no
+  # following context, the rule shouldn't apply.
+
+  def head_matches(self, other: 'Item') -> bool:
+    if self and not other:
+      return other.is_expression_any()
+    return self.contains(other, match_head=True)
+
+  def is_prefix(self, other: 'Item') -> bool:
+    return other.head_matches(self)
+
+  def tail_matches(self, other: 'Item') -> bool:
+    if self and not other:
+      return other.is_expression_any()
+    return self.contains(other, match_tail=True)
+
+  def is_suffix(self, other: 'Item') -> bool:
+    return other.tail_matches(self)
+
+
 def _symbol_features() -> ft.Feature.Inventory:
   """Symbol feature inventory."""
   f = ft.Feature
@@ -40,7 +276,7 @@ def _symbol_features() -> ft.Feature.Inventory:
   return ftr
 
 
-class Symbol(ty.Thing):
+class Symbol(Item):
   """A symbol in an alphabet.
 
   Attributes:
@@ -90,10 +326,8 @@ class Symbol(ty.Thing):
       name: str = '',
       features: ft.Feature.ITERABLE = ty.UNSPECIFIED,
   ):
-    super().__init__(alias=alias)
-    self.text = text if text else self.alias
+    super().__init__(alias, text, index)
     self.raw = raw
-    self.index = ty.type_check(index, hash(self))
     self.name = name if name else self.alias
     self.features = ft.Feature.Set(features, alias='features')
     if self.raw:
@@ -101,15 +335,13 @@ class Symbol(ty.Thing):
     else:
       self.features.add(self.SYM_FEATURES.type.abst)
     self.inventory = Symbol.Inventory.EMPTY
+    self.symbol = self
 
-  def __str__(self) -> str:
-    return self.text
+  def symbols(self) -> list[list['Symbol']]:
+    return [[self.symbol]]
 
   def is_control(self) -> bool:
     return self in Symbol.CTRL
-
-  def is_any(self) -> bool:
-    return False
 
   def is_eps(self) -> bool:
     return self is Symbol.CTRL.eps

@@ -23,15 +23,17 @@ from nisaba.scripts.natural_translit.utils import symbol as sym
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
-class Expression(ty.IterableThing):
+class Expression(ty.IterableThing, sym.Item):
   """Parent class for Expressions."""
 
-  OR_SYMBOL = Union['Expression', sym.Symbol]
-
-  def __init__(self, alias: str = ''):
-    super().__init__(alias=alias)
-    self._item_type = Expression
-    self.index = hash(self)
+  def __init__(
+      self,
+      alias: str = '',
+      text: str = '',
+      index: ty.IntOrNothing = ty.UNSPECIFIED,
+  ):
+    ty.IterableThing.__init__(self, typed=sym.Item)
+    sym.Item.__init__(self, alias, text, index)
 
   def __str__(self) -> str:
     if self == Expression.ANY:
@@ -54,7 +56,7 @@ class Expression(ty.IterableThing):
         + right
     )
 
-  def _add_item(self, item: 'Expression') -> None:
+  def _add_item(self, item: sym.Item) -> None:
     """Adds an item to the Expression.
 
     Args:
@@ -76,7 +78,7 @@ class Expression(ty.IterableThing):
       if item.is_control():
         log.dbg_message('Skipping control symbol %s.' % str(item.symbol))
       else:
-        self._items.append(item.copy())
+        self._items.append(Atomic.get_instance(item))
     elif len(item) == 1:
       self.add(item.item(0))
     else:
@@ -90,28 +92,10 @@ class Expression(ty.IterableThing):
   def item_list(self) -> list['Expression']:
     return [item for item in self]
 
-  def symbols(self) -> list[list[sym.Symbol]]:
-    """Default class method for type compatibilty.
-
-    Returns:
-      Lists all possible symbol sequences accepted by this expression as flat
-      lists of symbols.
-    """
-    return []
-
-  def symbols_str(self) -> str:
-    text = '[\n'
-    for sym_list in self.symbols():
-      text += '  [%s]\n' % ', '.join([str(sym) for sym in sym_list])
-    return text + ']\n'
-
   def state_count(self) -> int:
+    if isinstance(self, sym.Symbol):
+      return 1
     return sum([item.state_count() for item in self])
-
-  def _symbols_of(
-      self, other: 'Expression.OR_SYMBOL'
-  ) -> list[list[sym.Symbol]]:
-    return other.symbols() if isinstance(other, Expression) else [[other]]
 
   def is_any(self) -> bool:
     if isinstance(self, sym.Symbol):
@@ -125,201 +109,6 @@ class Expression(ty.IterableThing):
 
   def is_nor(self) -> bool:
     return isinstance(self, sym.Symbol) and self.symbol.is_nor()
-
-  def accepts(
-      self, other: 'Expression.OR_SYMBOL', equivalent: bool = False
-  ) -> bool:
-    """Checks if this expression accepts all symbol lists of the argument.
-
-    Args:
-      other: A symbol or expression.
-      equivalent: If True, the argument must accept this expression too.
-
-    Returns:
-      bool
-    """
-    if self.is_any() or other.is_any():
-      return (equivalent and self.is_any() and other.is_any()) or not equivalent
-    self_symbols, other_symbols = self.symbols(), self._symbols_of(other)
-    self_len, other_len = len(self_symbols), len(other_symbols)
-    if (
-        not self_len
-        or self_len < other_len
-        or (equivalent and self_len != other_len)
-    ):
-      return False
-    return all(sym_list in self_symbols for sym_list in other_symbols)
-
-  def is_equivalent(self, other: 'Expression.OR_SYMBOL') -> bool:
-    return self.accepts(other, equivalent=True)
-
-  def contains_symbol_list(
-      self,
-      search_for: list[sym.Symbol],
-      match_head: bool = False,
-      match_tail: bool = False,
-  ) -> bool:
-    """Checks if this expression contains the given symbol list.
-
-    The symbols in the argument must be adjacent and in the same order in at
-    least one symbol list of the expression.
-
-    Args:
-      search_for: Symbol list to be searched for.
-      match_head: If True, the argument must match the beginning of at least one
-        symbol list of this expression.
-      match_tail: If True, the argument must match the end of at least one
-        symbol list of this expression.
-
-    If both head and tail are true, the argument must be equal to at least one
-    symbol list of this expression.
-
-    All expressions contain epsilon list [ℰ] in all conditions. No expression
-    contains empty Or list [◎], even if both expressions are empty Ors.
-
-    Returns:
-      bool.
-
-    Example:
-    a.symbols() = [[a, b, c, d], [e, f, g], [h]]
-    a.contains_symbol_list(arg, head, tail) for arguments:
-      head=False, tail=False
-        [ℰ]: True.
-        [a, b, c, d]: True, [a, b, c, d] is in the symbol list.
-        [b, c]: True, [b, c] is a sublist of [a, b, c, d].
-        [a, b, c, d, e, f, g]: False, symbols aren't in the same list.
-        [a, c]: False, symbols aren't adjacent in [a, b, c, d].
-        [c, b]: False, symbol order doesn't match [a, b, c, d].
-      if head=True, tail=False
-        [a]: True
-        [a, b]: True
-        [b, c, d]: False
-        [h]: True
-      if head=False, tail=True
-        [d]: True
-        [c, d]: True
-        [a, b, c]: False
-        [h]: True
-      if head=True tail=True
-        [a, b, c, d]: True
-        [e, f, g]: True
-        [h]: True
-        [ℰ]: True
-        any other argument returns False
-    """
-    if search_for == [sym.Symbol.CTRL.eps]:
-      return True
-    if search_for == [sym.Symbol.CTRL.nor]:
-      return False
-    if self.is_any():
-      return True
-    # Loop over symbol lists, eg: [[a, b, c, d], [e, f, g]]
-    for symbol_list in self.symbols():
-      while symbol_list:
-        search_in = symbol_list.copy()  # [a, b, c, d]
-        while search_in:
-          if search_in == search_for:
-            return True
-          # head=True, tail=True means full match.
-          # Move onto the next list [e, f, g]
-          if match_head and match_tail:
-            break
-          # tail=True: trim search_in from start: [b, c, d], [c, d], [d]
-          # tail=False: trim search_in from end: [a, b, c], [a, b], [a]
-          search_in.pop(0 if match_tail else -1)
-        # If head=True or tail=True, move onto the next list [e, f, g]
-        if match_head or match_tail:
-          break
-        # if head=False and tail=False, continue trimming the symbol list
-        # The first pass searched in [a, b, c, d], [a, b, c], [a, b], [a]
-        # Continue searching in [b, c, d], [b, c], [b], [c, d], [c], [d]
-        symbol_list.pop(0)
-    return False
-
-  def contains(
-      self,
-      other: 'Expression.OR_SYMBOL',
-      match_head: bool = False,
-      match_tail: bool = False,
-  ) -> bool:
-    """Checks if this expression contains a symbol list of the argument.
-
-    Args:
-      other: A symbol or expression to search for. If the argument is an
-        expression, it's sufficient that at least one symbol list of the
-        argument is contained by this expression. It's not necessary for all
-        symbol lists of the argument to be contained.
-      match_head: If True, at least one symbol list of the argument should be
-        contained at the beginning of a symbol list of this expression.
-      match_tail: If True, at least one symbol list of the argument should be
-        contained at the end of a symbol list of this expression.
-
-    Returns:
-      bool
-
-    Example:
-      a.symbols() = [[a, b, c, d], [h]]
-      b.symbols() = [[a, b], [c], [a, d], [i]]
-
-      a.contains(b): True, a contains [a, b] and [c].
-      b.contains(a): False, b doesn't contain [a, b, c, d] or [h].
-      a.contains(b, head=True): [a, b, c, d] starts with [a, b]
-      a.contains(b, tail=True): False
-    """
-    if self.is_any() or other.is_any():
-      return not self.is_nor() and not other.is_nor()
-    return any(
-        self.contains_symbol_list(sym_list, match_head, match_tail)
-        for sym_list in other.symbols()
-    )
-
-  def _symbol_contains(self, other: sym.Symbol) -> bool:
-    if other.is_any():
-      return True
-    self_symbols = self.symbols()
-    return [sym.Symbol.CTRL.eps] in self_symbols or (
-        not other.is_nor() and [other] in self_symbols
-    )
-
-  def is_contained(
-      self,
-      other: 'Expression.OR_SYMBOL',
-      match_head: bool = False,
-      match_tail: bool = False,
-  ) -> bool:
-    if isinstance(other, Expression):
-      return other.contains(self, match_head, match_tail)
-    return self._symbol_contains(other)
-
-  # Shorthands for containment conditions
-
-  def matches(self, other: 'Expression.OR_SYMBOL') -> bool:
-    return self.contains(other, match_head=True, match_tail=True)
-
-  # head_matches and tail_matches require at least one symbol match unless
-  # both expressions are empty Cats or one of the expressions is Expression.ANY
-  # For example, if a rule requires a vowel as following context but there is no
-  # following context, the rule shouldn't apply.
-
-  def head_matches(self, other: 'Expression.OR_SYMBOL') -> bool:
-    if self and not other:
-      return other.is_any()
-    return self.contains(other, match_head=True)
-
-  def is_prefix(self, other: 'Expression.OR_SYMBOL') -> bool:
-    if isinstance(other, Expression):
-      return other.head_matches(self)
-    return self._symbol_contains(other)
-
-  def tail_matches(self, other: 'Expression.OR_SYMBOL') -> bool:
-    if self and not other:
-      return other.is_any()
-    return self.contains(other, match_tail=True)
-
-  def is_suffix(self, other: 'Expression.OR_SYMBOL') -> bool:
-    if isinstance(other, Expression):
-      return other.tail_matches(self)
-    return self._symbol_contains(other)
 
   def copy(self) -> 'Expression':
     if self == Expression.ANY:
@@ -383,12 +172,6 @@ class Atomic(Expression, sym.Symbol):
       return symbol
     return Atomic(symbol)
 
-  def symbols(self) -> list[list[sym.Symbol]]:
-    return [[self.symbol]]
-
-  def state_count(self) -> int:
-    return 1
-
   def copy(self) -> 'Atomic':
     return Atomic.get_instance(self)
 
@@ -412,7 +195,7 @@ Atomic.CTRL = _control_atomics()
 class Cat(Expression):
   """Concatenation of expressions."""
 
-  def __init__(self, *items: Expression, alias: str = ''):
+  def __init__(self, *items: sym.Item, alias: str = ''):
     super().__init__(alias)
     self.add(*items)
 
@@ -421,7 +204,7 @@ class Cat(Expression):
       return str(sym.Symbol.CTRL.eps)
     return self._str_enclosed()
 
-  def add(self, *items: Expression) -> 'Cat':
+  def add(self, *items: sym.Item) -> 'Cat':
     for item in items:
       if item.is_any():
         self._items.append(item)
@@ -468,7 +251,7 @@ class Or(Expression):
   evaluation score than 'c' and will be the top rewrite.
   """
 
-  def __init__(self, *items: Expression, alias: str = ''):
+  def __init__(self, *items: sym.Item, alias: str = ''):
     super().__init__(alias)
     self.add(*items)
 
@@ -482,11 +265,11 @@ class Or(Expression):
       )
     return self._str_enclosed(separator=separator)
 
-  def _update(self, *items: Expression) -> None:
+  def _update(self, *items: sym.Item) -> None:
     self._items = []
     self.add(*items)
 
-  def add(self, *items: Expression) -> 'Or':
+  def add(self, *items: sym.Item) -> 'Or':
     """Adds items to Or.
 
     Or shouldn't have recurring symbol lists.
@@ -553,18 +336,18 @@ class _BaseAlignment(Expression):
 
   def __init__(
       self,
-      left: Expression.OR_SYMBOL = Expression.ANY,
-      right: Expression.OR_SYMBOL = Expression.ANY,
+      left: sym.Item = Expression.ANY,
+      right: sym.Item = Expression.ANY,
       alias: str = '',
   ):
     super().__init__(alias)
     self.left = self._set_side(left)
     self.right = self._set_side(right)
 
-  def _set_side(self, side: Expression.OR_SYMBOL) -> Expression:
-    if not isinstance(side, Expression):
+  def _set_side(self, side: sym.Item) -> Expression:
+    if isinstance(side, sym.Symbol):
       return Atomic.get_instance(side)
-    return side
+    return ty.type_check(side, Expression(side.alias, side.text, side.index))
 
   # String formatting functions.
 
@@ -600,7 +383,7 @@ class _BaseAlignment(Expression):
     return self.left.is_nor() and self.right.is_nor()
 
   def _compare(
-      self, other: Expression.OR_SYMBOL, checker_name: str, *args
+      self, other: sym.Item, checker_name: str, *args
   ) -> bool:
     if not isinstance(other, _BaseAlignment):
       return False
@@ -609,16 +392,16 @@ class _BaseAlignment(Expression):
     return left(other.left, *args) and right(other.right, *args)
 
   def accepts(
-      self, other: Expression.OR_SYMBOL, equivalent: bool = False
+      self, other: sym.Item, equivalent: bool = False
   ) -> bool:
     return self._compare(other, 'accepts', equivalent)
 
-  def is_equivalent(self, other: Expression.OR_SYMBOL) -> bool:
+  def is_equivalent(self, other: sym.Item) -> bool:
     return self._compare(other, 'is_equivalent')
 
   def contains(
       self,
-      other: Expression.OR_SYMBOL,
+      other: sym.Item,
       match_head: bool = False,
       match_tail: bool = False,
   ) -> bool:
@@ -626,25 +409,25 @@ class _BaseAlignment(Expression):
 
   def is_contained(
       self,
-      other: Expression.OR_SYMBOL,
+      other: sym.Item,
       match_head: bool = False,
       match_tail: bool = False,
   ) -> bool:
     return self._compare(other, 'is_contained', match_head, match_tail)
 
-  def matches(self, other: Expression.OR_SYMBOL) -> bool:
+  def matches(self, other: sym.Item) -> bool:
     return self._compare(other, 'matches')
 
-  def head_matches(self, other: Expression.OR_SYMBOL) -> bool:
+  def head_matches(self, other: sym.Item) -> bool:
     return self._compare(other, 'head_matches')
 
-  def is_prefix(self, other: Expression.OR_SYMBOL) -> bool:
+  def is_prefix(self, other: sym.Item) -> bool:
     return self._compare(other, 'is_prefix')
 
-  def tail_matches(self, other: Expression.OR_SYMBOL) -> bool:
+  def tail_matches(self, other: sym.Item) -> bool:
     return self._compare(other, 'tail_matches')
 
-  def is_suffix(self, other: Expression.OR_SYMBOL) -> bool:
+  def is_suffix(self, other: sym.Item) -> bool:
     return self._compare(other, 'is_suffix')
 
 
@@ -697,12 +480,12 @@ class Alignment(_BaseAlignment):
   def __init__(
       self,
       alias: str = '',
-      left: Expression.OR_SYMBOL = Expression.ANY,
-      right: Expression.OR_SYMBOL = Expression.ANY,
-      preceding_left: Expression.OR_SYMBOL = Expression.ANY,
-      preceding_right: Expression.OR_SYMBOL = Expression.ANY,
-      following_left: Expression.OR_SYMBOL = Expression.ANY,
-      following_right: Expression.OR_SYMBOL = Expression.ANY,
+      left: sym.Item = Expression.ANY,
+      right: sym.Item = Expression.ANY,
+      preceding_left: sym.Item = Expression.ANY,
+      preceding_right: sym.Item = Expression.ANY,
+      following_left: sym.Item = Expression.ANY,
+      following_right: sym.Item = Expression.ANY,
       from_bos: bool = False,
       to_eos: bool = False,
       operation: op.Operation = op.Operation.COMMON.unassigned,
@@ -778,8 +561,8 @@ class Alignment(_BaseAlignment):
   @classmethod
   def simple(
       cls,
-      left: Expression.OR_SYMBOL = Expression.ANY,
-      right: Expression.OR_SYMBOL = Expression.ANY,
+      left: sym.Item = Expression.ANY,
+      right: sym.Item = Expression.ANY,
   ) -> 'Alignment':
     """An unassigned alignment with no context."""
     simple = cls(left=left, right=right)
@@ -826,7 +609,7 @@ class Alignment(_BaseAlignment):
   def deletion(
       cls,
       alias: str,
-      left: Expression.OR_SYMBOL,
+      left: sym.Item,
       preceding: 'Alignment' = _BASE_ANY,
       following: 'Alignment' = _BASE_ANY,
       from_bos: bool = False,
@@ -853,7 +636,7 @@ class Alignment(_BaseAlignment):
   def insertion(
       cls,
       alias: str,
-      right: Expression.OR_SYMBOL,
+      right: sym.Item,
       preceding: 'Alignment' = _BASE_ANY,
       following: 'Alignment' = _BASE_ANY,
       from_bos: bool = False,

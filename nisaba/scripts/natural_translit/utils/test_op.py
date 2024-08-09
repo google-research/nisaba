@@ -18,6 +18,7 @@ from typing import Any, Iterable
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.utils import expression as exp
 from nisaba.scripts.natural_translit.utils import feature as ftr
+from nisaba.scripts.natural_translit.utils import symbol as sym
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
@@ -50,29 +51,29 @@ class TestCase(absltest.TestCase):
   # Expression asserts
 
   def AssertAccepts(
-      self, expression_1: exp.Expression, expression_2: exp.Expression.OR_SYMBOL
+      self, expression_1: exp.Expression, expression_2: sym.Item
   ):
     return self.assertTrue(expression_1.accepts(expression_2))
 
   def AssertNotAccepts(
-      self, expression_1: exp.Expression, expression_2: exp.Expression.OR_SYMBOL
+      self, expression_1: exp.Expression, expression_2: sym.Item
   ):
     return self.assertFalse(expression_1.accepts(expression_2))
 
   def AssertEquivalent(
-      self, expression_1: exp.Expression, expression_2: exp.Expression.OR_SYMBOL
+      self, expression_1: exp.Expression, expression_2: sym.Item
   ):
     return self.assertTrue(expression_1.is_equivalent(expression_2))
 
   def AssertNotEquivalent(
-      self, expression_1: exp.Expression, expression_2: exp.Expression.OR_SYMBOL
+      self, expression_1: exp.Expression, expression_2: sym.Item
   ):
     return self.assertFalse(expression_1.is_equivalent(expression_2))
 
   def AssertContains(
       self,
       expression_1: exp.Expression,
-      expression_2: exp.Expression.OR_SYMBOL,
+      expression_2: sym.Item,
       head: bool = False,
       tail: bool = False,
   ):
@@ -81,19 +82,19 @@ class TestCase(absltest.TestCase):
   def AssertNotContains(
       self,
       expression_1: exp.Expression,
-      expression_2: exp.Expression.OR_SYMBOL,
+      expression_2: sym.Item,
       head: bool = False,
       tail: bool = False,
   ):
     return self.assertFalse(expression_1.contains(expression_2, head, tail))
 
   def AssertMatches(
-      self, expression_1: exp.Expression, expression_2: exp.Expression.OR_SYMBOL
+      self, expression_1: exp.Expression, expression_2: sym.Item
   ):
     return self.assertTrue(expression_1.matches(expression_2))
 
   def AssertNotMatches(
-      self, expression_1: exp.Expression, expression_2: exp.Expression.OR_SYMBOL
+      self, expression_1: exp.Expression, expression_2: sym.Item
   ):
     return self.assertFalse(expression_1.matches(expression_2))
 

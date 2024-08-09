@@ -272,6 +272,7 @@ py_library(
     deps = [
         ":expression",
         ":feature",
+        ":symbol",
         ":type_op",
         "@io_abseil_py//absl/testing:absltest",
     ],
