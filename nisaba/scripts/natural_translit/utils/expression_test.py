@@ -164,6 +164,38 @@ class ExpressionTest(test_op.TestCase):
     self.AssertStrEqual(or5, '((a (b | c)) | ​◎​)')
     self.AssertStrEqual(or6, '((a (b | c | d)) | ​◎​)')
 
+  def test_ques(self):
+    self.AssertStrEqual(_ATM.a.ques(preferred=True), '(a | ​ℰ​)')
+    a_ques = _ATM.a.ques()
+    self.AssertStrEqual(a_ques, '(​ℰ​ | a)')
+    self.assertEqual(
+        a_ques.symbols_str(),
+        '[\n'
+        '  [​ℰ​]\n'
+        '  [a]\n'
+        ']\n'
+    )
+    a_b_ques = _ATM.a + _ATM.b.ques()
+    self.AssertStrEqual(a_b_ques, '(a (​ℰ​ | b))')
+    self.assertEqual(
+        a_b_ques.symbols_str(),
+        '[\n'
+        '  [a]\n'
+        '  [a, b]\n'
+        ']\n'
+    )
+    a_ques_b_ques = _ATM.a.ques(preferred=True) + _ATM.b.ques()
+    self.AssertStrEqual(a_ques_b_ques, '((a | ​ℰ​) (​ℰ​ | b))')
+    self.assertEqual(
+        a_ques_b_ques.symbols_str(),
+        '[\n'
+        '  [a]\n'
+        '  [a, b]\n'
+        '  [​ℰ​]\n'
+        '  [b]\n'
+        ']\n'
+    )
+
   def test_copy(self):
     exp1 = exp.Expression('new_exp')
     exp1_copy = exp1.copy()

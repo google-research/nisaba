@@ -339,6 +339,10 @@ class Expression(ty.IterableThing):
     """Returns a Cat of n repetitions of this expression."""
     return Cat(*([self] * n))
 
+  def ques(self, preferred: bool = False) -> 'Or':
+    """Returns an Or of this expression and empty Cat."""
+    return Or(self, Cat()) if preferred else Or(Cat(), self)
+
 
 Expression.ANY = Expression('any_expression')
 
@@ -425,6 +429,15 @@ class Cat(Expression):
         self._add_item(item)
     return self
 
+  def _add_sym_lists(
+      self, list1: list[sym.Symbol], list2: list[sym.Symbol]
+  ) -> list[sym.Symbol]:
+    if list1 == [Atomic.CTRL.eps.symbol]:
+      return list2
+    if list2 == [Atomic.CTRL.eps.symbol]:
+      return list1
+    return list1 + list2
+
   def symbols(self) -> list[list[sym.Symbol]]:
     """Returns the symbol lists for Cat.
 
@@ -432,14 +445,14 @@ class Cat(Expression):
     instances of empty Cat are equivalent to both each other and the Atomic
     constant.
     """
-    if not self:
-      return Atomic.CTRL.eps.symbols()
-    self_symbols = [[]]
+    self_symbols = Atomic.CTRL.eps.symbols()
     for item in self:
       item_symbols = item.symbols()
       for _ in range(len(self_symbols)):
         syms = self_symbols.pop(0)
-        self_symbols += [syms.copy() + item_list for item_list in item_symbols]
+        self_symbols += [
+            self._add_sym_lists(syms, sym_list) for sym_list in item_symbols
+        ]
     return self_symbols
 
   def copy(self) -> 'Cat':
@@ -447,7 +460,13 @@ class Cat(Expression):
 
 
 class Or(Expression):
-  """Alternation for expressions."""
+  """Alternation for expressions.
+
+  The order of the items in an Or expression reflects the precedence of the
+  alternatives. Eg. for rule `a >> (b | c)`, both 'b' and 'c' will be accepted
+  as the output for input 'a', however 'b' will get a slightly higher
+  evaluation score than 'c' and will be the top rewrite.
+  """
 
   def __init__(self, *items: Expression, alias: str = ''):
     super().__init__(alias)
@@ -627,6 +646,7 @@ class _BaseAlignment(Expression):
 
   def is_suffix(self, other: Expression.OR_SYMBOL) -> bool:
     return self._compare(other, 'is_suffix')
+
 
 _BASE_ANY = _BaseAlignment(Expression.ANY, Expression.ANY)
 
