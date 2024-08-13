@@ -79,6 +79,17 @@ _COMBINED = sym.Symbol.Inventory('combined', *_DEVA, *_LATN)
 
 class SymbolTest(test_op.TestCase):
 
+  def test_item(self):
+    item = sym.Item('alias', 'text', 1)
+    self.assertEqual(item.alias, 'alias')
+    self.assertEqual(item.text, 'text')
+    self.assertEqual(item.index, 1)
+    self.assertEqual(
+        item.symbols_str(),
+        '[\n'
+        ']\n'
+    )
+
   def test_symbol_abstract(self):
     self.AssertStrEqual(_SYM.schwa, '🜔')
     self.assertEmpty(_SYM.schwa.raw)
