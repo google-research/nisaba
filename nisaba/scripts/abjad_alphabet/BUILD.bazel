@@ -154,11 +154,6 @@ nisaba_compile_script_lang_multi_grm_py(
 nisaba_grm_textproto_test(
     name = "visual_norm_test",
     grammar = ":visual_norm",
-    # TODO: Fix these tests and re-enable in TAP.
-    tags = [
-        "manual",
-        "notap",
-    ],
     textproto = "testdata/visual_norm.textproto",
     token_type = "byte",
 )
@@ -166,11 +161,6 @@ nisaba_grm_textproto_test(
 nisaba_grm_textproto_test(
     name = "visual_norm_utf8_test",
     grammar = ":visual_norm_utf8",
-    # TODO: Fix these tests and re-enable in TAP.
-    tags = [
-        "manual",
-        "notap",
-    ],
     textproto = "testdata/visual_norm.textproto",
     token_type = "utf8",
 )
@@ -194,11 +184,6 @@ nisaba_compile_script_lang_multi_grm_py(
 nisaba_grm_textproto_test(
     name = "reading_norm_test",
     grammar = ":reading_norm",
-    # TODO: Fix these tests and re-enable in TAP.
-    tags = [
-        "manual",
-        "notap",
-    ],
     textproto = "testdata/reading_norm.textproto",
     token_type = "byte",
 )
@@ -206,11 +191,6 @@ nisaba_grm_textproto_test(
 nisaba_grm_textproto_test(
     name = "reading_norm_utf8_test",
     grammar = ":reading_norm_utf8",
-    # TODO: Fix these tests and re-enable in TAP.
-    tags = [
-        "manual",
-        "notap",
-    ],
     textproto = "testdata/reading_norm.textproto",
     token_type = "utf8",
 )

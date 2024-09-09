@@ -141,7 +141,7 @@ rewrite { rule: "CKB" input: "ڪەڵک" output: "کەڵک" }
 # ALEF
 rewrite { rule: "CKB" input: "خلجآن" output: "خلجان" }
 rewrite { rule: "CKB" input: "پکآپ" output: "پکاپ" }
-rewrite { rule: "CKB" input: "بةبآ" output: "بەبا" output: "بەبا" }
+rewrite { rule: "CKB" input: "بةبآ" output: "بەبا" }
 rewrite { rule: "CKB" input: "إِلَی" output: "اِلَی" }
 rewrite { rule: "CKB" input: "إیراد" output: "ایراد" }
 rewrite { rule: "CKB" input: "لنشأة" output: "لنشاە" }

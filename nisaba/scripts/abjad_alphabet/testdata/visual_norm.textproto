@@ -610,19 +610,19 @@ rewrite { rule: "PA" input: "تبں۬اؤں۬ا" output: "تبناؤنا" }
 rewrite { rule: "PA" input: "ادھنیٔم" output: "ادھنئم" }
 
 # KAF → KEHEH
-rewrite { rule: "PA" input: "كاں" output: "کاں" output: "کاں" }
+rewrite { rule: "PA" input: "كاں" output: "کاں" }
 
 # YEH → FARSI YEH
-rewrite { rule: "PA" input: "خريد" output: "خرید" output: "خرید" }
+rewrite { rule: "PA" input: "خريد" output: "خرید" }
 
 # RNOON → TTEH
-rewrite { rule: "PA" input: "ڻَنگیا" output: "ٹَنگیا" output: "ٹَنگیا" }
+rewrite { rule: "PA" input: "ڻَنگیا" output: "ٹَنگیا" }
 
 # TEH MARBUTA → TEH MARBUTA GOAL
-rewrite { rule: "PA" input: "ة" output: "ۃ" output: "ۃ" }
+rewrite { rule: "PA" input: "ة" output: "ۃ" }
 
 # HEH GOAL WITH HAMZA ABOVE → HEH, HAMZA ABOVE
-rewrite { rule: "PA" input: "ۂ" output: "هٔ" output: "هٔ" }
+rewrite { rule: "PA" input: "ۂ" output: "هٔ" }
 
 # Normalizations for isolated characters
 
