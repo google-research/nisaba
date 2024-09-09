@@ -14,17 +14,13 @@
 
 # proto-file: nisaba/scripts/utils/unicode_strings.proto
 # proto-message: nisaba.UnicodeStrings
-
+#
 # Generated from UnicodeData.txt and also from
 # NFKC Unicode transformations applied to Arabic Presentation Forms-A.
 # See:
 #   - https://unicode.org/Public/UNIDATA/UnicodeData.txt
 #   - https://en.wikipedia.org/wiki/Arabic_Presentation_Forms-A
 #   - https://unicode.org/reports/tr15/
-#
-# Note:
-#   Some forms are only supported starting from Unicode 14.0. These are
-#   presently commented out.
 
 uname_prefix: ["ARABIC", "ARABIC LETTER"]
 
@@ -2248,24 +2244,6 @@ item {  # "U+FD3D"
   to_uname: ["ALEF", "FATHATAN"] to_raw: "اً"
 }
 
-# Unicode 14.0 onwards:
-#LIGATURE RAHIMAHU ALLAAH	U+FD40	﵀	﵀
-#LIGATURE RADI ALLAAHU ANH	U+FD41	﵁	﵁
-#LIGATURE RADI ALLAAHU ANHAA	U+FD42	﵂	﵂
-#LIGATURE RADI ALLAAHU ANHUM	U+FD43	﵃	﵃
-#LIGATURE RADI ALLAAHU ANHUMAA	U+FD44	﵄	﵄
-#LIGATURE RADI ALLAAHU ANHUNNA	U+FD45	﵅	﵅
-#LIGATURE SALLALLAAHU ALAYHI WA-AALIH	U+FD46	﵆	﵆
-#LIGATURE ALAYHI AS-SALAAM	U+FD47	﵇	﵇
-#LIGATURE ALAYHIM AS-SALAAM	U+FD48	﵈	﵈
-#LIGATURE ALAYHIMAA AS-SALAAM	U+FD49	﵉	﵉
-#LIGATURE ALAYHI AS-SALAATU WAS-SALAAM	U+FD4A	﵊	﵊
-#LIGATURE QUDDISA SIRRAH	U+FD4B	﵋	﵋
-#LIGATURE SALLALLAHU ALAYHI WAAALIHEE WA-SALLAM	U+FD4C	﵌	﵌
-#LIGATURE ALAYHAA AS-SALAAM	U+FD4D	﵍	﵍
-#LIGATURE TABAARAKA WA-TAAALAA	U+FD4E	﵎	﵎
-#LIGATURE RAHIMAHUM ALLAAH	U+FD4F	﵏	﵏
-
 item {  # "U+FD50"
   uname: "LIGATURE TEH WITH JEEM WITH MEEM INITIAL FORM" raw: "ﵐ"
   to_uname: ["TEH", "JEEM", "MEEM"] to_raw: "تجم"
@@ -2856,9 +2834,6 @@ item {  # "U+FDC7"
   to_uname: ["NOON", "JEEM", "YEH"] to_raw: "نجي"
 }
 
-# Unicode 14.0 onwards.
-#LIGATURE SALAAMUHU ALAYNAA	U+FDCF	﷏	﷏
-
 item {  # "U+FDF0"
   uname: "LIGATURE SALLA USED AS KORANIC STOP SIGN ISOLATED FORM" raw: "ﷰ"
   to_uname: ["SAD", "LAM", "YEH BARREE"] to_raw: "صلے"
@@ -2909,12 +2884,22 @@ item {  # "U+FDF9"
   to_uname: ["SAD", "LAM", "ALEF MAKSURA"] to_raw: "صلى"
 }
 
-# TODO: Double-check.
-# Unicode 14.0 onwards.
-# item {  # "U+FDFD"
-#  uname: "LIGATURE BISMILLAH AR-RAHMAN AR-RAHEEM" raw: "﷽"
-#  to_uname: "LIGATURE BISMILLAH AR-RAHMAN AR-RAHEEM" to_raw: "﷽"
-#}
+item {  # "U+FDFA"
+  uname: "LIGATURE SALLALLAHOU ALAYHE WASALLAM" raw: "ﷺ"
+  to_uname: [
+    "SAD", "LAM", "ALEF MAKSURA", "SPACE",
+    "ALEF", "LAM", "LAM", "HEH", "SPACE",
+    "AIN", "LAM", "YEH", "HEH", "SPACE",
+    "WAW", "SEEN", "LAM", "MEEM"
+  ] to_raw: "صلى الله عليه وسلم"
+}
+
+item {  # "U+FDFB"
+  uname: "LIGATURE JALLAJALALOUHOU" raw: "ﷻ"
+  to_uname: [
+    "JEEM", "LAM", "SPACE", "JEEM", "LAM", "ALEF", "LAM", "HEH"
+  ] to_raw: "جل جلاله"
+}
 
 item {  # "U+FE80"
   uname: "HAMZA ISOLATED FORM" raw: "ﺀ"
