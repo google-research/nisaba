@@ -18,8 +18,6 @@ The main purpose of these functions is to provide shortcuts for checking and
 converting types and attributes, and returning default values when required.
 Avoids equating NoneTypes in comparisons. For example if a.features = None and
 b.features = None, a and b won't be evaluated as having the same features.
-
-TODO(): Fix typing in natural_translit.
 """
 
 from typing import Any, Iterable, Type, TypeVar, Union
@@ -212,8 +210,6 @@ class IterableThing(Thing):
     flattened.
   `MISSING in iterable2` returns `False`.
 
-  TODO: Move type_op and list_op functions to IterableThing where
-    possible.
   """
 
   def __init__(
