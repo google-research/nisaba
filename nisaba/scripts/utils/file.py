@@ -26,12 +26,12 @@ EMPTY: pynini.Fst = pynini.intersect(
 EPSILON: pynini.Fst = pynini.accep("").optimize()
 
 
-def AsResourcePath(filename: os.PathLike) -> os.PathLike:
+def AsResourcePath(filename: os.PathLike[str]) -> os.PathLike[str]:
   filename = os.fspath(filename)
   return pathlib.Path(runfiles.Create().Rlocation(filename))
 
 
-def IsFileExist(filename: os.PathLike) -> bool:
+def IsFileExist(filename: os.PathLike[str]) -> bool:
   """Checks if a resource file exists."""
   try:
     if os.path.isfile(AsResourcePath(filename)):
@@ -47,7 +47,7 @@ def OnEmpty(fst, return_if_empty=EMPTY):
   return return_if_empty if fst.start() == pynini.NO_STATE_ID else fst
 
 
-def StringFile(filename: os.PathLike,
+def StringFile(filename: os.PathLike[str],
                return_if_empty: pynini.Fst = EMPTY) -> pynini.Fst:
   """Reads FST from `filename`. If FST is empty returns `return_if_empty`."""
   return OnEmpty(pynini.string_file(AsResourcePath(filename)), return_if_empty)

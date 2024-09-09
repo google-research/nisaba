@@ -168,7 +168,7 @@ def _fill_missing_raw(pb: unicode_strings_pb2.UnicodeStrings) -> None:
 
 
 def read_textproto(
-    proto_path: Union[str, os.PathLike],
+    proto_path: Union[str, os.PathLike[str]],
 ) -> unicode_strings_pb2.UnicodeStrings:
   pb = proto.read_textproto(proto_path, unicode_strings_pb2.UnicodeStrings())
   _fill_missing_raw(pb)

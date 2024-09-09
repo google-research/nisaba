@@ -41,7 +41,9 @@ def _fill_missing_raw(pb: ll.LetterLanguages) -> None:
     item.letter.raw, _ = us.convert_item(pb.uname_prefix, [], item.letter)
 
 
-def read_textproto(proto_path: Union[str, os.PathLike]) -> ll.LetterLanguages:
+def read_textproto(
+    proto_path: Union[str, os.PathLike[str]]
+) -> ll.LetterLanguages:
   pb = proto.read_textproto(proto_path, ll.LetterLanguages())
   _fill_missing_raw(pb)
   logging.info('Read %d letters.', len(pb.item))

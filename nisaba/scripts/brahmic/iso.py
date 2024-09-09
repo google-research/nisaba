@@ -56,16 +56,16 @@ from nisaba.scripts.utils import rewrite as rw
 
 
 def brahmic_to_iso(
-    consonant_file: os.PathLike,
-    inherent_vowel_file: os.PathLike,
-    vowel_sign_file: os.PathLike,
-    vowel_file: os.PathLike,
-    vowel_length_sign_file: os.PathLike,
-    coda_file: os.PathLike,
-    dead_consonant_file: os.PathLike,
-    standalone_file: os.PathLike,
-    subjoined_consonant_file: os.PathLike,
-    virama_file: os.PathLike,
+    consonant_file: os.PathLike[str],
+    inherent_vowel_file: os.PathLike[str],
+    vowel_sign_file: os.PathLike[str],
+    vowel_file: os.PathLike[str],
+    vowel_length_sign_file: os.PathLike[str],
+    coda_file: os.PathLike[str],
+    dead_consonant_file: os.PathLike[str],
+    standalone_file: os.PathLike[str],
+    subjoined_consonant_file: os.PathLike[str],
+    virama_file: os.PathLike[str],
 ) -> p.Fst:
   """Creates an FST that transduces a Brahmic script to ISO 15919.
 

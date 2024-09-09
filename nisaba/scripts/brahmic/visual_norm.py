@@ -46,9 +46,9 @@ _TOKEN_TYPE = flags.DEFINE_enum('token_type', '', ['byte', 'utf8'],
                                 'Token type: utf8 or byte')
 
 
-def core_visual_norm_fsts(rewrite_file: os.PathLike,
-                          preserve_file: os.PathLike,
-                          consonant_file: os.PathLike,
+def core_visual_norm_fsts(rewrite_file: os.PathLike[str],
+                          preserve_file: os.PathLike[str],
+                          consonant_file: os.PathLike[str],
                           sigma: pynini.Fst) -> List[pynini.Fst]:
   """Creates a visual normalization FST.
 

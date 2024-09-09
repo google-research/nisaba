@@ -29,7 +29,7 @@ _ParsableT = TypeVar(
 
 
 def read_textproto(
-    proto_path: Union[str, os.PathLike], proto: _ParsableT
+    proto_path: Union[str, os.PathLike[str]], proto: _ParsableT
 ) -> _ParsableT:
   logging.info('Parsing %s ...', proto_path)
   if not os.path.exists(proto_path):

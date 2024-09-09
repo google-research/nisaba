@@ -76,12 +76,12 @@ RuleSet = Iterable[Rule]
 RuleSets = List[RuleSet]
 
 
-def rules_from_string_file(file: os.PathLike) -> Iterator[Rule]:
+def rules_from_string_file(file: os.PathLike[str]) -> Iterator[Rule]:
   """Yields string rules from a text resource with unweighted string maps."""
   return rules_from_string_path(uf.AsResourcePath(file))
 
 
-def rules_from_string_path(file: os.PathLike) -> Iterator[Rule]:
+def rules_from_string_path(file: os.PathLike[str]) -> Iterator[Rule]:
   """Yields string rules from a text file with unweighted string maps."""
   with pathlib.Path(file).open('rt') as f:
     df = pd.read_csv(f, sep='\t', comment='#', escapechar='\\',
@@ -143,7 +143,9 @@ def fst_from_rules(rules: RuleSet, sigma: pynini.Fst) -> pynini.Fst:
   return ur.RewriteAndComposeFsts(fsts, sigma)
 
 
-def fst_from_rule_file(rule_file: os.PathLike, sigma: pynini.Fst) -> pynini.Fst:
+def fst_from_rule_file(
+    rule_file: os.PathLike[str], sigma: pynini.Fst
+) -> pynini.Fst:
   """Gets rewrite FST from a given rewrite rule file.
 
   Args:
@@ -172,7 +174,7 @@ def _fst_from_cascading_rules(rules: RuleSet, sigma: pynini.Fst) -> pynini.Fst:
   return ur.RewriteAndComposeFsts(fsts, sigma)
 
 
-def fst_from_cascading_rule_file(rule_file: os.PathLike,
+def fst_from_cascading_rule_file(rule_file: os.PathLike[str],
                                  sigma: pynini.Fst) -> pynini.Fst:
   """Gets rewrite FST from a given rewrite rule file.
 

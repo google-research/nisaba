@@ -35,24 +35,24 @@ import nisaba.scripts.brahmic.util as u
 import nisaba.scripts.utils.file as uf
 
 
-def _input_string_file(filename: os.PathLike,
+def _input_string_file(filename: os.PathLike[str],
                        return_if_empty: pynini.Fst = uf.EMPTY) -> pynini.Fst:
   fst = uf.StringFile(filename, return_if_empty)
   return pynini.project(fst, 'input').rmepsilon()
 
 
-def accept_well_formed(script_config_file: os.PathLike,
-                       consonant_file: os.PathLike,
-                       dead_consonant_file: os.PathLike,
-                       subjoined_consonant_file: os.PathLike,
-                       vowel_sign_file: os.PathLike,
-                       vowel_file: os.PathLike,
-                       vowel_length_sign_file: os.PathLike,
-                       coda_file: os.PathLike,
-                       standalone_file: os.PathLike,
-                       virama_file: os.PathLike,
-                       accept_file: os.PathLike,
-                       preserve_file: os.PathLike) -> pynini.Fst:
+def accept_well_formed(script_config_file: os.PathLike[str],
+                       consonant_file: os.PathLike[str],
+                       dead_consonant_file: os.PathLike[str],
+                       subjoined_consonant_file: os.PathLike[str],
+                       vowel_sign_file: os.PathLike[str],
+                       vowel_file: os.PathLike[str],
+                       vowel_length_sign_file: os.PathLike[str],
+                       coda_file: os.PathLike[str],
+                       standalone_file: os.PathLike[str],
+                       virama_file: os.PathLike[str],
+                       accept_file: os.PathLike[str],
+                       preserve_file: os.PathLike[str]) -> pynini.Fst:
   """Create an unweighted FSA to accept the well-formed strings in a script.
 
   Args:

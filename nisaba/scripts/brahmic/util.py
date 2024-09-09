@@ -58,7 +58,7 @@ def OpenSigma(script: str, token_type: str) -> pynini.Fst:
 
 
 def MaybeLoadScriptConfig(
-    file_path: os.PathLike) -> script_config_pb2.ScriptConfig:
+    file_path: os.PathLike[str]) -> script_config_pb2.ScriptConfig:
   """Loads script configuration, if present."""
   pb = script_config_pb2.ScriptConfig()
   if not uf.IsFileExist(file_path):

@@ -27,8 +27,9 @@ ZWJ = "\u200D"  # Zero Width Joiner
 ZWS = "\u200B"  # Zero Width Space
 
 
-def _read_string_file_chars_to_set(files: Iterable[os.PathLike],
-                                   relevant_fields: int) -> Set[str]:
+def _read_string_file_chars_to_set(
+    files: Iterable[os.PathLike[str]], relevant_fields: int
+) -> Set[str]:
   """Reads the characters under some selection from some file paths into a set.
 
   Arguments:
@@ -51,8 +52,10 @@ def _read_string_file_chars_to_set(files: Iterable[os.PathLike],
   return chars
 
 
-def derive_chars(both_sides: Iterable[os.PathLike] = (),
-                 input_side: Iterable[os.PathLike] = ()) -> Set[str]:
+def derive_chars(
+    both_sides: Iterable[os.PathLike[str]] = (),
+    input_side: Iterable[os.PathLike[str]] = ()
+) -> Set[str]:
   """Create the set of characters in a script from StringFiles.
 
   Args:
