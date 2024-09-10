@@ -23,9 +23,11 @@ from absl.testing import absltest
 from nisaba.scripts.utils import letter_languages
 
 _INPUT = flags.DEFINE_string(
-    'input_text_proto', None,
-    'Input text proto file in `nisaba.LetterLanguages` format.')
-flags.mark_flag_as_required('input_text_proto')
+    'input_text_proto',
+    None,
+    'Input text proto file in `nisaba.LetterLanguages` format.',
+    required=True,
+)
 
 
 class LetterLanguagesIntegrityTest(absltest.TestCase):
