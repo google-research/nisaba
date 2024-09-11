@@ -80,6 +80,25 @@ std::string JoinPath(absl::string_view dirname, absl::string_view basename) {
   }
 }
 
+std::string JoinPath(absl::string_view dirname1, absl::string_view dirname2,
+                     absl::string_view basename) {
+  if (dirname1.empty()) return JoinPath(dirname2, basename);
+  if (dirname2.empty()) return JoinPath(dirname1, basename);
+  if (!basename.empty() && basename[0] == PATH_SEPARATOR[0]) {
+    return std::string(basename);
+  }
+
+  std::string dirname1_with_sep(dirname1);
+  if (dirname1[dirname1.size() - 1] == PATH_SEPARATOR[0]) {
+    dirname1_with_sep = absl::StrCat(dirname1, PATH_SEPARATOR);
+  }
+  std::string dirname2_with_sep(dirname2);
+  if (dirname2[dirname2.size() - 1] == PATH_SEPARATOR[0]) {
+    dirname2_with_sep = absl::StrCat(dirname2, PATH_SEPARATOR);
+  }
+  return absl::StrCat(dirname1, dirname2, basename);
+}
+
 std::string TempFilePath(absl::string_view filename) {
 #if defined(__IPHONE_13_0) && __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_13_0
   return absl::StrCat("/tmp", filename);

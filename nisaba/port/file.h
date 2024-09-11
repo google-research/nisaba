@@ -27,7 +27,7 @@ class File {
   static File* Open(const char* const name, const char* const flag);
 
 #ifndef SWIG  // no overloading
-  inline static File* Open(const absl::string_view& name,
+  inline static File* Open(absl::string_view name,
                            const char* const mode) {
     return Open(name.data(), mode);
   }
@@ -38,7 +38,7 @@ class File {
   static File* OpenOrDie(const char* const name, const char* const flag);
 
 #ifndef SWIG  // no overloading
-  inline static File* OpenOrDie(const absl::string_view& name,
+  inline static File* OpenOrDie(absl::string_view name,
                                 const char* const flag) {
     return OpenOrDie(name.data(), flag);
   }
@@ -90,7 +90,7 @@ class File {
 
   // Deletes a file.
   static bool Delete(const char* const name);
-  static bool Delete(const absl::string_view& name) {
+  static bool Delete(absl::string_view name) {
     return Delete(name.data());
   }
 
@@ -100,30 +100,32 @@ class File {
   bool Open() const;
 
  private:
-  File(FILE* const f_des, const absl::string_view& name);
+  File(FILE* const f_des, absl::string_view name);
 
   FILE* f_;
   const absl::string_view name_;
 };
 
+namespace nisaba {
 namespace file {
 
 using Options = int;
 
 inline Options Defaults() { return 0xBABA; }
 
-File* OpenOrDie(const absl::string_view& filename,
-                const absl::string_view& mode, int flags);
+File* OpenOrDie(absl::string_view filename,
+                absl::string_view mode, int flags);
 
-absl::Status WriteString(File* file, const absl::string_view& contents,
+absl::Status WriteString(File* file, absl::string_view contents,
                          int flags);
 
-bool ReadFileToProto(const absl::string_view& file_name,
+bool ReadFileToProto(absl::string_view file_name,
                      google::protobuf::Message* proto);
 
-absl::Status GetTextProto(const absl::string_view& filename,
+absl::Status GetTextProto(absl::string_view filename,
                           google::protobuf::Message* proto, int flags);
 
 }  // namespace file
+}  // namespace nisaba
 
 #endif  // NISABA_PORT_FILE_H_

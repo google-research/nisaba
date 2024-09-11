@@ -33,7 +33,7 @@
 #include <unistd.h>
 #endif
 
-File::File(FILE* const f_des, const absl::string_view& name)
+File::File(FILE* const f_des, absl::string_view name)
     : f_(f_des), name_(name) {}
 
 bool File::Delete(const char* const name) { return remove(name) == 0; }
@@ -58,7 +58,7 @@ bool File::Close() {
 }
 
 absl::Status File::Close(int flags) {
-  if (flags != file::Defaults())
+  if (flags != nisaba::file::Defaults())
     return absl::Status(absl::StatusCode::kInvalidArgument, "Wrong flags");
   return Close()
              ? absl::OkStatus()
@@ -141,12 +141,11 @@ bool File::Open() const { return f_ != nullptr; }
 
 void File::Init() {}
 
+namespace nisaba {
 namespace file {
 
-
-
-File* OpenOrDie(const absl::string_view& filename,
-                const absl::string_view& mode, int flags) {
+File* OpenOrDie(absl::string_view filename,
+                absl::string_view mode, int flags) {
   File* f;
   CHECK_EQ(flags, Defaults());
   f = File::Open(filename, mode.data());
@@ -156,7 +155,7 @@ File* OpenOrDie(const absl::string_view& filename,
   return f;
 }
 
-absl::Status WriteString(File* file, const absl::string_view& contents,
+absl::Status WriteString(File* file, absl::string_view contents,
                          int flags) {
   if (flags == Defaults() && file != nullptr &&
       file->Write(contents.data(), contents.size()) == contents.size()) {
@@ -167,7 +166,7 @@ absl::Status WriteString(File* file, const absl::string_view& contents,
       absl::StrCat("Could not write ", contents.size(), " bytes"));
 }
 
-bool ReadFileToProto(const absl::string_view& file_name,
+bool ReadFileToProto(absl::string_view file_name,
                      google::protobuf::Message* proto) {
   const auto &str_or = ::nisaba::file::ReadTextFile(file_name);
   if (!str_or.ok()) {
@@ -195,7 +194,7 @@ bool ReadFileToProto(const absl::string_view& file_name,
   return false;
 }
 
-absl::Status GetTextProto(const absl::string_view& filename,
+absl::Status GetTextProto(absl::string_view filename,
                           google::protobuf::Message* proto, int flags) {
   if (flags == Defaults()) {
     if (ReadFileToProto(filename, proto)) return absl::OkStatus();
@@ -206,3 +205,4 @@ absl::Status GetTextProto(const absl::string_view& filename,
 }
 
 }  // namespace file
+}  // namespace nisaba

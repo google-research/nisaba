@@ -30,8 +30,12 @@ namespace file {
 // Returns full path of the resource that resides under runfiles directory.
 absl::StatusOr<std::string> GetRunfilesResourcePath(absl::string_view path);
 
-// Portable path joiner.
+// Portable path joiner using directory and a file.
 std::string JoinPath(absl::string_view dirname, absl::string_view basename);
+
+// Portable path joiner using two directories and a file.
+std::string JoinPath(absl::string_view dirname1, absl::string_view dirname2,
+                     absl::string_view basename);
 
 // Returns a path to a temporary file given its filename.
 std::string TempFilePath(absl::string_view filename);
