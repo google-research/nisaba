@@ -993,11 +993,18 @@ StdVectorFst PairLMDecoder::BuildTransliterationFst(
   const std::vector<std::string> input_words = absl::StrSplit(
       input_line, utf8::Utf8WhitespaceDelimiter(), absl::SkipEmpty());
   std::vector<StdVectorFst> translit_fsts(input_words.size());
-     // TODO: Fix parallelization.
+  {
+     ThreadPool pool(max_parallel_tokens_);
+     pool.StartWorkers();
      for (int i = 0; i < input_words.size(); ++i) {
-       translit_fsts[i] = TransliterateWord(input_words[i], word_k_best,
-                                            fst_params);
+       pool.Schedule([this, i, word_k_best, &translit_fsts, &input_words,
+         &fst_params] {
+         translit_fsts[i] = TransliterateWord(input_words[i], word_k_best,
+                                              fst_params);
+       });
      }
+     // Wait until all threads are complete.
+  }
 
   // Loop through the fsts produced, joining them into a sentence lattice.
   for (int i = 0; i < input_words.size(); ++i) {
