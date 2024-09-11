@@ -530,28 +530,3 @@ filegroup(
        ":wellformed.far",
    ],
 )
-
-cc_test(
-    name = "benchmark_test",
-    size = "small",
-    srcs = ["benchmark_test.cc"],
-    data = [
-        ":testdata/iso.textproto",
-        ":testdata/nfc.textproto",
-        ":testdata/reading_norm.textproto",
-        ":testdata/visual_norm.textproto",
-        ":testdata/wellformed.textproto",
-    ],
-    deps = [
-        ":cc",
-        "//nisaba/interim/testing:testdata_cc_proto",
-        "//nisaba/port:file",
-        "//nisaba/port:file_util",
-        "//nisaba/port:status-matchers",
-        "//third_party/benchmark",  # fixdeps: keep
-        "@com_google_absl//absl/log",
-        "@com_google_absl//absl/log:check",
-        "@com_google_absl//absl/strings",
-        "@com_google_googletest//:gtest_main",
-    ],
-)
