@@ -36,6 +36,7 @@ empty_components_tsv(names = [
     "inherent_vowel",
     "nfc",
     "preserve",
+    "reading_norm",
     "standalone",
     "subjoined_consonant",
     "visual_rewrite",

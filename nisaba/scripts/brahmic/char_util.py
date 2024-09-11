@@ -42,6 +42,7 @@ def script_chars(script: str) -> Set[str]:
       ],
       both_sides=[
           u.SCRIPT_DIR / script / "nfc.tsv",
+          u.SCRIPT_DIR / script / "reading_norm.tsv",
           u.SCRIPT_DIR / script / "visual_rewrite.tsv",
       ])
 

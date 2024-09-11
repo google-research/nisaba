@@ -32,6 +32,7 @@ licenses(["notice"])
 empty_components_tsv(names = [
     "accept",
     "dead_consonant",
+    "reading_norm",
     "standalone",
     "subjoined_consonant",
     "vowel_length_sign",

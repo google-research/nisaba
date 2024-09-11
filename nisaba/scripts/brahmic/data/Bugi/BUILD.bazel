@@ -35,6 +35,7 @@ empty_components_tsv(names = [
     "dead_consonant",
     "nfc",
     "preserve",
+    "reading_norm",
     "standalone",
     "subjoined_consonant",
     "virama",

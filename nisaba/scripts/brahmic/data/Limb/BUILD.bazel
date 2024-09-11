@@ -33,6 +33,7 @@ empty_components_tsv(names = [
     "accept",
     "nfc",
     "preserve",
+    "reading_norm",
     "standalone",
     "visual_rewrite",
 ])

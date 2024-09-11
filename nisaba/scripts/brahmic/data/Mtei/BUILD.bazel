@@ -32,8 +32,9 @@ licenses(["notice"])
 empty_components_tsv(names = [
     "nfc",
     "preserve",
-    "visual_rewrite",
+    "reading_norm",
     "subjoined_consonant",
+    "visual_rewrite",
     "vowel_length_sign",
 ])
 

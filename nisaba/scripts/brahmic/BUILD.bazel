@@ -201,6 +201,7 @@ py_library(
             "consonant",
             "dead_consonant",
             "nfc",
+            "reading_norm",
             "standalone",
             "subjoined_consonant",
             "virama",
