@@ -74,3 +74,8 @@ rewrite {
   input: "akailā"
   output: "akaila"
 }
+rewrite {
+  rule: "ISO_TO_PSAC"
+  input: "bāṛʰa"
+  output: "badh"
+}

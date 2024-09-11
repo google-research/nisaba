@@ -110,6 +110,7 @@ def iso_to_nat() -> fl.FstList:
       _TXN_OPS,
       romanizer.SIBV_TO_SIBW,
       romanizer.AA_WI,
+      romanizer.RDH_RH,
       romanizer.TXN_TO_PSA_COMMON,
       romanizer.IGNORE_LONG,
       romanizer.TRANSLIT_BY_PSA,

@@ -108,6 +108,8 @@ TI_TH = fl.FstList(
 
 TT_TR = rw.reassign(gr.RR + gr.RR, ph.T + ph.T, tr.T + tr.T + tr.R)
 RD_R = rw.reassign(gr.RD, ph.RD, tr.R)
+RDH_DH = rw.reassign(gr.RDH, ph.RD + ph.ASP, tr.D + tr.H)
+RDH_RH = rw.reassign(gr.RDH, ph.RD + ph.ASP, tr.R + tr.H)
 
 NY_N = rw.rewrite(ph.NY, tr.N, following=ph.CONSONANT)
 NY_GN = rw.reassign(gr.NY, ph.NY, tr.G + tr.N, ph.VOWEL, ph.VOWEL)
@@ -157,7 +159,7 @@ TRANSLIT_BY_PSA = phon.ls_translit_by_key(psa.PHONEMES, 'psa')
 
 
 # Compose common rules for romanization
-TXN_TO_PSA_COMMON = (DIPHTHONG_GR @ NON_LABIAL_ANUSVARA)
+TXN_TO_PSA_COMMON = (DIPHTHONG_GR @ NON_LABIAL_ANUSVARA @ RDH_DH)
 
 # Convert txn to PSAF and outputs only translit strings.
 TXN_TO_PSAF = (

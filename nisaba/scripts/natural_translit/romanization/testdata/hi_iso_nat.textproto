@@ -75,3 +75,8 @@ rewrite {
   input: "akailā"
   output: "akaila"
 }
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "bāṛʰa"
+  output: "barh"
+}
