@@ -178,16 +178,22 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
     with p.default_token_type(token_type):
       exporter = exporter_map[token_type]
       from_script_fsts = []
+      sigma_fsts = []
       for script in u.SCRIPTS:
+        sigma = u.OpenSigma(script, token_type)
+        sigma_fsts += [sigma]
         from_script, to_script = _script_fsts(script, token_type)
         from_script_fsts += [from_script]
         script = script.upper()
         exporter[f'FROM_{script}'] = from_script
         exporter[f'TO_{script}'] = to_script
-      # TODO: Following rewrite assumes 'byte' token type. It should be
-      # made available to 'utf8' as well. The corresponding 'utf8_test' is
-      # missing as well.
-      exporter['FROM_BRAHMIC'] = rw.Rewrite(p.union(*from_script_fsts))
+      # TODO: The utf8 version of `FROM_BRAHMIC` transducer is
+      # failing to rewrite any native script inputs. The corresponding
+      # 'iso_utf8_test' is missing as well.
+      exporter['FROM_BRAHMIC'] = rw.Rewrite(
+          p.union(*from_script_fsts).optimize(),
+          sigma=p.union(*sigma_fsts).optimize()
+      )
 
 
 if __name__ == '__main__':
