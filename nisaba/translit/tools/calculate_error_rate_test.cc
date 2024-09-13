@@ -28,6 +28,12 @@ namespace {
 
 constexpr float kFloatDelta = 0.00001;  // Delta for float comparisons.
 
+class MultiRefErrorRateHelper : public MultiRefErrorRate {
+ public:
+  using MultiRefErrorRate::GetTokenizedString;
+  MultiRefErrorRateHelper() = default;
+};
+
 class MultiRefErrorRateTest : public ::testing::Test {
  protected:
   // Creates first file for testing error rate.
@@ -71,7 +77,37 @@ class MultiRefErrorRateTest : public ::testing::Test {
   std::string file_two_;  // File name for second k-best output.
 };
 
-// TODO: create test of GetTokenizedString to test bad indices.
+// To test behavior with out-of-range indices.
+TEST_F(MultiRefErrorRateTest, GetTokenizedStringTests) {
+  // Initializing calculator with file_one_ as reference.
+  MultiRefErrorRateHelper multi_ref_calc;
+  multi_ref_calc.CalculateErrorRate(/*reffile=*/file_one_,
+                                    /*testfile=*/file_two_);
+  // Example 0, item 0 exists in reference, so resulting vector non-empty.
+  EXPECT_FALSE(multi_ref_calc.GetTokenizedString(0, 0).empty());
+  // Example index out of range, so vector empty.
+  EXPECT_TRUE(multi_ref_calc.GetTokenizedString(-1, 0).empty());
+  EXPECT_TRUE(
+      multi_ref_calc.GetTokenizedString(-1, 0, /*is_test_item=*/true).empty());
+  // Example index out of range, so vector empty.
+  EXPECT_TRUE(multi_ref_calc.GetTokenizedString(3, 0).empty());
+  EXPECT_TRUE(
+      multi_ref_calc.GetTokenizedString(3, 0, /*is_test_item=*/true).empty());
+  // Example 1 of reference and test have more than 1 item, vector non-empty.
+  EXPECT_FALSE(multi_ref_calc.GetTokenizedString(1, 1).empty());
+  EXPECT_FALSE(
+      multi_ref_calc.GetTokenizedString(1, 1, /*is_test_item=*/true).empty());
+  // Example 2 of reference and test have just 1 item, hence vector empty.
+  EXPECT_TRUE(multi_ref_calc.GetTokenizedString(2, 1).empty());
+  EXPECT_TRUE(
+      multi_ref_calc.GetTokenizedString(2, 1, /*is_test_item=*/true).empty());
+  // Example 1 of reference has 2 items but test has 3 items, so vector should
+  // be empty for reference but not for test.
+  EXPECT_TRUE(multi_ref_calc.GetTokenizedString(1, 2).empty());
+  EXPECT_FALSE(
+      multi_ref_calc.GetTokenizedString(1, 2, /*is_test_item=*/true).empty());
+}
+
 // Verifies minimum error rate calculation in both directions.
 TEST_F(MultiRefErrorRateTest, CorrectMinErrorRates) {
   // Initializing calculator for use with file_one_ as reference.

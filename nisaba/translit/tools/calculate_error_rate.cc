@@ -487,6 +487,9 @@ void MultiRefErrorRate::CalculateErrorRate(bool pairwise_edits) {
 void MultiRefErrorRate::CalculateErrorRate(absl::string_view reffile,
                                            absl::string_view testfile,
                                            bool pairwise_edits) {
+  if (output_syms_.Find("<epsilon>") < 0) {
+    output_syms_.AddSymbol("<epsilon>");
+  }
   ReadInputs(reffile, /*is_reference=*/true);
   ReadInputs(testfile, /*is_reference=*/false);
   CalculateErrorRate(pairwise_edits);

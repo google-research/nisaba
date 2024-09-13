@@ -49,7 +49,7 @@ struct EditDistanceDouble {
   double insertions = 0.;
   double deletions = 0.;
 
-  EditDistanceDouble() {}
+  EditDistanceDouble() = default;
 
   explicit EditDistanceDouble(const EditDistanceInt &x)
       : reference_length(x.reference_length),
@@ -101,24 +101,26 @@ struct EditDistanceDouble {
 // Class for calculating error rates possibly from multiple references.
 class MultiRefErrorRate {
  public:
-  MultiRefErrorRate() = default;
-
-  explicit MultiRefErrorRate(bool is_split_chars)
-      : is_split_chars_(is_split_chars) {
-    output_syms_.AddSymbol("<epsilon>");
-  }
+  explicit MultiRefErrorRate(bool is_split_chars = true)
+      : is_split_chars_(is_split_chars) {}
 
   // Calculates multi reference error rate for given test file. If pairwise_edit
   // is set to true, provides pairwise edits between all reference and test
   // outputs for the same input.
   void CalculateErrorRate(absl::string_view reffile, absl::string_view testfile,
-                          bool pairwise_edits);
+                          bool pairwise_edits = false);
 
   // Writes results to output file.
   void Write(absl::string_view ofile, bool pairwise_edits);
 
   // Calculates error rate and optionally writes to provide file pointer.
   double CalcErrorRate();
+
+ protected:
+  // Returns tokenized string associated with idx and k-th item from test_input_
+  // if is_test_item is true, otherwise references_.
+  std::vector<std::string> GetTokenizedString(int idx, int k,
+                                              bool is_test_item = false) const;
 
  private:
   // Reads in TSV input file, either reference or test file.
@@ -127,11 +129,6 @@ class MultiRefErrorRate {
   // Optional column 3 is the value associated with the output.
   // For the reference file this is a count; for test a -log prob.
   void ReadInputs(absl::string_view input_file, bool is_reference);
-
-  // Returns tokenized string associated with idx and k-th item from test_input_
-  // if is_test_item is true, otherwise references_.
-  std::vector<std::string> GetTokenizedString(int idx, int k,
-                                              bool is_test_item) const;
 
   // Scans through data set and calculates error rate.
   void CalculateErrorRate(bool pairwise_edits);
