@@ -188,8 +188,7 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
         exporter[f'FROM_{script}'] = from_script
         exporter[f'TO_{script}'] = to_script
       # TODO: The utf8 version of `FROM_BRAHMIC` transducer is
-      # failing to rewrite any native script inputs. The corresponding
-      # 'iso_utf8_test' is missing as well.
+      # failing to rewrite any native script inputs.
       exporter['FROM_BRAHMIC'] = rw.Rewrite(
           p.union(*from_script_fsts).optimize(),
           sigma=p.union(*sigma_fsts).optimize()

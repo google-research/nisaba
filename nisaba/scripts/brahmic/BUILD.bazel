@@ -97,6 +97,14 @@ nisaba_grm_textproto_test(
     grammar = ":iso",
 )
 
+# TODO: This test is currently failing.
+# nisaba_grm_textproto_test(
+#    name = "iso_utf8_test",
+#    grammar = ":iso_utf8",
+#    textproto = "testdata/iso.textproto",
+#    token_type = "utf8",
+# )
+
 nisaba_compile_multi_grm_py(
     name = "fixed",
     outs = {
