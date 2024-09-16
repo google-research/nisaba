@@ -196,6 +196,9 @@ rewrite { rule: "BENG" input: "্্" output: "্" }
 rewrite { rule: "KNDA" input: "ೆೆ" output: "ೆ" }
 
 rewrite { rule: "TELU" input: "బుు" output: "ఋ" }
+# SIGN E, AI LENGTH MARK -> SIGN AI.
+rewrite { rule: "TELU" input: "యాభై" output: "యాభై" }
+rewrite { rule: "TELU" input: "నైఋతి" output: "నైఋతి" }
 
 # Soft de-duplication:
 
