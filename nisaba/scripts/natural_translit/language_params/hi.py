@@ -82,24 +82,24 @@ _TXN_OPS = fl.FstList(
 )
 
 
-def _iso_to_txn() -> fl.FstList:
+def iso_to_txn() -> fl.FstList:
   """Composes the fsts from ISO characters to final txn pronunciation."""
   return fl.FstList(g2p.iso_to_txn(), _TXN_OPS)
 
 
 def iso_to_psaf() -> fl.FstList:
   """Pan-South Asian fine grained transliteration."""
-  return fl.FstList(_iso_to_txn(), romanizer.TXN_TO_PSAF)
+  return fl.FstList(iso_to_txn(), romanizer.TXN_TO_PSAF)
 
 
 def iso_to_psac() -> fl.FstList:
   """Pan-South Asian coarse grained transliteration."""
-  return fl.FstList(_iso_to_txn(), romanizer.TXN_TO_PSAC)
+  return fl.FstList(iso_to_txn(), romanizer.TXN_TO_PSAC)
 
 
 def iso_to_ipa() -> fl.FstList:
   """Pronunciation in IPA."""
-  return fl.FstList(_iso_to_txn(), transcriptor.txn_to_ipa())
+  return fl.FstList(iso_to_txn(), transcriptor.txn_to_ipa())
 
 
 def iso_to_nat() -> fl.FstList:
