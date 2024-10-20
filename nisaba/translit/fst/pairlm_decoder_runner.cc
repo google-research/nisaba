@@ -79,7 +79,7 @@ absl::Status ParallelDecoding(const PairLMDecoderOptions &config,
   std::unique_ptr<PairLMDecoder> pair_lm =
       std::make_unique<PairLMDecoder>(config);
   std::unique_ptr<ThreadPool> thread_pool =
-      std::make_unique<ThreadPool>(num_workers);
+      ThreadPool::CreateForMigration(num_workers);
   thread_pool->StartWorkers();
   int index = 0;
   for (const auto &input_line : input_lines) {
