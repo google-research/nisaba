@@ -14,7 +14,7 @@
 
 # Transliteration utilities using finite-state pair language models.
 
-load("//third_party/protobuf/bazel:proto_library.bzl", "proto_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
 
 package(
     default_applicable_licenses = [
