@@ -99,7 +99,6 @@ bool Run() {
 int main(int argc, char** argv) {
   absl::ParseCommandLine(argc, argv);
   absl::InitializeLog();
-
   if (!nisaba::Run()) {
     LOG(ERROR) << "Decoder failed";
     return 1;
