@@ -101,7 +101,7 @@ def nisaba_grm_textproto_test(
         name = name,
         textproto = textproto,
         token_type = token_type,
-        extra_deps = [
+        extra_deps = extra_deps + [
         ],
         mode = "one_top",
         **kwds
