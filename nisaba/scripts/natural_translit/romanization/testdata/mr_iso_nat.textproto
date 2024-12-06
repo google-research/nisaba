@@ -65,3 +65,18 @@ rewrite {
   input: "māṛʰā"
   output: "madha"
 }
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "aisā"
+  output: "aisa"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "kannauja"
+  output: "kannauj"
+}
+rewrite {
+  rule: "ISO_TO_NAT"
+  input: "a-ēka"
+  output: "aek"
+}

@@ -46,6 +46,8 @@ _PROCESS_SCHWA = g2p.process_schwa(_ONSET_CL, _CODA_CL)
 
 
 _TXN_OPS = fl.FstList(
+    g2p.AI_TO_EH_LONG,
+    g2p.AU_TO_OH_LONG,
     g2p.A_TO_EC,
     g2p.VOCALIC_U,
     g2p.H_ASP,

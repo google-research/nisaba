@@ -131,6 +131,7 @@ VIRAMA = [c.Char('vir', '', ph.SIL)]
 
 SYMBOL = [c.Char(*args) for args in [
     ['ind', '.', ph.SIL],
+    ['sgn', '-', ph.SIL],
     ['zwj', '+', ph.SIL],
     ['zwn', '|', ph.SIL],
 ]]
