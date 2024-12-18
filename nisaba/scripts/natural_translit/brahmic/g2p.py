@@ -39,6 +39,10 @@ ph = psa.PHONEME_INVENTORY
 
 # Vowels
 
+# TODO: Convert this constant to a function where duration and diphthong
+# context are passed as arguments, and remove the recovery rule.
+# The current rule rewrites all /a/ to /ə/ including the diphthongs like /ai/,
+# and recovers long a with /ə:/ -> /a:/ but not the diphthongs.
 A_TO_EC = (
     rw.rewrite(ph.A, ph.EC) @
     rw.rewrite(ph.EC + ph.DURH, ph.A + ph.DURH)

@@ -39,3 +39,13 @@ rewrite {
   input: "siddʰēgavhāṇa"
   output: "sid̪d̪ʰeːɡəʋʰaːɳ"
 }
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "aisā"
+  output: "ɛːsaː"
+}
+rewrite {
+  rule: "ISO_TO_IPA"
+  input: "kannauja"
+  output: "kən̪n̪ɔːd͡ʒ"
+}
