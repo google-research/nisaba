@@ -440,7 +440,7 @@ py_library(
     visibility = ["//visibility:public"],
     deps = [
         ":util",
-        "//nisaba/scripts/utils:far",
+        "//nisaba/scripts/utils:far_lib",
         "@org_opengrm_pynini//pynini",
     ],
 )
