@@ -125,7 +125,7 @@ class Grapheme(sym.Symbol):
       name = unicodedata.name(character)
     except ValueError:
       name = 'GRAPHEME'
-    name += ' U+' + code_hex.upper()
+    name += ' U+' + code_hex.upper()[2:]
     return cls(
         alias=alias,
         text=character,

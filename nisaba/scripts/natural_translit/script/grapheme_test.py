@@ -40,11 +40,12 @@ class GraphemeTest(test_op.TestCase):
     )
 
   def test_from_char_name(self):
-    self.assertEqual(g.Grapheme.from_char('🐱').name, 'CAT FACE U+0X1F431')
+    self.assertEqual(g.Grapheme.from_char('🐱').name, 'CAT FACE U+1F431')
 
   def test_from_char_name_error(self):
     self.assertEqual(
-        g.Grapheme.from_char(chr(0xE027)).name, 'GRAPHEME U+0XE027'
+        g.Grapheme.from_char(chr(0xE027)).name,  # Unassignable PUA character
+        'GRAPHEME U+E027'
     )
 
   def test_from_char_alias_explicit(self):
