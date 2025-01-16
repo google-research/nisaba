@@ -402,7 +402,20 @@ class FeatureTest(test_op.TestCase):
         '}\n',
     )
 
-  def test_profile_default_value_n_a(self):
+  def test_profile_inventory_n_a(self):
+    self.AssertStrEqual(
+        _A.not_applicable,
+        'not_applicable profile: {\n'
+        '    size: {not_applicable}\n'
+        '    weight: {not_applicable}\n'
+        '    speed: {not_applicable}\n'
+        '    life_span: {not_applicable}\n'
+        '    gestation: {not_applicable}\n'
+        '    litter_size: {not_applicable}\n'
+        '}\n',
+    )
+
+  def test_new_profile_default_value_n_a(self):
     self.AssertStrEqual(
         f.Profile(
             _A,

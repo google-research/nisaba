@@ -624,6 +624,11 @@ class Feature(ty.Thing):
     - Profiles: profile.alias: profile
         - Profile features: aspect.alias: set
 
+    All inventories have a 'n_a' profile with all aspects set to 'not
+    applicable'. This will be used for objects that don't have any features
+    for this inventory. Eg. while comparing the phonological profiles of a
+    letter such as 'a' and a non-phonological character such as a zero-width
+    space or a non-joiner, as well as handling error conditions.
     """
 
     def __init__(self, alias: str, *aspects: 'Feature.Aspect', text: str = ''):
@@ -632,6 +637,7 @@ class Feature(ty.Thing):
         self.text = text
       for aspect in aspects:
         aspect.populate(self)
+      self.add_profile('not_applicable', unspecified_aspect_n_a=True)
 
     def __str__(self):
       """String representation of all aspects in the inventory."""
@@ -640,9 +646,14 @@ class Feature(ty.Thing):
       )
 
     def add_profile(
-        self, alias: str, *features: 'Feature.ITERABLE'
+        self,
+        alias: str,
+        *features: 'Feature.ITERABLE',
+        unspecified_aspect_n_a: bool = False,
     ) -> 'Feature.Profile':
-      new = Feature.Profile(self, alias, *features)
+      new = Feature.Profile(
+          self, alias, *features, unspecified_aspect_n_a=unspecified_aspect_n_a
+      )
       self.add_suppl(new)
       return new
 
