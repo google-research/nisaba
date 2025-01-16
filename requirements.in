@@ -1,6 +1,6 @@
-networkx>=3.2.1
-numpy>=1.26.4
-pandas>=2.2.1
-pycountry>=23.12.11
-pyemd>=0.4.1
+networkx>=3.4.2
+numpy>=2.2.1
+pandas>=2.2.3
+pycountry>=24.6.1
+pyemd>=1.0.0
 tabulate>=0.9.0

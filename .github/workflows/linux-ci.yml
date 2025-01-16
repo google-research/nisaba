@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BAZEL: bazelisk-linux-amd64
-      USE_BAZEL_VERSION: 6.4.0
-      CC: gcc-10
-      CXX: g++-10
+      USE_BAZEL_VERSION: 6.5.0
+      CC: gcc
+      CXX: g++
 
     steps:
     - uses: actions/checkout@v3
@@ -37,8 +37,6 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y python3-pip python3-dev
-        sudo pip install --upgrade pip
-        sudo pip install -r ./requirements.txt
 
     - name: Environment variables (debug dump)
       run: |
