@@ -51,8 +51,7 @@ class BaseRuleCascade {
   using MutableTransducer = ::fst::VectorFst<Arc>;
 
   // TODO: Add symbol table support, or YAGNI?
-  explicit BaseRuleCascade(
-      ::fst::TokenType token_type = ::fst::TokenType::BYTE)
+  explicit BaseRuleCascade(::fst::TokenType token_type = ::fst::TokenType::BYTE)
       : compiler_(token_type), token_type_(token_type) {}
 
   virtual ~BaseRuleCascade() = default;
@@ -68,9 +67,7 @@ class BaseRuleCascade {
 
   // Returns the symbol table for generated output symbols when available, or
   // nullptr otherwise.
-  virtual const ::fst::SymbolTable *GeneratedSymbols() const {
-    return nullptr;
-  }
+  virtual const ::fst::SymbolTable *GeneratedSymbols() const { return nullptr; }
 
   // TopRewrite() computes one top rewrite, returning false if composition
   // fails. Requires a semiring with the path property.
@@ -251,8 +248,8 @@ bool BaseRuleCascade<Arc>::OneTopRewrite(absl::string_view input,
   if (!RewriteLattice(input, output)) return false;
   LatticeToDfa(output, /*optimal_only=*/true);
   // Make sure there is only one path.
-  for (::fst::StateIterator<MutableTransducer> siter(*output);
-       !siter.Done(); siter.Next()) {
+  for (::fst::StateIterator<MutableTransducer> siter(*output); !siter.Done();
+       siter.Next()) {
     if (output->NumArcs(siter.Value()) > 1) return false;
   }
   return true;

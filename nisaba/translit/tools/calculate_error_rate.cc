@@ -43,18 +43,17 @@ namespace impl {
 namespace {
 
 // Uses composition and shortest path to return min cost alignment.
-::fst::StdVectorFst GetMinErrorAlignment(const ::fst::StdVectorFst &ifst,
-                                           const ::fst::StdVectorFst &ofst,
-                                           ::fst::StdVectorFst *align_mod) {
-  ArcSort(align_mod, ::fst::ILabelCompare<::fst::StdArc>());
-  ::fst::StdVectorFst ifst_o_align_mod;
-  ::fst::Compose(ifst, *align_mod, &ifst_o_align_mod);
-  ::fst::ArcSort(&ifst_o_align_mod,
-                   ::fst::OLabelCompare<::fst::StdArc>());
-  ::fst::StdVectorFst ifst_o_align_mod_o_ofst;
-  ::fst::Compose(ifst_o_align_mod, ofst, &ifst_o_align_mod_o_ofst);
-  ::fst::StdVectorFst alignment;
-  ::fst::ShortestPath(ifst_o_align_mod_o_ofst, &alignment);
+fst::StdVectorFst GetMinErrorAlignment(const fst::StdVectorFst &ifst,
+                                       const fst::StdVectorFst &ofst,
+                                       fst::StdVectorFst *align_mod) {
+  ArcSort(align_mod, fst::ILabelCompare<fst::StdArc>());
+  fst::StdVectorFst ifst_o_align_mod;
+  fst::Compose(ifst, *align_mod, &ifst_o_align_mod);
+  fst::ArcSort(&ifst_o_align_mod, fst::OLabelCompare<fst::StdArc>());
+  fst::StdVectorFst ifst_o_align_mod_o_ofst;
+  fst::Compose(ifst_o_align_mod, ofst, &ifst_o_align_mod_o_ofst);
+  fst::StdVectorFst alignment;
+  fst::ShortestPath(ifst_o_align_mod_o_ofst, &alignment);
   return alignment;
 }
 
@@ -78,9 +77,9 @@ bool BetterErrorValues(const EditDistanceDouble &this_min_error_values,
 }
 
 // Creates linear string Fst from vector of symbols, adding to symbol table.
-::fst::StdVectorFst GetStringFst(absl::Span<const std::string> token_string,
-                                   ::fst::SymbolTable *syms) {
-  ::fst::StdVectorFst fst;
+fst::StdVectorFst GetStringFst(absl::Span<const std::string> token_string,
+                               fst::SymbolTable *syms) {
+  fst::StdVectorFst fst;
   fst.SetStart(fst.AddState());
   int curr_state = fst.Start();
   for (const auto &token : token_string) {
@@ -89,7 +88,7 @@ bool BetterErrorValues(const EditDistanceDouble &this_min_error_values,
       sym = syms->AddSymbol(token);
     }
     int next_state = fst.AddState();
-    fst.AddArc(curr_state, ::fst::StdArc(sym, sym, 0.0, next_state));
+    fst.AddArc(curr_state, fst::StdArc(sym, sym, 0.0, next_state));
     curr_state = next_state;
   }
   fst.SetFinal(curr_state, 0.0);
@@ -97,42 +96,41 @@ bool BetterErrorValues(const EditDistanceDouble &this_min_error_values,
 }
 
 // Finds minimum cost alignment between two string automata.
-::fst::StdVectorFst AlignStringFsts(const ::fst::StdVectorFst &ref_fst,
-                                      const ::fst::StdVectorFst &test_fst,
-                                      int num_symbols) {
-  ::fst::StdVectorFst align_mod;
+fst::StdVectorFst AlignStringFsts(const fst::StdVectorFst &ref_fst,
+                                  const fst::StdVectorFst &test_fst,
+                                  int num_symbols) {
+  fst::StdVectorFst align_mod;
   align_mod.SetStart(align_mod.AddState());
   align_mod.SetFinal(align_mod.Start(), 0.0);
   for (int sym = 1; sym < num_symbols; ++sym) {
     // Adds insertion, deletion and substitution arcs for all symbols.
     align_mod.AddArc(align_mod.Start(),
-                     ::fst::StdArc(sym, 0, 1.0, align_mod.Start()));
+                     fst::StdArc(sym, 0, 1.0, align_mod.Start()));
     align_mod.AddArc(align_mod.Start(),
-                     ::fst::StdArc(0, sym, 1.0, align_mod.Start()));
+                     fst::StdArc(0, sym, 1.0, align_mod.Start()));
     for (int sub_sym = 1; sub_sym < num_symbols; ++sub_sym) {
       // If sym == sub_sym, cost is 0.0, otherwise 1.0.
       align_mod.AddArc(align_mod.Start(),
-                       ::fst::StdArc(sym, sub_sym, sym == sub_sym ? 0.0 : 1.0,
-                                       align_mod.Start()));
+                       fst::StdArc(sym, sub_sym, sym == sub_sym ? 0.0 : 1.0,
+                                   align_mod.Start()));
     }
   }
   return impl::GetMinErrorAlignment(test_fst, ref_fst, &align_mod);
 }
 
 // Returns the counts for deriving the string-to-string edit distance.
-EditDistanceInt CalculatePairEditDistance(const ::fst::StdVectorFst &ref_fst,
-                                          const ::fst::StdVectorFst &test_fst,
+EditDistanceInt CalculatePairEditDistance(const fst::StdVectorFst &ref_fst,
+                                          const fst::StdVectorFst &test_fst,
                                           int num_symbols) {
-  const ::fst::StdVectorFst min_cost_alignment =
+  const fst::StdVectorFst min_cost_alignment =
       AlignStringFsts(ref_fst, test_fst, num_symbols);
   int curr_state = min_cost_alignment.Start();
   EditDistanceInt ed_int;
   ed_int.reference_length = ref_fst.NumStates() - 1;
   while (curr_state >= 0 && min_cost_alignment.NumArcs(curr_state) > 0) {
     QCHECK_EQ(min_cost_alignment.NumArcs(curr_state), 1);
-    ::fst::ArcIterator<::fst::StdVectorFst> aiter(min_cost_alignment,
-                                                      curr_state);
-    ::fst::StdArc arc = aiter.Value();
+    fst::ArcIterator<fst::StdVectorFst> aiter(min_cost_alignment, curr_state);
+    fst::StdArc arc = aiter.Value();
     if (arc.ilabel != arc.olabel) {  // This is an edit in the alignment.
       if (arc.ilabel == 0) {
         // Reference token aligns with nothing in the test string: deletion.
@@ -153,10 +151,10 @@ EditDistanceInt CalculatePairEditDistance(const ::fst::StdVectorFst &ref_fst,
 EditDistanceInt CalculatePairEditDistance(
     const std::vector<std::string> &ref_string,
     const std::vector<std::string> &test_string) {
-  ::fst::SymbolTable syms;
+  fst::SymbolTable syms;
   syms.AddSymbol("<epsilon>");
-  const ::fst::StdVectorFst ref_fst = GetStringFst(ref_string, &syms);
-  const ::fst::StdVectorFst test_fst = GetStringFst(test_string, &syms);
+  const fst::StdVectorFst ref_fst = GetStringFst(ref_string, &syms);
+  const fst::StdVectorFst test_fst = GetStringFst(test_string, &syms);
   return CalculatePairEditDistance(ref_fst, test_fst, syms.NumSymbols());
 }
 
@@ -194,7 +192,7 @@ double GetNormalizer(const std::vector<std::pair<int, double>> &input_pairs) {
 // normalizing the weights, and returns vector of probabilities.
 std::vector<double> WriteCands(std::ofstream &output_file,
                                const std::vector<std::pair<int, double>> &cands,
-                               const ::fst::SymbolTable &syms) {
+                               const fst::SymbolTable &syms) {
   double norm = impl::GetNormalizer(cands);
   std::vector<double> probs;
   probs.reserve(cands.size());
@@ -263,7 +261,7 @@ std::string GetDistances(const std::vector<std::vector<int>> &dists) {
 
 // Returns vector of lengths of strings in cands.
 std::vector<int> GetLengths(const std::vector<std::pair<int, double>> &cands,
-                            const ::fst::SymbolTable &syms) {
+                            const fst::SymbolTable &syms) {
   std::vector<int> lengths;
   lengths.reserve(cands.size());
   for (const auto cand : cands) {

@@ -148,7 +148,7 @@ class MultiRefErrorRate {
   // Writes pairwise edits to output file.
   void WritePairwiseEdits(std::ofstream &output_file);
 
-  ::fst::SymbolTable output_syms_;
+  fst::SymbolTable output_syms_;
   std::vector<std::vector<std::pair<int, double>>> references_;
   std::vector<std::vector<std::pair<int, double>>> test_input_;
   std::vector<EditDistanceDouble> total_ed_double_;

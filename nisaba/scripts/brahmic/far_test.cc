@@ -22,22 +22,22 @@
 #include "nisaba/port/status-matchers.h"
 #include "gtest/gtest.h"
 
-using ::fst::StdFst;
-using ::fst::StdVectorFst;
-using StringCompiler = ::fst::StringCompiler<::fst::StdArc>;
+using fst::StdFst;
+using fst::StdVectorFst;
+using StringCompiler = fst::StringCompiler<fst::StdArc>;
 
 namespace nisaba {
 namespace brahmic {
 namespace {
 
 bool UTF8AcceptsString(const StdFst &fsa, const std::string &s) {
-  StringCompiler string_compiler(::fst::TokenType::UTF8);
+  StringCompiler string_compiler(fst::TokenType::UTF8);
   StdVectorFst string_fst;
   string_compiler(s, &string_fst);
 
   StdVectorFst output;
-  ::fst::Compose(string_fst, fsa, &output);
-  return output.Start() != ::fst::kNoStateId;
+  fst::Compose(string_fst, fsa, &output);
+  return output.Start() != fst::kNoStateId;
 }
 
 TEST(WellformedFarTest, Basic) {
