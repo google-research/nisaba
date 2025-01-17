@@ -68,6 +68,8 @@ def _latn_inventory() -> sym.Symbol.Inventory:
       sym.Symbol('digit_1', text='1', raw='1', name='DIGIT ONE'),
       sym.Symbol('digit_2', text='2', raw='2', name='DIGIT TWO'),
   )
+  for symbol in syms:
+    symbol.features.new_profile(ft.Feature.Profile(_TEST_FTR, 'new'))
   return syms
 
 
@@ -96,14 +98,14 @@ class SymbolTest(test_op.TestCase):
     self.assertEqual(
         _SYM.schwa.description(show_features=True),
         'alias: schwa  index: 2000001  text: 🜔  name: SCHWA\n'
-        '    features: {abstract}',
+        '    type: {abstract}',
     )
 
   def test_symbol_raw(self):
     self.assertEqual(
         _SYM.a_ind.description(show_features=True),
         'alias: a_ind  index: 2000002  raw: अ  text: अ  name: A LETTER\n'
-        '    features: {raw}',
+        '    type: {raw}',
     )
 
   def test_control(self):
@@ -152,23 +154,23 @@ class SymbolTest(test_op.TestCase):
         _SYM.description(show_features=True, show_control=True),
         'test inventory:\n\n'
         '  alias: eps  index: 1000000  text: ​ℰ​  name: EPSILON\n'
-        '    features: {abstract, control}\n\n'
+        '    type: {abstract, control}\n\n'
         '  alias: unk  index: 1000001  text: ​␦​  name: UNKNOWN SYMBOL\n'
-        '    features: {abstract, control}\n\n'
+        '    type: {abstract, control}\n\n'
         '  alias: bos  index: 1000002  text: ​⊳​  name: BEGINNING OF SEQUENCE\n'
-        '    features: {abstract, control}\n\n'
+        '    type: {abstract, control}\n\n'
         '  alias: eos  index: 1000003  text: ​⊲​  name: END OF SEQUENCE\n'
-        '    features: {abstract, control}\n\n'
+        '    type: {abstract, control}\n\n'
         '  alias: oos  index: 1000004  text: ​⊽​  name: OUT OF SEQUENCE\n'
-        '    features: {abstract, control}\n\n'
+        '    type: {abstract, control}\n\n'
         '  alias: nor  index: 1000005  text: ​◎​  name: NO ALTERNATIVE\n'
-        '    features: {abstract, control}\n\n'
+        '    type: {abstract, control}\n\n'
         '  alias: nos  index: 1000006  text: ​⨱​  name: NO SYMBOL\n'
-        '    features: {abstract, control}\n\n'
+        '    type: {abstract, control}\n\n'
         '  alias: schwa  index: 2000001  text: 🜔  name: SCHWA\n'
-        '    features: {abstract}\n\n'
+        '    type: {abstract}\n\n'
         '  alias: a_ind  index: 2000002  raw: अ  text: अ  name: A LETTER\n'
-        '    features: {raw}\n\n',
+        '    type: {raw}\n\n',
     )
 
   def test_raw_from_unknown(self):
@@ -196,11 +198,10 @@ class SymbolTest(test_op.TestCase):
 
   def test_has_feature(self):
     x = sym.Symbol('x', 'x')
-    x.features = _SYM_FTR.type.imp
+    x.add_features(_SYM_FTR.type.imp)
     self.AssertHasFeature(x, _SYM_FTR.type.imp)
+    self.AssertHasFeature(x, _SYM_FTR.type.abst)
     self.AssertNotHasFeature(x, _SYM_FTR.type.raw)
-    self.AssertHasFeature(_DEVA.a_ind, _SYM_FTR.type.raw)
-    self.AssertNotHasFeature(_DEVA.a_ind, _SYM_FTR.type.imp)
 
   def test_set_attribute(self):
     _LATN.digit_2.set_attribute(

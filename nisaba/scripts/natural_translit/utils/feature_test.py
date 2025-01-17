@@ -340,6 +340,21 @@ class FeatureTest(test_op.TestCase):
         _R.calming, 'calming: {blue, chilly, green, incandescent, tepid, warm}'
     )
 
+  def test_sort_by_aspect(self):
+    features = f.Set(_A.size.small, _R.warmth.cold)
+    dictionary = f.Set.sort_by_aspect(features)
+    self.AssertStrEqual(dictionary[_A].get(_A.size), 'size: {small}')
+    self.AssertStrEqual(dictionary[_R].get(_R.warmth), 'warmth: {cold}')
+    self.AssertStrEqual(dictionary[_R].get(_R.function, {}), '{}')
+
+  def test_aspect_dict(self):
+    dict_a = _A.aspect_dict(_R.warmth.cold)
+    dict_r = _R.aspect_dict(_A.size.small, _R.warmth.cold)
+    self.assertEmpty(dict_a)
+    self.AssertStrEqual(dict_r.get(_R.warmth), 'warmth: {cold}')
+    self.AssertStrEqual(dict_r.get(_R.function, {}), '{}')
+    self.AssertStrEqual(dict_r.get(_A.size.small, {}), '{}')
+
   def test_profile_room1(self):
     self.AssertStrEqual(
         _R.room1,

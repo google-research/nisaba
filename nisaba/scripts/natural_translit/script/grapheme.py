@@ -20,6 +20,7 @@ from nisaba.scripts.natural_translit.utils import expression as exp
 from nisaba.scripts.natural_translit.utils import feature as ft
 from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import symbol as sym
+from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
 class Script(ft.Feature):
@@ -93,6 +94,25 @@ class Grapheme(sym.Symbol):
 
   GR_FEATURES = _grapheme_features()
   SCRIPT_PREFIX_MULTIPLIER = 1_000
+
+  def __init__(
+      self,
+      alias: str = '',
+      text: str = '',
+      raw: str = '',
+      index: ty.IntOrNothing = ty.UNSPECIFIED,
+      name: str = '',
+      features: ft.Feature.ITERABLE = ty.UNSPECIFIED,
+  ):
+    super().__init__(
+        alias,
+        text,
+        raw,
+        index,
+        name
+    )
+    self.features.new_profile(ft.Feature.Profile(self.GR_FEATURES, 'new'))
+    self.add_features(features)
 
   @classmethod
   def from_char(

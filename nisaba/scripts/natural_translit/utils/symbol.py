@@ -273,6 +273,8 @@ def _symbol_features() -> ft.Feature.Inventory:
           )
       ),
   )
+  ftr.add_profile('abstract', ftr.type.abst)
+  ftr.add_profile('raw', ftr.type.raw)
   return ftr
 
 
@@ -329,11 +331,12 @@ class Symbol(Item):
     super().__init__(alias, text, index)
     self.raw = raw
     self.name = name if name else self.alias
-    self.features = ft.Feature.Set(features, alias='features')
+    self.features = ft.Feature.MultiProfile(self.alias)
     if self.raw:
-      self.features.add(self.SYM_FEATURES.type.raw)
+      self.features.new_profile(self.SYM_FEATURES.raw)
     else:
-      self.features.add(self.SYM_FEATURES.type.abst)
+      self.features.new_profile(self.SYM_FEATURES.abstract)
+    self.add_features(features)
     self.inventory = Symbol.Inventory.EMPTY
     self.symbol = self
 
@@ -359,7 +362,7 @@ class Symbol(Item):
     if self.name != self.alias:
       text += '  name: %s' % self.name
     if show_features:
-      text += '\n    %s' % str(self.features)
+      text += '\n    %s' % str(self.features.sym_features.type)
     return text
 
   @classmethod
@@ -378,10 +381,14 @@ class Symbol(Item):
   def has_feature(self, value: ft.Feature.Aspect.VALUES) -> bool:
     return value.is_in(self.features)
 
-  # Placeholder function to avoid rewrites when the features attribute is
-  # changed from feature set to multiple feature profiles.
   def add_features(self, *features: ft.Feature.ITERABLE) -> None:
-    self.features.add(features)
+    for feature_inventory, aspect_dict in ft.Feature.Set.sort_by_aspect(
+        features
+    ).items():
+      if self.features.has_profile(feature_inventory):
+        for aspect, values in aspect_dict.items():
+          aspect_values = self.features.get(aspect.inventory).get(aspect)
+          aspect_values.replace(old=(aspect.any), new=(values))
 
   def set_attribute(
       self,

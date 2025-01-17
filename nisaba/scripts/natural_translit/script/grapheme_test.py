@@ -55,16 +55,16 @@ class GraphemeTest(test_op.TestCase):
     self.assertEqual(g.Grapheme.from_char('ç').alias, 'u_0xe7')
 
   def test_from_char_has_feature(self):
-    self.assertIn(
-        g.Grapheme.SYM_FEATURES.type.raw, g.Grapheme.from_char('a').features
+    self.AssertHasFeature(
+        g.Grapheme.from_char('a'), g.Grapheme.SYM_FEATURES.type.raw
     )
 
   def test_from_char_add_feature(self):
-    self.assertIn(
-        g.Grapheme.GR_FEATURES.ph_class.cons,
+    self.AssertHasFeature(
         g.Grapheme.from_char(
             'n', features=g.Grapheme.GR_FEATURES.ph_class.cons
-        ).features,
+        ),
+        g.Grapheme.GR_FEATURES.ph_class.cons,
     )
 
   def test_control_index(self):
