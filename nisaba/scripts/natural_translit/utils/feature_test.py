@@ -524,5 +524,87 @@ class FeatureTest(test_op.TestCase):
         '    Similarity = 0\n',
     )
 
+  def test_multi_profile_new_profile(self):
+    mp = f.MultiProfile('cold_room_with_cat')
+    mp.new_profile(_R.room1)
+    mp.new_profile(_A.cat)
+    self.AssertStrEqual(
+        mp,
+        'cold_room_with_cat features:\n\n'
+        '* room_features profile: {\n'
+        '    warmth: {cold}\n'
+        '    lighting: {any}\n'
+        '    function: {bedroom}\n'
+        '    color: {red}\n'
+        '    door: {closed}\n'
+        '}\n\n'
+        '* animal_features profile: {\n'
+        '    size: {small}\n'
+        '    weight: {light}\n'
+        '    speed: {fast}\n'
+        '    life_span: {medium}\n'
+        '    gestation: {medium}\n'
+        '    litter_size: {medium}\n'
+        '}\n',
+    )
+
+  def test_multi_profile_new_profile_overwrite(self):
+    mp = f.MultiProfile('new_room')
+    mp.new_profile(_R.room1)
+    mp.new_profile(_R.room2)
+    self.AssertStrEqual(
+        mp,
+        'new_room features:\n\n'
+        '* room_features profile: {\n'
+        '    warmth: {chilly, hot, tepid, very_hot, warm}\n'
+        '    lighting: {fluorescent}\n'
+        '    function: {living_room}\n'
+        '    color: {not_applicable}\n'
+        '    door: {shut}\n'
+        '}\n'
+    )
+
+  def test_multi_profile_has_profile(self):
+    mp = f.MultiProfile('no_animal')
+    mp.new_profile(_R.room1)
+    self.assertTrue(mp.has_profile(_R))
+    self.assertFalse(mp.has_profile(_A))
+
+  def test_multi_profile_get(self):
+    mp = f.MultiProfile('no_animal')
+    mp.new_profile(_R.room1)
+    self.AssertStrEqual(
+        mp.get(_R),
+        'room_features profile: {\n'
+        '    warmth: {cold}\n'
+        '    lighting: {any}\n'
+        '    function: {bedroom}\n'
+        '    color: {red}\n'
+        '    door: {closed}\n'
+        '}\n'
+    )
+    self.AssertStrEqual(
+        mp.get(_A),
+        'not_applicable profile: {\n'
+        '    size: {not_applicable}\n'
+        '    weight: {not_applicable}\n'
+        '    speed: {not_applicable}\n'
+        '    life_span: {not_applicable}\n'
+        '    gestation: {not_applicable}\n'
+        '    litter_size: {not_applicable}\n'
+        '}\n',
+    )
+    self.AssertStrEqual(
+        mp.get(_A, feature.Feature.Profile(_A, 'new_animal')),
+        'new_animal profile: {\n'
+        '    size: {any}\n'
+        '    weight: {any}\n'
+        '    speed: {any}\n'
+        '    life_span: {any}\n'
+        '    gestation: {any}\n'
+        '    litter_size: {any}\n'
+        '}\n',
+    )
+
 if __name__ == '__main__':
   absltest.main()

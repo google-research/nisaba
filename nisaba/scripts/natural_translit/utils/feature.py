@@ -862,6 +862,79 @@ class Feature(ty.Thing):
       """Checks if the given value or one of its children is in this profile."""
       return any(feature_set.has_feature(value) for feature_set in self)
 
+  class MultiProfile(inventory.Inventory):
+    """Class for storing profiles for multiple feature inventories."""
+
+    def __init__(self, alias: str):
+      super().__init__(alias, typed=Feature.Profile)
+
+    def __str__(self):
+      """String representation of all profiles in the multi-profile."""
+      return f'{self.alias} features:\n\n' + '\n'.join(
+          f'* {p}' for p in self
+      )
+
+    def has_profile(self, feature_inventory: 'Feature.Inventory') -> bool:
+      """Checks if the multi-profile has a profile for the given inventory."""
+      return any(
+          profile.inventory == feature_inventory for profile in self
+      )
+
+    def new_profile(self, profile: 'Feature.Profile') -> 'Feature.Profile':
+      """Adds a copy of the given profile to the multi-profile.
+
+      Args:
+        profile: The profile to be copied and added. If there is already a
+          profile for the same inventory, all aspects of the old profile will
+          be replaced with the new profile. The alias for the new profile will
+          be changed so that the profile can be called by the inventory alias.
+
+      Returns:
+        The new profile.
+
+      Example:
+
+      Given a phoneme 'ph.s' with a MultiProfile feature attribute and a feature
+      inventory 'phonological' with a predefined profile 'fricative' with 'any'
+      place:
+      ```
+      ph.s.features.new_profile(phonological.fricative)
+      ```
+      will add a copy of the fricative profile to ph.s.features.
+      ```
+      ph.s.features.phonological.update(phonological.place.alveolar)
+      ```
+      will update the place aspect of the phonological profile in 'ph.s'
+      features without changing the predefined profile in the inventory.
+      """
+      new = profile.copy(profile.inventory.alias)
+      if self.has_profile(profile.inventory):
+        self.get(profile.inventory).update(new)
+      else:
+        self.add_item(new)
+      return new
+
+    def get(
+        self,
+        feature_inventory: 'Feature.Inventory',
+        default: Union['Feature.Profile', ty.Nothing] = ty.UNSPECIFIED
+    ) -> 'Feature.Profile':
+      """Gets the feature profile for the given inventory.
+
+      Args:
+        feature_inventory: The inventory requested for the profile.
+        default: The default profile to be returned if there is no profile for
+          the given inventory.
+
+      Returns:
+        The profile for the given inventory, or the default profile if there is
+        no profile for the given inventory. If the default is not specified,
+        the not_applicable profile for the given inventory is returned.
+      """
+      if self.has_profile(feature_inventory):
+        return super().get(feature_inventory.alias)
+      return ty.type_check(default, feature_inventory.not_applicable)
+
   @classmethod
   def equidistant(
       cls, alias: Union[str, tuple[str, str]],
