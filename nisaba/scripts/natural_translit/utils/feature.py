@@ -227,14 +227,20 @@ class Feature(ty.Thing):
       return self
 
     @classmethod
-    def aspect_dict(
+    def sort_by_aspect(
         cls, *features: 'Feature.ITERABLE'
-    ) -> dict['Feature.Aspect', 'Feature.Set']:
-      distances = {}
+    ) -> dict['Feature.Inventory', dict['Feature.Aspect', 'Feature.Set']]:
+      dictionary = {}
       for feature in Feature.Set(*features):
-        value_set = distances.get(feature.aspect, Feature.Set())
-        distances |= {feature.aspect: value_set.add(feature)}
-      return distances
+        if feature.inventory not in dictionary:
+          dictionary[feature.inventory] = {}
+        value_set = dictionary[feature.inventory].get(
+            feature.aspect, Feature.Set(alias=feature.aspect.alias)
+        )
+        dictionary[feature.inventory] |= {
+            feature.aspect: value_set.add(feature)
+        }
+      return dictionary
 
     def remove(self, *features) -> 'Feature.Set':
       for feature in Feature.Set(*features):
@@ -645,6 +651,11 @@ class Feature(ty.Thing):
           f'* {a}' for a in self
       )
 
+    def aspect_dict(
+        self, *features: 'Feature.ITERABLE'
+    ) -> dict['Feature.Aspect', 'Feature.Set']:
+      return Feature.Set.sort_by_aspect(*features).get(self, {})
+
     def add_profile(
         self,
         alias: str,
@@ -718,7 +729,7 @@ class Feature(ty.Thing):
       super().__init__(alias)
       self.inventory = feature_inventory
       self.max_dist = 0
-      aspect_dict = Feature.Set.aspect_dict(*features)
+      aspect_dict = self.inventory.aspect_dict(*features)
       for aspect in self.inventory:
         value = aspect_dict.get(
             aspect, aspect.n_a if unspecified_aspect_n_a else aspect.any
@@ -784,7 +795,7 @@ class Feature(ty.Thing):
           room_features.door.any,
       )
       """
-      for aspect, value in Feature.Set.aspect_dict(*features).items():
+      for aspect, value in self.inventory.aspect_dict(*features).items():
         self.get(aspect).update(value)
       return self
 
