@@ -15,18 +15,19 @@
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.script import grapheme as g
 from nisaba.scripts.natural_translit.script.inventories import latn
+from nisaba.scripts.natural_translit.utils import test_op
 
 _latn = latn.graphemes
 
 
-class BasicLatinTest(absltest.TestCase):
+class BasicLatinTest(test_op.TestCase):
 
   def test_lowercase_from_char(self):
     self.assertEqual(_latn.a.text, 'a')
 
   def test_lowercase_from_char_feature(self):
-    self.assertIn(g.Grapheme.GR_FEATURES.script.latn, _latn.a.features)
-    self.assertIn(g.Grapheme.GR_FEATURES.ph_class.vwl, _latn.a.features)
+    self.AssertHasFeature(_latn.a, g.Grapheme.GR_FEATURES.script.latn)
+    self.AssertHasFeature(_latn.a, g.Grapheme.GR_FEATURES.ph_class.vwl)
 
   def test_in_raw_dict(self):
     self.assertEqual(_latn.raw_lookup('a'), _latn.a)

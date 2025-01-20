@@ -340,9 +340,9 @@ class FeatureTest(test_op.TestCase):
         _R.calming, 'calming: {blue, chilly, green, incandescent, tepid, warm}'
     )
 
-  def test_sort_by_aspect(self):
+  def test_group_by_aspect(self):
     features = f.Set(_A.size.small, _R.warmth.cold)
-    dictionary = f.Set.sort_by_aspect(features)
+    dictionary = f.Set.group_by_aspect(features)
     self.AssertStrEqual(dictionary[_A].get(_A.size), 'size: {small}')
     self.AssertStrEqual(dictionary[_R].get(_R.warmth), 'warmth: {cold}')
     self.AssertStrEqual(dictionary[_R].get(_R.function, {}), '{}')
@@ -620,6 +620,12 @@ class FeatureTest(test_op.TestCase):
         '    litter_size: {any}\n'
         '}\n',
     )
+
+  def test_multi_profile_copy(self):
+    mp = f.MultiProfile('cold_room_with_cat')
+    mp.new_profile(_R.room1)
+    mp.new_profile(_A.cat)
+    self.AssertStrEqual(mp.copy('cold_room_with_cat'), mp)
 
 if __name__ == '__main__':
   absltest.main()

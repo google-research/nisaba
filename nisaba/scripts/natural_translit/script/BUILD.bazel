@@ -48,6 +48,7 @@ py_library(
         "//nisaba/scripts/natural_translit/utils:feature",
         "//nisaba/scripts/natural_translit/utils:inventory",
         "//nisaba/scripts/natural_translit/utils:symbol",
+        "//nisaba/scripts/natural_translit/utils:type_op",
         requirement("pycountry"),
     ],
 )

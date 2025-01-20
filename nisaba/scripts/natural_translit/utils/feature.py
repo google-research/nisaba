@@ -227,7 +227,7 @@ class Feature(ty.Thing):
       return self
 
     @classmethod
-    def sort_by_aspect(
+    def group_by_aspect(
         cls, *features: 'Feature.ITERABLE'
     ) -> dict['Feature.Inventory', dict['Feature.Aspect', 'Feature.Set']]:
       dictionary = {}
@@ -654,7 +654,7 @@ class Feature(ty.Thing):
     def aspect_dict(
         self, *features: 'Feature.ITERABLE'
     ) -> dict['Feature.Aspect', 'Feature.Set']:
-      return Feature.Set.sort_by_aspect(*features).get(self, {})
+      return Feature.Set.group_by_aspect(*features).get(self, {})
 
     def add_profile(
         self,
@@ -946,6 +946,12 @@ class Feature(ty.Thing):
         return super().get(feature_inventory.alias)
       return ty.type_check(default, feature_inventory.not_applicable)
 
+    def copy(self, alias: str = '') -> 'Feature.MultiProfile':
+      new = Feature.MultiProfile(alias if alias else self.alias)
+      for profile in self:
+        new.new_profile(profile.copy(profile.alias))
+      return new
+
   @classmethod
   def equidistant(
       cls, alias: Union[str, tuple[str, str]],
@@ -1003,8 +1009,8 @@ def value_in(value: 'Feature.Aspect.VALUES', obj: ...) -> bool:
       `value_in(gr_class.space, hyphen.features)`: `False`
   """
   return (
-      obj == value
+      (hasattr(obj, 'has_feature') and obj.has_feature(value))
+      or obj == value
       or obj in value.parent_list
       or (isinstance(obj, Iterable) and value in Feature.Set(obj))
-      or (hasattr(obj, 'has_feature') and obj.has_feature(value))
   )

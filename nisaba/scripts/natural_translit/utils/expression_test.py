@@ -72,7 +72,7 @@ class ExpressionTest(test_op.TestCase):
     self.assertIn(_ATM.nul, _ATM.nul)
     self.assertIs(_ATM.nul.symbol, _SYM.nul)
     self.assertEqual(_ATM.nul.index, _SYM.nul.index)
-    self.assertIn(sym.Symbol.SYM_FEATURES.type.abst, _ATM.nul.features)
+    self.AssertHasFeature(_ATM.nul, sym.Symbol.SYM_FEATURES.type.abst)
     self.assertEqual(
         _ATM.nul.description(show_features=True),
         'alias: nul  index: 123  text: ◌  name: NULL\n    features: {abstract}',

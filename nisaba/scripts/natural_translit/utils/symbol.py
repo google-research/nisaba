@@ -273,6 +273,8 @@ def _symbol_features() -> ft.Feature.Inventory:
           )
       ),
   )
+  ftr.add_profile('abstract', ftr.type.abst)
+  ftr.add_profile('raw', ftr.type.raw)
   return ftr
 
 
@@ -329,11 +331,12 @@ class Symbol(Item):
     super().__init__(alias, text, index)
     self.raw = raw
     self.name = name if name else self.alias
-    self.features = ft.Feature.Set(features, alias='features')
+    self.features = ft.Feature.MultiProfile(self.alias)
     if self.raw:
-      self.features.add(self.SYM_FEATURES.type.raw)
+      self.features.new_profile(self.SYM_FEATURES.raw)
     else:
-      self.features.add(self.SYM_FEATURES.type.abst)
+      self.features.new_profile(self.SYM_FEATURES.abstract)
+    self.add_features(features)
     self.inventory = Symbol.Inventory.EMPTY
     self.symbol = self
 
@@ -359,7 +362,9 @@ class Symbol(Item):
     if self.name != self.alias:
       text += '  name: %s' % self.name
     if show_features:
-      text += '\n    %s' % str(self.features)
+      text += '\n    %s' % str(
+          ft.Feature.Set(self.features.sym_features.type, alias='features')
+      )
     return text
 
   @classmethod
@@ -378,10 +383,47 @@ class Symbol(Item):
   def has_feature(self, value: ft.Feature.Aspect.VALUES) -> bool:
     return value.is_in(self.features)
 
-  # Placeholder function to avoid rewrites when the features attribute is
-  # changed from feature set to multiple feature profiles.
   def add_features(self, *features: ft.Feature.ITERABLE) -> None:
-    self.features.add(features)
+    """Adds features to the symbol.
+
+    Args:
+      *features: The features to be added.
+
+    Only the features that belong to an existing profile will be added. In
+    order to add features from a new inventory, use MultiProfile.new_profile().
+
+    Adding a feature to a previously unspecified aspect will update the feature
+    set as the new value. If an aspect was already specified, the new value will
+    be added to the existing set.
+
+    Examples:
+
+    * Given a phoneme `ph.t` that was initialized with the generic consonant
+    profile with {place.any}:
+    ```
+    ph.t.add_features(place.alveolar)
+    ```
+    will result in `ph.t.place = {place.alveolar}`.
+
+    * Given a grapheme `gr.t` that was initialized with the same phonological
+    profile as the above `ph.t`:
+    ```
+    gr.t.add_features(place.dental, place.retroflex)
+    ```
+    will result in
+    `gr.t.place = {place.alveolar, place.dental, place.retroflex}`.
+
+    In order to remove or replace existing features, use either Profile.update()
+    function, or Feature.Set.replace() or Feature.Set.update() on the feature
+    set of a specific aspect.
+    """
+    for feature_inventory, aspect_dict in ft.Feature.Set.group_by_aspect(
+        features
+    ).items():
+      if self.features.has_profile(feature_inventory):
+        for aspect, values in aspect_dict.items():
+          aspect_values = self.features.get(aspect.inventory).get(aspect)
+          aspect_values.replace(old=(aspect.any), new=(values))
 
   def set_attribute(
       self,

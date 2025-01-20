@@ -68,6 +68,8 @@ def _latn_inventory() -> sym.Symbol.Inventory:
       sym.Symbol('digit_1', text='1', raw='1', name='DIGIT ONE'),
       sym.Symbol('digit_2', text='2', raw='2', name='DIGIT TWO'),
   )
+  for symbol in syms:
+    symbol.features.new_profile(ft.Feature.Profile(_TEST_FTR, 'new'))
   return syms
 
 
@@ -196,11 +198,10 @@ class SymbolTest(test_op.TestCase):
 
   def test_has_feature(self):
     x = sym.Symbol('x', 'x')
-    x.features = _SYM_FTR.type.imp
+    x.add_features(_SYM_FTR.type.imp)
     self.AssertHasFeature(x, _SYM_FTR.type.imp)
+    self.AssertHasFeature(x, _SYM_FTR.type.abst)
     self.AssertNotHasFeature(x, _SYM_FTR.type.raw)
-    self.AssertHasFeature(_DEVA.a_ind, _SYM_FTR.type.raw)
-    self.AssertNotHasFeature(_DEVA.a_ind, _SYM_FTR.type.imp)
 
   def test_set_attribute(self):
     _LATN.digit_2.set_attribute(
