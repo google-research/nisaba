@@ -358,76 +358,82 @@ class FeatureTest(test_op.TestCase):
   def test_profile_room1(self):
     self.AssertStrEqual(
         _R.room1,
-        'room1 profile: {\n'
-        '    warmth: {cold}\n'
-        '    lighting: {any}\n'
-        '    function: {bedroom}\n'
-        '    color: {red}\n'
-        '    door: {closed}\n'
-        '}\n'
+        'room1 profile:\n\n'
+        '| aspects   | values   |\n'
+        '|-----------|----------|\n'
+        '| warmth    | cold     |\n'
+        '| lighting  | any      |\n'
+        '| function  | bedroom  |\n'
+        '| color     | red      |\n'
+        '| door      | closed   |\n',
     )
 
   def test_profile_room2(self):
     self.AssertStrEqual(
         _R.room2,
-        'room2 profile: {\n'
-        '    warmth: {chilly, hot, tepid, very_hot, warm}\n'
-        '    lighting: {fluorescent}\n'
-        '    function: {living_room}\n'
-        '    color: {not_applicable}\n'
-        '    door: {shut}\n'
-        '}\n'
+        'room2 profile:\n\n'
+        '| aspects   | values                             |\n'
+        '|-----------|------------------------------------|\n'
+        '| warmth    | chilly, hot, tepid, very_hot, warm |\n'
+        '| lighting  | fluorescent                        |\n'
+        '| function  | living_room                        |\n'
+        '| color     | not_applicable                     |\n'
+        '| door      | shut                               |\n',
     )
 
   def test_profile_room3(self):
     self.AssertStrEqual(
         _R.room3,
-        'room3 profile: {\n'
-        '    warmth: {cold}\n'
-        '    lighting: {fluorescent}\n'
-        '    function: {living_room}\n'
-        '    color: {not_applicable}\n'
-        '    door: {shut}\n'
-        '}\n'
+        'room3 profile:\n\n'
+        '| aspects   | values         |\n'
+        '|-----------|----------------|\n'
+        '| warmth    | cold           |\n'
+        '| lighting  | fluorescent    |\n'
+        '| function  | living_room    |\n'
+        '| color     | not_applicable |\n'
+        '| door      | shut           |\n',
     )
 
   def test_profile_copy(self):
     self.AssertStrEqual(
         _A.cat.copy('copycat'),
-        'copycat profile: {\n'
-        '    size: {small}\n'
-        '    weight: {light}\n'
-        '    speed: {fast}\n'
-        '    life_span: {medium}\n'
-        '    gestation: {medium}\n'
-        '    litter_size: {medium}\n'
-        '}\n',
+        'copycat profile:\n\n'
+        '| aspects     | values   |\n'
+        '|-------------|----------|\n'
+        '| size        | small    |\n'
+        '| weight      | light    |\n'
+        '| speed       | fast     |\n'
+        '| life_span   | medium   |\n'
+        '| gestation   | medium   |\n'
+        '| litter_size | medium   |\n',
     )
 
   def test_profile_update(self):
     self.AssertStrEqual(
         _A.cat.copy('kitten').update(_A.size.tiny),
-        'kitten profile: {\n'
-        '    size: {tiny}\n'
-        '    weight: {light}\n'
-        '    speed: {fast}\n'
-        '    life_span: {medium}\n'
-        '    gestation: {medium}\n'
-        '    litter_size: {medium}\n'
-        '}\n',
+        'kitten profile:\n\n'
+        '| aspects     | values   |\n'
+        '|-------------|----------|\n'
+        '| size        | tiny     |\n'
+        '| weight      | light    |\n'
+        '| speed       | fast     |\n'
+        '| life_span   | medium   |\n'
+        '| gestation   | medium   |\n'
+        '| litter_size | medium   |\n',
     )
 
   def test_profile_inventory_n_a(self):
     self.AssertStrEqual(
         _A.not_applicable,
-        'not_applicable profile: {\n'
-        '    size: {not_applicable}\n'
-        '    weight: {not_applicable}\n'
-        '    speed: {not_applicable}\n'
-        '    life_span: {not_applicable}\n'
-        '    gestation: {not_applicable}\n'
-        '    litter_size: {not_applicable}\n'
-        '}\n',
+        'not_applicable profile:\n\n'
+        '| aspects     | values         |\n'
+        '|-------------|----------------|\n'
+        '| size        | not_applicable |\n'
+        '| weight      | not_applicable |\n'
+        '| speed       | not_applicable |\n'
+        '| life_span   | not_applicable |\n'
+        '| gestation   | not_applicable |\n'
+        '| litter_size | not_applicable |\n',
     )
 
   def test_new_profile_default_value_n_a(self):
@@ -439,14 +445,15 @@ class FeatureTest(test_op.TestCase):
             _A.weight.any,
             unspecified_aspect_n_a=True,
         ),
-        'ornamental profile: {\n'
-        '    size: {any}\n'
-        '    weight: {any}\n'
-        '    speed: {not_applicable}\n'
-        '    life_span: {not_applicable}\n'
-        '    gestation: {not_applicable}\n'
-        '    litter_size: {not_applicable}\n'
-        '}\n',
+        'ornamental profile:\n\n'
+        '| aspects     | values         |\n'
+        '|-------------|----------------|\n'
+        '| size        | any            |\n'
+        '| weight      | any            |\n'
+        '| speed       | not_applicable |\n'
+        '| life_span   | not_applicable |\n'
+        '| gestation   | not_applicable |\n'
+        '| litter_size | not_applicable |\n',
     )
 
   def test_profile_aspect_applicable(self):
@@ -546,21 +553,21 @@ class FeatureTest(test_op.TestCase):
     self.AssertStrEqual(
         mp,
         'cold_room_with_cat features:\n\n'
-        '* room_features profile: {\n'
-        '    warmth: {cold}\n'
-        '    lighting: {any}\n'
-        '    function: {bedroom}\n'
-        '    color: {red}\n'
-        '    door: {closed}\n'
-        '}\n\n'
-        '* animal_features profile: {\n'
-        '    size: {small}\n'
-        '    weight: {light}\n'
-        '    speed: {fast}\n'
-        '    life_span: {medium}\n'
-        '    gestation: {medium}\n'
-        '    litter_size: {medium}\n'
-        '}\n',
+        '| aspects             | values   |\n'
+        '|---------------------|----------|\n'
+        '| **room_features**   |          |\n'
+        '| warmth              | cold     |\n'
+        '| lighting            | any      |\n'
+        '| function            | bedroom  |\n'
+        '| color               | red      |\n'
+        '| door                | closed   |\n'
+        '| **animal_features** |          |\n'
+        '| size                | small    |\n'
+        '| weight              | light    |\n'
+        '| speed               | fast     |\n'
+        '| life_span           | medium   |\n'
+        '| gestation           | medium   |\n'
+        '| litter_size         | medium   |\n',
     )
 
   def test_multi_profile_new_profile_overwrite(self):
@@ -570,13 +577,14 @@ class FeatureTest(test_op.TestCase):
     self.AssertStrEqual(
         mp,
         'new_room features:\n\n'
-        '* room_features profile: {\n'
-        '    warmth: {chilly, hot, tepid, very_hot, warm}\n'
-        '    lighting: {fluorescent}\n'
-        '    function: {living_room}\n'
-        '    color: {not_applicable}\n'
-        '    door: {shut}\n'
-        '}\n'
+        '| aspects           | values                             |\n'
+        '|-------------------|------------------------------------|\n'
+        '| **room_features** |                                    |\n'
+        '| warmth            | chilly, hot, tepid, very_hot, warm |\n'
+        '| lighting          | fluorescent                        |\n'
+        '| function          | living_room                        |\n'
+        '| color             | not_applicable                     |\n'
+        '| door              | shut                               |\n',
     )
 
   def test_multi_profile_has_profile(self):
@@ -590,35 +598,38 @@ class FeatureTest(test_op.TestCase):
     mp.new_profile(_R.room1)
     self.AssertStrEqual(
         mp.get(_R),
-        'room_features profile: {\n'
-        '    warmth: {cold}\n'
-        '    lighting: {any}\n'
-        '    function: {bedroom}\n'
-        '    color: {red}\n'
-        '    door: {closed}\n'
-        '}\n'
+        'room_features profile:\n\n'
+        '| aspects   | values   |\n'
+        '|-----------|----------|\n'
+        '| warmth    | cold     |\n'
+        '| lighting  | any      |\n'
+        '| function  | bedroom  |\n'
+        '| color     | red      |\n'
+        '| door      | closed   |\n',
     )
     self.AssertStrEqual(
         mp.get(_A),
-        'not_applicable profile: {\n'
-        '    size: {not_applicable}\n'
-        '    weight: {not_applicable}\n'
-        '    speed: {not_applicable}\n'
-        '    life_span: {not_applicable}\n'
-        '    gestation: {not_applicable}\n'
-        '    litter_size: {not_applicable}\n'
-        '}\n',
+        'not_applicable profile:\n\n'
+        '| aspects     | values         |\n'
+        '|-------------|----------------|\n'
+        '| size        | not_applicable |\n'
+        '| weight      | not_applicable |\n'
+        '| speed       | not_applicable |\n'
+        '| life_span   | not_applicable |\n'
+        '| gestation   | not_applicable |\n'
+        '| litter_size | not_applicable |\n',
     )
     self.AssertStrEqual(
         mp.get(_A, feature.Feature.Profile(_A, 'new_animal')),
-        'new_animal profile: {\n'
-        '    size: {any}\n'
-        '    weight: {any}\n'
-        '    speed: {any}\n'
-        '    life_span: {any}\n'
-        '    gestation: {any}\n'
-        '    litter_size: {any}\n'
-        '}\n',
+        'new_animal profile:\n\n'
+        '| aspects     | values   |\n'
+        '|-------------|----------|\n'
+        '| size        | any      |\n'
+        '| weight      | any      |\n'
+        '| speed       | any      |\n'
+        '| life_span   | any      |\n'
+        '| gestation   | any      |\n'
+        '| litter_size | any      |\n',
     )
 
   def test_multi_profile_copy(self):

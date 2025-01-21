@@ -738,11 +738,21 @@ class Feature(ty.Thing):
         self.max_dist += aspect.max_dist
 
     def __str__(self):
-      text = self.alias + ' profile: {\n'
-      for item in self:
-        text += '    ' + str(item) + '\n'
-      text += '}\n'
-      return text
+      return (
+          self.alias + ' profile:\n\n'
+          + tabulate.tabulate(
+              self.table_contents(),
+              headers=['aspects', 'values'],
+              tablefmt='github')
+          + '\n'
+      )
+
+    def table_contents(self) -> list[list[str]]:
+      """Returns the profile as github table contents table."""
+      return [
+          [aspect.alias] + [', '.join(aspect.sorted_item_texts())]
+          for aspect in self
+      ]
 
     def get(self, aspect: 'Feature.Aspect') -> 'Feature.Set':
       """Gets the value set for the given aspect."""
@@ -881,8 +891,15 @@ class Feature(ty.Thing):
 
     def __str__(self):
       """String representation of all profiles in the multi-profile."""
-      return f'{self.alias} features:\n\n' + '\n'.join(
-          f'* {p}' for p in self
+      headers = ['aspects', 'values']
+      table = []
+      for profile in self:
+        table += [['**' + profile.alias + '**', ' ']] + profile.table_contents()
+      return (
+          self.alias
+          + ' features:\n\n'
+          + tabulate.tabulate(table, headers, tablefmt='github')
+          + '\n'
       )
 
     def has_profile(self, feature_inventory: 'Feature.Inventory') -> bool:

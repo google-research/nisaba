@@ -51,24 +51,27 @@ class DescriptiveFeaturesTest(test_op.TestCase):
   def test_profile_p(self):
     self.AssertStrEqual(
         _P.p,
-        'p profile: {\n'
-        '    ph_class: {consonant}\n'
-        '    airstream: {pulmonic}\n'
-        '    manner: {stop}\n'
-        '    place: {labial}\n'
-        '    articulator: {labial}\n'
-        '    height: {not_applicable}\n'
-        '    backness: {not_applicable}\n'
-        '    breathiness: {any}\n'
-        '    voicing: {voiceless}\n'
-        '    labialization: {labialized}\n'
-        '    lateralization: {none}\n'
-        '    nasalization: {none}\n'
-        '    palatalization: {none}\n'
-        '    rhoticization: {none}\n'
-        '    duration: {any}\n'
-        '    syllabicity: {none}\n'
-        '}\n',
+
+        'p profile:\n\n'
+        '| aspects        | values         |\n'
+        '|----------------|----------------|\n'
+        '| ph_class       | consonant      |\n'
+        '| airstream      | pulmonic       |\n'
+        '| manner         | stop           |\n'
+        '| place          | labial         |\n'
+        '| articulator    | labial         |\n'
+        '| height         | not_applicable |\n'
+        '| backness       | not_applicable |\n'
+        '| breathiness    | any            |\n'
+        '| voicing        | voiceless      |\n'
+        '| labialization  | labialized     |\n'
+        '| lateralization | none           |\n'
+        '| nasalization   | none           |\n'
+        '| palatalization | none           |\n'
+        '| rhoticization  | none           |\n'
+        '| duration       | any            |\n'
+        '| syllabicity    | none           |\n'
+
     )
 
   def test_compare_p_f_verbose(self):
