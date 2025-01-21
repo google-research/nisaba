@@ -23,18 +23,19 @@ def _build_inventory() -> grapheme.Grapheme.Inventory:
   f = feature.Feature
   g = grapheme.Grapheme
   grf = g.GR_FEATURES
+  phf = g.PH_DESCRIPTIVE_FEATURES
   inventory = g.Inventory(g.GR_FEATURES.script.latn)
   lowercase_features = f.Set(
       grf.script.latn,
       grf.case.lower,
   )
   lowercase_args = [
-      ['a', grf.ph_class.vwl],
-      ['k', grf.ph_class.cons],
-      ['l', grf.ph_class.cons],
-      ['p', grf.ph_class.cons],
-      ['s', grf.ph_class.cons],
-      ['u', grf.ph_class.vwl],
+      ['a', phf.vowel],
+      ['k', phf.consonant],
+      ['l', phf.consonant],
+      ['p', phf.consonant],
+      ['s', phf.consonant],
+      ['u', phf.vowel],
   ]
   inventory.add_graphemes(
       *[

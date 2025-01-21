@@ -27,7 +27,9 @@ class BasicLatinTest(test_op.TestCase):
 
   def test_lowercase_from_char_feature(self):
     self.AssertHasFeature(_latn.a, g.Grapheme.GR_FEATURES.script.latn)
-    self.AssertHasFeature(_latn.a, g.Grapheme.GR_FEATURES.ph_class.vwl)
+    self.AssertHasFeature(
+        _latn.a, g.Grapheme.PH_DESCRIPTIVE_FEATURES.ph_class.vowel
+    )
 
   def test_in_raw_dict(self):
     self.assertEqual(_latn.raw_lookup('a'), _latn.a)

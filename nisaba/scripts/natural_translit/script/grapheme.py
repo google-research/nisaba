@@ -16,6 +16,7 @@
 
 import unicodedata
 import pycountry
+from nisaba.scripts.natural_translit.phonology import descriptive_features
 from nisaba.scripts.natural_translit.utils import expression as exp
 from nisaba.scripts.natural_translit.utils import feature as ft
 from nisaba.scripts.natural_translit.utils import inventory as i
@@ -75,16 +76,6 @@ def _grapheme_features() -> ft.Feature.Inventory:
           )
       ),
       f.Aspect(f.equidistant('case', f('upper'), f('lower'))),
-      # TODO: Remove temporary phonological grapheme features when
-      # phonology/features is updated.
-      f.Aspect(
-          f.equidistant(
-              'ph_class',  # phonological class
-              f('none', 'non-phonological'),
-              f('vwl', 'vowel'),
-              f('cons', 'consonant'),
-          )
-      ),
   )
   return ftr
 
@@ -93,6 +84,7 @@ class Grapheme(sym.Symbol):
   """Grapheme symbol."""
 
   GR_FEATURES = _grapheme_features()
+  PH_DESCRIPTIVE_FEATURES = descriptive_features.FEATURES
   SCRIPT_PREFIX_MULTIPLIER = 1_000
 
   def __init__(
@@ -106,6 +98,9 @@ class Grapheme(sym.Symbol):
   ):
     super().__init__(alias, text, raw, index, name)
     self.features.new_profile(ft.Feature.Profile(self.GR_FEATURES, 'new'))
+    self.features.new_profile(
+        ft.Feature.Profile(self.PH_DESCRIPTIVE_FEATURES, 'new')
+    )
     self.add_features(features)
 
   @classmethod

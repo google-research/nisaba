@@ -62,9 +62,9 @@ class GraphemeTest(test_op.TestCase):
   def test_from_char_add_feature(self):
     self.AssertHasFeature(
         g.Grapheme.from_char(
-            'n', features=g.Grapheme.GR_FEATURES.ph_class.cons
+            'n', features=g.Grapheme.PH_DESCRIPTIVE_FEATURES.ph_class.consonant
         ),
-        g.Grapheme.GR_FEATURES.ph_class.cons,
+        g.Grapheme.PH_DESCRIPTIVE_FEATURES.ph_class.consonant,
     )
 
   def test_control_index(self):
