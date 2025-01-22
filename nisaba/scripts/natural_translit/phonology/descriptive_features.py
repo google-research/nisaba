@@ -221,7 +221,7 @@ def _features() -> feature.Feature.Inventory:
       (
           'lateral_approximant',
           [
-              features.manner.non_sibilant,
+              features.manner.approximant,
               features.voicing.voiced,
               features.lateralization.lateral,
           ],

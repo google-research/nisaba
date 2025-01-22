@@ -84,6 +84,30 @@ py_library(
 )
 
 py_library(
+    name = "phonological_symbol",
+    srcs = ["phonological_symbol.py"],
+    deps = [
+        ":descriptive_features",
+        "//nisaba/scripts/natural_translit/utils:expression",
+        "//nisaba/scripts/natural_translit/utils:feature",
+        "//nisaba/scripts/natural_translit/utils:inventory",
+        "//nisaba/scripts/natural_translit/utils:symbol",
+        "//nisaba/scripts/natural_translit/utils:type_op",
+    ],
+)
+
+py_test(
+    name = "phonological_symbol_test",
+    srcs = ["phonological_symbol_test.py"],
+    main = "phonological_symbol_test.py",
+    deps = [
+        ":phonological_symbol",
+        "//nisaba/scripts/natural_translit/utils:test_op",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
+
+py_library(
     name = "romanizer",
     srcs = ["romanizer.py"],
     deps = [
