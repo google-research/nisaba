@@ -37,6 +37,7 @@ class PhonologicalSymbol(sym.Symbol):
       features: ft.Feature.ITERABLE = ty.UNSPECIFIED,
   ):
     super().__init__(alias, text, raw, index, name)
+    self.text = raw if raw else self.alias
     self.features.new_profile(
         ft.Feature.Profile(self.PH_DESCRIPTIVE_FEATURES, 'new')
     )
@@ -53,6 +54,23 @@ class PhonologicalSymbol(sym.Symbol):
       return self._add_symbol(symbol) and self.atomics.add_item(
           exp.Atomic.get_instance(symbol)
       )
+
+    def or_from_suppl(self, suppl: ty.IterableThing) -> bool:
+      """Makes an Or from a suppl and adds it to the atomics as a suppl."""
+      return self.atomics.add_suppl(exp.Or(*suppl, alias=suppl.alias))
+
+    def sync_atomics(
+        self, or_suppls: ty.ListOrNothing = ty.UNSPECIFIED
+    ) -> 'PhonologicalSymbol.Inventory':
+      """Syncs the atomic inventory with the symbol inventory."""
+      for atomic in self.atomics:
+        for profile in atomic.features:
+          profile.update(atomic.symbol.features.get(profile.inventory))
+      for suppl in ty.type_check(or_suppls, []):
+        if suppl.alias not in self.atomics.suppl_aliases:
+          self.or_from_suppl(suppl)
+        self.atomics.get(suppl.alias).add(*suppl)
+      return self
 
 
 class Phon(PhonologicalSymbol):
@@ -128,5 +146,5 @@ class Phon(PhonologicalSymbol):
     ) -> list['Phon']:
       phs = [ph for ph in phonemes if self._add_phoneme(ph)]
       if list_alias:
-        self.make_suppl(list_alias, phs)
+        self.make_iterable_suppl(list_alias, *phs)
       return phs

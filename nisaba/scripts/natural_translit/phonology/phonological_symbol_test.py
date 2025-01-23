@@ -43,7 +43,10 @@ def _test_inventory() -> po.Phon.Inventory:
   ph_inv.i.update_descriptives(
       phf.height.close, phf.backness.front, phf.labialization.unrounded
   )
-  return ph_inv
+  ph_inv.make_iterable_suppl('close_like', ph_inv.e)
+  ph_inv.or_from_suppl(ph_inv.close_like)
+  ph_inv.close_like.add(ph_inv.i)
+  return ph_inv.sync_atomics(or_suppls=[ph_inv.vowel, ph_inv.close_like])
 
 
 _TEST = _test_inventory()
@@ -145,6 +148,11 @@ class PhonologicalSymbolTest(test_op.TestCase):
         '| duration                  | any            |\n'
         '| syllabicity               | syllabic       |\n',
     )
+
+  def test_sync_atomics(self):
+    self.AssertStrEqual(_TEST.atomics.a.features, _TEST.a.features)
+    self.AssertStrEqual(_TEST.atomics.vowel, '(a | e | i)')
+    self.AssertStrEqual(_TEST.atomics.close_like, '(e | i)')
 
 if __name__ == '__main__':
   absltest.main()

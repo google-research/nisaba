@@ -591,6 +591,12 @@ class Symbol(Item):
       self._add_to_dicts(sym)
       return True
 
+    def make_iterable_suppl(self, alias: str = '', *items) -> bool:
+      """Makes an iterable supplement with the given symbols."""
+      return self.add_suppl(
+          ty.IterableThing(*items, alias=alias)
+      )
+
     def add_symbols(self, *symbols, list_alias: str = '') -> list['Symbol']:
       """Adds multiple symbols to the inventory.
 
@@ -604,7 +610,7 @@ class Symbol(Item):
       """
       syms = list(filter(self._add_symbol, [sym for sym in symbols]))
       if list_alias:
-        self.make_suppl(list_alias, syms)
+        self.make_iterable_suppl(list_alias, *syms)
       return syms
 
     def lookup(

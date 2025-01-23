@@ -65,8 +65,12 @@ def _latn_inventory() -> sym.Symbol.Inventory:
       sym.Symbol('b', text='b', raw='b', name='LETTER B'),
       sym.Symbol('i', text='i', raw='i', name='LETTER I'),
       sym.Symbol('i_uc', text='I', raw='I', name='UPPERCASE LETTER I'),
+  )
+  syms.make_iterable_suppl('letter', syms.a, syms.b, syms.i, syms.i_uc)
+  syms.add_symbols(
       sym.Symbol('digit_1', text='1', raw='1', name='DIGIT ONE'),
       sym.Symbol('digit_2', text='2', raw='2', name='DIGIT TWO'),
+      list_alias='digit',
   )
   for symbol in syms:
     symbol.features.new_profile(ft.Feature.Profile(_TEST_FTR, 'new'))
@@ -127,6 +131,12 @@ class SymbolTest(test_op.TestCase):
     self.assertEqual(_SYM.raw_lookup('अ'), _SYM.a_ind)
     self.assertEqual(_SYM.text_lookup('🜔'), _SYM.schwa)
     self.assertEqual(_SYM.raw_lookup('🜔'), _CTRL.unk)
+
+  def test_symbol_inventory_iterable_suppl(self):
+    self.assertEqual(_LATN.letter.alias, 'letter')
+    self.assertIn(_LATN.a, _LATN.letter)
+    self.assertEqual(_LATN.digit.alias, 'digit')
+    self.assertIn(_LATN.digit_1, _LATN.digit)
 
   def test_controls(self):
     self.assertEqual(
