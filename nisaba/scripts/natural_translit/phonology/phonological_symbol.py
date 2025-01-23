@@ -48,10 +48,10 @@ class PhonologicalSymbol(sym.Symbol):
       super().__init__(alias, typed=ty.type_check(typed, PhonologicalSymbol))
       self.atomics = i.Inventory()
 
-    def _add_symbol_and_atomic(self, obj: 'PhonologicalSymbol') -> bool:
+    def _add_symbol_and_atomic(self, symbol: 'PhonologicalSymbol') -> bool:
       """Adds a phonological symbol to the inventory."""
-      return self._add_symbol(obj) and self.atomics.add_item(
-          exp.Atomic.get_instance(obj)
+      return self._add_symbol(symbol) and self.atomics.add_item(
+          exp.Atomic.get_instance(symbol)
       )
 
 
@@ -117,7 +117,6 @@ class Phon(PhonologicalSymbol):
       language = language if language else 'x_mul'  # Custom multilingual.
       super().__init__(alias=language, typed=Phon)
       self.language = language
-      self.atomics = i.Inventory()
 
     def _add_phoneme(self, phoneme: 'Phon') -> bool:
       """Adds a phoneme to the inventory."""

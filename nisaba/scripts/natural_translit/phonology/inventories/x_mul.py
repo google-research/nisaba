@@ -25,7 +25,7 @@ def _build_inventory() -> po.Phon.Inventory:
 
   # Vowels.
 
-  vowel = [
+  vowels = [
       ('a', 'a', 'open front unrounded vowel'),
       ('ä', 'au', 'open center unrounded vowel'),
       ('æ', 'ae', 'near_open front unrounded vowel'),
@@ -57,10 +57,10 @@ def _build_inventory() -> po.Phon.Inventory:
       ('ʏ', 'uy', 'near_close near_front rounded vowel'),
   ]
   ph.add_phonemes(
-      *[
+      *(
           p(alias=alias, ipa=ipa, name=name, features=phf.vowel)
-          for ipa, alias, name in vowel
-      ],
+          for ipa, alias, name in vowels
+      ),
       list_alias='vowel',
   )
 
@@ -155,7 +155,7 @@ def _build_inventory() -> po.Phon.Inventory:
 
   # Consonants.
 
-  consonant = [
+  consonants = [
       ('b', 'b', 'voiced bilabial stop'),
       ('ʙ', 'bb', 'bilabial trill'),
       ('c', 'ky', 'voiceless palatal stop'),
@@ -229,10 +229,10 @@ def _build_inventory() -> po.Phon.Inventory:
       ('ɫ', 'lw', 'labial-velar lateral approximant'),
   ]
   ph.add_phonemes(
-      *[
+      *(
           p(alias=alias, ipa=ipa, name=name, features=phf.consonant)
-          for ipa, alias, name in consonant
-      ],
+          for ipa, alias, name in consonants
+      ),
       list_alias='consonant',
   )
 

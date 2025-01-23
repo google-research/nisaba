@@ -19,32 +19,31 @@ from nisaba.scripts.natural_translit.utils import test_op
 
 def _test_inventory() -> po.Phon.Inventory:
   """Multilingual Phon inventory."""
-  p = po.Phon
-  phf = p.PH_DESCRIPTIVE_FEATURES
-  ph = p.Inventory()
-  vowel = [
+  phf = po.Phon.PH_DESCRIPTIVE_FEATURES
+  ph_inv = po.Phon.Inventory()
+  vowels = [
       ('a', 'a', 'open front unrounded vowel'),
       ('e', 'e', 'close_mid front unrounded vowel'),
       ('i', 'i', 'close front unrounded vowel'),
   ]
-  ph.add_phonemes(
-      *[
-          p(alias=alias, ipa=ipa, name=name, features=phf.vowel)
-          for ipa, alias, name in vowel
-      ],
+  ph_inv.add_phonemes(
+      *(
+          po.Phon(alias=alias, ipa=ipa, name=name, features=phf.vowel)
+          for ipa, alias, name in vowels
+      ),
       list_alias='vowel',
   )
   # Default heights from IPA vowel table.
-  ph.a.update_descriptives(
+  ph_inv.a.update_descriptives(
       phf.height.open, phf.backness.front, phf.labialization.unrounded
   )
-  ph.e.update_descriptives(
+  ph_inv.e.update_descriptives(
       phf.height.close_mid, phf.backness.front, phf.labialization.unrounded
   )
-  ph.i.update_descriptives(
+  ph_inv.i.update_descriptives(
       phf.height.close, phf.backness.front, phf.labialization.unrounded
   )
-  return ph
+  return ph_inv
 
 
 _TEST = _test_inventory()
