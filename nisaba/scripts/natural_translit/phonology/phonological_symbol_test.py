@@ -46,7 +46,7 @@ def _test_inventory() -> po.Phon.Inventory:
   ph_inv.make_iterable_suppl('close_like', ph_inv.e)
   ph_inv.or_from_suppl(ph_inv.close_like)
   ph_inv.close_like.add(ph_inv.i)
-  return ph_inv.sync_atomics(or_suppls=[ph_inv.vowel, ph_inv.close_like])
+  return ph_inv.sync_atomics([ph_inv.vowel, ph_inv.close_like])
 
 
 _TEST = _test_inventory()

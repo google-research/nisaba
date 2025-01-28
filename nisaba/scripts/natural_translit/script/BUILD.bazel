@@ -44,11 +44,9 @@ py_library(
     name = "grapheme",
     srcs = ["grapheme.py"],
     deps = [
-        "//nisaba/scripts/natural_translit/phonology:descriptive_features",
-        "//nisaba/scripts/natural_translit/utils:expression",
+        "//nisaba/scripts/natural_translit/phonology:phonological_symbol",
         "//nisaba/scripts/natural_translit/utils:feature",
         "//nisaba/scripts/natural_translit/utils:inventory",
-        "//nisaba/scripts/natural_translit/utils:symbol",
         "//nisaba/scripts/natural_translit/utils:type_op",
         requirement("pycountry"),
     ],

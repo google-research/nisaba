@@ -38,6 +38,7 @@ py_test(
     main = "latn_test.py",
     deps = [
         ":latn",
+        "//nisaba/scripts/natural_translit/language_params:en",
         "//nisaba/scripts/natural_translit/script:grapheme",
         "//nisaba/scripts/natural_translit/utils:test_op",
         "@io_abseil_py//absl/testing:absltest",

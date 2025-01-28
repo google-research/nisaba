@@ -16,11 +16,9 @@
 
 import unicodedata
 import pycountry
-from nisaba.scripts.natural_translit.phonology import descriptive_features
-from nisaba.scripts.natural_translit.utils import expression as exp
+from nisaba.scripts.natural_translit.phonology import phonological_symbol as ps
 from nisaba.scripts.natural_translit.utils import feature as ft
 from nisaba.scripts.natural_translit.utils import inventory as i
-from nisaba.scripts.natural_translit.utils import symbol as sym
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
@@ -80,11 +78,10 @@ def _grapheme_features() -> ft.Feature.Inventory:
   return ftr
 
 
-class Grapheme(sym.Symbol):
+class Grapheme(ps.PhonologicalSymbol):
   """Grapheme symbol."""
 
   GR_FEATURES = _grapheme_features()
-  PH_DESCRIPTIVE_FEATURES = descriptive_features.FEATURES
   SCRIPT_PREFIX_MULTIPLIER = 1_000
 
   def __init__(
@@ -96,11 +93,9 @@ class Grapheme(sym.Symbol):
       name: str = '',
       features: ft.Feature.ITERABLE = ty.UNSPECIFIED,
   ):
-    super().__init__(alias, text, raw, index, name)
+    super().__init__(alias, raw, index, name)
+    self.text = text if raw else self.alias
     self.features.new_profile(ft.Feature.Profile(self.GR_FEATURES, 'new'))
-    self.features.new_profile(
-        ft.Feature.Profile(self.PH_DESCRIPTIVE_FEATURES, 'new')
-    )
     self.add_features(features)
 
   @classmethod
@@ -144,34 +139,87 @@ class Grapheme(sym.Symbol):
         features=ft.Feature.Set(cls.SYM_FEATURES.type.raw, features),
     )
 
-  class Inventory(sym.Symbol.Inventory):
+  def description(self, show_features: bool = False) -> str:
+    """A string that describes the Grapheme."""
+    text = 'alias: ' + self.alias
+    if self.raw:
+      text += '  raw: ' + self.raw
+    else:
+      text += '  text: ' + self.text
+    text += '  name: ' + self.name
+    if show_features:
+      text += '\n  %s' % str(self.features)
+    return text
+
+  def copy(
+      self,
+      alias: str = '',
+      inventory: 'Grapheme.Inventory.OR_NOTHING' = ty.UNSPECIFIED,
+  ) -> 'Grapheme':
+    """Creates a copy of the Grapheme."""
+    return Grapheme(
+        alias if alias else self.alias,
+        self.text,
+        self.raw,
+        self.index,
+        self.name,
+        features=self.features.copy(),
+    )
+
+  class Inventory(ps.PhonologicalSymbol.Inventory):
     """Grapheme inventory."""
 
-    def __init__(self, script: Script):
-      super().__init__(alias=script.alias, typed=Grapheme)
+    def __init__(self, script: Script, language: str = ''):
+      if language:
+        language += '_'
+      super().__init__(alias=language + script.alias, typed=Grapheme)
       self.script = script
       self.prefix = self._prefix()
       self.atomics = i.Inventory()
 
     def _prefix(self) -> int:
       return (
-          sym.Symbol.ReservedIndex.GRAPHEME_PREFIX
+          Grapheme.ReservedIndex.GRAPHEME_PREFIX
           + int(self.script.numeric) * Grapheme.SCRIPT_PREFIX_MULTIPLIER
       )  # Eg. 2_215_000 for Latn, 2_800_000 for und
-
-    def _add_grapheme(self, grapheme: 'Grapheme') -> bool:
-      return self._add_symbol(grapheme) and self.atomics.add_item(
-          exp.Atomic.get_instance(grapheme)
-      )
 
     def add_graphemes(
         self, *graphemes: 'Grapheme', list_alias: str = ''
     ) -> list['Grapheme']:
-      grs = [gr for gr in graphemes if self._add_grapheme(gr)]
+      grs = [gr for gr in graphemes if self._add_symbol_and_atomic(gr)]
       if list_alias:
-        self.make_suppl(list_alias, grs)
+        self.make_iterable_suppl(list_alias, *grs)
       return grs
+
+    def import_graphemes(
+        self, *graphemes: 'Grapheme', list_alias: str = ''
+    ) -> list['Grapheme']:
+      """Imports graphemes from another inventory."""
+      return self.add_graphemes(
+          *(gr.copy(inventory=self) for gr in graphemes), list_alias=list_alias
+      )
+
+    def import_as_feature_pairs(
+        self,
+        from_feature: ft.Feature,
+        to_feature: ft.Feature,
+        *pairs: tuple['Grapheme', 'Grapheme'],
+        make_suppls_from_features: bool = True,
+    ) -> None:
+      """Imports graphemes from another inventory as feature pairs."""
+      from_list = []
+      to_list = []
+      for from_parent, to_parent in pairs:
+        from_symbol, to_symbol = tuple(
+            self.import_graphemes(from_parent, to_parent)
+        )
+        from_symbol.feature_pair(to_symbol, from_feature, to_feature)
+        from_list.append(from_symbol)
+        to_list.append(to_symbol)
+      if make_suppls_from_features:
+        self.make_iterable_suppl(from_feature.alias, *from_list)
+        self.make_iterable_suppl(to_feature.alias, *to_list)
 
     def raw_from_unknown(self, raw: str = '') -> 'Grapheme':
       new = Grapheme.from_char(raw)
-      return new if self._add_grapheme(new) else self.CTRL.nor
+      return new if self._add_symbol_and_atomic(new) else self.CTRL.nor
