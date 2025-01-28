@@ -30,13 +30,13 @@ class PhonologicalSymbol(sym.Symbol):
   def __init__(
       self,
       alias: str = '',
-      text: str = '',
       raw: str = '',
       index: ty.IntOrNothing = ty.UNSPECIFIED,
       name: str = '',
       features: ft.Feature.ITERABLE = ty.UNSPECIFIED,
   ):
-    super().__init__(alias, text, raw, index, name)
+    super().__init__(alias, raw=raw, index=index, name=name)
+    self.text = raw if raw else self.alias
     self.features.new_profile(
         ft.Feature.Profile(self.PH_DESCRIPTIVE_FEATURES, 'new')
     )
@@ -53,6 +53,44 @@ class PhonologicalSymbol(sym.Symbol):
       return self._add_symbol(symbol) and self.atomics.add_item(
           exp.Atomic.get_instance(symbol)
       )
+
+    def or_from_suppl(self, suppl: ty.IterableThing) -> bool:
+      """Makes an Or from a supplement and adds it to the atomics."""
+      return self.atomics.add_suppl(exp.Or(*suppl, alias=suppl.alias))
+
+    def sync_atomics(
+        self, or_suppls: ty.ListOrNothing = ty.UNSPECIFIED
+    ) -> 'PhonologicalSymbol.Inventory':
+      """Syncs the atomic inventory with the symbol inventory.
+
+      Updates the features of the atomic instance of each phonological symbol
+      to match the features of the symbol. Optionally updates the members of
+      Or supplements in atomics to include all members of the given supplements
+      in the list. For example, if an `inventory.vowel` iterable and a
+      corresponding `inventory.atomics.vowel` Or were initiated as `[a, e, i]`
+      and `(a | e | i)`, and later `[o, u]` was added to `inventory.vowel`,
+      this function will update `inventory.atomics.vowel` to
+      `(a | e | i | o | u)`.
+
+      Updates the atomic inventory with the supplements.
+
+      Args:
+        or_suppls: Optional list iterable supplements. If specified, the
+        corresponding Or supplement of the given supplements will be updated to
+        include all symbols.
+
+      Returns:
+        The inventory.
+
+      """
+      for atomic in self.atomics:
+        for profile in atomic.features:
+          profile.update(atomic.symbol.features.get(profile.inventory))
+      for suppl in ty.type_check(or_suppls, []):
+        if suppl.alias not in self.atomics.suppl_aliases:
+          self.or_from_suppl(suppl)
+        self.atomics.get(suppl.alias).add(*suppl)
+      return self
 
 
 class Phon(PhonologicalSymbol):
@@ -128,5 +166,5 @@ class Phon(PhonologicalSymbol):
     ) -> list['Phon']:
       phs = [ph for ph in phonemes if self._add_phoneme(ph)]
       if list_alias:
-        self.make_suppl(list_alias, phs)
+        self.make_iterable_suppl(list_alias, *phs)
       return phs

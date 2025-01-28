@@ -437,7 +437,7 @@ def _build_inventory() -> po.Phon.Inventory:
     labialized_consonant.update_descriptives(phf.labialization.labialized)
   for palatalized_consonant in [ph.sj]:
     palatalized_consonant.update_descriptives(phf.palatalization.heavy)
-  return ph
+  return ph.sync_atomics()
 
 
 INVENTORY = _build_inventory()

@@ -148,11 +148,11 @@ class Atomic(Expression, sym.Symbol):
         symbol.raw,
         symbol.index,
         symbol.name,
-        symbol.features.copy(),
     )
     self._item_type = Atomic
     self._items = [self]
     self.symbol = symbol.symbol if isinstance(symbol, Atomic) else symbol
+    self.features = symbol.features.copy()
 
   @classmethod
   def get_instance(cls, symbol: sym.Symbol) -> 'Atomic':
