@@ -13,6 +13,7 @@
 # limitations under the License.
 
 """Classes for phonological symbols."""
+from __future__ import annotations
 
 from nisaba.scripts.natural_translit.phonology import descriptive_features
 from nisaba.scripts.natural_translit.utils import expression as exp
@@ -41,6 +42,23 @@ class PhonologicalSymbol(sym.Symbol):
         ft.Feature.Profile(self.PH_DESCRIPTIVE_FEATURES, 'new')
     )
 
+  def descriptives(self) -> ft.Feature.Profile:
+    return self.features.phonology_descriptive
+
+  def update_descriptives(
+      self, *features: ft.Feature.ITERABLE
+  ) -> PhonologicalSymbol:
+    """Updates the descriptive features of the PhonologicalSymbol."""
+    self.descriptives().update(*features)
+    return self
+
+  def update_descriptives_from_symbol(
+      self, *symbols: PhonologicalSymbol
+  ) -> PhonologicalSymbol:
+    """Updates the descriptives from the union of the given symbols."""
+    self.update_descriptives(*(s.descriptives() for s in symbols))
+    return self
+
   class Inventory(sym.Symbol.Inventory):
     """Phonological symbol inventory."""
 
@@ -48,7 +66,7 @@ class PhonologicalSymbol(sym.Symbol):
       super().__init__(alias, typed=ty.type_check(typed, PhonologicalSymbol))
       self.atomics = i.Inventory()
 
-    def _add_symbol_and_atomic(self, symbol: 'PhonologicalSymbol') -> bool:
+    def _add_symbol_and_atomic(self, symbol: PhonologicalSymbol) -> bool:
       """Adds a phonological symbol to the inventory."""
       return self._add_symbol(symbol) and self.atomics.add_item(
           exp.Atomic.get_instance(symbol)
@@ -59,8 +77,8 @@ class PhonologicalSymbol(sym.Symbol):
       return self.atomics.add_suppl(exp.Or(*suppl, alias=suppl.alias))
 
     def sync_atomics(
-        self, or_suppls: ty.ListOrNothing = ty.UNSPECIFIED
-    ) -> 'PhonologicalSymbol.Inventory':
+        self, update_ors_from_suppls: ty.ListOrNothing = ty.UNSPECIFIED
+    ) -> PhonologicalSymbol.Inventory:
       """Syncs the atomic inventory with the symbol inventory.
 
       Updates the features of the atomic instance of each phonological symbol
@@ -68,25 +86,24 @@ class PhonologicalSymbol(sym.Symbol):
       Or supplements in atomics to include all members of the given supplements
       in the list. For example, if an `inventory.vowel` iterable and a
       corresponding `inventory.atomics.vowel` Or were initiated as `[a, e, i]`
-      and `(a | e | i)`, and later `[o, u]` was added to `inventory.vowel`,
-      this function will update `inventory.atomics.vowel` to
+      and `(a | e | i)` respectively, and later `[o, u]` was added to
+      `inventory.vowel`, this function will update `inventory.atomics.vowel` to
       `(a | e | i | o | u)`.
 
-      Updates the atomic inventory with the supplements.
-
       Args:
-        or_suppls: Optional list iterable supplements. If specified, the
-        corresponding Or supplement of the given supplements will be updated to
-        include all symbols.
+        update_ors_from_suppls: Optional list of iterable supplements. When
+          specified,
+          - if there's no corresponding Or in the atomics, a new one is created.
+          - if there is a corresponding Or, it's updated to include all symbols
+            in the given supplement.
 
       Returns:
         The inventory.
-
       """
       for atomic in self.atomics:
         for profile in atomic.features:
           profile.update(atomic.symbol.features.get(profile.inventory))
-      for suppl in ty.type_check(or_suppls, []):
+      for suppl in ty.type_check(update_ors_from_suppls, []):
         if suppl.alias not in self.atomics.suppl_aliases:
           self.or_from_suppl(suppl)
         self.atomics.get(suppl.alias).add(*suppl)
@@ -130,7 +147,7 @@ class Phon(PhonologicalSymbol):
       language: str = '',
       alias: str = '',
       ipa: str = '',
-      ) -> 'Phon':
+  ) -> Phon:
     """Creates a copy of the Phon."""
     return Phon(
         language=language if language else self.language,
@@ -141,13 +158,6 @@ class Phon(PhonologicalSymbol):
         features=self.features.copy(),
     )
 
-  def update_descriptives(
-      self, *features: ft.Feature.ITERABLE
-  ) -> 'Phon':
-    """Updates the descriptive features of the Phon."""
-    self.features.phonology_descriptive.update(*features)
-    return self
-
   class Inventory(PhonologicalSymbol.Inventory):
     """Phon inventory."""
 
@@ -156,14 +166,14 @@ class Phon(PhonologicalSymbol):
       super().__init__(alias=language, typed=Phon)
       self.language = language
 
-    def _add_phoneme(self, phoneme: 'Phon') -> bool:
+    def _add_phoneme(self, phoneme: Phon) -> bool:
       """Adds a phoneme to the inventory."""
       phoneme.index = Phon.ReservedIndex.PHONEME_PREFIX + len(self) + 1
       return self._add_symbol_and_atomic(phoneme)
 
     def add_phonemes(
-        self, *phonemes: 'Phon', list_alias: str = ''
-    ) -> list['Phon']:
+        self, *phonemes: Phon, list_alias: str = ''
+    ) -> list[Phon]:
       phs = [ph for ph in phonemes if self._add_phoneme(ph)]
       if list_alias:
         self.make_iterable_suppl(list_alias, *phs)

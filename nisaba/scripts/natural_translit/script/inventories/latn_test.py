@@ -13,29 +13,43 @@
 # limitations under the License.
 
 from absl.testing import absltest
+from nisaba.scripts.natural_translit.language_params import en
 from nisaba.scripts.natural_translit.script import grapheme as g
 from nisaba.scripts.natural_translit.script.inventories import latn
 from nisaba.scripts.natural_translit.utils import test_op
 
-_latn = latn.graphemes
+_G = g.Grapheme
+_EN = en.GRAPHEMES
+_LATN = latn.GRAPHEMES
 
 
-class BasicLatinTest(test_op.TestCase):
+class LatnTest(test_op.TestCase):
 
-  def test_lowercase_from_char(self):
-    self.assertEqual(_latn.a.text, 'a')
+  def test_latn(self):
+    self.assertEqual(_LATN.raw_lookup('a'), _LATN.a)
+    self.AssertHasFeature(_LATN.a, _G.GR_FEATURES.script.latn)
+    self.AssertHasFeature(_LATN.a, _G.GR_FEATURES.case.lower)
+    self.AssertHasFeature(_LATN.a, _G.PH_DESCRIPTIVE_FEATURES.ph_class.vowel)
+    self.assertIn(_LATN.a, _LATN.vowel)
+    self.assertIn(_LATN.a, _LATN.lower)
+    self.AssertAccepts(_LATN.atomics.vowel, _LATN.a)
+    self.assertNotIn(_LATN.a, _LATN.upper)
+    self.assertIn(_LATN.a_upper, _LATN.vowel)
+    self.assertIn(_LATN.a_upper, _LATN.upper)
+    self.AssertAccepts(_LATN.atomics.vowel, _LATN.a_upper)
+    self.assertNotIn(_LATN.a_upper, _LATN.lower)
+    self.assertIn(_LATN.a, _LATN.letter)
+    self.assertIn(_LATN.a_upper, _LATN.letter)
+    self.assertIs(_LATN.a.upper, _LATN.a_upper)
+    self.assertIs(_LATN.a_upper.lower, _LATN.a)
+    self.assertIs(_LATN.a.lower, _LATN.a)
+    self.assertIs(_LATN.a_upper.upper, _LATN.a_upper)
 
-  def test_lowercase_from_char_feature(self):
-    self.AssertHasFeature(_latn.a, g.Grapheme.GR_FEATURES.script.latn)
-    self.AssertHasFeature(
-        _latn.a, g.Grapheme.PH_DESCRIPTIVE_FEATURES.ph_class.vowel
-    )
-
-  def test_in_raw_dict(self):
-    self.assertEqual(_latn.raw_lookup('a'), _latn.a)
-
-  def test_lowercase_list(self):
-    self.assertIn(_latn.a, _latn.lower)
+  def test_en_latn(self):
+    self.assertNotEqual(_LATN.a, _EN.a)
+    self.assertIn(_EN.a, _EN.vowel)
+    self.assertIn(_EN.y, _EN.vowel)
+    self.AssertStrEqual(_EN.a.descriptives(), _EN.a_upper.descriptives())
 
 if __name__ == '__main__':
   absltest.main()
