@@ -41,6 +41,7 @@ namespace fst {
 using ::fst::StdArc;
 using ::fst::StdVectorFst;
 using ::fst::SymbolTable;
+using ::fst::kNoSymbol;
 
 namespace impl {
 namespace {
@@ -228,9 +229,9 @@ absl::StatusOr<StdVectorFst> WordpieceSegmenter::GetWordpieceTransducer(
     int curr_state = fst.Start();
     for (const auto &wordpiece : wordpieces) {
       int wordpiece_idx = wordpiece_syms.Find(wordpiece);
-      if (wordpiece_idx == ::fst::kNoSymbol) {
+      if (wordpiece_idx == kNoSymbol) {
         // Wordpiece is not in vocabulary, hence replaced with <unk>.
-        if (unk_label == ::fst::kNoSymbol) {
+        if (unk_label == kNoSymbol) {
           return absl::InternalError("Need OOV in wordpiece syms.");
         }
         wordpiece_idx = unk_label;
