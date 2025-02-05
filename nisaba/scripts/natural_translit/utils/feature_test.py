@@ -158,6 +158,19 @@ class FeatureTest(test_op.TestCase):
   def test_feature_text(self):
     self.assertEqual(_R.warmth.vcold.text, 'very_cold')
 
+  def test_feature_str(self):
+    self.AssertStrEqual(
+        _R.warmth.vcold,
+        '  vcold (very_cold) = {\n'
+        '        cold (cold): 0.50\n'
+        '        chl (chilly): 1.00\n'
+        '        tpd (tepid): 1.50\n'
+        '        warm (warm): 2.00\n'
+        '        hot (hot): 2.50\n'
+        '        vhot (very_hot): 3.00\n'
+        '  }\n'
+    )
+
   def test_aspect_of_feature(self):
     self.assertEqual(_R.warmth.warm.aspect, _R.warmth)
 

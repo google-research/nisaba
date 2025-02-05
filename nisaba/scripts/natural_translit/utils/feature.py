@@ -756,18 +756,13 @@ class Feature(ty.Thing):
 
     def get(self, aspect: 'Feature.Aspect') -> 'Feature.Set':
       """Gets the value set for the given aspect."""
+      if aspect.inventory == self.inventory:
+        inventory_alias = 'missing'
+      else:
+        inventory_alias = aspect.inventory.alias
       return super().get(
           aspect.alias,
-          Feature.Set(
-              aspect.n_a,
-              alias='%s_%s'
-              % (
-                  'missing'
-                  if aspect.inventory == self.inventory
-                  else aspect.inventory.alias,
-                  aspect.alias,
-              ),
-          ),
+          Feature.Set(aspect.n_a, alias=f'{inventory_alias}_{aspect.alias}'),
       )
 
     def copy(self, alias: str) -> 'Feature.Profile':

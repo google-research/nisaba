@@ -104,20 +104,33 @@ class Lattice(ty.Thing):
   def __str__(self):
     return self.text
 
+  def _str_nodes(self, state_str: bool) -> str:
+    """Returns a string representation of either the nodes or the states.
+
+    Args:
+      state_str: If True, nodes are represented as the int value in the FST they
+      belong to. If the node has no state ID, it's represented as ∅. If False,
+      nodes are represented as the alias of the lattice they belong to and their
+      coordinates on the lattice.
+
+    Returns:
+      A string representation of the nodes in the lattice.
+    """
+    return '\n'.join(
+        '\t'.join(
+            node.state_str() if state_str else node.text for node in row
+        )
+        for row in self._nodes
+    )
+
   def nodes_str(self) -> str:
-    return 'Lattice: %s\nNodes:\n%s\n' % (
-        self.alias,
-        '\n'.join(
-            ['\t'.join([node.text for node in row]) for row in self._nodes]
-        ),
+    return (
+        f'Lattice: {self.alias}\nNodes:\n{self._str_nodes(state_str=False)}\n'
     )
 
   def states_str(self) -> str:
-    return 'Lattice: %s\nStates:\n%s\n' % (
-        self.alias,
-        '\n'.join([
-            '\t'.join([node.state_str() for node in row]) for row in self._nodes
-        ]),
+    return (
+        f'Lattice: {self.alias}\nStates:\n{self._str_nodes(state_str=True)}\n'
     )
 
   def _new_node(self, x: int, y: int, populate: bool = False) -> Node:
