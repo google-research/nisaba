@@ -209,8 +209,6 @@ py_test(
         ":visual_norm.far",
         ":visual_norm_utf8.far",
     ],
-    python_version = "PY3",
-    srcs_version = "PY3",
     deps = [
         ":util",
         "@org_opengrm_pynini//pynini",
@@ -236,9 +234,7 @@ py_test(
         ":visual_norm.far",
         ":visual_norm_utf8.far",
     ],
-    python_version = "PY3",
     # Set to be the number of parametrized tests.
-    srcs_version = "PY3",
     deps = [
         ":util",
         "//nisaba/scripts/utils:test_util",
@@ -268,7 +264,6 @@ py_library(
             "visual_norm_nonfinal",
         ]
     ],
-    srcs_version = "PY3",
     deps = [
         "//nisaba/scripts/utils:char",
         "//nisaba/scripts/utils:file",
@@ -285,7 +280,6 @@ py_library(
         ":reversible_roman.far",
         ":visual_norm.far",
     ],
-    srcs_version = "PY3",
     visibility = ["//visibility:public"],
     deps = [
         ":util",
@@ -300,8 +294,6 @@ py_test(
     size = "small",
     srcs = ["api_test.py"],
     main = "api_test.py",
-    python_version = "PY3",
-    srcs_version = "PY3",
     deps = [
         ":py_api",
         "@io_abseil_py//absl/testing:absltest",
@@ -318,8 +310,6 @@ py_test(
         "//nisaba/scripts/abjad_alphabet/data/Arab:reversible_roman.textproto",
     ],
     main = "reversible_roman_coverage_test.py",
-    python_version = "PY3",
-    srcs_version = "PY3",
     deps = [
         ":util",
         "//nisaba/scripts/utils:file",

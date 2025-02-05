@@ -76,7 +76,6 @@ cc_test(
 py_binary(
     name = "calculate_emd_cer",
     srcs = ["calculate_emd_cer.py"],
-    python_version = "PY3",
     deps = [
         ":emd_cer",
         "@io_abseil_py//absl:app",
@@ -98,8 +97,6 @@ py_library(
 py_test(
     name = "emd_cer_test",
     srcs = ["emd_cer_test.py"],
-    python_version = "PY3",
-    srcs_version = "PY3",
     deps = [
         ":emd_cer",
         "@io_abseil_py//absl/testing:absltest",

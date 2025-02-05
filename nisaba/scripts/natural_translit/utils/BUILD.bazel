@@ -245,7 +245,6 @@ py_test(
 py_library(
     name = "lattice",
     srcs = ["lattice.py"],
-    srcs_version = "PY3",
     deps = [
         ":log_op",
         ":type_op",
@@ -266,7 +265,6 @@ py_test(
 py_library(
     name = "test_op",
     srcs = ["test_op.py"],
-    srcs_version = "PY3",
     deps = [
         ":expression",
         ":feature",

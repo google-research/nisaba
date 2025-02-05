@@ -48,7 +48,6 @@ cc_library(
 py_library(
     name = "far_lib",
     srcs = ["far.py"],
-    srcs_version = "PY3",
     visibility = ["//visibility:public"],
     deps = [
         ":file",
@@ -63,8 +62,6 @@ py_test(
     data = [
         "//nisaba/scripts/brahmic:iso.far",
     ],
-    python_version = "PY3",
-    srcs_version = "PY3",
     deps = [
         ":far_lib",
         "@io_abseil_py//absl/testing:absltest",
@@ -74,7 +71,6 @@ py_test(
 py_library(
     name = "test_util",
     srcs = ["test_util.py"],
-    srcs_version = "PY3",
     deps = [
         ":rewrite",
         "@io_abseil_py//absl/testing:absltest",
@@ -86,7 +82,6 @@ py_library(
 py_library(
     name = "char",
     srcs = ["char.py"],
-    srcs_version = "PY3",
     deps = [
         ":file",
         "@org_opengrm_pynini//pynini",
@@ -96,7 +91,6 @@ py_library(
 py_library(
     name = "rule",
     srcs = ["rule.py"],
-    srcs_version = "PY3",
     deps = [
         ":file",
         ":rewrite",
@@ -109,7 +103,6 @@ py_library(
 py_library(
     name = "rewrite",
     srcs = ["rewrite.py"],
-    srcs_version = "PY3",
     deps = [
         ":file",
         "@org_opengrm_pynini//pynini",
@@ -120,7 +113,6 @@ py_library(
 py_library(
     name = "file",
     srcs = ["file.py"],
-    srcs_version = "PY3",
     deps = [
         "@org_opengrm_pynini//pynini",
         "@rules_python//python/runfiles",
@@ -131,7 +123,6 @@ py_library(
 py_library(
     name = "proto",
     srcs = ["proto.py"],
-    srcs_version = "PY3",
     deps = [
         ":file",
         "@com_google_protobuf//:protobuf_python",
@@ -146,7 +137,6 @@ py_library(
 py_test(
     name = "func_test",
     srcs = ["func_test.py"],
-    python_version = "PY3",
     deps = [
         ":func",
         "@io_abseil_py//absl/testing:absltest",
@@ -170,7 +160,6 @@ py_proto_library(
 py_library(
     name = "unicode_strings_util",
     srcs = ["unicode_strings_util.py"],
-    srcs_version = "PY3",
     deps = [
         ":proto",
         ":unicode_strings_py_pb2",
@@ -180,8 +169,6 @@ py_library(
 py_test(
     name = "unicode_strings_util_test",
     srcs = ["unicode_strings_util_test.py"],
-    python_version = "PY3",
-    srcs_version = "PY3ONLY",
     legacy_create_init = False,
     deps = [
         ":unicode_strings_py_pb2",
@@ -193,8 +180,6 @@ py_test(
 py_binary(
     name = "unicode_strings_to_tsv",
     srcs = ["unicode_strings_to_tsv.py"],
-    python_version = "PY3",
-    srcs_version = "PY3",
     # Bazel: There should be no `__init__.py` generated under the `google`
     # directory of the protobuf library. This breaks the `google.protobuf`
     # Python import. Please see
@@ -229,7 +214,6 @@ py_proto_library(
 py_library(
     name = "letter_languages",
     srcs = ["letter_languages.py"],
-    srcs_version = "PY3",
     deps = [
         ":letter_languages_py_pb2",
         ":proto",

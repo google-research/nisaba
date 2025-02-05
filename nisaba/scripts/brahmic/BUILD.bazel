@@ -173,7 +173,6 @@ nisaba_grm_textproto_test(
 py_library(
     name = "util",
     srcs = ["util.py"],
-    srcs_version = "PY3",
     deps = [
         ":script_config_py_pb2",
         "//nisaba/scripts/utils:file",
@@ -190,8 +189,6 @@ py_test(
     size = "small",
     srcs = ["util_test.py"],
     data = ["//nisaba/scripts/brahmic/data/Beng:dead_consonant.tsv"],
-    python_version = "PY3",
-    srcs_version = "PY3",
     deps = [
         ":util",
         "//nisaba/scripts/utils:file",
@@ -221,7 +218,6 @@ py_library(
             "vowel_sign",
         ]
     ],
-    srcs_version = "PY3",
     deps = [
         ":util",
         "//nisaba/scripts/utils:char",
@@ -260,8 +256,6 @@ py_test(
         ":wellformed.far",
         ":wellformed_utf8.far",
     ],
-    python_version = "PY3",
-    srcs_version = "PY3",
     deps = [
         ":util",
         "//nisaba/scripts/utils:test_util",
@@ -287,8 +281,6 @@ py_test(
         ":visual_norm.far",
         ":visual_norm_utf8.far",
     ],
-    python_version = "PY3",
-    srcs_version = "PY3",
     deps = [
         ":util",
         "//nisaba/scripts/utils:test_util",
@@ -436,7 +428,6 @@ py_library(
         "//nisaba/scripts/natural_translit/romanization:{}_iso_nat.far".format(lang)
         for lang in NATURAL_TRANSLIT_LANGS
     ],
-    srcs_version = "PY3",
     visibility = ["//visibility:public"],
     deps = [
         ":util",
@@ -450,8 +441,6 @@ py_test(
     size = "small",
     srcs = ["brahmic_test.py"],
     main = "brahmic_test.py",
-    python_version = "PY3",
-    srcs_version = "PY3",
     deps = [
         ":py",
         "@io_abseil_py//absl/testing:absltest",
