@@ -14,8 +14,11 @@
 
 """Interfaces for generating fsts from objects."""
 
+from __future__ import annotations
+
 import enum
 from typing import Any, Iterable, Union
+
 from nisaba.scripts.natural_translit.utils import feature as ft
 from nisaba.scripts.natural_translit.utils import inventory
 from nisaba.scripts.natural_translit.utils import log_op as log
@@ -39,7 +42,10 @@ class Item(ty.Thing):
   def __str__(self):
     return self.text
 
-  def copy(self) -> 'Item':
+  def __len__(self) -> int:
+    return 0
+
+  def copy(self) -> Item:
     return Item(self.alias + '_copy')
 
   def is_control(self) -> bool:
@@ -60,7 +66,7 @@ class Item(ty.Thing):
   def state_count(self) -> int:
     return 1 if isinstance(self, Symbol) else 0
 
-  def symbols(self) -> list[list['Symbol']]:
+  def symbols(self) -> list[list[Symbol]]:
     """Default class method for type compatibilty.
 
     Returns:
@@ -72,10 +78,10 @@ class Item(ty.Thing):
   def symbols_str(self) -> str:
     text = '[\n'
     for sym_list in self.symbols():
-      text += '  [%s]\n' % ', '.join([str(sym) for sym in sym_list])
+      text += f'  [{", ".join([str(sym) for sym in sym_list])}]\n'
     return text + ']\n'
 
-  def accepts(self, other: 'Item', equivalent: bool = False) -> bool:
+  def accepts(self, other: Item, equivalent: bool = False) -> bool:
     """Checks if this Item accepts all symbol lists of the argument.
 
     Args:
@@ -99,12 +105,12 @@ class Item(ty.Thing):
       return False
     return all(sym_list in self_symbols for sym_list in other_symbols)
 
-  def is_equivalent(self, other: 'Item') -> bool:
+  def is_equivalent(self, other: Item) -> bool:
     return self.accepts(other, equivalent=True)
 
   def contains_symbol_list(
       self,
-      search_for: list['Symbol'],
+      search_for: list[Symbol],
       match_head: bool = False,
       match_tail: bool = False,
   ) -> bool:
@@ -186,10 +192,7 @@ class Item(ty.Thing):
     return False
 
   def contains(
-      self,
-      other: 'Item',
-      match_head: bool = False,
-      match_tail: bool = False,
+      self, other: Item, match_head: bool = False, match_tail: bool = False
   ) -> bool:
     """Checks if this item contains a symbol list of the argument.
 
@@ -225,14 +228,11 @@ class Item(ty.Thing):
   # Shorthands for containment conditions
 
   def is_contained(
-      self,
-      other: 'Item',
-      match_head: bool = False,
-      match_tail: bool = False,
+      self, other: Item, match_head: bool = False, match_tail: bool = False
   ) -> bool:
     return other.contains(self, match_head, match_tail)
 
-  def matches(self, other: 'Item') -> bool:
+  def matches(self, other: Item) -> bool:
     return self.contains(other, match_head=True, match_tail=True)
 
   # head_matches and tail_matches require at least one symbol match unless
@@ -241,20 +241,20 @@ class Item(ty.Thing):
   # For example, if a rule requires a vowel as following context but there is no
   # following context, the rule shouldn't apply.
 
-  def head_matches(self, other: 'Item') -> bool:
+  def head_matches(self, other: Item) -> bool:
     if self and not other:
       return other.is_expression_any()
     return self.contains(other, match_head=True)
 
-  def is_prefix(self, other: 'Item') -> bool:
+  def is_prefix(self, other: Item) -> bool:
     return other.head_matches(self)
 
-  def tail_matches(self, other: 'Item') -> bool:
+  def tail_matches(self, other: Item) -> bool:
     if self and not other:
       return other.is_expression_any()
     return self.contains(other, match_tail=True)
 
-  def is_suffix(self, other: 'Item') -> bool:
+  def is_suffix(self, other: Item) -> bool:
     return other.tail_matches(self)
 
 
@@ -287,13 +287,12 @@ class Symbol(Item):
       the attribute name restrictions. For example, a Grapheme with
       `alias='schwa'` in the 'deva' inventory can be accessed by `deva.schwa`.
     text: The string representation of the symbol that will be used for
-      inspection and debugging. When it's not same as the raw attribute, it
-      can be a predefined string or it can be dynamically assigned. Eg:
-      - A non-Devanagari symbol `text='🜔'` can be assigned to schwa while
-      building the inventory.
-      - When aligning 'w' with 'डब्ल्यू' (ISO: ḍablyū), symbols representing the
-      parts of 'w' can be created during runtime and assigned `text='w_part_1'`,
-      `text='w_part_2'`, ... etc.
+      inspection and debugging. When it's not same as the raw attribute, it can
+      be a predefined string or it can be dynamically assigned. Eg: - A
+      non-Devanagari symbol `text='🜔'` can be assigned to schwa while building
+      the inventory. - When aligning 'w' with 'डब्ल्यू' (ISO: ḍablyū), symbols
+      representing the parts of 'w' can be created during runtime and assigned
+      `text='w_part_1'`, `text='w_part_2'`, ... etc.
     raw: The conventional string representation of a symbol, eg. the Unicode
       glyph of a grapheme. If the symbol doesn't have a conventional string
       representation, like schwa which doesn't have a corresponding Devanagari
@@ -302,10 +301,10 @@ class Symbol(Item):
     name: A conventional or descriptive name for the symbol, eg. the Unicode
       name of the raw grapheme 'अ' `name='DEVANAGARI LETTER A'`, a descriptive
       name for the abstract grapheme schwa `name='BRAHMIC SCHWA'`, or the
-      conventional description of the phoneme /a/
-      `name=OPEN FRONT UNROUNDED VOWEL`.
-    features: Features to be added to the symbol.
-      Eg. `features=SYM_FEATURES.sym_type.raw` for 'अ'
+      conventional description of the phoneme /a/ `name=OPEN FRONT UNROUNDED
+      VOWEL`.
+    features: Features to be added to the symbol. Eg.
+      `features=SYM_FEATURES.sym_type.raw` for 'अ'
     inventory: The inventory that the symbol is first defined in. The default
       value of the inventory is Symbol.Inventory.EMPTY.
   """
@@ -340,7 +339,7 @@ class Symbol(Item):
     self.inventory = Symbol.Inventory.EMPTY
     self.symbol = self
 
-  def symbols(self) -> list[list['Symbol']]:
+  def symbols(self) -> list[list[Symbol]]:
     return [[self.symbol]]
 
   def is_control(self) -> bool:
@@ -354,28 +353,27 @@ class Symbol(Item):
 
   def description(self, show_features: bool = False) -> str:
     """A string that describes the symbol."""
-    text = 'alias: %s  index: %s' % (self.alias, self.index)
+    text = f'alias: {self.alias}  index: {self.index}'
     if self.raw:
-      text += '  raw: %s' % self.raw
+      text += f'  raw: {self.raw}'
     if self.text:
-      text += '  text: %s' % self.text
+      text += f'  text: {self.text}'
     if self.name != self.alias:
-      text += '  name: %s' % self.name
+      text += f'  name: {self.name}'
     if show_features:
-      text += '\n    %s' % str(
-          ft.Feature.Set(self.features.sym_features.type, alias='features')
+      text += (
+          '\n   '
+          f' {ft.Feature.Set(self.features.sym_features.type, alias="features")}'
       )
+
     return text
 
   @classmethod
   def descriptions(
-      cls,
-      *syms: 'Symbol',
-      title: str = '',
-      show_features: bool = False,
+      cls, *syms: Symbol, title: str = '', show_features: bool = False
   ) -> str:
     return (
-        '%s:\n  ' % (title if title else 'symbols')
+        f'{title if title else "symbols"}:\n  '
         + '\n  '.join([sym.description(show_features) for sym in syms])
         + '\n'
     )
@@ -458,7 +456,7 @@ class Symbol(Item):
 
   def feature_pair(
       self,
-      symbol: 'Symbol',
+      symbol: Symbol,
       from_feature: ft.Feature,
       to_feature: ft.Feature,
       add_aspect: bool = True,
@@ -556,17 +554,17 @@ class Symbol(Item):
       return self.description()
 
     def description(
-        self, show_features: bool = False, show_control: bool = False
+        self, show_features: bool = True, show_control: bool = False
     ) -> str:
-      text = self.alias + ' inventory:\n\n'
+      text = f'## Inventory: {self.alias}\n\n'
       for i in sorted(self.index_dict):
         sym = self.index_lookup(i)
         if not show_control and sym in self.CTRL:
           continue
-        text += '  %s\n\n' % sym.description(show_features)
+        text += f'### {sym.description(show_features)}\n'
       return text
 
-    def _add_to_dicts(self, sym: 'Symbol') -> None:
+    def _add_to_dicts(self, sym: Symbol) -> None:
       """Add a symbol to the inventory dicts.
 
       Args:
@@ -582,7 +580,7 @@ class Symbol(Item):
       if sym.raw:
         self.raw_dict[sym.raw] = sym
 
-    def _add_symbol(self, sym: 'Symbol') -> bool:
+    def _add_symbol(self, sym: Symbol) -> bool:
       """Adds a symbol to the inventory."""
       if not self.add_item(sym):
         return False
@@ -593,11 +591,9 @@ class Symbol(Item):
 
     def make_iterable_suppl(self, alias: str = '', *items) -> bool:
       """Makes an iterable supplement with the given symbols."""
-      return self.add_suppl(
-          ty.IterableThing(*items, alias=alias)
-      )
+      return self.add_suppl(ty.IterableThing(*items, alias=alias))
 
-    def add_symbols(self, *symbols, list_alias: str = '') -> list['Symbol']:
+    def add_symbols(self, *symbols, list_alias: str = '') -> list[Symbol]:
       """Adds multiple symbols to the inventory.
 
       Args:
@@ -616,9 +612,9 @@ class Symbol(Item):
     def lookup(
         self,
         key: ...,
-        source_dict: Union[dict[Any, 'Symbol'], str],
-        default: Union['Symbol', ty.Nothing] = ty.UNSPECIFIED,
-    ) -> 'Symbol':
+        source_dict: Union[dict[Any, Symbol], str],
+        default: Union[Symbol, ty.Nothing] = ty.UNSPECIFIED,
+    ) -> Symbol:
       """Get symbol by key from source_dict.
 
       Args:
@@ -637,19 +633,19 @@ class Symbol(Item):
           source_dict.get(key, ty.type_check(default, Symbol.CTRL.unk))
       )
 
-    def index_lookup(self, index: int) -> 'Symbol':
+    def index_lookup(self, index: int) -> Symbol:
       """Get symbol by its index field."""
       return log.dbg_return(self.lookup(index, self.index_dict))
 
-    def raw_lookup(self, raw_text: str) -> 'Symbol':
+    def raw_lookup(self, raw_text: str) -> Symbol:
       """Get symbol by its raw field."""
       return log.dbg_return(self.lookup(raw_text, self.raw_dict))
 
-    def text_lookup(self, text: str) -> 'Symbol':
+    def text_lookup(self, text: str) -> Symbol:
       """Get symbol by its text field."""
       return log.dbg_return(self.lookup(text, self.text_dict))
 
-    def raw_from_unknown(self, raw: str = '') -> 'Symbol':
+    def raw_from_unknown(self, raw: str = '') -> Symbol:
       """Makes and adds a new raw symbol to the inventory from a string."""
       self.unknown_count += 1
       alias = 'from_unk_' + str(self.unknown_count)
@@ -663,24 +659,23 @@ class Symbol(Item):
     def str_to_raw_symbols(
         self,
         raw_text: str,
-        sym_inventory: 'Symbol.Inventory.OR_NOTHING' = ty.UNSPECIFIED,
-    ) -> Iterable['Symbol']:
+        sym_inventory: Symbol.Inventory.OR_NOTHING = ty.UNSPECIFIED,
+    ) -> Iterable[Symbol]:
       """Makes an iterable of raw symbols from a string.
 
       Args:
         raw_text: The string to be converted to an iterable of symbols.
-        sym_inventory: The inventory which the symbols will be based on. If
-          the inventory is not provided, the symbols are based on the current
-          inventory.
-
-        For example, a Deva-Latn aligner will use a symbol inventory that
-        contains both the Deva and Latn symbols. If the input string is mixed
-        script, Deva.str_to_raw_symbols() will recognize the Latn characters as
-        existing symbols instead of dynamically creating new symbols from
-        unknown. If the input string contains a character that doesn't belong
-        to either script, for example an emoji, the new symbol will be added to
-        the combined inventory so that when the Latn.str_to_raw_symbols() is
-        called, it will recognize the emoji as the same symbol.
+        sym_inventory: The inventory which the symbols will be based on. If the
+          inventory is not provided, the symbols are based on the current
+          inventory.  For example, a Deva-Latn aligner will use a symbol
+          inventory that contains both the Deva and Latn symbols. If the input
+          string is mixed script, Deva.str_to_raw_symbols() will recognize the
+          Latn characters as existing symbols instead of dynamically creating
+          new symbols from unknown. If the input string contains a character
+          that doesn't belong to either script, for example an emoji, the new
+          symbol will be added to the combined inventory so that when the
+          Latn.str_to_raw_symbols() is called, it will recognize the emoji as
+          the same symbol.
 
       Returns:
         An iterable of raw symbols.
@@ -696,8 +691,8 @@ class Symbol(Item):
     def parse(
         self,
         raw_text: str,
-        sym_inventory: 'Symbol.Inventory.OR_NOTHING' = ty.UNSPECIFIED,
-    ) -> Iterable['Symbol']:
+        sym_inventory: Symbol.Inventory.OR_NOTHING = ty.UNSPECIFIED,
+    ) -> Iterable[Symbol]:
       """Takes a string and returns an iterable of processed symbols.
 
       The default parser is the same as str_to_raw_symbols. Subclasses

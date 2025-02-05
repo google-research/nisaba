@@ -61,4 +61,4 @@ far apart the articulators are, as long as the voicing value is the same.
 Voicing is an independent feature which would be an additional dimension if the
 IPA charts were not restricted to 2 dimensions.
 
-[Distance tables by aspect](https://github.com/google-research/nisaba/blob/main/nisaba/scripts/natural_translit/phonology/doc/descriptive_feature_table.md)
+[Distance tables by aspect](https://github.com/google-research/nisaba/blob/main/nisaba/scripts/natural_translit/phonology/docs/descriptive_feature_table.md)

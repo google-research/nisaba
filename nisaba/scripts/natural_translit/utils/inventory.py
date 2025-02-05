@@ -18,7 +18,10 @@ This class will replace the named tuples in inventory.py and the functions used
 to build or process the inventories currently scattered accross modules.
 """
 
+from __future__ import annotations
+
 from typing import TypeVar
+
 from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
@@ -56,7 +59,7 @@ class Inventory(ty.IterableThing):
       typed: ty.TypeOrNothing = ty.UNSPECIFIED,
       suppls: ty.ListOrNothing = ty.UNSPECIFIED,
       alias: str = '',
-  ) -> 'Inventory':
+  ) -> Inventory:
     """Makes an Inventory from a list of things."""
     new = cls(alias, typed)
     for item in items:
@@ -67,19 +70,18 @@ class Inventory(ty.IterableThing):
 
   def _add_field(self, alias: str, value: ...) -> bool:
     if alias in self.__dict__.keys():
-      return log.dbg_return_false('skipping recurring alias %s' % alias)
+      return log.dbg_return_false(f'skipping recurring alias {alias}')
     self.__dict__[alias] = value
     return True
 
-  def add(self, *args) -> 'Inventory':
+  def add(self, *args) -> Inventory:
     log.dbg_message('Use add_item or add_suppl for Inventories.')
     return self
 
-  def add_item(
-      self, thing: ty.Thing, attr: str = '',
-  ) -> bool:
+  def add_item(self, thing: ty.Thing, attr: str = '') -> bool:
     field_value = getattr(thing, attr, ty.MISSING) if attr else thing
-    if not self.valid_item(field_value) or field_value in self: return False
+    if not self.valid_item(field_value) or field_value in self:
+      return False
     added = self._add_field(thing.alias, field_value)
     if added:
       self._items.append(field_value)
@@ -93,16 +95,16 @@ class Inventory(ty.IterableThing):
   def make_suppl(self, alias: str, value: ...) -> bool:
     """Adds the value as a supplement."""
     added = self._add_field(alias, value)
-    if added: self.suppl_aliases.append(alias)
+    if added:
+      self.suppl_aliases.append(alias)
     return added
 
   def get(self, alias: str, default: T = ty.MISSING) -> T:
     if alias in self.item_aliases or alias in self.suppl_aliases:
-      return log.dbg_return(
-          getattr(self, alias, default), 'for alias ' + alias
-      )
+      return log.dbg_return(getattr(self, alias, default), 'for alias ' + alias)
     return log.dbg_return(
         default, 'default value due to missing alias ' + alias
     )
+
 
 Inventory.EMPTY = Inventory('empty_inventory')

@@ -352,7 +352,7 @@ class ExpressionTest(test_op.TestCase):
 
   def test_alignment_constants(self):
     self.assertEqual(exp.Alignment.ANY.string(), '(​🝓⋆​∶​🝓⋆​)')
-    self.assertEqual(exp.Alignment.ANY.source, exp.Alignment.CONSTANT)
+    self.assertEqual(exp.Alignment.ANY.source, exp.AlignmentSource.CONSTANT)
     self.assertEqual(exp.Alignment.EPS.string(), '(​ℰ​∶​ℰ​)')
     self.assertEqual(exp.Alignment.NOR.string(), '(​◎​∶​◎​)')
     self.assertEqual(exp.Alignment.NOR.operation, op.Operation.COMMON.error)

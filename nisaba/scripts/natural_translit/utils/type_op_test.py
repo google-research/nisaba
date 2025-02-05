@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Tests for type_op."""
-
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.utils import test_op
 from nisaba.scripts.natural_translit.utils import type_op as ty

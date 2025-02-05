@@ -2,9 +2,11 @@
 
 Feature tables for the phonological symbols in multilingual 'x_mul' inventory.
 
-x_mul inventory:
+[TOC]
 
-  alias: a  ipa: a  name: open front unrounded vowel
+## Inventory: x_mul
+
+### alias: a	ipa: a	name: open front unrounded vowel
   a features:
 
 | aspects                   | values         |
@@ -29,8 +31,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: au  ipa: ä  name: open center unrounded vowel
+### alias: au	ipa: ä	name: open center unrounded vowel
   au features:
 
 | aspects                   | values         |
@@ -55,8 +56,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: ae  ipa: æ  name: near_open front unrounded vowel
+### alias: ae	ipa: æ	name: near_open front unrounded vowel
   ae features:
 
 | aspects                   | values         |
@@ -81,8 +81,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: av  ipa: ɐ  name: near_open center unrounded vowel
+### alias: av	ipa: ɐ	name: near_open center unrounded vowel
   av features:
 
 | aspects                   | values         |
@@ -107,8 +106,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: aw  ipa: ɑ  name: open back unrounded vowel
+### alias: aw	ipa: ɑ	name: open back unrounded vowel
   aw features:
 
 | aspects                   | values         |
@@ -133,8 +131,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: ow  ipa: ɒ  name: open back rounded vowel
+### alias: ow	ipa: ɒ	name: open back rounded vowel
   ow features:
 
 | aspects                   | values         |
@@ -159,8 +156,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: e  ipa: e  name: close_mid front unrounded vowel
+### alias: e	ipa: e	name: close_mid front unrounded vowel
   e features:
 
 | aspects                   | values         |
@@ -185,8 +181,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: ec  ipa: ə  name: mid center unrounded vowel
+### alias: ec	ipa: ə	name: mid center unrounded vowel
   ec features:
 
 | aspects                   | values         |
@@ -211,8 +206,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: eh  ipa: ɛ  name: open_mid front unrounded vowel
+### alias: eh	ipa: ɛ	name: open_mid front unrounded vowel
   eh features:
 
 | aspects                   | values         |
@@ -237,8 +231,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: el  ipa: ɘ  name: close_mid center unrounded vowel
+### alias: el	ipa: ɘ	name: close_mid center unrounded vowel
   el features:
 
 | aspects                   | values         |
@@ -263,8 +256,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: ex  ipa: ɜ  name: open_mid center unrounded vowel
+### alias: ex	ipa: ɜ	name: open_mid center unrounded vowel
   ex features:
 
 | aspects                   | values         |
@@ -289,8 +281,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: ox  ipa: ɞ  name: open_mid center rounded vowel
+### alias: ox	ipa: ɞ	name: open_mid center rounded vowel
   ox features:
 
 | aspects                   | values         |
@@ -315,8 +306,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: eo  ipa: ɤ  name: close_mid back unrounded vowel
+### alias: eo	ipa: ɤ	name: close_mid back unrounded vowel
   eo features:
 
 | aspects                   | values         |
@@ -341,8 +331,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: i  ipa: i  name: close front unrounded vowel
+### alias: i	ipa: i	name: close front unrounded vowel
   i features:
 
 | aspects                   | values         |
@@ -367,8 +356,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: iy  ipa: ɪ  name: near_close near_front unrounded vowel
+### alias: iy	ipa: ɪ	name: near_close near_front unrounded vowel
   iy features:
 
 | aspects                   | values         |
@@ -393,8 +381,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: ic  ipa: ɨ  name: close center unrounded vowel
+### alias: ic	ipa: ɨ	name: close center unrounded vowel
   ic features:
 
 | aspects                   | values         |
@@ -419,8 +406,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: o  ipa: o  name: close_mid back rounded vowel
+### alias: o	ipa: o	name: close_mid back rounded vowel
   o features:
 
 | aspects                   | values         |
@@ -445,8 +431,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: oi  ipa: ø  name: close_mid front rounded vowel
+### alias: oi	ipa: ø	name: close_mid front rounded vowel
   oi features:
 
 | aspects                   | values         |
@@ -471,8 +456,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: oe  ipa: œ  name: open_mid front rounded vowel
+### alias: oe	ipa: œ	name: open_mid front rounded vowel
   oe features:
 
 | aspects                   | values         |
@@ -497,8 +481,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: oa  ipa: ɶ  name: open front rounded vowel
+### alias: oa	ipa: ɶ	name: open front rounded vowel
   oa features:
 
 | aspects                   | values         |
@@ -523,8 +506,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: oh  ipa: ɔ  name: open_mid back rounded vowel
+### alias: oh	ipa: ɔ	name: open_mid back rounded vowel
   oh features:
 
 | aspects                   | values         |
@@ -549,8 +531,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: ol  ipa: ɵ  name: close_mid center rounded vowel
+### alias: ol	ipa: ɵ	name: close_mid center rounded vowel
   ol features:
 
 | aspects                   | values         |
@@ -575,8 +556,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: u  ipa: u  name: close back rounded vowel
+### alias: u	ipa: u	name: close back rounded vowel
   u features:
 
 | aspects                   | values         |
@@ -601,8 +581,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: uc  ipa: ʉ  name: close center rounded vowel
+### alias: uc	ipa: ʉ	name: close center rounded vowel
   uc features:
 
 | aspects                   | values         |
@@ -627,8 +606,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: iu  ipa: ɯ  name: close back unrounded vowel
+### alias: iu	ipa: ɯ	name: close back unrounded vowel
   iu features:
 
 | aspects                   | values         |
@@ -653,8 +631,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: uv  ipa: ʊ  name: near_close near_back rounded vowel
+### alias: uv	ipa: ʊ	name: near_close near_back rounded vowel
   uv features:
 
 | aspects                   | values         |
@@ -679,8 +656,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: ah  ipa: ʌ  name: open_mid back unrounded vowel
+### alias: ah	ipa: ʌ	name: open_mid back unrounded vowel
   ah features:
 
 | aspects                   | values         |
@@ -705,8 +681,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: ui  ipa: y  name: close front rounded vowel
+### alias: ui	ipa: y	name: close front rounded vowel
   ui features:
 
 | aspects                   | values         |
@@ -731,8 +706,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: uy  ipa: ʏ  name: near_close near_front rounded vowel
+### alias: uy	ipa: ʏ	name: near_close near_front rounded vowel
   uy features:
 
 | aspects                   | values         |
@@ -757,8 +731,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | syllabic       |
 
-
-  alias: b  ipa: b  name: voiced bilabial stop
+### alias: b	ipa: b	name: voiced bilabial stop
   b features:
 
 | aspects                   | values         |
@@ -783,8 +756,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: bb  ipa: ʙ  name: bilabial trill
+### alias: bb	ipa: ʙ	name: bilabial trill
   bb features:
 
 | aspects                   | values         |
@@ -809,8 +781,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: ky  ipa: c  name: voiceless palatal stop
+### alias: ky	ipa: c	name: voiceless palatal stop
   ky features:
 
 | aspects                   | values                  |
@@ -835,8 +806,7 @@ x_mul inventory:
 | duration                  | any                     |
 | syllabicity               | none                    |
 
-
-  alias: hy  ipa: ç  name: voiceless palatal non-sibilant fricative
+### alias: hy	ipa: ç	name: voiceless palatal non-sibilant fricative
   hy features:
 
 | aspects                   | values                  |
@@ -861,8 +831,7 @@ x_mul inventory:
 | duration                  | any                     |
 | syllabicity               | none                    |
 
-
-  alias: sy  ipa: ɕ  name: voiceless palatal sibilant fricative
+### alias: sy	ipa: ɕ	name: voiceless palatal sibilant fricative
   sy features:
 
 | aspects                   | values                  |
@@ -887,8 +856,7 @@ x_mul inventory:
 | duration                  | any                     |
 | syllabicity               | none                    |
 
-
-  alias: d  ipa: d  name: voiced alveolar stop
+### alias: d	ipa: d	name: voiced alveolar stop
   d features:
 
 | aspects                   | values                         |
@@ -913,8 +881,7 @@ x_mul inventory:
 | duration                  | any                            |
 | syllabicity               | none                           |
 
-
-  alias: dh  ipa: ð  name: voiced dental non-sibilant fricative
+### alias: dh	ipa: ð	name: voiced dental non-sibilant fricative
   dh features:
 
 | aspects                   | values         |
@@ -939,8 +906,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: dd  ipa: ɖ  name: voiced retro­flex stop
+### alias: dd	ipa: ɖ	name: voiced retro­flex stop
   dd features:
 
 | aspects                   | values                |
@@ -965,8 +931,7 @@ x_mul inventory:
 | duration                  | any                   |
 | syllabicity               | none                  |
 
-
-  alias: f  ipa: f  name: voiceless labio­dental non-sibilant fricative
+### alias: f	ipa: f	name: voiceless labio­dental non-sibilant fricative
   f features:
 
 | aspects                   | values         |
@@ -991,8 +956,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: g  ipa: ɡ  name: voiced velar stop
+### alias: g	ipa: ɡ	name: voiced velar stop
   g features:
 
 | aspects                   | values         |
@@ -1017,8 +981,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: j  ipa: ɢ  name: voiced uvular stop
+### alias: j	ipa: ɢ	name: voiced uvular stop
   j features:
 
 | aspects                   | values         |
@@ -1043,8 +1006,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: gh  ipa: ɣ  name: voiced velar non-sibilant fricative
+### alias: gh	ipa: ɣ	name: voiced velar non-sibilant fricative
   gh features:
 
 | aspects                   | values         |
@@ -1069,8 +1031,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: h  ipa: h  name: voiceless glottal non-sibilant fricative
+### alias: h	ipa: h	name: voiceless glottal non-sibilant fricative
   h features:
 
 | aspects                   | values         |
@@ -1095,8 +1056,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: ch  ipa: ħ  name: voiceless pharyngeal non-sibilant fricative
+### alias: ch	ipa: ħ	name: voiceless pharyngeal non-sibilant fricative
   ch features:
 
 | aspects                   | values         |
@@ -1121,8 +1081,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: hho  ipa: ʜ  name: voiceless epiglottal trill
+### alias: hho	ipa: ʜ	name: voiceless epiglottal trill
   hho features:
 
 | aspects                   | values         |
@@ -1147,8 +1106,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: ha  ipa: ɦ  name: voiced glottal non-sibilant fricative
+### alias: ha	ipa: ɦ	name: voiced glottal non-sibilant fricative
   ha features:
 
 | aspects                   | values         |
@@ -1173,8 +1131,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: y  ipa: j  name: palatal approximant
+### alias: y	ipa: j	name: palatal approximant
   y features:
 
 | aspects                   | values                  |
@@ -1199,8 +1156,7 @@ x_mul inventory:
 | duration                  | any                     |
 | syllabicity               | none                    |
 
-
-  alias: yy  ipa: ʝ  name: voiced palatal non-sibilant fricative
+### alias: yy	ipa: ʝ	name: voiced palatal non-sibilant fricative
   yy features:
 
 | aspects                   | values                  |
@@ -1225,8 +1181,7 @@ x_mul inventory:
 | duration                  | any                     |
 | syllabicity               | none                    |
 
-
-  alias: gy  ipa: ɟ  name: voiced palatal stop
+### alias: gy	ipa: ɟ	name: voiced palatal stop
   gy features:
 
 | aspects                   | values                  |
@@ -1251,8 +1206,7 @@ x_mul inventory:
 | duration                  | any                     |
 | syllabicity               | none                    |
 
-
-  alias: k  ipa: k  name: voiceless velar stop
+### alias: k	ipa: k	name: voiceless velar stop
   k features:
 
 | aspects                   | values         |
@@ -1277,8 +1231,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: l  ipa: l  name: alveolar lateral approximant
+### alias: l	ipa: l	name: alveolar lateral approximant
   l features:
 
 | aspects                   | values                         |
@@ -1303,8 +1256,7 @@ x_mul inventory:
 | duration                  | any                            |
 | syllabicity               | none                           |
 
-
-  alias: lg  ipa: ʟ  name: velar lateral approximant
+### alias: lg	ipa: ʟ	name: velar lateral approximant
   lg features:
 
 | aspects                   | values         |
@@ -1329,8 +1281,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: sl  ipa: ɬ  name: voiceless alveolar lateral fricative
+### alias: sl	ipa: ɬ	name: voiceless alveolar lateral fricative
   sl features:
 
 | aspects                   | values                         |
@@ -1355,8 +1306,7 @@ x_mul inventory:
 | duration                  | any                            |
 | syllabicity               | none                           |
 
-
-  alias: ll  ipa: ɭ  name: retro­flex lateral approximant
+### alias: ll	ipa: ɭ	name: retro­flex lateral approximant
   ll features:
 
 | aspects                   | values                |
@@ -1381,8 +1331,7 @@ x_mul inventory:
 | duration                  | any                   |
 | syllabicity               | none                  |
 
-
-  alias: ssl  ipa: ꞎ  name: voiceless retro­flex lateral fricative
+### alias: ssl	ipa: ꞎ	name: voiceless retro­flex lateral fricative
   ssl features:
 
 | aspects                   | values                |
@@ -1407,8 +1356,7 @@ x_mul inventory:
 | duration                  | any                   |
 | syllabicity               | none                  |
 
-
-  alias: zl  ipa: ɮ  name: voiced alveolar lateral fricative
+### alias: zl	ipa: ɮ	name: voiced alveolar lateral fricative
   zl features:
 
 | aspects                   | values                         |
@@ -1433,8 +1381,7 @@ x_mul inventory:
 | duration                  | any                            |
 | syllabicity               | none                           |
 
-
-  alias: ly  ipa: ʎ  name: palatal lateral approximant
+### alias: ly	ipa: ʎ	name: palatal lateral approximant
   ly features:
 
 | aspects                   | values                  |
@@ -1459,8 +1406,7 @@ x_mul inventory:
 | duration                  | any                     |
 | syllabicity               | none                    |
 
-
-  alias: m  ipa: m  name: voiced bilabial nasal
+### alias: m	ipa: m	name: voiced bilabial nasal
   m features:
 
 | aspects                   | values         |
@@ -1485,8 +1431,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: mi  ipa: ɱ  name: voiced labio­dental nasal
+### alias: mi	ipa: ɱ	name: voiced labio­dental nasal
   mi features:
 
 | aspects                   | values         |
@@ -1511,8 +1456,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: n  ipa: n  name: voiced alveolar nasal
+### alias: n	ipa: n	name: voiced alveolar nasal
   n features:
 
 | aspects                   | values                         |
@@ -1537,8 +1481,7 @@ x_mul inventory:
 | duration                  | any                            |
 | syllabicity               | none                           |
 
-
-  alias: nj  ipa: ɴ  name: voiced uvular nasal
+### alias: nj	ipa: ɴ	name: voiced uvular nasal
   nj features:
 
 | aspects                   | values         |
@@ -1563,8 +1506,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: ny  ipa: ɲ  name: voiced palatal nasal
+### alias: ny	ipa: ɲ	name: voiced palatal nasal
   ny features:
 
 | aspects                   | values                  |
@@ -1589,8 +1531,7 @@ x_mul inventory:
 | duration                  | any                     |
 | syllabicity               | none                    |
 
-
-  alias: nn  ipa: ɳ  name: voiced retro­flex nasal
+### alias: nn	ipa: ɳ	name: voiced retro­flex nasal
   nn features:
 
 | aspects                   | values                |
@@ -1615,8 +1556,7 @@ x_mul inventory:
 | duration                  | any                   |
 | syllabicity               | none                  |
 
-
-  alias: ng  ipa: ŋ  name: voiced velar nasal
+### alias: ng	ipa: ŋ	name: voiced velar nasal
   ng features:
 
 | aspects                   | values         |
@@ -1641,8 +1581,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: p  ipa: p  name: voiceless bilabial stop
+### alias: p	ipa: p	name: voiceless bilabial stop
   p features:
 
 | aspects                   | values         |
@@ -1667,8 +1606,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: ph  ipa: ɸ  name: voiceless bilabial non-sibilant fricative
+### alias: ph	ipa: ɸ	name: voiceless bilabial non-sibilant fricative
   ph features:
 
 | aspects                   | values         |
@@ -1693,8 +1631,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: q  ipa: q  name: voiceless uvular stop
+### alias: q	ipa: q	name: voiceless uvular stop
   q features:
 
 | aspects                   | values         |
@@ -1719,8 +1656,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: r  ipa: r  name: alveolar trill
+### alias: r	ipa: r	name: alveolar trill
   r features:
 
 | aspects                   | values                         |
@@ -1745,8 +1681,7 @@ x_mul inventory:
 | duration                  | any                            |
 | syllabicity               | none                           |
 
-
-  alias: rj  ipa: ʀ  name: uvular trill
+### alias: rj	ipa: ʀ	name: uvular trill
   rj features:
 
 | aspects                   | values         |
@@ -1771,8 +1706,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: ru  ipa: ɹ  name: alveolar approximant
+### alias: ru	ipa: ɹ	name: alveolar approximant
   ru features:
 
 | aspects                   | values                         |
@@ -1797,8 +1731,7 @@ x_mul inventory:
 | duration                  | any                            |
 | syllabicity               | none                           |
 
-
-  alias: rl  ipa: ɺ  name: alveolar lateral flap
+### alias: rl	ipa: ɺ	name: alveolar lateral flap
   rl features:
 
 | aspects                   | values                         |
@@ -1823,8 +1756,7 @@ x_mul inventory:
 | duration                  | any                            |
 | syllabicity               | none                           |
 
-
-  alias: rru  ipa: ɻ  name: retro­flex approximant
+### alias: rru	ipa: ɻ	name: retro­flex approximant
   rru features:
 
 | aspects                   | values                |
@@ -1849,8 +1781,7 @@ x_mul inventory:
 | duration                  | any                   |
 | syllabicity               | none                  |
 
-
-  alias: rd  ipa: ɽ  name: retro­flex flap
+### alias: rd	ipa: ɽ	name: retro­flex flap
   rd features:
 
 | aspects                   | values                |
@@ -1875,8 +1806,7 @@ x_mul inventory:
 | duration                  | any                   |
 | syllabicity               | none                  |
 
-
-  alias: rt  ipa: ɾ  name: alveolar flap
+### alias: rt	ipa: ɾ	name: alveolar flap
   rt features:
 
 | aspects                   | values                         |
@@ -1901,8 +1831,7 @@ x_mul inventory:
 | duration                  | any                            |
 | syllabicity               | none                           |
 
-
-  alias: jh  ipa: ʁ  name: voiced uvular non-sibilant fricative
+### alias: jh	ipa: ʁ	name: voiced uvular non-sibilant fricative
   jh features:
 
 | aspects                   | values         |
@@ -1927,8 +1856,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: s  ipa: s  name: voiceless alveolar sibilant fricative
+### alias: s	ipa: s	name: voiceless alveolar sibilant fricative
   s features:
 
 | aspects                   | values           |
@@ -1953,8 +1881,7 @@ x_mul inventory:
 | duration                  | any              |
 | syllabicity               | none             |
 
-
-  alias: ss  ipa: ʂ  name: voiceless retro­flex sibilant fricative
+### alias: ss	ipa: ʂ	name: voiceless retro­flex sibilant fricative
   ss features:
 
 | aspects                   | values                |
@@ -1979,8 +1906,7 @@ x_mul inventory:
 | duration                  | any                   |
 | syllabicity               | none                  |
 
-
-  alias: sh  ipa: ʃ  name: voiceless post­alveolar sibilant fricative
+### alias: sh	ipa: ʃ	name: voiceless post­alveolar sibilant fricative
   sh features:
 
 | aspects                   | values         |
@@ -2005,8 +1931,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: t  ipa: t  name: voiceless alveolar stop
+### alias: t	ipa: t	name: voiceless alveolar stop
   t features:
 
 | aspects                   | values                         |
@@ -2031,8 +1956,7 @@ x_mul inventory:
 | duration                  | any                            |
 | syllabicity               | none                           |
 
-
-  alias: tt  ipa: ʈ  name: voiceless retro­flex stop
+### alias: tt	ipa: ʈ	name: voiceless retro­flex stop
   tt features:
 
 | aspects                   | values                |
@@ -2057,8 +1981,7 @@ x_mul inventory:
 | duration                  | any                   |
 | syllabicity               | none                  |
 
-
-  alias: gu  ipa: ɰ  name: velar approximant
+### alias: gu	ipa: ɰ	name: velar approximant
   gu features:
 
 | aspects                   | values         |
@@ -2083,8 +2006,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: v  ipa: v  name: voiced labio­dental non-sibilant fricative
+### alias: v	ipa: v	name: voiced labio­dental non-sibilant fricative
   v features:
 
 | aspects                   | values         |
@@ -2109,8 +2031,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: vu  ipa: ʋ  name: labio­dental approximant
+### alias: vu	ipa: ʋ	name: labio­dental approximant
   vu features:
 
 | aspects                   | values         |
@@ -2135,8 +2056,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: vt  ipa: ⱱ  name: labio­dental flap
+### alias: vt	ipa: ⱱ	name: labio­dental flap
   vt features:
 
 | aspects                   | values         |
@@ -2161,8 +2081,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: kh  ipa: x  name: voiceless velar non-sibilant fricative
+### alias: kh	ipa: x	name: voiceless velar non-sibilant fricative
   kh features:
 
 | aspects                   | values         |
@@ -2187,8 +2106,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: z  ipa: z  name: voiced alveolar sibilant fricative
+### alias: z	ipa: z	name: voiced alveolar sibilant fricative
   z features:
 
 | aspects                   | values           |
@@ -2213,8 +2131,7 @@ x_mul inventory:
 | duration                  | any              |
 | syllabicity               | none             |
 
-
-  alias: zz  ipa: ʐ  name: voiced retro­flex sibilant fricative
+### alias: zz	ipa: ʐ	name: voiced retro­flex sibilant fricative
   zz features:
 
 | aspects                   | values                |
@@ -2239,8 +2156,7 @@ x_mul inventory:
 | duration                  | any                   |
 | syllabicity               | none                  |
 
-
-  alias: zy  ipa: ʑ  name: voiced palatal sibilant fricative
+### alias: zy	ipa: ʑ	name: voiced palatal sibilant fricative
   zy features:
 
 | aspects                   | values                  |
@@ -2265,8 +2181,7 @@ x_mul inventory:
 | duration                  | any                     |
 | syllabicity               | none                    |
 
-
-  alias: zh  ipa: ʒ  name: voiced post­alveolar sibilant fricative
+### alias: zh	ipa: ʒ	name: voiced post­alveolar sibilant fricative
   zh features:
 
 | aspects                   | values         |
@@ -2291,8 +2206,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: x  ipa: ʔ  name: glottal stop
+### alias: x	ipa: ʔ	name: glottal stop
   x features:
 
 | aspects                   | values         |
@@ -2317,8 +2231,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: cha  ipa: ʕ  name: voiced pharyngeal non-sibilant fricative
+### alias: cha	ipa: ʕ	name: voiced pharyngeal non-sibilant fricative
   cha features:
 
 | aspects                   | values         |
@@ -2343,8 +2256,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: c  ipa: ʡ  name: epiglottal stop
+### alias: c	ipa: ʡ	name: epiglottal stop
   c features:
 
 | aspects                   | values         |
@@ -2369,8 +2281,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: hh  ipa: ʢ  name: epiglottal trill
+### alias: hh	ipa: ʢ	name: epiglottal trill
   hh features:
 
 | aspects                   | values         |
@@ -2395,8 +2306,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: bh  ipa: β  name: voiced bilabial non-sibilant fricative
+### alias: bh	ipa: β	name: voiced bilabial non-sibilant fricative
   bh features:
 
 | aspects                   | values         |
@@ -2421,8 +2331,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: th  ipa: θ  name: voiceless dental non-sibilant fricative
+### alias: th	ipa: θ	name: voiceless dental non-sibilant fricative
   th features:
 
 | aspects                   | values         |
@@ -2447,8 +2356,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: qh  ipa: χ  name: voiceless uvular non-sibilant fricative
+### alias: qh	ipa: χ	name: voiceless uvular non-sibilant fricative
   qh features:
 
 | aspects                   | values         |
@@ -2473,8 +2381,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: yw  ipa: ɥ  name: labial-palatal approximant
+### alias: yw	ipa: ɥ	name: labial-palatal approximant
   yw features:
 
 | aspects                   | values                  |
@@ -2499,8 +2406,7 @@ x_mul inventory:
 | duration                  | any                     |
 | syllabicity               | none                    |
 
-
-  alias: hw  ipa: ʍ  name: voiceless labial-velar fricative
+### alias: hw	ipa: ʍ	name: voiceless labial-velar fricative
   hw features:
 
 | aspects                   | values         |
@@ -2525,8 +2431,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: w  ipa: w  name: labial-velar approximant
+### alias: w	ipa: w	name: labial-velar approximant
   w features:
 
 | aspects                   | values         |
@@ -2551,8 +2456,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: sj  ipa: ɧ  name: voiceless palatal-velar fricative
+### alias: sj	ipa: ɧ	name: voiceless palatal-velar fricative
   sj features:
 
 | aspects                   | values         |
@@ -2577,8 +2481,7 @@ x_mul inventory:
 | duration                  | any            |
 | syllabicity               | none           |
 
-
-  alias: lw  ipa: ɫ  name: labial-velar lateral approximant
+### alias: lw	ipa: ɫ	name: labial-velar lateral approximant
   lw features:
 
 | aspects                   | values         |
@@ -2602,4 +2505,3 @@ x_mul inventory:
 | rhoticization             | none           |
 | duration                  | any            |
 | syllabicity               | none           |
-

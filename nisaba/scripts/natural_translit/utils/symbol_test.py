@@ -152,35 +152,35 @@ class SymbolTest(test_op.TestCase):
     )
 
   def test_symbol_inventory_str(self):
-    self.AssertStrEqual(
-        _SYM,
-        'test inventory:\n\n'
-        '  alias: schwa  index: 2000001  text: 🜔  name: SCHWA\n\n'
-        '  alias: a_ind  index: 2000002  raw: अ  text: अ  name: A LETTER\n\n',
+    self.assertEqual(
+        _SYM.description(show_features=False),
+        '## Inventory: test\n\n'
+        '### alias: schwa  index: 2000001  text: 🜔  name: SCHWA\n'
+        '### alias: a_ind  index: 2000002  raw: अ  text: अ  name: A LETTER\n',
     )
 
   def test_symbol_inventory_description(self):
     self.assertEqual(
         _SYM.description(show_features=True, show_control=True),
-        'test inventory:\n\n'
-        '  alias: eps  index: 1000000  text: ​ℰ​  name: EPSILON\n'
-        '    features: {abstract, control}\n\n'
-        '  alias: unk  index: 1000001  text: ​␦​  name: UNKNOWN SYMBOL\n'
-        '    features: {abstract, control}\n\n'
-        '  alias: bos  index: 1000002  text: ​⊳​  name: BEGINNING OF SEQUENCE\n'
-        '    features: {abstract, control}\n\n'
-        '  alias: eos  index: 1000003  text: ​⊲​  name: END OF SEQUENCE\n'
-        '    features: {abstract, control}\n\n'
-        '  alias: oos  index: 1000004  text: ​⊽​  name: OUT OF SEQUENCE\n'
-        '    features: {abstract, control}\n\n'
-        '  alias: nor  index: 1000005  text: ​◎​  name: NO ALTERNATIVE\n'
-        '    features: {abstract, control}\n\n'
-        '  alias: nos  index: 1000006  text: ​⨱​  name: NO SYMBOL\n'
-        '    features: {abstract, control}\n\n'
-        '  alias: schwa  index: 2000001  text: 🜔  name: SCHWA\n'
-        '    features: {abstract}\n\n'
-        '  alias: a_ind  index: 2000002  raw: अ  text: अ  name: A LETTER\n'
-        '    features: {raw}\n\n',
+        '## Inventory: test\n\n'
+        '### alias: eps  index: 1000000  text: ​ℰ​  name: EPSILON\n'
+        '    features: {abstract, control}\n'
+        '### alias: unk  index: 1000001  text: ​␦​  name: UNKNOWN SYMBOL\n'
+        '    features: {abstract, control}\n'
+        '### alias: bos  index: 1000002  text: ​⊳​  name: BEGINNING OF SEQUENCE\n'
+        '    features: {abstract, control}\n'
+        '### alias: eos  index: 1000003  text: ​⊲​  name: END OF SEQUENCE\n'
+        '    features: {abstract, control}\n'
+        '### alias: oos  index: 1000004  text: ​⊽​  name: OUT OF SEQUENCE\n'
+        '    features: {abstract, control}\n'
+        '### alias: nor  index: 1000005  text: ​◎​  name: NO ALTERNATIVE\n'
+        '    features: {abstract, control}\n'
+        '### alias: nos  index: 1000006  text: ​⨱​  name: NO SYMBOL\n'
+        '    features: {abstract, control}\n'
+        '### alias: schwa  index: 2000001  text: 🜔  name: SCHWA\n'
+        '    features: {abstract}\n'
+        '### alias: a_ind  index: 2000002  raw: अ  text: अ  name: A LETTER\n'
+        '    features: {raw}\n',
     )
 
   def test_raw_from_unknown(self):

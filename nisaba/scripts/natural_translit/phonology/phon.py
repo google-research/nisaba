@@ -14,7 +14,10 @@
 
 """Phon building functions."""
 
+from __future__ import annotations
+
 from typing import Union
+
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import fst_list as fl
@@ -40,11 +43,11 @@ class Phon(ty.Thing):
   ):
     super().__init__(alias, ipa)
     self.txn = txn
-    self.ftr = ftr if isinstance(ftr, list) else []
+    self.ftr = ty.type_check(ftr, [])
     self.ph = ph
     self.ipa = ipa
-    self.tr_dict = tr_dict if isinstance(tr_dict, dict) else {}
-    self.cmp = cmp if isinstance(cmp, list) else [self]
+    self.tr_dict = ty.type_check(tr_dict, {})
+    self.cmp = ty.type_check(cmp, [self])
 
   @classmethod
   def base(
@@ -53,8 +56,8 @@ class Phon(ty.Thing):
       ftr: list[str],
       ipa: str,
       base_tr: ty.FstIterable = ty.UNSPECIFIED,
-      alias: str = ''
-  ) -> 'Phon':
+      alias: str = '',
+  ) -> Phon:
     """Makes a base Phon.
 
     The default alias is txn in uppercase. The translit dictionary is set up
@@ -89,19 +92,21 @@ class Phon(ty.Thing):
         new_tr('base', base_tr, al.enclose_translit('DEL')),
     )
 
+
 Phon.UNSPECIFIED = Phon('unspecified', 'unspecified')
 
 
 def new_tr(
     key: str,
     new: ty.FstIterable = ty.UNSPECIFIED,
-    base: ty.FstIterable = ty.UNSPECIFIED
+    base: ty.FstIterable = ty.UNSPECIFIED,
 ) -> dict[str, pyn.Fst]:
   if isinstance(new, pyn.Fst):
     return {key: new}
   if isinstance(base, pyn.Fst):
     return {key: base}
   return {key: al.EPSILON}
+
 
 # Shortcut functions for building Phon and ph inventories from Phon lists.
 
@@ -126,7 +131,7 @@ def ph_star(phon_list: list[Phon]) -> pyn.Fst:
   return fl.FstList(ph_list(phon_list)).union_star()
 
 
-def thing_ph_list(alias: str, phon_list: list[Phon]) ->ty.Thing:
+def thing_ph_list(alias: str, phon_list: list[Phon]) -> ty.Thing:
   return ty.Thing(alias, value_from=ph_list(phon_list))
 
 
@@ -162,7 +167,7 @@ def ph_inventory(
 def import_phon(
     phon: Phon,
     add_ftr: ty.ListOrNothing = ty.UNSPECIFIED,
-    alt_tr_dict: ty.DictOrNothing = ty.UNSPECIFIED
+    alt_tr_dict: ty.DictOrNothing = ty.UNSPECIFIED,
 ) -> Phon:
   """Copies a Phon, optionally add features and translits."""
   new_ftr = phon.ftr.copy()
@@ -173,7 +178,8 @@ def import_phon(
     new_tr_dict |= alt_tr_dict
   return Phon(
       phon.alias, phon.txn, new_ftr, phon.ph, phon.ipa, new_tr_dict, phon.cmp
-      )
+  )
+
 
 # Translit functions
 

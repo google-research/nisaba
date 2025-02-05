@@ -13,6 +13,7 @@
 # limitations under the License.
 
 """Classes for phonological symbols."""
+
 from __future__ import annotations
 
 from nisaba.scripts.natural_translit.phonology import descriptive_features
@@ -92,10 +93,9 @@ class PhonologicalSymbol(sym.Symbol):
 
       Args:
         update_ors_from_suppls: Optional list of iterable supplements. When
-          specified,
-          - if there's no corresponding Or in the atomics, a new one is created.
-          - if there is a corresponding Or, it's updated to include all symbols
-            in the given supplement.
+          specified, - if there's no corresponding Or in the atomics, a new one
+          is created. - if there is a corresponding Or, it's updated to include
+          all symbols in the given supplement.
 
       Returns:
         The inventory.
@@ -113,7 +113,7 @@ class PhonologicalSymbol(sym.Symbol):
 class Phon(PhonologicalSymbol):
   """Class for representing phonemes, phones, and phonological modifiers."""
 
-  # TODO: Add pycountry languages as a feature similar to scripts.
+  # TODO(): Add pycountry languages as a feature similar to scripts.
   # Phone index will be determined by a combination of the reserved prefix for
   # phonemes, the index of the country code, and the index of the phon in
   # the language inventory.
@@ -137,17 +137,12 @@ class Phon(PhonologicalSymbol):
 
   def description(self, show_features: bool = False) -> str:
     """A string that describes the Phon."""
-    text = 'alias: %s  ipa: %s  name: %s' % (self.alias, self.ipa, self.name)
+    text = f'alias: {self.alias}\tipa: {self.ipa}\tname: {self.name}'
     if show_features:
-      text += '\n  %s' % str(self.features)
+      text += f'\n  {self.features}'
     return text
 
-  def copy(
-      self,
-      language: str = '',
-      alias: str = '',
-      ipa: str = '',
-  ) -> Phon:
+  def copy(self, language: str = '', alias: str = '', ipa: str = '') -> Phon:
     """Creates a copy of the Phon."""
     return Phon(
         language=language if language else self.language,
@@ -171,9 +166,7 @@ class Phon(PhonologicalSymbol):
       phoneme.index = Phon.ReservedIndex.PHONEME_PREFIX + len(self) + 1
       return self._add_symbol_and_atomic(phoneme)
 
-    def add_phonemes(
-        self, *phonemes: Phon, list_alias: str = ''
-    ) -> list[Phon]:
+    def add_phonemes(self, *phonemes: Phon, list_alias: str = '') -> list[Phon]:
       phs = [ph for ph in phonemes if self._add_phoneme(ph)]
       if list_alias:
         self.make_iterable_suppl(list_alias, *phs)

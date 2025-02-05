@@ -61,7 +61,7 @@ class PhonologicalSymbolTest(test_op.TestCase):
   def test_phon_description(self):
     self.assertEqual(
         _TEST.a.description(show_features=True),
-        'alias: a  ipa: a  name: open front unrounded vowel\n'
+        'alias: a\tipa: a\tname: open front unrounded vowel\n'
         '  a features:\n\n'
         '| aspects                   | values         |\n'
         '|---------------------------|----------------|\n'
@@ -94,7 +94,7 @@ class PhonologicalSymbolTest(test_op.TestCase):
   def test_phon_copy(self):
     self.assertEqual(
         _TEST.a.copy(alias='a_copy').description(show_features=True),
-        'alias: a_copy  ipa: a  name: open front unrounded vowel\n'
+        'alias: a_copy\tipa: a\tname: open front unrounded vowel\n'
         '  a_copy features:\n\n'
         '| aspects                   | values         |\n'
         '|---------------------------|----------------|\n'
@@ -124,7 +124,7 @@ class PhonologicalSymbolTest(test_op.TestCase):
         _TEST.e.copy(alias='ee', ipa='e̞')
         .update_descriptives(po.Phon.PH_DESCRIPTIVE_FEATURES.height.mid)
         .description(show_features=True),
-        'alias: ee  ipa: e̞  name: close_mid front unrounded vowel\n'
+        'alias: ee\tipa: e̞\tname: close_mid front unrounded vowel\n'
         '  ee features:\n\n'
         '| aspects                   | values         |\n'
         '|---------------------------|----------------|\n'

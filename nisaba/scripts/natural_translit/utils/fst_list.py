@@ -14,7 +14,10 @@
 
 """Class for holding and handling lists of fsts."""
 
+from __future__ import annotations
+
 from typing import Any, Callable, Iterable
+
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import type_op as ty
 from nisaba.scripts.utils import rewrite
@@ -29,14 +32,14 @@ class FstList(ty.IterableThing):
     self.add(*fsts)
 
   @classmethod
-  def accep(cls, *strings: str) -> 'FstList':
+  def accep(cls, *strings: str) -> FstList:
     """Creates an FstList from acceptors of strings."""
     return FstList([pyn.accep(s) for s in strings])
 
   @classmethod
   def make(
       cls, maker: Callable[..., pyn.Fst], *args: tuple[Any, ...]
-  ) -> 'FstList':
+  ) -> FstList:
     """Creates an FstList from a maker function and argument tuples.
 
     Args:
@@ -73,7 +76,7 @@ class FstList(ty.IterableThing):
     """Shorthand for when the maker function is pyn.cross."""
     return cls.make(pyn.cross, *cross_tuples)
 
-  def add(self, *args) -> 'FstList':
+  def add(self, *args) -> FstList:
     """Adds fsts to self.
 
     Args:

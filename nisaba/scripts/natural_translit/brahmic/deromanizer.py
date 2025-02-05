@@ -14,7 +14,10 @@
 
 """Brahmic deromanizer."""
 
+from __future__ import annotations
+
 from typing import Any, Callable, Iterable, Union
+
 import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import derom_inventory as derom
 from nisaba.scripts.natural_translit.brahmic import grapheme_inventory as gr
@@ -25,6 +28,7 @@ from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import rewrite_functions as rw
 from nisaba.scripts.natural_translit.utils import type_op as ty
+
 
 ltn = ltn_inventory.GRAPHEME_INVENTORY
 iso = gr.TRANSLIT_INVENTORY
@@ -54,19 +58,36 @@ class Deromanizer(i.Inventory):
   def _init_items(self) -> None:
     args_list = [
         ['ltn2typ', self._rw_ltn2typ()],
-        ['typ_ops'], ['anusvara'], ['cons_foreign'],
-        ['cons_drop_asp'], ['cons_asp'], ['cons_gem_only'], ['cons_base'],
-        ['mono_long'], ['mono_base_long'], ['mono_base'], ['diph_base'],
-        ['cluster_vir'], ['high_priority'], ['ind_to_sign']
+        ['typ_ops'],
+        ['anusvara'],
+        ['cons_foreign'],
+        ['cons_drop_asp'],
+        ['cons_asp'],
+        ['cons_gem_only'],
+        ['cons_base'],
+        ['mono_long'],
+        ['mono_base_long'],
+        ['mono_base'],
+        ['diph_base'],
+        ['cluster_vir'],
+        ['high_priority'],
+        ['ind_to_sign'],
     ]
     for args in args_list:
       self._add_fst_list(*args)
 
   def _init_suppls(self) -> None:
     args_list = [
-        ['vowel'], ['monophthong'], ['always_long_vowel'], ['diphthong'],
-        ['consonant'], ['has_aspirated'], ['no_aspirated'], ['drops_aspirated'],
-        ['only_geminated'], ['foreign'],
+        ['vowel'],
+        ['monophthong'],
+        ['always_long_vowel'],
+        ['diphthong'],
+        ['consonant'],
+        ['has_aspirated'],
+        ['no_aspirated'],
+        ['drops_aspirated'],
+        ['only_geminated'],
+        ['foreign'],
     ]
     for args in args_list:
       self._make_mapping_group(*args)
@@ -87,7 +108,7 @@ class Deromanizer(i.Inventory):
       foreign: ParamArg = ty.UNSPECIFIED,
       anusvara_n: bool = False,
       nasal_assimilation: bool = True,
-    ) -> 'Deromanizer':
+  ) -> Deromanizer:
     """Deromanizer for Brahmic scripts.
 
     Args:
@@ -103,10 +124,10 @@ class Deromanizer(i.Inventory):
       drops_aspirated: Consonant + 'h' is unaspirated. eg. 'ph' -> 'p'
       no_aspirated: Consonant has no aspirated form. Consonant + 'h' is
         unaspirated followed by Brahmic 'h', eg. 'ph' -> 'ph'
-      only_geminated: Only geminated form will be used for the rewrite,
-        eg. Tamil 'tr' -> 'tr', 'trtr' -> 'ṟṟ'
-      foreign: A specific deromanization for a foreign character.
-        eg, 'f' -> 'f', which corresponds to 'फ़' in Deva and 'ஃப' in Taml.
+      only_geminated: Only geminated form will be used for the rewrite, eg.
+        Tamil 'tr' -> 'tr', 'trtr' -> 'ṟṟ'
+      foreign: A specific deromanization for a foreign character. Eg, 'f' ->
+        'f', which corresponds to 'फ़' in Deva and 'ஃப' in Taml.
       anusvara_n: Default anusvara is 'n'.
       nasal_assimilation: When true, if the default nasal is 'n', it is 'm'
         before labials 'b' and 'p'. If the default nasal is 'm', it is 'n'
@@ -120,9 +141,7 @@ class Deromanizer(i.Inventory):
     new.script = script
     new._set_schwa_deletion(schwa_deletion, schwa_deletion_wf)
     new._set_anusvara(anusvara_n, nasal_assimilation)
-    new._set_vowel_rules(
-        monophthong, always_long_vowel, diphthong
-    )
+    new._set_vowel_rules(monophthong, always_long_vowel, diphthong)
     new._set_consonant_rules(
         has_aspirated, drops_aspirated, no_aspirated, only_geminated, foreign
     )
@@ -130,12 +149,11 @@ class Deromanizer(i.Inventory):
     return new
 
   def _set_schwa_deletion(
-      self,
-      schwa_deletion: bool,
-      schwa_deletion_wf: bool,
+      self, schwa_deletion: bool, schwa_deletion_wf: bool
   ) -> None:
     self.schwa_deletion = schwa_deletion
-    if not schwa_deletion: return
+    if not schwa_deletion:
+      return
     # Consonant clusters
     # If romanization starts or ends with a consonant cluster, insert virama
     # between them to remove silent schwa.
@@ -145,7 +163,8 @@ class Deromanizer(i.Inventory):
 
   def _set_anusvara(self, anusvara_n: bool, nasal_assimilation: bool) -> None:
     if anusvara_n:
-      if nasal_assimilation: self.anusvara.add(self._rw_nasal_labial())
+      if nasal_assimilation:
+        self.anusvara.add(self._rw_nasal_labial())
       self.anusvara.add(self._rw_ans_n())
 
   def _add_to_groups(self, member_list: ParamArg, *groups) -> None:
@@ -169,7 +188,8 @@ class Deromanizer(i.Inventory):
     for member in members:
       for group in groups:
         p_list = group.get(member.priority, [])
-        if member not in p_list: p_list.append(member)
+        if member not in p_list:
+          p_list.append(member)
         group[member.priority] = p_list
 
   def _apply_by_priority(
@@ -177,7 +197,7 @@ class Deromanizer(i.Inventory):
       group: dict[int, list[derom.DeromMapping]],
       rule: fl.FstList,
       rewriter: Callable[..., Any],
-      *args
+      *args,
   ) -> None:
     """Fills in a rewrite template with members of a group.
 
@@ -188,9 +208,8 @@ class Deromanizer(i.Inventory):
       group: Dict labeled by priority.
       rule: The FstList containing rewrites, eg. cons_aspirated rule contains
         rewrites consructed with _rw_aspiration.
-      rewriter: The rewrite template that will applied to the mappings in
-        the group.
-        Eg. the _rw_aspiration: rewrite(mapping.rom_h, mapping.brh_asp)
+      rewriter: The rewrite template that will applied to the mappings in the
+        group. Eg. the _rw_aspiration: rewrite(mapping.rom_h, mapping.brh_asp)
         means that if the base romanization of the consonant is followed by 'h',
         it will be deromanized as the aspirated form of the consonant.
       *args: Additional arguments for the rewrite template, eg. for adding
@@ -214,7 +233,7 @@ class Deromanizer(i.Inventory):
       self,
       monophthong: ParamArg,
       always_long_vowel: ParamArg,
-      diphthong: ParamArg
+      diphthong: ParamArg,
   ) -> None:
     self._add_to_groups(monophthong, self.vowel, self.monophthong)
     self._add_to_groups(always_long_vowel, self.vowel, self.always_long_vowel)
@@ -245,8 +264,7 @@ class Deromanizer(i.Inventory):
     self._add_to_groups(no_aspirated, self.consonant, self.no_aspirated)
     self._add_to_groups(only_geminated, self.consonant, self.only_geminated)
     self._add_to_groups(foreign, self.consonant, self.foreign)
-    self._apply_by_priority(
-        self.foreign, self.cons_foreign, self._rw_foreign)
+    self._apply_by_priority(self.foreign, self.cons_foreign, self._rw_foreign)
     self._apply_by_priority(
         self.drops_aspirated, self.cons_drop_asp, self._rw_drop_aspiration
     )
@@ -256,16 +274,13 @@ class Deromanizer(i.Inventory):
     self._apply_by_priority(
         self.only_geminated, self.cons_gem_only, self._rw_gem_only
     )
-    self._apply_by_priority(
-        self.consonant, self.cons_base, self._rw_cons
-    )
+    self._apply_by_priority(self.consonant, self.cons_base, self._rw_cons)
 
   def rules(self, *rules) -> None:
     """Adds rules to the typ_ops rule list.
 
     Args:
       *rules: Rules for converting from Latin typ to Brahmic typ.
-
     """
     default_rules = (
         self.high_priority,
@@ -279,25 +294,19 @@ class Deromanizer(i.Inventory):
         self.diph_base,
         self.mono_base_long,
         self.mono_base,
-        self.cluster_vir
+        self.cluster_vir,
     )
     self.typ_ops.add(rules if rules else default_rules)
 
   def to_iso(self) -> pyn.Fst:
     """Composes end-to-end fst for latin to ISO deromanization."""
-    return fl.FstList(
-        self.ltn2typ,
-        self.typ_ops,
-        self._rw_typ2iso()
-    ).compose()
+    return fl.FstList(self.ltn2typ, self.typ_ops, self._rw_typ2iso()).compose()
 
   def to_brahmic(self) -> pyn.Fst:
     """Composes end-to-end fst for latin to Brahmic deromanization."""
     if self.script in gr.DEROM_SCRIPTS:
       return fl.FstList(
-          self.ltn2typ,
-          self.typ_ops,
-          self._rw_typ2brh()
+          self.ltn2typ, self.typ_ops, self._rw_typ2brh()
       ).compose()
     return self.to_iso()
 
@@ -317,24 +326,33 @@ class Deromanizer(i.Inventory):
         rw.insert(iso.A, iso.SCH_CONS),
         rw.delete(iso.A, following=pyn.union(iso.VOWEL_S, iso.VIR)),
         self.ind_to_sign,
-        c.print_glyph(gr.CHAR)
+        c.print_glyph(gr.CHAR),
     ).compose()
 
   def _rw_fields(
-      self, mapping_list: list[derom.DeromMapping],
-      old_field: str, new_field: str,
-      preceding: pyn.FstLike = '', following: pyn.FstLike = ''
+      self,
+      mapping_list: list[derom.DeromMapping],
+      old_field: str,
+      new_field: str,
+      preceding: pyn.FstLike = '',
+      following: pyn.FstLike = '',
   ) -> fl.FstList:
     """Template for rewriting mapping fields."""
-    if not mapping_list: return fl.FstList()
-    return fl.FstList(rw.rewrite_ls(
-        [(m.get(old_field), m.get(new_field)) for m in mapping_list],
-        preceding=preceding, following=following
-    ))
+    if not mapping_list:
+      return fl.FstList()
+    return fl.FstList(
+        rw.rewrite_ls(
+            [(m.get(old_field), m.get(new_field)) for m in mapping_list],
+            preceding=preceding,
+            following=following,
+        )
+    )
 
   def _rw_vowel(
-      self, mapping_list: list[derom.DeromMapping],
-      rom_l: bool = False, brh_l: bool = False
+      self,
+      mapping_list: list[derom.DeromMapping],
+      rom_l: bool = False,
+      brh_l: bool = False,
   ) -> fl.FstList:
     """Template for rewriting vowel signs and independent letters."""
     old = 'rom_l' if rom_l else 'rom'
@@ -364,9 +382,12 @@ class Deromanizer(i.Inventory):
     )
 
   def _rw_cons(
-      self, mapping_list: list[derom.DeromMapping],
-      old: str = 'rom', new: str = 'brh',
-      single: bool = True, geminated: bool = True
+      self,
+      mapping_list: list[derom.DeromMapping],
+      old: str = 'rom',
+      new: str = 'brh',
+      single: bool = True,
+      geminated: bool = True,
   ) -> fl.FstList:
     """Template for rewriting consonants.
 
@@ -379,14 +400,15 @@ class Deromanizer(i.Inventory):
 
     Returns:
       FstList
-
     """
     old_l = old + '_l'
     new_l = new + '_l'
     rewriter = self._rw_fields if self.schwa_deletion else self._rw_cons_vir
     rw_list = fl.FstList()
-    if geminated: rw_list.add(rewriter(mapping_list, old_l, new_l))
-    if single: rw_list.add(rewriter(mapping_list, old, new))
+    if geminated:
+      rw_list.add(rewriter(mapping_list, old_l, new_l))
+    if single:
+      rw_list.add(rewriter(mapping_list, old, new))
     return rw_list
 
   # Shortcuts for specific cases of consonant rewrites.
@@ -395,24 +417,24 @@ class Deromanizer(i.Inventory):
     return self._rw_cons(mapping_list, single=False)
 
   def _rw_aspiration(
-      self, mapping_list: list[derom.DeromMapping],
-      single: bool = True, geminated: bool = True
+      self,
+      mapping_list: list[derom.DeromMapping],
+      single: bool = True,
+      geminated: bool = True,
   ) -> fl.FstList:
     rw_list = fl.FstList()
     if self.schwa_deletion and geminated:
       rw_list.add(self._rw_fields(mapping_list, 'rom_l_h', 'brh_l_asp'))
-    return rw_list.add(self._rw_cons(
-        mapping_list, 'rom_h', 'brh_asp', single, geminated
-    ))
+    return rw_list.add(
+        self._rw_cons(mapping_list, 'rom_h', 'brh_asp', single, geminated)
+    )
 
   def _rw_drop_aspiration(
       self, mapping_list: list[derom.DeromMapping]
   ) -> fl.FstList:
     return self._rw_cons(mapping_list, 'rom_h')
 
-  def _rw_foreign(
-      self, mapping_list: list[derom.DeromMapping],
-  ) -> fl.FstList:
+  def _rw_foreign(self, mapping_list: list[derom.DeromMapping]) -> fl.FstList:
     return self._rw_cons(mapping_list, new='frg')
 
   # Consonant cluster rewrites for language/scripts with schwa deletion.
@@ -423,7 +445,7 @@ class Deromanizer(i.Inventory):
   def _rw_cluster_wf(self) -> fl.FstList:
     return fl.FstList(
         rw.rewrite_word_final(iso.A, iso.AA),
-        rw.insert(iso.VIR, iso.SCH_CONS, iso.ONSET_CONS + al.EOW)
+        rw.insert(iso.VIR, iso.SCH_CONS, iso.ONSET_CONS + al.EOW),
     )
 
   # Nasal assimilation rewrites.
@@ -433,6 +455,8 @@ class Deromanizer(i.Inventory):
 
   def _rw_ans_n(self) -> pyn.Fst:
     return rw.rewrite(
-        ltn.N, iso.ANS,
-        ltn.VOWEL, pyn.union((ltn.CONS - (ltn.N | ltn.M)), al.EOW)
+        ltn.N,
+        iso.ANS,
+        ltn.VOWEL,
+        pyn.union((ltn.CONS - (ltn.N | ltn.M)), al.EOW),
     )

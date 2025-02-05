@@ -158,7 +158,6 @@ py_library(
     srcs = ["feature.py"],
     deps = [
         ":inventory",
-        ":log_op",
         ":type_op",
         requirement("tabulate"),
     ],
@@ -203,7 +202,6 @@ py_library(
     name = "expression",
     srcs = ["expression.py"],
     deps = [
-        ":feature",
         ":inventory",
         ":log_op",
         ":operation",

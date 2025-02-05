@@ -32,7 +32,8 @@ For another feature, the default can be `[<feature>, bottom]` or `[<feature>, mi
 
 ## Phon
 
-Phonemes and standalone features are represented as `Phon` objects with following attributes:
+Phonemes and standalone features are represented as `Phon` objects with
+following attributes:
 
 **alias:** A string that will be used to refer to the phoneme in grammars. For example, if the alias of a character is 'A', in the grammar file this Phon can be referred to as `ph.A`.
 
@@ -61,7 +62,7 @@ Phon        | a            | u            | au
 
 ## Multilingual phoneme inventory
 
-The [`phoneme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/phonology/phoneme_inventory.py) library contains a multilingual `Phon` inventory. The complete list of `Phon`s can be found [here](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/phonology/doc/phon_table.md) along with [IPA](https://www.internationalphoneticassociation.org/content/ipa-chart) mapping. The IPA symbols in this table are meant to be descriptive rather than definitive. Since related `Phon`s are derived from each other, the IPA strings are created dynamically during the derivation process. As a result, some phonemes with dedicated IPA symbols are represented as a symbol and diacritic instead. For example, the voiced bilabial implosive is represented as `bʼ` rather than the dedicated IPA symbol `ɓ`.
+The [`phoneme_inventory`](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/phonology/phoneme_inventory.py) library contains a multilingual `Phon` inventory. The complete list of `Phon`s can be found in the [phone table](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/phonology/docs/phon_table.md) along with [IPA](https://www.internationalphoneticassociation.org/content/ipa-chart) mapping. The IPA symbols in this table are meant to be descriptive rather than definitive. Since related `Phon`s are derived from each other, the IPA strings are created dynamically during the derivation process. As a result, some phonemes with dedicated IPA symbols are represented as a symbol and diacritic instead. For example, the voiced bilabial implosive is represented as `bʼ` rather than the dedicated IPA symbol `ɓ`.
 
 Language specific phoneme inventories can be built by importing phonemes from the multilingual inventory. For example, [brahmic/phoneme inventory](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/brahmic/phoneme_inventory.py) contains the phonemes covering the unified South Asian phoneme inventory presented in [Demirsahin et al. (2018)](https://research.google/pubs/pub47341/).
 

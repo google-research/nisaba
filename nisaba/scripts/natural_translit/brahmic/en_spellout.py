@@ -14,19 +14,17 @@
 
 """English spellout deromanization."""
 
-import enum
 import itertools
+
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
-class TempStrEnum(str, enum.Enum):
-  """TODO: Replace with enum.StrEnum when tests use Python 3.11+."""
-
-
-class Language(TempStrEnum):
+# TODO(): Add Language to PhonologicalSymbol descriptive features and
+# use it instead of this enum.
+class Language(ty.TempStrEnum):
   """List of languages."""
 
   BN = 'bn'
@@ -44,7 +42,8 @@ class Language(TempStrEnum):
   UR = 'ur'
 
 
-class Script(TempStrEnum):
+# TODO: Use Script from grapheme.py instead of this enum.
+class Script(ty.TempStrEnum):
   """List of scripts."""
 
   BENG = 'beng'
@@ -96,7 +95,7 @@ class _EnLetterSpellOut(i.Inventory):
     self.te_telu = te_telu
     self.ur_arab = ur_arab
 
-  class Separator(TempStrEnum):
+  class Separator(ty.TempStrEnum):
     SPACE = ' '
     ZWNJ = '‌'  # U+200C
 

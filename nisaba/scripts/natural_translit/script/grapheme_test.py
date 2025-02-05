@@ -156,15 +156,15 @@ class GraphemeTest(test_op.TestCase):
   def test_grapheme_description(self):
     self.assertEqual(
         _TEST_INVENTORY.a.description(),
-        'alias: a  raw: a  name: LATIN SMALL LETTER A U+61',
+        'alias: a\traw: a\tname: LATIN SMALL LETTER A U+61',
     )
     self.assertEqual(
         _TEST_INVENTORY.nasal.description(),
-        'alias: nasal  text: ~  name: nasal',
+        'alias: nasal\ttext: ~\tname: nasal',
     )
     self.assertEqual(
         _TEST_INVENTORY.ch_1.description(),
-        'alias: ch_1  text: ch_1  name: ch_1',
+        'alias: ch_1\ttext: ch_1\tname: ch_1',
     )
 
   def test_import_graphemes(self):

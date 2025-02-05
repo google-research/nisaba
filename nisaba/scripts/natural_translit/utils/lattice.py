@@ -135,8 +135,8 @@ class Lattice(ty.Thing):
 
   def _new_node(self, x: int, y: int, populate: bool = False) -> Node:
     """Makes a new node at the given coordinates."""
-    alias = '%s_node_%d_%d' % (self.alias, x, y)
-    text = '%s(%d,%d)' % (self.text, x, y)
+    alias = f'{self.alias}_node_{x}_{y}'
+    text = f'{self.text}({x},{y})'
     node = Node(alias, text, x, y, self.fst)
     if populate:
       node.state = self.fst.add_state()

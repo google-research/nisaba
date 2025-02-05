@@ -281,7 +281,7 @@ class FeatureTest(test_op.TestCase):
   def test_linear(self):
     self.AssertStrEqual(
         _R.warmth,
-        'aspect: warmth, max_dist: 3.00\n\n'
+        'aspect: warmth\nmax_dist: 3.00\n\n'
         '| distances   |   very_cold |   cold |   chilly |   tepid |   warm |'
         '   hot |   very_hot |\n'
         '|-------------|-------------|--------|----------|---------|--------|'
@@ -305,7 +305,7 @@ class FeatureTest(test_op.TestCase):
   def test_equidistant_different(self):
     self.AssertStrEqual(
         _R.function,
-        'aspect: function, max_dist: 1.00\n\n'
+        'aspect: function\nmax_dist: 1.00\n\n'
         '| distances   |   bedroom |   living_room |   office |\n'
         '|-------------|-----------|---------------|----------|\n'
         '| bedroom     |         0 |             1 |        1 |\n'
@@ -316,7 +316,7 @@ class FeatureTest(test_op.TestCase):
   def test_cyclic(self):
     self.AssertStrEqual(
         _R.color,
-        'aspect: color, max_dist: 1.50\n\n'
+        'aspect: color\nmax_dist: 1.50\n\n'
         '| distances   |   red |   orange |   yellow |   green |   blue |'
         '   purple |\n'
         '|-------------|-------|----------|----------|---------|--------|'
@@ -338,7 +338,7 @@ class FeatureTest(test_op.TestCase):
   def test_nested_linear_eq(self):
     self.AssertStrEqual(
         _R.door,
-        'aspect: door, max_dist: 1.50\n\n'
+        'aspect: door\nmax_dist: 1.50\n\n'
         '| distances   |   open |   ajar |   closed |   shut |   locked |\n'
         '|-------------|--------|--------|----------|--------|----------|\n'
         '| open        |    0   |    0.5 |      1   |    1   |      1.5 |\n'

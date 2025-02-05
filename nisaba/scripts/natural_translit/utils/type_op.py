@@ -20,12 +20,20 @@ Avoids equating NoneTypes in comparisons. For example if a.features = None and
 b.features = None, a and b won't be evaluated as having the same features.
 """
 
+from __future__ import annotations
+
+import enum
 from typing import Any, Iterable, Type, TypeVar, Union
+
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import log_op as log
 
 # Custom types
 T = TypeVar('T')
+
+
+class TempStrEnum(str, enum.Enum):
+  """TODO: Replace with enum.StrEnum when tests use Python 3.11+."""
 
 
 class _ObjectWithAliasAndValue:
@@ -35,7 +43,7 @@ class _ObjectWithAliasAndValue:
 
   def __init__(self, alias: str):
     self.alias = self._set_alias(alias)
-    self.text = '%s_%s' % (log.class_of(self), self.alias)
+    self.text = f'{log.class_of(self)}_{self.alias}'
     self.value = self
 
   def _set_alias(self, alias: str) -> str:
@@ -43,7 +51,7 @@ class _ObjectWithAliasAndValue:
     if alias:
       return alias
     return log.dbg_return(
-        '%s_%d' % (log.class_of(self), hash(self)),
+        f'{log.class_of(self)}_{hash(self)}',
         'empty alias is not allowed',
     )
 
@@ -209,7 +217,6 @@ class IterableThing(Thing):
   `'5' in iterable2` returns `False`: Invalid type, also strings are never
     flattened.
   `MISSING in iterable2` returns `False`.
-
   """
 
   def __init__(
@@ -234,7 +241,7 @@ class IterableThing(Thing):
         and type(self) is not type(item)
     ) or (self._item_type is not Any and isinstance(item, self._item_type))
 
-  def add(self, *items: ...) -> 'IterableThing':
+  def add(self, *items: ...) -> IterableThing:
     for item in items:
       if self.valid_item(item):
         self._items.append(item)
@@ -286,10 +293,7 @@ def str_of_fstlike(fstlike: pyn.FstLike) -> str:
   return fstlike
 
 
-def is_equal(
-    obj1: ...,
-    obj2: ...,
-) -> bool:
+def is_equal(obj1: ..., obj2: ...) -> bool:
   """Checks equivalence.
 
   Thing instances are equal if their values are equal. Nothing constants are

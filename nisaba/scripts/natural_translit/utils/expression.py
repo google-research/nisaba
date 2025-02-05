@@ -14,8 +14,11 @@
 
 """Interfaces for generating fsts from objects."""
 
+from __future__ import annotations
+
 import itertools
 from typing import Union
+
 from nisaba.scripts.natural_translit.utils import inventory
 from nisaba.scripts.natural_translit.utils import log_op as log
 from nisaba.scripts.natural_translit.utils import operation as op
@@ -76,7 +79,7 @@ class Expression(ty.IterableThing, sym.Item):
       self.add(*item)
     elif isinstance(item, sym.Symbol):
       if item.is_control():
-        log.dbg_message('Skipping control symbol %s.' % str(item.symbol))
+        log.dbg_message(f'Skipping control symbol {item.symbol}.')
       else:
         self._items.append(Atomic.get_instance(item))
     elif len(item) == 1:
@@ -84,12 +87,12 @@ class Expression(ty.IterableThing, sym.Item):
     else:
       self._items.append(item.copy())
 
-  def add(self, *items: ...) -> 'Expression':
+  def add(self, *items: ...) -> Expression:
     """Default method for type consistency and debugging."""
-    log.dbg_message('Cannot add items to %s.' % log.class_and_alias(self))
+    log.dbg_message(f'Cannot add items to {log.class_and_alias(self)}.')
     return self
 
-  def item_list(self) -> list['Expression']:
+  def item_list(self) -> list[Expression]:
     return [item for item in self]
 
   def state_count(self) -> int:
@@ -110,25 +113,25 @@ class Expression(ty.IterableThing, sym.Item):
   def is_nor(self) -> bool:
     return isinstance(self, sym.Symbol) and self.symbol.is_nor()
 
-  def copy(self) -> 'Expression':
+  def copy(self) -> Expression:
     if self == Expression.ANY:
       return self
     return Expression(self.alias)
 
-  def __add__(self, other: 'Expression') -> 'Cat':
+  def __add__(self, other: Expression) -> Cat:
     return Cat(self, other)
 
-  def __or__(self, other: 'Expression') -> 'Or':
+  def __or__(self, other: Expression) -> Or:
     return Or(self, other)
 
-  def __rshift__(self, other: 'Expression') -> 'Alignment':
+  def __rshift__(self, other: Expression) -> Alignment:
     return Alignment.simple(self, other)
 
-  def repeat(self, n: int = 2) -> 'Cat':
+  def repeat(self, n: int = 2) -> Cat:
     """Returns a Cat of n repetitions of this expression."""
     return Cat(*([self] * n))
 
-  def ques(self, preferred: bool = False) -> 'Or':
+  def ques(self, preferred: bool = False) -> Or:
     """Returns an Or of this expression and empty Cat."""
     return Or(self, Cat()) if preferred else Or(Cat(), self)
 
@@ -155,7 +158,7 @@ class Atomic(Expression, sym.Symbol):
     self.features = symbol.features.copy()
 
   @classmethod
-  def get_instance(cls, symbol: sym.Symbol) -> 'Atomic':
+  def get_instance(cls, symbol: sym.Symbol) -> Atomic:
     """Reads a Symbol into an Atomic while matching corresponding constants.
 
     Args:
@@ -172,7 +175,7 @@ class Atomic(Expression, sym.Symbol):
       return symbol
     return Atomic(symbol)
 
-  def copy(self) -> 'Atomic':
+  def copy(self) -> Atomic:
     return Atomic.get_instance(self)
 
   def is_control(self) -> bool:
@@ -204,7 +207,7 @@ class Cat(Expression):
       return str(sym.Symbol.CTRL.eps)
     return self._str_enclosed()
 
-  def add(self, *items: sym.Item) -> 'Cat':
+  def add(self, *items: sym.Item) -> Cat:
     for item in items:
       if item.is_any():
         self._items.append(item)
@@ -238,7 +241,7 @@ class Cat(Expression):
         ]
     return self_symbols
 
-  def copy(self) -> 'Cat':
+  def copy(self) -> Cat:
     return Cat(*self.item_list(), alias=self.alias)
 
 
@@ -269,7 +272,7 @@ class Or(Expression):
     self._items = []
     self.add(*items)
 
-  def add(self, *items: sym.Item) -> 'Or':
+  def add(self, *items: sym.Item) -> Or:
     """Adds items to Or.
 
     Or shouldn't have recurring symbol lists.
@@ -312,7 +315,7 @@ class Or(Expression):
         self._add_item(item)
     return self
 
-  def copy(self) -> 'Or':
+  def copy(self) -> Or:
     return Or(*self.item_list(), alias=self.alias)
 
   def symbols(self) -> list[list[sym.Symbol]]:
@@ -357,7 +360,9 @@ class _BaseAlignment(Expression):
     return side.item(0).text
 
   def _aligned_str(self) -> str:
-    return '%s∶%s' % (self._side_str(self.left), self._side_str(self.right))
+    """Returns strings of sides separated by ratio symbol (u2236)."""
+
+    return f'{self._side_str(self.left)}∶{self._side_str(self.right)}'
 
   def enclosed_str(
       self,
@@ -382,36 +387,26 @@ class _BaseAlignment(Expression):
   def is_nor(self) -> bool:
     return self.left.is_nor() and self.right.is_nor()
 
-  def _compare(
-      self, other: sym.Item, checker_name: str, *args
-  ) -> bool:
+  def _compare(self, other: sym.Item, checker_name: str, *args) -> bool:
     if not isinstance(other, _BaseAlignment):
       return False
     left = getattr(self.left, checker_name)
     right = getattr(self.right, checker_name)
     return left(other.left, *args) and right(other.right, *args)
 
-  def accepts(
-      self, other: sym.Item, equivalent: bool = False
-  ) -> bool:
+  def accepts(self, other: sym.Item, equivalent: bool = False) -> bool:
     return self._compare(other, 'accepts', equivalent)
 
   def is_equivalent(self, other: sym.Item) -> bool:
     return self._compare(other, 'is_equivalent')
 
   def contains(
-      self,
-      other: sym.Item,
-      match_head: bool = False,
-      match_tail: bool = False,
+      self, other: sym.Item, match_head: bool = False, match_tail: bool = False
   ) -> bool:
     return self._compare(other, 'contains', match_head, match_tail)
 
   def is_contained(
-      self,
-      other: sym.Item,
-      match_head: bool = False,
-      match_tail: bool = False,
+      self, other: sym.Item, match_head: bool = False, match_tail: bool = False
   ) -> bool:
     return self._compare(other, 'is_contained', match_head, match_tail)
 
@@ -432,6 +427,21 @@ class _BaseAlignment(Expression):
 
 
 _BASE_ANY = _BaseAlignment(Expression.ANY, Expression.ANY)
+
+
+# TODO: Convert source constants to Feature and source attribute to
+# Feature.Set in order to allow multiple sources. Eg. {geo, lexicon, native}
+class AlignmentSource(ty.TempStrEnum):
+  """List of alignment sources."""
+
+  ALIGNER = 'aligner'
+  CONSTANT = 'constant'
+  ENGLISH = 'english'
+  FOREIGN = 'foreign'
+  LEXICON = 'lexicon'
+  NATIVE = 'native'
+  SPELLOUT = 'spellout'
+  UNSPECIFIED_SOURCE = 'unspecified_source'
 
 
 class Alignment(_BaseAlignment):
@@ -468,15 +478,6 @@ class Alignment(_BaseAlignment):
     UNSPECIFIED_SOURCE = Alignments from an unspecified source.
   """
 
-  ALIGNER = 'aligner'
-  CONSTANT = 'constant'
-  ENGLISH = 'english'
-  FOREIGN = 'foreign'
-  LEXICON = 'lexicon'
-  NATIVE = 'native'
-  SPELLOUT = 'spellout'
-  UNSPECIFIED_SOURCE = 'unspecified_source'
-
   def __init__(
       self,
       alias: str = '',
@@ -491,7 +492,7 @@ class Alignment(_BaseAlignment):
       operation: op.Operation = op.Operation.COMMON.unassigned,
       priority: int = 0,
       applied_cost: Union[float, ty.Nothing] = ty.UNSPECIFIED,
-      source: str = 'Alignment.UNSPECIFIED_SOURCE',
+      source: str = AlignmentSource.UNSPECIFIED_SOURCE,
   ):
     super().__init__(left, right, alias)
     # TODO(): Expand context to allow Cat and Or of alignments.
@@ -543,7 +544,7 @@ class Alignment(_BaseAlignment):
       at 0 cost when it's preceded by a grapheme that is aligned with a nasal
       and followed by a grapheme that is aligned with a vowel.
     """
-    op_str = ', %s' % str(self.operation) if self.is_assigned() else ''
+    op_str = f', {self.operation}' if self.is_assigned() else ''
     return self.enclosed_str(
         prefix=self._pre_str(),
         suffix=self._fol_str() + op_str,
@@ -560,10 +561,8 @@ class Alignment(_BaseAlignment):
 
   @classmethod
   def simple(
-      cls,
-      left: sym.Item = Expression.ANY,
-      right: sym.Item = Expression.ANY,
-  ) -> 'Alignment':
+      cls, left: sym.Item = Expression.ANY, right: sym.Item = Expression.ANY
+  ) -> Alignment:
     """An unassigned alignment with no context."""
     simple = cls(left=left, right=right)
     simple.preceding = Alignment.ANY
@@ -574,16 +573,16 @@ class Alignment(_BaseAlignment):
   def rule(
       cls,
       alias: str,
-      alignment: 'Alignment',
-      preceding: 'Alignment' = _BASE_ANY,
-      following: 'Alignment' = _BASE_ANY,
+      alignment: Alignment,
+      preceding: Alignment = _BASE_ANY,
+      following: Alignment = _BASE_ANY,
       from_bos: bool = False,
       to_eos: bool = False,
       operation: op.Operation = op.Operation.COMMON.alignable,
       priority: int = 0,
       applied_cost: Union[float, ty.Nothing] = ty.UNSPECIFIED,
-      source: str = 'Alignment.NATIVE',
-  ) -> 'Alignment':
+      source: str = AlignmentSource.NATIVE,
+  ) -> Alignment:
     rule = cls(
         alias,
         alignment.left,
@@ -610,15 +609,15 @@ class Alignment(_BaseAlignment):
       cls,
       alias: str,
       left: sym.Item,
-      preceding: 'Alignment' = _BASE_ANY,
-      following: 'Alignment' = _BASE_ANY,
+      preceding: Alignment = _BASE_ANY,
+      following: Alignment = _BASE_ANY,
       from_bos: bool = False,
       to_eos: bool = False,
       operation: op.Operation = op.Operation.COMMON.deletion,
       priority: int = 0,
       applied_cost: Union[int, float, ty.Nothing] = ty.UNSPECIFIED,
-      source: str = 'Alignment.NATIVE',
-  ) -> 'Alignment':
+      source: str = AlignmentSource.NATIVE,
+  ) -> Alignment:
     return cls.rule(
         alias,
         left >> Atomic.CTRL.eps,
@@ -637,15 +636,15 @@ class Alignment(_BaseAlignment):
       cls,
       alias: str,
       right: sym.Item,
-      preceding: 'Alignment' = _BASE_ANY,
-      following: 'Alignment' = _BASE_ANY,
+      preceding: Alignment = _BASE_ANY,
+      following: Alignment = _BASE_ANY,
       from_bos: bool = False,
       to_eos: bool = False,
       operation: op.Operation = op.Operation.COMMON.insertion,
       priority: int = 0,
       applied_cost: Union[int, float, ty.Nothing] = ty.UNSPECIFIED,
-      source: str = 'Alignment.NATIVE',
-  ) -> 'Alignment':
+      source: str = AlignmentSource.NATIVE,
+  ) -> Alignment:
     return cls.rule(
         alias,
         Atomic.CTRL.eps >> right,
@@ -663,16 +662,16 @@ class Alignment(_BaseAlignment):
   def interchangeable(
       cls,
       alias: str,
-      alignment: 'Alignment',
-      preceding: 'Alignment' = _BASE_ANY,
-      following: 'Alignment' = _BASE_ANY,
+      alignment: Alignment,
+      preceding: Alignment = _BASE_ANY,
+      following: Alignment = _BASE_ANY,
       from_bos: bool = False,
       to_eos: bool = False,
       operation: op.Operation = op.Operation.COMMON.interchangeable,
       priority: int = 0,
       applied_cost: Union[int, float, ty.Nothing] = ty.UNSPECIFIED,
-      source: str = 'Alignment.NATIVE',
-  ) -> tuple['Alignment', 'Alignment']:
+      source: str = AlignmentSource.NATIVE,
+  ) -> tuple[Alignment, Alignment]:
     common = (
         preceding,
         following,
@@ -691,8 +690,8 @@ class Alignment(_BaseAlignment):
     )
     return left_to_right, right_to_left
 
-  def copy(self) -> 'Alignment':
-    if self.source == Alignment.CONSTANT:
+  def copy(self) -> Alignment:
+    if self.source == AlignmentSource.CONSTANT:
       return self
     return Alignment.rule(
         self.alias,
@@ -733,7 +732,7 @@ def _constants() -> tuple[Alignment, Alignment, Alignment]:
       operation=op.Operation.COMMON.error,
   )
   for alg in [any_alg, eps, nor]:
-    alg.source = Alignment.CONSTANT
+    alg.source = AlignmentSource.CONSTANT
     alg.preceding = any_alg
     alg.following = any_alg
   return any_alg, eps, nor

@@ -13,10 +13,13 @@
 # limitations under the License.
 
 """Grapheme class and related functions."""
+
 from __future__ import annotations
 
 import unicodedata
+
 import pycountry
+
 from nisaba.scripts.natural_translit.phonology import phonological_symbol as ps
 from nisaba.scripts.natural_translit.utils import feature as ft
 from nisaba.scripts.natural_translit.utils import inventory as i
@@ -49,7 +52,7 @@ class Script(ft.Feature):
     return f'alias: {self.alias} text: {self.text} numeric: {self.numeric}'
 
   @classmethod
-  def from_iso(cls, iso_code: str) -> 'Script':
+  def from_iso(cls, iso_code: str) -> Script:
     script = pycountry.scripts.get(alpha_4=iso_code)
     return cls(script.alpha_4.lower(), script.name, script.numeric)
 
@@ -141,15 +144,11 @@ class Grapheme(ps.PhonologicalSymbol):
 
   def description(self, show_features: bool = False) -> str:
     """A string that describes the Grapheme."""
-    text = 'alias: ' + self.alias
-    if self.raw:
-      text += '  raw: ' + self.raw
-    else:
-      text += '  text: ' + self.text
-    text += '  name: ' + self.name
+    text = f'raw: {self.raw}' if self.raw else f'text: {self.text}'
+    description = f'alias: {self.alias}\t{text}\tname: {self.name}'
     if show_features:
-      text += f'\n  {str(self.features)}'
-    return text
+      description += f'\n  {self.features}'
+    return description
 
   def copy(
       self,

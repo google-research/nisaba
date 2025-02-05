@@ -14,7 +14,10 @@
 
 """Operations."""
 
+from __future__ import annotations
+
 import enum
+
 from nisaba.scripts.natural_translit.utils import inventory
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
@@ -98,7 +101,7 @@ class Operation(ty.Thing):
     self.unexpected = self
 
   def __str__(self):
-    return '%s (%.3f)' % (self.text, self.base_cost)
+    return f'{self.text} ({self.base_cost:.3f})'
 
   def is_assigned(self) -> bool:
     return not (
@@ -108,7 +111,7 @@ class Operation(ty.Thing):
   def is_free(self) -> bool:
     return self.base_cost == 0
 
-  def is_cheaper_than(self, operation: 'Operation') -> bool:
+  def is_cheaper_than(self, operation: Operation) -> bool:
     return self.base_cost < operation.base_cost
 
   class Inventory(inventory.Inventory):
@@ -121,13 +124,13 @@ class Operation(ty.Thing):
         operations in an aligner output.
     """
 
-    def __init__(self, alias: str, *operations: 'Operation'):
+    def __init__(self, alias: str, *operations: Operation):
       super().__init__(alias, Operation)
       self.prefix = 0
       self._index_dict = {}
       self.add_operations(*operations)
 
-    def index_lookup(self, index: int) -> 'Operation':
+    def index_lookup(self, index: int) -> Operation:
       return self._index_dict.get(index, Operation.COMMON.error)
 
     def _next_index(self) -> int:
@@ -147,7 +150,7 @@ class Operation(ty.Thing):
       index = max(self._index_dict.keys()) + 1
       return index if index % 10 else index + 1
 
-    def _make_operation(self, alias: str, cost: float) -> 'Operation':
+    def _make_operation(self, alias: str, cost: float) -> Operation:
       operation = Operation(alias, cost)
       operation.inventory = self
       operation.index = self._next_index()
@@ -159,9 +162,9 @@ class Operation(ty.Thing):
     def from_args(
         cls,
         alias: str,
-        prefix: 'Operation.ReservedIndex',
-        *args: tuple[str, float]
-    ) -> 'Operation.Inventory':
+        prefix: Operation.ReservedIndex,
+        *args: tuple[str, float],
+    ) -> Operation.Inventory:
       op_inventory = cls(alias)
       op_inventory.prefix = prefix
       for alias, cost in args:
@@ -188,7 +191,7 @@ class Operation(ty.Thing):
         unexpected_partial.match = match
       return op_inventory
 
-    def add_operations(self, *operations: 'Operation') -> None:
+    def add_operations(self, *operations: Operation) -> None:
       for operation in operations:
         self.add_item(operation)
 
