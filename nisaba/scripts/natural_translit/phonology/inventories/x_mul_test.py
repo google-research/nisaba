@@ -19,5 +19,6 @@ from nisaba.scripts.natural_translit.utils import test_op
 
 class InventoriesTest(test_op.TestCase):
 
+
 if __name__ == '__main__':
   absltest.main()

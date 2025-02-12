@@ -51,5 +51,6 @@ class LatnTest(test_op.TestCase):
     self.assertIn(_EN.y, _EN.vowel)
     self.AssertStrEqual(_EN.a.descriptives(), _EN.a_upper.descriptives())
 
+
 if __name__ == '__main__':
   absltest.main()

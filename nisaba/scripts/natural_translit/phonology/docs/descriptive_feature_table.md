@@ -4,6 +4,8 @@ Distance tables for [descriptive phonological features](https://github.com/googl
 
 [TOC]
 
+<!-- AUTO-GENERATED INVENTORY STRING STARTS HERE -->
+
 ## Inventory: Descriptive phonological features
 
 ### aspect: ph_class

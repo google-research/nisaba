@@ -556,7 +556,9 @@ class Symbol(Item):
     def description(
         self, show_features: bool = True, show_control: bool = False
     ) -> str:
-      text = f'## Inventory: {self.alias}\n\n'
+      """String representation of all symbols in the inventory."""
+      # Do not remove the header line.
+      text = f'{self.header()}\n\n'
       for i in sorted(self.index_dict):
         sym = self.index_lookup(i)
         if not show_control and sym in self.CTRL:

@@ -660,9 +660,8 @@ class Feature(ty.Thing):
 
     def __str__(self):
       """String representation of all aspects in the inventory."""
-      return f'## Inventory: {self.text}\n\n' + '\n'.join(
-          f'### {a}' for a in self
-      )
+      # Do not remove the header line.
+      return f'{self.header()}\n\n' + '\n'.join(f'### {a}' for a in self)
 
     def aspect_dict(
         self, *features: Feature.ITERABLE

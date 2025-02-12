@@ -5,6 +5,8 @@ descriptive phonological features are set from rows and columns of IPA charts.
 
 [TOC]
 
+<!-- AUTO-GENERATED INVENTORY STRING STARTS HERE -->
+
 ## Inventory: latn
 
 ### alias: a_upper	raw: A	name: LATIN CAPITAL LETTER A U+41

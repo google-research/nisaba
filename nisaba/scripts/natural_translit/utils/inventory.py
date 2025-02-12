@@ -74,6 +74,10 @@ class Inventory(ty.IterableThing):
     self.__dict__[alias] = value
     return True
 
+  def header(self) -> str:
+    """Returns the header line for the inventory documentation."""
+    return '## Inventory: ' + self.text
+
   def add(self, *args) -> Inventory:
     log.dbg_message('Use add_item or add_suppl for Inventories.')
     return self

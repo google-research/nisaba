@@ -4,6 +4,8 @@ Feature tables for the phonological symbols in multilingual 'x_mul' inventory.
 
 [TOC]
 
+<!-- AUTO-GENERATED INVENTORY STRING STARTS HERE -->
+
 ## Inventory: x_mul
 
 ### alias: a	ipa: a	name: open front unrounded vowel

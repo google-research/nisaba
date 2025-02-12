@@ -6,6 +6,8 @@ correspondences.
 
 [TOC]
 
+<!-- AUTO-GENERATED INVENTORY STRING STARTS HERE -->
+
 ## Inventory: en_latn
 
 ### alias: a_upper	raw: A	name: LATIN CAPITAL LETTER A U+41
