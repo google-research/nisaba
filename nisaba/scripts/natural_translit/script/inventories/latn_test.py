@@ -19,8 +19,8 @@ from nisaba.scripts.natural_translit.script.inventories import latn
 from nisaba.scripts.natural_translit.utils import test_op
 
 _G = g.Grapheme
-_EN = en.GRAPHEMES
-_LATN = latn.GRAPHEMES
+_EN = en.LATN
+_LATN = latn.LATN
 
 
 class LatnTest(test_op.TestCase):
@@ -29,7 +29,7 @@ class LatnTest(test_op.TestCase):
     self.assertEqual(_LATN.raw_lookup('a'), _LATN.a)
     self.AssertHasFeature(_LATN.a, _G.GR_FEATURES.script.latn)
     self.AssertHasFeature(_LATN.a, _G.GR_FEATURES.case.lower)
-    self.AssertHasFeature(_LATN.a, _G.PH_DESCRIPTIVE_FEATURES.ph_class.vowel)
+    self.AssertHasFeature(_LATN.a, _G.DESCRIPTIVE_FEATURES.ph_class.vowel)
     self.assertIn(_LATN.a, _LATN.vowel)
     self.assertIn(_LATN.a, _LATN.lower)
     self.AssertAccepts(_LATN.atomics.vowel, _LATN.a)

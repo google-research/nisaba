@@ -12,26 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Phonological symbol inventories."""
+"""Phonological feature inventories."""
 
 package(
     default_visibility = ["//visibility:public"],
 )
 
 py_library(
-    name = "x_mul",
-    srcs = ["x_mul.py"],
+    name = "descriptive",
+    srcs = ["descriptive.py"],
     deps = [
-        "//nisaba/scripts/natural_translit/phonology:phonological_symbol",
+        "//nisaba/scripts/natural_translit/utils:feature",
     ],
 )
 
 py_test(
-    name = "x_mul_test",
-    srcs = ["x_mul_test.py"],
-    main = "x_mul_test.py",
+    name = "descriptive_test",
+    srcs = ["descriptive_test.py"],
+    main = "descriptive_test.py",
     deps = [
-        ":x_mul",
+        ":descriptive",
+        "//nisaba/scripts/natural_translit/utils:inventory",
         "//nisaba/scripts/natural_translit/utils:test_op",
         "@io_abseil_py//absl/testing:absltest",
     ],

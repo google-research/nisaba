@@ -16,7 +16,7 @@
 
 from __future__ import annotations
 
-from nisaba.scripts.natural_translit.phonology import descriptive_features
+from nisaba.scripts.natural_translit.phonology.features import descriptive
 from nisaba.scripts.natural_translit.utils import expression as exp
 from nisaba.scripts.natural_translit.utils import feature as ft
 from nisaba.scripts.natural_translit.utils import inventory as i
@@ -27,7 +27,7 @@ from nisaba.scripts.natural_translit.utils import type_op as ty
 class PhonologicalSymbol(sym.Symbol):
   """Parent class for symbols with phonological features."""
 
-  PH_DESCRIPTIVE_FEATURES = descriptive_features.FEATURES
+  DESCRIPTIVE_FEATURES = descriptive.FEATURES
 
   def __init__(
       self,
@@ -40,11 +40,11 @@ class PhonologicalSymbol(sym.Symbol):
     super().__init__(alias, raw=raw, index=index, name=name)
     self.text = raw if raw else self.alias
     self.features.new_profile(
-        ft.Feature.Profile(self.PH_DESCRIPTIVE_FEATURES, 'new')
+        ft.Feature.Profile(self.DESCRIPTIVE_FEATURES, 'new')
     )
 
   def descriptives(self) -> ft.Feature.Profile:
-    return self.features.phonology_descriptive
+    return self.features.descriptive
 
   def update_descriptives(
       self, *features: ft.Feature.ITERABLE

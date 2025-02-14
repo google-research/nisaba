@@ -1,12 +1,12 @@
-# Descriptive feature table
+# Descriptive features distance tables
 
-Distance tables for [descriptive phonological features](https://github.com/google-research/nisaba/blob/main/nisaba/scripts/natural_translit/phonology/docs/descriptive_features.md).
+Distance tables for [descriptive phonological features](https://github.com/google-research/nisaba/blob/main/nisaba/scripts/natural_translit/phonology/features/README.md#descriptive-features).
 
 [TOC]
 
 <!-- AUTO-GENERATED INVENTORY STRING STARTS HERE -->
 
-## Inventory: Descriptive phonological features
+## Inventory: descriptive
 
 ### aspect: ph_class
 max_dist: 1.00

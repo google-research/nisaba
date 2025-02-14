@@ -19,7 +19,7 @@ from nisaba.scripts.natural_translit.utils import test_op
 
 def _test_inventory() -> po.Phon.Inventory:
   """Multilingual Phon inventory."""
-  phf = po.Phon.PH_DESCRIPTIVE_FEATURES
+  phf = po.Phon.DESCRIPTIVE_FEATURES
   ph_inv = po.Phon.Inventory()
   vowels = [
       ('a', 'a', 'open front unrounded vowel'),
@@ -63,32 +63,32 @@ class PhonologicalSymbolTest(test_op.TestCase):
         _TEST.a.description(show_features=True),
         'alias: a\tipa: a\tname: open front unrounded vowel\n'
         '  a features:\n\n'
-        '| aspects                   | values         |\n'
-        '|---------------------------|----------------|\n'
-        '| **sym_features**          |                |\n'
-        '| type                      | abstract       |\n'
-        '| **phonology_descriptive** |                |\n'
-        '| ph_class                  | vowel          |\n'
-        '| airstream                 | pulmonic       |\n'
-        '| manner                    | not_applicable |\n'
-        '| place                     | not_applicable |\n'
-        '| articulator               | not_applicable |\n'
-        '| height                    | open           |\n'
-        '| backness                  | front          |\n'
-        '| breathiness               | none           |\n'
-        '| voicing                   | voiced         |\n'
-        '| labialization             | unrounded      |\n'
-        '| lateralization            | not_applicable |\n'
-        '| nasalization              | none           |\n'
-        '| palatalization            | none           |\n'
-        '| rhoticization             | none           |\n'
-        '| duration                  | any            |\n'
-        '| syllabicity               | syllabic       |\n',
+        '| aspects          | values         |\n'
+        '|------------------|----------------|\n'
+        '| **sym_features** |                |\n'
+        '| type             | abstract       |\n'
+        '| **descriptive**  |                |\n'
+        '| ph_class         | vowel          |\n'
+        '| airstream        | pulmonic       |\n'
+        '| manner           | not_applicable |\n'
+        '| place            | not_applicable |\n'
+        '| articulator      | not_applicable |\n'
+        '| height           | open           |\n'
+        '| backness         | front          |\n'
+        '| breathiness      | none           |\n'
+        '| voicing          | voiced         |\n'
+        '| labialization    | unrounded      |\n'
+        '| lateralization   | not_applicable |\n'
+        '| nasalization     | none           |\n'
+        '| palatalization   | none           |\n'
+        '| rhoticization    | none           |\n'
+        '| duration         | any            |\n'
+        '| syllabicity      | syllabic       |\n',
     )
 
   def test_has_feature(self):
     self.AssertHasFeature(
-        _TEST.i, po.Phon.PH_DESCRIPTIVE_FEATURES.ph_class.vowel
+        _TEST.i, po.Phon.DESCRIPTIVE_FEATURES.ph_class.vowel
     )
 
   def test_phon_copy(self):
@@ -96,57 +96,57 @@ class PhonologicalSymbolTest(test_op.TestCase):
         _TEST.a.copy(alias='a_copy').description(show_features=True),
         'alias: a_copy\tipa: a\tname: open front unrounded vowel\n'
         '  a_copy features:\n\n'
-        '| aspects                   | values         |\n'
-        '|---------------------------|----------------|\n'
-        '| **sym_features**          |                |\n'
-        '| type                      | abstract       |\n'
-        '| **phonology_descriptive** |                |\n'
-        '| ph_class                  | vowel          |\n'
-        '| airstream                 | pulmonic       |\n'
-        '| manner                    | not_applicable |\n'
-        '| place                     | not_applicable |\n'
-        '| articulator               | not_applicable |\n'
-        '| height                    | open           |\n'
-        '| backness                  | front          |\n'
-        '| breathiness               | none           |\n'
-        '| voicing                   | voiced         |\n'
-        '| labialization             | unrounded      |\n'
-        '| lateralization            | not_applicable |\n'
-        '| nasalization              | none           |\n'
-        '| palatalization            | none           |\n'
-        '| rhoticization             | none           |\n'
-        '| duration                  | any            |\n'
-        '| syllabicity               | syllabic       |\n',
+        '| aspects          | values         |\n'
+        '|------------------|----------------|\n'
+        '| **sym_features** |                |\n'
+        '| type             | abstract       |\n'
+        '| **descriptive**  |                |\n'
+        '| ph_class         | vowel          |\n'
+        '| airstream        | pulmonic       |\n'
+        '| manner           | not_applicable |\n'
+        '| place            | not_applicable |\n'
+        '| articulator      | not_applicable |\n'
+        '| height           | open           |\n'
+        '| backness         | front          |\n'
+        '| breathiness      | none           |\n'
+        '| voicing          | voiced         |\n'
+        '| labialization    | unrounded      |\n'
+        '| lateralization   | not_applicable |\n'
+        '| nasalization     | none           |\n'
+        '| palatalization   | none           |\n'
+        '| rhoticization    | none           |\n'
+        '| duration         | any            |\n'
+        '| syllabicity      | syllabic       |\n',
     )
 
   def test_phon_update_descriptives(self):
     self.assertEqual(
         _TEST.e.copy(alias='ee', ipa='e̞')
-        .update_descriptives(po.Phon.PH_DESCRIPTIVE_FEATURES.height.mid)
+        .update_descriptives(po.Phon.DESCRIPTIVE_FEATURES.height.mid)
         .description(show_features=True),
         'alias: ee\tipa: e̞\tname: close_mid front unrounded vowel\n'
         '  ee features:\n\n'
-        '| aspects                   | values         |\n'
-        '|---------------------------|----------------|\n'
-        '| **sym_features**          |                |\n'
-        '| type                      | abstract       |\n'
-        '| **phonology_descriptive** |                |\n'
-        '| ph_class                  | vowel          |\n'
-        '| airstream                 | pulmonic       |\n'
-        '| manner                    | not_applicable |\n'
-        '| place                     | not_applicable |\n'
-        '| articulator               | not_applicable |\n'
-        '| height                    | mid            |\n'
-        '| backness                  | front          |\n'
-        '| breathiness               | none           |\n'
-        '| voicing                   | voiced         |\n'
-        '| labialization             | unrounded      |\n'
-        '| lateralization            | not_applicable |\n'
-        '| nasalization              | none           |\n'
-        '| palatalization            | none           |\n'
-        '| rhoticization             | none           |\n'
-        '| duration                  | any            |\n'
-        '| syllabicity               | syllabic       |\n',
+        '| aspects          | values         |\n'
+        '|------------------|----------------|\n'
+        '| **sym_features** |                |\n'
+        '| type             | abstract       |\n'
+        '| **descriptive**  |                |\n'
+        '| ph_class         | vowel          |\n'
+        '| airstream        | pulmonic       |\n'
+        '| manner           | not_applicable |\n'
+        '| place            | not_applicable |\n'
+        '| articulator      | not_applicable |\n'
+        '| height           | mid            |\n'
+        '| backness         | front          |\n'
+        '| breathiness      | none           |\n'
+        '| voicing          | voiced         |\n'
+        '| labialization    | unrounded      |\n'
+        '| lateralization   | not_applicable |\n'
+        '| nasalization     | none           |\n'
+        '| palatalization   | none           |\n'
+        '| rhoticization    | none           |\n'
+        '| duration         | any            |\n'
+        '| syllabicity      | syllabic       |\n',
     )
 
   def test_sync_atomics(self):

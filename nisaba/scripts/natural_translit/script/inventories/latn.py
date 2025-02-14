@@ -21,7 +21,7 @@ def _build_inventory() -> grapheme.Grapheme.Inventory:
   """Builds a grapheme inventory for basic Latin characters."""
   g = grapheme.Grapheme
   grf = g.GR_FEATURES
-  phf = g.PH_DESCRIPTIVE_FEATURES
+  phf = g.DESCRIPTIVE_FEATURES
   latn = g.Inventory(g.GR_FEATURES.script.latn)
   lowercase_vowels = ['a', 'e', 'i', 'o', 'u']
   latn.add_graphemes(
@@ -165,4 +165,4 @@ def _build_inventory() -> grapheme.Grapheme.Inventory:
   )
 
 
-GRAPHEMES = _build_inventory()
+LATN = _build_inventory()

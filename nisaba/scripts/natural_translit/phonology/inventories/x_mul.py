@@ -17,10 +17,10 @@
 from nisaba.scripts.natural_translit.phonology import phonological_symbol as po
 
 
-def _build_inventory() -> po.Phon.Inventory:
+def _phoneme_inventory() -> po.Phon.Inventory:
   """Multilingual Phon inventory."""
   p = po.Phon
-  phf = p.PH_DESCRIPTIVE_FEATURES
+  phf = p.DESCRIPTIVE_FEATURES
   ph = po.Phon.Inventory()
 
   # Vowels.
@@ -440,4 +440,4 @@ def _build_inventory() -> po.Phon.Inventory:
   return ph.sync_atomics()
 
 
-INVENTORY = _build_inventory()
+PHONEMES = _phoneme_inventory()

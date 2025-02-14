@@ -13,13 +13,13 @@
 # limitations under the License.
 
 from absl.testing import absltest
-from nisaba.scripts.natural_translit.phonology import descriptive_features
+from nisaba.scripts.natural_translit.phonology.features import descriptive
 from nisaba.scripts.natural_translit.utils import inventory
 from nisaba.scripts.natural_translit.utils import test_op
 
 
 def _profiles() -> inventory.Inventory:
-  f = descriptive_features.FEATURES
+  f = descriptive.FEATURES
   profiles = inventory.Inventory.from_list([
       f.consonant.copy('p').update(
           f.manner.stop,
@@ -77,7 +77,7 @@ class DescriptiveFeaturesTest(test_op.TestCase):
   def test_compare_p_f_verbose(self):
     self.assertEqual(
         _P.p.comparison_table(_P.f, verbose=True),
-        'phonology_descriptive comparison (max distance = 23.50):\n\n'
+        'descriptive comparison (max distance = 23.50):\n\n'
         '| aspect         | p              | f              |   distance |\n'
         '|----------------|----------------|----------------|------------|\n'
         '| ph_class       | consonant      | consonant      |      0     |\n'
@@ -103,7 +103,7 @@ class DescriptiveFeaturesTest(test_op.TestCase):
   def test_compare_p_f(self):
     self.assertEqual(
         _P.p.comparison_table(_P.f),
-        'phonology_descriptive comparison (max distance = 23.50):\n\n'
+        'descriptive comparison (max distance = 23.50):\n\n'
         '| aspect         | p      | f            |   distance |\n'
         '|----------------|--------|--------------|------------|\n'
         '| manner         | stop   | non_sibilant |      1     |\n'
@@ -115,7 +115,7 @@ class DescriptiveFeaturesTest(test_op.TestCase):
   def test_compare_f_s(self):
     self.assertEqual(
         _P.f.comparison_table(_P.s),
-        'phonology_descriptive comparison (max distance = 23.50):\n\n'
+        'descriptive comparison (max distance = 23.50):\n\n'
         '| aspect         | f            | s               |   distance |\n'
         '|----------------|--------------|-----------------|------------|\n'
         '| manner         | non_sibilant | sibilant        |      0.5   |\n'
@@ -128,7 +128,7 @@ class DescriptiveFeaturesTest(test_op.TestCase):
   def test_compare_f_s_low_amplitude(self):
     self.assertEqual(
         _P.f.comparison_table(_P.s_low_amplitude),
-        'phonology_descriptive comparison (max distance = 23.50):\n\n'
+        'descriptive comparison (max distance = 23.50):\n\n'
         '| aspect         | f          | s_low_amplitude   |   distance |\n'
         '|----------------|------------|-------------------|------------|\n'
         '| articulator    | labial     | apical, laminal   |      0.5   |\n'
