@@ -383,7 +383,7 @@ class Feature(ty.Thing):
         step: float,
         *features: Feature.Aspect.VALUES,
     ):
-      alias, text = alias if isinstance(alias, tuple) else alias, alias
+      alias, text = ty.type_check(alias, (alias, alias))
       super().__init__(alias=alias)
       self.text = text
       self._item_type = Union[Feature, Feature.ValueList]
@@ -502,6 +502,21 @@ class Feature(ty.Thing):
     def is_in(self, obj: ...) -> bool:
       """Checks if this list is contained within the given object."""
       return value_in(self, obj)
+
+    def visualize(self) -> str:
+      """Returns graphviz subgraph for the ValueList."""
+      graph = ''
+      for item in self:
+        graph += (
+            f'{item.alias} [label="{item.text.title()}"]\n'
+            f'{self.alias} -- {item.alias}\n'
+        )
+        if isinstance(item, Feature.ValueList):
+          graph += (
+              f'subgraph {_L_BRACE}\n'
+              f'{item.visualize()}{_R_BRACE}\n'
+          )
+      return graph
 
   class Aspect(inventory.Inventory):
     """An aspect that can be defined by a list of contrastive values.
@@ -627,6 +642,17 @@ class Feature(ty.Thing):
       return (
           profile.inventory == self.inventory
           and self.n_a not in profile.get(self)
+      )
+
+    def visualize(self) -> str:
+      """Returns markdown dot code block for the Aspect."""
+      r = self.root_list
+      return (
+          f'```dot\ngraph {_L_BRACE}\n'
+          'ordering="out"\nsize = 12\nrankdir="LR"\nranksep="1, equally"\n'
+          'style="invis"\nnode [shape="plain"]\n'
+          f'{r.alias} [label="{r.text.capitalize()}"]\n{r.visualize()}'
+          f'{_R_BRACE}\n```'
       )
 
   class Inventory(inventory.Inventory):

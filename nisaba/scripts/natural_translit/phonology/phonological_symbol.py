@@ -17,6 +17,7 @@
 from __future__ import annotations
 
 from nisaba.scripts.natural_translit.phonology.features import descriptive
+from nisaba.scripts.natural_translit.phonology.features import language as lang
 from nisaba.scripts.natural_translit.utils import expression as exp
 from nisaba.scripts.natural_translit.utils import feature as ft
 from nisaba.scripts.natural_translit.utils import inventory as i
@@ -28,6 +29,8 @@ class PhonologicalSymbol(sym.Symbol):
   """Parent class for symbols with phonological features."""
 
   DESCRIPTIVE_FEATURES = descriptive.FEATURES
+  LANGUAGE = lang.FEATURES.language
+  LANG_PREFIX_MULTIPLIER = 100
 
   def __init__(
       self,
@@ -39,6 +42,7 @@ class PhonologicalSymbol(sym.Symbol):
   ):
     super().__init__(alias, raw=raw, index=index, name=name)
     self.text = raw if raw else self.alias
+    self.language = self.LANGUAGE.x_uni  # Default Unified Multilingual.
     self.features.new_profile(
         ft.Feature.Profile(self.DESCRIPTIVE_FEATURES, 'new')
     )
@@ -59,6 +63,9 @@ class PhonologicalSymbol(sym.Symbol):
     """Updates the descriptives from the union of the given symbols."""
     self.update_descriptives(*(s.descriptives() for s in symbols))
     return self
+
+  def has_feature(self, value: ft.Feature.Aspect.VALUES) -> bool:
+    return value.is_in(ft.Feature.Set(self.features, self.language))
 
   class Inventory(sym.Symbol.Inventory):
     """Phonological symbol inventory."""
@@ -113,13 +120,9 @@ class PhonologicalSymbol(sym.Symbol):
 class Phon(PhonologicalSymbol):
   """Class for representing phonemes, phones, and phonological modifiers."""
 
-  # TODO(): Add pycountry languages as a feature similar to scripts.
-  # Phone index will be determined by a combination of the reserved prefix for
-  # phonemes, the index of the country code, and the index of the phon in
-  # the language inventory.
   def __init__(
       self,
-      language: str = '',
+      language: lang.Language.OR_NOTHING = ty.UNSPECIFIED,
       alias: str = '',
       ipa: str = '',
       index: ty.IntOrNothing = ty.UNSPECIFIED,
@@ -131,7 +134,7 @@ class Phon(PhonologicalSymbol):
         index=index,
         name=name,
     )
-    self.language = language if language else 'x_mul'  # Custom multilingual.
+    self.language = ty.type_check(language, self.LANGUAGE.x_uni)
     self.ipa = ipa
     self.add_features(features)
 
@@ -142,10 +145,15 @@ class Phon(PhonologicalSymbol):
       text += f'\n  {self.features}'
     return text
 
-  def copy(self, language: str = '', alias: str = '', ipa: str = '') -> Phon:
+  def copy(
+      self,
+      language: lang.Language.OR_NOTHING = ty.UNSPECIFIED,
+      alias: str = '',
+      ipa: str = '',
+  ) -> Phon:
     """Creates a copy of the Phon."""
     return Phon(
-        language=language if language else self.language,
+        language=ty.type_check(language, self.language),
         alias=alias if alias else self.alias,
         ipa=ipa if ipa else self.ipa,
         index=self.index,
@@ -156,14 +164,20 @@ class Phon(PhonologicalSymbol):
   class Inventory(PhonologicalSymbol.Inventory):
     """Phon inventory."""
 
-    def __init__(self, language: str = ''):
-      language = language if language else 'x_mul'  # Custom multilingual.
-      super().__init__(alias=language, typed=Phon)
+    def __init__(self, language: lang.Language.OR_NOTHING = ty.UNSPECIFIED):
+      language = ty.type_check(language, Phon.LANGUAGE.x_uni)
+      super().__init__(language.alias, typed=Phon)
       self.language = language
 
     def _add_phoneme(self, phoneme: Phon) -> bool:
       """Adds a phoneme to the inventory."""
-      phoneme.index = Phon.ReservedIndex.PHONEME_PREFIX + len(self) + 1
+      phoneme.language = self.language
+      phoneme.index = (
+          Phon.ReservedIndex.PHONEME_PREFIX
+          + int(self.language.index) * Phon.LANG_PREFIX_MULTIPLIER
+          + len(self)
+          + 1
+      )
       return self._add_symbol_and_atomic(phoneme)
 
     def add_phonemes(self, *phonemes: Phon, list_alias: str = '') -> list[Phon]:

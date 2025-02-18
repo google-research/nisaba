@@ -42,7 +42,7 @@ py_library(
     name = "en",
     srcs = ["en.py"],
     deps = [
-        "//nisaba/scripts/natural_translit/phonology/inventories:x_mul",
+        "//nisaba/scripts/natural_translit/phonology/inventories:x_uni",
         "//nisaba/scripts/natural_translit/script:grapheme",
         "//nisaba/scripts/natural_translit/script/inventories:latn",
     ],

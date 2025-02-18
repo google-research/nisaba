@@ -1,12 +1,23 @@
-# Feature tables for the 'x_mul' inventory
+# Feature tables for the 'x_uni' inventory
 
-Feature tables for the phonological symbols in multilingual 'x_mul' inventory.
+`x_uni` is a custom language code for 'unified phonology'. The phoneme inventory
+for this language code will cover all
+[IPA symbols](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet)
+and most common [PHOIBLE segments](https://phoible.org/parameters) in order to
+provide an out-of-the-box solution for using existing resources for any
+language.
+
+The specifics of the phonemes that use the same symbol can differ across
+languages. Where this information is readily available, the feature sets of the
+imported phonemes can be updated in the
+[language_params](https://github.com/google-research/nisaba/tree/main/nisaba/scripts/natural_translit/language_params)
+to reflect the language-specific use.
 
 [TOC]
 
 <!-- AUTO-GENERATED INVENTORY STRING STARTS HERE -->
 
-## Inventory: x_mul
+## Inventory: x_uni
 
 ### alias: a	ipa: a	name: open front unrounded vowel
   a features:

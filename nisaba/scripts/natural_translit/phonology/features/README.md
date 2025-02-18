@@ -2,11 +2,24 @@
 
 [TOC]
 
+## Language
+
+The language inventory is organized by language families. The depth and the
+granularity of the tree is pragmatically determined and can be updated as
+needed.
+
+For example, the Tamil-Kota branch of the Dravidian family is where the dental
+vs alveolar place becomes contrastive for /t̪/ and /t/, which has a direct
+impact on transliteration, so it is added as a node.
+
+[Family tree for the supported languages](https://github.com/google-research/nisaba/blob/main/nisaba/scripts/natural_translit/phonology/features/docs/language.md)
+
 ## Descriptive features
 
 This inventory defines a set of descriptive phonological features that can be
 used to build phonological profiles based on where a phonological symbol is
-located on an[IPA chart](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet_chart).
+located on an
+[IPA chart](https://en.wikipedia.org/wiki/International_Phonetic_Alphabet_chart).
 
 ### How to build a feature profile
 

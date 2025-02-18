@@ -68,6 +68,7 @@ py_library(
     srcs = ["phonological_symbol.py"],
     deps = [
         "//nisaba/scripts/natural_translit/phonology/features:descriptive",
+        "//nisaba/scripts/natural_translit/phonology/features:language",
         "//nisaba/scripts/natural_translit/utils:expression",
         "//nisaba/scripts/natural_translit/utils:feature",
         "//nisaba/scripts/natural_translit/utils:inventory",

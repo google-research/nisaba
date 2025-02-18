@@ -13,12 +13,21 @@
 # limitations under the License.
 
 from absl.testing import absltest
-from nisaba.scripts.natural_translit.phonology.inventories import x_mul
+from nisaba.scripts.natural_translit.phonology.features import language
 from nisaba.scripts.natural_translit.utils import test_op
 
+_LANG = language.FEATURES.language
 
-class InventoriesTest(test_op.TestCase):
 
+class LanguageTest(test_op.TestCase):
+
+  def test_language(self):
+    self.assertEqual(_LANG.bn.index, 624)
+    self.assertEqual(_LANG.x_uni.index, 8_000)
+
+  def test_no_duplicate_indices(self):
+    index_list = [l.index for l in _LANG]
+    self.assertEqual(len(set(index_list)), len(index_list))
 
 if __name__ == '__main__':
   absltest.main()

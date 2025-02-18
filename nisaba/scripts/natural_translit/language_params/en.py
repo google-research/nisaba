@@ -14,7 +14,7 @@
 
 """Language parameters for English."""
 
-from nisaba.scripts.natural_translit.phonology.inventories import x_mul
+from nisaba.scripts.natural_translit.phonology.inventories import x_uni
 from nisaba.scripts.natural_translit.script import grapheme as g
 from nisaba.scripts.natural_translit.script.inventories import latn as l
 
@@ -22,7 +22,7 @@ from nisaba.scripts.natural_translit.script.inventories import latn as l
 def _latn_inventory() -> g.Grapheme.Inventory:
   """Builds a grapheme inventory for English."""
   latn = l.LATN
-  ph = x_mul.PHONEMES
+  ph = x_uni.PHONEMES
   gr = g.Grapheme.Inventory(g.Grapheme.GR_FEATURES.script.latn, 'en')
   lowercase = [
       latn.a,

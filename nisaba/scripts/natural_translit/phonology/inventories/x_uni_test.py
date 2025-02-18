@@ -12,27 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Phonological symbol inventories."""
+from absl.testing import absltest
+from nisaba.scripts.natural_translit.phonology.inventories import x_uni
+from nisaba.scripts.natural_translit.utils import test_op
 
-package(
-    default_visibility = ["//visibility:public"],
-)
 
-py_library(
-    name = "x_uni",
-    srcs = ["x_uni.py"],
-    deps = [
-        "//nisaba/scripts/natural_translit/phonology:phonological_symbol",
-    ],
-)
+class InventoriesTest(test_op.TestCase):
 
-py_test(
-    name = "x_uni_test",
-    srcs = ["x_uni_test.py"],
-    main = "x_uni_test.py",
-    deps = [
-        ":x_uni",
-        "//nisaba/scripts/natural_translit/utils:test_op",
-        "@io_abseil_py//absl/testing:absltest",
-    ],
-)
+
+if __name__ == '__main__':
+  absltest.main()

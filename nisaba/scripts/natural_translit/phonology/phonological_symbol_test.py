@@ -16,11 +16,13 @@ from absl.testing import absltest
 from nisaba.scripts.natural_translit.phonology import phonological_symbol as po
 from nisaba.scripts.natural_translit.utils import test_op
 
+_LANG = po.Phon.LANGUAGE
+
 
 def _test_inventory() -> po.Phon.Inventory:
   """Multilingual Phon inventory."""
   phf = po.Phon.DESCRIPTIVE_FEATURES
-  ph_inv = po.Phon.Inventory()
+  ph_inv = po.Phon.Inventory(_LANG.en)
   vowels = [
       ('a', 'a', 'open front unrounded vowel'),
       ('e', 'e', 'close_mid front unrounded vowel'),
@@ -55,8 +57,26 @@ _TEST = _test_inventory()
 class PhonologicalSymbolTest(test_op.TestCase):
 
   def test_phon_inventory(self):
-    self.assertEqual(_TEST.alias, 'x_mul')
+    self.assertEqual(_TEST.alias, 'en')
+    self.assertEqual(_TEST.language, _LANG.en)
+    self.assertEqual(_TEST.a.language, _LANG.en)
+    self.assertEqual(
+        _TEST.a.index,
+        po.Phon.ReservedIndex.PHONEME_PREFIX
+        + _LANG.en.index * po.Phon.LANG_PREFIX_MULTIPLIER
+        + 1,
+    )
     self.assertIn(_TEST.a, _TEST.vowel)
+
+  def test_has_feature(self):
+    self.AssertHasFeature(_TEST.a, _LANG.en)
+    self.AssertHasFeature(_TEST.a, _LANG.germanic)
+    self.AssertHasFeature(_TEST.a, _LANG.indo_european)
+    self.AssertNotHasFeature(_TEST.a, _LANG.indo_aryan)
+    self.AssertNotHasFeature(_TEST.a, _LANG.x_uni)
+    self.AssertHasFeature(
+        _TEST.i, po.Phon.DESCRIPTIVE_FEATURES.ph_class.vowel
+    )
 
   def test_phon_description(self):
     self.assertEqual(
@@ -84,11 +104,6 @@ class PhonologicalSymbolTest(test_op.TestCase):
         '| rhoticization    | none           |\n'
         '| duration         | any            |\n'
         '| syllabicity      | syllabic       |\n',
-    )
-
-  def test_has_feature(self):
-    self.AssertHasFeature(
-        _TEST.i, po.Phon.DESCRIPTIVE_FEATURES.ph_class.vowel
     )
 
   def test_phon_copy(self):

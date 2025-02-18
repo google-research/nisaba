@@ -37,3 +37,24 @@ py_test(
         "@io_abseil_py//absl/testing:absltest",
     ],
 )
+
+py_library(
+    name = "language",
+    srcs = ["language.py"],
+    deps = [
+        "//nisaba/scripts/natural_translit/utils:feature",
+        "//nisaba/scripts/natural_translit/utils:type_op",
+        requirement("pycountry"),
+    ],
+)
+
+py_test(
+    name = "language_test",
+    srcs = ["language_test.py"],
+    main = "language_test.py",
+    deps = [
+        ":language",
+        "//nisaba/scripts/natural_translit/utils:test_op",
+        "@io_abseil_py//absl/testing:absltest",
+    ],
+)
