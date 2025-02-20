@@ -48,8 +48,7 @@ class RewriteManager {
 
   // Do not use the manager until FSTs are loaded with Load.
   // TODO: Add symbol table support, or YAGNI?
-  explicit RewriteManager(
-      ::fst::TokenType token_type = ::fst::TokenType::BYTE)
+  explicit RewriteManager(::fst::TokenType token_type = ::fst::TokenType::BYTE)
       : compiler_(token_type), token_type_(token_type) {}
 
   // FAR IO.
@@ -354,8 +353,7 @@ bool RewriteManager<Arc>::Matches(
   ::fst::ArcSort(&lattice, ocomp);
   MutableTransducer output_fst;
   compiler_(output, &output_fst);
-  static const ::fst::IntersectOptions opts(true,
-                                                ::fst::SEQUENCE_FILTER);
+  static const ::fst::IntersectOptions opts(true, ::fst::SEQUENCE_FILTER);
   ::fst::Intersect(lattice, output_fst, &lattice, opts);
   return lattice.Start() != ::fst::kNoStateId;
 }

@@ -31,10 +31,10 @@
 #include "nisaba/port/file_util.h"
 #include "nisaba/translit/fst/pairlm_decoder_options.pb.h"
 
-using ::fst::ArcIterator;
-using ::fst::StdArc;
-using ::fst::StdVectorFst;
-using ::fst::SymbolTable;
+using fst::ArcIterator;
+using fst::StdArc;
+using fst::StdVectorFst;
+using fst::SymbolTable;
 
 namespace nisaba {
 namespace translit {

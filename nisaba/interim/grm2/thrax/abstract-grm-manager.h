@@ -187,8 +187,7 @@ void AbstractGrmManager<Arc>::SortRuleInputLabels() {
   for (auto &pair : fsts_) {
     const auto& fst = *pair.second;
     // Arc-sorts if the FST is not known to be input-sorted.
-    if (fst.Properties(::fst::kILabelSorted, false) !=
-        ::fst::kILabelSorted) {
+    if (fst.Properties(::fst::kILabelSorted, false) != ::fst::kILabelSorted) {
       auto sorted_fst = std::make_unique<MutableTransducer>(fst);
       static const ::fst::ILabelCompare<Arc> icomp;
       ::fst::ArcSort(sorted_fst.get(), icomp);
@@ -227,8 +226,7 @@ bool AbstractGrmManager<Arc>::RewriteBytes(
     absl::string_view rule, absl::string_view input, std::string* output,
     absl::string_view pdt_parens_rule,
     absl::string_view mpdt_assignments_rule) const {
-  static const ::fst::StringCompiler<Arc> compiler(
-      ::fst::TokenType::BYTE);
+  static const ::fst::StringCompiler<Arc> compiler(::fst::TokenType::BYTE);
   MutableTransducer str_fst;
   if (!compiler(input, &str_fst)) return false;
   return RewriteBytes(rule, str_fst, output, pdt_parens_rule,
@@ -247,8 +245,7 @@ bool AbstractGrmManager<Arc>::RewriteBytes(
   }
   StringifyFst(&output_fst);
   if (output_fst.Start() == ::fst::kNoStateId) return false;
-  static const ::fst::StringPrinter<Arc> printer(
-      ::fst::TokenType::BYTE);
+  static const ::fst::StringPrinter<Arc> printer(::fst::TokenType::BYTE);
   return printer(output_fst, output);
 }
 
@@ -257,8 +254,7 @@ bool AbstractGrmManager<Arc>::Rewrite(
     absl::string_view rule, absl::string_view input, MutableTransducer* output,
     absl::string_view pdt_parens_rule,
     absl::string_view mpdt_assignments_rule) const {
-  static const ::fst::StringCompiler<Arc> compiler(
-      ::fst::TokenType::BYTE);
+  static const ::fst::StringCompiler<Arc> compiler(::fst::TokenType::BYTE);
   MutableTransducer str_fst;
   if (!compiler(input, &str_fst)) return false;
   return Rewrite(rule, str_fst, output, pdt_parens_rule,
@@ -307,15 +303,14 @@ bool AbstractGrmManager<Arc>::Rewrite(
       static const ::fst::MPdtComposeOptions opts(
           true, ::fst::PdtComposeFilter::EXPAND);
       ::fst::Compose(input, *rule_fst, pdt_parens, mpdt_assignments, output,
-                         opts);
+                     opts);
     } else {
       static const ::fst::PdtComposeOptions opts(
           true, ::fst::PdtComposeFilter::EXPAND);
       ::fst::Compose(input, *rule_fst, pdt_parens, output, opts);
     }
   } else {
-    static const ::fst::ComposeOptions opts(true,
-                                                ::fst::ALT_SEQUENCE_FILTER);
+    static const ::fst::ComposeOptions opts(true, ::fst::ALT_SEQUENCE_FILTER);
     ::fst::Compose(input, *rule_fst, output, opts);
   }
   return true;
@@ -424,24 +419,21 @@ bool RuleCascade<Arc>::InitFromDefs(const AbstractGrmManager<Arc>* grm,
 template <typename Arc>
 bool RuleCascade<Arc>::RewriteBytes(absl::string_view input,
                                     std::string* output) const {
-  static const ::fst::StringCompiler<Arc> compiler(
-      ::fst::TokenType::BYTE);
+  static const ::fst::StringCompiler<Arc> compiler(::fst::TokenType::BYTE);
   MutableTransducer input_fst;
   if (!compiler(input, &input_fst)) return false;
   MutableTransducer output_fst;
   if (!Rewrite(input_fst, &output_fst)) return false;
   AbstractGrmManager<Arc>::StringifyFst(&output_fst);
   if (output_fst.Start() == ::fst::kNoStateId) return false;
-  static const ::fst::StringPrinter<Arc> printer(
-      ::fst::TokenType::BYTE);
+  static const ::fst::StringPrinter<Arc> printer(::fst::TokenType::BYTE);
   return printer(output_fst, output);
 }
 
 template <typename Arc>
 bool RuleCascade<Arc>::Rewrite(absl::string_view input,
                                MutableTransducer* output) const {
-  static const ::fst::StringCompiler<Arc> compiler(
-      ::fst::TokenType::BYTE);
+  static const ::fst::StringCompiler<Arc> compiler(::fst::TokenType::BYTE);
   MutableTransducer str_fst;
   if (!compiler(input, &str_fst)) return false;
   return Rewrite(str_fst, output);

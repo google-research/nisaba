@@ -38,10 +38,10 @@ namespace nisaba {
 namespace translit {
 namespace fst {
 
+using ::fst::kNoSymbol;
 using ::fst::StdArc;
 using ::fst::StdVectorFst;
 using ::fst::SymbolTable;
-using ::fst::kNoSymbol;
 
 namespace impl {
 namespace {

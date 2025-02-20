@@ -58,7 +58,7 @@ class GrmManagerSpec : public AbstractGrmManager<Arc> {
 template <typename Arc>
 bool GrmManagerSpec<Arc>::LoadArchive(const std::string &filename) {
   std::unique_ptr<::fst::FarReader<Arc>> reader(
-         ::fst::STTableFarReader<Arc>::Open(filename));
+     ::fst::STTableFarReader<Arc>::Open(filename));
   if (!reader) {
     LOG(ERROR) << "Unable to open FAR: " << filename;
     return false;

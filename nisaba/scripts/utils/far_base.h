@@ -34,7 +34,7 @@ constexpr char kFarExtn[] = ".far";
 class FarBase {
  public:
   // Fetches FST given by its name.
-  std::unique_ptr<::fst::StdFst> Fst(absl::string_view fst_name) const;
+  std::unique_ptr<fst::StdFst> Fst(absl::string_view fst_name) const;
 
  protected:
   explicit FarBase(absl::string_view far_name) : far_name_(far_name) {}
