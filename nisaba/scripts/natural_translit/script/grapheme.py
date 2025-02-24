@@ -73,6 +73,7 @@ def _grapheme_features() -> ft.Feature.Inventory:
               Script('br', 'Brahmic Parent', 801),
           )
       ),
+      f.Aspect(f.equidistant('gr_class', f('letter'), f('number'))),
       f.Aspect(f.equidistant('case', f('upper'), f('lower'))),
   )
   return ftr
