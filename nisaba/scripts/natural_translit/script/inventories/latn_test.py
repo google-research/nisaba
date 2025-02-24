@@ -44,6 +44,8 @@ class LatnTest(test_op.TestCase):
     self.assertIs(_LATN.a_upper.lower, _LATN.a)
     self.assertIs(_LATN.a.lower, _LATN.a)
     self.assertIs(_LATN.a_upper.upper, _LATN.a_upper)
+    self.AssertHasFeature(_LATN.one, _G.GR_FEATURES.gr_class.number)
+    self.assertIn(_LATN.one, _LATN.number)
 
   def test_en_latn(self):
     self.assertNotEqual(_LATN.a, _EN.a)

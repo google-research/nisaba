@@ -226,8 +226,9 @@ def _latn_inventory() -> g.Grapheme.Inventory:
   gr.make_iterable_suppl(
       'consonant', *consonants, *(c.upper for c in consonants)
   )
+  gr.import_graphemes(*latn.number, list_alias='number')
   return gr.sync_atomics(
-      [gr.upper, gr.lower, gr.letter, gr.vowel, gr.consonant]
+      [gr.upper, gr.lower, gr.letter, gr.vowel, gr.consonant, gr.number]
   )
 
 
