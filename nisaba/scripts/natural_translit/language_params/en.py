@@ -19,11 +19,14 @@ from nisaba.scripts.natural_translit.script import grapheme as g
 from nisaba.scripts.natural_translit.script.inventories import latn as l
 
 
+LANGUAGE = g.Grapheme.LANGUAGE.en
+
+
 def _latn_inventory() -> g.Grapheme.Inventory:
   """Builds a grapheme inventory for English."""
   latn = l.LATN
   ph = x_uni.PHONEMES
-  gr = g.Grapheme.Inventory(g.Grapheme.GR_FEATURES.script.latn, 'en')
+  gr = g.Grapheme.Inventory(g.Grapheme.GR_FEATURES.script.latn, LANGUAGE)
   lowercase = [
       latn.a,
       latn.b,

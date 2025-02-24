@@ -70,8 +70,14 @@ class PhonologicalSymbol(sym.Symbol):
   class Inventory(sym.Symbol.Inventory):
     """Phonological symbol inventory."""
 
-    def __init__(self, alias: str, typed: ty.TypeOrNothing = ty.UNSPECIFIED):
+    def __init__(
+        self,
+        alias,
+        language: lang.Language.OR_NOTHING = ty.UNSPECIFIED,
+        typed: ty.TypeOrNothing = ty.UNSPECIFIED,
+    ):
       super().__init__(alias, typed=ty.type_check(typed, PhonologicalSymbol))
+      self.language = ty.type_check(language, Phon.LANGUAGE.x_uni)
       self.atomics = i.Inventory()
 
     def _add_symbol_and_atomic(self, symbol: PhonologicalSymbol) -> bool:
@@ -166,8 +172,7 @@ class Phon(PhonologicalSymbol):
 
     def __init__(self, language: lang.Language.OR_NOTHING = ty.UNSPECIFIED):
       language = ty.type_check(language, Phon.LANGUAGE.x_uni)
-      super().__init__(language.alias, typed=Phon)
-      self.language = language
+      super().__init__(language.alias, language, Phon)
 
     def _add_phoneme(self, phoneme: Phon) -> bool:
       """Adds a phoneme to the inventory."""

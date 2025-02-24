@@ -21,8 +21,8 @@ import unicodedata
 import pycountry
 
 from nisaba.scripts.natural_translit.phonology import phonological_symbol as ps
+from nisaba.scripts.natural_translit.phonology.features import language as lang
 from nisaba.scripts.natural_translit.utils import feature as ft
-from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import type_op as ty
 
 
@@ -168,13 +168,15 @@ class Grapheme(ps.PhonologicalSymbol):
   class Inventory(ps.PhonologicalSymbol.Inventory):
     """Grapheme inventory."""
 
-    def __init__(self, script: Script, language: str = ''):
-      if language:
-        language += '_'
-      super().__init__(alias=language + script.alias, typed=Grapheme)
+    def __init__(
+        self,
+        script: Script,
+        language: lang.Language.OR_NOTHING = ty.UNSPECIFIED,
+    ):
+      alias_prefix = language.alias + '_' if language else ''
+      super().__init__(alias_prefix + script.alias, language, Grapheme)
       self.script = script
       self.prefix = self._prefix()
-      self.atomics = i.Inventory()
 
     def _prefix(self) -> int:
       return (
@@ -188,6 +190,7 @@ class Grapheme(ps.PhonologicalSymbol):
       grs = []
       for gr in graphemes:
         if self._add_symbol_and_atomic(gr):
+          gr.language = self.language
           grs.append(gr)
           gr.inventory = self
       if list_alias:
