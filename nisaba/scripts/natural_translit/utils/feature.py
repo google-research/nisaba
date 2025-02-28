@@ -533,6 +533,21 @@ class Feature(ty.Thing):
         purple: 0.50
     }
 
+    Every aspect has the following supplements:
+    - 'all' is a set of all possible values for this aspect.
+    - 'any' is a supplemental feature that returns 0 distance to all features
+      of this aspect. This is used to skip looping over the 'all' set for
+      faster distance calculation.
+    - 'n_a' (not_applicable) returns max_dist to all features. It is
+      semantically distinct from values that have 'not' semantics for an
+      applicable aspect such as 'none', 'zero', 'minus', etc. For example,
+      given a linear aspect such as life_span: [short, medium, long] for
+      animals, an animal shaped ornament will have a life_span of
+      'not_applicable', since it cannot be compared to a live animal in this
+      aspect. Placing a 'none' value at either end would falsely indicate that
+      the ornament has a similar life_span to animals with the shortest or
+      longest life_span.
+
     TODO: Add bidict method to Inventory and convert distance_dict
     to bidict.
     """
@@ -998,6 +1013,10 @@ class Feature(ty.Thing):
       for profile in self:
         new.new_profile(profile.copy(profile.alias))
       return new
+
+  # The following class methods are used as a shortcut for creating ValueLists
+  # of different types. See Feature.Aspect.ValueList docstring for more details.
+  # TODO: Move these to the ValueList class.
 
   @classmethod
   def equidistant(

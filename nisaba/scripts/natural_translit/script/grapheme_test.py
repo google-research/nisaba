@@ -25,7 +25,8 @@ def _test_inventory() -> _G.Inventory:
   gr_inv = _G.Inventory(_G.GR_FEATURES.script.latn)
   gr_inv.add_graphemes(
       # Raw
-      _G.from_char('a', 'a'),
+      _G.from_char('a', 'a', {_G.GR_FEATURES.gr_class.letter}),
+      _G.from_char('1', 'one', {_G.GR_FEATURES.gr_class.number}),
       # Abstract with custom text
       _G('nasal', '~'),
       # Abstract with no text
@@ -158,7 +159,7 @@ class GraphemeTest(test_op.TestCase):
   def test_grapheme_description(self):
     self.assertEqual(
         _TEST_INVENTORY.a.description(),
-        'alias: a\traw: a\tname: LATIN SMALL LETTER A U+61',
+        'alias: a\traw: a\tname: LATIN SMALL LETTER A U+0061',
     )
     self.assertEqual(
         _TEST_INVENTORY.nasal.description(),
@@ -168,6 +169,11 @@ class GraphemeTest(test_op.TestCase):
         _TEST_INVENTORY.ch_1.description(),
         'alias: ch_1\ttext: ch_1\tname: ch_1',
     )
+
+  def test_grapheme_class(self):
+    self.AssertHasFeature(_TEST_INVENTORY.a, _G.GR_FEATURES.gr_class.letter)
+    self.AssertHasFeature(_TEST_INVENTORY.one, _G.GR_FEATURES.gr_class.number)
+    self.AssertHasFeature(_TEST_INVENTORY.nasal, _G.GR_FEATURES.gr_class.any)
 
   def test_import_graphemes(self):
     new_inv = _G.Inventory(

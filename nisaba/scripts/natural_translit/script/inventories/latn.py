@@ -26,7 +26,9 @@ def _build_inventory() -> grapheme.Grapheme.Inventory:
   lowercase_vowels = ['a', 'e', 'i', 'o', 'u']
   latn.add_graphemes(
       *(
-          g.from_char(char, char, {grf.script.latn, phf.vowel})
+          g.from_char(
+              char, char, {grf.script.latn, grf.gr_class.letter, phf.vowel}
+          )
           for char in lowercase_vowels
       ),
       list_alias='vowel',
@@ -82,7 +84,9 @@ def _build_inventory() -> grapheme.Grapheme.Inventory:
   ]
   latn.add_graphemes(
       *(
-          g.from_char(char, char, {grf.script.latn, phf.consonant})
+          g.from_char(
+              char, char, {grf.script.latn, grf.gr_class.letter, phf.consonant}
+          )
           for char in lowercase_consonants
       ),
       list_alias='consonant',
@@ -150,7 +154,12 @@ def _build_inventory() -> grapheme.Grapheme.Inventory:
     uppercase = g.from_char(
         char.text.upper(),
         char.alias + '_upper',
-        {grf.script.latn, grf.case.upper, char.descriptives()},
+        {
+            grf.script.latn,
+            grf.gr_class.letter,
+            grf.case.upper,
+            char.descriptives(),
+        },
     )
     latn.add_graphemes(uppercase)
     latn.upper.add(uppercase)
@@ -160,9 +169,37 @@ def _build_inventory() -> grapheme.Grapheme.Inventory:
     if uppercase.has_feature(phf.ph_class.consonant):
       latn.consonant.add(uppercase)
   latn.make_iterable_suppl('letter', *latn.lower, *latn.upper)
-  return latn.sync_atomics(
-      [latn.lower, latn.upper, latn.letter, latn.vowel, latn.consonant]
+  numbers = [
+      (0, 'zero'),
+      (1, 'one'),
+      (2, 'two'),
+      (3, 'three'),
+      (4, 'four'),
+      (5, 'five'),
+      (6, 'six'),
+      (7, 'seven'),
+      (8, 'eight'),
+      (9, 'nine'),
+  ]
+  latn.add_graphemes(
+      *(
+          g.from_char(
+              str(number),
+              alias,
+              {grf.script.latn, grf.gr_class.number, phf.not_applicable},
+          )
+          for number, alias in numbers
+      ),
+      list_alias='number',
   )
+  return latn.sync_atomics([
+      latn.lower,
+      latn.upper,
+      latn.letter,
+      latn.vowel,
+      latn.consonant,
+      latn.number,
+  ])
 
 
 LATN = _build_inventory()
