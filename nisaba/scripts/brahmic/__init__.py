@@ -22,6 +22,8 @@ import pynini
 from nisaba.scripts.brahmic import util as u
 from nisaba.scripts.utils import far
 
+SCRIPTS = u.SCRIPTS
+
 
 class _FarStore(object):
   """Container for Far objects corresponding to various Brahmic grammars."""
