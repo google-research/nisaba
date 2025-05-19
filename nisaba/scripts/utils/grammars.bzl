@@ -140,7 +140,7 @@ def nisaba_compile_script_lang_multi_grm_py(
                        <name>.py compilation.
         family: The container directory name indicating the script family
                 (e.g., 'brahmic').
-        script_langs: Script-langauge tuples contributing to this build.
+        script_langs: Script-language tuples contributing to this build.
         deps: Deps for the <name>.py compilation.
         **kwds: Additional attributes for FAR file targets, e.g., visibility.
     """
@@ -182,10 +182,10 @@ def nisaba_compile_script_lang_multi_grm_py(
                 deps = deps,
             )
 
-        # Aggreated FAR file targets for each token-type.
+        # Aggregated FAR file targets for each token-type.
         # Generates separate reading norm FAR files for each token-type values,
-        # by combining individual FAR files for that token-type,
-        # generated above.
+        # by combining individual FAR files for that token-type, generated
+        # above.
         native.genrule(
             name = name_token_type,
             srcs = [
