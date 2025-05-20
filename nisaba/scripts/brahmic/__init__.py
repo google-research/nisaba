@@ -24,6 +24,10 @@ from nisaba.scripts.utils import far
 
 SCRIPTS = u.SCRIPTS
 
+# Language-specific visual normalization. The language-agnostic visual
+# normalization grammars are available through `SCRIPTS` above.
+VISUAL_NORM_LANGS = u.VISUAL_NORM_LANGS
+
 
 class _FarStore(object):
   """Container for Far objects corresponding to various Brahmic grammars."""

@@ -105,6 +105,11 @@ READING_NORM_LANGS = [
     ("Mlym", ""),
 ]
 
+VISUAL_NORM_LANGS = [
+    ("Beng", "as"),
+    ("Beng", "bn"),
+]
+
 
 NISABA_DIR = pathlib.Path("com_google_nisaba/nisaba")
 FAR_DIR = NISABA_DIR / "scripts/brahmic"
