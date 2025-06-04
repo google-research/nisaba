@@ -1,4 +1,4 @@
-# Copyright 2024 Nisaba Authors.
+# Copyright 2025 Nisaba Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -341,6 +341,11 @@ class ExpressionTest(test_op.TestCase):
   def test_operator_rshift(self):
     self.assertEqual(
         ((_ATM.a | _ATM.b) >> (_ATM.c + _ATM.d)).string(), '((a | b)∶(c d))'
+    )
+
+  def test_operator_lshift(self):
+    self.assertEqual(
+        ((_ATM.a | _ATM.b) << (_ATM.c + _ATM.d)).string(), '((c d)∶(a | b))'
     )
 
   def test_alignment(self):

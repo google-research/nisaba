@@ -1,4 +1,4 @@
-# Copyright 2024 Nisaba Authors.
+# Copyright 2025 Nisaba Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -126,6 +126,9 @@ class Expression(ty.IterableThing, sym.Item):
 
   def __rshift__(self, other: Expression) -> Alignment:
     return Alignment.simple(self, other)
+
+  def __lshift__(self, other: Expression) -> Alignment:
+    return Alignment.simple(other, self)
 
   def repeat(self, n: int = 2) -> Cat:
     """Returns a Cat of n repetitions of this expression."""
