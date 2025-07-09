@@ -1,4 +1,4 @@
-// Copyright 2024 Nisaba Authors.
+// Copyright 2025 Nisaba Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@
 #include <vector>
 
 #include "fst/arc.h"
+#include "fst/fst.h"
 #include "fst/symbol-table.h"
 #include "fst/vector-fst.h"
 #include "gmock/gmock.h"
@@ -377,6 +378,44 @@ TEST_F(PairLMDecoderTest, MultiWordStandardExpectedOutput) {
     output_strings[i] = absl::StrJoin(
         std::make_tuple(output_strings[i], output_scores[i]), "\t");
   }
+  ASSERT_EQ(absl::StrJoin(output_strings, "\n"),
+            pairlm_decoder.PrintTransliterations(
+                /*line_prefix=*/"", transliterations,
+                /*include_final_endline=*/false));
+}
+
+// Multi word translit works as advertised with failure-class pair LM and
+// word-based (non-word-piece) LM, sampled with a fixed seed.
+TEST_F(PairLMDecoderTest, MultiWordSampledExpectedOutput) {
+  PairLMDecoderOptions pairlm_config;
+  pairlm_config.set_pairlm_file(pairlm_file_);
+  pairlm_config.set_lm_file(lm_file_);
+  pairlm_config.set_oov_symbol("<unk>");
+  pairlm_config.set_oov_cost(0.0);
+  pairlm_config.set_sample_from_k_best(true);
+  pairlm_config.set_random_seed(123);
+  PairLMDecoder pairlm_decoder(pairlm_config);
+  StdVectorFst transliterations =
+      pairlm_decoder.TransliterateString("ab ca ef dd", /*k_best=*/2);
+  for (int s = 0; s < transliterations.NumStates(); ++s) {
+    // Because a single path is sampled, there is at most one arc per state.
+    ASSERT_LE(transliterations.NumArcs(s), 1);
+  }
+
+  // Other than the sampling, the setup here is identical to the earlier
+  // MultiWordStandardExpectedOutput test.  In that once, the only ambiguity is
+  // c:C and c:K, which in this case, since we are sampling with a seed of 123,
+  // the c:C is 'randomly' chosen, and the scores for each word is 0 (i.e.,
+  // probability 1).
+  std::vector<std::string> output_strings;
+  output_strings.push_back(
+      absl::StrJoin(std::make_tuple(0, "ab", "AB", 0), "\t"));
+  output_strings.push_back(
+      absl::StrJoin(std::make_tuple(1, "ca", "CA", 0), "\t"));
+  output_strings.push_back(
+      absl::StrJoin(std::make_tuple(2, "ef", "ef", 0), "\t"));
+  output_strings.push_back(
+      absl::StrJoin(std::make_tuple(3, "dd", "DD", 0), "\t"));
   ASSERT_EQ(absl::StrJoin(output_strings, "\n"),
             pairlm_decoder.PrintTransliterations(
                 /*line_prefix=*/"", transliterations,

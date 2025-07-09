@@ -1,4 +1,4 @@
-// Copyright 2024 Nisaba Authors.
+// Copyright 2025 Nisaba Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -226,6 +226,8 @@ class PairLMDecoder {
                                // transliterate.
   double word_cand_thresh_;    // Threshold on word candidates.
   double min_cand_posterior_;  // Minimum posterior candidate probability.
+  bool sample_from_k_best_;  // Whether to sample from (vs. returning) k-best.
+  uint64_t random_seed_;     // Random seed for sampling.
 
   std::string epsilon_symbol_;
 

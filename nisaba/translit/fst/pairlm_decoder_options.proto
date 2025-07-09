@@ -1,4 +1,4 @@
-// Copyright 2024 Nisaba Authors.
+// Copyright 2025 Nisaba Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package nisaba.translit.fst;
 
-// Next available ID: 21
+// Next available ID: 23
 message PairLMDecoderOptions {
   // Filename for FST-based pair LM.
   optional string pairlm_file = 1;
@@ -84,4 +84,11 @@ message PairLMDecoderOptions {
 
   // String prefix indicating word-initial wordpieces. Uses default if not set.
   optional string word_piece_word_initial_prefix = 20;
+
+  // Whether to sample from k-best rather than returning all of them.
+  optional bool sample_from_k_best = 21;
+
+  // Random seed for sampling; defaults to std::random_device if not set.
+  // This is mainly provided for testing purposes, best to leave unset.
+  optional int64 random_seed = 22;
 }

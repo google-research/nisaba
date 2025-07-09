@@ -1,4 +1,4 @@
-// Copyright 2024 Nisaba Authors.
+// Copyright 2025 Nisaba Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -38,9 +38,11 @@
 #include "fst/icu.h"
 #include "fst/invert.h"
 #include "fst/matcher.h"
+#include "fst/mutable-fst.h"
 #include "fst/project.h"
 #include "fst/prune.h"
 #include "fst/push.h"
+#include "fst/randgen.h"
 #include "fst/rational.h"
 #include "fst/reweight.h"
 #include "fst/rmepsilon.h"
@@ -52,6 +54,7 @@
 #include "ngram/ngram-count.h"
 #include "absl/log/check.h"
 #include "absl/log/log.h"
+#include "absl/random/random.h"
 #include "absl/strings/numbers.h"
 #include "absl/strings/str_cat.h"
 #include "absl/strings/str_join.h"
@@ -80,6 +83,7 @@ using fst::kNoSymbol;
 using fst::LabelsToUTF8String;
 using fst::Log64Weight;
 using fst::LogArc;
+using fst::LogProbArcSelector;
 using fst::LogToStdMapper;
 using fst::MATCH_INPUT;
 using fst::MATCH_NONE;
@@ -92,6 +96,8 @@ using fst::Project;
 using fst::ProjectType;
 using fst::Prune;
 using fst::Push;
+using fst::RandGen;
+using fst::RandGenOptions;
 using fst::REWEIGHT_TO_INITIAL;
 using fst::RmEpsilon;
 using fst::ShortestPath;
@@ -373,6 +379,16 @@ StdVectorFst RemoveContext(const StdVectorFst &lattice_fst) {
   return contextless_fst;
 }
 
+// Samples a single path through the input lattice FST.
+StdVectorFst SampleFromLattice(const StdVectorFst &transliteration_fst,
+                               uint64_t seed) {
+  LogProbArcSelector<StdArc> selector(seed);
+  RandGenOptions<LogProbArcSelector<StdArc>> opts(selector);
+  StdVectorFst sampled_fst;
+  RandGen(transliteration_fst, &sampled_fst, opts);
+  return sampled_fst;
+}
+
 }  // namespace
 }  // namespace impl
 
@@ -406,6 +422,14 @@ void PairLMDecoder::InitializePairLMDecoder(
                             ? pairlm_config.min_cand_posterior()
                             : kMinCandPosterior;
   pairlm_translit_weight_ = kDefaultMixWeight;
+  sample_from_k_best_ = pairlm_config.sample_from_k_best();
+  if (pairlm_config.has_random_seed()) {
+    random_seed_ = pairlm_config.random_seed();
+  } else{
+    absl::BitGen bitgen;
+    random_seed_ = absl::Uniform<uint64_t>(
+        bitgen, 1, std::numeric_limits<uint64_t>::max());
+  }
 }
 
 void PairLMDecoder::InitializeTranslitModel(
@@ -1187,6 +1211,10 @@ StdVectorFst PairLMDecoder::TransliterateString(absl::string_view input_line,
         k_best, input_line, fst_params, &transliteration_fst);
   } else {
     ApplyFinalKBestFilter(k_best, &transliteration_fst);
+  }
+  if (sample_from_k_best_) {
+    transliteration_fst =
+        impl::SampleFromLattice(transliteration_fst, random_seed_);
   }
   transliteration_fst.SetInputSymbols(&fst_params.input_syms);
   transliteration_fst.SetOutputSymbols(&fst_params.cand_syms);
