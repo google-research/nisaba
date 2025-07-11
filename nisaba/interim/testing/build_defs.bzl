@@ -23,6 +23,8 @@ Sample usage:
     )
 """
 
+load("//third_party/bazel_rules/rules_cc/cc:cc_test.bzl", "cc_test")
+
 def _GetFarParams(basename, grammar):
     """Determine full FAR target/path."""
     if grammar:
@@ -95,7 +97,7 @@ def grm_textproto_test(
     ] + kwds.pop("tags", [])  # We pop to avoid providing tags twice.
 
     args.append("--mode=" + mode)
-    native.cc_test(
+    cc_test(
         name = name,
         size = size,
         args = args,
