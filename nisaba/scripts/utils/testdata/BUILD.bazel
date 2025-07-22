@@ -16,11 +16,8 @@
 
 load("//nisaba/scripts/utils:unicode_strings_to_tsv.bzl", "component_tsv")
 
-package(
-    default_applicable_licenses = [
-    ],
-    default_visibility = ["//visibility:public"],
-)
+package(default_applicable_licenses = [
+])
 
 licenses(["notice"])
 
