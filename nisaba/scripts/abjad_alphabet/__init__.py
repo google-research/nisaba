@@ -17,6 +17,7 @@
 # TODO: This library currently only supports `byte` tokens. Consider
 # supporting `utf8` tokens too.
 
+import functools
 import pathlib
 import re
 import string
@@ -28,13 +29,29 @@ from nisaba.scripts.utils import rewrite
 
 
 class _FarStore(object):
-  """Container for Far objects corresponding to various grammars."""
+  """Manages loading of FAR archives, implementing lazy loading.
 
-  def __init__(self) -> None:
-    self.reversible_roman = far.Far(u.FAR_DIR / 'reversible_roman.far')
-    self.nfc = far.Far(u.FAR_DIR / 'nfc.far')
-    self.reading_norm = far.Far(u.FAR_DIR / 'reading_norm.far')
-    self.visual_norm = far.Far(u.FAR_DIR / 'visual_norm.far')
+  This class is intended to be used as a singleton instance (_FARS).
+  FAR files are loaded only when first accessed via the corresponding property
+  (e.g., _FARS.nfc). Subsequent accesses use the cached instance, preventing
+  redundant FAR file loading.
+  """
+
+  @functools.cached_property
+  def reversible_roman(self) -> far.Far:
+    return far.Far(u.FAR_DIR / 'reversible_roman.far')
+
+  @functools.cached_property
+  def nfc(self) -> far.Far:
+    return far.Far(u.FAR_DIR / 'nfc.far')
+
+  @functools.cached_property
+  def reading_norm(self) -> far.Far:
+    return far.Far(u.FAR_DIR / 'reading_norm.far')
+
+  @functools.cached_property
+  def visual_norm(self) -> far.Far:
+    return far.Far(u.FAR_DIR / 'visual_norm.far')
 
 
 _FARS = _FarStore()
@@ -69,9 +86,7 @@ class TagError(ValueError):
 class Normalizer(object):
   """Visual Norm a given abjad / alphabet string."""
 
-  def __init__(self,
-               tag: str = 'ur',
-               ignore: str = string.whitespace) -> None:
+  def __init__(self, tag: str = 'ur', ignore: str = string.whitespace) -> None:
     try:
       self._nfc = Nfc()
       self._visual_norm = VisualNorm(tag)
