@@ -14,6 +14,7 @@
 
 """Python APIs for Brahmic grammars."""
 
+import functools
 import pathlib
 import re
 import string
@@ -30,13 +31,32 @@ VISUAL_NORM_LANGS = u.VISUAL_NORM_LANGS
 
 
 class _FarStore(object):
-  """Container for Far objects corresponding to various Brahmic grammars."""
+  """Manages loading of FAR archives, implementing lazy loading.
+
+  This class is intended to be used as a singleton instance (_FARS).
+  FAR files are loaded only when first accessed via the corresponding property
+  (e.g., _FARS.iso) or method (e.g., _FARS.Natural('lang')). Subsequent accesses
+  use the cached instance, preventing redundant FAR file loading.
+  """
 
   def __init__(self) -> None:
-    self.iso = far.Far(u.FAR_DIR / 'iso.far')
-    self.nfc = far.Far(u.FAR_DIR / 'nfc.far')
-    self.visual_norm = far.Far(u.FAR_DIR / 'visual_norm.far')
-    self.wellformed = far.Far(u.FAR_DIR / 'wellformed.far')
+    self._natural = {}
+
+  @functools.cached_property
+  def iso(self) -> far.Far:
+    return far.Far(u.FAR_DIR / 'iso.far')
+
+  @functools.cached_property
+  def nfc(self) -> far.Far:
+    return far.Far(u.FAR_DIR / 'nfc.far')
+
+  @functools.cached_property
+  def visual_norm(self) -> far.Far:
+    return far.Far(u.FAR_DIR / 'visual_norm.far')
+
+  @functools.cached_property
+  def wellformed(self) -> far.Far:
+    return far.Far(u.FAR_DIR / 'wellformed.far')
 
 
 _FARS = _FarStore()
@@ -73,15 +93,12 @@ class IllFormedError(ValueError):
 class NormalizingAcceptor(object):
   """Visual Norm a string while rejecting it, if it is not well-formed."""
 
-  def __init__(self,
-               script: str,
-               ignore: str = string.whitespace) -> None:
+  def __init__(self, script: str, ignore: str = string.whitespace) -> None:
     try:
       self._visual_norm = VisualNorm(script)
       self._wellformed = WellFormed(script)
-    except KeyError as error:
-      raise ScriptError(
-          'Unsupported language script: {}'.format(error)) from error
+    except KeyError as e:
+      raise ScriptError('Unsupported language script: {}'.format(e)) from e
     else:
       self.accept_pat = re.compile(r'[^{}]+'.format(re.escape(ignore)))
 
