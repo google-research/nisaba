@@ -43,6 +43,8 @@ class BrahmicTest(absltest.TestCase):
     self.assertTrue(self._wellformed_deva.AcceptText('लब'))
     self.assertFalse(self._wellformed_deva.AcceptText('काु'))
     self.assertFalse(self._wellformed_mlym.AcceptText('്ന'))
+    self.assertFalse(self._wellformed_mlym.AcceptText('ന്‍'))
+    self.assertFalse(self._wellformed_deva.AcceptText('लब ന്'))
 
   def testAcceptTextWarning(self):
     # Raises a warning about underlying FST.
