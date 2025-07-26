@@ -19,10 +19,7 @@ load("@pip_deps//:requirements.bzl", "requirement")
 package(
     default_applicable_licenses = [
     ],
-    default_visibility = [
-        "//nisaba/scripts/natural_translit:__subpackages__",
-        "//nlp/sweet/saline:__subpackages__",
-    ],
+    default_visibility = ["//nisaba/scripts/natural_translit:__subpackages__"],
 )
 
 licenses(["notice"])
