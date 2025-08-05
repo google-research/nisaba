@@ -1021,7 +1021,6 @@ StdVectorFst PairLMDecoder::BuildTransliterationFst(
   std::vector<StdVectorFst> translit_fsts(input_words.size());
   {
      ThreadPool pool(max_parallel_tokens_);
-     pool.StartWorkers();
      for (int i = 0; i < input_words.size(); ++i) {
        pool.Schedule([this, i, word_k_best, &translit_fsts, &input_words,
          &fst_params] {
