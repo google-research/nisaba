@@ -21,6 +21,7 @@
 #include "nisaba/port/status-matchers.h"
 #include "gtest/gtest.h"
 #include "absl/strings/str_split.h"
+#include "absl/strings/str_join.h"
 #include "absl/strings/string_view.h"
 #include "nisaba/port/unicode_properties.h"
 
@@ -43,6 +44,9 @@ TEST(Utf8UtilTest, CheckStrSplitByChar) {
       "მ", "ო", "გ", "ე", "ს", "ა", "ლ", "მ", "ე", "ბ", "ი", "თ"));
   EXPECT_THAT(StrSplitByChar("ຍິນດີຕ້ອນຮັບ"), ElementsAre(
       "ຍ", "ິ", "ນ", "ດ", "ີ", "ຕ", "້", "ອ", "ນ", "ຮ", "ັ", "ບ"));
+  EXPECT_THAT(
+      StrSplitByChar(absl::StrJoin({"ባህሪ", UnicodeReplacementChar()}, "")),
+      ElementsAre("ባ", "ህ", "ሪ", UnicodeReplacementChar()));
 }
 
 TEST(Utf8UtilTest, CheckStrSplitByCharToUnicode) {
@@ -59,6 +63,9 @@ TEST(Utf8UtilTest, CheckStrSplitByCharToUnicode) {
   EXPECT_THAT(StrSplitByCharToUnicode("ຍິນດີຕ້ອນຮັບ"),
               ElementsAre(3725, 3764, 3737, 3732, 3765, 3733, 3785, 3757, 3737,
                           3758, 3761, 3738));
+  EXPECT_THAT(StrSplitByCharToUnicode(
+                  absl::StrJoin({"ባህሪ", UnicodeReplacementChar()}, "")),
+              ElementsAre(4707, 4613, 4650, 65533));
 }
 
 TEST(Utf8UtilTest, CheckDecodeUnicodeChar) {

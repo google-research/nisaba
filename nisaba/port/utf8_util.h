@@ -34,6 +34,9 @@ constexpr char32 kBadUTF8Char = 0xFFFD;
 // Unicode character (codepoint).
 std::vector<std::string> StrSplitByChar(absl::string_view input);
 
+// Returns string representation of the Unicode Replacement Character (U+FFFD).
+std::string UnicodeReplacementChar();
+
 // Splits the provided input into equal-length strings consisting of one
 // Unicode character (codepoint), and returns their Unicode codepoint value.
 std::vector<int> StrSplitByCharToUnicode(absl::string_view input);

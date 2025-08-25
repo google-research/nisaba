@@ -82,7 +82,8 @@ bool DecodeSingleUnicodeChar(absl::string_view input, char32 *utf8_value) {
   } else {
     DecodeUnicodeChar(split_input[0], utf8_value);
   }
-  if (*utf8_value == kBadUTF8Char) {
+  if (*utf8_value == kBadUTF8Char &&
+      (split_input.size() > 1 || split_input[0] != UnicodeReplacementChar())) {
     return false;
   } else {
     return true;
@@ -93,6 +94,10 @@ std::string EncodeUnicodeChar(char32 input) {
      std::string result;
      ::utf8::append(input, std::back_inserter(result));
      return result;
+}
+
+std::string UnicodeReplacementChar() {
+  return EncodeUnicodeChar(65533);
 }
 
 }  // namespace utf8
