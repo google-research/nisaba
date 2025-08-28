@@ -76,16 +76,21 @@ std::vector<int> StrSplitByCharToUnicode(absl::string_view input) {
 }
 
 bool DecodeSingleUnicodeChar(absl::string_view input, char32 *utf8_value) {
+  // TODO: Implement Cibu's suggestion: Instead of splitting the entire
+  // input using StrSplitByChar(), we can simply use DecodeUnicodeChar() and
+  // compare num_bytes to input.length() to determine if it is a single Unicode
+  // character.
   const std::vector<std::string> split_input = StrSplitByChar(input);
-  if (split_input.size() != 1) {
+  if (split_input.size() != 1) {  // Fails due to multiple unicode characters.
     *utf8_value = kBadUTF8Char;
-  } else {
-    DecodeUnicodeChar(split_input[0], utf8_value);
-  }
-  if (*utf8_value == kBadUTF8Char) {
     return false;
   } else {
-    return true;
+    // Returns false if utf8_value is set to kBadUTF8Char for reasons other
+    // than that the input is actually a single Unicode Replacement character,
+    // which returns more than one byte from DecodeUnicodeChar. Failure of
+    // DecodeUnicodeChar returns num_bytes == 1.
+    int num_bytes = DecodeUnicodeChar(split_input[0], utf8_value);
+    return *utf8_value != kBadUTF8Char || num_bytes > 1;
   }
 }
 

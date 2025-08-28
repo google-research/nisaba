@@ -17,6 +17,7 @@
 #include <string>
 #include <vector>
 
+#include "base/types.h"
 #include "gmock/gmock.h"
 #include "nisaba/port/status-matchers.h"
 #include "gtest/gtest.h"
@@ -43,6 +44,8 @@ TEST(Utf8UtilTest, CheckStrSplitByChar) {
       "მ", "ო", "გ", "ე", "ს", "ა", "ლ", "მ", "ე", "ბ", "ი", "თ"));
   EXPECT_THAT(StrSplitByChar("ຍິນດີຕ້ອນຮັບ"), ElementsAre(
       "ຍ", "ິ", "ນ", "ດ", "ີ", "ຕ", "້", "ອ", "ນ", "ຮ", "ັ", "ບ"));
+  EXPECT_THAT(StrSplitByChar("ባህሪ" + EncodeUnicodeChar(kBadUTF8Char)),
+              ElementsAre("ባ", "ህ", "ሪ", EncodeUnicodeChar(kBadUTF8Char)));
 }
 
 TEST(Utf8UtilTest, CheckStrSplitByCharToUnicode) {
@@ -59,6 +62,27 @@ TEST(Utf8UtilTest, CheckStrSplitByCharToUnicode) {
   EXPECT_THAT(StrSplitByCharToUnicode("ຍິນດີຕ້ອນຮັບ"),
               ElementsAre(3725, 3764, 3737, 3732, 3765, 3733, 3785, 3757, 3737,
                           3758, 3761, 3738));
+  EXPECT_THAT(StrSplitByCharToUnicode("ባህሪ" + EncodeUnicodeChar(kBadUTF8Char)),
+              ElementsAre(4707, 4613, 4650, kBadUTF8Char));
+}
+
+TEST(Utf8UtilTest, CheckDecodeSingleUnicodeChar) {
+  char32 code;
+  EXPECT_TRUE(DecodeSingleUnicodeChar("z", &code));
+  EXPECT_EQ(122, code);
+  EXPECT_TRUE(DecodeSingleUnicodeChar(EncodeUnicodeChar(kBadUTF8Char), &code));
+  EXPECT_EQ(kBadUTF8Char, code);
+  EXPECT_TRUE(DecodeSingleUnicodeChar("ባ", &code));
+  EXPECT_EQ(4707, code);
+  // \xc3 and \xe2 are prefix bytes in multi-byte characters, thus fail
+  // conversion resulting in kBadUTF8Char indices.
+  EXPECT_FALSE(DecodeSingleUnicodeChar("\xc3", &code));
+  EXPECT_EQ(kBadUTF8Char, code);
+  EXPECT_FALSE(DecodeSingleUnicodeChar("\xe2", &code));
+  EXPECT_EQ(kBadUTF8Char, code);
+  // xyz has multiple codepoints thus fails.
+  EXPECT_FALSE(DecodeSingleUnicodeChar("xyz", &code));
+  EXPECT_EQ(kBadUTF8Char, code);
 }
 
 TEST(Utf8UtilTest, CheckDecodeUnicodeChar) {
