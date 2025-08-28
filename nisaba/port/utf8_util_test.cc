@@ -83,6 +83,9 @@ TEST(Utf8UtilTest, CheckDecodeSingleUnicodeChar) {
   // xyz has multiple codepoints thus fails.
   EXPECT_FALSE(DecodeSingleUnicodeChar("xyz", &code));
   EXPECT_EQ(kBadUTF8Char, code);
+  // Empty string fails.
+  EXPECT_FALSE(DecodeSingleUnicodeChar("", &code));
+  EXPECT_EQ(kBadUTF8Char, code);
 }
 
 TEST(Utf8UtilTest, CheckDecodeUnicodeChar) {
