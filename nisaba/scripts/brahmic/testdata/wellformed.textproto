@@ -33,6 +33,12 @@ rewrite {
   input: "ँ"
 }
 
+# non-NFC input
+rewrite {
+  rule: "DEVA"
+  input: "बड़े"
+}
+
 # Accept tests from CDAC's (http://www.cdac.in) Working Group on Script Grammar.
 # Unfortunately there are no public documents to link.
 rewrite {

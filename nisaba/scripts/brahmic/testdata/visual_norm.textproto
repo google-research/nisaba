@@ -53,6 +53,8 @@ rewrite { rule: "DEVA" input: "गोल्‍डबर्ग" output: "गो�
 
 # <VIRAMA, NUKTA> → <NUKTA, VIRAMA>
 rewrite { rule: "DEVA" input: "क़्लब" output: "क़्लब" }
+# NFC rewrite is part of visual norm: <DDDHA> → <DDA, NUKTA>
+rewrite { rule: "DEVA" input: "बड़े" output: "बड़े" }
 
 # <LETTER E, VOWEL SIGN E> → <LETTER AI>
 rewrite { rule: "DEVA" input: "एेरावत" output: "ऐरावत" }
