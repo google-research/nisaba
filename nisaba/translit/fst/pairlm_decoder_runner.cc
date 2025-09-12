@@ -80,7 +80,7 @@ absl::Status ParallelDecoding(const PairLMDecoderOptions &config,
       std::make_unique<PairLMDecoder>(config);
   std::unique_ptr<ThreadPool> thread_pool =
       std::make_unique<ThreadPool>(num_workers);
-  thread_pool->StartWorkers();
+
   int index = 0;
   for (const auto &input_line : input_lines) {
     if (absl::StartsWith(input_line, "#")) continue;
