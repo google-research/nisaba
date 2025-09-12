@@ -393,7 +393,7 @@ StdVectorFst SampleFromLattice(const StdVectorFst &transliteration_fst,
 }  // namespace impl
 
 bool PairLMDecoder::CheckCache(absl::string_view input_word) const {
-  absl::ReaderMutexLock lock(&mutex_);
+  absl::ReaderMutexLock lock(mutex_);
   return global_word_transliteration_cache_.contains(input_word);
 }
 
@@ -820,10 +820,10 @@ StdVectorFst PairLMDecoder::TransliterateSegmentedWord(
         next_state = next_arc.nextstate;
       }
       cost += best_concat_strings.Final(next_state).Value();
-      fst_params.mutex.Lock();
+      fst_params.mutex.lock();
       AddCandSymArc(new_symbol, cost, word_final_state, fst_params,
                     &translit_result);
-      fst_params.mutex.Unlock();
+      fst_params.mutex.unlock();
     }
   }
   return translit_result;
@@ -832,9 +832,9 @@ StdVectorFst PairLMDecoder::TransliterateSegmentedWord(
 void PairLMDecoder::ExtractCachedWordTransliterations(
     absl::string_view input_word, TranslitContext &fst_params,
     StdVectorFst &cached) {
-  mutex_.ReaderLock();
+  mutex_.lock_shared();
   const auto cached_pairs = global_word_transliteration_cache_.at(input_word);
-  mutex_.ReaderUnlock();
+  mutex_.unlock_shared();
   for (const auto &pair : cached_pairs) {
     AddCandSymArc(pair.first, pair.second,
                   /*destination_state=*/1, fst_params, &(cached));
@@ -855,7 +855,7 @@ StdVectorFst PairLMDecoder::TransliterateUnsegmentedWord(
   if (best_pair_strings.Start() < 0 && vocab_check) {
     // No transliteration from pair LM (empty result) but some external ones.
     // Returns cached word transliterations.
-    absl::MutexLock lock(&fst_params.mutex);
+    absl::MutexLock lock(fst_params.mutex);
     StdVectorFst cached;
     cached.SetStart(cached.AddState());
     cached.SetFinal(cached.AddState(), 0.0);
@@ -871,7 +871,7 @@ StdVectorFst PairLMDecoder::TransliterateUnsegmentedWord(
   int curr_state = best_pair_strings.Start();
   if (curr_state < 0) {
     // No valid transliterations, outputs input word output unchanged.
-    absl::MutexLock lock(&fst_params.mutex);
+    absl::MutexLock lock(fst_params.mutex);
     AddCandSymArc(input_word, /*cost=*/0.0, word_final_state, fst_params,
                   &word_transliterations);
   } else if (best_pair_strings.NumArcs(curr_state) == 1) {
@@ -879,10 +879,10 @@ StdVectorFst PairLMDecoder::TransliterateUnsegmentedWord(
     std::string new_symbol;
     const double cost =
         impl::GetTextString(best_pair_strings, curr_state, &new_symbol);
-    fst_params.mutex.Lock();
+    fst_params.mutex.lock();
     AddCandSymArc(new_symbol, cost, word_final_state, fst_params,
                   &word_transliterations);
-    fst_params.mutex.Unlock();
+    fst_params.mutex.unlock();
   } else {
     // Multiple paths, start each at destination of epsilon transition w/cost.
     for (ArcIterator<StdVectorFst> aiter(best_pair_strings, curr_state);
@@ -892,10 +892,10 @@ StdVectorFst PairLMDecoder::TransliterateUnsegmentedWord(
       const double cost =
           arc.weight.Value() +
           impl::GetTextString(best_pair_strings, arc.nextstate, &new_symbol);
-      fst_params.mutex.Lock();
+      fst_params.mutex.lock();
       AddCandSymArc(new_symbol, cost, word_final_state, fst_params,
                     &word_transliterations);
-      fst_params.mutex.Unlock();
+      fst_params.mutex.unlock();
     }
   }
   return word_transliterations;
@@ -904,15 +904,15 @@ StdVectorFst PairLMDecoder::TransliterateUnsegmentedWord(
 StdVectorFst PairLMDecoder::TransliterateWord(absl::string_view input_word,
                                               int k_best,
                                               TranslitContext &fst_params) {
-  fst_params.mutex.Lock();
+  fst_params.mutex.lock();
   // We haven't seen this word, so initialize it in indexes.
   if (!fst_params.word_transliteration_cache.contains(input_word)) {
     // Adds input_word since it has not been seen before.
     fst_params.input_syms.AddSymbol(input_word);
     // Add premixed.
-    mutex_.ReaderLock();
+    mutex_.lock_shared();
     const bool override = mix_overrides_.contains(input_word);
-    mutex_.ReaderUnlock();
+    mutex_.unlock_shared();
     fst_params.mixed_with_precomputed.insert_or_assign(input_word, override);
     //  Add global cache.
     StdVectorFst cached;
@@ -924,17 +924,17 @@ StdVectorFst PairLMDecoder::TransliterateWord(absl::string_view input_word,
     }
     fst_params.word_transliteration_cache.insert_or_assign(input_word, cached);
   }
-  fst_params.mutex.Unlock();
-  fst_params.mutex.ReaderLock();
+  fst_params.mutex.unlock();
+  fst_params.mutex.lock_shared();
   const bool no_fst_decoding_required =
       CheckCache(input_word) &&
       fst_params.mixed_with_precomputed.at(input_word);
-  fst_params.mutex.ReaderUnlock();
+  fst_params.mutex.unlock_shared();
   if (no_fst_decoding_required) {
     // If the word is in the global cache and is marked as already mixed (or not
     // requiring mixture), no need to mix or cache again, so returns cached word
     // transliterations right away.
-    absl::ReaderMutexLock lock(&fst_params.mutex);
+    absl::ReaderMutexLock lock(fst_params.mutex);
     return fst_params.word_transliteration_cache.at(input_word);
   }
 
@@ -954,16 +954,16 @@ StdVectorFst PairLMDecoder::TransliterateWord(absl::string_view input_word,
 
   // If the word is marked as mixed, no need to mix or cache again, so return
   // right away.
-  fst_params.mutex.ReaderLock();
+  fst_params.mutex.lock_shared();
   const bool override = fst_params.mixed_with_precomputed.at(input_word);
-  fst_params.mutex.ReaderUnlock();
+  fst_params.mutex.unlock_shared();
   if (override) {
     // Returns cached word transliterations.
-    absl::ReaderMutexLock lock(&fst_params.mutex);
+    absl::ReaderMutexLock lock(fst_params.mutex);
     return fst_params.word_transliteration_cache.at(input_word);
   }
 
-  fst_params.mutex.Lock();
+  fst_params.mutex.lock();
   // Adds Fst weighting to final state of Fst automaton prior to union.
   QCHECK_EQ(word_transliterations.NumStates(), 2);
   QCHECK_EQ(word_transliterations.Start(), 0);
@@ -988,7 +988,7 @@ StdVectorFst PairLMDecoder::TransliterateWord(absl::string_view input_word,
   // preventing this caching code from being reached twice for the same input
   // word.
   if (add_to_cache_) {
-    absl::MutexLock lock(&mutex_);
+    absl::MutexLock lock(mutex_);
     const int curr_state = word_transliterations.Start();
     for (ArcIterator<StdVectorFst> aiter(word_transliterations, curr_state);
          !aiter.Done(); aiter.Next()) {
@@ -998,7 +998,7 @@ StdVectorFst PairLMDecoder::TransliterateWord(absl::string_view input_word,
     }
     mix_overrides_.emplace(input_word);
   }
-  fst_params.mutex.Unlock();
+  fst_params.mutex.unlock();
 
   return word_transliterations;
 }
