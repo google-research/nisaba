@@ -88,7 +88,7 @@ absl::Status ParallelDecoding(const PairLMDecoderOptions &config,
                            &outputs_mutex] {
       const std::string &result = Transliterate(input_line, k_best, index,
                                                 pair_lm.get());
-      absl::WriterMutexLock lock(&outputs_mutex);
+      absl::WriterMutexLock lock(outputs_mutex);
       outputs.push_back({result, index});
     });
     index++;
