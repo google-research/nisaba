@@ -343,6 +343,11 @@ class ExpressionTest(test_op.TestCase):
         ((_ATM.a | _ATM.b) >> (_ATM.c + _ATM.d)).string(), '((a | b)∶(c d))'
     )
 
+  def test_operator_lshift(self):
+    self.assertEqual(
+        ((_ATM.a | _ATM.b) << (_ATM.c + _ATM.d)).string(), '((c d)∶(a | b))'
+    )
+
   def test_alignment(self):
     alignment = exp.Alignment('test')
     self.assertEqual(alignment.left, exp.Expression.ANY)

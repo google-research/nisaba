@@ -127,6 +127,9 @@ class Expression(ty.IterableThing, sym.Item):
   def __rshift__(self, other: Expression) -> Alignment:
     return Alignment.simple(self, other)
 
+  def __lshift__(self, other: Expression) -> Alignment:
+    return Alignment.simple(other, self)
+
   def repeat(self, n: int = 2) -> Cat:
     """Returns a Cat of n repetitions of this expression."""
     return Cat(*([self] * n))
