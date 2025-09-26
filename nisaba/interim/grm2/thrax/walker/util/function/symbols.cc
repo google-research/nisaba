@@ -171,7 +171,7 @@ void SymbolTableBuilder::AddToUtf8SymbolTable(std::string symbol,
 }
 
 void SymbolTableBuilder::GenerateByteSymbolTable() {
-  absl::MutexLock lock(&map_mutex_);
+  absl::MutexLock lock(map_mutex_);
   byte_symbols_ = std::make_unique<::fst::SymbolTable>(kByteSymbolTableName);
   byte_symbols_->AddSymbol("<epsilon>", 0);
   char c_str[5];
@@ -187,7 +187,7 @@ void SymbolTableBuilder::GenerateByteSymbolTable() {
 }
 
 void SymbolTableBuilder::GenerateUtf8SymbolTable() {
-  absl::MutexLock lock(&map_mutex_);
+  absl::MutexLock lock(map_mutex_);
   utf8_symbols_ = std::make_unique<::fst::SymbolTable>(kUtf8SymbolTableName);
   utf8_symbols_->AddSymbol("<epsilon>", 0);
   for (int c = 1; c < 0x10000; ++c) {
