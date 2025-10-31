@@ -23,7 +23,7 @@
 #include <string>
 
 #include "fst/extensions/far/far.h"
-#include "fst/symbol-table.h"
+#include "fst/lib/symbol-table.h"
 #include "absl/flags/declare.h"
 #include "absl/flags/flag.h"
 #include "absl/memory/memory.h"

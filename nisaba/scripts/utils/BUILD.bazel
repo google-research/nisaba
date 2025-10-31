@@ -42,9 +42,9 @@ cc_library(
     deps = [
         "//nisaba/interim/grm2/thrax:grm-manager-lib",
         "//nisaba/port:file_util",
+        "//nlp/fst/lib",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/strings",
-        "@org_openfst//:fst",
     ],
 )
 

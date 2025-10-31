@@ -21,8 +21,8 @@
 #include <utility>
 #include <vector>
 
-#include "fst/symbol-table.h"
-#include "fst/vector-fst.h"
+#include "fst/lib/symbol-table.h"
+#include "fst/lib/vector-fst.h"
 #include "absl/strings/str_cat.h"
 #include "absl/types/span.h"
 

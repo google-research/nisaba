@@ -25,10 +25,10 @@
 #include <vector>
 
 #include "fst/extensions/far/far.h"
-#include "fst/arcsort.h"
-#include "fst/fst-decl.h"
-#include "fst/intersect.h"
-#include "fst/string.h"
+#include "fst/lib/arcsort.h"
+#include "fst/lib/fst-decl.h"
+#include "fst/lib/intersect.h"
+#include "fst/lib/string.h"
 #include "absl/container/flat_hash_map.h"
 #include "absl/log/log.h"
 #include "absl/memory/memory.h"

@@ -21,7 +21,7 @@
 #include <utility>
 #include <vector>
 
-#include "fst/vector-fst.h"
+#include "fst/lib/vector-fst.h"
 #include "absl/log/log.h"
 #include "absl/status/status.h"
 #include "absl/strings/match.h"

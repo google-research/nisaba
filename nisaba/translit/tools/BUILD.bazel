@@ -41,11 +41,11 @@ cc_library(
     deps = [
         "//nisaba/port:file_util",
         "//nisaba/port:utf8_util",
+        "//nlp/fst/lib:lib_lite",
+        "//nlp/fst/lib:symbol-table",
         "@com_google_absl//absl/log:check",
         "@com_google_absl//absl/strings",
         "@com_google_absl//absl/types:span",
-        "@org_openfst//:lib_lite",
-        "@org_openfst//:symbol-table",
     ],
 )
 
@@ -157,13 +157,13 @@ cc_library(
     deps = [
         "//nisaba/port:file_util",
         "//nisaba/port:utf8_util",
+        "//nlp/fst/lib:lib_lite",
+        "//nlp/fst/lib:symbol-table",
+        "//nlp/fst/lib:weight",
         "@com_google_absl//absl/container:flat_hash_set",
         "@com_google_absl//absl/log:check",
         "@com_google_absl//absl/strings",
         "@com_google_absl//absl/types:span",
-        "@org_openfst//:lib_lite",
-        "@org_openfst//:symbol-table",
-        "@org_openfst//:weight",
         "@org_opengrm_ngram//:opengrm-ngram-lib",
     ],
 )

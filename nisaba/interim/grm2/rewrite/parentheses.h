@@ -20,7 +20,7 @@
 #include <utility>
 #include <vector>
 
-#include "fst/fst.h"
+#include "fst/lib/fst.h"
 #include "absl/log/log.h"
 #include "absl/types/span.h"
 

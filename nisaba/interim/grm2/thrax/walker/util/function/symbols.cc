@@ -20,7 +20,7 @@
 #include <string>
 #include <vector>
 
-#include "fst/string.h"
+#include "fst/lib/string.h"
 #include "absl/synchronization/mutex.h"
 
 namespace thrax {

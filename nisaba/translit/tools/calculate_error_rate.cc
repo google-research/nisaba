@@ -20,12 +20,12 @@
 #include <utility>
 #include <vector>
 
-#include "fst/arc.h"
-#include "fst/arcsort.h"
-#include "fst/compose.h"
-#include "fst/shortest-path.h"
-#include "fst/symbol-table.h"
-#include "fst/vector-fst.h"
+#include "fst/lib/arc.h"
+#include "fst/lib/arcsort.h"
+#include "fst/lib/compose.h"
+#include "fst/lib/shortest-path.h"
+#include "fst/lib/symbol-table.h"
+#include "fst/lib/vector-fst.h"
 #include "absl/log/check.h"
 #include "absl/strings/str_cat.h"
 #include "absl/strings/str_join.h"

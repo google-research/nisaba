@@ -18,7 +18,7 @@
 #include <memory>
 #include <string>
 
-#include "fst/fstlib.h"
+#include "fst/lib/fstlib.h"
 #include "nisaba/interim/grm2/thrax/grm-manager.h"
 #include "absl/status/status.h"
 #include "absl/strings/string_view.h"

@@ -20,8 +20,8 @@
 #include <utility>
 #include <vector>
 
-#include "fst/symbol-table.h"
-#include "fst/vector-fst.h"
+#include "fst/lib/symbol-table.h"
+#include "fst/lib/vector-fst.h"
 #include "absl/container/flat_hash_map.h"
 #include "absl/status/status.h"
 #include "absl/status/statusor.h"

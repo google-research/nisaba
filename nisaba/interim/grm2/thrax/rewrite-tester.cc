@@ -23,11 +23,11 @@
 #include <utility>
 #include <vector>
 
-#include "fst/arc.h"
-#include "fst/fst.h"
-#include "fst/string.h"
-#include "fst/symbol-table.h"
-#include "fst/vector-fst.h"
+#include "fst/lib/arc.h"
+#include "fst/lib/fst.h"
+#include "fst/lib/string.h"
+#include "fst/lib/symbol-table.h"
+#include "fst/lib/vector-fst.h"
 #include "absl/flags/flag.h"
 #include "absl/log/check.h"
 #include "absl/log/log.h"
