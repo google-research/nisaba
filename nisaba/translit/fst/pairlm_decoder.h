@@ -19,13 +19,13 @@
 #include <string>
 #include <vector>
 
-#include "fst/vector-fst.h"
 #include "absl/container/flat_hash_map.h"
 #include "absl/container/flat_hash_set.h"
 #include "absl/strings/string_view.h"
 #include "absl/synchronization/mutex.h"
 #include "nisaba/translit/fst/pairlm_decoder_options.pb.h"
 #include "nisaba/translit/fst/wordpiece-segmenter.h"
+#include "fst/vector-fst.h"
 
 namespace nisaba {
 namespace translit {

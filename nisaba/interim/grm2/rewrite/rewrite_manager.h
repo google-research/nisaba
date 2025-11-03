@@ -24,17 +24,17 @@
 #include <utility>
 #include <vector>
 
-#include "fst/extensions/far/far.h"
-#include "fst/arcsort.h"
-#include "fst/fst-decl.h"
-#include "fst/intersect.h"
-#include "fst/string.h"
 #include "absl/container/flat_hash_map.h"
 #include "absl/log/log.h"
 #include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
 #include "nisaba/interim/grm2/rewrite/parentheses.h"
 #include "nisaba/interim/grm2/rewrite/rewrite.h"
+#include "third_party/openfst/extensions/far/far.h"
+#include "fst/arcsort.h"
+#include "fst/fst-decl.h"
+#include "fst/intersect.h"
+#include "fst/string.h"
 #include "google/protobuf/repeated_ptr_field.h"
 
 namespace rewrite {

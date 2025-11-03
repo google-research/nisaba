@@ -21,8 +21,8 @@
 #include <memory>
 #include <string>
 
-#include "fst/symbol-table.h"
 #include "absl/synchronization/mutex.h"
+#include "fst/symbol-table.h"
 
 namespace thrax {
 namespace function {

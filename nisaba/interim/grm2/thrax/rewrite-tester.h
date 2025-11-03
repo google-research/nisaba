@@ -20,11 +20,11 @@
 #include <utility>
 #include <vector>
 
+#include "nisaba/interim/grm2/thrax/grm-manager.h"
 #include "fst/arc.h"
 #include "fst/fst.h"
 #include "fst/string.h"
 #include "fst/symbol-table.h"
-#include "nisaba/interim/grm2/thrax/grm-manager.h"
 
 namespace thrax {
 

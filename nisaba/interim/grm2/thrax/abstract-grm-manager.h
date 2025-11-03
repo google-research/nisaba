@@ -26,22 +26,22 @@
 #include <utility>
 #include <vector>
 
-#include "fst/extensions/mpdt/compose.h"
-#include "fst/extensions/mpdt/mpdt.h"
-#include "fst/extensions/pdt/compose.h"
-#include "fst/extensions/pdt/pdt.h"
-#include "fst/extensions/pdt/shortest-path.h"
-#include "fst/arc.h"
-#include "fst/fst.h"
-#include "fst/fstlib.h"
-#include "fst/string.h"
-#include "fst/vector-fst.h"
 #include "absl/base/casts.h"
 #include "absl/container/flat_hash_map.h"
 #include "absl/log/log.h"
 #include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
 #include "nisaba/interim/grm2/rewrite/parentheses.h"
+#include "third_party/openfst/extensions/mpdt/compose.h"
+#include "third_party/openfst/extensions/mpdt/mpdt.h"
+#include "third_party/openfst/extensions/pdt/compose.h"
+#include "third_party/openfst/extensions/pdt/pdt.h"
+#include "third_party/openfst/extensions/pdt/shortest-path.h"
+#include "fst/arc.h"
+#include "fst/fst.h"
+#include "fst/fstlib.h"
+#include "fst/string.h"
+#include "fst/vector-fst.h"
 
 namespace thrax {
 

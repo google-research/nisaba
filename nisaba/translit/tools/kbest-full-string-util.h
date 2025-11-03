@@ -20,9 +20,9 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "fst/symbol-table.h"
 #include "fst/vector-fst.h"
-#include "absl/strings/string_view.h"
 
 namespace nisaba {
 namespace translit {

@@ -25,8 +25,11 @@
 #include <utility>
 #include <vector>
 
-#include "fst/extensions/mpdt/compose.h"
-#include "fst/extensions/pdt/compose.h"
+#include "absl/log/log.h"
+#include "nisaba/interim/grm2/paths/paths.h"
+#include "nisaba/interim/grm2/string/stringprint.h"
+#include "third_party/openfst/extensions/mpdt/compose.h"
+#include "third_party/openfst/extensions/pdt/compose.h"
 #include "fst/arcsort.h"
 #include "fst/compose.h"
 #include "fst/determinize.h"
@@ -37,9 +40,6 @@
 #include "fst/rmepsilon.h"
 #include "fst/shortest-path.h"
 #include "fst/vector-fst.h"
-#include "absl/log/log.h"
-#include "nisaba/interim/grm2/paths/paths.h"
-#include "nisaba/interim/grm2/string/stringprint.h"
 #include "google/protobuf/repeated_ptr_field.h"
 
 // Generic rewrite utilities for string inputs.

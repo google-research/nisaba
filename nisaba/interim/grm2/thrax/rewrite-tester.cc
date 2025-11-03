@@ -23,11 +23,6 @@
 #include <utility>
 #include <vector>
 
-#include "fst/arc.h"
-#include "fst/fst.h"
-#include "fst/string.h"
-#include "fst/symbol-table.h"
-#include "fst/vector-fst.h"
 #include "absl/flags/flag.h"
 #include "absl/log/check.h"
 #include "absl/log/log.h"
@@ -38,6 +33,11 @@
 #include "nisaba/interim/grm2/paths/paths.h"
 #include "nisaba/interim/grm2/thrax/grm-manager.h"
 #include "nisaba/interim/grm2/thrax/walker/util/function/symbols.h"
+#include "fst/arc.h"
+#include "fst/fst.h"
+#include "fst/string.h"
+#include "fst/symbol-table.h"
+#include "fst/vector-fst.h"
 
 ABSL_FLAG(std::string, far, "", "Path to the FAR.");
 ABSL_FLAG(std::string, rules, "", "Names of the rewrite rules.");

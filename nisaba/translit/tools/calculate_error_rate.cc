@@ -20,12 +20,6 @@
 #include <utility>
 #include <vector>
 
-#include "fst/arc.h"
-#include "fst/arcsort.h"
-#include "fst/compose.h"
-#include "fst/shortest-path.h"
-#include "fst/symbol-table.h"
-#include "fst/vector-fst.h"
 #include "absl/log/check.h"
 #include "absl/strings/str_cat.h"
 #include "absl/strings/str_join.h"
@@ -34,6 +28,12 @@
 #include "absl/types/span.h"
 #include "nisaba/port/file_util.h"
 #include "nisaba/port/utf8_util.h"
+#include "fst/arc.h"
+#include "fst/arcsort.h"
+#include "fst/compose.h"
+#include "fst/shortest-path.h"
+#include "fst/symbol-table.h"
+#include "fst/vector-fst.h"
 
 namespace nisaba {
 namespace translit {

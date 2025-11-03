@@ -19,9 +19,6 @@
 #include <utility>
 #include <vector>
 
-#include "fst/arc.h"
-#include "fst/symbol-table.h"
-#include "fst/vector-fst.h"
 #include "absl/container/flat_hash_map.h"
 #include "absl/log/check.h"
 #include "absl/status/status.h"
@@ -31,6 +28,9 @@
 #include "absl/strings/str_split.h"
 #include "absl/strings/string_view.h"
 #include "nisaba/port/utf8_util.h"
+#include "fst/arc.h"
+#include "fst/symbol-table.h"
+#include "fst/vector-fst.h"
 
 constexpr char kWordInitPrefix[] = "▁";
 
