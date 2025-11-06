@@ -57,11 +57,11 @@ cc_library(
         "//nisaba/port:status_macros",
         "//nisaba/port:thread_pool",
         "//nisaba/port:timer",
-        "//nlp/fst/lib",
         "@com_google_absl//absl/log",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/strings",
         "@com_google_absl//absl/synchronization",
+        "@org_openfst//:fst",
     ],
 )
 
@@ -95,9 +95,6 @@ cc_library(
         "//nisaba/port:integral_types",
         "//nisaba/port:thread_pool",
         "//nisaba/port:utf8_util",
-        "//nlp/fst/lib",
-        "//nlp/fst/lib:symbol-table",
-        "//nlp/fst/lib:weight",
         "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_absl//absl/container:flat_hash_set",
         "@com_google_absl//absl/log",
@@ -105,6 +102,9 @@ cc_library(
         "@com_google_absl//absl/random",
         "@com_google_absl//absl/strings",
         "@com_google_absl//absl/synchronization",
+        "@org_openfst//:fst",
+        "@org_openfst//:symbol-table",
+        "@org_openfst//:weight",
         "@org_opengrm_ngram//:opengrm-ngram-lib",
     ],
 )
@@ -118,10 +118,10 @@ cc_test(
         ":pairlm_decoder_options_cc_proto",
         "//nisaba/port:file_util",
         "//nisaba/port:status-matchers",
-        "//nlp/fst/lib",
-        "//nlp/fst/lib:symbol-table",
         "@com_google_absl//absl/strings",
         "@com_google_googletest//:gtest_main",
+        "@org_openfst//:fst",
+        "@org_openfst//:symbol-table",
     ],
 )
 
@@ -135,13 +135,13 @@ cc_library(
     ],
     deps = [
         "//nisaba/port:utf8_util",
-        "//nlp/fst/lib:lib_lite",
-        "//nlp/fst/lib:symbol-table",
         "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_absl//absl/log:check",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/status:statusor",
         "@com_google_absl//absl/strings",
+        "@org_openfst//:lib_lite",
+        "@org_openfst//:symbol-table",
     ],
 )
 

@@ -20,10 +20,6 @@
 #include <tuple>
 #include <vector>
 
-#include "fst/lib/arc.h"
-#include "fst/lib/fst.h"
-#include "fst/lib/symbol-table.h"
-#include "fst/lib/vector-fst.h"
 #include "gmock/gmock.h"
 #include "nisaba/port/status-matchers.h"
 #include "gtest/gtest.h"
@@ -31,6 +27,10 @@
 #include "absl/strings/str_join.h"
 #include "nisaba/port/file_util.h"
 #include "nisaba/translit/fst/pairlm_decoder_options.pb.h"
+#include "fst/arc.h"
+#include "fst/fst.h"
+#include "fst/symbol-table.h"
+#include "fst/vector-fst.h"
 
 using fst::ArcIterator;
 using fst::StdArc;

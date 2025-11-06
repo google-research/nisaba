@@ -21,10 +21,10 @@
 #include <utility>
 #include <vector>
 
-#include "fst/lib/symbol-table.h"
-#include "fst/lib/vector-fst.h"
 #include "absl/strings/str_cat.h"
 #include "absl/types/span.h"
+#include "fst/symbol-table.h"
+#include "fst/vector-fst.h"
 
 namespace nisaba {
 namespace translit {
