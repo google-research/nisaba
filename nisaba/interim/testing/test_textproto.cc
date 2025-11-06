@@ -43,7 +43,6 @@
 #include <string>
 #include <vector>
 
-#include "fst/script/getters.h"
 #include "gmock/gmock.h"
 #include "nisaba/port/status-matchers.h"
 #include "gtest/gtest.h"
@@ -55,6 +54,7 @@
 #include "absl/strings/string_view.h"
 #include "nisaba/interim/grm2/rewrite/rule_cascade.h"
 #include "nisaba/interim/testing/testdata.h"
+#include "third_party/openfst/script/getters.h"
 #include "absl/flags/parse.h"
 
 ABSL_FLAG(std::string, far_path, "", "Path of FAR to read rules from");

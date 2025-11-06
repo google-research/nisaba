@@ -22,7 +22,7 @@ cc_library(
     name = "stringprint",
     hdrs = ["stringprint.h"],
     deps = [
-        "//nlp/fst/lib:fst-decl",
-        "//nlp/fst/lib:lib_lite",
+        "@org_openfst//:fst-decl",
+        "@org_openfst//:lib_lite",
     ],
 )

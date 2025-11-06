@@ -23,12 +23,12 @@ cc_library(
     hdrs = ["base_rule_cascade.h"],
     deps = [
         ":rewrite",
-        "//nlp/fst/lib:lib_lite",
-        "//nlp/fst/lib:string",
-        "//nlp/fst/lib:symbol-table",
         "@com_google_absl//absl/strings",
         "@com_google_absl//absl/types:span",
         "@com_google_protobuf//:protobuf_lite",
+        "@org_openfst//:fst",
+        "@org_openfst//:lib_lite",
+        "@org_openfst//:symbol-table",
     ],
 )
 
@@ -36,9 +36,9 @@ cc_library(
     name = "parentheses",
     hdrs = ["parentheses.h"],
     deps = [
-        "//nlp/fst/lib",
         "@com_google_absl//absl/log",
         "@com_google_absl//absl/types:span",
+        "@org_openfst//:fst",
     ],
 )
 
@@ -48,11 +48,11 @@ cc_library(
     deps = [
         "//nisaba/interim/grm2/paths",
         "//nisaba/interim/grm2/string:stringprint",
-        "//nlp/fst/lib",
+        "//third_party/openfst/extensions/mpdt:compose",
+        "//third_party/openfst/extensions/pdt:compose",
         "@com_google_absl//absl/log",
         "@com_google_protobuf//:protobuf_lite",
-        "@org_openfst//:mpdt",
-        "@org_openfst//:pdt",
+        "@org_openfst//:fst",
     ],
 )
 
@@ -62,14 +62,14 @@ cc_library(
     deps = [
         ":parentheses",
         ":rewrite",
-        "//nlp/fst/extensions/far:lib",
-        "//nlp/fst/lib",
-        "//nlp/fst/lib:fst-decl",
         "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_absl//absl/log",
         "@com_google_absl//absl/memory",
         "@com_google_absl//absl/strings",
         "@com_google_protobuf//:protobuf_lite",
+        "@org_openfst//:far",
+        "@org_openfst//:fst",
+        "@org_openfst//:fst-decl",
     ],
 )
 

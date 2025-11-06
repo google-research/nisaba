@@ -20,9 +20,9 @@
 #include <utility>
 #include <vector>
 
-#include "fst/lib/fst.h"
 #include "absl/log/log.h"
 #include "absl/types/span.h"
+#include "fst/fst.h"
 
 // This is used by (M)PdtCompose and and associated grammar managers when they
 // express parentheses and/or assignments as transducers.

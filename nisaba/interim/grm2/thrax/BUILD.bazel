@@ -26,15 +26,17 @@ cc_library(
     hdrs = ["abstract-grm-manager.h"],
     deps = [
         "//nisaba/interim/grm2/rewrite:parentheses",
-        "//nlp/fst/lib",
+        "//third_party/openfst/extensions/mpdt",
+        "//third_party/openfst/extensions/mpdt:compose",
+        "//third_party/openfst/extensions/pdt",
+        "//third_party/openfst/extensions/pdt:compose",
         "@com_google_absl//absl/base",
         "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_absl//absl/log",
         "@com_google_absl//absl/memory",
         "@com_google_absl//absl/strings",
-        "@org_openfst//:mpdt",
+        "@org_openfst//:fst",
         "@org_openfst//:pdt",
-        "@org_openfst//:pdt:shortest-path",
     ],
 )
 
@@ -43,10 +45,10 @@ cc_library(
     hdrs = ["grm-manager.h"],
     deps = [
         ":abstract-grm-manager-lib",
-        "//nlp/fst/extensions/far:lib",
-        "//nlp/fst/lib:symbol-table",
         "@com_google_absl//absl/flags:flag",
         "@com_google_absl//absl/memory",
+        "@org_openfst//:far",
+        "@org_openfst//:symbol-table",
     ],
 )
 
@@ -59,14 +61,13 @@ cc_library(
         "//nisaba/interim/grm2/paths",
         "//nisaba/interim/grm2/thrax/walker/util/function:symbols",
         "//nisaba/port:file",
-        "//nlp/fst/lib",
-        "//nlp/fst/lib:string",
-        "//nlp/fst/lib:symbol-table",
         "@com_google_absl//absl/flags:flag",
         "@com_google_absl//absl/log",
         "@com_google_absl//absl/log:check",
         "@com_google_absl//absl/memory",
         "@com_google_absl//absl/strings",
+        "@org_openfst//:fst",
+        "@org_openfst//:symbol-table",
     ],
 )
 

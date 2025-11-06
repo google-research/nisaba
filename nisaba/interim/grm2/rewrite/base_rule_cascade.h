@@ -29,15 +29,15 @@
 #include <string>
 #include <vector>
 
-#include "fst/lib/arcsort.h"
-#include "fst/lib/compose.h"
-#include "fst/lib/fst.h"
-#include "fst/lib/string.h"
-#include "fst/lib/symbol-table.h"
-#include "fst/lib/vector-fst.h"
 #include "absl/strings/string_view.h"
 #include "absl/types/span.h"
 #include "nisaba/interim/grm2/rewrite/rewrite.h"
+#include "fst/arcsort.h"
+#include "fst/compose.h"
+#include "fst/fst.h"
+#include "fst/string.h"
+#include "fst/symbol-table.h"
+#include "fst/vector-fst.h"
 #include "google/protobuf/repeated_ptr_field.h"
 
 namespace rewrite {

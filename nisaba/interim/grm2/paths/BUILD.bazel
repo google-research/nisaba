@@ -22,7 +22,7 @@ cc_library(
     name = "paths",
     hdrs = ["paths.h"],
     deps = [
-        "//nlp/fst/lib",
-        "//nlp/fst/lib:util",
+        "@org_openfst//:fst",
+        "@org_openfst//:util",
     ],
 )

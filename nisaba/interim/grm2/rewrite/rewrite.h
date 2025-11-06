@@ -25,21 +25,21 @@
 #include <utility>
 #include <vector>
 
-#include "fst/extensions/mpdt/compose.h"
-#include "fst/extensions/pdt/compose.h"
-#include "fst/lib/arcsort.h"
-#include "fst/lib/compose.h"
-#include "fst/lib/determinize.h"
-#include "fst/lib/fst.h"
-#include "fst/lib/intersect.h"
-#include "fst/lib/mutable-fst.h"
-#include "fst/lib/project.h"
-#include "fst/lib/rmepsilon.h"
-#include "fst/lib/shortest-path.h"
-#include "fst/lib/vector-fst.h"
 #include "absl/log/log.h"
 #include "nisaba/interim/grm2/paths/paths.h"
 #include "nisaba/interim/grm2/string/stringprint.h"
+#include "third_party/openfst/extensions/mpdt/compose.h"
+#include "third_party/openfst/extensions/pdt/compose.h"
+#include "fst/arcsort.h"
+#include "fst/compose.h"
+#include "fst/determinize.h"
+#include "fst/fst.h"
+#include "fst/intersect.h"
+#include "fst/mutable-fst.h"
+#include "fst/project.h"
+#include "fst/rmepsilon.h"
+#include "fst/shortest-path.h"
+#include "fst/vector-fst.h"
 #include "google/protobuf/repeated_ptr_field.h"
 
 // Generic rewrite utilities for string inputs.
