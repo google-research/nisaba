@@ -22,15 +22,6 @@
 #include <utility>
 #include <vector>
 
-#include "fst/lib/arc-map.h"
-#include "fst/lib/arc.h"
-#include "fst/lib/arcsort.h"
-#include "fst/lib/compose.h"
-#include "fst/lib/float-weight.h"
-#include "fst/lib/project.h"
-#include "fst/lib/shortest-path.h"
-#include "fst/lib/symbol-table.h"
-#include "fst/lib/vector-fst.h"
 #include "ngram/ngram-count.h"
 #include "absl/container/flat_hash_set.h"
 #include "absl/log/check.h"
@@ -41,6 +32,15 @@
 #include "absl/types/span.h"
 #include "nisaba/port/file_util.h"
 #include "nisaba/port/utf8_util.h"
+#include "fst/arc-map.h"
+#include "fst/arc.h"
+#include "fst/arcsort.h"
+#include "fst/compose.h"
+#include "fst/float-weight.h"
+#include "fst/project.h"
+#include "fst/shortest-path.h"
+#include "fst/symbol-table.h"
+#include "fst/vector-fst.h"
 
 namespace nisaba {
 namespace translit {

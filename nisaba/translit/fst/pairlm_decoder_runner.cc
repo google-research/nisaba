@@ -21,7 +21,6 @@
 #include <utility>
 #include <vector>
 
-#include "fst/lib/vector-fst.h"
 #include "absl/log/log.h"
 #include "absl/status/status.h"
 #include "absl/strings/match.h"
@@ -32,6 +31,7 @@
 #include "nisaba/port/file_util.h"
 #include "nisaba/port/timer.h"
 #include "nisaba/translit/fst/pairlm_decoder.h"
+#include "fst/vector-fst.h"
 #include "nisaba/port/thread_pool.h"
 #include "nisaba/port/status_macros.h"
 
