@@ -26,7 +26,7 @@
 #include "absl/flags/flag.h"
 #include "absl/memory/memory.h"
 #include "nisaba/interim/grm2/thrax/abstract-grm-manager.h"
-#include "third_party/openfst/extensions/far/far.h"
+#include "fst/extensions/far/far.h"
 #include "fst/symbol-table.h"
 
 ABSL_DECLARE_FLAG(std::string, outdir);

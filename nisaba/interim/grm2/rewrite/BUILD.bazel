@@ -48,11 +48,11 @@ cc_library(
     deps = [
         "//nisaba/interim/grm2/paths",
         "//nisaba/interim/grm2/string:stringprint",
-        "//third_party/openfst/extensions/mpdt:compose",
-        "//third_party/openfst/extensions/pdt:compose",
         "@com_google_absl//absl/log",
         "@com_google_protobuf//:protobuf_lite",
         "@org_openfst//:fst",
+        "@org_openfst//:mpdt",
+        "@org_openfst//:pdt",
     ],
 )
 

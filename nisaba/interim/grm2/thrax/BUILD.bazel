@@ -26,16 +26,13 @@ cc_library(
     hdrs = ["abstract-grm-manager.h"],
     deps = [
         "//nisaba/interim/grm2/rewrite:parentheses",
-        "//third_party/openfst/extensions/mpdt",
-        "//third_party/openfst/extensions/mpdt:compose",
-        "//third_party/openfst/extensions/pdt",
-        "//third_party/openfst/extensions/pdt:compose",
         "@com_google_absl//absl/base",
         "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_absl//absl/log",
         "@com_google_absl//absl/memory",
         "@com_google_absl//absl/strings",
         "@org_openfst//:fst",
+        "@org_openfst//:mpdt",
         "@org_openfst//:pdt",
     ],
 )

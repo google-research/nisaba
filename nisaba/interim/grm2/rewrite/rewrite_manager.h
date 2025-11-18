@@ -30,7 +30,7 @@
 #include "absl/strings/string_view.h"
 #include "nisaba/interim/grm2/rewrite/parentheses.h"
 #include "nisaba/interim/grm2/rewrite/rewrite.h"
-#include "third_party/openfst/extensions/far/far.h"
+#include "fst/extensions/far/far.h"
 #include "fst/arcsort.h"
 #include "fst/fst-decl.h"
 #include "fst/intersect.h"
