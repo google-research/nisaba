@@ -124,6 +124,7 @@ py_library(
         "//nisaba/scripts/abjad_alphabet/data/Arab:presentation_forms.tsv",
         "//nisaba/scripts/abjad_alphabet/data/Arab:visual_norm.tsv",
     ],
+    strict_deps = False,
     deps = [
         ":util",
         "//nisaba/scripts/utils:rule",
