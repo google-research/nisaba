@@ -22,8 +22,9 @@ b.features = None, a and b won't be evaluated as having the same features.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 import enum
-from typing import Any, Iterable, Type, TypeVar, Union
+from typing import Any, TypeVar, Union
 
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import log_op as log
@@ -166,7 +167,7 @@ DictOrNothing = Union[dict, Nothing]
 IntOrNothing = Union[int, Nothing]
 ListOrNothing = Union[list, Nothing]
 SetOrNothing = Union[set, Nothing]
-TypeOrNothing = Union[Type, Nothing]
+TypeOrNothing = Union[type, Nothing]
 
 
 class IterableThing(Thing):

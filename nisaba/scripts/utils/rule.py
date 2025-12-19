@@ -59,9 +59,10 @@ rules in feeding order. This is implemented as a sequential composition of
 CDRewrites of the FSTs from each rule.
 """
 
+from collections.abc import Iterable, Iterator
 import itertools as it
 import os
-from typing import Iterable, Iterator, List, NamedTuple
+from typing import NamedTuple
 
 import networkx as nx
 import pandas as pd
@@ -73,7 +74,7 @@ import nisaba.scripts.utils.rewrite as ur
 
 Rule = NamedTuple('Rule', [('lhs', str), ('rhs', str)])
 RuleSet = Iterable[Rule]
-RuleSets = List[RuleSet]
+RuleSets = list[RuleSet]
 
 
 def rules_from_string_file(file: os.PathLike[str]) -> Iterator[Rule]:
@@ -96,7 +97,7 @@ def _match_lhs_in_lhs(rule_a: Rule, rule_b: Rule) -> bool:
   return rule_a.lhs in rule_b.lhs
 
 
-def partition_unordered(rules: RuleSet) -> List[RuleSet]:
+def partition_unordered(rules: RuleSet) -> list[RuleSet]:
   """Ordered partition of unordered rules s.t. no substring relation in a set.
 
   Algorithm: Consider the digraph of rules s.t. two rules have a directed edge

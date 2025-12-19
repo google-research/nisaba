@@ -27,7 +27,6 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 """
 
 import os
-from typing import List
 
 from absl import flags
 import pynini
@@ -49,7 +48,7 @@ _TOKEN_TYPE = flags.DEFINE_enum('token_type', '', ['byte', 'utf8'],
 def core_visual_norm_fsts(rewrite_file: os.PathLike[str],
                           preserve_file: os.PathLike[str],
                           consonant_file: os.PathLike[str],
-                          sigma: pynini.Fst) -> List[pynini.Fst]:
+                          sigma: pynini.Fst) -> list[pynini.Fst]:
   """Creates a visual normalization FST.
 
   Given a rewrite file, preserve file, and consonant file, returns an FST

@@ -16,7 +16,8 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable, Iterable
+from collections.abc import Callable, Iterable
+from typing import Any
 
 import pynini as pyn
 from nisaba.scripts.natural_translit.utils import type_op as ty

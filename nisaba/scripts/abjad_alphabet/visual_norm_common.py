@@ -13,13 +13,12 @@
 # limitations under the License.
 
 """Script-specific visual normalization for abjad/alphabet script languages."""
-from typing import List
 
 import pynini
 from nisaba.scripts.abjad_alphabet import util
 from nisaba.scripts.utils import rule
 
 
-def script_common_fsts(sigma: pynini.Fst, prefix=()) -> List[pynini.Fst]:
+def script_common_fsts(sigma: pynini.Fst, prefix=()) -> list[pynini.Fst]:
   return [rule.fst_from_rule_file(util.LANG_DIR / (component + '.tsv'), sigma)
           for component in prefix + ('nfc', 'visual_norm')]

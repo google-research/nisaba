@@ -15,7 +15,8 @@
 """A library for making unit tests that verify FST properties."""
 
 import collections
-from typing import Callable, Iterator, List, Optional, Tuple
+from collections.abc import Callable, Iterator
+from typing import Optional
 
 import pynini
 from pynini.lib import utf8
@@ -34,14 +35,14 @@ NUM_TEST_SAMPLES = 5
 _MAX_SAMPLE_LENGTH = 5
 
 
-def _OlabelsIter(f: pynini.Fst) -> Iterator[List[int]]:
+def _OlabelsIter(f: pynini.Fst) -> Iterator[list[int]]:
   it = f.paths()
   while not it.done():
     yield it.olabels()
     it.next()
 
 
-def _LabelListToStringFsa(labels: List[int]) -> pynini.Fst:
+def _LabelListToStringFsa(labels: list[int]) -> pynini.Fst:
   fst = pynini.Fst()
   fst.add_states(len(labels) + 1)
   fst.set_start(0)
@@ -214,7 +215,7 @@ class FstRandgenTestCase(absltest.TestCase):
     self._AssertFstSampledBehavior(
         [fst], token_type, samples, _VerifyIfSingleShortestPath)
 
-  def AssertFstProbablyIdentity(self, fsts: List[pynini.Fst],
+  def AssertFstProbablyIdentity(self, fsts: list[pynini.Fst],
                                 token_type: pynini.TokenType,
                                 norm_fst: pynini.Fst,
                                 samples: int = NUM_TEST_SAMPLES) -> None:
@@ -245,7 +246,7 @@ class FstRandgenTestCase(absltest.TestCase):
         fsts, token_type, samples, AssertIdentity, norm_fst)
 
   def _AssertFstSampledBehavior(
-      self, fsts: List[pynini.Fst],
+      self, fsts: list[pynini.Fst],
       token_type: pynini.TokenType,
       samples: int,
       assert_function: Callable[[pynini.Fst, pynini.Fst], None],
@@ -318,7 +319,7 @@ class FstTestCase(absltest.TestCase):
   def AssertFstStrIoTestCases(
       self,
       test_cases:
-      List[Tuple[Callable[[], pynini.Fst], List[Tuple[str, str]]]]) -> None:
+      list[tuple[Callable[[], pynini.Fst], list[tuple[str, str]]]]) -> None:
     """Asserts on every test in a list of FST input-ouput testcases.
 
     Args:
@@ -362,7 +363,7 @@ class FstTestCase(absltest.TestCase):
   def AssertEqualFstLikeTestCases(
       self,
       test_cases:
-      List[Tuple[Callable[[str], pynini.Fst], List[Tuple[List[str], str]]]],
+      list[tuple[Callable[[str], pynini.Fst], list[tuple[list[str], str]]]],
   ) -> None:
     """Asserts on every test in a list of FstLike input-ouput testcases.
 

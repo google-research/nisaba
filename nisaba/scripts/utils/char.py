@@ -14,9 +14,9 @@
 
 """Acyclic acceptor accepting characters from Brahmic scripts."""
 
+from collections.abc import Iterable
 import os
 import pathlib
-from typing import Iterable, Set
 
 import pynini
 import pathlib
@@ -29,7 +29,7 @@ ZWS = "\u200B"  # Zero Width Space
 
 def _read_string_file_chars_to_set(
     files: Iterable[os.PathLike[str]], relevant_fields: int
-) -> Set[str]:
+) -> set[str]:
   """Reads the characters under some selection from some file paths into a set.
 
   Arguments:
@@ -55,7 +55,7 @@ def _read_string_file_chars_to_set(
 def derive_chars(
     both_sides: Iterable[os.PathLike[str]] = (),
     input_side: Iterable[os.PathLike[str]] = ()
-) -> Set[str]:
+) -> set[str]:
   """Create the set of characters in a script from StringFiles.
 
   Args:
@@ -75,7 +75,7 @@ def derive_chars(
   return all_chars
 
 
-def derive_sigma(chars: Set[str]) -> pynini.Fst:
+def derive_sigma(chars: set[str]) -> pynini.Fst:
   """Creates an unweighted FSA over the given set of characters and joiners.
 
   Args:

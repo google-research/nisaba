@@ -14,7 +14,8 @@
 
 """A library for making unit tests for natural translit."""
 
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.utils import expression as exp
 from nisaba.scripts.natural_translit.utils import feature as ftr

@@ -16,8 +16,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 import enum
-from typing import Any, Iterable, Union
+from typing import Any, Union
 
 from nisaba.scripts.natural_translit.utils import feature as ft
 from nisaba.scripts.natural_translit.utils import inventory

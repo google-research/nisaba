@@ -100,8 +100,9 @@ builds a profile for phoneme 'k' as follows:
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 import enum
-from typing import Iterable, Union
+from typing import Union
 
 import tabulate
 

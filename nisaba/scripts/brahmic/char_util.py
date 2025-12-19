@@ -14,7 +14,7 @@
 
 """Acyclic acceptor accepting characters from Brahmic scripts."""
 
-from typing import Iterable, Set
+from collections.abc import Iterable
 
 import unicodedata
 
@@ -25,7 +25,7 @@ import nisaba.scripts.utils.char as uc
 import nisaba.scripts.utils.rewrite as ur
 
 
-def script_chars(script: str) -> Set[str]:
+def script_chars(script: str) -> set[str]:
   """Creates the set of characters in a script."""
   return uc.derive_chars(
       input_side=[
@@ -47,7 +47,7 @@ def script_chars(script: str) -> Set[str]:
       ])
 
 
-def consonants(script: str) -> Set[str]:
+def consonants(script: str) -> set[str]:
   """Returns the set of consonants in a script."""
   return uc.derive_chars(input_side=[u.SCRIPT_DIR / script / "consonant.tsv"])
 
@@ -59,7 +59,7 @@ def _dedup_chars(chars: Iterable[str], sigma: pynini.Fst) -> pynini.Fst:
   return ur.ComposeFsts(char_fsts).optimize()
 
 
-def mark_chars(script: str) -> Set[str]:
+def mark_chars(script: str) -> set[str]:
   """Returns a set of non-spacing marks of a script and joiners."""
 
   chars = script_chars(script)

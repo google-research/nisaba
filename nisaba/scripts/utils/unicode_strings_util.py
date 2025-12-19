@@ -14,16 +14,17 @@
 
 """Utilities for processing Unicode strings from protocol message."""
 
+from collections.abc import Sequence
 import logging
 import os
-from typing import List, Sequence, Tuple, Union
+from typing import Union
 import unicodedata
 
 from nisaba.scripts.utils import proto
 from nisaba.scripts.utils import unicode_strings_pb2
 
 
-def name_to_char(prefixes: Sequence[str], suffix: str) -> Tuple[str, str]:
+def name_to_char(prefixes: Sequence[str], suffix: str) -> tuple[str, str]:
   """Converts a Unicode character name to the corresponding character string.
 
   Args:
@@ -54,7 +55,7 @@ def name_to_char(prefixes: Sequence[str], suffix: str) -> Tuple[str, str]:
 
 
 def _names_to_string(uname_prefixes: Sequence[str], names: Sequence[str]
-                     ) -> Tuple[str, List[str]]:
+                     ) -> tuple[str, list[str]]:
   """Converts list of Unicode character names to the corresponding string.
 
   Args:
@@ -92,7 +93,7 @@ def proto_entries_to_string(uname_prefixes: Sequence[str],
   if raw and not uname:
     return raw
 
-  raw_ch_names: List[str] = [unicodedata.name(c) for c in raw]
+  raw_ch_names: list[str] = [unicodedata.name(c) for c in raw]
   try:
     uname_str, uname_ch_names = _names_to_string(uname_prefixes, uname)
   except ValueError as ex:
@@ -110,7 +111,7 @@ def proto_entries_to_string(uname_prefixes: Sequence[str],
 def convert_item(
     uname_prefixes: Sequence[str],
     to_uname_prefixes: Sequence[str],
-    data_item: unicode_strings_pb2.UnicodeStrings.Item) -> Tuple[
+    data_item: unicode_strings_pb2.UnicodeStrings.Item) -> tuple[
         str, Union[str, None]]:
   """Converts individual item into source and destination strings.
 

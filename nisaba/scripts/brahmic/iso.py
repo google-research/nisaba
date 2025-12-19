@@ -45,7 +45,6 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 """
 
 import os
-from typing import Tuple
 
 import pynini as p
 from pynini.export import multi_grm
@@ -140,7 +139,7 @@ def brahmic_to_iso(
   return p.optimize(convert_to_iso.star)
 
 
-def _script_fsts(script: str, token_type: str) -> Tuple[p.Fst, p.Fst]:
+def _script_fsts(script: str, token_type: str) -> tuple[p.Fst, p.Fst]:
   """Creates FSTs to convert between script and ISO."""
   from_script = brahmic_to_iso(
       u.SCRIPT_DIR / script / 'consonant.tsv',

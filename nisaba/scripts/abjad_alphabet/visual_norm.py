@@ -29,8 +29,6 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 ```
 """
 
-from typing import List
-
 from absl import flags
 import pynini
 from pynini.export import grm
@@ -45,7 +43,7 @@ _TOKEN_TYPE = flags.DEFINE_enum('token_type', '', ['byte', 'utf8'],
                                 'Token type: utf8 or byte')
 
 
-def lang_fsts(lang: str, sigma: pynini.Fst) -> List[pynini.Fst]:
+def lang_fsts(lang: str, sigma: pynini.Fst) -> list[pynini.Fst]:
   """FSTs for visual normalization of abjad / alphabet script languages."""
   anywhere_rewrite = rule.fst_from_rule_file(
       u.LANG_DIR / lang / 'visual_norm.tsv', sigma)

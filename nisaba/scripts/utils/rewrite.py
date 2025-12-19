@@ -14,7 +14,7 @@
 
 """CDRewrite related utility functions."""
 
-from typing import Iterable
+from collections.abc import Iterable
 
 import pynini
 from pynini.lib import byte

@@ -16,7 +16,8 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable, Iterable, Union
+from collections.abc import Callable, Iterable
+from typing import Any, Union
 
 import pynini as pyn
 from nisaba.scripts.natural_translit.brahmic import derom_inventory as derom
