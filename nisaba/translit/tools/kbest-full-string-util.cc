@@ -53,8 +53,7 @@ using ::fst::Log64Weight;
 using ::fst::LogArc;
 using ::fst::OLabelCompare;
 using ::fst::Project;
-using ::fst::PROJECT_INPUT;
-using ::fst::PROJECT_OUTPUT;
+using ::fst::ProjectType;
 using ::fst::ShortestPath;
 using ::fst::StdArc;
 using ::fst::StdToLogMapper;
@@ -441,10 +440,10 @@ void EnsembleFullString::BuildAlignWfst() {
   ArcSort(&align_fst_, OLabelCompare<StdArc>());
   StdVectorFst pos_sym_kbest;
   Compose(align_fst_, kbest_wfst_, &pos_sym_kbest);
-  Project(&pos_sym_kbest, PROJECT_INPUT);
+  Project(&pos_sym_kbest, ProjectType::INPUT);
   ArcSort(&align_fst_, ILabelCompare<StdArc>());
   Compose(impl::CountPosSyms(pos_sym_kbest), align_fst_, &align_wfst_);
-  Project(&align_wfst_, PROJECT_OUTPUT);
+  Project(&align_wfst_, ProjectType::OUTPUT);
 }
 
 bool EnsembleFullString::PruneByInputLength(int input_length) {
