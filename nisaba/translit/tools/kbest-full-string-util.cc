@@ -1,4 +1,4 @@
-// Copyright 2025 Nisaba Authors.
+// Copyright 2026 Nisaba Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -285,11 +285,12 @@ StdVectorFst MakeLattice(
       if (sym < 0) {
         sym = syms->AddSymbol(word_str);
       }
-      fst.AddArc(curr_state, StdArc(sym, sym, pair.second, next_state));
+      fst.AddArc(curr_state,
+                 StdArc(sym, sym, StdArc::Weight(pair.second), next_state));
     }
     curr_state = next_state;
   }
-  fst.SetFinal(curr_state, 0.0);
+  fst.SetFinal(curr_state, StdArc::Weight(0.0));
   return fst;
 }
 
@@ -363,7 +364,7 @@ std::vector<std::pair<std::string, double>> RejoinList(
     }
     curr_state = next_state;
   }
-  fst.SetFinal(curr_state, 0.0);
+  fst.SetFinal(curr_state, StdArc::Weight(0.0));
   StdVectorFst kbest_cands;
   ShortestPath(fst, &kbest_cands, kbest);
   const std::vector<std::vector<int>> best_cands = GatherBestCands(kbest_cands);
@@ -402,7 +403,7 @@ int EnsembleFullString::AddSymToKbestWfst(int sym, int curr_state) {
 
 void EnsembleFullString::BuildAlignWfst() {
   int align_fst_final_state = align_fst_.AddState();
-  align_fst_.SetFinal(align_fst_final_state, 0.0);
+  align_fst_.SetFinal(align_fst_final_state, StdArc::Weight(0.0));
   syms_.AddSymbol("<epsilon>");
   kbest_wfst_.SetStart(kbest_wfst_.AddState());
   absl::flat_hash_set<std::vector<int>> align_arcs;
@@ -424,7 +425,7 @@ void EnsembleFullString::BuildAlignWfst() {
       curr_state = ws_pos;
       curr_kbest_st = AddSymToKbestWfst(sym, curr_kbest_st);
     }
-    kbest_wfst_.SetFinal(curr_kbest_st, input_lists_[i].second);
+    kbest_wfst_.SetFinal(curr_kbest_st, StdArc::Weight(input_lists_[i].second));
   }
   ArcSort(&kbest_wfst_, ILabelCompare<StdArc>());
   SymbolTable pos_syms;

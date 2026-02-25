@@ -1,4 +1,4 @@
-// Copyright 2025 Nisaba Authors.
+// Copyright 2026 Nisaba Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -71,7 +71,8 @@ class PairLMDecoder {
       input_syms.AddSymbol(epsilon_symbol);
       cands_to_lm_fst = std::make_unique<::fst::StdVectorFst>();
       cands_to_lm_fst->SetStart(cands_to_lm_fst->AddState());
-      cands_to_lm_fst->SetFinal(cands_to_lm_fst->Start(), 0.0);
+      cands_to_lm_fst->SetFinal(cands_to_lm_fst->Start(),
+                                ::fst::StdArc::Weight(0.0));
     }
     ::fst::SymbolTable cand_syms;
     ::fst::SymbolTable input_syms;

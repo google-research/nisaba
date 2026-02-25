@@ -1,4 +1,4 @@
-// Copyright 2025 Nisaba Authors.
+// Copyright 2026 Nisaba Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -169,7 +169,7 @@ double GetStateFinalCost(StdVectorFst *lm_fst, int st) {
   double fcost;
   int backoff_state = GetBackoff(*lm_fst, st, &fcost);
   fcost += GetStateFinalCost(lm_fst, backoff_state);
-  lm_fst->SetFinal(st, fcost);
+  lm_fst->SetFinal(st, StdArc::Weight(fcost));
   return fcost;
 }
 
@@ -207,7 +207,7 @@ StdVectorFst BuildUnicodeToPairTransducer(const SymbolTable *syms,
   const int input_idx = invert_pairlm ? 1 : 0;
   const int single_state = unicode_to_pair_fst.AddState();
   unicode_to_pair_fst.SetStart(single_state);
-  unicode_to_pair_fst.SetFinal(single_state, 0.0);
+  unicode_to_pair_fst.SetFinal(single_state, StdArc::Weight(0.0));
   for (const auto &sym : *syms) {
     if (sym.Label() > 0) {
       // Iterates through all symbols other than <epsilon>.
@@ -223,7 +223,8 @@ StdVectorFst BuildUnicodeToPairTransducer(const SymbolTable *syms,
         QCHECK(absl::SimpleAtoi(pairs[input_idx], &isym))
             << "Cannot convert " << std::string(pairs[input_idx]) << " to int";
         unicode_to_pair_fst.AddArc(
-            single_state, StdArc(isym, sym.Label(), 0.0, single_state));
+            single_state,
+            StdArc(isym, sym.Label(), StdArc::Weight(0.0), single_state));
       }
     }
   }
@@ -243,11 +244,11 @@ void WordToFst(absl::string_view input_word, StdVectorFst *string_fst) {
     // Splits word into individual codepoints.
     const int token_idx = GetUtf8Codepoint(letter_str);
     const int next_state = string_fst->AddState();
-    string_fst->AddArc(curr_state,
-                       StdArc(token_idx, token_idx, 0.0, next_state));
+    string_fst->AddArc(curr_state, StdArc(token_idx, token_idx,
+                                          StdArc::Weight(0.0), next_state));
     curr_state = next_state;
   }
-  string_fst->SetFinal(curr_state, 0.0);
+  string_fst->SetFinal(curr_state, StdArc::Weight(0.0));
 }
 
 // Reads the string from ilabels of linear (string automaton) and returns cost.
@@ -367,7 +368,7 @@ StdVectorFst RemoveContext(const StdVectorFst &lattice_fst) {
   const int start_st = contextless_fst.AddState();
   contextless_fst.SetStart(start_st);
   const int final_st = contextless_fst.AddState();
-  contextless_fst.SetFinal(final_st, 0.0);
+  contextless_fst.SetFinal(final_st, StdArc::Weight(0.0));
   for (int st = 0; st < lattice_fst.NumStates(); ++st) {
     for (ArcIterator<StdVectorFst> aiter(lattice_fst, st); !aiter.Done();
          aiter.Next()) {
@@ -624,7 +625,8 @@ StdVectorFst PairLMDecoder::GetWordTransliterations(
             &pair_lm_composed_output);
   }
   if (prune_lattice) {
-    Prune(&pair_lm_composed_output, /*weight_threshold=*/word_cand_thresh_);
+    Prune(&pair_lm_composed_output,
+          /*weight_threshold=*/StdVectorFst::Weight(word_cand_thresh_));
   }
   Project(&pair_lm_composed_output, ProjectType::OUTPUT);
   return pair_lm_composed_output;
@@ -794,7 +796,7 @@ StdVectorFst PairLMDecoder::TransliterateSegmentedWord(
                  /*unique=*/true);
     translit_result.SetStart(translit_result.AddState());
     int word_final_state = translit_result.AddState();
-    translit_result.SetFinal(word_final_state, 0.0);
+    translit_result.SetFinal(word_final_state, StdArc::Weight(0.0));
     int curr_state = best_concat_strings.Start();
     QCHECK_GE(curr_state, 0) << "Each segment should have non-empty output.";
     for (ArcIterator<StdVectorFst> aiter(best_concat_strings, curr_state);
@@ -858,7 +860,7 @@ StdVectorFst PairLMDecoder::TransliterateUnsegmentedWord(
     absl::MutexLock lock(fst_params.mutex);
     StdVectorFst cached;
     cached.SetStart(cached.AddState());
-    cached.SetFinal(cached.AddState(), 0.0);
+    cached.SetFinal(cached.AddState(), StdArc::Weight(0.0));
     ExtractCachedWordTransliterations(input_word, fst_params, cached);
     fst_params.mixed_with_precomputed.insert_or_assign(input_word, true);
     fst_params.word_transliteration_cache.insert_or_assign(input_word, cached);
@@ -867,7 +869,7 @@ StdVectorFst PairLMDecoder::TransliterateUnsegmentedWord(
   StdVectorFst word_transliterations;
   word_transliterations.SetStart(word_transliterations.AddState());
   int word_final_state = word_transliterations.AddState();
-  word_transliterations.SetFinal(word_final_state, 0.0);
+  word_transliterations.SetFinal(word_final_state, StdArc::Weight(0.0));
   int curr_state = best_pair_strings.Start();
   if (curr_state < 0) {
     // No valid transliterations, outputs input word output unchanged.
@@ -917,7 +919,7 @@ StdVectorFst PairLMDecoder::TransliterateWord(absl::string_view input_word,
     //  Add global cache.
     StdVectorFst cached;
     cached.SetStart(cached.AddState());
-    cached.SetFinal(cached.AddState(), 0.0);
+    cached.SetFinal(cached.AddState(), StdArc::Weight(0.0));
     const bool vocab_check = CheckCache(input_word);
     if (vocab_check) {
       ExtractCachedWordTransliterations(input_word, fst_params, cached);
@@ -967,7 +969,7 @@ StdVectorFst PairLMDecoder::TransliterateWord(absl::string_view input_word,
   // Adds Fst weighting to final state of Fst automaton prior to union.
   QCHECK_EQ(word_transliterations.NumStates(), 2);
   QCHECK_EQ(word_transliterations.Start(), 0);
-  word_transliterations.SetFinal(1, pairlm_translit_weight_);
+  word_transliterations.SetFinal(1, StdArc::Weight(pairlm_translit_weight_));
 
   // Combine any cached transliterations with output from PairLM composition.
   // Result will be a superset that contains at most
@@ -1055,7 +1057,7 @@ StdVectorFst PairLMDecoder::BuildTransliterationFst(
     }
     curr_state = next_state;
   }
-  transliteration_fst.SetFinal(curr_state, 0.0);
+  transliteration_fst.SetFinal(curr_state, StdArc::Weight(0.0));
   ArcSort(&transliteration_fst, OLabelCompare<StdArc>());
 
   return transliteration_fst;
@@ -1164,7 +1166,7 @@ void PairLMDecoder::AssignLabelsAndCostsToTranslitLattice(
       StdArc arc = aiter.Value();
       if (keep_arc.empty() || keep_arc[arc_idx]) {
         // Updates arc weights and labels if keeping arc.
-        arc.weight = unique_arc_cost[arc.ilabel];
+        arc.weight = StdVectorFst::Weight(unique_arc_cost[arc.ilabel]);
         arc.olabel = unique_arc_id[arc.ilabel];
         arc.ilabel = input_sym;
       } else {

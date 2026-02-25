@@ -1,4 +1,4 @@
-// Copyright 2025 Nisaba Authors.
+// Copyright 2026 Nisaba Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -91,7 +91,7 @@ fst::StdVectorFst GetStringFst(absl::Span<const std::string> token_string,
     fst.AddArc(curr_state, fst::StdArc(sym, sym, 0.0, next_state));
     curr_state = next_state;
   }
-  fst.SetFinal(curr_state, 0.0);
+  fst.SetFinal(curr_state, fst::StdArc::Weight(0.0));
   return fst;
 }
 
@@ -101,7 +101,7 @@ fst::StdVectorFst AlignStringFsts(const fst::StdVectorFst &ref_fst,
                                   int num_symbols) {
   fst::StdVectorFst align_mod;
   align_mod.SetStart(align_mod.AddState());
-  align_mod.SetFinal(align_mod.Start(), 0.0);
+  align_mod.SetFinal(align_mod.Start(), fst::StdArc::Weight(0.0));
   for (int sym = 1; sym < num_symbols; ++sym) {
     // Adds insertion, deletion and substitution arcs for all symbols.
     align_mod.AddArc(align_mod.Start(),

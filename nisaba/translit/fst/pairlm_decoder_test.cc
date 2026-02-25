@@ -1,4 +1,4 @@
-// Copyright 2025 Nisaba Authors.
+// Copyright 2026 Nisaba Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -63,8 +63,8 @@ class PairLMDecoderTest : public ::testing::Test {
     // <epsilon> (failure) from state 0 which is also the final state.
     StdVectorFst fst;
     fst.SetStart(fst.AddState());
-    double cost = 1.0;
-    fst.SetFinal(fst.Start(), 0.0);
+    StdVectorFst::Weight cost(1.0);
+    fst.SetFinal(fst.Start(), StdVectorFst::Weight(0.0));
     int other_state = fst.AddState();
     fst.AddArc(fst.Start(), StdArc(1, 1, cost, fst.Start()));
     fst.AddArc(fst.Start(), StdArc(2, 2, cost, fst.Start()));
@@ -87,8 +87,8 @@ class PairLMDecoderTest : public ::testing::Test {
     // state.
     StdVectorFst fst;
     fst.SetStart(fst.AddState());
-    double cost = 1.0;
-    fst.SetFinal(fst.Start(), 0.0);
+    StdVectorFst::Weight cost(1.0);
+    fst.SetFinal(fst.Start(), StdVectorFst::Weight(0.0));
     int other_state = fst.AddState();
     fst.AddArc(fst.Start(), StdArc(97, 65, cost, fst.Start()));
     fst.AddArc(fst.Start(), StdArc(98, 66, cost, fst.Start()));
@@ -114,8 +114,8 @@ class PairLMDecoderTest : public ::testing::Test {
     // by <epsilon> (failure) from state 0 which is also the final state.
     StdVectorFst fst;
     fst.SetStart(fst.AddState());
-    double cost = 3.0;
-    fst.SetFinal(fst.Start(), 0.0);
+    StdVectorFst::Weight cost(3.0);
+    fst.SetFinal(fst.Start(), StdVectorFst::Weight(0.0));
     int other_state = fst.AddState();
     fst.AddArc(fst.Start(), StdArc(1, 1, cost, fst.Start()));
     fst.AddArc(fst.Start(), StdArc(2, 2, cost, fst.Start()));
@@ -147,8 +147,8 @@ class PairLMDecoderTest : public ::testing::Test {
     // reached by <epsilon> (failure) from state 0 which is the final state.
     StdVectorFst fst;
     fst.SetStart(fst.AddState());
-    double cost = 5.0;
-    fst.SetFinal(fst.Start(), 0.0);
+    StdVectorFst::Weight cost(5.0);
+    fst.SetFinal(fst.Start(), StdVectorFst::Weight(0.0));
     int other_state = fst.AddState();
     fst.AddArc(fst.Start(), StdArc(1, 1, cost, fst.Start()));
     fst.AddArc(fst.Start(), StdArc(2, 2, cost, fst.Start()));
@@ -199,9 +199,9 @@ class PairLMDecoderTest : public ::testing::Test {
     // state 1, which is the final state.
     StdVectorFst fst;
     fst.SetStart(fst.AddState());
-    double cost = 5.0;
+    StdVectorFst::Weight cost(5.0);
     int other_state = fst.AddState();
-    fst.SetFinal(other_state, 0.0);
+    fst.SetFinal(other_state, StdVectorFst::Weight(0.0));
     fst.AddArc(fst.Start(), StdArc(1, 1, cost, other_state));
     fst.AddArc(fst.Start(), StdArc(3, 3, cost, other_state));
     fst.AddArc(fst.Start(), StdArc(6, 6, cost, other_state));
