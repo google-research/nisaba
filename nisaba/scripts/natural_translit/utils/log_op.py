@@ -56,14 +56,14 @@ def _add_caller(message: str, callstack_index: int) -> str:
   return f'{filename}/{caller.co_name}: {message}'
 
 
-def _return_message(return_value: ..., message: str = '') -> str:
+def _return_message(return_value, message: str = '') -> str:
   return_message = f'returns {text_of(return_value)}'
   if message:
     return_message += ', detail: ' + message
   return return_message
 
 
-def _in_message(look_for: ..., look_in: ..., message: str = '') -> str:
+def _in_message(look_for, look_in, message: str = '') -> str:
   in_message = f'{_class_and_text(look_for)} in {text_of(look_in)}'
   if message:
     in_message += ', ' + message
@@ -97,7 +97,7 @@ def dbg_return_false(message: str = '', callstack_index: int = 0) -> bool:
 
 
 def dbg_return_in(
-    look_for: ..., look_in: ..., message: str = '', callstack_index: int = 0
+    look_for, look_in, message: str = '', callstack_index: int = 0
 ) -> bool:
   return dbg_return(
       look_for in look_in,
@@ -109,11 +109,11 @@ def dbg_return_in(
 # Functions that return simple and readable strings to identify the objects.
 
 
-def class_of(obj: ...) -> str:
+def class_of(obj) -> str:
   return obj.__class__.__name__
 
 
-def text_of(obj: ...) -> str:
+def text_of(obj) -> str:
   if hasattr(obj, 'text'):
     text = obj.text
   elif isinstance(obj, pyn.Fst):
@@ -126,11 +126,11 @@ def text_of(obj: ...) -> str:
   return text if text else '<no_text>'
 
 
-def alias_of(obj: ...) -> str:
+def alias_of(obj) -> str:
   return obj.alias if hasattr(obj, 'alias') else text_of(obj)
 
 
-def name_of(obj: ...) -> str:
+def name_of(obj) -> str:
   if hasattr(obj, 'name'):
     return obj.name
   if hasattr(obj, '__name__'):
@@ -138,11 +138,11 @@ def name_of(obj: ...) -> str:
   return alias_of(obj)
 
 
-def class_and_alias(obj: ...) -> str:
+def class_and_alias(obj) -> str:
   return f'{class_of(obj)}_{alias_of(obj)}'
 
 
-def _class_and_text(obj: ...) -> str:
+def _class_and_text(obj) -> str:
   return f'{class_of(obj)}_{text_of(obj)}'
 
 
@@ -150,5 +150,5 @@ def class_and_texts(*args) -> str:
   return ', '.join(_class_and_text(arg) for arg in args)
 
 
-def from_class_and_text(obj: ...) -> str:
+def from_class_and_text(obj) -> str:
   return f'from:{_class_and_text(obj)}'

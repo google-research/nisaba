@@ -30,22 +30,22 @@ class TestCase(absltest.TestCase):
 
   def AssertEqualValue(
       self,
-      obj_1: ...,
-      obj_2: ...,
+      obj_1,
+      obj_2,
   ):
     self.assertTrue(ty.is_equal(obj_1, obj_2))
 
   def AssertNotEqualValue(
       self,
-      obj_1: ...,
-      obj_2: ...,
+      obj_1,
+      obj_2,
   ):
     self.assertFalse(ty.is_equal(obj_1, obj_2))
 
-  def AssertStrEqual(self, obj_1: ..., obj_2: ...):
+  def AssertStrEqual(self, obj_1, obj_2):
     self.assertEqual(str(obj_1), str(obj_2))
 
-  def AssertFileContentEndsWith(self, file_path: str, obj: ...):
+  def AssertFileContentEndsWith(self, file_path: str, obj):
     with open('nisaba/scripts/' + file_path, 'r') as f:
       self.assertTrue(f.read().strip().endswith(str(obj).strip()))
 
@@ -113,24 +113,22 @@ class TestCase(absltest.TestCase):
       distance = ftr.Feature.ERROR_DISTANCE
     self.assertEqual(distance, expected_distance)
 
-  def AssertFeatureIn(self, value: ftr.Feature.Aspect.VALUES, obj: ...) -> None:
+  def AssertFeatureIn(self, value: ftr.Feature.Aspect.VALUES, obj) -> None:
     self.assertTrue(ftr.value_in(value, obj))
 
-  def AssertFeatureNotIn(
-      self, value: ftr.Feature.Aspect.VALUES, obj: ...
-  ) -> None:
+  def AssertFeatureNotIn(self, value: ftr.Feature.Aspect.VALUES, obj) -> None:
     self.assertFalse(ftr.value_in(value, obj))
 
   def AssertHasFeature(
       self,
-      obj: ...,
+      obj,
       value: ftr.Feature.Aspect.VALUES,
   ):
     self.assertTrue(ftr.value_in(value, obj))
 
   def AssertNotHasFeature(
       self,
-      obj: ...,
+      obj,
       value: ftr.Feature.Aspect.VALUES,
   ):
     self.assertFalse(ftr.value_in(value, obj))
