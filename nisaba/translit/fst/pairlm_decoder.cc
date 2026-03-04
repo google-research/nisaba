@@ -24,7 +24,6 @@
 #include <utility>
 #include <vector>
 
-#include "nisaba/port/integral_types.h"
 #include "ngram/ngram-count.h"
 #include "absl/log/check.h"
 #include "absl/log/log.h"

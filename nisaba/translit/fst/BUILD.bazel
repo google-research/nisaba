@@ -92,7 +92,6 @@ cc_library(
         ":pairlm_decoder_options_cc_proto",
         ":wordpiece-segmenter-lib",
         "//nisaba/port:file_util",
-        "//nisaba/port:integral_types",
         "//nisaba/port:thread_pool",
         "//nisaba/port:utf8_util",
         "@com_google_absl//absl/container:flat_hash_map",

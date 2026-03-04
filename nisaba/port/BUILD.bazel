@@ -92,7 +92,7 @@ cc_library(
     linkstatic = True,
     deps = [
         ":utf8_delimiters",
-        "//nisaba/port:integral_types",
+        "//base:char32",
         "@com_github_utfcpp//:utfcpp",
         "@com_google_absl//absl/strings",
     ],

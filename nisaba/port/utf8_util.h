@@ -20,7 +20,7 @@
 #include <string>
 #include <vector>
 
-#include "nisaba/port/integral_types.h"
+#include "base/char32.h"
 #include "absl/strings/string_view.h"
 #include "nisaba/port/utf8_delimiters.h"
 
