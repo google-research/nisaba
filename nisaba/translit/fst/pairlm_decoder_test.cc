@@ -64,7 +64,7 @@ class PairLMDecoderTest : public ::testing::Test {
     StdVectorFst fst;
     fst.SetStart(fst.AddState());
     StdVectorFst::Weight cost(1.0);
-    fst.SetFinal(fst.Start(), StdVectorFst::Weight(0.0));
+    fst.SetFinal(fst.Start(), StdVectorFst::Weight::One());
     int other_state = fst.AddState();
     fst.AddArc(fst.Start(), StdArc(1, 1, cost, fst.Start()));
     fst.AddArc(fst.Start(), StdArc(2, 2, cost, fst.Start()));
@@ -88,7 +88,7 @@ class PairLMDecoderTest : public ::testing::Test {
     StdVectorFst fst;
     fst.SetStart(fst.AddState());
     StdVectorFst::Weight cost(1.0);
-    fst.SetFinal(fst.Start(), StdVectorFst::Weight(0.0));
+    fst.SetFinal(fst.Start(), StdVectorFst::Weight::One());
     int other_state = fst.AddState();
     fst.AddArc(fst.Start(), StdArc(97, 65, cost, fst.Start()));
     fst.AddArc(fst.Start(), StdArc(98, 66, cost, fst.Start()));
@@ -115,7 +115,7 @@ class PairLMDecoderTest : public ::testing::Test {
     StdVectorFst fst;
     fst.SetStart(fst.AddState());
     StdVectorFst::Weight cost(3.0);
-    fst.SetFinal(fst.Start(), StdVectorFst::Weight(0.0));
+    fst.SetFinal(fst.Start(), StdVectorFst::Weight::One());
     int other_state = fst.AddState();
     fst.AddArc(fst.Start(), StdArc(1, 1, cost, fst.Start()));
     fst.AddArc(fst.Start(), StdArc(2, 2, cost, fst.Start()));
@@ -148,7 +148,7 @@ class PairLMDecoderTest : public ::testing::Test {
     StdVectorFst fst;
     fst.SetStart(fst.AddState());
     StdVectorFst::Weight cost(5.0);
-    fst.SetFinal(fst.Start(), StdVectorFst::Weight(0.0));
+    fst.SetFinal(fst.Start(), StdVectorFst::Weight::One());
     int other_state = fst.AddState();
     fst.AddArc(fst.Start(), StdArc(1, 1, cost, fst.Start()));
     fst.AddArc(fst.Start(), StdArc(2, 2, cost, fst.Start()));
@@ -201,7 +201,7 @@ class PairLMDecoderTest : public ::testing::Test {
     fst.SetStart(fst.AddState());
     StdVectorFst::Weight cost(5.0);
     int other_state = fst.AddState();
-    fst.SetFinal(other_state, StdVectorFst::Weight(0.0));
+    fst.SetFinal(other_state, StdVectorFst::Weight::One());
     fst.AddArc(fst.Start(), StdArc(1, 1, cost, other_state));
     fst.AddArc(fst.Start(), StdArc(3, 3, cost, other_state));
     fst.AddArc(fst.Start(), StdArc(6, 6, cost, other_state));

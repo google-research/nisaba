@@ -290,7 +290,7 @@ StdVectorFst MakeLattice(
     }
     curr_state = next_state;
   }
-  fst.SetFinal(curr_state, StdArc::Weight(0.0));
+  fst.SetFinal(curr_state, StdArc::Weight::One());
   return fst;
 }
 
@@ -364,7 +364,7 @@ std::vector<std::pair<std::string, double>> RejoinList(
     }
     curr_state = next_state;
   }
-  fst.SetFinal(curr_state, StdArc::Weight(0.0));
+  fst.SetFinal(curr_state, StdArc::Weight::One());
   StdVectorFst kbest_cands;
   ShortestPath(fst, &kbest_cands, kbest);
   const std::vector<std::vector<int>> best_cands = GatherBestCands(kbest_cands);
@@ -403,7 +403,7 @@ int EnsembleFullString::AddSymToKbestWfst(int sym, int curr_state) {
 
 void EnsembleFullString::BuildAlignWfst() {
   int align_fst_final_state = align_fst_.AddState();
-  align_fst_.SetFinal(align_fst_final_state, StdArc::Weight(0.0));
+  align_fst_.SetFinal(align_fst_final_state, StdArc::Weight::One());
   syms_.AddSymbol("<epsilon>");
   kbest_wfst_.SetStart(kbest_wfst_.AddState());
   absl::flat_hash_set<std::vector<int>> align_arcs;

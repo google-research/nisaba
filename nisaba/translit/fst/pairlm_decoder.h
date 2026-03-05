@@ -72,7 +72,7 @@ class PairLMDecoder {
       cands_to_lm_fst = std::make_unique<::fst::StdVectorFst>();
       cands_to_lm_fst->SetStart(cands_to_lm_fst->AddState());
       cands_to_lm_fst->SetFinal(cands_to_lm_fst->Start(),
-                                ::fst::StdArc::Weight(0.0));
+                                ::fst::StdArc::Weight::One());
     }
     ::fst::SymbolTable cand_syms;
     ::fst::SymbolTable input_syms;
