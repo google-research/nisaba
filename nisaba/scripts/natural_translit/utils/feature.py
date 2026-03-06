@@ -190,7 +190,7 @@ class Feature(ty.Thing):
       return min([max_dist] + [self.distance(feature) for feature in features])
     return max_dist
 
-  def is_in(self, obj: ...) -> bool:
+  def is_in(self, obj) -> bool:
     """Checks if this feature is contained within the given object."""
     return value_in(self, obj)
 
@@ -500,7 +500,7 @@ class Feature(ty.Thing):
       """Checks if the given value or one of its children is in this list."""
       return value.is_in(self)
 
-    def is_in(self, obj: ...) -> bool:
+    def is_in(self, obj) -> bool:
       """Checks if this list is contained within the given object."""
       return value_in(self, obj)
 
@@ -1047,7 +1047,7 @@ class Feature(ty.Thing):
     return cls.ValueList(alias, cls.ValueListType.CYCLIC, step, *values)
 
 
-def value_in(value: Feature.Aspect.VALUES, obj: ...) -> bool:
+def value_in(value: Feature.Aspect.VALUES, obj) -> bool:
   """Checks if a feature value is contained within an object.
 
   Args:
