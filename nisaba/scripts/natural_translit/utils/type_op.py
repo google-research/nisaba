@@ -110,7 +110,7 @@ class Thing(_ObjectWithAliasAndValue):
       self,
       alias: str = '',
       text: str = '',
-      value_from: ... = UNSPECIFIED,
+      value_from=UNSPECIFIED,
       from_attribute: str = '',
   ):
     """Initializes a Thing.
@@ -221,7 +221,7 @@ class IterableThing(Thing):
   """
 
   def __init__(
-      self, *items: ..., alias: str = '', typed: TypeOrNothing = UNSPECIFIED
+      self, *items, alias: str = '', typed: TypeOrNothing = UNSPECIFIED
   ):
     super().__init__(alias)
     self._items = []
@@ -235,14 +235,14 @@ class IterableThing(Thing):
   def __len__(self):
     return len(self._items)
 
-  def valid_item(self, item: ...) -> bool:
+  def valid_item(self, item) -> bool:
     return (
         self._item_type is Any
         and not isinstance(item, Nothing)
         and type(self) is not type(item)
     ) or (self._item_type is not Any and isinstance(item, self._item_type))
 
-  def add(self, *items: ...) -> IterableThing:
+  def add(self, *items) -> IterableThing:
     for item in items:
       if self.valid_item(item):
         self._items.append(item)
@@ -256,7 +256,7 @@ class IterableThing(Thing):
     return default
 
 
-def value_of(obj: ...) -> ...:
+def value_of(obj):
   """If a has no value attribute, returns a."""
   return obj.value if isinstance(obj, Thing) else obj
 
@@ -264,7 +264,7 @@ def value_of(obj: ...) -> ...:
 # Type check.
 
 
-def type_check(obj: ..., default: T) -> T:
+def type_check(obj, default: T) -> T:
   """Checks type of obj and returns default if not of the right type."""
   return log.dbg_return(
       obj if isinstance(obj, type(default)) else default,
@@ -275,7 +275,7 @@ def type_check(obj: ..., default: T) -> T:
 # Equivalence functions.
 
 
-def is_string(obj: ...) -> bool:
+def is_string(obj) -> bool:
   """Returns true if the object is a string or a string Fst."""
   if isinstance(obj, str):
     return True
@@ -294,7 +294,7 @@ def str_of_fstlike(fstlike: pyn.FstLike) -> str:
   return fstlike
 
 
-def is_equal(obj1: ..., obj2: ...) -> bool:
+def is_equal(obj1, obj2) -> bool:
   """Checks equivalence.
 
   Thing instances are equal if their values are equal. Nothing constants are

@@ -43,7 +43,7 @@ class Expression(ty.IterableThing, sym.Item):
       return '​🝓⋆​'  # U+200B + U+1F753 + U+22C6 + U+200B
     return self.text
 
-  def _str_items_list(self, *items: ...) -> list[str]:
+  def _str_items_list(self, *items) -> list[str]:
     return [str(item) for item in (items if items else self)]
 
   def _str_enclosed(
@@ -87,7 +87,7 @@ class Expression(ty.IterableThing, sym.Item):
     else:
       self._items.append(item.copy())
 
-  def add(self, *items: ...) -> Expression:
+  def add(self, *items) -> Expression:
     """Default method for type consistency and debugging."""
     log.dbg_message(f'Cannot add items to {log.class_and_alias(self)}.')
     return self

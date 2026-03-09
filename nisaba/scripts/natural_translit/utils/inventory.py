@@ -68,7 +68,7 @@ class Inventory(ty.IterableThing):
       new.add_suppl(s)
     return new
 
-  def _add_field(self, alias: str, value: ...) -> bool:
+  def _add_field(self, alias: str, value) -> bool:
     if alias in self.__dict__.keys():
       return log.dbg_return_false(f'skipping recurring alias {alias}')
     self.__dict__[alias] = value
@@ -96,7 +96,7 @@ class Inventory(ty.IterableThing):
     """Adds the value of a Thing as a supplement."""
     return self.make_suppl(suppl.alias, suppl.value)
 
-  def make_suppl(self, alias: str, value: ...) -> bool:
+  def make_suppl(self, alias: str, value) -> bool:
     """Adds the value as a supplement."""
     added = self._add_field(alias, value)
     if added:

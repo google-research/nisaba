@@ -427,7 +427,7 @@ class Symbol(Item):
   def set_attribute(
       self,
       attribute: str,
-      value: ...,
+      value,
       features_to_add: ft.Feature.ITERABLE = ty.UNSPECIFIED,
   ) -> None:
     """Sets the attribute of the symbol as value. Optionally adds features.
@@ -614,7 +614,7 @@ class Symbol(Item):
 
     def lookup(
         self,
-        key: ...,
+        key,
         source_dict: Union[dict[Any, Symbol], str],
         default: Union[Symbol, ty.Nothing] = ty.UNSPECIFIED,
     ) -> Symbol:
