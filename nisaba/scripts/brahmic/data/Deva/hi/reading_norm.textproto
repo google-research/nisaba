@@ -147,3 +147,11 @@ item {
   uname: ["NA", "VIRAMA", "SA"]  raw: "न्स"
   to_uname: ["ANUSVARA", "SA"] to_raw: "ंस"
 }
+
+# Chandrabindu to Anusvara.
+# Although, in theory, the two are not interchangeable,  they are in practice.
+# When we generate text, as in Google Translate, we do not output Chandrabindu.
+item {
+  uname: ["CANDRABINDU"] raw:    "ँ"
+  to_uname: ["ANUSVARA"] to_raw: "ं"
+}
