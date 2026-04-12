@@ -19,6 +19,7 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 
 load("@pip_deps//:requirements.bzl", "requirement")
 
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load(
     "//nisaba/scripts/brahmic:constant.bzl",
     "FIXED_RULE_SCRIPTS",
@@ -83,6 +84,44 @@ nisaba_compile_multi_grm_py(
             "vowel_sign",
         ]
     ] + ["//nisaba/scripts/brahmic/data:symbol.tsv"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":util",
+        "//nisaba/scripts/utils:file",
+        "//nisaba/scripts/utils:rewrite",
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/lib:pynutil",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "iso_sttable",
+    src = "iso.py",
+    outs = {
+        "byte": "iso_sttable.far",
+        "utf8": "iso_sttable_utf8.far",
+    },
+    data = [
+        ":nfc.far",
+        ":nfc_utf8.far",
+        ":sigma_utf8.far",
+    ] + [
+        "//nisaba/scripts/brahmic/data/{}:{}.tsv".format(script, file_name)
+        for script in SCRIPTS
+        for file_name in [
+            "coda",
+            "consonant",
+            "dead_consonant",
+            "inherent_vowel",
+            "standalone",
+            "subjoined_consonant",
+            "virama",
+            "vowel",
+            "vowel_length_sign",
+            "vowel_sign",
+        ]
+    ] + ["//nisaba/scripts/brahmic/data:symbol.tsv"],
+    far_type = "sttable",
     visibility = ["//visibility:public"],
     deps = [
         ":util",
@@ -527,4 +566,11 @@ filegroup(
        ":visual_norm.far",
        ":wellformed.far",
    ],
+)
+
+bzl_library(
+    name = "constant_bzl",
+    srcs = ["constant.bzl"],
+    parse_tests = False,
+    visibility = ["//visibility:private"],
 )
