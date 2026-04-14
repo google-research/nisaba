@@ -18,12 +18,14 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <limits>
 #include <memory>
 #include <string>
 #include <tuple>
 #include <utility>
 #include <vector>
 
+#include "base/char32.h"
 #include "ngram/ngram-count.h"
 #include "absl/log/check.h"
 #include "absl/log/log.h"
@@ -116,12 +118,12 @@ namespace translit {
 namespace fst {
 namespace {
 
-constexpr int kPhiSymbol = -2;   // Symbol used for phi-arcs.
-constexpr int kMaxWordCands = 100;     // Default for max_word_cands_.
-constexpr float kWordCandThresh = 12;  // Default for word_cand_thresh_.
+constexpr int kPhiSymbol = -2;            // Symbol used for phi-arcs.
+constexpr int kMaxWordCands = 100;        // Default for max_word_cands_.
+constexpr float kWordCandThresh = 12;     // Default for word_cand_thresh_.
 constexpr float kMinCandPosterior = 0.0;  // Default for min_cand_posterior_.
 constexpr float kDefaultMixWeight = 0.0;  // Default pairlm_translit_weight_.
-constexpr float kOOVCost = 10;         // Default for oov_cost_.
+constexpr float kOOVCost = 10;            // Default for oov_cost_.
 constexpr int kDefaultMaxParallelTokens = 4;  // Maximum number of cores to use.
 
 }  // namespace
@@ -148,7 +150,7 @@ bool Utf8Check(absl::string_view word_str) {
 }
 
 // Returns the backoff state for a given state, also backoff cost if needed.
-int GetBackoff(const StdVectorFst &lm_fst, int st, double *bo_cost) {
+int GetBackoff(const StdVectorFst& lm_fst, int st, double* bo_cost) {
   ArcIterator<StdVectorFst> aiter(lm_fst, st);
   const StdArc arc = aiter.Value();
   if (arc.ilabel != 0) {
@@ -161,7 +163,7 @@ int GetBackoff(const StdVectorFst &lm_fst, int st, double *bo_cost) {
 
 // Returns the final cost of the state, following backoff if required. Sets the
 // state's final cost to the calculated backoff value if state is non-final.
-double GetStateFinalCost(StdVectorFst *lm_fst, int st) {
+double GetStateFinalCost(StdVectorFst* lm_fst, int st) {
   if (st < 0) return StdArc::Weight::Zero().Value();
   if (lm_fst->Final(st) != StdArc::Weight::Zero())
     return lm_fst->Final(st).Value();
@@ -173,7 +175,7 @@ double GetStateFinalCost(StdVectorFst *lm_fst, int st) {
 }
 
 // Converts given language model into one that works with PhiMatcher.
-void MakePhiMatcherLM(StdVectorFst *lm_fst) {
+void MakePhiMatcherLM(StdVectorFst* lm_fst) {
   for (int st = 0; st < lm_fst->NumStates(); ++st) {
     if (lm_fst->Final(st) == StdArc::Weight::Zero() && st != lm_fst->Start()) {
       // Updates final cost for non-final states using backoff.
@@ -198,7 +200,7 @@ void MakePhiMatcherLM(StdVectorFst *lm_fst) {
 // is treated as the input symbol and N the output symbol; otherwise N is input
 // and M output. If the flip_transducer bool is true, then the resulting
 // transducer is inverted.
-StdVectorFst BuildUnicodeToPairTransducer(const SymbolTable *syms,
+StdVectorFst BuildUnicodeToPairTransducer(const SymbolTable* syms,
                                           bool invert_pairlm,
                                           bool flip_transducer) {
   QCHECK(syms != nullptr) << "Symbol table is empty";
@@ -207,7 +209,7 @@ StdVectorFst BuildUnicodeToPairTransducer(const SymbolTable *syms,
   const int single_state = unicode_to_pair_fst.AddState();
   unicode_to_pair_fst.SetStart(single_state);
   unicode_to_pair_fst.SetFinal(single_state, StdArc::Weight::One());
-  for (const auto &sym : *syms) {
+  for (const auto& sym : *syms) {
     if (sym.Label() > 0) {
       // Iterates through all symbols other than <epsilon>.
       const std::string symbol = sym.Symbol();
@@ -235,7 +237,7 @@ StdVectorFst BuildUnicodeToPairTransducer(const SymbolTable *syms,
 // Creates a linear FST with unicode codepoints as arc labels for word.
 // Takes FST to modify as argument, to allow also building word trie, i.e., add
 // a linear path from start state of existing FST.
-void WordToFst(absl::string_view input_word, StdVectorFst *string_fst) {
+void WordToFst(absl::string_view input_word, StdVectorFst* string_fst) {
   QCHECK_NE(string_fst, nullptr);
   int curr_state = string_fst->Start();
   QCHECK_GE(curr_state, 0);  // Provided string_fst must have start state.
@@ -251,8 +253,8 @@ void WordToFst(absl::string_view input_word, StdVectorFst *string_fst) {
 }
 
 // Reads the string from ilabels of linear (string automaton) and returns cost.
-double GetTextString(const StdVectorFst &best_pair_strings, int curr_state,
-                     std::string *new_symbol) {
+double GetTextString(const StdVectorFst& best_pair_strings, int curr_state,
+                     std::string* new_symbol) {
   double cost = 0.0;
   std::vector<int> text_labels;
   while (best_pair_strings.NumArcs(curr_state) > 0) {
@@ -267,13 +269,13 @@ double GetTextString(const StdVectorFst &best_pair_strings, int curr_state,
     curr_state = arc.nextstate;
   }
   cost += best_pair_strings.Final(curr_state).Value();
-  QCHECK(LabelsToUTF8String(text_labels, new_symbol));
+  QCHECK(LabelsToUTF8String<int>(text_labels, new_symbol));  // Crash OK
   return cost;
 }
 
 // Applies weight pushing in log semiring, then returns fst to std semiring.
 // Optionally determinizes the input FST as well.
-void PushInLogSemiring(StdVectorFst *fst, bool determinize = false) {
+void PushInLogSemiring(StdVectorFst* fst, bool determinize = false) {
   VectorFst<LogArc> log_fst;
   ArcMap(*fst, &log_fst, StdToLogMapper());
   if (determinize) {
@@ -286,9 +288,9 @@ void PushInLogSemiring(StdVectorFst *fst, bool determinize = false) {
 }
 
 // Derives the cutoff score for k_best extraction from the state.
-std::vector<bool> ApplyArcScoreThresh(const StdVectorFst &fst, int state,
+std::vector<bool> ApplyArcScoreThresh(const StdVectorFst& fst, int state,
                                       int k_best, double min_cand_posterior,
-                                      const std::vector<double> *costs) {
+                                      const std::vector<double>* costs) {
   QCHECK_LT(k_best, fst.NumArcs(state));
   std::vector<bool> keep_arc(fst.NumArcs(state), false);
   std::vector<std::pair<double, size_t>> scores;
@@ -321,7 +323,7 @@ std::vector<bool> ApplyArcScoreThresh(const StdVectorFst &fst, int state,
 }
 
 // Returns the next state in the trie if label matches, otherwise kNoStateId.
-int GetNextTrieState(const StdVectorFst &word_piece_trie_fst, int curr_state,
+int GetNextTrieState(const StdVectorFst& word_piece_trie_fst, int curr_state,
                      int label) {
   Matcher<StdFst> matcher(word_piece_trie_fst, MATCH_INPUT);
   matcher.SetState(curr_state);
@@ -334,9 +336,8 @@ int GetNextTrieState(const StdVectorFst &word_piece_trie_fst, int curr_state,
 
 // Returns vector of characters that as a string match an item in the lexicon.
 std::vector<int> GetMatchedTokens(
-    const std::vector<std::string> &new_sym_letters,
-    int string_start_position, const StdVectorFst &word_piece_trie_fst,
-    int curr_state) {
+    const std::vector<std::string>& new_sym_letters, int string_start_position,
+    const StdVectorFst& word_piece_trie_fst, int curr_state) {
   int match_length = 0;
   std::vector<int> matched_items;
   for (int i = string_start_position; i < new_sym_letters.size(); ++i) {
@@ -362,7 +363,7 @@ std::vector<int> GetMatchedTokens(
 
 // Produces a two-state transducer with the same arcs as the incoming
 // lattice_fst, which effectively removes the context.
-StdVectorFst RemoveContext(const StdVectorFst &lattice_fst) {
+StdVectorFst RemoveContext(const StdVectorFst& lattice_fst) {
   StdVectorFst contextless_fst;
   const int start_st = contextless_fst.AddState();
   contextless_fst.SetStart(start_st);
@@ -380,12 +381,12 @@ StdVectorFst RemoveContext(const StdVectorFst &lattice_fst) {
 }
 
 // Samples a single path through the input lattice FST.
-StdVectorFst SampleFromLattice(const StdVectorFst &transliteration_fst,
+StdVectorFst SampleFromLattice(const StdVectorFst& transliteration_fst,
                                uint64_t seed) {
-  LogProbArcSelector<StdArc> selector(seed);
+  LogProbArcSelector<StdArc> selector;
   RandGenOptions<LogProbArcSelector<StdArc>> opts(selector);
   StdVectorFst sampled_fst;
-  RandGen(transliteration_fst, &sampled_fst, opts);
+  RandGen(transliteration_fst, &sampled_fst, opts, seed);
   return sampled_fst;
 }
 
@@ -398,7 +399,7 @@ bool PairLMDecoder::CheckCache(absl::string_view input_word) const {
 }
 
 void PairLMDecoder::InitializePairLMDecoder(
-    const PairLMDecoderOptions &pairlm_config) {
+    const PairLMDecoderOptions& pairlm_config) {
   InitializeTranslitModel(pairlm_config);
   InitializeLanguageModel(pairlm_config);
   epsilon_symbol_ = pairlm_config.epsilon_symbol().empty()
@@ -425,7 +426,7 @@ void PairLMDecoder::InitializePairLMDecoder(
   sample_from_k_best_ = pairlm_config.sample_from_k_best();
   if (pairlm_config.has_random_seed()) {
     random_seed_ = pairlm_config.random_seed();
-  } else{
+  } else {
     absl::BitGen bitgen;
     random_seed_ = absl::Uniform<uint64_t>(
         bitgen, 1, std::numeric_limits<uint64_t>::max());
@@ -433,7 +434,7 @@ void PairLMDecoder::InitializePairLMDecoder(
 }
 
 void PairLMDecoder::InitializeTranslitModel(
-    const PairLMDecoderOptions &pairlm_config) {
+    const PairLMDecoderOptions& pairlm_config) {
   if (!pairlm_config.pairlm_file().empty()) {
     // Reads in pair LM transliteration model and builds related transducers.
     translit_fst_.reset(StdVectorFst::Read(pairlm_config.pairlm_file()));
@@ -463,12 +464,12 @@ void PairLMDecoder::InitializeTranslitModel(
 }
 
 void PairLMDecoder::InitializeLanguageModel(
-    const PairLMDecoderOptions &pairlm_config) {
+    const PairLMDecoderOptions& pairlm_config) {
   if (!pairlm_config.lm_file().empty()) {
     // Reads in language model FST and initializes related auxiliary resources.
     lm_fst_.reset(StdVectorFst::Read(pairlm_config.lm_file()));
-    QCHECK(lm_fst_ != nullptr) << "Failed to read LM FST from "
-                               << pairlm_config.lm_file();
+    QCHECK(lm_fst_ != nullptr)
+        << "Failed to read LM FST from " << pairlm_config.lm_file();
     impl::MakePhiMatcherLM(lm_fst_.get());
     if (pairlm_config.apply_closure_to_lm()) {
       Closure(lm_fst_.get(), CLOSURE_PLUS);
@@ -476,8 +477,8 @@ void PairLMDecoder::InitializeLanguageModel(
     }
     apply_lm_at_word_level_ = pairlm_config.apply_lm_at_word_level();
     const absl::string_view oov_symbol = pairlm_config.oov_symbol().empty()
-                                         ? symbols::kUnknownSymbol
-                                         : pairlm_config.oov_symbol();
+                                             ? symbols::kUnknownSymbol
+                                             : pairlm_config.oov_symbol();
     lm_oov_index_ = lm_fst_->InputSymbols()->Find(oov_symbol);
     if (pairlm_config.has_word_piece_model()) {
       auto wpm = std::make_unique<WordpieceSegmenter>(
@@ -497,12 +498,12 @@ void PairLMDecoder::InitializeLanguageModel(
 }
 
 void PairLMDecoder::InitializeWordPieceTrie(
-    const PairLMDecoderOptions &pairlm_config) {
+    const PairLMDecoderOptions& pairlm_config) {
   word_piece_internal_prefix_ = pairlm_config.word_piece_internal_prefix();
   QCHECK(!word_piece_internal_prefix_.empty());
   word_piece_trie_fst_ = std::make_unique<StdVectorFst>();
   word_piece_trie_fst_->SetStart(word_piece_trie_fst_->AddState());
-  for (const auto &sym : *lm_fst_->InputSymbols()) {
+  for (const auto& sym : *lm_fst_->InputSymbols()) {
     if (sym.Label() > 0 && sym.Label() != lm_oov_index_) {
       impl::WordToFst(sym.Symbol(), word_piece_trie_fst_.get());
     }
@@ -512,8 +513,8 @@ void PairLMDecoder::InitializeWordPieceTrie(
 
   // Finds the internal state in the trie corresponding to internal prefix.
   word_internal_cands_to_lm_start_state_ = word_piece_trie_fst_->Start();
-  for (absl::string_view prefix_letter : utf8::StrSplitByChar(
-           word_piece_internal_prefix_)) {
+  for (absl::string_view prefix_letter :
+       utf8::StrSplitByChar(word_piece_internal_prefix_)) {
     // Finds destination state for each letter in the prefix, checks non-zero.
     word_internal_cands_to_lm_start_state_ = impl::GetNextTrieState(
         *word_piece_trie_fst_, word_internal_cands_to_lm_start_state_,
@@ -526,7 +527,7 @@ void PairLMDecoder::InitializeInputCharacterSet() {
   // Looks at input side of model transducer, which is the translit_fst_ itself
   // if the bool translit_fst_is_transducer_ is set to true; otherwise the input
   // side of unicode_to_pair_fst_.
-  const StdVectorFst *input_transducer = translit_fst_is_transducer_
+  const StdVectorFst* input_transducer = translit_fst_is_transducer_
                                              ? translit_fst_.get()
                                              : unicode_to_pair_fst_.get();
   if (input_transducer != nullptr) {
@@ -544,16 +545,16 @@ void PairLMDecoder::InitializeInputCharacterSet() {
 }
 
 void PairLMDecoder::InitializeExternalTransliterations(
-    const PairLMDecoderOptions &pairlm_config) {
+    const PairLMDecoderOptions& pairlm_config) {
   if (!pairlm_config.translit_cands_file().empty()) {
     // Reads in externally provided word transliterations. Assumes three column
     // format: input word; transliteration; negative log cost.
-    const auto read_lines_status = file::ReadLines(
-        pairlm_config.translit_cands_file(), kMaxLineLength);
-    QCHECK_OK(read_lines_status) << "Failed to read lines from "
-                                 << pairlm_config.translit_cands_file();
-    const std::vector<std::string> &input_lines = read_lines_status.value();
-    for (const auto &input_line : input_lines) {
+    const auto read_lines_status =
+        file::ReadLines(pairlm_config.translit_cands_file(), kMaxLineLength);
+    QCHECK_OK(read_lines_status)
+        << "Failed to read lines from " << pairlm_config.translit_cands_file();
+    const std::vector<std::string>& input_lines = read_lines_status.value();
+    for (const auto& input_line : input_lines) {
       const std::vector<absl::string_view> input_cols =
           absl::StrSplit(input_line, '\t', absl::SkipEmpty());
       QCHECK_EQ(input_cols.size(), 3);
@@ -632,10 +633,10 @@ StdVectorFst PairLMDecoder::GetWordTransliterations(
 }
 
 double PairLMDecoder::ParseCandWordPiece(absl::string_view new_symbol,
-                                         std::vector<int> *lm_syms) const {
+                                         std::vector<int>* lm_syms) const {
   double cost = 0.0;
-  const std::vector<std::string> new_sym_letters = utf8::StrSplitByChar(
-      new_symbol);
+  const std::vector<std::string> new_sym_letters =
+      utf8::StrSplitByChar(new_symbol);
   int string_position = 0;
   int curr_state = word_piece_trie_fst_->Start();
   std::string prefix = "";  // Gets set to word internal prefix later.
@@ -651,7 +652,8 @@ double PairLMDecoder::ParseCandWordPiece(absl::string_view new_symbol,
       cost += oov_cost_;
     } else {
       std::string word_piece_str;
-      QCHECK(LabelsToUTF8String(text_labels, &word_piece_str));
+      QCHECK(
+          LabelsToUTF8String<int>(text_labels, &word_piece_str));  // Crash OK
       lm_sym =
           lm_fst_->InputSymbols()->Find(absl::StrCat(prefix, word_piece_str));
       string_position += text_labels.size();
@@ -668,11 +670,11 @@ double PairLMDecoder::ParseCandWordPiece(absl::string_view new_symbol,
 }
 
 double PairLMDecoder::SegmentCandWordPiece(absl::string_view new_symbol,
-                                           std::vector<int> *lm_syms) const {
+                                           std::vector<int>* lm_syms) const {
   double cost = 0;
   const auto wp_status = wpm_->GetWordpieces(new_symbol);
   QCHECK_OK(wp_status);
-  for (const auto &wordpiece : wp_status.value()) {
+  for (const auto& wordpiece : wp_status.value()) {
     int lm_sym = lm_fst_->InputSymbols()->Find(wordpiece);
     if (lm_sym < 0) {
       lm_sym = lm_oov_index_;
@@ -687,7 +689,7 @@ double PairLMDecoder::SegmentCandWordPiece(absl::string_view new_symbol,
 
 void PairLMDecoder::AddToCandsToLMFst(absl::string_view new_symbol,
                                       int cand_sym,
-                                      TranslitContext &fst_params) {
+                                      TranslitContext& fst_params) {
   if (lm_fst_ == nullptr) return;
   double cost = 0.0;
   std::vector<int> lm_syms;
@@ -725,8 +727,8 @@ void PairLMDecoder::AddToCandsToLMFst(absl::string_view new_symbol,
 
 void PairLMDecoder::AddCandSymArc(absl::string_view new_symbol, double cost,
                                   int destination_state,
-                                  TranslitContext &fst_params,
-                                  StdVectorFst *word_transliterations) {
+                                  TranslitContext& fst_params,
+                                  StdVectorFst* word_transliterations) {
   // Look for candidate symbol in the symbol list, add if not there.
   int cand_sym = fst_params.cand_syms.Find(new_symbol);
   if (cand_sym == kNoSymbol) {
@@ -743,8 +745,8 @@ std::vector<std::string> PairLMDecoder::SegmentCoveredChars(
   std::vector<std::string> input_word_tokens;
   if (!input_word.empty()) {
     // Splits word into individual unicode codepoints.
-    const std::vector<std::string> input_codepoints = utf8::StrSplitByChar(
-        input_word);
+    const std::vector<std::string> input_codepoints =
+        utf8::StrSplitByChar(input_word);
     std::vector<bool> covered_codepoints(input_codepoints.size());
     int non_covered_count = 0;
     for (int i = 0; i < input_codepoints.size(); ++i) {
@@ -775,8 +777,8 @@ std::vector<std::string> PairLMDecoder::SegmentCoveredChars(
 }
 
 StdVectorFst PairLMDecoder::TransliterateSegmentedWord(
-    const std::vector<std::string> &segmented_word, int k_best,
-    TranslitContext &fst_params) {
+    const std::vector<std::string>& segmented_word, int k_best,
+    TranslitContext& fst_params) {
   StdVectorFst translit_result;
   if (!segmented_word.empty()) {
     // Transliterates each segment as an independent word.
@@ -831,12 +833,12 @@ StdVectorFst PairLMDecoder::TransliterateSegmentedWord(
 }
 
 void PairLMDecoder::ExtractCachedWordTransliterations(
-    absl::string_view input_word, TranslitContext &fst_params,
-    StdVectorFst &cached) {
+    absl::string_view input_word, TranslitContext& fst_params,
+    StdVectorFst& cached) {
   mutex_.lock_shared();
   const auto cached_pairs = global_word_transliteration_cache_.at(input_word);
   mutex_.unlock_shared();
-  for (const auto &pair : cached_pairs) {
+  for (const auto& pair : cached_pairs) {
     AddCandSymArc(pair.first, pair.second,
                   /*destination_state=*/1, fst_params, &(cached));
   }
@@ -845,7 +847,7 @@ void PairLMDecoder::ExtractCachedWordTransliterations(
 }
 
 StdVectorFst PairLMDecoder::TransliterateUnsegmentedWord(
-    absl::string_view input_word, int k_best, TranslitContext &fst_params) {
+    absl::string_view input_word, int k_best, TranslitContext& fst_params) {
   // Extracts k-best transliterations and adds them to the fst.
   StdVectorFst transliterated_lattice =
       GetWordTransliterations(input_word, /*prune_lattice=*/k_best > 1);
@@ -904,7 +906,7 @@ StdVectorFst PairLMDecoder::TransliterateUnsegmentedWord(
 
 StdVectorFst PairLMDecoder::TransliterateWord(absl::string_view input_word,
                                               int k_best,
-                                              TranslitContext &fst_params) {
+                                              TranslitContext& fst_params) {
   fst_params.mutex.lock();
   // We haven't seen this word, so initialize it in indexes.
   if (!fst_params.word_transliteration_cache.contains(input_word)) {
@@ -1005,8 +1007,8 @@ StdVectorFst PairLMDecoder::TransliterateWord(absl::string_view input_word,
 }
 
 StdVectorFst PairLMDecoder::BuildTransliterationFst(
-    absl::string_view input_line, int k_best, TranslitContext &fst_params,
-    std::vector<int> *unique_arc_id) {
+    absl::string_view input_line, int k_best, TranslitContext& fst_params,
+    std::vector<int>* unique_arc_id) {
   // Initialize the transducer.
   StdVectorFst transliteration_fst;
   int curr_state = transliteration_fst.AddState();
@@ -1034,7 +1036,7 @@ StdVectorFst PairLMDecoder::BuildTransliterationFst(
 
   // Loop through the fsts produced, joining them into a sentence lattice.
   for (int i = 0; i < input_words.size(); ++i) {
-    const auto &word_transliterations = translit_fsts[i];
+    const auto& word_transliterations = translit_fsts[i];
     const int next_state = transliteration_fst.AddState();
     QCHECK_GE(word_transliterations.NumArcs(word_transliterations.Start()), 1);
     for (ArcIterator<StdVectorFst> aiter(word_transliterations,
@@ -1063,7 +1065,7 @@ StdVectorFst PairLMDecoder::BuildTransliterationFst(
 }
 
 StdVectorFst PairLMDecoder::ComposeLatticeWithLM(
-    const StdVectorFst &transliteration_fst) const {
+    const StdVectorFst& transliteration_fst) const {
   StdVectorFst string_lm_composed_fst(StdComposeFst(
       transliteration_fst, *lm_fst_,
       ComposeFstOptions<StdArc, PhiMatcher<Matcher<StdFst>>>(
@@ -1079,8 +1081,8 @@ StdVectorFst PairLMDecoder::ComposeLatticeWithLM(
 }
 
 std::vector<double> PairLMDecoder::CollectUniqueArcCosts(
-    const StdVectorFst &string_lm_composed_fst,
-    const std::vector<int> &unique_arc_id) const {
+    const StdVectorFst& string_lm_composed_fst,
+    const std::vector<int>& unique_arc_id) const {
   QCHECK_GT(string_lm_composed_fst.NumStates(), 0)
       << "input string fst is empty.";
   // Initializes costs to 9999 (i.e., probability ~ 0) for all indices.
@@ -1108,8 +1110,7 @@ std::vector<double> PairLMDecoder::CollectUniqueArcCosts(
 }
 
 void PairLMDecoder::ApplyFinalKBestFilter(
-    int k_best,
-    StdVectorFst *transliteration_fst) const {
+    int k_best, StdVectorFst* transliteration_fst) const {
   int dead_state = kNoStateId;
   for (int s = 0; s < transliteration_fst->NumStates(); ++s) {
     if (transliteration_fst->NumArcs(s) > k_best) {
@@ -1138,14 +1139,13 @@ void PairLMDecoder::ApplyFinalKBestFilter(
 }
 
 void PairLMDecoder::AssignLabelsAndCostsToTranslitLattice(
-    const std::vector<int> &unique_arc_id,
-    const std::vector<double> &unique_arc_cost, int k_best,
-    absl::string_view input_line, TranslitContext &fst_params,
-    StdVectorFst *transliteration_fst) const {
+    const std::vector<int>& unique_arc_id,
+    const std::vector<double>& unique_arc_cost, int k_best,
+    absl::string_view input_line, TranslitContext& fst_params,
+    StdVectorFst* transliteration_fst) const {
   int dead_state = kNoStateId;
-  const std::vector<absl::string_view> input_string =
-      absl::StrSplit(input_line, utf8::Utf8WhitespaceDelimiter(),
-                     absl::SkipEmpty());
+  const std::vector<absl::string_view> input_string = absl::StrSplit(
+      input_line, utf8::Utf8WhitespaceDelimiter(), absl::SkipEmpty());
   QCHECK_EQ(input_string.size(), transliteration_fst->NumStates() - 1);
   for (int s = 0; s < input_string.size(); ++s) {
     int input_sym = fst_params.input_syms.Find(input_string[s]);
@@ -1222,7 +1222,7 @@ StdVectorFst PairLMDecoder::TransliterateString(absl::string_view input_line,
 }
 
 std::string PairLMDecoder::PrintTransliterations(
-    absl::string_view line_prefix, const StdVectorFst &transliteration_fst,
+    absl::string_view line_prefix, const StdVectorFst& transliteration_fst,
     bool include_final_endline) const {
   int curr_state = transliteration_fst.Start();
   std::vector<std::string> state_cands;
