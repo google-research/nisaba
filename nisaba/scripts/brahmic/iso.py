@@ -19,7 +19,7 @@ README for extensions to this scheme.
 To try:
 
 ```sh
-bazel build -c opt nlp/grm2/thrax:rewrite-tester \
+bazel build -c opt third_party/opengrm/thrax:rewrite-tester \
   nisaba/scripts/brahmic:iso
 
 bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
@@ -31,7 +31,7 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 To create input - output tsv:
 
 ```sh
-bazel build -c opt nlp/grm2/thrax:rewrite-tester \
+bazel build -c opt third_party/opengrm/thrax:rewrite-tester \
   nisaba/scripts/brahmic:iso
 
 bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
@@ -47,8 +47,9 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 import os
 
 import pynini as p
-from pynini.export import multi_grm
-from pynini.lib import pynutil as pu
+from opengrm.pynini.export import multi_grm
+from opengrm.pynini.lib import pynutil as pu
+
 from nisaba.scripts.brahmic import util as u
 from nisaba.scripts.utils import file as f
 from nisaba.scripts.utils import rewrite as rw

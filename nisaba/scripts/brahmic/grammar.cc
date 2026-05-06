@@ -16,12 +16,12 @@
 
 #include <memory>
 
-#include "nisaba/interim/grm2/thrax/grm-manager.h"
 #include "absl/status/status.h"
 #include "absl/status/statusor.h"
 #include "absl/strings/ascii.h"
 #include "absl/strings/str_cat.h"
 #include "nisaba/port/file_util.h"
+#include "third_party/opengrm/thrax/grm-manager.h"
 #include "nisaba/port/status_macros.h"
 
 namespace nisaba {
