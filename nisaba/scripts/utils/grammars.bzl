@@ -15,7 +15,7 @@
 """Starlark utilities for dealing with Pynini targets."""
 
 load(
-    "@org_opengrm_pynini//pynini/export:grm_py_build_defs.bzl",
+    "@org_opengrm_pynini//pynini/pynini/export:grm_py_build_defs.bzl",
     "compile_grm_py",
     "compile_multi_grm_py",
 )

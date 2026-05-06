@@ -19,6 +19,7 @@ import os
 import pathlib
 
 import pynini
+
 import pathlib
 import nisaba.scripts.utils.file as uf
 

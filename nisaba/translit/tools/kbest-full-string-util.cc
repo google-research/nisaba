@@ -22,7 +22,6 @@
 #include <utility>
 #include <vector>
 
-#include "ngram/ngram-count.h"
 #include "absl/container/flat_hash_set.h"
 #include "absl/log/check.h"
 #include "absl/strings/str_cat.h"
@@ -41,6 +40,7 @@
 #include "fst/shortest-path.h"
 #include "fst/symbol-table.h"
 #include "fst/vector-fst.h"
+#include "ngram/ngram-count.h"
 
 namespace nisaba {
 namespace translit {
