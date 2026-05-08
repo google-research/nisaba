@@ -15,11 +15,11 @@
 """Acyclic acceptor accepting characters from Brahmic scripts."""
 
 from collections.abc import Iterable
-
 import unicodedata
 
 import pynini
-from pynini.lib import pynutil
+from opengrm.pynini.lib import pynutil
+
 import nisaba.scripts.brahmic.util as u
 import nisaba.scripts.utils.char as uc
 import nisaba.scripts.utils.rewrite as ur

@@ -234,7 +234,7 @@ bool BaseRuleCascade<Arc>::TopRewrite(absl::string_view input,
   debug->clear();
   std::vector<Label> labels;
   if (!TopRewrite(input, &labels)) return false;
-  if (!::fst::LabelsToString(labels, output, token_type_)) return false;
+  if (!::fst::LabelsToString<Label>(labels, output, token_type_)) return false;
   LabelsToDebugString(*output, labels, debug);
   return true;
 }
@@ -281,7 +281,7 @@ bool BaseRuleCascade<Arc>::OneTopRewrite(absl::string_view input,
   debug->clear();
   std::vector<Label> labels;
   if (!OneTopRewrite(input, &labels)) return false;
-  if (!::fst::LabelsToString(labels, output, token_type_)) return false;
+  if (!::fst::LabelsToString<Label>(labels, output, token_type_)) return false;
   LabelsToDebugString(*output, labels, debug);
   return true;
 }
@@ -332,7 +332,7 @@ bool BaseRuleCascade<Arc>::TopRewrites(absl::string_view input,
   for (const auto &labels : labelss) {
     output->emplace_back();
     debug->emplace_back();
-    if (!::fst::LabelsToString(labels, &output->back(), token_type_)) {
+    if (!::fst::LabelsToString<Label>(labels, &output->back(), token_type_)) {
       return false;
     }
     LabelsToDebugString(output->back(), labels, &debug->back());
@@ -394,7 +394,7 @@ bool BaseRuleCascade<Arc>::TopRewrites(absl::string_view input,
   for (const auto &labels : labelss) {
     output->emplace_back();
     debug->emplace_back();
-    if (!::fst::LabelsToString(labels, &output->back(), token_type_)) {
+    if (!::fst::LabelsToString<Label>(labels, &output->back(), token_type_)) {
       return false;
     }
     LabelsToDebugString(output->back(), labels, &debug->back());
@@ -455,7 +455,7 @@ bool BaseRuleCascade<Arc>::Rewrites(absl::string_view input,
   for (const auto &labels : labelss) {
     output->emplace_back();
     debug->emplace_back();
-    if (!::fst::LabelsToString(labels, &output->back(), token_type_)) {
+    if (!::fst::LabelsToString<Label>(labels, &output->back(), token_type_)) {
       return false;
     }
     LabelsToDebugString(output->back(), labels, &debug->back());

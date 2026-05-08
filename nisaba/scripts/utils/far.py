@@ -18,6 +18,7 @@ import os
 import warnings
 
 import pynini
+
 import functools
 import nisaba.scripts.utils.file as uf
 
