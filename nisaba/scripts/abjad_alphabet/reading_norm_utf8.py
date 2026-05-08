@@ -17,7 +17,7 @@ r"""Reading normalization grammar for abjad / alphabet script languages.
 To try for Urdu:
 
 ```sh
-bazel build -c opt nlp/grm2/thrax:rewrite-tester \
+bazel build -c opt third_party/opengrm/thrax:rewrite-tester \
   nisaba/scripts/abjad_alphabet:reading_norm
 
 bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
@@ -28,7 +28,7 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 ```
 """
 
-from pynini.export import grm
+from opengrm.pynini.export import grm
 from nisaba.scripts.abjad_alphabet import reading_norm
 
 
