@@ -18,7 +18,7 @@ Please refer to: http://unicode.org/charts/normalization/
 To try each rule:
 
 ```sh
-bazel build -c opt nlp/grm2/thrax:rewrite-tester \
+bazel build -c opt third_party/opengrm/thrax:rewrite-tester \
   nisaba/scripts/brahmic:nfc
 
 bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
@@ -28,7 +28,7 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 """
 
 import pynini
-from pynini.export import multi_grm
+from opengrm.pynini.export import multi_grm
 import nisaba.scripts.brahmic.util as u
 import nisaba.scripts.utils.rule as r
 
