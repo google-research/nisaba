@@ -17,7 +17,8 @@
 from collections.abc import Iterable
 
 import pynini
-from pynini.lib import byte
+from opengrm.pynini.lib import byte
+
 from nisaba.scripts.utils import file
 
 
