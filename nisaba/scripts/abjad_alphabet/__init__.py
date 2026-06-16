@@ -23,6 +23,7 @@ import re
 import string
 
 import pynini
+
 from nisaba.scripts.abjad_alphabet import util as u
 from nisaba.scripts.utils import far
 from nisaba.scripts.utils import rewrite
