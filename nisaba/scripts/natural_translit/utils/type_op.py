@@ -27,6 +27,7 @@ import enum
 from typing import Any, TypeVar, Union
 
 import pynini as pyn
+
 from nisaba.scripts.natural_translit.utils import log_op as log
 
 # Custom types

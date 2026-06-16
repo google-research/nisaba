@@ -20,6 +20,7 @@ from collections.abc import Callable, Iterable
 from typing import Any
 
 import pynini as pyn
+
 from nisaba.scripts.natural_translit.utils import type_op as ty
 from nisaba.scripts.utils import rewrite
 
