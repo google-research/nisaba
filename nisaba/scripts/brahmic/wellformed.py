@@ -17,7 +17,7 @@ r"""Acceptor for well-formed strings from major modern Brahmic scripts.
 To try:
 
 ```sh
-bazel build -c opt nlp/grm2/thrax:rewrite-tester \
+bazel build -c opt third_party/opengrm/thrax:rewrite-tester \
                    nisaba/scripts/brahmic:wellformed
 
 bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
@@ -30,7 +30,8 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 import os
 
 import pynini
-from pynini.export import multi_grm
+from opengrm.pynini.export import multi_grm
+
 import nisaba.scripts.brahmic.util as u
 import nisaba.scripts.utils.file as uf
 

@@ -16,7 +16,7 @@
 """Gurmukhi ISO to coarse Pan South Asian transliteration for Punjabi."""
 
 import pynini as pyn
-from pynini.export import multi_grm
+from opengrm.pynini.export import multi_grm
 from nisaba.scripts.natural_translit.language_params import pa
 
 
