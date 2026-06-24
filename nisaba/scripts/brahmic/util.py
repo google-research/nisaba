@@ -19,7 +19,8 @@ import pathlib
 
 from google.protobuf import text_format
 import pynini
-from pynini.lib import byte
+from opengrm.pynini.lib import byte
+
 from nisaba.scripts.brahmic import script_config_pb2
 import nisaba.scripts.utils.file as uf
 
@@ -31,18 +32,22 @@ def BuildSigmaFstFromSymbolTable(syms: pynini.SymbolTableView) -> pynini.Fst:
   final_state = f.add_state()
   f.set_final(final_state)
   for lbl, _ in syms:
-    f.add_arc(start_state,
-              pynini.Arc(lbl, lbl, pynini.Weight.one("tropical"), final_state))
+    f.add_arc(
+        start_state,
+        pynini.Arc(lbl, lbl, pynini.Weight.one("tropical"), final_state),
+    )
   return f
 
 
-def OpenFstFromBrahmicFar(far_name: str, fst_name: str,
-                          token_type: str) -> pynini.Fst:
+def OpenFstFromBrahmicFar(
+    far_name: str, fst_name: str, token_type: str
+) -> pynini.Fst:
   return uf.OpenFstFromFar(FAR_DIR, far_name, token_type, fst_name)
 
 
-def OpenFstFromBrahmicFarSafe(far_name: str, fst_name: str, token_type: str,
-                              default: pynini.Fst) -> pynini.Fst:
+def OpenFstFromBrahmicFarSafe(
+    far_name: str, fst_name: str, token_type: str, default: pynini.Fst
+) -> pynini.Fst:
   """Returns FST from a given FAR; returns default if FST is not found."""
   return uf.OpenFstFromFarSafe(FAR_DIR, far_name, token_type, fst_name, default)
 
@@ -58,7 +63,8 @@ def OpenSigma(script: str, token_type: str) -> pynini.Fst:
 
 
 def MaybeLoadScriptConfig(
-    file_path: os.PathLike[str]) -> script_config_pb2.ScriptConfig:
+    file_path: os.PathLike[str],
+) -> script_config_pb2.ScriptConfig:
   """Loads script configuration, if present."""
   pb = script_config_pb2.ScriptConfig()
   if not uf.IsFileExist(file_path):
