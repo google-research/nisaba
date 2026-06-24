@@ -17,7 +17,7 @@ r"""Grammar for visual norm of major Brahmic script texts.
 To try each rule:
 
 ```sh
-bazel build -c opt nlp/grm2/thrax:rewrite-tester \
+bazel build -c opt third_party/opengrm/thrax:rewrite-tester \
                    nisaba/scripts/brahmic:visual_norm
 
 bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
@@ -30,8 +30,9 @@ import os
 
 from absl import flags
 import pynini
-from pynini.export import grm
-from pynini.lib import pynutil
+from opengrm.pynini.export import grm
+from opengrm.pynini.lib import pynutil
+
 import nisaba.scripts.brahmic.char_util as cu
 import nisaba.scripts.brahmic.util as u
 from nisaba.scripts.utils import rule
