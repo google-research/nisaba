@@ -78,7 +78,7 @@ py_library(
         ":rewrite",
         "@io_abseil_py//absl/testing:absltest",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:utf8",
+        "@org_opengrm_pynini//pynini/pynini/lib:utf8",
     ],
 )
 
@@ -97,8 +97,8 @@ py_library(
     deps = [
         ":file",
         ":rewrite",
-        "@org_opengrm_pynini//pynini",
         requirement("networkx"),
+        "@org_opengrm_pynini//pynini",
         requirement("pandas"),
     ],
 )
@@ -109,7 +109,7 @@ py_library(
     deps = [
         ":file",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:byte",
+        "@org_opengrm_pynini//pynini/pynini/lib:byte",
     ],
 )
 
@@ -128,7 +128,7 @@ py_library(
     srcs = ["proto.py"],
     deps = [
         ":file",
-        "@com_google_protobuf//:protobuf_python",
+        "//third_party/py/google/protobuf",
     ],
 )
 
@@ -191,7 +191,7 @@ py_binary(
     deps = [
         ":unicode_strings_py_pb2",
         ":unicode_strings_util",
-        "@com_google_protobuf//:protobuf_python",
+        "//third_party/py/google/protobuf",
         "@io_abseil_py//absl:app",
         "@io_abseil_py//absl/flags",
         "@io_abseil_py//absl/logging",
