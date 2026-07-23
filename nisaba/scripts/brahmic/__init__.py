@@ -20,6 +20,7 @@ import re
 import string
 
 import pynini
+
 from nisaba.scripts.brahmic import util as u
 from nisaba.scripts.utils import far
 

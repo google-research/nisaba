@@ -15,7 +15,7 @@
 """Acyclic acceptor accepting characters from Brahmic scripts."""
 
 import pynini
-from pynini.export import grm
+from opengrm.pynini.export import grm
 import nisaba.scripts.brahmic.char_util as cu
 import nisaba.scripts.brahmic.util as u
 import nisaba.scripts.utils.char as uc
