@@ -20,6 +20,7 @@ from collections.abc import Callable, Iterable
 from typing import Any, Union
 
 import pynini as pyn
+
 from nisaba.scripts.natural_translit.brahmic import derom_inventory as derom
 from nisaba.scripts.natural_translit.brahmic import grapheme_inventory as gr
 from nisaba.scripts.natural_translit.latin import ltn_inventory

@@ -19,6 +19,7 @@ from __future__ import annotations
 from typing import Union
 
 import pynini as pyn
+
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import inventory as i
