@@ -17,7 +17,7 @@ r"""Grammar for Reading Norm of major Brahmic language script texts.
 To try each rule:
 
 ```sh
-bazel build -c opt nlp/grm2/thrax:rewrite-tester \
+bazel build -c opt third_party/opengrm/thrax:rewrite-tester \
                    nisaba/scripts/brahmic:reading_norm
 
 bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
@@ -29,9 +29,9 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 import pathlib
 
 from absl import flags
-
 import pynini
-from pynini.export import grm
+from opengrm.pynini.export import grm
+
 import nisaba.scripts.brahmic.util as u
 from nisaba.scripts.utils import file
 from nisaba.scripts.utils import rewrite

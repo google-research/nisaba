@@ -261,7 +261,7 @@ bool RewriteTester::AppendLabel(Label label, std::string *path) const {
       std::string utf8_string;
       std::vector<Label> labels;
       labels.push_back(label);
-      if (!LabelsToUTF8String(labels, &utf8_string)) {
+      if (!LabelsToUTF8String<Label>(labels, &utf8_string)) {
         LOG(ERROR) << "LabelsToUTF8String: Bad code point: " << label;
         return false;
       }

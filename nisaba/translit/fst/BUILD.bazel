@@ -91,6 +91,7 @@ cc_library(
     deps = [
         ":pairlm_decoder_options_cc_proto",
         ":wordpiece-segmenter-lib",
+        "//base:char32",
         "//nisaba/port:file_util",
         "//nisaba/port:thread_pool",
         "//nisaba/port:utf8_util",
