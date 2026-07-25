@@ -19,6 +19,7 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 
 load("@pip_deps//:requirements.bzl", "requirement")
 
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load(
     "//nisaba/scripts/brahmic:constant.bzl",
     "FIXED_RULE_SCRIPTS",
@@ -89,7 +90,45 @@ nisaba_compile_multi_grm_py(
         "//nisaba/scripts/utils:file",
         "//nisaba/scripts/utils:rewrite",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:pynutil",
+        "@org_opengrm_pynini//pynini/pynini/lib:pynutil",
+    ],
+)
+
+nisaba_compile_multi_grm_py(
+    name = "iso_sttable",
+    src = "iso.py",
+    outs = {
+        "byte": "iso_sttable.far",
+        "utf8": "iso_sttable_utf8.far",
+    },
+    data = [
+        ":nfc.far",
+        ":nfc_utf8.far",
+        ":sigma_utf8.far",
+    ] + [
+        "//nisaba/scripts/brahmic/data/{}:{}.tsv".format(script, file_name)
+        for script in SCRIPTS
+        for file_name in [
+            "coda",
+            "consonant",
+            "dead_consonant",
+            "inherent_vowel",
+            "standalone",
+            "subjoined_consonant",
+            "virama",
+            "vowel",
+            "vowel_length_sign",
+            "vowel_sign",
+        ]
+    ] + ["//nisaba/scripts/brahmic/data:symbol.tsv"],
+    far_type = "sttable",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":util",
+        "//nisaba/scripts/utils:file",
+        "//nisaba/scripts/utils:rewrite",
+        "@org_opengrm_pynini//pynini",
+        "@org_opengrm_pynini//pynini/pynini/lib:pynutil",
     ],
 )
 
@@ -173,12 +212,13 @@ nisaba_grm_textproto_test(
 py_library(
     name = "util",
     srcs = ["util.py"],
+    visibility = ["//visibility:public"],
     deps = [
         ":script_config_py_pb2",
         "//nisaba/scripts/utils:file",
-        "@com_google_protobuf//:protobuf_python",
+        "//third_party/py/google/protobuf",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:byte",
+        "@org_opengrm_pynini//pynini/pynini/lib:byte",
         "@rules_python//python/runfiles",
         requirement("pandas"),
     ],
@@ -223,13 +263,14 @@ py_library(
         "//nisaba/scripts/utils:char",
         "//nisaba/scripts/utils:rewrite",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:pynutil",
+        "@org_opengrm_pynini//pynini/pynini/lib:pynutil",
     ],
 )
 
 nisaba_compile_grm_py(
     name = "sigma",
     out = "sigma_utf8.far",
+    visibility = ["//visibility:public"],
     deps = [
         ":char_util",
         ":util",
@@ -321,7 +362,7 @@ nisaba_compile_script_lang_multi_grm_py(
         "//nisaba/scripts/utils:rule",
         "@io_abseil_py//absl/flags",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:pynutil",
+        "@org_opengrm_pynini//pynini/pynini/lib:pynutil",
     ],
 )
 
@@ -422,6 +463,7 @@ py_library(
         ":iso.far",
         ":nfc.far",
         ":reading_norm.far",
+        ":sigma_utf8.far",
         ":visual_norm.far",
         ":wellformed.far",
     ] + [
@@ -492,6 +534,7 @@ cc_library(
         "//nisaba/interim/grm2/thrax:grm-manager-lib",
         "//nisaba/port:file_util",
         "//nisaba/port:status_macros",
+        "@com_google_absl//absl/base:no_destructor",
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/status:statusor",
         "@com_google_absl//absl/strings",
@@ -527,4 +570,11 @@ filegroup(
        ":visual_norm.far",
        ":wellformed.far",
    ],
+)
+
+bzl_library(
+    name = "constant_bzl",
+    srcs = ["constant.bzl"],
+    parse_tests = False,
+    visibility = ["//visibility:private"],
 )

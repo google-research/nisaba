@@ -32,6 +32,28 @@ class BrahmicTest(absltest.TestCase):
     self._wellformed_mlym = brahmic.WellFormed('Mlym')
     self._norm_acceptor_deva = brahmic.NormalizingAcceptor('Deva')
     self._norm_acceptor_sinh = brahmic.NormalizingAcceptor('Sinh')
+    self._sigma_brahmic = brahmic.Sigma('Brahmic')
+    self._sigma_deva = brahmic.Sigma('Deva')
+    self._sigma_mlym = brahmic.Sigma('Mlym')
+    self._wellformed_brahmic = brahmic.WellFormed('Brahmic')
+
+  def testSigma(self):
+    # Brahmic sigma accepts any word of supported Brahmic scripts
+    self.assertTrue(self._sigma_brahmic.AcceptText('लब'))
+    self.assertTrue(self._sigma_brahmic.AcceptText('നെ'))
+    self.assertTrue(
+        self._sigma_brahmic.AcceptText('काु')
+    )  # Accepts ill-formed too
+    # Reject strings with spaces, english, punctuation etc
+    self.assertFalse(self._sigma_brahmic.AcceptText('लब നെ'))
+    self.assertFalse(self._sigma_brahmic.AcceptText('abc'))
+    self.assertFalse(self._sigma_brahmic.AcceptText('लब.'))
+
+    # Script specific sigmas
+    self.assertTrue(self._sigma_deva.AcceptText('लब'))
+    self.assertFalse(self._sigma_deva.AcceptText('നെ'))
+    self.assertTrue(self._sigma_mlym.AcceptText('നെ'))
+    self.assertFalse(self._sigma_mlym.AcceptText('लब'))
 
   def testApplyOnText(self):
     self.assertEqual('क़्लब', self._nfc.ApplyOnText('क़्लब'))
@@ -45,6 +67,16 @@ class BrahmicTest(absltest.TestCase):
     self.assertFalse(self._wellformed_mlym.AcceptText('്ന'))
     self.assertFalse(self._wellformed_mlym.AcceptText('ന്‍'))
     self.assertFalse(self._wellformed_deva.AcceptText('लब ന്'))
+
+    # BRAHMIC wellformed acceptor tests
+    self.assertTrue(self._wellformed_brahmic.AcceptText('लब'))
+    self.assertTrue(self._wellformed_brahmic.AcceptText('മലയാളം'))
+    self.assertFalse(
+        self._wellformed_brahmic.AcceptText('काु')
+    )  # Devanagari ill-formed
+    self.assertFalse(
+        self._wellformed_brahmic.AcceptText('്ന')
+    )  # Malayalam ill-formed
 
   def testAcceptTextWarning(self):
     # Raises a warning about underlying FST.
