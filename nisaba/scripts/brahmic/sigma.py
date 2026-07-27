@@ -15,7 +15,7 @@
 """Acyclic acceptor accepting characters from Brahmic scripts."""
 
 import pynini
-from pynini.export import grm
+from opengrm.pynini.export import grm
 import nisaba.scripts.brahmic.char_util as cu
 import nisaba.scripts.brahmic.util as u
 import nisaba.scripts.utils.char as uc
@@ -27,9 +27,20 @@ def generator_main(exporter: grm.Exporter):
   # NOTE: It isn't useful for us to create a byte-mode sigma, so only export
   # utf8-mode sigma.
   with pynini.default_token_type('utf8'):
+    all_sigmas = []
     for script in u.SCRIPTS:
       chars = cu.script_chars(script)
-      exporter[script.upper()] = uc.derive_sigma(chars)
+      sigma = uc.derive_sigma(chars)
+      exporter[script.upper()] = sigma
+      # _STAR = closure(sigma): accepts words (multi-character strings), not
+      # just single characters.
+      exporter[script.upper() + '_STAR'] = pynini.closure(sigma).optimize()
+      all_sigmas.append(sigma)
+
+    # Union of all script sigmas.
+    brahmic_sigma = pynini.union(*all_sigmas).optimize()
+    exporter['BRAHMIC'] = brahmic_sigma
+    exporter['BRAHMIC_STAR'] = pynini.closure(brahmic_sigma).optimize()
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@
 """Alignment forming functions and constants."""
 
 import pynini as pyn
-from pynini.lib import byte
+from opengrm.pynini.lib import byte
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 
 # Constants
