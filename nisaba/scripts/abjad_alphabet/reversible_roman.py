@@ -18,7 +18,7 @@ To try for Urdu:
 
 ```shell
 ABJAD_ALPHABET_DIR=nisaba/scripts/abjad_alphabet
-bazel build -c opt nlp/grm2/thrax:rewrite-tester \
+bazel build -c opt third_party/opengrm/thrax:rewrite-tester \
   ${ABJAD_ALPHABET_DIR}:reversible_roman
 
 bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
@@ -29,7 +29,7 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 """
 
 import pynini
-from pynini.export import multi_grm
+from opengrm.pynini.export import multi_grm
 from nisaba.scripts.abjad_alphabet import util
 from nisaba.scripts.utils import file
 from nisaba.scripts.utils import rewrite
