@@ -20,6 +20,7 @@ import re
 import string
 
 import pynini
+
 from nisaba.scripts.brahmic import util as u
 from nisaba.scripts.utils import far
 
@@ -58,6 +59,10 @@ class _FarStore(object):
   def wellformed(self) -> far.Far:
     return far.Far(u.FAR_DIR / 'wellformed.far')
 
+  @functools.cached_property
+  def sigma(self) -> far.Far:
+    return far.Far(u.FAR_DIR / 'sigma_utf8.far')
+
 
 _FARS = _FarStore()
 
@@ -80,6 +85,23 @@ def VisualNorm(script: str) -> far.Far.FstWrapper:
 
 def WellFormed(script: str) -> far.Far.FstWrapper:
   return _FARS.wellformed.Fst(script.upper())
+
+
+def Sigma(script: str = 'Brahmic') -> far.Far.FstWrapper:
+  """Returns a sigma-star acceptor for a script.
+
+  The returned FstWrapper accepts any word composed entirely of
+  characters from the given script's alphabet. If no script is
+  specified, accepts words from any supported Brahmic script.
+
+  Args:
+    script: ISO 15924 script code (e.g. 'Mlym', 'Deva') or 'Brahmic' for the
+      union of all scripts. Defaults to 'Brahmic'.
+
+  Returns:
+    An FstWrapper with AcceptText() support.
+  """
+  return _FARS.sigma.Fst(script.upper() + '_STAR', token_type='utf8')
 
 
 class ScriptError(ValueError):

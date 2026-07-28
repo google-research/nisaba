@@ -19,6 +19,7 @@ import os
 import pathlib
 
 import pynini
+
 from rules_python.python.runfiles import runfiles
 
 EMPTY: pynini.Fst = pynini.intersect(

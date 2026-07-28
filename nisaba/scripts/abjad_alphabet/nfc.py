@@ -17,7 +17,7 @@ r"""NFC grammar for abjad / alphabet script languages.
 To try for Urdu:
 
 ```sh
-bazel build -c opt nlp/grm2/thrax:rewrite-tester \
+bazel build -c opt third_party/opengrm/thrax:rewrite-tester \
   nisaba/scripts/abjad_alphabet:nfc
 
 bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
@@ -28,7 +28,7 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 """
 
 import pynini
-from pynini.export import multi_grm
+from opengrm.pynini.export import multi_grm
 from nisaba.scripts.abjad_alphabet import util as u
 from nisaba.scripts.utils import rule
 
