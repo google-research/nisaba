@@ -20,6 +20,7 @@ from typing import TypeVar, Union
 
 from google.protobuf import message
 from google.protobuf import text_format
+
 import nisaba.scripts.utils.file as uf
 
 _ParsableT = TypeVar(

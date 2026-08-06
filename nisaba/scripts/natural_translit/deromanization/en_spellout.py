@@ -14,7 +14,7 @@
 
 """English letter spellout for various South Asian languages."""
 import pynini as pyn
-from pynini.export import multi_grm
+from opengrm.pynini.export import multi_grm
 from nisaba.scripts.natural_translit.brahmic import en_spellout
 
 _LANG_SCRIPTS = (
