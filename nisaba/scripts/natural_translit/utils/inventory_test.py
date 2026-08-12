@@ -38,13 +38,13 @@ _i2 = i.Inventory.from_list(
 class InventoryTest(absltest.TestCase):
 
   def test_empty_alias(self):
-    self.assertEqual(i.Inventory.EMPTY.alias, 'empty_inventory')
+    self.assertEqual(i.Inventory.EMPTY.alias, 'empty_inventory')  # pyrefly: ignore[missing-attribute]
 
   def test_empty_size(self):
-    self.assertEmpty(i.Inventory.EMPTY)
+    self.assertEmpty(i.Inventory.EMPTY)  # pyrefly: ignore[missing-attribute]
 
   def test_alias(self):
-    self.assertEqual(_i1.b, _T_B_STR)
+    self.assertEqual(_i1.b, _T_B_STR)  # pyrefly: ignore[missing-attribute]
 
   def test_in(self):
     self.assertIn(_T_B_STR, _i1)
@@ -61,7 +61,7 @@ class InventoryTest(absltest.TestCase):
 
   def test_add_item_recurring_alias(self):
     self.assertFalse(_i1.add_item(_T_BC_STR))
-    self.assertEqual(_i1.b, _T_B_STR)
+    self.assertEqual(_i1.b, _T_B_STR)  # pyrefly: ignore[missing-attribute]
 
   def test_add_item_recurring_alias_return_false(self):
     self.assertFalse(_i1.add_item(_T_BC_STR))
@@ -75,17 +75,17 @@ class InventoryTest(absltest.TestCase):
 
   def test_add_suppl(self):
     self.assertTrue(_i1.add_suppl(_T_D_INT))
-    self.assertEqual(_i1.d, 4)
+    self.assertEqual(_i1.d, 4)  # pyrefly: ignore[missing-attribute]
 
   def test_make_suppl(self):
     self.assertTrue(_i1.make_suppl('e', 5))
-    self.assertEqual(_i1.e, 5)
+    self.assertEqual(_i1.e, 5)  # pyrefly: ignore[missing-attribute]
 
   def test_from_list_value(self):
-    self.assertEqual(_i2.b, _B_STR)
+    self.assertEqual(_i2.b, _B_STR)  # pyrefly: ignore[missing-attribute]
 
   def test_from_list_suppl(self):
-    self.assertEqual(_i2.d, _D_INT)
+    self.assertEqual(_i2.d, _D_INT)  # pyrefly: ignore[missing-attribute]
 
   def test_from_list_item_aliases(self):
     self.assertEqual(_i2.item_aliases, ['b', 'c'])

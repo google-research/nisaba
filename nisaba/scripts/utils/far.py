@@ -15,9 +15,11 @@
 """Library to load a .far file and transduce a string with an FST from that."""
 
 import os
+from typing import Literal
 import warnings
 
 import pynini
+
 import functools
 import nisaba.scripts.utils.file as uf
 
@@ -36,8 +38,13 @@ class Far:
   class FstWrapper:
     """An FST object wrapper retrieved from a Far object."""
 
-    def __init__(self, fst: pynini.Fst) -> None:
+    _TOKEN_TYPE = Literal['byte', 'utf8']
+
+    def __init__(
+        self, fst: pynini.Fst, token_type: _TOKEN_TYPE = 'byte'
+    ) -> None:
       self._fst = fst
+      self._token_type = token_type
 
     def ApplyOnText(self, text: str) -> str:
       """Transduce the given string using the FST.
@@ -57,7 +64,10 @@ class Far:
       try:
         # Square brackets and backslash carry special meaning in Pynini.
         # So they need to be escaped for unmanaged strings.
-        return pynini.shortestpath(pynini.escape(text) @ self._fst).string()
+        return pynini.shortestpath(
+            pynini.accep(pynini.escape(text), token_type=self._token_type)
+            @ self._fst
+        ).string(token_type=self._token_type)
       except pynini.FstOpError as error:
         raise FstInputError(
             f'{error} on the string (between quotes): `{text}`') from error
@@ -79,7 +89,12 @@ class Far:
       """
       if not self._fst.properties(pynini.ACCEPTOR, True):
         warnings.warn('Underlying WFST is not an acceptor.', RuntimeWarning)
-      lattice = text @ self._fst
+      # Square brackets and backslash carry special meaning in Pynini.
+      # So they need to be escaped for unmanaged strings.
+      lattice = (
+          pynini.accep(pynini.escape(text), token_type=self._token_type)
+          @ self._fst
+      )
       return lattice.start() != pynini.NO_STATE_ID
 
   def __init__(self, path_to_far: os.PathLike[str]) -> None:
@@ -91,9 +106,11 @@ class Far:
   # ().
   @functools.lru_cache(maxsize=None)
   def _LoadFar(self) -> pynini.Far:
-    return pynini.Far(uf.AsResourcePath(self.path_to_far))
+    return pynini.Far(uf.AsResourcePath(self.path_to_far), 'r')
 
   @functools.lru_cache(maxsize=None)
-  def Fst(self, rule_name: str) -> 'FstWrapper':
+  def Fst(
+      self, rule_name: str, token_type: FstWrapper._TOKEN_TYPE = 'byte'
+  ) -> 'FstWrapper':
     far = self._LoadFar()
-    return self.FstWrapper(far[rule_name])
+    return self.FstWrapper(far[rule_name], token_type)

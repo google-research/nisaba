@@ -19,6 +19,7 @@ from __future__ import annotations
 from typing import Union
 
 import pynini as pyn
+
 from nisaba.scripts.natural_translit.utils import alignment as al
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import inventory as i
@@ -155,13 +156,13 @@ def thing_ph_modified(
 def phon_inventory(
     phon_list: list[Phon], suppl_list: ty.ListOrNothing = ty.UNSPECIFIED
 ) -> i.Inventory:
-  return i.Inventory.from_list(phon_list, suppls=suppl_list)
+  return i.Inventory.from_list(phon_list, suppls=suppl_list)  # pyrefly: ignore[bad-argument-type]
 
 
 def ph_inventory(
     phon_list: list[Phon], suppl_list: ty.ListOrNothing = ty.UNSPECIFIED
 ) -> i.Inventory:
-  return i.Inventory.from_list(phon_list, attr='ph', suppls=suppl_list)
+  return i.Inventory.from_list(phon_list, attr='ph', suppls=suppl_list)  # pyrefly: ignore[bad-argument-type]
 
 
 def import_phon(

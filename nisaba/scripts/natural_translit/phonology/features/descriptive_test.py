@@ -21,24 +21,24 @@ from nisaba.scripts.natural_translit.utils import test_op
 def _profiles() -> inventory.Inventory:
   f = descriptive.FEATURES
   profiles = inventory.Inventory.from_list([
-      f.consonant.copy('p').update(
-          f.manner.stop,
-          f.bilabial,
-          f.voicing.voiceless,
+      f.consonant.copy('p').update(  # pyrefly: ignore[missing-attribute]
+          f.manner.stop,  # pyrefly: ignore[missing-attribute]
+          f.bilabial,  # pyrefly: ignore[missing-attribute]
+          f.voicing.voiceless,  # pyrefly: ignore[missing-attribute]
       ),
-      f.consonant.copy('f').update(
-          f.manner.non_sibilant,
-          f.labiodental,
-          f.voicing.voiceless,
+      f.consonant.copy('f').update(  # pyrefly: ignore[missing-attribute]
+          f.manner.non_sibilant,  # pyrefly: ignore[missing-attribute]
+          f.labiodental,  # pyrefly: ignore[missing-attribute]
+          f.voicing.voiceless,  # pyrefly: ignore[missing-attribute]
       ),
-      f.consonant.copy('s').update(
-          f.manner.sibilant,
-          f.para_alveolar,
-          f.voicing.voiceless,
+      f.consonant.copy('s').update(  # pyrefly: ignore[missing-attribute]
+          f.manner.sibilant,  # pyrefly: ignore[missing-attribute]
+          f.para_alveolar,  # pyrefly: ignore[missing-attribute]
+          f.voicing.voiceless,  # pyrefly: ignore[missing-attribute]
       ),
   ])
   profiles.add_item(
-      profiles.s.copy('s_low_amplitude').update(f.manner.non_sibilant)
+      profiles.s.copy('s_low_amplitude').update(f.manner.non_sibilant)  # pyrefly: ignore[missing-attribute]
   )
   return profiles
 
@@ -50,7 +50,7 @@ class DescriptiveFeaturesTest(test_op.TestCase):
 
   def test_profile_p(self):
     self.AssertStrEqual(
-        _P.p,
+        _P.p,  # pyrefly: ignore[missing-attribute]
 
         'p profile:\n\n'
         '| aspects        | values         |\n'
@@ -76,7 +76,7 @@ class DescriptiveFeaturesTest(test_op.TestCase):
 
   def test_compare_p_f_verbose(self):
     self.assertEqual(
-        _P.p.comparison_table(_P.f, verbose=True),
+        _P.p.comparison_table(_P.f, verbose=True),  # pyrefly: ignore[missing-attribute]
         'descriptive comparison (max distance = 23.50):\n\n'
         '| aspect         | p              | f              |   distance |\n'
         '|----------------|----------------|----------------|------------|\n'
@@ -102,7 +102,7 @@ class DescriptiveFeaturesTest(test_op.TestCase):
 
   def test_compare_p_f(self):
     self.assertEqual(
-        _P.p.comparison_table(_P.f),
+        _P.p.comparison_table(_P.f),  # pyrefly: ignore[missing-attribute]
         'descriptive comparison (max distance = 23.50):\n\n'
         '| aspect         | p      | f            |   distance |\n'
         '|----------------|--------|--------------|------------|\n'
@@ -114,7 +114,7 @@ class DescriptiveFeaturesTest(test_op.TestCase):
 
   def test_compare_f_s(self):
     self.assertEqual(
-        _P.f.comparison_table(_P.s),
+        _P.f.comparison_table(_P.s),  # pyrefly: ignore[missing-attribute]
         'descriptive comparison (max distance = 23.50):\n\n'
         '| aspect         | f            | s               |   distance |\n'
         '|----------------|--------------|-----------------|------------|\n'
@@ -127,7 +127,7 @@ class DescriptiveFeaturesTest(test_op.TestCase):
 
   def test_compare_f_s_low_amplitude(self):
     self.assertEqual(
-        _P.f.comparison_table(_P.s_low_amplitude),
+        _P.f.comparison_table(_P.s_low_amplitude),  # pyrefly: ignore[missing-attribute]
         'descriptive comparison (max distance = 23.50):\n\n'
         '| aspect         | f          | s_low_amplitude   |   distance |\n'
         '|----------------|------------|-------------------|------------|\n'

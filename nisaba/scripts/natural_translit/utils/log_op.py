@@ -30,7 +30,6 @@ import pathlib
 from typing import TypeVar
 
 from absl import logging
-
 import pynini as pyn
 
 T = TypeVar('T')

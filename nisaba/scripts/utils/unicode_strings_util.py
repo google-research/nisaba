@@ -70,7 +70,7 @@ def _names_to_string(uname_prefixes: Sequence[str], names: Sequence[str]
   """
   u_chars, resolved_names = zip(*(name_to_char(uname_prefixes, name)
                                   for name in names))
-  return ''.join(u_chars), resolved_names
+  return ''.join(u_chars), resolved_names  # pyrefly: ignore[bad-return]
 
 
 def proto_entries_to_string(uname_prefixes: Sequence[str],
@@ -163,7 +163,7 @@ def _fill_missing_raw(pb: unicode_strings_pb2.UnicodeStrings) -> None:
     None
   """
   for item in pb.item:
-    item.raw, item.to_raw = convert_item(
+    item.raw, item.to_raw = convert_item(  # pyrefly: ignore[bad-assignment]
         pb.uname_prefix, pb.to_uname_prefix, item
     )
 
