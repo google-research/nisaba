@@ -35,7 +35,7 @@ _TEST_CASES = [
 class AlignmentTest(test_util.FstTestCase):
 
   def test_all(self):
-    self.AssertEqualFstLikeTestCases(_TEST_CASES)
+    self.AssertEqualFstLikeTestCases(_TEST_CASES)  # pyrefly: ignore[bad-argument-type]
 
 
 if __name__ == '__main__':

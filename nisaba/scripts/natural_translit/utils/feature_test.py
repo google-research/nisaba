@@ -57,48 +57,48 @@ def _room_features() -> f.Inventory:
           step=0.5,
       )),
   )
-  room_features.warmth.set(
-      'cold_end', room_features.warmth.cold, room_features.warmth.vcold
+  room_features.warmth.set(  # pyrefly: ignore[missing-attribute]
+      'cold_end', room_features.warmth.cold, room_features.warmth.vcold  # pyrefly: ignore[missing-attribute]
   )
-  room_features.warmth.set(
-      'hot_end', room_features.warmth.hot, room_features.warmth.vhot
+  room_features.warmth.set(  # pyrefly: ignore[missing-attribute]
+      'hot_end', room_features.warmth.hot, room_features.warmth.vhot  # pyrefly: ignore[missing-attribute]
   )
-  room_features.warmth.set_range(
-      'moderate', room_features.warmth.chl, room_features.warmth.warm
+  room_features.warmth.set_range(  # pyrefly: ignore[missing-attribute]
+      'moderate', room_features.warmth.chl, room_features.warmth.warm  # pyrefly: ignore[missing-attribute]
   )
-  room_features.warmth.set_not(
-      'not_cold', room_features.warmth.cold_end
+  room_features.warmth.set_not(  # pyrefly: ignore[missing-attribute]
+      'not_cold', room_features.warmth.cold_end  # pyrefly: ignore[missing-attribute]
   )
-  room_features.color.set_range(
-      'has_red', room_features.color.prp, room_features.color.org
+  room_features.color.set_range(  # pyrefly: ignore[missing-attribute]
+      'has_red', room_features.color.prp, room_features.color.org  # pyrefly: ignore[missing-attribute]
   )
   room_features.make_sets(
       ('calming',
        [
-           room_features.warmth.moderate,
-           room_features.color.grn,
-           room_features.color.blue,
-           room_features.lighting.inc,
+           room_features.warmth.moderate,  # pyrefly: ignore[missing-attribute]
+           room_features.color.grn,  # pyrefly: ignore[missing-attribute]
+           room_features.color.blue,  # pyrefly: ignore[missing-attribute]
+           room_features.lighting.inc,  # pyrefly: ignore[missing-attribute]
        ]
       )
   )
   room_features.add_profile(
       'room1',
-      room_features.function.bedroom,
-      room_features.warmth.cold,
-      room_features.color.red,
-      room_features.door.closed,
+      room_features.function.bedroom,  # pyrefly: ignore[missing-attribute]
+      room_features.warmth.cold,  # pyrefly: ignore[missing-attribute]
+      room_features.color.red,  # pyrefly: ignore[missing-attribute]
+      room_features.door.closed,  # pyrefly: ignore[missing-attribute]
   )
   room_features.add_profile(
       'room2',
-      room_features.function.living_room,
-      room_features.lighting.flr,
-      room_features.warmth.not_cold,
-      room_features.color.n_a,
-      room_features.door.shut,
+      room_features.function.living_room,  # pyrefly: ignore[missing-attribute]
+      room_features.lighting.flr,  # pyrefly: ignore[missing-attribute]
+      room_features.warmth.not_cold,  # pyrefly: ignore[missing-attribute]
+      room_features.color.n_a,  # pyrefly: ignore[missing-attribute]
+      room_features.door.shut,  # pyrefly: ignore[missing-attribute]
   )
-  room_features.copy_profile(room_features.room2, 'room3').update(
-      room_features.warmth.cold,
+  room_features.copy_profile(room_features.room2, 'room3').update(  # pyrefly: ignore[missing-attribute]
+      room_features.warmth.cold,  # pyrefly: ignore[missing-attribute]
   )
   return room_features
 
@@ -141,12 +141,12 @@ def _animal_features() -> f.Inventory:
   )
   animal_features.add_profile(
       'cat',
-      animal_features.size.small,
-      animal_features.weight.light,
-      animal_features.speed.fast,
-      animal_features.life_span.medium,
-      animal_features.gestation.medium,
-      animal_features.litter_size.medium,
+      animal_features.size.small,  # pyrefly: ignore[missing-attribute]
+      animal_features.weight.light,  # pyrefly: ignore[missing-attribute]
+      animal_features.speed.fast,  # pyrefly: ignore[missing-attribute]
+      animal_features.life_span.medium,  # pyrefly: ignore[missing-attribute]
+      animal_features.gestation.medium,  # pyrefly: ignore[missing-attribute]
+      animal_features.litter_size.medium,  # pyrefly: ignore[missing-attribute]
   )
   return animal_features
 
@@ -156,11 +156,11 @@ _A = _animal_features()
 class FeatureTest(test_op.TestCase):
 
   def test_feature_text(self):
-    self.assertEqual(_R.warmth.vcold.text, 'very_cold')
+    self.assertEqual(_R.warmth.vcold.text, 'very_cold')  # pyrefly: ignore[missing-attribute]
 
   def test_feature_str(self):
     self.AssertStrEqual(
-        _R.warmth.vcold,
+        _R.warmth.vcold,  # pyrefly: ignore[missing-attribute]
         '  vcold (very_cold) = {\n'
         '        cold (cold): 0.50\n'
         '        chl (chilly): 1.00\n'
@@ -172,115 +172,115 @@ class FeatureTest(test_op.TestCase):
     )
 
   def test_aspect_of_feature(self):
-    self.assertEqual(_R.warmth.warm.aspect, _R.warmth)
+    self.assertEqual(_R.warmth.warm.aspect, _R.warmth)  # pyrefly: ignore[missing-attribute]
 
   def test_list_as_suppl(self):
-    self.assertIn('cls', _R.door.suppl_aliases)
+    self.assertIn('cls', _R.door.suppl_aliases)  # pyrefly: ignore[missing-attribute]
 
   def test_set_empty(self):
     self.assertEmpty(f.Set())
 
   def test_set_alias_text(self):
-    self.assertEqual(_R.warmth.all.alias, 'all')
-    self.assertEqual(_R.warmth.all.text, 'all')
+    self.assertEqual(_R.warmth.all.alias, 'all')  # pyrefly: ignore[missing-attribute]
+    self.assertEqual(_R.warmth.all.text, 'all')  # pyrefly: ignore[missing-attribute]
 
   def test_set_reset(self):
-    self.assertEmpty(f.Set(_R.warmth.cold).reset())
+    self.assertEmpty(f.Set(_R.warmth.cold).reset())  # pyrefly: ignore[missing-attribute]
 
   def test_set_all(self):
-    self.assertIn(_R.warmth.warm, _R.warmth.all)
+    self.assertIn(_R.warmth.warm, _R.warmth.all)  # pyrefly: ignore[missing-attribute]
 
   def test_set_range(self):
-    self.assertIn(_R.warmth.tpd, _R.warmth.moderate)
+    self.assertIn(_R.warmth.tpd, _R.warmth.moderate)  # pyrefly: ignore[missing-attribute]
 
   def test_set_range_reverse(self):
     self.AssertStrEqual(
-        _R.color.has_red, 'has_red: {orange, purple, red}'
+        _R.color.has_red, 'has_red: {orange, purple, red}'  # pyrefly: ignore[missing-attribute]
     )
 
   def test_set_not(self):
-    self.assertIn(_R.warmth.warm, _R.warmth.not_cold)
+    self.assertIn(_R.warmth.warm, _R.warmth.not_cold)  # pyrefly: ignore[missing-attribute]
 
   def test_set_not_false(self):
-    self.assertNotIn(_R.warmth.cold, _R.warmth.not_cold)
+    self.assertNotIn(_R.warmth.cold, _R.warmth.not_cold)  # pyrefly: ignore[missing-attribute]
 
   def test_feature_in(self):
-    self.assertTrue(_R.door.shut.is_in([_R.warmth.warm, _R.door.cls]))
-    self.assertFalse(_R.door.shut.is_in([_R.warmth.cold, _R.door.closed]))
-    self.assertTrue(_R.door.cls.is_in(_R.room2.door))
-    self.assertFalse(_R.door.open.is_in(_R.room2.door))
-    self.AssertFeatureIn(_R.door.cls, _R.room2)
-    self.AssertFeatureNotIn(_R.door.open, _R.room2)
+    self.assertTrue(_R.door.shut.is_in([_R.warmth.warm, _R.door.cls]))  # pyrefly: ignore[missing-attribute]
+    self.assertFalse(_R.door.shut.is_in([_R.warmth.cold, _R.door.closed]))  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(_R.door.cls.is_in(_R.room2.door))  # pyrefly: ignore[missing-attribute]
+    self.assertFalse(_R.door.open.is_in(_R.room2.door))  # pyrefly: ignore[missing-attribute]
+    self.AssertFeatureIn(_R.door.cls, _R.room2)  # pyrefly: ignore[missing-attribute]
+    self.AssertFeatureNotIn(_R.door.open, _R.room2)  # pyrefly: ignore[missing-attribute]
 
   def test_has_feature(self):
-    self.AssertHasFeature([_R.warmth.warm, _R.door.cls], _R.door.shut)
-    self.AssertNotHasFeature([_R.warmth.cold, _R.door.closed], _R.door.shut)
-    self.assertTrue(_R.room2.door.has_feature(_R.door.shut))
-    self.assertTrue(_R.room2.door.has_feature(_R.door.cls))
-    self.AssertNotHasFeature(_R.room2.door, _R.door.open)
-    self.assertTrue(_R.room2.has_feature(_R.door.shut))
-    self.assertTrue(_R.room2.has_feature(_R.door.cls))
-    self.AssertNotHasFeature(_R.room2, _R.door.open)
+    self.AssertHasFeature([_R.warmth.warm, _R.door.cls], _R.door.shut)  # pyrefly: ignore[missing-attribute]
+    self.AssertNotHasFeature([_R.warmth.cold, _R.door.closed], _R.door.shut)  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(_R.room2.door.has_feature(_R.door.shut))  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(_R.room2.door.has_feature(_R.door.cls))  # pyrefly: ignore[missing-attribute]
+    self.AssertNotHasFeature(_R.room2.door, _R.door.open)  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(_R.room2.has_feature(_R.door.shut))  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(_R.room2.has_feature(_R.door.cls))  # pyrefly: ignore[missing-attribute]
+    self.AssertNotHasFeature(_R.room2, _R.door.open)  # pyrefly: ignore[missing-attribute]
 
   def test_set_non_generic(self):
     non_generic = f.Set(
-        _R.warmth.cold, _R.lighting.n_a, _R.color.any, alias='set1'
+        _R.warmth.cold, _R.lighting.n_a, _R.color.any, alias='set1'  # pyrefly: ignore[missing-attribute]
     ).non_generic(alias='non_generic')
     self.AssertStrEqual(non_generic, 'non_generic: {cold}')
 
   def test_set_is_equal(self):
     self.assertTrue(
-        f.Set(_R.warmth.chl, _R.warmth.tpd, _R.warmth.warm).is_equal(
-            _R.warmth.moderate
+        f.Set(_R.warmth.chl, _R.warmth.tpd, _R.warmth.warm).is_equal(  # pyrefly: ignore[missing-attribute]
+            _R.warmth.moderate  # pyrefly: ignore[missing-attribute]
         )
     )
     self.assertFalse(
-        f.Set(_R.warmth.tpd, _R.warmth.warm).is_equal(
-            _R.warmth.moderate
+        f.Set(_R.warmth.tpd, _R.warmth.warm).is_equal(  # pyrefly: ignore[missing-attribute]
+            _R.warmth.moderate  # pyrefly: ignore[missing-attribute]
         )
     )
     self.assertFalse(
         f.Set(
-            _R.warmth.chl, _R.warmth.tpd, _R.warmth.warm, _R.warmth.hot
-        ).is_equal(_R.warmth.moderate)
+            _R.warmth.chl, _R.warmth.tpd, _R.warmth.warm, _R.warmth.hot  # pyrefly: ignore[missing-attribute]
+        ).is_equal(_R.warmth.moderate)  # pyrefly: ignore[missing-attribute]
     )
 
   def test_max_dist(self):
-    self.assertEqual(_R.warmth.max_dist, 3.00)
+    self.assertEqual(_R.warmth.max_dist, 3.00)  # pyrefly: ignore[missing-attribute]
 
   def test_feature_dist_same_feature(self):
-    self.AssertFeatureDistance(_R.warmth.warm, _R.warmth.warm, 0)
+    self.AssertFeatureDistance(_R.warmth.warm, _R.warmth.warm, 0)  # pyrefly: ignore[missing-attribute]
 
   def test_feature_dist_same_aspect(self):
-    self.AssertFeatureDistance(_R.warmth.warm, _R.warmth.cold, 1.5)
+    self.AssertFeatureDistance(_R.warmth.warm, _R.warmth.cold, 1.5)  # pyrefly: ignore[missing-attribute]
 
   def test_feature_dist_different_aspect(self):
-    self.AssertFeatureDistance(_R.warmth.warm, _R.color.red, f.ERROR_DISTANCE)
+    self.AssertFeatureDistance(_R.warmth.warm, _R.color.red, f.ERROR_DISTANCE)  # pyrefly: ignore[missing-attribute]
 
   def test_feature_dist_any(self):
-    self.AssertFeatureDistance(_R.warmth.warm, _R.warmth.any, 0)
+    self.AssertFeatureDistance(_R.warmth.warm, _R.warmth.any, 0)  # pyrefly: ignore[missing-attribute]
 
   def test_feature_dist_in_set(self):
-    self.AssertFeatureDistance(_R.warmth.warm, _R.warmth.moderate, 0)
+    self.AssertFeatureDistance(_R.warmth.warm, _R.warmth.moderate, 0)  # pyrefly: ignore[missing-attribute]
 
   def test_feature_dist_out_of_set(self):
-    self.AssertFeatureDistance(_R.warmth.cold, _R.warmth.moderate, 0.5)
+    self.AssertFeatureDistance(_R.warmth.cold, _R.warmth.moderate, 0.5)  # pyrefly: ignore[missing-attribute]
 
   def test_set_dist_in_set(self):
-    self.AssertFeatureDistance(_R.warmth.moderate, _R.warmth.warm, 0)
+    self.AssertFeatureDistance(_R.warmth.moderate, _R.warmth.warm, 0)  # pyrefly: ignore[missing-attribute]
 
   def test_set_dist_out_of_set(self):
-    self.AssertFeatureDistance(_R.warmth.moderate, _R.warmth.vcold, 1)
+    self.AssertFeatureDistance(_R.warmth.moderate, _R.warmth.vcold, 1)  # pyrefly: ignore[missing-attribute]
 
   def test_set_to_set_overlap(self):
-    self.AssertFeatureDistance(_R.warmth.moderate, _R.warmth.not_cold, 0)
+    self.AssertFeatureDistance(_R.warmth.moderate, _R.warmth.not_cold, 0)  # pyrefly: ignore[missing-attribute]
 
   def test_set_to_set_no_overlap(self):
-    self.AssertFeatureDistance(_R.warmth.hot_end, _R.warmth.cold_end, 2)
+    self.AssertFeatureDistance(_R.warmth.hot_end, _R.warmth.cold_end, 2)  # pyrefly: ignore[missing-attribute]
 
   def test_linear(self):
     self.AssertStrEqual(
-        _R.warmth,
+        _R.warmth,  # pyrefly: ignore[missing-attribute]
         'aspect: warmth\nmax_dist: 3.00\n\n'
         '| distances   |   very_cold |   cold |   chilly |   tepid |   warm |'
         '   hot |   very_hot |\n'
@@ -304,7 +304,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_equidistant_different(self):
     self.AssertStrEqual(
-        _R.function,
+        _R.function,  # pyrefly: ignore[missing-attribute]
         'aspect: function\nmax_dist: 1.00\n\n'
         '| distances   |   bedroom |   living_room |   office |\n'
         '|-------------|-----------|---------------|----------|\n'
@@ -315,7 +315,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_cyclic(self):
     self.AssertStrEqual(
-        _R.color,
+        _R.color,  # pyrefly: ignore[missing-attribute]
         'aspect: color\nmax_dist: 1.50\n\n'
         '| distances   |   red |   orange |   yellow |   green |   blue |'
         '   purple |\n'
@@ -337,7 +337,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_nested_linear_eq(self):
     self.AssertStrEqual(
-        _R.door,
+        _R.door,  # pyrefly: ignore[missing-attribute]
         'aspect: door\nmax_dist: 1.50\n\n'
         '| distances   |   open |   ajar |   closed |   shut |   locked |\n'
         '|-------------|--------|--------|----------|--------|----------|\n'
@@ -350,27 +350,27 @@ class FeatureTest(test_op.TestCase):
 
   def test_inventory_set(self):
     self.AssertStrEqual(
-        _R.calming, 'calming: {blue, chilly, green, incandescent, tepid, warm}'
+        _R.calming, 'calming: {blue, chilly, green, incandescent, tepid, warm}'  # pyrefly: ignore[missing-attribute]
     )
 
   def test_group_by_aspect(self):
-    features = f.Set(_A.size.small, _R.warmth.cold)
+    features = f.Set(_A.size.small, _R.warmth.cold)  # pyrefly: ignore[missing-attribute]
     dictionary = f.Set.group_by_aspect(features)
-    self.AssertStrEqual(dictionary[_A].get(_A.size), 'size: {small}')
-    self.AssertStrEqual(dictionary[_R].get(_R.warmth), 'warmth: {cold}')
-    self.AssertStrEqual(dictionary[_R].get(_R.function, {}), '{}')
+    self.AssertStrEqual(dictionary[_A].get(_A.size), 'size: {small}')  # pyrefly: ignore[missing-attribute]
+    self.AssertStrEqual(dictionary[_R].get(_R.warmth), 'warmth: {cold}')  # pyrefly: ignore[missing-attribute]
+    self.AssertStrEqual(dictionary[_R].get(_R.function, {}), '{}')  # pyrefly: ignore[missing-attribute]
 
   def test_aspect_dict(self):
-    dict_a = _A.aspect_dict(_R.warmth.cold)
-    dict_r = _R.aspect_dict(_A.size.small, _R.warmth.cold)
+    dict_a = _A.aspect_dict(_R.warmth.cold)  # pyrefly: ignore[missing-attribute]
+    dict_r = _R.aspect_dict(_A.size.small, _R.warmth.cold)  # pyrefly: ignore[missing-attribute]
     self.assertEmpty(dict_a)
-    self.AssertStrEqual(dict_r.get(_R.warmth), 'warmth: {cold}')
-    self.AssertStrEqual(dict_r.get(_R.function, {}), '{}')
-    self.AssertStrEqual(dict_r.get(_A.size.small, {}), '{}')
+    self.AssertStrEqual(dict_r.get(_R.warmth), 'warmth: {cold}')  # pyrefly: ignore[missing-attribute]
+    self.AssertStrEqual(dict_r.get(_R.function, {}), '{}')  # pyrefly: ignore[missing-attribute]
+    self.AssertStrEqual(dict_r.get(_A.size.small, {}), '{}')  # pyrefly: ignore[missing-attribute]
 
   def test_profile_room1(self):
     self.AssertStrEqual(
-        _R.room1,
+        _R.room1,  # pyrefly: ignore[missing-attribute]
         'room1 profile:\n\n'
         '| aspects   | values   |\n'
         '|-----------|----------|\n'
@@ -383,7 +383,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_profile_room2(self):
     self.AssertStrEqual(
-        _R.room2,
+        _R.room2,  # pyrefly: ignore[missing-attribute]
         'room2 profile:\n\n'
         '| aspects   | values                             |\n'
         '|-----------|------------------------------------|\n'
@@ -396,7 +396,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_profile_room3(self):
     self.AssertStrEqual(
-        _R.room3,
+        _R.room3,  # pyrefly: ignore[missing-attribute]
         'room3 profile:\n\n'
         '| aspects   | values         |\n'
         '|-----------|----------------|\n'
@@ -409,7 +409,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_profile_copy(self):
     self.AssertStrEqual(
-        _A.cat.copy('copycat'),
+        _A.cat.copy('copycat'),  # pyrefly: ignore[missing-attribute]
         'copycat profile:\n\n'
         '| aspects     | values   |\n'
         '|-------------|----------|\n'
@@ -423,7 +423,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_profile_update(self):
     self.AssertStrEqual(
-        _A.cat.copy('kitten').update(_A.size.tiny),
+        _A.cat.copy('kitten').update(_A.size.tiny),  # pyrefly: ignore[missing-attribute]
         'kitten profile:\n\n'
         '| aspects     | values   |\n'
         '|-------------|----------|\n'
@@ -437,7 +437,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_profile_inventory_n_a(self):
     self.AssertStrEqual(
-        _A.not_applicable,
+        _A.not_applicable,  # pyrefly: ignore[missing-attribute]
         'not_applicable profile:\n\n'
         '| aspects     | values         |\n'
         '|-------------|----------------|\n'
@@ -454,8 +454,8 @@ class FeatureTest(test_op.TestCase):
         f.Profile(
             _A,
             'ornamental',
-            _A.size.any,
-            _A.weight.any,
+            _A.size.any,  # pyrefly: ignore[missing-attribute]
+            _A.weight.any,  # pyrefly: ignore[missing-attribute]
             unspecified_aspect_n_a=True,
         ),
         'ornamental profile:\n\n'
@@ -470,19 +470,19 @@ class FeatureTest(test_op.TestCase):
     )
 
   def test_profile_aspect_applicable(self):
-    self.assertTrue(_R.color.is_applicable(_R.room1))
-    self.assertFalse(_R.color.is_applicable(_R.room2))
-    self.assertFalse(_R.color.is_applicable(_A.cat))
+    self.assertTrue(_R.color.is_applicable(_R.room1))  # pyrefly: ignore[missing-attribute]
+    self.assertFalse(_R.color.is_applicable(_R.room2))  # pyrefly: ignore[missing-attribute]
+    self.assertFalse(_R.color.is_applicable(_A.cat))  # pyrefly: ignore[missing-attribute]
 
   def test_profile_get(self):
-    self.AssertStrEqual(_R.room1.get(_R.warmth), 'warmth: {cold}')
+    self.AssertStrEqual(_R.room1.get(_R.warmth), 'warmth: {cold}')  # pyrefly: ignore[missing-attribute]
     self.AssertStrEqual(
-        _R.room1.get(_A.size), 'animal_features_size: {not_applicable}'
+        _R.room1.get(_A.size), 'animal_features_size: {not_applicable}'  # pyrefly: ignore[missing-attribute]
     )
 
   def test_profile_compare_all(self):
     self.assertEqual(
-        _R.room1.comparison_table(_R.room2),
+        _R.room1.comparison_table(_R.room2),  # pyrefly: ignore[missing-attribute]
         'room_features comparison (max distance = 8.00):\n\n'
         '| aspect         | room1   | room2                              |'
         '   distance |\n'
@@ -502,7 +502,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_profile_compare_verbose(self):
     self.assertEqual(
-        _R.room1.comparison_table(_R.room2, verbose=True),
+        _R.room1.comparison_table(_R.room2, verbose=True),  # pyrefly: ignore[missing-attribute]
         'room_features comparison (max distance = 8.00):\n\n'
         '| aspect         | room1   | room2                              |'
         '   distance |\n'
@@ -526,7 +526,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_profile_compare_aspect_list(self):
     self.assertEqual(
-        _R.room1.comparison_table(_R.room2, [_R.function, _R.color]),
+        _R.room1.comparison_table(_R.room2, [_R.function, _R.color]),  # pyrefly: ignore[missing-attribute]
         'room_features comparison (max distance = 2.50):\n\n'
         '| aspect         | room1   | room2          |   distance |\n'
         '|----------------|---------|----------------|------------|\n'
@@ -538,7 +538,7 @@ class FeatureTest(test_op.TestCase):
 
   def test_profile_compare_with_copy(self):
     self.assertEqual(
-        _R.room2.comparison_table(_R.room3),
+        _R.room2.comparison_table(_R.room3),  # pyrefly: ignore[missing-attribute]
         'room_features comparison (max distance = 8.00):\n\n'
         '| aspect         | room2                              | room3   |'
         '   distance |\n'
@@ -554,15 +554,15 @@ class FeatureTest(test_op.TestCase):
 
   def test_profile_compare_inventory_mismatch(self):
     self.assertEqual(
-        _R.room1.comparison_table(_A.cat),
+        _R.room1.comparison_table(_A.cat),  # pyrefly: ignore[missing-attribute]
         'room_features and animal_features profiles are not comparable\n'
         '    Similarity = 0\n',
     )
 
   def test_multi_profile_new_profile(self):
     mp = f.MultiProfile('cold_room_with_cat')
-    mp.new_profile(_R.room1)
-    mp.new_profile(_A.cat)
+    mp.new_profile(_R.room1)  # pyrefly: ignore[missing-attribute]
+    mp.new_profile(_A.cat)  # pyrefly: ignore[missing-attribute]
     self.AssertStrEqual(
         mp,
         'cold_room_with_cat features:\n\n'
@@ -585,8 +585,8 @@ class FeatureTest(test_op.TestCase):
 
   def test_multi_profile_new_profile_overwrite(self):
     mp = f.MultiProfile('new_room')
-    mp.new_profile(_R.room1)
-    mp.new_profile(_R.room2)
+    mp.new_profile(_R.room1)  # pyrefly: ignore[missing-attribute]
+    mp.new_profile(_R.room2)  # pyrefly: ignore[missing-attribute]
     self.AssertStrEqual(
         mp,
         'new_room features:\n\n'
@@ -602,13 +602,13 @@ class FeatureTest(test_op.TestCase):
 
   def test_multi_profile_has_profile(self):
     mp = f.MultiProfile('no_animal')
-    mp.new_profile(_R.room1)
+    mp.new_profile(_R.room1)  # pyrefly: ignore[missing-attribute]
     self.assertTrue(mp.has_profile(_R))
     self.assertFalse(mp.has_profile(_A))
 
   def test_multi_profile_get(self):
     mp = f.MultiProfile('no_animal')
-    mp.new_profile(_R.room1)
+    mp.new_profile(_R.room1)  # pyrefly: ignore[missing-attribute]
     self.AssertStrEqual(
         mp.get(_R),
         'room_features profile:\n\n'
@@ -647,8 +647,8 @@ class FeatureTest(test_op.TestCase):
 
   def test_multi_profile_copy(self):
     mp = f.MultiProfile('cold_room_with_cat')
-    mp.new_profile(_R.room1)
-    mp.new_profile(_A.cat)
+    mp.new_profile(_R.room1)  # pyrefly: ignore[missing-attribute]
+    mp.new_profile(_A.cat)  # pyrefly: ignore[missing-attribute]
     self.AssertStrEqual(mp.copy('cold_room_with_cat'), mp)
 
 if __name__ == '__main__':

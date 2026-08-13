@@ -17,6 +17,7 @@
 import itertools
 
 import pynini as pyn
+
 from nisaba.scripts.natural_translit.utils import fst_list as fl
 from nisaba.scripts.natural_translit.utils import inventory as i
 from nisaba.scripts.natural_translit.utils import type_op as ty

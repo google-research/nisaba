@@ -17,6 +17,7 @@
 import itertools
 
 import pynini
+
 from absl.testing import absltest
 from absl.testing import parameterized
 from nisaba.scripts.brahmic import util as u
@@ -28,20 +29,37 @@ class FstPropertiesTest(parameterized.TestCase,
 
   @parameterized.parameters(
       itertools.product(
-          u.SCRIPTS,
-          (pynini.ACYCLIC, pynini.UNWEIGHTED, pynini.I_DETERMINISTIC,
-           pynini.NO_EPSILONS, pynini.ACCESSIBLE, pynini.COACCESSIBLE,
-           pynini.ACCEPTOR)))
+          u.SCRIPTS + ['Brahmic'],
+          (
+              pynini.ACYCLIC,
+              pynini.UNWEIGHTED,
+              pynini.I_DETERMINISTIC,
+              pynini.NO_EPSILONS,
+              pynini.ACCESSIBLE,
+              pynini.COACCESSIBLE,
+              pynini.ACCEPTOR,
+          ),
+      )
+  )
   def test_sigma_utf8(self, script: str, prop: pynini.FstProperties):
     fst = u.OpenFstFromBrahmicFar('sigma', script, token_type='utf8')
     self.AssertFstCompliesWithProperties(fst, prop)
 
   @parameterized.parameters(
       itertools.product(
-          u.SCRIPTS,
-          (pynini.CYCLIC, pynini.UNWEIGHTED, pynini.I_DETERMINISTIC,
-           pynini.NO_EPSILONS, pynini.ACCESSIBLE, pynini.COACCESSIBLE,
-           pynini.ACCEPTOR), ('byte', 'utf8')))
+          u.SCRIPTS + ['Brahmic'],
+          (
+              pynini.CYCLIC,
+              pynini.UNWEIGHTED,
+              pynini.I_DETERMINISTIC,
+              pynini.NO_EPSILONS,
+              pynini.ACCESSIBLE,
+              pynini.COACCESSIBLE,
+              pynini.ACCEPTOR,
+          ),
+          ('byte', 'utf8'),
+      )
+  )
   def test_wellformed(self, script: str, prop: pynini.FstProperties,
                       token_type: str):
     fst = u.OpenFstFromBrahmicFar('wellformed', script, token_type)

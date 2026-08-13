@@ -30,7 +30,7 @@ def ft_inventory(
     feature_list: list[PhonFeature],
     suppl_list: ty.ListOrNothing = ty.UNSPECIFIED,
 ) -> i.Inventory:
-  return i.Inventory.from_list(feature_list, attr='alias', suppls=suppl_list)
+  return i.Inventory.from_list(feature_list, attr='alias', suppls=suppl_list)  # pyrefly: ignore[bad-argument-type]
 
 # TODO:Enum features by category
 ARTICULATION_FEATURE = [PhonFeature(alias, cat) for alias, cat in [
@@ -108,39 +108,39 @@ FEATURE_QUALIFIER = [PhonFeature(alias, cat) for alias, cat in [
 FEATURES = ARTICULATION_FEATURE + FEATURE_QUALIFIER
 _F = ft_inventory(FEATURES)
 
-ROWS = [ty.Thing(alias, value_from=features) for alias, features in [
-    ['close_vwl', [_F.vowel, _F.close]],
-    ['n_close_vwl', [_F.vowel, _F.near_close]],
-    ['c_mid_vwl', [_F.vowel, _F.close_mid]],
-    ['mid_vwl', [_F.vowel, _F.mid]],
-    ['o_mid_vwl', [_F.vowel, _F.open_mid]],
-    ['n_open_vwl', [_F.vowel, _F.near_open]],
-    ['open_vwl', [_F.vowel, _F.open]],
-    ['front_unr', [_F.front, _F.nonlabial]],
-    ['front_rnd', [_F.front, _F.labial]],
-    ['n_front_unr', [_F.near_front, _F.nonlabial]],
-    ['n_front_rnd', [_F.near_front, _F.labial]],
-    ['center_unr', [_F.center, _F.nonlabial]],
-    ['center_rnd', [_F.center, _F.labial]],
-    ['n_back_unr', [_F.near_back, _F.nonlabial]],
-    ['n_back_rnd', [_F.near_back, _F.labial]],
-    ['back_unr', [_F.back, _F.nonlabial]],
-    ['back_rnd', [_F.back, _F.labial]],
-    ['vcd_nasal', [_F.nasal, _F.stop, _F.voiced]],
-    ['vcl_stop', [_F.stop, _F.voiceless]],
-    ['vcd_stop', [_F.stop, _F.voiced]],
-    ['vcl_nonsib_fricative', [_F.fricative, _F.nonsibilant, _F.voiceless]],
-    ['vcd_nonsib_fricative', [_F.fricative, _F.nonsibilant, _F.voiced]],
-    ['vcl_sib_fricative', [_F.fricative, _F.sibilant, _F.voiceless]],
-    ['vcd_sib_fricative', [_F.fricative, _F.sibilant, _F.voiced]],
-    ['vcl_lat_fricative', [_F.fricative, _F.lateral, _F.voiceless]],
-    ['vcd_lat_fricative', [_F.fricative, _F.lateral, _F.voiced]],
-    ['central_approximant', [_F.approximant, _F.voiced]],
-    ['lateral_approximant', [_F.approximant, _F.voiced, _F.lateral]],
-    ['vlr_lbl', [_F.velar, _F.labial]],
-    ['vcd_flap', [_F.flap, _F.voiced]],
-    ['vcd_trill', [_F.trill, _F.voiced]],
-    ['click_release', [_F.click, _F.nonpulmonic]],
+ROWS = [ty.Thing(alias, value_from=features) for alias, features in [  # pyrefly: ignore[bad-argument-type]
+    ['close_vwl', [_F.vowel, _F.close]],  # pyrefly: ignore[missing-attribute]
+    ['n_close_vwl', [_F.vowel, _F.near_close]],  # pyrefly: ignore[missing-attribute]
+    ['c_mid_vwl', [_F.vowel, _F.close_mid]],  # pyrefly: ignore[missing-attribute]
+    ['mid_vwl', [_F.vowel, _F.mid]],  # pyrefly: ignore[missing-attribute]
+    ['o_mid_vwl', [_F.vowel, _F.open_mid]],  # pyrefly: ignore[missing-attribute]
+    ['n_open_vwl', [_F.vowel, _F.near_open]],  # pyrefly: ignore[missing-attribute]
+    ['open_vwl', [_F.vowel, _F.open]],  # pyrefly: ignore[missing-attribute]
+    ['front_unr', [_F.front, _F.nonlabial]],  # pyrefly: ignore[missing-attribute]
+    ['front_rnd', [_F.front, _F.labial]],  # pyrefly: ignore[missing-attribute]
+    ['n_front_unr', [_F.near_front, _F.nonlabial]],  # pyrefly: ignore[missing-attribute]
+    ['n_front_rnd', [_F.near_front, _F.labial]],  # pyrefly: ignore[missing-attribute]
+    ['center_unr', [_F.center, _F.nonlabial]],  # pyrefly: ignore[missing-attribute]
+    ['center_rnd', [_F.center, _F.labial]],  # pyrefly: ignore[missing-attribute]
+    ['n_back_unr', [_F.near_back, _F.nonlabial]],  # pyrefly: ignore[missing-attribute]
+    ['n_back_rnd', [_F.near_back, _F.labial]],  # pyrefly: ignore[missing-attribute]
+    ['back_unr', [_F.back, _F.nonlabial]],  # pyrefly: ignore[missing-attribute]
+    ['back_rnd', [_F.back, _F.labial]],  # pyrefly: ignore[missing-attribute]
+    ['vcd_nasal', [_F.nasal, _F.stop, _F.voiced]],  # pyrefly: ignore[missing-attribute]
+    ['vcl_stop', [_F.stop, _F.voiceless]],  # pyrefly: ignore[missing-attribute]
+    ['vcd_stop', [_F.stop, _F.voiced]],  # pyrefly: ignore[missing-attribute]
+    ['vcl_nonsib_fricative', [_F.fricative, _F.nonsibilant, _F.voiceless]],  # pyrefly: ignore[missing-attribute]
+    ['vcd_nonsib_fricative', [_F.fricative, _F.nonsibilant, _F.voiced]],  # pyrefly: ignore[missing-attribute]
+    ['vcl_sib_fricative', [_F.fricative, _F.sibilant, _F.voiceless]],  # pyrefly: ignore[missing-attribute]
+    ['vcd_sib_fricative', [_F.fricative, _F.sibilant, _F.voiced]],  # pyrefly: ignore[missing-attribute]
+    ['vcl_lat_fricative', [_F.fricative, _F.lateral, _F.voiceless]],  # pyrefly: ignore[missing-attribute]
+    ['vcd_lat_fricative', [_F.fricative, _F.lateral, _F.voiced]],  # pyrefly: ignore[missing-attribute]
+    ['central_approximant', [_F.approximant, _F.voiced]],  # pyrefly: ignore[missing-attribute]
+    ['lateral_approximant', [_F.approximant, _F.voiced, _F.lateral]],  # pyrefly: ignore[missing-attribute]
+    ['vlr_lbl', [_F.velar, _F.labial]],  # pyrefly: ignore[missing-attribute]
+    ['vcd_flap', [_F.flap, _F.voiced]],  # pyrefly: ignore[missing-attribute]
+    ['vcd_trill', [_F.trill, _F.voiced]],  # pyrefly: ignore[missing-attribute]
+    ['click_release', [_F.click, _F.nonpulmonic]],  # pyrefly: ignore[missing-attribute]
 ]]
 
 FEATURE_INVENTORY = ft_inventory(FEATURES, ROWS)

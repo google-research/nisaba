@@ -75,7 +75,7 @@ py_library(
     deps = [
         ":fst_list",
         "@org_opengrm_pynini//pynini",
-        "@org_opengrm_pynini//pynini/lib:byte",
+        "@org_opengrm_pynini//pynini/pynini/lib:byte",
     ],
 )
 

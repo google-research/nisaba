@@ -38,7 +38,7 @@ def _atomic_inventory() -> exp.Atomic.Inventory:
   atomics.make_suppl(
       'atm_sym', {exp.Atomic.get_instance(sym): sym for sym in _SYM}
   )
-  atomics.add_symbols(*atomics.atm_sym)
+  atomics.add_symbols(*atomics.atm_sym)  # pyrefly: ignore[missing-attribute]
   return atomics
 
 
@@ -49,49 +49,49 @@ class ExpressionTest(test_op.TestCase):
 
   def test_atomic_read(self):
     self.assertIs(
-        exp.Atomic.get_instance(sym.Symbol.CTRL.eps), exp.Atomic.CTRL.eps
+        exp.Atomic.get_instance(sym.Symbol.CTRL.eps), exp.Atomic.CTRL.eps  # pyrefly: ignore[missing-attribute]
     )
     self.assertIs(
-        exp.Atomic.get_instance(exp.Atomic.CTRL.unk), exp.Atomic.CTRL.unk
+        exp.Atomic.get_instance(exp.Atomic.CTRL.unk), exp.Atomic.CTRL.unk  # pyrefly: ignore[missing-attribute]
     )
-    self.assertIs(_ATM.a.symbol, _SYM.a)
+    self.assertIs(_ATM.a.symbol, _SYM.a)  # pyrefly: ignore[missing-attribute]
 
   def test_constants(self):
-    self.assertTrue(exp.Atomic.CTRL.unk.is_control())
-    self.assertTrue(exp.Atomic.CTRL.eps.is_eps())
-    self.assertTrue(exp.Atomic.CTRL.nor.is_nor())
-    self.assertTrue(exp.Expression.ANY.is_any())
-    self.AssertStrEqual(exp.Expression.ANY, '​🝓⋆​')
+    self.assertTrue(exp.Atomic.CTRL.unk.is_control())  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(exp.Atomic.CTRL.eps.is_eps())  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(exp.Atomic.CTRL.nor.is_nor())  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(exp.Expression.ANY.is_any())  # pyrefly: ignore[missing-attribute]
+    self.AssertStrEqual(exp.Expression.ANY, '​🝓⋆​')  # pyrefly: ignore[missing-attribute]
 
   def test_symbol_inventory_lookup(self):
-    self.assertEqual(_ATM.lookup(_ATM.a, 'atm_sym'), _SYM.a)
+    self.assertEqual(_ATM.lookup(_ATM.a, 'atm_sym'), _SYM.a)  # pyrefly: ignore[missing-attribute]
 
   def test_atomic_from_symbol(self):
-    self.AssertStrEqual(_ATM.nul, _SYM.nul)
-    self.assertEmpty(_ATM.nul.raw)
-    self.assertIn(_ATM.nul, _ATM.nul)
-    self.assertIs(_ATM.nul.symbol, _SYM.nul)
-    self.assertEqual(_ATM.nul.index, _SYM.nul.index)
-    self.AssertHasFeature(_ATM.nul, sym.Symbol.SYM_FEATURES.type.abst)
+    self.AssertStrEqual(_ATM.nul, _SYM.nul)  # pyrefly: ignore[missing-attribute]
+    self.assertEmpty(_ATM.nul.raw)  # pyrefly: ignore[missing-attribute]
+    self.assertIn(_ATM.nul, _ATM.nul)  # pyrefly: ignore[missing-attribute]
+    self.assertIs(_ATM.nul.symbol, _SYM.nul)  # pyrefly: ignore[missing-attribute]
+    self.assertEqual(_ATM.nul.index, _SYM.nul.index)  # pyrefly: ignore[missing-attribute]
+    self.AssertHasFeature(_ATM.nul, sym.Symbol.SYM_FEATURES.type.abst)  # pyrefly: ignore[missing-attribute]
     self.assertEqual(
-        _ATM.nul.description(show_features=True),
+        _ATM.nul.description(show_features=True),  # pyrefly: ignore[missing-attribute]
         'alias: nul  index: 123  text: ◌  name: NULL\n    features: {abstract}',
     )
 
   def test_atomic_from_atomic(self):
-    atm_nul2 = exp.Atomic.get_instance(_ATM.nul)
-    self.AssertStrEqual(atm_nul2, _SYM.nul)
+    atm_nul2 = exp.Atomic.get_instance(_ATM.nul)  # pyrefly: ignore[missing-attribute]
+    self.AssertStrEqual(atm_nul2, _SYM.nul)  # pyrefly: ignore[missing-attribute]
     self.assertEmpty(atm_nul2.raw)
     self.assertIn(atm_nul2, atm_nul2)
-    self.assertNotIn(_ATM.nul, atm_nul2)
-    self.assertIs(atm_nul2.symbol, _SYM.nul)
-    self.assertEqual(atm_nul2.index, _SYM.nul.index)
+    self.assertNotIn(_ATM.nul, atm_nul2)  # pyrefly: ignore[missing-attribute]
+    self.assertIs(atm_nul2.symbol, _SYM.nul)  # pyrefly: ignore[missing-attribute]
+    self.assertEqual(atm_nul2.index, _SYM.nul.index)  # pyrefly: ignore[missing-attribute]
     self.assertEqual(
         atm_nul2.description(),
         'alias: nul  index: 123  text: ◌  name: NULL',
     )
-    _ATM.nul.add(atm_nul2)
-    self.AssertEqualItems(_ATM.nul, [_ATM.nul])
+    _ATM.nul.add(atm_nul2)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualItems(_ATM.nul, [_ATM.nul])  # pyrefly: ignore[bad-argument-type]
 
   def test_cat_empty(self):
     empty_cat = exp.Cat()
@@ -99,23 +99,23 @@ class ExpressionTest(test_op.TestCase):
     self.AssertStrEqual(empty_cat, '​ℰ​')
 
   def test_cat_control(self):
-    eps_cat = exp.Cat(exp.Atomic.CTRL.eps)
+    eps_cat = exp.Cat(exp.Atomic.CTRL.eps)  # pyrefly: ignore[missing-attribute]
     self.assertEmpty(eps_cat)
     self.AssertStrEqual(eps_cat, '​ℰ​')
 
   def test_cat_items(self):
-    cat = exp.Cat(_ATM.a, _ATM.b, _ATM.a)
+    cat = exp.Cat(_ATM.a, _ATM.b, _ATM.a)  # pyrefly: ignore[missing-attribute]
     self.assertLen(cat, 3)
     self.AssertStrEqual(cat, '(a b a)')
     self.assertIsNot(cat.item(0), cat.item(2))
-    self.AssertEquivalent(cat.item(0), (cat.item(2)))
-    self.assertTrue(exp.Cat(exp.Expression.ANY).is_any())
+    self.AssertEquivalent(cat.item(0), (cat.item(2)))  # pyrefly: ignore[bad-argument-type]
+    self.assertTrue(exp.Cat(exp.Expression.ANY).is_any())  # pyrefly: ignore[missing-attribute]
 
   def test_cat_nested(self):
-    cat1 = exp.Cat(_ATM.a, _ATM.b)
-    cat2 = exp.Cat(cat1, _ATM.c)
-    or1 = exp.Or(_ATM.a)
-    or2 = exp.Or(_ATM.b, _ATM.c)
+    cat1 = exp.Cat(_ATM.a, _ATM.b)  # pyrefly: ignore[missing-attribute]
+    cat2 = exp.Cat(cat1, _ATM.c)  # pyrefly: ignore[missing-attribute]
+    or1 = exp.Or(_ATM.a)  # pyrefly: ignore[missing-attribute]
+    or2 = exp.Or(_ATM.b, _ATM.c)  # pyrefly: ignore[missing-attribute]
     cat3 = exp.Cat(or1, or2)
     self.assertLen(cat2, 3)
     self.AssertStrEqual(cat2, '(a b c)')
@@ -123,15 +123,15 @@ class ExpressionTest(test_op.TestCase):
     self.AssertStrEqual(cat3, '(a (b | c))')
 
   def test_repeat(self):
-    self.assertEmpty(_ATM.a.repeat(0))
-    self.AssertStrEqual(_ATM.a.repeat(), '(a a)')
-    self.AssertStrEqual(_ATM.a.repeat(3), '(a a a)')
-    self.AssertStrEqual(exp.Cat(_ATM.a, _ATM.b).repeat(), '(a b a b)')
+    self.assertEmpty(_ATM.a.repeat(0))  # pyrefly: ignore[missing-attribute]
+    self.AssertStrEqual(_ATM.a.repeat(), '(a a)')  # pyrefly: ignore[missing-attribute]
+    self.AssertStrEqual(_ATM.a.repeat(3), '(a a a)')  # pyrefly: ignore[missing-attribute]
+    self.AssertStrEqual(exp.Cat(_ATM.a, _ATM.b).repeat(), '(a b a b)')  # pyrefly: ignore[missing-attribute]
 
   def test_or_no_alternative(self):
-    or_eps = exp.Or(exp.Atomic.CTRL.eps)
+    or_eps = exp.Or(exp.Atomic.CTRL.eps)  # pyrefly: ignore[missing-attribute]
     or0 = exp.Or()
-    or1 = exp.Or(_ATM.a)
+    or1 = exp.Or(_ATM.a)  # pyrefly: ignore[missing-attribute]
     self.assertEmpty(or_eps)
     self.assertEmpty(or0)
     self.assertLen(or1, 1)
@@ -140,33 +140,33 @@ class ExpressionTest(test_op.TestCase):
     self.AssertStrEqual(or1, '(a | ​◎​)')
 
   def test_or_items(self):
-    or1 = exp.Or(_ATM.a)
-    or2 = exp.Or(_ATM.b, _ATM.c)
+    or1 = exp.Or(_ATM.a)  # pyrefly: ignore[missing-attribute]
+    or2 = exp.Or(_ATM.b, _ATM.c)  # pyrefly: ignore[missing-attribute]
     or3 = exp.Or(or1, or2)
-    or4 = exp.Or(_ATM.a, _ATM.b, _ATM.a)
-    or5 = or1.copy().add(exp.Expression.ANY)
+    or4 = exp.Or(_ATM.a, _ATM.b, _ATM.a)  # pyrefly: ignore[missing-attribute]
+    or5 = or1.copy().add(exp.Expression.ANY)  # pyrefly: ignore[missing-attribute]
     self.AssertStrEqual(or2, '(b | c)')
     self.AssertStrEqual(or3, '(a | b | c)')
     self.AssertStrEqual(or4, '(a | b)')
     self.assertLen(or4, 2)
-    self.assertNotIn(_ATM.a, or5)
-    self.AssertAccepts(or5, _ATM.a)
+    self.assertNotIn(_ATM.a, or5)  # pyrefly: ignore[missing-attribute]
+    self.AssertAccepts(or5, _ATM.a)  # pyrefly: ignore[bad-argument-type]
 
   def test_or_nested(self):
-    cat1 = exp.Cat(_ATM.a)
-    cat2 = exp.Cat(_ATM.b, _ATM.c)
-    cat3 = exp.Cat(_ATM.a, exp.Or(_ATM.b, _ATM.c))
+    cat1 = exp.Cat(_ATM.a)  # pyrefly: ignore[missing-attribute]
+    cat2 = exp.Cat(_ATM.b, _ATM.c)  # pyrefly: ignore[missing-attribute]
+    cat3 = exp.Cat(_ATM.a, exp.Or(_ATM.b, _ATM.c))  # pyrefly: ignore[missing-attribute]
     or4 = exp.Or(cat1, cat2)
-    or5 = exp.Or(cat3).add(exp.Cat(_ATM.a, _ATM.b))
-    or6 = exp.Or(cat3).add(exp.Cat(_ATM.a, exp.Or(_ATM.b, _ATM.c, _ATM.d)))
+    or5 = exp.Or(cat3).add(exp.Cat(_ATM.a, _ATM.b))  # pyrefly: ignore[missing-attribute]
+    or6 = exp.Or(cat3).add(exp.Cat(_ATM.a, exp.Or(_ATM.b, _ATM.c, _ATM.d)))  # pyrefly: ignore[missing-attribute]
     self.AssertStrEqual(exp.Or(exp.Cat()), '(​ℰ​ | ​◎​)')
     self.AssertStrEqual(or4, '(a | (b c))')
     self.AssertStrEqual(or5, '((a (b | c)) | ​◎​)')
     self.AssertStrEqual(or6, '((a (b | c | d)) | ​◎​)')
 
   def test_ques(self):
-    self.AssertStrEqual(_ATM.a.ques(preferred=True), '(a | ​ℰ​)')
-    a_ques = _ATM.a.ques()
+    self.AssertStrEqual(_ATM.a.ques(preferred=True), '(a | ​ℰ​)')  # pyrefly: ignore[missing-attribute]
+    a_ques = _ATM.a.ques()  # pyrefly: ignore[missing-attribute]
     self.AssertStrEqual(a_ques, '(​ℰ​ | a)')
     self.assertEqual(
         a_ques.symbols_str(),
@@ -175,7 +175,7 @@ class ExpressionTest(test_op.TestCase):
         '  [a]\n'
         ']\n'
     )
-    a_b_ques = _ATM.a + _ATM.b.ques()
+    a_b_ques = _ATM.a + _ATM.b.ques()  # pyrefly: ignore[missing-attribute]
     self.AssertStrEqual(a_b_ques, '(a (​ℰ​ | b))')
     self.assertEqual(
         a_b_ques.symbols_str(),
@@ -184,7 +184,7 @@ class ExpressionTest(test_op.TestCase):
         '  [a, b]\n'
         ']\n'
     )
-    a_ques_b_ques = _ATM.a.ques(preferred=True) + _ATM.b.ques()
+    a_ques_b_ques = _ATM.a.ques(preferred=True) + _ATM.b.ques()  # pyrefly: ignore[missing-attribute]
     self.AssertStrEqual(a_ques_b_ques, '((a | ​ℰ​) (​ℰ​ | b))')
     self.assertEqual(
         a_ques_b_ques.symbols_str(),
@@ -199,32 +199,32 @@ class ExpressionTest(test_op.TestCase):
   def test_copy(self):
     exp1 = exp.Expression('new_exp')
     exp1_copy = exp1.copy()
-    cat1 = exp.Cat(_ATM.a, _ATM.b)
+    cat1 = exp.Cat(_ATM.a, _ATM.b)  # pyrefly: ignore[missing-attribute]
     cat1_copy = cat1.copy()
-    self.assertIs(exp.Expression.ANY.copy(), exp.Expression.ANY)
+    self.assertIs(exp.Expression.ANY.copy(), exp.Expression.ANY)  # pyrefly: ignore[missing-attribute]
     self.assertIsNot(exp1, exp1_copy)
-    self.assertIs(exp.Atomic.CTRL.eps.copy(), exp.Atomic.CTRL.eps)
-    self.assertIsNot(_ATM.a.copy(), _ATM.a)
-    self.AssertEquivalent(_ATM.a.copy(), _ATM.a)
+    self.assertIs(exp.Atomic.CTRL.eps.copy(), exp.Atomic.CTRL.eps)  # pyrefly: ignore[missing-attribute]
+    self.assertIsNot(_ATM.a.copy(), _ATM.a)  # pyrefly: ignore[missing-attribute]
+    self.AssertEquivalent(_ATM.a.copy(), _ATM.a)  # pyrefly: ignore[missing-attribute]
     self.assertIsNot(cat1.item(0), cat1_copy.item(0))
     self.AssertEquivalent(cat1, cat1_copy)
 
   def test_symbols(self):
-    cat = exp.Cat(_ATM.a, _ATM.b, exp.Or(_ATM.c, _ATM.d))
-    or1 = exp.Or(_ATM.a, _ATM.b, exp.Cat(_ATM.c, _ATM.d))
+    cat = exp.Cat(_ATM.a, _ATM.b, exp.Or(_ATM.c, _ATM.d))  # pyrefly: ignore[missing-attribute]
+    or1 = exp.Or(_ATM.a, _ATM.b, exp.Cat(_ATM.c, _ATM.d))  # pyrefly: ignore[missing-attribute]
     self.assertEqual(
         exp.Expression().symbols_str(),
         '[\n'
         ']\n'
     )
     self.assertEqual(
-        exp.Atomic.CTRL.eps.symbols_str(),
+        exp.Atomic.CTRL.eps.symbols_str(),  # pyrefly: ignore[missing-attribute]
         '[\n'
         '  [​ℰ​]\n'
         ']\n'
     )
     self.assertEqual(
-        _ATM.a.symbols_str(),
+        _ATM.a.symbols_str(),  # pyrefly: ignore[missing-attribute]
         '[\n'
         '  [a]\n'
         ']\n'
@@ -247,12 +247,12 @@ class ExpressionTest(test_op.TestCase):
 
   def test_state_count(self):
     or1 = exp.Or(
-        exp.Cat(_ATM.a, _ATM.b, _ATM.c), exp.Cat(_ATM.a, _ATM.b, _ATM.d)
+        exp.Cat(_ATM.a, _ATM.b, _ATM.c), exp.Cat(_ATM.a, _ATM.b, _ATM.d)  # pyrefly: ignore[missing-attribute]
     )
     or1_copy = or1.copy()
-    cat = exp.Cat(_ATM.a, _ATM.b, exp.Or(_ATM.c, _ATM.d))
-    self.assertEqual(exp.Atomic.CTRL.eps.state_count(), 1)
-    self.assertEqual(_ATM.a.state_count(), 1)
+    cat = exp.Cat(_ATM.a, _ATM.b, exp.Or(_ATM.c, _ATM.d))  # pyrefly: ignore[missing-attribute]
+    self.assertEqual(exp.Atomic.CTRL.eps.state_count(), 1)  # pyrefly: ignore[missing-attribute]
+    self.assertEqual(_ATM.a.state_count(), 1)  # pyrefly: ignore[missing-attribute]
     self.assertEqual(exp.Cat().state_count(), 0)
     self.assertEqual(cat.state_count(), 4)
     self.assertEqual(exp.Or().state_count(), 0)
@@ -261,25 +261,25 @@ class ExpressionTest(test_op.TestCase):
 
   def test_equivalent(self):
     or0 = exp.Or()
-    self.AssertEquivalent(exp.Atomic.CTRL.eps, sym.Symbol.CTRL.eps)
-    self.AssertEquivalent(exp.Expression.ANY, exp.Expression.ANY)
-    self.AssertNotEquivalent(exp.Expression.ANY, exp.Atomic.CTRL.eps)
-    self.AssertEquivalent(exp.Cat(), exp.Atomic.CTRL.eps)
+    self.AssertEquivalent(exp.Atomic.CTRL.eps, sym.Symbol.CTRL.eps)  # pyrefly: ignore[missing-attribute]
+    self.AssertEquivalent(exp.Expression.ANY, exp.Expression.ANY)  # pyrefly: ignore[missing-attribute]
+    self.AssertNotEquivalent(exp.Expression.ANY, exp.Atomic.CTRL.eps)  # pyrefly: ignore[missing-attribute]
+    self.AssertEquivalent(exp.Cat(), exp.Atomic.CTRL.eps)  # pyrefly: ignore[missing-attribute]
     self.AssertEquivalent(exp.Cat(), exp.Cat())
-    self.AssertNotEquivalent(or0, exp.Atomic.CTRL.nor)
+    self.AssertNotEquivalent(or0, exp.Atomic.CTRL.nor)  # pyrefly: ignore[missing-attribute]
     self.AssertNotEquivalent(or0, or0)
-    self.AssertEquivalent(exp.Cat(_ATM.a), _ATM.a)
+    self.AssertEquivalent(exp.Cat(_ATM.a), _ATM.a)  # pyrefly: ignore[missing-attribute]
     self.AssertEquivalent(
-        exp.Cat(_ATM.a, _ATM.b, exp.Or(_ATM.c, _ATM.d)),
+        exp.Cat(_ATM.a, _ATM.b, exp.Or(_ATM.c, _ATM.d)),  # pyrefly: ignore[missing-attribute]
         exp.Or(
-            exp.Cat(_ATM.a, _ATM.b, _ATM.c), exp.Cat(_ATM.a, _ATM.b, _ATM.d)
+            exp.Cat(_ATM.a, _ATM.b, _ATM.c), exp.Cat(_ATM.a, _ATM.b, _ATM.d)  # pyrefly: ignore[missing-attribute]
         ),
     )
 
   def test_contains_controls(self):
-    eps = exp.Atomic.CTRL.eps
-    nor = exp.Atomic.CTRL.nor
-    any_exp = exp.Expression.ANY
+    eps = exp.Atomic.CTRL.eps  # pyrefly: ignore[missing-attribute]
+    nor = exp.Atomic.CTRL.nor  # pyrefly: ignore[missing-attribute]
+    any_exp = exp.Expression.ANY  # pyrefly: ignore[missing-attribute]
     self.AssertContains(eps, eps)
     self.AssertContains(nor, eps)
     self.AssertNotContains(nor, any_exp)
@@ -288,31 +288,31 @@ class ExpressionTest(test_op.TestCase):
     self.AssertNotContains(any_exp, nor)
 
   def test_contains_expressions(self):
-    cat_abc = _ATM.a + _ATM.b + _ATM.c
-    any_exp = exp.Expression.ANY
-    self.AssertContains(any_exp, _ATM.a)
-    self.AssertContains(_ATM.a, any_exp)
+    cat_abc = _ATM.a + _ATM.b + _ATM.c  # pyrefly: ignore[missing-attribute]
+    any_exp = exp.Expression.ANY  # pyrefly: ignore[missing-attribute]
+    self.AssertContains(any_exp, _ATM.a)  # pyrefly: ignore[missing-attribute]
+    self.AssertContains(_ATM.a, any_exp)  # pyrefly: ignore[missing-attribute]
     self.AssertContains(any_exp, cat_abc)
     self.AssertContains(cat_abc, any_exp)
     self.AssertContains(cat_abc, exp.Cat())
     self.AssertNotContains(cat_abc, exp.Or())
     self.AssertContains(cat_abc, exp.Or(exp.Cat()))
     self.AssertNotContains(cat_abc, exp.Cat(exp.Or()))
-    self.AssertContains(cat_abc, _ATM.b)
-    self.AssertNotContains(_ATM.b, cat_abc)
-    self.assertTrue(exp.Cat().is_contained(_SYM.a))
-    self.assertFalse(exp.Or().is_contained(_SYM.a))
-    self.assertTrue(_ATM.b.is_contained(cat_abc))
-    self.assertTrue(_ATM.a.is_contained(_SYM.a))
+    self.AssertContains(cat_abc, _ATM.b)  # pyrefly: ignore[missing-attribute]
+    self.AssertNotContains(_ATM.b, cat_abc)  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(exp.Cat().is_contained(_SYM.a))  # pyrefly: ignore[missing-attribute]
+    self.assertFalse(exp.Or().is_contained(_SYM.a))  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(_ATM.b.is_contained(cat_abc))  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(_ATM.a.is_contained(_SYM.a))  # pyrefly: ignore[missing-attribute]
 
   def test_matches(self):
-    abc_or_cd = (_ATM.a + _ATM.b + _ATM.c) | (_ATM.c + _ATM.d)
-    a_or_c_b_or_d = (_ATM.a | _ATM.c) + (_ATM.b | _ATM.d)
-    any_exp = exp.Expression.ANY
+    abc_or_cd = (_ATM.a + _ATM.b + _ATM.c) | (_ATM.c + _ATM.d)  # pyrefly: ignore[missing-attribute]
+    a_or_c_b_or_d = (_ATM.a | _ATM.c) + (_ATM.b | _ATM.d)  # pyrefly: ignore[missing-attribute]
+    any_exp = exp.Expression.ANY  # pyrefly: ignore[missing-attribute]
     self.AssertMatches(any_exp, a_or_c_b_or_d)
     self.AssertMatches(a_or_c_b_or_d, any_exp)
     self.AssertMatches(abc_or_cd, a_or_c_b_or_d)
-    self.AssertNotMatches(abc_or_cd, _ATM.a + _ATM.b + _ATM.d)
+    self.AssertNotMatches(abc_or_cd, _ATM.a + _ATM.b + _ATM.d)  # pyrefly: ignore[missing-attribute]
     self.assertTrue(any_exp.is_prefix(abc_or_cd))
     self.assertTrue(any_exp.is_suffix(abc_or_cd))
     self.assertTrue(abc_or_cd.is_prefix(any_exp))
@@ -321,76 +321,76 @@ class ExpressionTest(test_op.TestCase):
     self.assertTrue(exp.Cat().is_suffix(exp.Cat()))
     self.assertFalse(exp.Cat().is_prefix(abc_or_cd))
     self.assertFalse(exp.Cat().is_suffix(abc_or_cd))
-    self.assertTrue(_ATM.c.is_prefix(abc_or_cd))
-    self.assertTrue(_ATM.c.is_prefix(abc_or_cd))
-    self.assertTrue((_ATM.a | (_ATM.b + _ATM.c)).is_prefix(_SYM.a))
-    self.assertTrue((_ATM.a + _ATM.d).is_suffix(a_or_c_b_or_d))
-    self.assertTrue(_ATM.a.is_prefix(_SYM.a))
-    self.assertTrue(_ATM.a.is_suffix(_SYM.a))
+    self.assertTrue(_ATM.c.is_prefix(abc_or_cd))  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(_ATM.c.is_prefix(abc_or_cd))  # pyrefly: ignore[missing-attribute]
+    self.assertTrue((_ATM.a | (_ATM.b + _ATM.c)).is_prefix(_SYM.a))  # pyrefly: ignore[missing-attribute]
+    self.assertTrue((_ATM.a + _ATM.d).is_suffix(a_or_c_b_or_d))  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(_ATM.a.is_prefix(_SYM.a))  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(_ATM.a.is_suffix(_SYM.a))  # pyrefly: ignore[missing-attribute]
 
   def test_operator_add(self):
     self.AssertEquivalent(
-        _ATM.a + _ATM.b + _ATM.c, exp.Cat(_ATM.a, _ATM.b, _ATM.c)
+        _ATM.a + _ATM.b + _ATM.c, exp.Cat(_ATM.a, _ATM.b, _ATM.c)  # pyrefly: ignore[missing-attribute]
     )
 
   def test_operator_or(self):
     self.AssertEquivalent(
-        _ATM.a | _ATM.b | _ATM.c, exp.Or(_ATM.a, _ATM.b, _ATM.c)
+        _ATM.a | _ATM.b | _ATM.c, exp.Or(_ATM.a, _ATM.b, _ATM.c)  # pyrefly: ignore[missing-attribute]
     )
 
   def test_operator_rshift(self):
     self.assertEqual(
-        ((_ATM.a | _ATM.b) >> (_ATM.c + _ATM.d)).string(), '((a | b)∶(c d))'
+        ((_ATM.a | _ATM.b) >> (_ATM.c + _ATM.d)).string(), '((a | b)∶(c d))'  # pyrefly: ignore[missing-attribute]
     )
 
   def test_alignment(self):
     alignment = exp.Alignment('test')
-    self.assertEqual(alignment.left, exp.Expression.ANY)
+    self.assertEqual(alignment.left, exp.Expression.ANY)  # pyrefly: ignore[missing-attribute]
     self.assertFalse(alignment.from_bos)
     self.assertFalse(alignment.to_eos)
-    self.assertEqual(alignment.operation, op.Operation.COMMON.unassigned)
+    self.assertEqual(alignment.operation, op.Operation.COMMON.unassigned)  # pyrefly: ignore[missing-attribute]
 
   def test_alignment_constants(self):
-    self.assertEqual(exp.Alignment.ANY.string(), '(​🝓⋆​∶​🝓⋆​)')
-    self.assertEqual(exp.Alignment.ANY.source, exp.AlignmentSource.CONSTANT)
-    self.assertEqual(exp.Alignment.EPS.string(), '(​ℰ​∶​ℰ​)')
-    self.assertEqual(exp.Alignment.NOR.string(), '(​◎​∶​◎​)')
-    self.assertEqual(exp.Alignment.NOR.operation, op.Operation.COMMON.error)
+    self.assertEqual(exp.Alignment.ANY.string(), '(​🝓⋆​∶​🝓⋆​)')  # pyrefly: ignore[missing-attribute]
+    self.assertEqual(exp.Alignment.ANY.source, exp.AlignmentSource.CONSTANT)  # pyrefly: ignore[missing-attribute]
+    self.assertEqual(exp.Alignment.EPS.string(), '(​ℰ​∶​ℰ​)')  # pyrefly: ignore[missing-attribute]
+    self.assertEqual(exp.Alignment.NOR.string(), '(​◎​∶​◎​)')  # pyrefly: ignore[missing-attribute]
+    self.assertEqual(exp.Alignment.NOR.operation, op.Operation.COMMON.error)  # pyrefly: ignore[missing-attribute]
 
   def test_alignment_bools(self):
-    self.assertTrue(exp.Alignment.ANY.is_any())
-    self.assertFalse(exp.Alignment.simple(left=_ATM.a).is_any())
-    self.assertFalse(exp.Alignment.simple(right=_ATM.a).is_any())
-    self.assertTrue(exp.Alignment.EPS.is_eps())
-    self.assertFalse(exp.Alignment.simple(left=exp.Atomic.CTRL.eps).is_eps())
-    self.assertFalse(exp.Alignment.simple(right=exp.Atomic.CTRL.eps).is_eps())
-    self.assertTrue(exp.Alignment.NOR.is_nor())
-    self.assertFalse(exp.Alignment.simple(left=exp.Atomic.CTRL.nor).is_nor())
-    self.assertFalse(exp.Alignment.simple(right=exp.Atomic.CTRL.nor).is_nor())
+    self.assertTrue(exp.Alignment.ANY.is_any())  # pyrefly: ignore[missing-attribute]
+    self.assertFalse(exp.Alignment.simple(left=_ATM.a).is_any())  # pyrefly: ignore[missing-attribute]
+    self.assertFalse(exp.Alignment.simple(right=_ATM.a).is_any())  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(exp.Alignment.EPS.is_eps())  # pyrefly: ignore[missing-attribute]
+    self.assertFalse(exp.Alignment.simple(left=exp.Atomic.CTRL.eps).is_eps())  # pyrefly: ignore[missing-attribute]
+    self.assertFalse(exp.Alignment.simple(right=exp.Atomic.CTRL.eps).is_eps())  # pyrefly: ignore[missing-attribute]
+    self.assertTrue(exp.Alignment.NOR.is_nor())  # pyrefly: ignore[missing-attribute]
+    self.assertFalse(exp.Alignment.simple(left=exp.Atomic.CTRL.nor).is_nor())  # pyrefly: ignore[missing-attribute]
+    self.assertFalse(exp.Alignment.simple(right=exp.Atomic.CTRL.nor).is_nor())  # pyrefly: ignore[missing-attribute]
     self.assertFalse(
         exp.Alignment.simple(
-            left=_ATM.a, right=exp.Atomic.CTRL.eps
+            left=_ATM.a, right=exp.Atomic.CTRL.eps  # pyrefly: ignore[missing-attribute]
         ).is_assigned()
     )
-    self.assertTrue(exp.Alignment.deletion('a', left=_ATM.a).is_assigned())
+    self.assertTrue(exp.Alignment.deletion('a', left=_ATM.a).is_assigned())  # pyrefly: ignore[missing-attribute]
 
   def test_alignment_simple(self):
-    simple = exp.Alignment.simple(_SYM.a, _ATM.b + _ATM.c)
+    simple = exp.Alignment.simple(_SYM.a, _ATM.b + _ATM.c)  # pyrefly: ignore[missing-attribute]
     self.assertIsInstance(simple.left, exp.Atomic)
     self.assertEqual(simple.string(), '(a∶(b c))')
 
   def test_rule(self):
-    exp_any = exp.Expression.ANY
+    exp_any = exp.Expression.ANY  # pyrefly: ignore[missing-attribute]
     rule = exp.Alignment.rule(
         'test',
-        _ATM.a >> _ATM.b,
-        preceding=_ATM.c >> exp_any,
-        following=exp_any >> _ATM.d,
+        _ATM.a >> _ATM.b,  # pyrefly: ignore[missing-attribute]
+        preceding=_ATM.c >> exp_any,  # pyrefly: ignore[missing-attribute]
+        following=exp_any >> _ATM.d,  # pyrefly: ignore[missing-attribute]
         applied_cost=0.1,
     )
-    self.AssertEquivalent(rule.left, _ATM.a)
-    self.AssertEquivalent(rule.right, _ATM.b)
-    self.assertEqual(rule.operation, op.Operation.COMMON.alignable)
+    self.AssertEquivalent(rule.left, _ATM.a)  # pyrefly: ignore[missing-attribute]
+    self.AssertEquivalent(rule.right, _ATM.b)  # pyrefly: ignore[missing-attribute]
+    self.assertEqual(rule.operation, op.Operation.COMMON.alignable)  # pyrefly: ignore[missing-attribute]
     self.assertEqual(rule.string(), '(⌈c∶​🝓⋆​⌋ a∶b ⌈​🝓⋆​∶d⌋, alignable (0.000))')
     self.assertEqual(rule.tsv_row(), 'test	a	b	alignable (0.000)	0.1')
     self.assertFalse(rule.preceding.is_any())
@@ -399,8 +399,8 @@ class ExpressionTest(test_op.TestCase):
   def test_deletion(self):
     rule = exp.Alignment.deletion(
         'a_deletion',
-        _ATM.a,
-        preceding=exp.Expression.ANY >> _ATM.b,
+        _ATM.a,  # pyrefly: ignore[missing-attribute]
+        preceding=exp.Expression.ANY >> _ATM.b,  # pyrefly: ignore[missing-attribute]
         from_bos=True,
     )
     self.assertEqual(rule.string(), '(⌈​⊳​​🝓⋆​∶b⌋ a∶​ℰ​, deletion (1.000))')
@@ -408,43 +408,43 @@ class ExpressionTest(test_op.TestCase):
   def test_insertion(self):
     rule = exp.Alignment.insertion(
         'a_insertion',
-        _ATM.a,
-        following=exp.Expression.ANY >> _ATM.b,
+        _ATM.a,  # pyrefly: ignore[missing-attribute]
+        following=exp.Expression.ANY >> _ATM.b,  # pyrefly: ignore[missing-attribute]
         to_eos=True,
     )
     self.assertEqual(rule.string(), '(​ℰ​∶a ⌈​🝓⋆​∶b​⊲​⌋, insertion (1.000))')
 
   def test_interchangeable(self):
-    rule1, rule2 = exp.Alignment.interchangeable('a_b', _ATM.a >> _ATM.b)
+    rule1, rule2 = exp.Alignment.interchangeable('a_b', _ATM.a >> _ATM.b)  # pyrefly: ignore[missing-attribute]
     self.assertEqual(rule1.string(), '(a∶b, interchangeable (0.100))')
     self.assertEqual(rule2.string(), '(b∶a, interchangeable (0.100))')
 
   def test_alignment_copy(self):
     rule1 = exp.Alignment.rule(
         'test',
-        _ATM.a >> _ATM.b,
-        preceding=_ATM.c >> exp.Expression.ANY,
+        _ATM.a >> _ATM.b,  # pyrefly: ignore[missing-attribute]
+        preceding=_ATM.c >> exp.Expression.ANY,  # pyrefly: ignore[missing-attribute]
         applied_cost=0.1,
     )
     rule2 = rule1.copy()
-    self.assertIs(exp.Alignment.NOR.copy(), exp.Alignment.NOR)
-    self.assertIs(exp.Alignment().copy().preceding, exp.Alignment.ANY)
-    self.assertIs(rule2.following, exp.Alignment.ANY)
+    self.assertIs(exp.Alignment.NOR.copy(), exp.Alignment.NOR)  # pyrefly: ignore[missing-attribute]
+    self.assertIs(exp.Alignment().copy().preceding, exp.Alignment.ANY)  # pyrefly: ignore[missing-attribute]
+    self.assertIs(rule2.following, exp.Alignment.ANY)  # pyrefly: ignore[missing-attribute]
     self.assertEqual(rule1.string(), rule2.string())
     self.assertEqual(rule1.applied_cost, rule2.applied_cost)
     self.assertEqual(rule1.source, rule2.source)
 
   def test_alignment_compare(self):
-    alg_a_b = _ATM.a >> _ATM.b
-    alg_a_c = _ATM.a >> _ATM.c
-    alg_a_bc = _ATM.a >> (_ATM.b + _ATM.c)
-    alg_a_or_bc__b_cat_a_or_c = (_ATM.a | (_ATM.b + _ATM.c)) >> (
-        _ATM.b + (_ATM.a | _ATM.c)
+    alg_a_b = _ATM.a >> _ATM.b  # pyrefly: ignore[missing-attribute]
+    alg_a_c = _ATM.a >> _ATM.c  # pyrefly: ignore[missing-attribute]
+    alg_a_bc = _ATM.a >> (_ATM.b + _ATM.c)  # pyrefly: ignore[missing-attribute]
+    alg_a_or_bc__b_cat_a_or_c = (_ATM.a | (_ATM.b + _ATM.c)) >> (  # pyrefly: ignore[missing-attribute]
+        _ATM.b + (_ATM.a | _ATM.c)  # pyrefly: ignore[missing-attribute]
     )
-    alg_a_or_bc__ba_or_bc = (_ATM.a | (_ATM.b + _ATM.c)) >> (
-        (_ATM.b + _ATM.a) | (_ATM.b + _ATM.c)
+    alg_a_or_bc__ba_or_bc = (_ATM.a | (_ATM.b + _ATM.c)) >> (  # pyrefly: ignore[missing-attribute]
+        (_ATM.b + _ATM.a) | (_ATM.b + _ATM.c)  # pyrefly: ignore[missing-attribute]
     )
-    self.AssertNotAccepts(alg_a_b, _ATM.a)
+    self.AssertNotAccepts(alg_a_b, _ATM.a)  # pyrefly: ignore[missing-attribute]
     self.AssertAccepts(alg_a_or_bc__b_cat_a_or_c, alg_a_bc)
     self.AssertNotAccepts(alg_a_bc, alg_a_or_bc__b_cat_a_or_c)
     self.AssertEquivalent(alg_a_or_bc__b_cat_a_or_c, alg_a_or_bc__ba_or_bc)
@@ -470,22 +470,22 @@ class ExpressionTest(test_op.TestCase):
     self.assertFalse(alg_a_b.is_suffix(alg_a_bc))
 
   def test_context_matches(self):
-    exp_any = exp.Expression.ANY
-    ctx_a_any = _ATM.a >> exp_any
-    ctx_b_any = _ATM.b >> exp_any
-    ctx_ba_any = (_ATM.b + _ATM.a) >> exp_any
+    exp_any = exp.Expression.ANY  # pyrefly: ignore[missing-attribute]
+    ctx_a_any = _ATM.a >> exp_any  # pyrefly: ignore[missing-attribute]
+    ctx_b_any = _ATM.b >> exp_any  # pyrefly: ignore[missing-attribute]
+    ctx_ba_any = (_ATM.b + _ATM.a) >> exp_any  # pyrefly: ignore[missing-attribute]
     rule1 = exp.Alignment.rule(
         'rule1',
-        _ATM.c >> _ATM.d,
-        preceding=_ATM.a >> exp_any,
-        following=_ATM.b >> exp_any,
+        _ATM.c >> _ATM.d,  # pyrefly: ignore[missing-attribute]
+        preceding=_ATM.a >> exp_any,  # pyrefly: ignore[missing-attribute]
+        following=_ATM.b >> exp_any,  # pyrefly: ignore[missing-attribute]
         from_bos=True,
     )
     rule2 = exp.Alignment.rule(
         'rule2',
-        _ATM.c >> _ATM.d,
-        preceding=_ATM.a >> exp_any,
-        following=_ATM.b >> exp_any,
+        _ATM.c >> _ATM.d,  # pyrefly: ignore[missing-attribute]
+        preceding=_ATM.a >> exp_any,  # pyrefly: ignore[missing-attribute]
+        following=_ATM.b >> exp_any,  # pyrefly: ignore[missing-attribute]
         to_eos=True,
     )
     self.assertTrue(

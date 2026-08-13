@@ -185,7 +185,7 @@ def compose_from_gr(char_list: list[Char]) -> pyn.Fst:
   )
   ```
   """
-  return rw.rewrite_ls([(char.cmp, char.gr) for char in char_list])
+  return rw.rewrite_ls([(char.cmp, char.gr) for char in char_list])  # pyrefly: ignore[bad-argument-type]
 
 # Functions for listing the .gr or .tr fields of a list of Chars.
 
@@ -234,19 +234,19 @@ def thing_tr_star(alias: str, char_list: list[Char]) -> ty.Thing:
 def char_inventory(
     char_list: list[Char], suppl_list: ty.ListOrNothing = ty.UNSPECIFIED
 ) -> i.Inventory:
-  return i.Inventory.from_list(char_list, suppls=suppl_list)
+  return i.Inventory.from_list(char_list, suppls=suppl_list)  # pyrefly: ignore[bad-argument-type]
 
 
 def gr_inventory(
     char_list: list[Char], suppl_list: ty.ListOrNothing = ty.UNSPECIFIED
 ) -> i.Inventory:
-  return i.Inventory.from_list(char_list, attr='gr', suppls=suppl_list)
+  return i.Inventory.from_list(char_list, attr='gr', suppls=suppl_list)  # pyrefly: ignore[bad-argument-type]
 
 
 def tr_inventory(
     char_list: list[Char], suppl_list: ty.ListOrNothing = ty.UNSPECIFIED
 ) -> i.Inventory:
-  return i.Inventory.from_list(char_list, attr='tr', suppls=suppl_list)
+  return i.Inventory.from_list(char_list, attr='tr', suppls=suppl_list)  # pyrefly: ignore[bad-argument-type]
 
 # Functions for reading and printing glyphs
 

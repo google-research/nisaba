@@ -17,16 +17,16 @@ from nisaba.scripts.natural_translit.script import grapheme as g
 from nisaba.scripts.natural_translit.utils import test_op
 
 _G = g.Grapheme
-_UND_GRAPHEMES = _G.Inventory(_G.GR_FEATURES.script.und)
+_UND_GRAPHEMES = _G.Inventory(_G.GR_FEATURES.script.und)  # pyrefly: ignore[missing-attribute]
 
 
 def _test_inventory() -> _G.Inventory:
   """Test grapheme inventory."""
-  gr_inv = _G.Inventory(_G.GR_FEATURES.script.latn)
+  gr_inv = _G.Inventory(_G.GR_FEATURES.script.latn)  # pyrefly: ignore[missing-attribute]
   gr_inv.add_graphemes(
       # Raw
-      _G.from_char('a', 'a', {_G.GR_FEATURES.gr_class.letter}),
-      _G.from_char('1', 'one', {_G.GR_FEATURES.gr_class.number}),
+      _G.from_char('a', 'a', {_G.GR_FEATURES.gr_class.letter}),  # pyrefly: ignore[missing-attribute]
+      _G.from_char('1', 'one', {_G.GR_FEATURES.gr_class.number}),  # pyrefly: ignore[missing-attribute]
       # Abstract with custom text
       _G('nasal', '~'),
       # Abstract with no text
@@ -42,13 +42,13 @@ class GraphemeTest(test_op.TestCase):
 
   def test_script_iso(self):
     self.AssertStrEqual(
-        _G.GR_FEATURES.script.latn,
+        _G.GR_FEATURES.script.latn,  # pyrefly: ignore[missing-attribute]
         'alias: latn text: Latin numeric: 215',
     )
 
   def test_script_custom(self):
     self.AssertStrEqual(
-        _G.GR_FEATURES.script.br,
+        _G.GR_FEATURES.script.br,  # pyrefly: ignore[missing-attribute]
         'alias: br text: Brahmic Parent numeric: 801',
     )
 
@@ -75,30 +75,30 @@ class GraphemeTest(test_op.TestCase):
 
   def test_from_char_has_feature(self):
     self.AssertHasFeature(
-        _G.from_char('a'), _G.SYM_FEATURES.type.raw
+        _G.from_char('a'), _G.SYM_FEATURES.type.raw  # pyrefly: ignore[missing-attribute]
     )
 
   def test_from_char_add_feature(self):
     self.AssertHasFeature(
         _G.from_char(
-            'n', features=_G.DESCRIPTIVE_FEATURES.ph_class.consonant
+            'n', features=_G.DESCRIPTIVE_FEATURES.ph_class.consonant  # pyrefly: ignore[missing-attribute]
         ),
-        _G.DESCRIPTIVE_FEATURES.ph_class.consonant,
+        _G.DESCRIPTIVE_FEATURES.ph_class.consonant,  # pyrefly: ignore[missing-attribute]
     )
 
   def test_control_index(self):
     self.assertEqual(
-        _UND_GRAPHEMES.CTRL.eps.index, _G.ReservedIndex.CONTROL_PREFIX
+        _UND_GRAPHEMES.CTRL.eps.index, _G.ReservedIndex.CONTROL_PREFIX  # pyrefly: ignore[missing-attribute]
     )
 
   def test_control_in_text_dict(self):
-    self.assertIn(_G.CTRL.unk.text, _UND_GRAPHEMES.text_dict)
+    self.assertIn(_G.CTRL.unk.text, _UND_GRAPHEMES.text_dict)  # pyrefly: ignore[missing-attribute]
 
   def test_control_not_in_raw_dict(self):
-    self.assertNotIn(_G.CTRL.unk.text, _UND_GRAPHEMES.raw_dict)
+    self.assertNotIn(_G.CTRL.unk.text, _UND_GRAPHEMES.raw_dict)  # pyrefly: ignore[missing-attribute]
 
   def test_control_in_index_dict(self):
-    self.assertIn(_G.CTRL.oos.index, _UND_GRAPHEMES.index_dict)
+    self.assertIn(_G.CTRL.oos.index, _UND_GRAPHEMES.index_dict)  # pyrefly: ignore[missing-attribute]
 
   def test_inventory(self):
     self.assertEqual(_UND_GRAPHEMES.alias, 'und')
@@ -108,16 +108,16 @@ class GraphemeTest(test_op.TestCase):
   def test_add_grapheme_in_dicts(self):
     char = 'ß'
     _UND_GRAPHEMES.add_graphemes(_G.from_char(char, alias='ss'))
-    self.assertEqual(_UND_GRAPHEMES.raw_lookup(char), _UND_GRAPHEMES.ss)
-    self.assertEqual(_UND_GRAPHEMES.text_lookup(char), _UND_GRAPHEMES.ss)
+    self.assertEqual(_UND_GRAPHEMES.raw_lookup(char), _UND_GRAPHEMES.ss)  # pyrefly: ignore[missing-attribute]
+    self.assertEqual(_UND_GRAPHEMES.text_lookup(char), _UND_GRAPHEMES.ss)  # pyrefly: ignore[missing-attribute]
     self.assertEqual(
         _UND_GRAPHEMES.index_lookup(
             _G.ReservedIndex.GRAPHEME_PREFIX + ord(char)
         ),
-        _UND_GRAPHEMES.ss,
+        _UND_GRAPHEMES.ss,  # pyrefly: ignore[missing-attribute]
     )
-    self.assertNotEqual(_UND_GRAPHEMES.atomics.ss, _UND_GRAPHEMES.ss)
-    self.AssertEquivalent(_UND_GRAPHEMES.atomics.ss, _UND_GRAPHEMES.ss)
+    self.assertNotEqual(_UND_GRAPHEMES.atomics.ss, _UND_GRAPHEMES.ss)  # pyrefly: ignore[missing-attribute]
+    self.AssertEquivalent(_UND_GRAPHEMES.atomics.ss, _UND_GRAPHEMES.ss)  # pyrefly: ignore[bad-argument-type, missing-attribute]
 
   def test_add_grapheme_recurring_alias(self):
     _UND_GRAPHEMES.add_graphemes(_G.from_char('œ', alias='oe'))
@@ -126,7 +126,7 @@ class GraphemeTest(test_op.TestCase):
     )
 
   def test_add_grapheme_wrong_type(self):
-    self.assertFalse(_UND_GRAPHEMES._add_symbol(_G.CTRL.eps))
+    self.assertFalse(_UND_GRAPHEMES._add_symbol(_G.CTRL.eps))  # pyrefly: ignore[missing-attribute]
 
   def test_add_graphemes(self):
     _UND_GRAPHEMES.add_graphemes(
@@ -134,20 +134,20 @@ class GraphemeTest(test_op.TestCase):
         _G.from_char(')', 'prr'),
         list_alias='parentheses',
     )
-    self.assertIn(_UND_GRAPHEMES.prl, _UND_GRAPHEMES)
-    self.assertIn(_UND_GRAPHEMES.prl, _UND_GRAPHEMES.parentheses)
+    self.assertIn(_UND_GRAPHEMES.prl, _UND_GRAPHEMES)  # pyrefly: ignore[missing-attribute]
+    self.assertIn(_UND_GRAPHEMES.prl, _UND_GRAPHEMES.parentheses)  # pyrefly: ignore[missing-attribute]
 
   def test_get_grapheme_in_inventory(self):
     _UND_GRAPHEMES.add_graphemes(_G.from_char('æ', alias='ae'))
-    self.assertEqual(_UND_GRAPHEMES.text_lookup('æ'), _UND_GRAPHEMES.ae)
+    self.assertEqual(_UND_GRAPHEMES.text_lookup('æ'), _UND_GRAPHEMES.ae)  # pyrefly: ignore[missing-attribute]
 
   def test_get_grapheme_out_of_inventory_char(self):
-    self.assertEqual(_UND_GRAPHEMES.text_lookup('🐱'), _UND_GRAPHEMES.CTRL.unk)
+    self.assertEqual(_UND_GRAPHEMES.text_lookup('🐱'), _UND_GRAPHEMES.CTRL.unk)  # pyrefly: ignore[missing-attribute]
 
   def test_parse(self):
     self.assertIn(_UND_GRAPHEMES.raw_from_unknown('ç'), _UND_GRAPHEMES)
     # Adding the same grapheme again fails and returns CTRL.nor
-    self.assertIs(_UND_GRAPHEMES.raw_from_unknown('ç'), _UND_GRAPHEMES.CTRL.nor)
+    self.assertIs(_UND_GRAPHEMES.raw_from_unknown('ç'), _UND_GRAPHEMES.CTRL.nor)  # pyrefly: ignore[missing-attribute]
     self.assertEqual(
         _UND_GRAPHEMES.parse('ş'), [_UND_GRAPHEMES.get('u_' + hex(ord('ş')))]
     )
@@ -158,37 +158,37 @@ class GraphemeTest(test_op.TestCase):
 
   def test_grapheme_description(self):
     self.assertEqual(
-        _TEST_INVENTORY.a.description(),
+        _TEST_INVENTORY.a.description(),  # pyrefly: ignore[missing-attribute]
         'alias: a\traw: a\tname: LATIN SMALL LETTER A U+0061',
     )
     self.assertEqual(
-        _TEST_INVENTORY.nasal.description(),
+        _TEST_INVENTORY.nasal.description(),  # pyrefly: ignore[missing-attribute]
         'alias: nasal\ttext: ~\tname: nasal',
     )
     self.assertEqual(
-        _TEST_INVENTORY.ch_1.description(),
+        _TEST_INVENTORY.ch_1.description(),  # pyrefly: ignore[missing-attribute]
         'alias: ch_1\ttext: ch_1\tname: ch_1',
     )
 
   def test_grapheme_class(self):
-    self.AssertHasFeature(_TEST_INVENTORY.a, _G.GR_FEATURES.gr_class.letter)
-    self.AssertHasFeature(_TEST_INVENTORY.one, _G.GR_FEATURES.gr_class.number)
-    self.AssertHasFeature(_TEST_INVENTORY.nasal, _G.GR_FEATURES.gr_class.any)
+    self.AssertHasFeature(_TEST_INVENTORY.a, _G.GR_FEATURES.gr_class.letter)  # pyrefly: ignore[missing-attribute]
+    self.AssertHasFeature(_TEST_INVENTORY.one, _G.GR_FEATURES.gr_class.number)  # pyrefly: ignore[missing-attribute]
+    self.AssertHasFeature(_TEST_INVENTORY.nasal, _G.GR_FEATURES.gr_class.any)  # pyrefly: ignore[missing-attribute]
 
   def test_import_graphemes(self):
     new_inv = _G.Inventory(
-        _G.GR_FEATURES.script.latn, _G.LANGUAGE.en
+        _G.GR_FEATURES.script.latn, _G.LANGUAGE.en  # pyrefly: ignore[missing-attribute]
     )
     new_inv.import_graphemes(
-        _TEST_INVENTORY.a, _TEST_INVENTORY.nasal, list_alias='from_test'
+        _TEST_INVENTORY.a, _TEST_INVENTORY.nasal, list_alias='from_test'  # pyrefly: ignore[missing-attribute]
     )
-    self.assertNotEqual(new_inv.a, _TEST_INVENTORY.a)
+    self.assertNotEqual(new_inv.a, _TEST_INVENTORY.a)  # pyrefly: ignore[missing-attribute]
     self.assertEqual(
-        new_inv.a.description(show_features=True),
-        _TEST_INVENTORY.a.description(show_features=True),
+        new_inv.a.description(show_features=True),  # pyrefly: ignore[missing-attribute]
+        _TEST_INVENTORY.a.description(show_features=True),  # pyrefly: ignore[missing-attribute]
     )
     self.assertEqual(new_inv.language, _G.LANGUAGE.en)
-    self.assertEqual(new_inv.a.language, _G.LANGUAGE.en)
+    self.assertEqual(new_inv.a.language, _G.LANGUAGE.en)  # pyrefly: ignore[missing-attribute]
     self.AssertHasFeature(new_inv.a, _G.LANGUAGE.en)
     self.AssertHasFeature(new_inv.a, _G.LANGUAGE.indo_european)
 
