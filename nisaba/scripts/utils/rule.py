@@ -65,9 +65,9 @@ import os
 from typing import NamedTuple
 
 import networkx as nx
+import pynini
 import pandas as pd
 
-import pynini
 import pathlib
 import nisaba.scripts.utils.file as uf
 import nisaba.scripts.utils.rewrite as ur
@@ -85,8 +85,14 @@ def rules_from_string_file(file: os.PathLike[str]) -> Iterator[Rule]:
 def rules_from_string_path(file: os.PathLike[str]) -> Iterator[Rule]:
   """Yields string rules from a text file with unweighted string maps."""
   with pathlib.Path(file).open('rt') as f:
-    df = pd.read_csv(f, sep='\t', comment='#', escapechar='\\',
-                     names=['lhs', 'rhs'], na_filter=False)
+    df = pd.read_csv(
+        f,
+        sep='\t',
+        comment='#',
+        escapechar='\\',
+        names=['lhs', 'rhs'],
+        na_filter=False,
+    )
     for row in df.itertuples(index=False, name='Rule'):
       if not row.lhs:
         raise ValueError('Rule expects an LHS: {}'.format(row))
@@ -116,8 +122,11 @@ def partition_unordered(rules: RuleSet) -> list[RuleSet]:
 
   g = nx.DiGraph()
   g.add_nodes_from(rules)
-  g.add_edges_from((p1, p2) for p1, p2 in it.product(rules, rules)
-                   if p1 != p2 and _match_lhs_in_lhs(p1, p2))
+  g.add_edges_from(
+      (p1, p2)
+      for p1, p2 in it.product(rules, rules)
+      if p1 != p2 and _match_lhs_in_lhs(p1, p2)
+  )
   partition = []
   while g.number_of_nodes() > 0:
     leaves = [node for node in g.nodes if g.out_degree(node) == 0]
@@ -139,8 +148,10 @@ def fst_from_rules(rules: RuleSet, sigma: pynini.Fst) -> pynini.Fst:
     The Rewrite FST for the specified rule file.
   """
 
-  fsts = [pynini.optimize(pynini.string_map(rule_set))
-          for rule_set in partition_unordered(rules)]
+  fsts = [
+      pynini.optimize(pynini.string_map(rule_set))
+      for rule_set in partition_unordered(rules)
+  ]
   return ur.RewriteAndComposeFsts(fsts, sigma)
 
 
@@ -175,8 +186,9 @@ def _fst_from_cascading_rules(rules: RuleSet, sigma: pynini.Fst) -> pynini.Fst:
   return ur.RewriteAndComposeFsts(fsts, sigma)
 
 
-def fst_from_cascading_rule_file(rule_file: os.PathLike[str],
-                                 sigma: pynini.Fst) -> pynini.Fst:
+def fst_from_cascading_rule_file(
+    rule_file: os.PathLike[str], sigma: pynini.Fst
+) -> pynini.Fst:
   """Gets rewrite FST from a given rewrite rule file.
 
   Args:

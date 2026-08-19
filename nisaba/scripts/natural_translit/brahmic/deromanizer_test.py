@@ -29,9 +29,9 @@ class DeromanizerTest(test_util.FstTestCase):
     self.assertEqual(ta.script, 'taml')
 
   def test_add_to_groups(self):
-    self.assertIn(drm.k, ta.consonant[1])  # rom len 1
-    self.assertIn(drm.ch, ta.consonant[2])  # rom len 2
-    self.assertIn(drm.zh_lr, ta.consonant[3])  # rom len 2 + priority 1
+    self.assertIn(drm.k, ta.consonant[1])  # rom len 1  # pyrefly: ignore[missing-attribute]
+    self.assertIn(drm.ch, ta.consonant[2])  # rom len 2  # pyrefly: ignore[missing-attribute]
+    self.assertIn(drm.zh_lr, ta.consonant[3])  # rom len 2 + priority 1  # pyrefly: ignore[missing-attribute]
 
   def test_default_rules(self):
     self.AssertEqualFstLike(
@@ -45,13 +45,13 @@ class DeromanizerTest(test_util.FstTestCase):
     )
     # Compose existing ta rules without high_priority and cons_drop_asp
     ta2.rules(
-        ta.cons_foreign,
-        ta.cons_gem_only,
-        ta.cons_base,
-        ta.mono_long,
-        ta.diph_base,
-        ta.mono_base_long,
-        ta.mono_base,
+        ta.cons_foreign,  # pyrefly: ignore[missing-attribute]
+        ta.cons_gem_only,  # pyrefly: ignore[missing-attribute]
+        ta.cons_base,  # pyrefly: ignore[missing-attribute]
+        ta.mono_long,  # pyrefly: ignore[missing-attribute]
+        ta.diph_base,  # pyrefly: ignore[missing-attribute]
+        ta.mono_base_long,  # pyrefly: ignore[missing-attribute]
+        ta.mono_base,  # pyrefly: ignore[missing-attribute]
     )
     self.AssertEqualFstLike(
         fl.FstList('zha', ta2.to_brahmic()).compose(), 'ஃஜ்ஹ'

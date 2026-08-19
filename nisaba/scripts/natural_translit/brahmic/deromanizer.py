@@ -20,6 +20,7 @@ from collections.abc import Callable, Iterable
 from typing import Any, Union
 
 import pynini as pyn
+
 from nisaba.scripts.natural_translit.brahmic import derom_inventory as derom
 from nisaba.scripts.natural_translit.brahmic import grapheme_inventory as gr
 from nisaba.scripts.natural_translit.latin import ltn_inventory
@@ -73,7 +74,7 @@ class Deromanizer(i.Inventory):
         ['ind_to_sign'],
     ]
     for args in args_list:
-      self._add_fst_list(*args)
+      self._add_fst_list(*args)  # pyrefly: ignore[bad-argument-type]
 
   def _init_suppls(self) -> None:
     args_list = [
@@ -156,15 +157,15 @@ class Deromanizer(i.Inventory):
     # Consonant clusters
     # If romanization starts or ends with a consonant cluster, insert virama
     # between them to remove silent schwa.
-    self.cluster_vir.add(self._rw_cluster_wi())
+    self.cluster_vir.add(self._rw_cluster_wi())  # pyrefly: ignore[missing-attribute]
     if schwa_deletion_wf:
-      self.cluster_vir.add(self._rw_cluster_wf())
+      self.cluster_vir.add(self._rw_cluster_wf())  # pyrefly: ignore[missing-attribute]
 
   def _set_anusvara(self, anusvara_n: bool, nasal_assimilation: bool) -> None:
     if anusvara_n:
       if nasal_assimilation:
-        self.anusvara.add(self._rw_nasal_labial())
-      self.anusvara.add(self._rw_ans_n())
+        self.anusvara.add(self._rw_nasal_labial())  # pyrefly: ignore[missing-attribute]
+      self.anusvara.add(self._rw_ans_n())  # pyrefly: ignore[missing-attribute]
 
   def _add_to_groups(self, member_list: ParamArg, *groups) -> None:
     """Populates group dicts.
@@ -225,7 +226,7 @@ class Deromanizer(i.Inventory):
     for ps in ps_list:
       high = [p for p in ps if p.high_priority()]
       normal = [p for p in ps if not p.high_priority()]
-      self.high_priority.add(rewriter(high, *args))
+      self.high_priority.add(rewriter(high, *args))  # pyrefly: ignore[missing-attribute]
       rule.add(rewriter(normal, *args))
 
   def _set_vowel_rules(
@@ -234,21 +235,21 @@ class Deromanizer(i.Inventory):
       always_long_vowel: ParamArg,
       diphthong: ParamArg,
   ) -> None:
-    self._add_to_groups(monophthong, self.vowel, self.monophthong)
-    self._add_to_groups(always_long_vowel, self.vowel, self.always_long_vowel)
-    self._add_to_groups(diphthong, self.vowel, self.diphthong)
+    self._add_to_groups(monophthong, self.vowel, self.monophthong)  # pyrefly: ignore[missing-attribute]
+    self._add_to_groups(always_long_vowel, self.vowel, self.always_long_vowel)  # pyrefly: ignore[missing-attribute]
+    self._add_to_groups(diphthong, self.vowel, self.diphthong)  # pyrefly: ignore[missing-attribute]
     self._apply_by_priority(
-        self.monophthong, self.mono_long, self._rw_vowel, True, True
+        self.monophthong, self.mono_long, self._rw_vowel, True, True  # pyrefly: ignore[missing-attribute]
     )
     self._apply_by_priority(
-        self.always_long_vowel, self.mono_base, self._rw_vowel, False, True
+        self.always_long_vowel, self.mono_base, self._rw_vowel, False, True  # pyrefly: ignore[missing-attribute]
     )
-    self._apply_by_priority(self.monophthong, self.mono_base, self._rw_vowel)
-    self._apply_by_priority(self.diphthong, self.diph_base, self._rw_vowel)
+    self._apply_by_priority(self.monophthong, self.mono_base, self._rw_vowel)  # pyrefly: ignore[missing-attribute]
+    self._apply_by_priority(self.diphthong, self.diph_base, self._rw_vowel)  # pyrefly: ignore[missing-attribute]
     self._apply_by_priority(
-        self.monophthong, self.ind_to_sign, self._rw_ind_to_sign, True
+        self.monophthong, self.ind_to_sign, self._rw_ind_to_sign, True  # pyrefly: ignore[missing-attribute]
     )
-    self._apply_by_priority(self.vowel, self.ind_to_sign, self._rw_ind_to_sign)
+    self._apply_by_priority(self.vowel, self.ind_to_sign, self._rw_ind_to_sign)  # pyrefly: ignore[missing-attribute]
 
   def _set_consonant_rules(
       self,
@@ -258,22 +259,22 @@ class Deromanizer(i.Inventory):
       only_geminated: ParamArg,
       foreign: ParamArg,
   ) -> None:
-    self._add_to_groups(has_aspirated, self.consonant, self.has_aspirated)
-    self._add_to_groups(drops_aspirated, self.consonant, self.drops_aspirated)
-    self._add_to_groups(no_aspirated, self.consonant, self.no_aspirated)
-    self._add_to_groups(only_geminated, self.consonant, self.only_geminated)
-    self._add_to_groups(foreign, self.consonant, self.foreign)
-    self._apply_by_priority(self.foreign, self.cons_foreign, self._rw_foreign)
+    self._add_to_groups(has_aspirated, self.consonant, self.has_aspirated)  # pyrefly: ignore[missing-attribute]
+    self._add_to_groups(drops_aspirated, self.consonant, self.drops_aspirated)  # pyrefly: ignore[missing-attribute]
+    self._add_to_groups(no_aspirated, self.consonant, self.no_aspirated)  # pyrefly: ignore[missing-attribute]
+    self._add_to_groups(only_geminated, self.consonant, self.only_geminated)  # pyrefly: ignore[missing-attribute]
+    self._add_to_groups(foreign, self.consonant, self.foreign)  # pyrefly: ignore[missing-attribute]
+    self._apply_by_priority(self.foreign, self.cons_foreign, self._rw_foreign)  # pyrefly: ignore[missing-attribute]
     self._apply_by_priority(
-        self.drops_aspirated, self.cons_drop_asp, self._rw_drop_aspiration
+        self.drops_aspirated, self.cons_drop_asp, self._rw_drop_aspiration  # pyrefly: ignore[missing-attribute]
     )
     self._apply_by_priority(
-        self.has_aspirated, self.cons_asp, self._rw_aspiration
+        self.has_aspirated, self.cons_asp, self._rw_aspiration  # pyrefly: ignore[missing-attribute]
     )
     self._apply_by_priority(
-        self.only_geminated, self.cons_gem_only, self._rw_gem_only
+        self.only_geminated, self.cons_gem_only, self._rw_gem_only  # pyrefly: ignore[missing-attribute]
     )
-    self._apply_by_priority(self.consonant, self.cons_base, self._rw_cons)
+    self._apply_by_priority(self.consonant, self.cons_base, self._rw_cons)  # pyrefly: ignore[missing-attribute]
 
   def rules(self, *rules) -> None:
     """Adds rules to the typ_ops rule list.
@@ -282,30 +283,30 @@ class Deromanizer(i.Inventory):
       *rules: Rules for converting from Latin typ to Brahmic typ.
     """
     default_rules = (
-        self.high_priority,
-        self.anusvara,
-        self.cons_foreign,
-        self.cons_drop_asp,
-        self.cons_asp,
-        self.cons_gem_only,
-        self.cons_base,
-        self.mono_long,
-        self.diph_base,
-        self.mono_base_long,
-        self.mono_base,
-        self.cluster_vir,
+        self.high_priority,  # pyrefly: ignore[missing-attribute]
+        self.anusvara,  # pyrefly: ignore[missing-attribute]
+        self.cons_foreign,  # pyrefly: ignore[missing-attribute]
+        self.cons_drop_asp,  # pyrefly: ignore[missing-attribute]
+        self.cons_asp,  # pyrefly: ignore[missing-attribute]
+        self.cons_gem_only,  # pyrefly: ignore[missing-attribute]
+        self.cons_base,  # pyrefly: ignore[missing-attribute]
+        self.mono_long,  # pyrefly: ignore[missing-attribute]
+        self.diph_base,  # pyrefly: ignore[missing-attribute]
+        self.mono_base_long,  # pyrefly: ignore[missing-attribute]
+        self.mono_base,  # pyrefly: ignore[missing-attribute]
+        self.cluster_vir,  # pyrefly: ignore[missing-attribute]
     )
-    self.typ_ops.add(rules if rules else default_rules)
+    self.typ_ops.add(rules if rules else default_rules)  # pyrefly: ignore[missing-attribute]
 
   def to_iso(self) -> pyn.Fst:
     """Composes end-to-end fst for latin to ISO deromanization."""
-    return fl.FstList(self.ltn2typ, self.typ_ops, self._rw_typ2iso()).compose()
+    return fl.FstList(self.ltn2typ, self.typ_ops, self._rw_typ2iso()).compose()  # pyrefly: ignore[missing-attribute]
 
   def to_brahmic(self) -> pyn.Fst:
     """Composes end-to-end fst for latin to Brahmic deromanization."""
     if self.script in gr.DEROM_SCRIPTS:
       return fl.FstList(
-          self.ltn2typ, self.typ_ops, self._rw_typ2brh()
+          self.ltn2typ, self.typ_ops, self._rw_typ2brh()  # pyrefly: ignore[missing-attribute]
       ).compose()
     return self.to_iso()
 
@@ -322,9 +323,9 @@ class Deromanizer(i.Inventory):
   def _rw_typ2iso(self) -> pyn.Fst:
     """Brahmic typ to ISO."""
     return fl.FstList(
-        rw.insert(iso.A, iso.SCH_CONS),
-        rw.delete(iso.A, following=pyn.union(iso.VOWEL_S, iso.VIR)),
-        self.ind_to_sign,
+        rw.insert(iso.A, iso.SCH_CONS),  # pyrefly: ignore[missing-attribute]
+        rw.delete(iso.A, following=pyn.union(iso.VOWEL_S, iso.VIR)),  # pyrefly: ignore[missing-attribute]
+        self.ind_to_sign,  # pyrefly: ignore[missing-attribute]
         c.print_glyph(gr.CHAR),
     ).compose()
 
@@ -358,7 +359,7 @@ class Deromanizer(i.Inventory):
     new = 'brh_l' if brh_l else 'brh'
     ind = new + '_i'
     return fl.FstList(
-        self._rw_fields(mapping_list, old, new, iso.SCH_CONS),
+        self._rw_fields(mapping_list, old, new, iso.SCH_CONS),  # pyrefly: ignore[missing-attribute]
         self._rw_fields(mapping_list, old, ind),
     )
 
@@ -376,7 +377,7 @@ class Deromanizer(i.Inventory):
     """Adds virama to consonants not followed by a vowel sign."""
     new_v = new + '_v'
     return fl.FstList(
-        self._rw_fields(mapping_list, old, new, following=ltn.VOWEL),
+        self._rw_fields(mapping_list, old, new, following=ltn.VOWEL),  # pyrefly: ignore[missing-attribute]
         self._rw_fields(mapping_list, old, new_v),
     )
 
@@ -439,23 +440,23 @@ class Deromanizer(i.Inventory):
   # Consonant cluster rewrites for language/scripts with schwa deletion.
 
   def _rw_cluster_wi(self) -> pyn.Fst:
-    return rw.insert(iso.VIR, al.BOW + iso.SCH_CONS, iso.ONSET_CONS)
+    return rw.insert(iso.VIR, al.BOW + iso.SCH_CONS, iso.ONSET_CONS)  # pyrefly: ignore[missing-attribute]
 
   def _rw_cluster_wf(self) -> fl.FstList:
     return fl.FstList(
-        rw.rewrite_word_final(iso.A, iso.AA),
-        rw.insert(iso.VIR, iso.SCH_CONS, iso.ONSET_CONS + al.EOW),
+        rw.rewrite_word_final(iso.A, iso.AA),  # pyrefly: ignore[missing-attribute]
+        rw.insert(iso.VIR, iso.SCH_CONS, iso.ONSET_CONS + al.EOW),  # pyrefly: ignore[missing-attribute]
     )
 
   # Nasal assimilation rewrites.
 
   def _rw_nasal_labial(self) -> pyn.Fst:
-    return rw.rewrite(ltn.M, iso.ANS, ltn.VOWEL, pyn.union(ltn.B, ltn.P))
+    return rw.rewrite(ltn.M, iso.ANS, ltn.VOWEL, pyn.union(ltn.B, ltn.P))  # pyrefly: ignore[missing-attribute]
 
   def _rw_ans_n(self) -> pyn.Fst:
     return rw.rewrite(
-        ltn.N,
-        iso.ANS,
-        ltn.VOWEL,
-        pyn.union((ltn.CONS - (ltn.N | ltn.M)), al.EOW),
+        ltn.N,  # pyrefly: ignore[missing-attribute]
+        iso.ANS,  # pyrefly: ignore[missing-attribute]
+        ltn.VOWEL,  # pyrefly: ignore[missing-attribute]
+        pyn.union((ltn.CONS - (ltn.N | ltn.M)), al.EOW),  # pyrefly: ignore[missing-attribute]
     )

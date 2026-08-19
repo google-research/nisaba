@@ -16,7 +16,7 @@ from absl.testing import absltest
 from nisaba.scripts.natural_translit.brahmic import en_spellout as en
 from nisaba.scripts.natural_translit.utils import test_op
 
-_A = en._SPELLOUTS.a
+_A = en._SPELLOUTS.a  # pyrefly: ignore[missing-attribute]
 _HI_DEVA = en.speller(en.Language.HI, en.Script.DEVA)
 _ML_MLYM = en.speller(en.Language.ML, en.Script.MLYM)
 _UR_ARAB = en.speller(en.Language.UR, en.Script.ARAB)

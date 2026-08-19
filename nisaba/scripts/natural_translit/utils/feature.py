@@ -131,8 +131,8 @@ class Feature(ty.Thing):
   def __init__(self, alias: str, text: str = ''):
     super().__init__(alias)
     self.text = text if text else alias
-    self.aspect = inventory.Inventory.EMPTY
-    self.inventory = inventory.Inventory.EMPTY
+    self.aspect = inventory.Inventory.EMPTY  # pyrefly: ignore[missing-attribute]
+    self.inventory = inventory.Inventory.EMPTY  # pyrefly: ignore[missing-attribute]
     self.parent_list = []
 
   def __str__(self):
@@ -209,7 +209,7 @@ class Feature(ty.Thing):
       super().__init__(alias=alias)
       if alias:
         self.text = alias
-      self._items = set()
+      self._items = set()  # pyrefly: ignore[bad-assignment]
       self._item_type = Feature
       self.add(*features)
 
@@ -264,7 +264,7 @@ class Feature(ty.Thing):
       return self
 
     def reset(self) -> Feature.Set:
-      self._items = set()
+      self._items = set()  # pyrefly: ignore[bad-assignment]
       return self
 
     def update(self, *features) -> Feature.Set:
@@ -385,8 +385,8 @@ class Feature(ty.Thing):
         *features: Feature.Aspect.VALUES,
     ):
       alias, text = ty.type_check(alias, (alias, alias))
-      super().__init__(alias=alias)
-      self.text = text
+      super().__init__(alias=alias)  # pyrefly: ignore[bad-argument-type]
+      self.text = text  # pyrefly: ignore[bad-assignment]
       self._item_type = Union[Feature, Feature.ValueList]
       self.add(*features)
       self.list_type = list_type
@@ -597,7 +597,7 @@ class Feature(ty.Thing):
       self.distance_dict[feature1][feature2] = distance
       self.distance_dict[feature2][feature1] = distance
       if distance > self.max_dist:
-        self.max_dist = distance
+        self.max_dist = distance  # pyrefly: ignore[bad-assignment]
 
     def filter(self, *features) -> Feature.Set:
       return Feature.Set(*[
@@ -610,7 +610,7 @@ class Feature(ty.Thing):
         self, alias: str, *features, negation: bool = False
     ) -> Feature.Set:
       filtered = self.filter(*features)
-      to_add = filtered if not negation else self.all.difference(filtered)
+      to_add = filtered if not negation else self.all.difference(filtered)  # pyrefly: ignore[missing-attribute]
       return Feature.Set(to_add, alias=alias)
 
     def set(self, alias: str, *features) -> None:
@@ -642,8 +642,8 @@ class Feature(ty.Thing):
       which returns max_dist to all features. The root_list and any value list
       within are added as supplements to the aspect.
       """
-      self.inventory = ft_inventory
-      self.inventory.add_item(self)
+      self.inventory = ft_inventory  # pyrefly: ignore[bad-assignment]
+      self.inventory.add_item(self)  # pyrefly: ignore[missing-attribute]
       self.root_list.populate(self)
       self.set('all', self)
       self.suppl_feature(Feature('any'))
@@ -657,7 +657,7 @@ class Feature(ty.Thing):
       """Checks if this aspect is applicable to the given profile."""
       return (
           profile.inventory == self.inventory
-          and self.n_a not in profile.get(self)
+          and self.n_a not in profile.get(self)  # pyrefly: ignore[missing-attribute]
       )
 
     def visualize(self) -> str:
@@ -805,7 +805,7 @@ class Feature(ty.Thing):
           for aspect in self
       ]
 
-    def get(self, aspect: Feature.Aspect) -> Feature.Set:
+    def get(self, aspect: Feature.Aspect) -> Feature.Set:  # pyrefly: ignore[bad-override]
       """Gets the value set for the given aspect."""
       if aspect.inventory == self.inventory:
         inventory_alias = 'missing'
@@ -813,7 +813,7 @@ class Feature(ty.Thing):
         inventory_alias = aspect.inventory.alias
       return super().get(
           aspect.alias,
-          Feature.Set(aspect.n_a, alias=f'{inventory_alias}_{aspect.alias}'),
+          Feature.Set(aspect.n_a, alias=f'{inventory_alias}_{aspect.alias}'),  # pyrefly: ignore[missing-attribute]
       )
 
     def copy(self, alias: str) -> Feature.Profile:
@@ -920,12 +920,12 @@ class Feature(ty.Thing):
         aspects: Feature.ASPECTS = ty.UNSPECIFIED,
         verbose: bool = False,
     ) -> str:
-      return self.compare(p, aspects, verbose)['text']
+      return self.compare(p, aspects, verbose)['text']  # pyrefly: ignore[bad-return]
 
     def similarity(
         self, p: Feature.Profile, aspects: Feature.ASPECTS = ty.UNSPECIFIED
     ) -> float:
-      return self.compare(p, aspects)['similarity']
+      return self.compare(p, aspects)['similarity']  # pyrefly: ignore[bad-return]
 
     def has_feature(self, value: Feature.Aspect.VALUES) -> bool:
       """Checks if the given value or one of its children is in this profile."""
@@ -1006,8 +1006,8 @@ class Feature(ty.Thing):
         the not_applicable profile for the given inventory is returned.
       """
       if self.has_profile(feature_inventory):
-        return super().get(feature_inventory.alias)
-      return ty.type_check(default, feature_inventory.not_applicable)
+        return super().get(feature_inventory.alias)  # pyrefly: ignore[bad-return]
+      return ty.type_check(default, feature_inventory.not_applicable)  # pyrefly: ignore[missing-attribute]
 
     def copy(self, alias: str = '') -> Feature.MultiProfile:
       new = Feature.MultiProfile(alias if alias else self.alias)

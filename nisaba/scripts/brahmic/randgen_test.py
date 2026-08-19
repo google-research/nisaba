@@ -17,6 +17,7 @@
 import itertools
 
 import pynini
+
 from absl.testing import absltest
 from absl.testing import parameterized
 from nisaba.scripts.brahmic import util as u
@@ -29,12 +30,12 @@ class FstRandgenTest(parameterized.TestCase, tu.FstRandgenTestCase):
       itertools.product(u.SCRIPTS + ['brahmic'], ('byte', 'utf8'))
   )
   def test_nfc(self, script: str, token_type: pynini.TokenType):
-    fst = u.OpenFstFromBrahmicFar('nfc', script, token_type)
+    fst = u.OpenFstFromBrahmicFar('nfc', script, token_type)  # pyrefly: ignore[bad-argument-type]
     self.AssertFstProbablyFunctional(fst, token_type, samples=1_000_000)
 
   @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   def test_visual_norm(self, script: str, token_type: pynini.TokenType):
-    fst = u.OpenFstFromBrahmicFar('visual_norm', script, token_type)
+    fst = u.OpenFstFromBrahmicFar('visual_norm', script, token_type)  # pyrefly: ignore[bad-argument-type]
     self.AssertFstProbablyFunctional(fst, token_type)
 
   @parameterized.parameters(
@@ -43,35 +44,35 @@ class FstRandgenTest(parameterized.TestCase, tu.FstRandgenTestCase):
   def test_reading_norm(self, script_lang: str, token_type: pynini.TokenType):
     script, lang = script_lang
     tag = lang if lang else script
-    fst = u.OpenFstFromBrahmicFar('reading_norm', tag, token_type)
+    fst = u.OpenFstFromBrahmicFar('reading_norm', tag, token_type)  # pyrefly: ignore[bad-argument-type]
     self.AssertFstProbablyFunctional(fst, token_type)
 
   @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   def test_from_iso_to_native_single_best(
       self, script: str, token_type: pynini.TokenType
   ):
-    fst = u.OpenFstFromBrahmicFar('iso', f'TO_{script}', token_type)
+    fst = u.OpenFstFromBrahmicFar('iso', f'TO_{script}', token_type)  # pyrefly: ignore[bad-argument-type]
     self.AssertFstSingleShortestPath(fst, token_type)
 
   @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   def test_from_native_to_iso_single_best(
       self, script: str, token_type: pynini.TokenType
   ):
-    fst = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)
+    fst = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)  # pyrefly: ignore[bad-argument-type]
     self.AssertFstSingleShortestPath(fst, token_type)
 
   @parameterized.parameters(itertools.product(u.SCRIPTS, ('byte', 'utf8')))
   def test_iso_roundtrip(self, script: str, token_type: pynini.TokenType):
-    natv_to_iso = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)
-    iso_to_natv = u.OpenFstFromBrahmicFar('iso', f'TO_{script}', token_type)
-    nfc = u.OpenFstFromBrahmicFar('nfc', script, token_type)
+    natv_to_iso = u.OpenFstFromBrahmicFar('iso', f'FROM_{script}', token_type)  # pyrefly: ignore[bad-argument-type]
+    iso_to_natv = u.OpenFstFromBrahmicFar('iso', f'TO_{script}', token_type)  # pyrefly: ignore[bad-argument-type]
+    nfc = u.OpenFstFromBrahmicFar('nfc', script, token_type)  # pyrefly: ignore[bad-argument-type]
     self.AssertFstProbablyIdentity([natv_to_iso, iso_to_natv], token_type, nfc)
 
   @parameterized.parameters(
       itertools.product(u.FIXED_RULE_SCRIPTS, ('byte', 'utf8'))
   )
   def test_fixed(self, script: str, token_type: pynini.TokenType):
-    fst = u.OpenFstFromBrahmicFar('fixed', script, token_type)
+    fst = u.OpenFstFromBrahmicFar('fixed', script, token_type)  # pyrefly: ignore[bad-argument-type]
     self.AssertFstSingleShortestPath(fst, token_type)
 
 

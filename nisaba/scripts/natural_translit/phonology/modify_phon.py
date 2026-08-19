@@ -37,40 +37,40 @@ def qualified_modifier(modifier: p.Phon, qualifier: p.Phon, ipa: str) -> p.Phon:
       ipa
   )
 
-COMBINER = [modifier_phon('CMB', '+', [f.composite], '͡')]
+COMBINER = [modifier_phon('CMB', '+', [f.composite], '͡')]  # pyrefly: ignore[missing-attribute]
 
-MODIFIER_FEATURE = [modifier_phon(*args) for args in [
-    ['DVC', 'o', [f.devoiced], '̥'],  # devoiced
-    ['NPL', 'e', [f.nonpulmonic], '`'],  # nonpulmonic
-    ['DUR', ':', [f.duration], 'ː'],
-    ['STR', '*', [f.stress], ''],
-    ['TPT', '^', [f.pitch], ''],
-    ['TCN', '&', [f.contour], ''],
-    ['INT', '!', [f.intonation], ''],
+MODIFIER_FEATURE = [modifier_phon(*args) for args in [  # pyrefly: ignore[bad-argument-type]
+    ['DVC', 'o', [f.devoiced], '̥'],  # devoiced  # pyrefly: ignore[missing-attribute]
+    ['NPL', 'e', [f.nonpulmonic], '`'],  # nonpulmonic  # pyrefly: ignore[missing-attribute]
+    ['DUR', ':', [f.duration], 'ː'],  # pyrefly: ignore[missing-attribute]
+    ['STR', '*', [f.stress], ''],  # pyrefly: ignore[missing-attribute]
+    ['TPT', '^', [f.pitch], ''],  # pyrefly: ignore[missing-attribute]
+    ['TCN', '&', [f.contour], ''],  # pyrefly: ignore[missing-attribute]
+    ['INT', '!', [f.intonation], ''],  # pyrefly: ignore[missing-attribute]
 ]]
 _M = p.phon_inventory(MODIFIER_FEATURE)
 
-FEATURE_QUALIFIER = [modifier_phon(*args) for args in [
-    ['TOP', 't', [f.top], ''],
-    ['HGH', 'h', [f.high], ''],
-    ['MDL', 'm', [f.middle], ''],
-    ['LOW', 'w', [f.low], ''],
-    ['BTM', 'b', [f.bottom], ''],
-    ['RSN', 'r', [f.rising], ''],
-    ['FLN', 'f', [f.falling], ''],
-    ['TRP', 'k', [f.interrupt], ''],
+FEATURE_QUALIFIER = [modifier_phon(*args) for args in [  # pyrefly: ignore[bad-argument-type]
+    ['TOP', 't', [f.top], ''],  # pyrefly: ignore[missing-attribute]
+    ['HGH', 'h', [f.high], ''],  # pyrefly: ignore[missing-attribute]
+    ['MDL', 'm', [f.middle], ''],  # pyrefly: ignore[missing-attribute]
+    ['LOW', 'w', [f.low], ''],  # pyrefly: ignore[missing-attribute]
+    ['BTM', 'b', [f.bottom], ''],  # pyrefly: ignore[missing-attribute]
+    ['RSN', 'r', [f.rising], ''],  # pyrefly: ignore[missing-attribute]
+    ['FLN', 'f', [f.falling], ''],  # pyrefly: ignore[missing-attribute]
+    ['TRP', 'k', [f.interrupt], ''],  # pyrefly: ignore[missing-attribute]
 ]]
 _F = p.phon_inventory(FEATURE_QUALIFIER)
 
 
 def duration(value: p.Phon, ipa: str) -> p.Phon:
-  return qualified_modifier(_M.DUR, value, ipa)
+  return qualified_modifier(_M.DUR, value, ipa)  # pyrefly: ignore[missing-attribute]
 
-DURATION = [duration(*args) for args in [
-    [_F.BTM, '̆'],
-    [_F.MDL, 'ˑ'],
-    [_F.HGH, 'ː'],
-    [_F.TOP, 'ːː']
+DURATION = [duration(*args) for args in [  # pyrefly: ignore[bad-argument-type]
+    [_F.BTM, '̆'],  # pyrefly: ignore[missing-attribute]
+    [_F.MDL, 'ˑ'],  # pyrefly: ignore[missing-attribute]
+    [_F.HGH, 'ː'],  # pyrefly: ignore[missing-attribute]
+    [_F.TOP, 'ːː']  # pyrefly: ignore[missing-attribute]
 ]]
 
 MOD = p.phon_inventory(
@@ -129,29 +129,29 @@ def derive_with_suffix(
 def devoiced(phon: p.Phon) -> p.Phon:
   """Voiceless derivation for prototypically voiced Phons."""
   new_phon = copy.deepcopy(phon)
-  new_phon.ftr.remove(f.voiced)
-  return derive_with_suffix(new_phon, MOD.DVC)
+  new_phon.ftr.remove(f.voiced)  # pyrefly: ignore[missing-attribute]
+  return derive_with_suffix(new_phon, MOD.DVC)  # pyrefly: ignore[missing-attribute]
 
 
 def nonpulmonic(phon: p.Phon) -> p.Phon:
   """Ejective and implosive derivation."""
-  return derive_with_suffix(phon, MOD.NPL)
+  return derive_with_suffix(phon, MOD.NPL)  # pyrefly: ignore[missing-attribute]
 
 
 def stress(value: p.Phon, ipa: str) -> p.Phon:
-  return qualified_modifier(MOD.STR, value, ipa)
+  return qualified_modifier(MOD.STR, value, ipa)  # pyrefly: ignore[missing-attribute]
 
 
 def pitch(value: p.Phon, ipa: str) -> p.Phon:
-  return qualified_modifier(MOD.TPT, value, ipa)
+  return qualified_modifier(MOD.TPT, value, ipa)  # pyrefly: ignore[missing-attribute]
 
 
 def contour(value: p.Phon, ipa: str) -> p.Phon:
-  return qualified_modifier(MOD.TCN, value, ipa)
+  return qualified_modifier(MOD.TCN, value, ipa)  # pyrefly: ignore[missing-attribute]
 
 
 def intonation(value: p.Phon, ipa: str) -> p.Phon:
-  return qualified_modifier(MOD.INT, value, ipa)
+  return qualified_modifier(MOD.INT, value, ipa)  # pyrefly: ignore[missing-attribute]
 
 
 # Composition functions
@@ -214,10 +214,10 @@ def compose(
   base_tr = cmp_list[0].tr_dict['base'].copy()
   for cmp in cmp_list[1:]:
     composed.alias += '_' + cmp.alias
-    composed.txn += MOD.CMB.txn + cmp.txn
+    composed.txn += MOD.CMB.txn + cmp.txn  # pyrefly: ignore[missing-attribute]
     composed.ftr += cmp.ftr
-    composed.ph = composed.ph + MOD.CMB.ph + cmp.ph
-    composed.ipa += MOD.CMB.ipa + cmp.ipa
+    composed.ph = composed.ph + MOD.CMB.ph + cmp.ph  # pyrefly: ignore[missing-attribute]
+    composed.ipa += MOD.CMB.ipa + cmp.ipa  # pyrefly: ignore[missing-attribute]
     composed.cmp.append(cmp)
     base_tr = base_tr + cmp.tr_dict['base']
   composed.tr_dict = {'base': base_tr} | p.new_tr(ftr, new_tr, base_tr)
@@ -238,12 +238,12 @@ def diphthong(
     tr_dict['semivowel'] = semi
   if isinstance(mono, pyn.Fst):
     tr_dict['monophthong'] = mono
-  return compose(vowels, f.diphthong, diph, tr_dict)
+  return compose(vowels, f.diphthong, diph, tr_dict)  # pyrefly: ignore[missing-attribute]
 
 
 def affricate(cons: list[p.Phon], affr: pyn.FstLike) -> p.Phon:
   """Composes an affricate."""
-  return compose(cons, f.affricate, affr)
+  return compose(cons, f.affricate, affr)  # pyrefly: ignore[missing-attribute]
 
 
 def ls_affricate(
@@ -253,7 +253,7 @@ def ls_affricate(
   affr = []
   for fric in frics:
     affr += [affricate([stop, fric], tr)]
-    if f.voiceless in fric.ftr:
+    if f.voiceless in fric.ftr:  # pyrefly: ignore[missing-attribute]
       ejc = nonpulmonic(fric)
       affr += [affricate([stop, ejc], tr)]
   return affr
@@ -261,7 +261,7 @@ def ls_affricate(
 
 def click(stop: p.Phon, release: p.Phon) -> p.Phon:
   """Composes a click Phon from a stop and a click release."""
-  return compose([stop, release], f.coarticulated)
+  return compose([stop, release], f.coarticulated)  # pyrefly: ignore[missing-attribute]
 
 
 def ls_click(stops: list[p.Phon], releases: list[p.Phon]) -> list[p.Phon]:

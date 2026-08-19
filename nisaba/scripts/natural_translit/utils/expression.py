@@ -39,7 +39,7 @@ class Expression(ty.IterableThing, sym.Item):
     sym.Item.__init__(self, alias, text, index)
 
   def __str__(self) -> str:
-    if self == Expression.ANY:
+    if self == Expression.ANY:  # pyrefly: ignore[missing-attribute]
       return '​🝓⋆​'  # U+200B + U+1F753 + U+22C6 + U+200B
     return self.text
 
@@ -83,7 +83,7 @@ class Expression(ty.IterableThing, sym.Item):
       else:
         self._items.append(Atomic.get_instance(item))
     elif len(item) == 1:
-      self.add(item.item(0))
+      self.add(item.item(0))  # pyrefly: ignore[missing-attribute]
     else:
       self._items.append(item.copy())
 
@@ -104,8 +104,8 @@ class Expression(ty.IterableThing, sym.Item):
     if isinstance(self, sym.Symbol):
       return False
     if len(self) == 1:
-      return self.item(0).is_any()
-    return self is Expression.ANY
+      return self.item(0).is_any()  # pyrefly: ignore[missing-attribute]
+    return self is Expression.ANY  # pyrefly: ignore[missing-attribute]
 
   def is_eps(self) -> bool:
     return isinstance(self, sym.Symbol) and self.symbol.is_eps()
@@ -114,7 +114,7 @@ class Expression(ty.IterableThing, sym.Item):
     return isinstance(self, sym.Symbol) and self.symbol.is_nor()
 
   def copy(self) -> Expression:
-    if self == Expression.ANY:
+    if self == Expression.ANY:  # pyrefly: ignore[missing-attribute]
       return self
     return Expression(self.alias)
 
@@ -154,7 +154,7 @@ class Atomic(Expression, sym.Symbol):
     )
     self._item_type = Atomic
     self._items = [self]
-    self.symbol = symbol.symbol if isinstance(symbol, Atomic) else symbol
+    self.symbol = symbol.symbol if isinstance(symbol, Atomic) else symbol  # pyrefly: ignore[bad-assignment]
     self.features = symbol.features.copy()
 
   @classmethod
@@ -169,9 +169,9 @@ class Atomic(Expression, sym.Symbol):
       Atomic constant.
       Otherwise returns a new Atomic instance of the symbol.
     """
-    if symbol in sym.Symbol.CTRL:
-      return Atomic.CTRL.atm_sym_dict[symbol]
-    if symbol in Atomic.CTRL and isinstance(symbol, Atomic):
+    if symbol in sym.Symbol.CTRL:  # pyrefly: ignore[missing-attribute]
+      return Atomic.CTRL.atm_sym_dict[symbol]  # pyrefly: ignore[missing-attribute]
+    if symbol in Atomic.CTRL and isinstance(symbol, Atomic):  # pyrefly: ignore[missing-attribute]
       return symbol
     return Atomic(symbol)
 
@@ -179,12 +179,12 @@ class Atomic(Expression, sym.Symbol):
     return Atomic.get_instance(self)
 
   def is_control(self) -> bool:
-    return self in Atomic.CTRL or self.symbol in sym.Symbol.CTRL
+    return self in Atomic.CTRL or self.symbol in sym.Symbol.CTRL  # pyrefly: ignore[missing-attribute]
 
 
 def _control_atomics() -> inventory.Inventory:
   """Control atomic constants."""
-  atm_sym_dict = {ctrl: Atomic(ctrl) for ctrl in sym.Symbol.CTRL}
+  atm_sym_dict = {ctrl: Atomic(ctrl) for ctrl in sym.Symbol.CTRL}  # pyrefly: ignore[missing-attribute]
   atomics = inventory.Inventory.from_list(
       list(atm_sym_dict.values()), alias='CTRL'
   )
@@ -204,7 +204,7 @@ class Cat(Expression):
 
   def __str__(self):
     if not self:
-      return str(sym.Symbol.CTRL.eps)
+      return str(sym.Symbol.CTRL.eps)  # pyrefly: ignore[missing-attribute]
     return self._str_enclosed()
 
   def add(self, *items: sym.Item) -> Cat:
@@ -218,9 +218,9 @@ class Cat(Expression):
   def _add_sym_lists(
       self, list1: list[sym.Symbol], list2: list[sym.Symbol]
   ) -> list[sym.Symbol]:
-    if list1 == [Atomic.CTRL.eps.symbol]:
+    if list1 == [Atomic.CTRL.eps.symbol]:  # pyrefly: ignore[missing-attribute]
       return list2
-    if list2 == [Atomic.CTRL.eps.symbol]:
+    if list2 == [Atomic.CTRL.eps.symbol]:  # pyrefly: ignore[missing-attribute]
       return list1
     return list1 + list2
 
@@ -231,7 +231,7 @@ class Cat(Expression):
     instances of empty Cat are equivalent to both each other and the Atomic
     constant.
     """
-    self_symbols = Atomic.CTRL.eps.symbols()
+    self_symbols = Atomic.CTRL.eps.symbols()  # pyrefly: ignore[missing-attribute]
     for item in self:
       item_symbols = item.symbols()
       for _ in range(len(self_symbols)):
@@ -260,11 +260,11 @@ class Or(Expression):
 
   def __str__(self):
     if not self:
-      return str(sym.Symbol.CTRL.nor)
+      return str(sym.Symbol.CTRL.nor)  # pyrefly: ignore[missing-attribute]
     separator = ' | '
     if len(self) == 1:
       return self._str_enclosed(
-          self._str_items_list(self.item(0), sym.Symbol.CTRL.nor), separator
+          self._str_items_list(self.item(0), sym.Symbol.CTRL.nor), separator  # pyrefly: ignore[missing-attribute]
       )
     return self._str_enclosed(separator=separator)
 
@@ -298,7 +298,7 @@ class Or(Expression):
     """
     for item in items:
       # If the Expression.ANY is in Or, don't add any items.
-      if Expression.ANY in self:
+      if Expression.ANY in self:  # pyrefly: ignore[missing-attribute]
         break
       # If the item is any, the other items are irrelevant.
       if item.is_any():
@@ -330,7 +330,7 @@ class Or(Expression):
     preceding context is the same empty Or.
     """
     if not self:
-      return [[Atomic(sym.Symbol.CTRL.nor)]]
+      return [[Atomic(sym.Symbol.CTRL.nor)]]  # pyrefly: ignore[missing-attribute]
     return list(itertools.chain.from_iterable(item.symbols() for item in self))
 
 
@@ -339,8 +339,8 @@ class _BaseAlignment(Expression):
 
   def __init__(
       self,
-      left: sym.Item = Expression.ANY,
-      right: sym.Item = Expression.ANY,
+      left: sym.Item = Expression.ANY,  # pyrefly: ignore[missing-attribute]
+      right: sym.Item = Expression.ANY,  # pyrefly: ignore[missing-attribute]
       alias: str = '',
   ):
     super().__init__(alias)
@@ -426,7 +426,7 @@ class _BaseAlignment(Expression):
     return self._compare(other, 'is_suffix')
 
 
-_BASE_ANY = _BaseAlignment(Expression.ANY, Expression.ANY)
+_BASE_ANY = _BaseAlignment(Expression.ANY, Expression.ANY)  # pyrefly: ignore[missing-attribute]
 
 
 # TODO: Convert source constants to Feature and source attribute to
@@ -481,15 +481,15 @@ class Alignment(_BaseAlignment):
   def __init__(
       self,
       alias: str = '',
-      left: sym.Item = Expression.ANY,
-      right: sym.Item = Expression.ANY,
-      preceding_left: sym.Item = Expression.ANY,
-      preceding_right: sym.Item = Expression.ANY,
-      following_left: sym.Item = Expression.ANY,
-      following_right: sym.Item = Expression.ANY,
+      left: sym.Item = Expression.ANY,  # pyrefly: ignore[missing-attribute]
+      right: sym.Item = Expression.ANY,  # pyrefly: ignore[missing-attribute]
+      preceding_left: sym.Item = Expression.ANY,  # pyrefly: ignore[missing-attribute]
+      preceding_right: sym.Item = Expression.ANY,  # pyrefly: ignore[missing-attribute]
+      following_left: sym.Item = Expression.ANY,  # pyrefly: ignore[missing-attribute]
+      following_right: sym.Item = Expression.ANY,  # pyrefly: ignore[missing-attribute]
       from_bos: bool = False,
       to_eos: bool = False,
-      operation: op.Operation = op.Operation.COMMON.unassigned,
+      operation: op.Operation = op.Operation.COMMON.unassigned,  # pyrefly: ignore[missing-attribute]
       priority: int = 0,
       applied_cost: Union[float, ty.Nothing] = ty.UNSPECIFIED,
       source: str = AlignmentSource.UNSPECIFIED_SOURCE,
@@ -519,12 +519,12 @@ class Alignment(_BaseAlignment):
     return context.enclosed_str('⌈', '⌋', prefix, suffix)
 
   def _pre_str(self) -> str:
-    prefix = str(Atomic.CTRL.bos) if self.from_bos else ''
+    prefix = str(Atomic.CTRL.bos) if self.from_bos else ''  # pyrefly: ignore[missing-attribute]
     pre_str = self._context_str(self.preceding, prefix)
     return pre_str + ' ' if pre_str else ''
 
   def _fol_str(self) -> str:
-    suffix = str(Atomic.CTRL.eos) if self.to_eos else ''
+    suffix = str(Atomic.CTRL.eos) if self.to_eos else ''  # pyrefly: ignore[missing-attribute]
     fol_str = self._context_str(self.following, suffix=suffix)
     return ' ' + fol_str if fol_str else ''
 
@@ -561,12 +561,12 @@ class Alignment(_BaseAlignment):
 
   @classmethod
   def simple(
-      cls, left: sym.Item = Expression.ANY, right: sym.Item = Expression.ANY
+      cls, left: sym.Item = Expression.ANY, right: sym.Item = Expression.ANY  # pyrefly: ignore[missing-attribute]
   ) -> Alignment:
     """An unassigned alignment with no context."""
     simple = cls(left=left, right=right)
-    simple.preceding = Alignment.ANY
-    simple.following = Alignment.ANY
+    simple.preceding = Alignment.ANY  # pyrefly: ignore[missing-attribute]
+    simple.following = Alignment.ANY  # pyrefly: ignore[missing-attribute]
     return simple
 
   @classmethod
@@ -574,11 +574,11 @@ class Alignment(_BaseAlignment):
       cls,
       alias: str,
       alignment: Alignment,
-      preceding: Alignment = _BASE_ANY,
-      following: Alignment = _BASE_ANY,
+      preceding: Alignment = _BASE_ANY,  # pyrefly: ignore[bad-function-definition]
+      following: Alignment = _BASE_ANY,  # pyrefly: ignore[bad-function-definition]
       from_bos: bool = False,
       to_eos: bool = False,
-      operation: op.Operation = op.Operation.COMMON.alignable,
+      operation: op.Operation = op.Operation.COMMON.alignable,  # pyrefly: ignore[missing-attribute]
       priority: int = 0,
       applied_cost: Union[float, ty.Nothing] = ty.UNSPECIFIED,
       source: str = AlignmentSource.NATIVE,
@@ -599,9 +599,9 @@ class Alignment(_BaseAlignment):
         source,
     )
     if rule.preceding.is_any():
-      rule.preceding = Alignment.ANY
+      rule.preceding = Alignment.ANY  # pyrefly: ignore[missing-attribute]
     if rule.following.is_any():
-      rule.following = Alignment.ANY
+      rule.following = Alignment.ANY  # pyrefly: ignore[missing-attribute]
     return rule
 
   @classmethod
@@ -609,18 +609,18 @@ class Alignment(_BaseAlignment):
       cls,
       alias: str,
       left: sym.Item,
-      preceding: Alignment = _BASE_ANY,
-      following: Alignment = _BASE_ANY,
+      preceding: Alignment = _BASE_ANY,  # pyrefly: ignore[bad-function-definition]
+      following: Alignment = _BASE_ANY,  # pyrefly: ignore[bad-function-definition]
       from_bos: bool = False,
       to_eos: bool = False,
-      operation: op.Operation = op.Operation.COMMON.deletion,
+      operation: op.Operation = op.Operation.COMMON.deletion,  # pyrefly: ignore[missing-attribute]
       priority: int = 0,
       applied_cost: Union[int, float, ty.Nothing] = ty.UNSPECIFIED,
       source: str = AlignmentSource.NATIVE,
   ) -> Alignment:
     return cls.rule(
         alias,
-        left >> Atomic.CTRL.eps,
+        left >> Atomic.CTRL.eps,  # pyrefly: ignore[missing-attribute]
         preceding,
         following,
         from_bos,
@@ -636,18 +636,18 @@ class Alignment(_BaseAlignment):
       cls,
       alias: str,
       right: sym.Item,
-      preceding: Alignment = _BASE_ANY,
-      following: Alignment = _BASE_ANY,
+      preceding: Alignment = _BASE_ANY,  # pyrefly: ignore[bad-function-definition]
+      following: Alignment = _BASE_ANY,  # pyrefly: ignore[bad-function-definition]
       from_bos: bool = False,
       to_eos: bool = False,
-      operation: op.Operation = op.Operation.COMMON.insertion,
+      operation: op.Operation = op.Operation.COMMON.insertion,  # pyrefly: ignore[missing-attribute]
       priority: int = 0,
       applied_cost: Union[int, float, ty.Nothing] = ty.UNSPECIFIED,
       source: str = AlignmentSource.NATIVE,
   ) -> Alignment:
     return cls.rule(
         alias,
-        Atomic.CTRL.eps >> right,
+        Atomic.CTRL.eps >> right,  # pyrefly: ignore[missing-attribute]
         preceding,
         following,
         from_bos,
@@ -663,11 +663,11 @@ class Alignment(_BaseAlignment):
       cls,
       alias: str,
       alignment: Alignment,
-      preceding: Alignment = _BASE_ANY,
-      following: Alignment = _BASE_ANY,
+      preceding: Alignment = _BASE_ANY,  # pyrefly: ignore[bad-function-definition]
+      following: Alignment = _BASE_ANY,  # pyrefly: ignore[bad-function-definition]
       from_bos: bool = False,
       to_eos: bool = False,
-      operation: op.Operation = op.Operation.COMMON.interchangeable,
+      operation: op.Operation = op.Operation.COMMON.interchangeable,  # pyrefly: ignore[missing-attribute]
       priority: int = 0,
       applied_cost: Union[int, float, ty.Nothing] = ty.UNSPECIFIED,
       source: str = AlignmentSource.NATIVE,
@@ -724,12 +724,12 @@ class Alignment(_BaseAlignment):
 def _constants() -> tuple[Alignment, Alignment, Alignment]:
   """Alignment constants."""
   any_alg = Alignment('any')
-  eps = Alignment('eps', Atomic.CTRL.eps, Atomic.CTRL.eps)
+  eps = Alignment('eps', Atomic.CTRL.eps, Atomic.CTRL.eps)  # pyrefly: ignore[missing-attribute]
   nor = Alignment(
       'nor',
-      Atomic.CTRL.nor,
-      Atomic.CTRL.nor,
-      operation=op.Operation.COMMON.error,
+      Atomic.CTRL.nor,  # pyrefly: ignore[missing-attribute]
+      Atomic.CTRL.nor,  # pyrefly: ignore[missing-attribute]
+      operation=op.Operation.COMMON.error,  # pyrefly: ignore[missing-attribute]
   )
   for alg in [any_alg, eps, nor]:
     alg.source = AlignmentSource.CONSTANT

@@ -29,7 +29,7 @@ class PhonologicalSymbol(sym.Symbol):
   """Parent class for symbols with phonological features."""
 
   DESCRIPTIVE_FEATURES = descriptive.FEATURES
-  LANGUAGE = lang.FEATURES.language
+  LANGUAGE = lang.FEATURES.language  # pyrefly: ignore[missing-attribute]
   LANG_PREFIX_MULTIPLIER = 100
 
   def __init__(
@@ -48,7 +48,7 @@ class PhonologicalSymbol(sym.Symbol):
     )
 
   def descriptives(self) -> ft.Feature.Profile:
-    return self.features.descriptive
+    return self.features.descriptive  # pyrefly: ignore[missing-attribute]
 
   def update_descriptives(
       self, *features: ft.Feature.ITERABLE
@@ -119,7 +119,7 @@ class PhonologicalSymbol(sym.Symbol):
       for suppl in ty.type_check(update_ors_from_suppls, []):
         if suppl.alias not in self.atomics.suppl_aliases:
           self.or_from_suppl(suppl)
-        self.atomics.get(suppl.alias).add(*suppl)
+        self.atomics.get(suppl.alias).add(*suppl)  # pyrefly: ignore[missing-attribute]
       return self
 
 
