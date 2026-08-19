@@ -93,7 +93,7 @@ class Operation(ty.Thing):
   def __init__(self, alias: str, cost: float):
     super().__init__(alias)
     self.text = alias
-    self.inventory = inventory.Inventory.EMPTY
+    self.inventory = inventory.Inventory.EMPTY  # pyrefly: ignore[missing-attribute]
     self.index = 0
     self.base_cost = cost
     self.match = self
@@ -105,7 +105,7 @@ class Operation(ty.Thing):
 
   def is_assigned(self) -> bool:
     return not (
-        self is Operation.COMMON.unassigned or self is Operation.COMMON.error
+        self is Operation.COMMON.unassigned or self is Operation.COMMON.error  # pyrefly: ignore[missing-attribute]
     )
 
   def is_free(self) -> bool:
@@ -131,7 +131,7 @@ class Operation(ty.Thing):
       self.add_operations(*operations)
 
     def index_lookup(self, index: int) -> Operation:
-      return self._index_dict.get(index, Operation.COMMON.error)
+      return self._index_dict.get(index, Operation.COMMON.error)  # pyrefly: ignore[bad-return, missing-attribute]
 
     def _next_index(self) -> int:
       """Returns the next index for a new Operation.

@@ -19,7 +19,8 @@ from collections.abc import Callable, Iterator
 from typing import Optional
 
 import pynini
-from pynini.lib import utf8
+from opengrm.pynini.lib import utf8
+
 from absl.testing import absltest
 from nisaba.scripts.utils import rewrite
 

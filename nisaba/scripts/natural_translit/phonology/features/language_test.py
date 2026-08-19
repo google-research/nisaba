@@ -16,7 +16,7 @@ from absl.testing import absltest
 from nisaba.scripts.natural_translit.phonology.features import language
 from nisaba.scripts.natural_translit.utils import test_op
 
-_LANG = language.FEATURES.language
+_LANG = language.FEATURES.language  # pyrefly: ignore[missing-attribute]
 
 
 class LanguageTest(test_op.TestCase):

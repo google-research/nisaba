@@ -19,6 +19,7 @@ import os
 import pathlib
 
 import pynini
+
 from rules_python.python.runfiles import runfiles
 
 EMPTY: pynini.Fst = pynini.intersect(
@@ -27,7 +28,7 @@ EPSILON: pynini.Fst = pynini.accep("").optimize()
 
 
 def AsResourcePath(filename: os.PathLike[str]) -> os.PathLike[str]:
-  filename = os.fspath(filename)
+  filename = os.fspath(filename)  # pyrefly: ignore[bad-assignment]
   return pathlib.Path(runfiles.Create().Rlocation(filename))
 
 

@@ -26,32 +26,32 @@ _LATN = latn.LATN
 class LatnTest(test_op.TestCase):
 
   def test_latn(self):
-    self.assertEqual(_LATN.raw_lookup('a'), _LATN.a)
-    self.AssertHasFeature(_LATN.a, _G.GR_FEATURES.script.latn)
-    self.AssertHasFeature(_LATN.a, _G.GR_FEATURES.case.lower)
-    self.AssertHasFeature(_LATN.a, _G.DESCRIPTIVE_FEATURES.ph_class.vowel)
-    self.assertIn(_LATN.a, _LATN.vowel)
-    self.assertIn(_LATN.a, _LATN.lower)
-    self.AssertAccepts(_LATN.atomics.vowel, _LATN.a)
-    self.assertNotIn(_LATN.a, _LATN.upper)
-    self.assertIn(_LATN.a_upper, _LATN.vowel)
-    self.assertIn(_LATN.a_upper, _LATN.upper)
-    self.AssertAccepts(_LATN.atomics.vowel, _LATN.a_upper)
-    self.assertNotIn(_LATN.a_upper, _LATN.lower)
-    self.assertIn(_LATN.a, _LATN.letter)
-    self.assertIn(_LATN.a_upper, _LATN.letter)
-    self.assertIs(_LATN.a.upper, _LATN.a_upper)
-    self.assertIs(_LATN.a_upper.lower, _LATN.a)
-    self.assertIs(_LATN.a.lower, _LATN.a)
-    self.assertIs(_LATN.a_upper.upper, _LATN.a_upper)
-    self.AssertHasFeature(_LATN.one, _G.GR_FEATURES.gr_class.number)
-    self.assertIn(_LATN.one, _LATN.number)
+    self.assertEqual(_LATN.raw_lookup('a'), _LATN.a)  # pyrefly: ignore[missing-attribute]
+    self.AssertHasFeature(_LATN.a, _G.GR_FEATURES.script.latn)  # pyrefly: ignore[missing-attribute]
+    self.AssertHasFeature(_LATN.a, _G.GR_FEATURES.case.lower)  # pyrefly: ignore[missing-attribute]
+    self.AssertHasFeature(_LATN.a, _G.DESCRIPTIVE_FEATURES.ph_class.vowel)  # pyrefly: ignore[missing-attribute]
+    self.assertIn(_LATN.a, _LATN.vowel)  # pyrefly: ignore[missing-attribute]
+    self.assertIn(_LATN.a, _LATN.lower)  # pyrefly: ignore[missing-attribute]
+    self.AssertAccepts(_LATN.atomics.vowel, _LATN.a)  # pyrefly: ignore[bad-argument-type, missing-attribute]
+    self.assertNotIn(_LATN.a, _LATN.upper)  # pyrefly: ignore[missing-attribute]
+    self.assertIn(_LATN.a_upper, _LATN.vowel)  # pyrefly: ignore[missing-attribute]
+    self.assertIn(_LATN.a_upper, _LATN.upper)  # pyrefly: ignore[missing-attribute]
+    self.AssertAccepts(_LATN.atomics.vowel, _LATN.a_upper)  # pyrefly: ignore[bad-argument-type, missing-attribute]
+    self.assertNotIn(_LATN.a_upper, _LATN.lower)  # pyrefly: ignore[missing-attribute]
+    self.assertIn(_LATN.a, _LATN.letter)  # pyrefly: ignore[missing-attribute]
+    self.assertIn(_LATN.a_upper, _LATN.letter)  # pyrefly: ignore[missing-attribute]
+    self.assertIs(_LATN.a.upper, _LATN.a_upper)  # pyrefly: ignore[missing-attribute]
+    self.assertIs(_LATN.a_upper.lower, _LATN.a)  # pyrefly: ignore[missing-attribute]
+    self.assertIs(_LATN.a.lower, _LATN.a)  # pyrefly: ignore[missing-attribute]
+    self.assertIs(_LATN.a_upper.upper, _LATN.a_upper)  # pyrefly: ignore[missing-attribute]
+    self.AssertHasFeature(_LATN.one, _G.GR_FEATURES.gr_class.number)  # pyrefly: ignore[missing-attribute]
+    self.assertIn(_LATN.one, _LATN.number)  # pyrefly: ignore[missing-attribute]
 
   def test_en_latn(self):
-    self.assertNotEqual(_LATN.a, _EN.a)
-    self.assertIn(_EN.a, _EN.vowel)
-    self.assertIn(_EN.y, _EN.vowel)
-    self.AssertStrEqual(_EN.a.descriptives(), _EN.a_upper.descriptives())
+    self.assertNotEqual(_LATN.a, _EN.a)  # pyrefly: ignore[missing-attribute]
+    self.assertIn(_EN.a, _EN.vowel)  # pyrefly: ignore[missing-attribute]
+    self.assertIn(_EN.y, _EN.vowel)  # pyrefly: ignore[missing-attribute]
+    self.AssertStrEqual(_EN.a.descriptives(), _EN.a_upper.descriptives())  # pyrefly: ignore[missing-attribute]
 
 
 if __name__ == '__main__':

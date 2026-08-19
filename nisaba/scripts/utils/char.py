@@ -19,6 +19,7 @@ import os
 import pathlib
 
 import pynini
+
 import pathlib
 import nisaba.scripts.utils.file as uf
 
@@ -44,9 +45,9 @@ def _read_string_file_chars_to_set(
   for fname in files:
     with pathlib.Path(uf.AsResourcePath(pathlib.Path(fname))).open("rt", encoding="utf8") as f:
       for line in f:
-        if line.startswith("#"):
+        if line.startswith("#"):  # pyrefly: ignore[bad-argument-type]
           continue
-        fields = line.strip().split("\t")[0:relevant_fields]
+        fields = line.strip().split("\t")[0:relevant_fields]  # pyrefly: ignore[bad-argument-type]
         for field in fields:
           chars.update(field)
   return chars

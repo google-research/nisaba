@@ -28,7 +28,7 @@ Please refer to: https://en.wikipedia.org/wiki/ISO_15919 for ISO.
 To try:
 
 ```sh
-bazel build -c opt nlp/grm2/thrax:rewrite-tester \
+bazel build -c opt third_party/opengrm/thrax:rewrite-tester \
   nisaba/scripts/brahmic:fixed
 
 cat /tmp/ml-latn-text.txt |
@@ -41,7 +41,8 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 import string
 
 import pynini
-from pynini.export import multi_grm
+from opengrm.pynini.export import multi_grm
+
 import nisaba.scripts.brahmic.util as u
 from nisaba.scripts.utils import rule
 import nisaba.scripts.utils.char as uc

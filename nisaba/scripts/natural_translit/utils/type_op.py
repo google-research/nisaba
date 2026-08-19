@@ -27,6 +27,7 @@ import enum
 from typing import Any, TypeVar, Union
 
 import pynini as pyn
+
 from nisaba.scripts.natural_translit.utils import log_op as log
 
 # Custom types
@@ -151,7 +152,7 @@ class Thing(_ObjectWithAliasAndValue):
     if text:
       self.text = text
     if not isinstance(value_from, Nothing):
-      self.value = log.dbg_return(
+      self.value = log.dbg_return(  # pyrefly: ignore[bad-assignment]
           getattr(value_from, from_attribute, value_from)
       )
       self.text += ':' + log.class_and_texts(self.value)
@@ -240,7 +241,7 @@ class IterableThing(Thing):
         self._item_type is Any
         and not isinstance(item, Nothing)
         and type(self) is not type(item)
-    ) or (self._item_type is not Any and isinstance(item, self._item_type))
+    ) or (self._item_type is not Any and isinstance(item, self._item_type))  # pyrefly: ignore[invalid-argument]
 
   def add(self, *items) -> IterableThing:
     for item in items:
