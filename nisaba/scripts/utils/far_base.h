@@ -18,10 +18,10 @@
 #include <memory>
 #include <string>
 
-#include "nisaba/interim/grm2/thrax/grm-manager.h"
 #include "absl/status/status.h"
 #include "absl/strings/string_view.h"
 #include "fst/fstlib.h"
+#include "third_party/opengrm/thrax/grm-manager.h"
 
 namespace nisaba {
 

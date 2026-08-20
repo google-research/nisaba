@@ -91,9 +91,11 @@ cc_library(
     deps = [
         ":pairlm_decoder_options_cc_proto",
         ":wordpiece-segmenter-lib",
+        "//base:char32",
         "//nisaba/port:file_util",
         "//nisaba/port:thread_pool",
         "//nisaba/port:utf8_util",
+        "//third_party/opengrm/sfst:ngram-count",
         "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_absl//absl/container:flat_hash_set",
         "@com_google_absl//absl/log",
@@ -104,7 +106,6 @@ cc_library(
         "@org_openfst//:fst",
         "@org_openfst//:symbol-table",
         "@org_openfst//:weight",
-        "@org_opengrm_ngram//:opengrm-ngram-lib",
     ],
 )
 

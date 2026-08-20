@@ -21,6 +21,7 @@
 #include <vector>
 
 #include "absl/synchronization/mutex.h"
+#include "fst/icu.h"
 #include "fst/string.h"
 
 namespace thrax {
@@ -194,7 +195,7 @@ void SymbolTableBuilder::GenerateUtf8SymbolTable() {
     std::vector<int> labels;
     labels.push_back(c);
     std::string utf8_label;
-    if (::fst::LabelsToUTF8String(labels, &utf8_label)) {
+    if (::fst::LabelsToUTF8String<int>(labels, &utf8_label)) {
       if (IsUnicodeSpaceOrControl(c)) {
         char c_str[7];
         snprintf(c_str, sizeof(c_str), "0x%04x", c);

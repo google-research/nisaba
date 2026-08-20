@@ -17,7 +17,7 @@ r"""Acceptor for well-formed strings from major modern Brahmic scripts.
 To try:
 
 ```sh
-bazel build -c opt nlp/grm2/thrax:rewrite-tester \
+bazel build -c opt third_party/opengrm/thrax:rewrite-tester \
                    nisaba/scripts/brahmic:wellformed
 
 bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
@@ -30,7 +30,8 @@ bazel-bin/nisaba/interim/grm2/thrax/rewrite-tester \
 import os
 
 import pynini
-from pynini.export import multi_grm
+from opengrm.pynini.export import multi_grm
+
 import nisaba.scripts.brahmic.util as u
 import nisaba.scripts.utils.file as uf
 
@@ -128,8 +129,9 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
   for token_type in ('byte', 'utf8'):
     with pynini.default_token_type(token_type):
       exporter = exporter_map[token_type]
+      all_wellformed = []
       for script in u.SCRIPTS:
-        exporter[script.upper()] = accept_well_formed(
+        wf = accept_well_formed(
             u.SCRIPT_DIR / script / 'script_config.textproto',
             u.SCRIPT_DIR / script / 'consonant.tsv',
             u.SCRIPT_DIR / script / 'dead_consonant.tsv',
@@ -141,7 +143,13 @@ def generator_main(exporter_map: multi_grm.ExporterMapping):
             u.SCRIPT_DIR / script / 'standalone.tsv',
             u.SCRIPT_DIR / script / 'virama.tsv',
             u.SCRIPT_DIR / script / 'accept.tsv',
-            u.SCRIPT_DIR / script / 'preserve.tsv')
+            u.SCRIPT_DIR / script / 'preserve.tsv',
+        )
+        exporter[script.upper()] = wf
+        all_wellformed.append(wf)
+
+      # Union of all script wellformed acceptors.
+      exporter['BRAHMIC'] = pynini.union(*all_wellformed).optimize()
 
 
 if __name__ == '__main__':
