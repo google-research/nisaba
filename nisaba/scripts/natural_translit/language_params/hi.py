@@ -32,15 +32,15 @@ deromanize = deromanizer.Deromanizer.params(
     script='deva',
     schwa_deletion=True,
     schwa_deletion_wf=True,
-    monophthong=(drm.a, drm.e, drm.i, drm.o, drm.u),
-    always_long_vowel=(drm.e, drm.o),
-    diphthong=(drm.ai, drm.au),
-    has_aspirated=(drm.b, drm.ch, drm.d, drm.g, drm.j, drm.k, drm.p, drm.t),
+    monophthong=(drm.a, drm.e, drm.i, drm.o, drm.u),  # pyrefly: ignore[missing-attribute]
+    always_long_vowel=(drm.e, drm.o),  # pyrefly: ignore[missing-attribute]
+    diphthong=(drm.ai, drm.au),  # pyrefly: ignore[missing-attribute]
+    has_aspirated=(drm.b, drm.ch, drm.d, drm.g, drm.j, drm.k, drm.p, drm.t),  # pyrefly: ignore[missing-attribute]
     no_aspirated=(
-        drm.c, drm.h, drm.l, drm.m, drm.n, drm.q,
-        drm.r, drm.s, drm.sh, drm.v, drm.w, drm.x, drm.y,
+        drm.c, drm.h, drm.l, drm.m, drm.n, drm.q,  # pyrefly: ignore[missing-attribute]
+        drm.r, drm.s, drm.sh, drm.v, drm.w, drm.x, drm.y,  # pyrefly: ignore[missing-attribute]
     ),
-    foreign=(drm.f, drm.z),
+    foreign=(drm.f, drm.z),  # pyrefly: ignore[missing-attribute]
     anusvara_n=True,
     nasal_assimilation=True,
 )
@@ -48,20 +48,20 @@ deromanize = deromanizer.Deromanizer.params(
 ph = psa.PHONEME_INVENTORY
 
 _ONSET_CL = fl.FstList(
-    cc.concat_r(ph.K, ph.SH),
-    cc.concat_r(ph.S, (ph.T | ph.RT | ph.NI | ph.Y | ph.VU)),
-    cc.concat_r((ph.VU | ph.NI), ph.Y),
-    cc.concat_r((ph.K | ph.P | ph.G | ph.DI | ph.SH), ph.RT),
+    cc.concat_r(ph.K, ph.SH),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r(ph.S, (ph.T | ph.RT | ph.NI | ph.Y | ph.VU)),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r((ph.VU | ph.NI), ph.Y),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r((ph.K | ph.P | ph.G | ph.DI | ph.SH), ph.RT),  # pyrefly: ignore[missing-attribute]
 ).union_opt()
 
 
 _CODA_CL = fl.FstList(
-    cc.concat_r(ph.CONSONANT, ph.STOP),
-    cc.concat_r(ph.VOICED, ph.NASAL),
-    cc.concat_r((ph.FRICATIVE - ph.H), (ph.NASAL - ph.M)),
-    cc.concat_r(ph.SIBILANT, ph.M),
-    cc.concat_r((ph.LIQUID | ph.NASAL), ph.NASAL),
-    cc.concat_r(ph.RHOTIC, ph.RHOTIC),
+    cc.concat_r(ph.CONSONANT, ph.STOP),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r(ph.VOICED, ph.NASAL),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r((ph.FRICATIVE - ph.H), (ph.NASAL - ph.M)),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r(ph.SIBILANT, ph.M),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r((ph.LIQUID | ph.NASAL), ph.NASAL),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r(ph.RHOTIC, ph.RHOTIC),  # pyrefly: ignore[missing-attribute]
 ).union_opt()
 
 _PROCESS_SCHWA = g2p.process_schwa(_ONSET_CL, _CODA_CL)

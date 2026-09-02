@@ -33,11 +33,11 @@ _VOICING_OP = [
     voicing.TT_DD,
     voicing.TSH_DZH,
 ]
-_VOICING_CONTEXT = fl.FstList(ph.VOWEL, ph.APPROXIMANT, ph.NASAL).union_opt()
+_VOICING_CONTEXT = fl.FstList(ph.VOWEL, ph.APPROXIMANT, ph.NASAL).union_opt()  # pyrefly: ignore[missing-attribute]
 _VOICING = voicing.voicing(
-    _VOICING_OP, _VOICING_CONTEXT, cc.concat_r(ph.ASP.ques, _VOICING_CONTEXT)
+    _VOICING_OP, _VOICING_CONTEXT, cc.concat_r(ph.ASP.ques, _VOICING_CONTEXT)  # pyrefly: ignore[missing-attribute]
 )
-_POSTNASAL_TT = voicing.voicing([voicing.TT_DD], ph.NASAL)
+_POSTNASAL_TT = voicing.voicing([voicing.TT_DD], ph.NASAL)  # pyrefly: ignore[missing-attribute]
 
 _TXN_OPS = fl.FstList(
     g2p.WF_VIRAMA_U,

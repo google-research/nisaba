@@ -58,7 +58,7 @@ def _phoneme_inventory() -> po.Phon.Inventory:
   ]
   ph.add_phonemes(
       *(
-          p(alias=alias, ipa=ipa, name=name, features=phf.vowel)
+          p(alias=alias, ipa=ipa, name=name, features=phf.vowel)  # pyrefly: ignore[missing-attribute]
           for ipa, alias, name in vowels
       ),
       list_alias='vowel',
@@ -66,92 +66,92 @@ def _phoneme_inventory() -> po.Phon.Inventory:
 
   # Default heights from IPA vowel chart.
 
-  for open_vowel in [ph.a, ph.au, ph.aw, ph.ow, ph.oa]:
-    open_vowel.update_descriptives(phf.height.open)
-  for near_open_vowel in [ph.ae, ph.av]:
-    near_open_vowel.update_descriptives(phf.height.near_open)
-  for open_mid_vowel in [ph.eh, ph.ex, ph.ox, ph.oe, ph.oh, ph.ah]:
-    open_mid_vowel.update_descriptives(phf.height.open_mid)
-  for mid_vowel in [ph.ec]:
-    mid_vowel.update_descriptives(phf.height.mid)
-  for close_mid_vowel in [ph.e, ph.el, ph.eo, ph.o, ph.ol]:
-    close_mid_vowel.update_descriptives(phf.height.close_mid)
-  for near_close_vowel in [ph.iy, ph.uv, ph.uy]:
-    near_close_vowel.update_descriptives(phf.height.near_close)
-  for close_vowel in [ph.i, ph.ic, ph.u, ph.uc, ph.iu, ph.ui]:
-    close_vowel.update_descriptives(phf.height.close)
+  for open_vowel in [ph.a, ph.au, ph.aw, ph.ow, ph.oa]:  # pyrefly: ignore[missing-attribute]
+    open_vowel.update_descriptives(phf.height.open)  # pyrefly: ignore[missing-attribute]
+  for near_open_vowel in [ph.ae, ph.av]:  # pyrefly: ignore[missing-attribute]
+    near_open_vowel.update_descriptives(phf.height.near_open)  # pyrefly: ignore[missing-attribute]
+  for open_mid_vowel in [ph.eh, ph.ex, ph.ox, ph.oe, ph.oh, ph.ah]:  # pyrefly: ignore[missing-attribute]
+    open_mid_vowel.update_descriptives(phf.height.open_mid)  # pyrefly: ignore[missing-attribute]
+  for mid_vowel in [ph.ec]:  # pyrefly: ignore[missing-attribute]
+    mid_vowel.update_descriptives(phf.height.mid)  # pyrefly: ignore[missing-attribute]
+  for close_mid_vowel in [ph.e, ph.el, ph.eo, ph.o, ph.ol]:  # pyrefly: ignore[missing-attribute]
+    close_mid_vowel.update_descriptives(phf.height.close_mid)  # pyrefly: ignore[missing-attribute]
+  for near_close_vowel in [ph.iy, ph.uv, ph.uy]:  # pyrefly: ignore[missing-attribute]
+    near_close_vowel.update_descriptives(phf.height.near_close)  # pyrefly: ignore[missing-attribute]
+  for close_vowel in [ph.i, ph.ic, ph.u, ph.uc, ph.iu, ph.ui]:  # pyrefly: ignore[missing-attribute]
+    close_vowel.update_descriptives(phf.height.close)  # pyrefly: ignore[missing-attribute]
 
   # Default backness from IPA vowel chart.
 
   for front_vowel in [
-      ph.a,
-      ph.ae,
-      ph.e,
-      ph.eh,
-      ph.i,
-      ph.oi,
-      ph.oe,
-      ph.oa,
-      ph.ui,
+      ph.a,  # pyrefly: ignore[missing-attribute]
+      ph.ae,  # pyrefly: ignore[missing-attribute]
+      ph.e,  # pyrefly: ignore[missing-attribute]
+      ph.eh,  # pyrefly: ignore[missing-attribute]
+      ph.i,  # pyrefly: ignore[missing-attribute]
+      ph.oi,  # pyrefly: ignore[missing-attribute]
+      ph.oe,  # pyrefly: ignore[missing-attribute]
+      ph.oa,  # pyrefly: ignore[missing-attribute]
+      ph.ui,  # pyrefly: ignore[missing-attribute]
   ]:
-    front_vowel.update_descriptives(phf.backness.front)
-  for near_front_vowel in [ph.iy, ph.av, ph.iy, ph.uy]:
-    near_front_vowel.update_descriptives(phf.backness.near_front)
+    front_vowel.update_descriptives(phf.backness.front)  # pyrefly: ignore[missing-attribute]
+  for near_front_vowel in [ph.iy, ph.av, ph.iy, ph.uy]:  # pyrefly: ignore[missing-attribute]
+    near_front_vowel.update_descriptives(phf.backness.near_front)  # pyrefly: ignore[missing-attribute]
   for central_vowel in [
-      ph.au,
-      ph.av,
-      ph.ec,
-      ph.el,
-      ph.ex,
-      ph.ox,
-      ph.ic,
-      ph.ol,
-      ph.uc,
+      ph.au,  # pyrefly: ignore[missing-attribute]
+      ph.av,  # pyrefly: ignore[missing-attribute]
+      ph.ec,  # pyrefly: ignore[missing-attribute]
+      ph.el,  # pyrefly: ignore[missing-attribute]
+      ph.ex,  # pyrefly: ignore[missing-attribute]
+      ph.ox,  # pyrefly: ignore[missing-attribute]
+      ph.ic,  # pyrefly: ignore[missing-attribute]
+      ph.ol,  # pyrefly: ignore[missing-attribute]
+      ph.uc,  # pyrefly: ignore[missing-attribute]
   ]:
-    central_vowel.update_descriptives(phf.backness.central)
-  for near_back_vowel in [ph.uv]:
-    near_back_vowel.update_descriptives(phf.backness.near_back)
-  for back_vowel in [ph.aw, ph.ow, ph.eo, ph.o, ph.oh, ph.u, ph.iu, ph.ah]:
-    back_vowel.update_descriptives(phf.backness.back)
+    central_vowel.update_descriptives(phf.backness.central)  # pyrefly: ignore[missing-attribute]
+  for near_back_vowel in [ph.uv]:  # pyrefly: ignore[missing-attribute]
+    near_back_vowel.update_descriptives(phf.backness.near_back)  # pyrefly: ignore[missing-attribute]
+  for back_vowel in [ph.aw, ph.ow, ph.eo, ph.o, ph.oh, ph.u, ph.iu, ph.ah]:  # pyrefly: ignore[missing-attribute]
+    back_vowel.update_descriptives(phf.backness.back)  # pyrefly: ignore[missing-attribute]
 
   # Default roundness from IPA vowel chart.
 
   for rounded_vowel in [
-      ph.ow,
-      ph.ox,
-      ph.o,
-      ph.oi,
-      ph.oe,
-      ph.oa,
-      ph.oh,
-      ph.ol,
-      ph.u,
-      ph.uc,
-      ph.uv,
-      ph.ui,
-      ph.uy,
+      ph.ow,  # pyrefly: ignore[missing-attribute]
+      ph.ox,  # pyrefly: ignore[missing-attribute]
+      ph.o,  # pyrefly: ignore[missing-attribute]
+      ph.oi,  # pyrefly: ignore[missing-attribute]
+      ph.oe,  # pyrefly: ignore[missing-attribute]
+      ph.oa,  # pyrefly: ignore[missing-attribute]
+      ph.oh,  # pyrefly: ignore[missing-attribute]
+      ph.ol,  # pyrefly: ignore[missing-attribute]
+      ph.u,  # pyrefly: ignore[missing-attribute]
+      ph.uc,  # pyrefly: ignore[missing-attribute]
+      ph.uv,  # pyrefly: ignore[missing-attribute]
+      ph.ui,  # pyrefly: ignore[missing-attribute]
+      ph.uy,  # pyrefly: ignore[missing-attribute]
   ]:
-    rounded_vowel.update_descriptives(phf.labialization.rounded)
+    rounded_vowel.update_descriptives(phf.labialization.rounded)  # pyrefly: ignore[missing-attribute]
 
   for unrounded_vowel in [
-      ph.a,
-      ph.au,
-      ph.ae,
-      ph.av,
-      ph.aw,
-      ph.e,
-      ph.ec,
-      ph.eh,
-      ph.el,
-      ph.ex,
-      ph.eo,
-      ph.i,
-      ph.iy,
-      ph.ic,
-      ph.iu,
-      ph.ah,
+      ph.a,  # pyrefly: ignore[missing-attribute]
+      ph.au,  # pyrefly: ignore[missing-attribute]
+      ph.ae,  # pyrefly: ignore[missing-attribute]
+      ph.av,  # pyrefly: ignore[missing-attribute]
+      ph.aw,  # pyrefly: ignore[missing-attribute]
+      ph.e,  # pyrefly: ignore[missing-attribute]
+      ph.ec,  # pyrefly: ignore[missing-attribute]
+      ph.eh,  # pyrefly: ignore[missing-attribute]
+      ph.el,  # pyrefly: ignore[missing-attribute]
+      ph.ex,  # pyrefly: ignore[missing-attribute]
+      ph.eo,  # pyrefly: ignore[missing-attribute]
+      ph.i,  # pyrefly: ignore[missing-attribute]
+      ph.iy,  # pyrefly: ignore[missing-attribute]
+      ph.ic,  # pyrefly: ignore[missing-attribute]
+      ph.iu,  # pyrefly: ignore[missing-attribute]
+      ph.ah,  # pyrefly: ignore[missing-attribute]
   ]:
-    unrounded_vowel.update_descriptives(phf.labialization.unrounded)
+    unrounded_vowel.update_descriptives(phf.labialization.unrounded)  # pyrefly: ignore[missing-attribute]
 
   # Consonants.
 
@@ -230,7 +230,7 @@ def _phoneme_inventory() -> po.Phon.Inventory:
   ]
   ph.add_phonemes(
       *(
-          p(alias=alias, ipa=ipa, name=name, features=phf.consonant)
+          p(alias=alias, ipa=ipa, name=name, features=phf.consonant)  # pyrefly: ignore[missing-attribute]
           for ipa, alias, name in consonants
       ),
       list_alias='consonant',
@@ -238,206 +238,206 @@ def _phoneme_inventory() -> po.Phon.Inventory:
 
   # Default manner from IPA consonant table rows.
 
-  for nasal_consonant in [ph.m, ph.mi, ph.n, ph.ng, ph.nj, ph.nn, ph.ny]:
-    nasal_consonant.update_descriptives(phf.nasal)
+  for nasal_consonant in [ph.m, ph.mi, ph.n, ph.ng, ph.nj, ph.nn, ph.ny]:  # pyrefly: ignore[missing-attribute]
+    nasal_consonant.update_descriptives(phf.nasal)  # pyrefly: ignore[missing-attribute]
   for stop_consonant in [
-      ph.b,
-      ph.c,
-      ph.d,
-      ph.dd,
-      ph.g,
-      ph.gy,
-      ph.j,
-      ph.k,
-      ph.ky,
-      ph.p,
-      ph.q,
-      ph.t,
-      ph.tt,
-      ph.x,
+      ph.b,  # pyrefly: ignore[missing-attribute]
+      ph.c,  # pyrefly: ignore[missing-attribute]
+      ph.d,  # pyrefly: ignore[missing-attribute]
+      ph.dd,  # pyrefly: ignore[missing-attribute]
+      ph.g,  # pyrefly: ignore[missing-attribute]
+      ph.gy,  # pyrefly: ignore[missing-attribute]
+      ph.j,  # pyrefly: ignore[missing-attribute]
+      ph.k,  # pyrefly: ignore[missing-attribute]
+      ph.ky,  # pyrefly: ignore[missing-attribute]
+      ph.p,  # pyrefly: ignore[missing-attribute]
+      ph.q,  # pyrefly: ignore[missing-attribute]
+      ph.t,  # pyrefly: ignore[missing-attribute]
+      ph.tt,  # pyrefly: ignore[missing-attribute]
+      ph.x,  # pyrefly: ignore[missing-attribute]
   ]:
-    stop_consonant.update_descriptives(phf.manner.stop)
+    stop_consonant.update_descriptives(phf.manner.stop)  # pyrefly: ignore[missing-attribute]
   for sibilant_fricative in [
-      ph.s,
-      ph.sh,
-      ph.ss,
-      ph.sy,
-      ph.z,
-      ph.zh,
-      ph.zy,
-      ph.zz,
+      ph.s,  # pyrefly: ignore[missing-attribute]
+      ph.sh,  # pyrefly: ignore[missing-attribute]
+      ph.ss,  # pyrefly: ignore[missing-attribute]
+      ph.sy,  # pyrefly: ignore[missing-attribute]
+      ph.z,  # pyrefly: ignore[missing-attribute]
+      ph.zh,  # pyrefly: ignore[missing-attribute]
+      ph.zy,  # pyrefly: ignore[missing-attribute]
+      ph.zz,  # pyrefly: ignore[missing-attribute]
   ]:
-    sibilant_fricative.update_descriptives(phf.manner.sibilant)
+    sibilant_fricative.update_descriptives(phf.manner.sibilant)  # pyrefly: ignore[missing-attribute]
   for nonsibilant_fricative in [
-      ph.bh,
-      ph.ch,
-      ph.cha,
-      ph.dh,
-      ph.f,
-      ph.gh,
-      ph.h,
-      ph.ha,
-      ph.hw,
-      ph.hy,
-      ph.jh,
-      ph.kh,
-      ph.ph,
-      ph.qh,
-      ph.sj,
-      ph.th,
-      ph.v,
-      ph.yy,
+      ph.bh,  # pyrefly: ignore[missing-attribute]
+      ph.ch,  # pyrefly: ignore[missing-attribute]
+      ph.cha,  # pyrefly: ignore[missing-attribute]
+      ph.dh,  # pyrefly: ignore[missing-attribute]
+      ph.f,  # pyrefly: ignore[missing-attribute]
+      ph.gh,  # pyrefly: ignore[missing-attribute]
+      ph.h,  # pyrefly: ignore[missing-attribute]
+      ph.ha,  # pyrefly: ignore[missing-attribute]
+      ph.hw,  # pyrefly: ignore[missing-attribute]
+      ph.hy,  # pyrefly: ignore[missing-attribute]
+      ph.jh,  # pyrefly: ignore[missing-attribute]
+      ph.kh,  # pyrefly: ignore[missing-attribute]
+      ph.ph,  # pyrefly: ignore[missing-attribute]
+      ph.qh,  # pyrefly: ignore[missing-attribute]
+      ph.sj,  # pyrefly: ignore[missing-attribute]
+      ph.th,  # pyrefly: ignore[missing-attribute]
+      ph.v,  # pyrefly: ignore[missing-attribute]
+      ph.yy,  # pyrefly: ignore[missing-attribute]
   ]:
-    nonsibilant_fricative.update_descriptives(phf.manner.non_sibilant)
-  for approximant_consonant in [ph.gu, ph.rru, ph.ru, ph.vu, ph.w, ph.y, ph.yw]:
-    approximant_consonant.update_descriptives(phf.manner.approximant)
-  for tap_consonant in [ph.rd, ph.rt, ph.vt]:
-    tap_consonant.update_descriptives(phf.manner.tap)
-  for trill_consonant in [ph.bb, ph.hh, ph.hho, ph.r, ph.rj]:
-    trill_consonant.update_descriptives(phf.manner.trill)
-  for lateral_fricative in [ph.sl, ph.ssl, ph.zl]:
-    lateral_fricative.update_descriptives(phf.lateral_fricative)
-  for lateral_approximant in [ph.l, ph.lg, ph.ll, ph.lw, ph.ly]:
-    lateral_approximant.update_descriptives(phf.lateral_approximant)
-  for lateral_tap in [ph.rl]:
+    nonsibilant_fricative.update_descriptives(phf.manner.non_sibilant)  # pyrefly: ignore[missing-attribute]
+  for approximant_consonant in [ph.gu, ph.rru, ph.ru, ph.vu, ph.w, ph.y, ph.yw]:  # pyrefly: ignore[missing-attribute]
+    approximant_consonant.update_descriptives(phf.manner.approximant)  # pyrefly: ignore[missing-attribute]
+  for tap_consonant in [ph.rd, ph.rt, ph.vt]:  # pyrefly: ignore[missing-attribute]
+    tap_consonant.update_descriptives(phf.manner.tap)  # pyrefly: ignore[missing-attribute]
+  for trill_consonant in [ph.bb, ph.hh, ph.hho, ph.r, ph.rj]:  # pyrefly: ignore[missing-attribute]
+    trill_consonant.update_descriptives(phf.manner.trill)  # pyrefly: ignore[missing-attribute]
+  for lateral_fricative in [ph.sl, ph.ssl, ph.zl]:  # pyrefly: ignore[missing-attribute]
+    lateral_fricative.update_descriptives(phf.lateral_fricative)  # pyrefly: ignore[missing-attribute]
+  for lateral_approximant in [ph.l, ph.lg, ph.ll, ph.lw, ph.ly]:  # pyrefly: ignore[missing-attribute]
+    lateral_approximant.update_descriptives(phf.lateral_approximant)  # pyrefly: ignore[missing-attribute]
+  for lateral_tap in [ph.rl]:  # pyrefly: ignore[missing-attribute]
     lateral_tap.update_descriptives(
-        phf.lateral_approximant
-    ).update_descriptives(phf.manner.tap)
+        phf.lateral_approximant  # pyrefly: ignore[missing-attribute]
+    ).update_descriptives(phf.manner.tap)  # pyrefly: ignore[missing-attribute]
 
   # Default place of articulation from IPA consonant table columns.
 
-  for bilabial_consonant in [ph.b, ph.bb, ph.bh, ph.m, ph.p, ph.ph]:
-    bilabial_consonant.update_descriptives(phf.bilabial)
-  for labiodental_consonant in [ph.f, ph.mi, ph.v, ph.vt, ph.vu]:
-    labiodental_consonant.update_descriptives(phf.labiodental)
+  for bilabial_consonant in [ph.b, ph.bb, ph.bh, ph.m, ph.p, ph.ph]:  # pyrefly: ignore[missing-attribute]
+    bilabial_consonant.update_descriptives(phf.bilabial)  # pyrefly: ignore[missing-attribute]
+  for labiodental_consonant in [ph.f, ph.mi, ph.v, ph.vt, ph.vu]:  # pyrefly: ignore[missing-attribute]
+    labiodental_consonant.update_descriptives(phf.labiodental)  # pyrefly: ignore[missing-attribute]
   for dental_consonant in [
-      ph.dh,
-      ph.th,
+      ph.dh,  # pyrefly: ignore[missing-attribute]
+      ph.th,  # pyrefly: ignore[missing-attribute]
   ]:
-    dental_consonant.update_descriptives(phf.dental)
-  for dental_alveolar_consonant in [ph.s, ph.z]:
-    dental_alveolar_consonant.update_descriptives(phf.dental, phf.alveolar)
+    dental_consonant.update_descriptives(phf.dental)  # pyrefly: ignore[missing-attribute]
+  for dental_alveolar_consonant in [ph.s, ph.z]:  # pyrefly: ignore[missing-attribute]
+    dental_alveolar_consonant.update_descriptives(phf.dental, phf.alveolar)  # pyrefly: ignore[missing-attribute]
   for para_alveolar_consonant in [
-      ph.d,
-      ph.l,
-      ph.n,
-      ph.r,
-      ph.rl,
-      ph.rt,
-      ph.ru,
-      ph.sl,
-      ph.t,
-      ph.zl,
+      ph.d,  # pyrefly: ignore[missing-attribute]
+      ph.l,  # pyrefly: ignore[missing-attribute]
+      ph.n,  # pyrefly: ignore[missing-attribute]
+      ph.r,  # pyrefly: ignore[missing-attribute]
+      ph.rl,  # pyrefly: ignore[missing-attribute]
+      ph.rt,  # pyrefly: ignore[missing-attribute]
+      ph.ru,  # pyrefly: ignore[missing-attribute]
+      ph.sl,  # pyrefly: ignore[missing-attribute]
+      ph.t,  # pyrefly: ignore[missing-attribute]
+      ph.zl,  # pyrefly: ignore[missing-attribute]
   ]:
-    para_alveolar_consonant.update_descriptives(phf.para_alveolar)
-  for postalveolar_consonant in [ph.sh, ph.zh]:
-    postalveolar_consonant.update_descriptives(phf.postalveolar)
+    para_alveolar_consonant.update_descriptives(phf.para_alveolar)  # pyrefly: ignore[missing-attribute]
+  for postalveolar_consonant in [ph.sh, ph.zh]:  # pyrefly: ignore[missing-attribute]
+    postalveolar_consonant.update_descriptives(phf.postalveolar)  # pyrefly: ignore[missing-attribute]
   for retroflex_consonant in [
-      ph.dd,
-      ph.ll,
-      ph.nn,
-      ph.rd,
-      ph.rru,
-      ph.ss,
-      ph.ssl,
-      ph.tt,
-      ph.zz,
+      ph.dd,  # pyrefly: ignore[missing-attribute]
+      ph.ll,  # pyrefly: ignore[missing-attribute]
+      ph.nn,  # pyrefly: ignore[missing-attribute]
+      ph.rd,  # pyrefly: ignore[missing-attribute]
+      ph.rru,  # pyrefly: ignore[missing-attribute]
+      ph.ss,  # pyrefly: ignore[missing-attribute]
+      ph.ssl,  # pyrefly: ignore[missing-attribute]
+      ph.tt,  # pyrefly: ignore[missing-attribute]
+      ph.zz,  # pyrefly: ignore[missing-attribute]
   ]:
-    retroflex_consonant.update_descriptives(phf.retroflex)
+    retroflex_consonant.update_descriptives(phf.retroflex)  # pyrefly: ignore[missing-attribute]
   for palatal_consonant in [
-      ph.gy,
-      ph.hy,
-      ph.ky,
-      ph.ly,
-      ph.ny,
-      ph.sy,
-      ph.y,
-      ph.yw,
-      ph.yy,
-      ph.zy,
+      ph.gy,  # pyrefly: ignore[missing-attribute]
+      ph.hy,  # pyrefly: ignore[missing-attribute]
+      ph.ky,  # pyrefly: ignore[missing-attribute]
+      ph.ly,  # pyrefly: ignore[missing-attribute]
+      ph.ny,  # pyrefly: ignore[missing-attribute]
+      ph.sy,  # pyrefly: ignore[missing-attribute]
+      ph.y,  # pyrefly: ignore[missing-attribute]
+      ph.yw,  # pyrefly: ignore[missing-attribute]
+      ph.yy,  # pyrefly: ignore[missing-attribute]
+      ph.zy,  # pyrefly: ignore[missing-attribute]
   ]:
-    palatal_consonant.update_descriptives(phf.palatal)
+    palatal_consonant.update_descriptives(phf.palatal)  # pyrefly: ignore[missing-attribute]
   for velar_consonant in [
-      ph.g,
-      ph.gh,
-      ph.gu,
-      ph.hw,
-      ph.k,
-      ph.kh,
-      ph.lg,
-      ph.lw,
-      ph.ng,
-      ph.sj,
-      ph.w,
+      ph.g,  # pyrefly: ignore[missing-attribute]
+      ph.gh,  # pyrefly: ignore[missing-attribute]
+      ph.gu,  # pyrefly: ignore[missing-attribute]
+      ph.hw,  # pyrefly: ignore[missing-attribute]
+      ph.k,  # pyrefly: ignore[missing-attribute]
+      ph.kh,  # pyrefly: ignore[missing-attribute]
+      ph.lg,  # pyrefly: ignore[missing-attribute]
+      ph.lw,  # pyrefly: ignore[missing-attribute]
+      ph.ng,  # pyrefly: ignore[missing-attribute]
+      ph.sj,  # pyrefly: ignore[missing-attribute]
+      ph.w,  # pyrefly: ignore[missing-attribute]
   ]:
-    velar_consonant.update_descriptives(phf.velar)
-  for uvular_consonant in [ph.j, ph.jh, ph.nj, ph.q, ph.qh, ph.rj]:
-    uvular_consonant.update_descriptives(phf.uvular)
-  for epiglottal_consonant in [ph.c, ph.ch, ph.cha, ph.hh, ph.hho]:
-    epiglottal_consonant.update_descriptives(phf.epiglottal)
-  for glottal_consonant in [ph.h, ph.ha, ph.x]:
-    glottal_consonant.update_descriptives(phf.glottal)
+    velar_consonant.update_descriptives(phf.velar)  # pyrefly: ignore[missing-attribute]
+  for uvular_consonant in [ph.j, ph.jh, ph.nj, ph.q, ph.qh, ph.rj]:  # pyrefly: ignore[missing-attribute]
+    uvular_consonant.update_descriptives(phf.uvular)  # pyrefly: ignore[missing-attribute]
+  for epiglottal_consonant in [ph.c, ph.ch, ph.cha, ph.hh, ph.hho]:  # pyrefly: ignore[missing-attribute]
+    epiglottal_consonant.update_descriptives(phf.epiglottal)  # pyrefly: ignore[missing-attribute]
+  for glottal_consonant in [ph.h, ph.ha, ph.x]:  # pyrefly: ignore[missing-attribute]
+    glottal_consonant.update_descriptives(phf.glottal)  # pyrefly: ignore[missing-attribute]
 
   # Update voicing for stops and fricatives.
 
   for voiceless_consonant in [
-      ph.c,
-      ph.ch,
-      ph.f,
-      ph.h,
-      ph.hho,
-      ph.hw,
-      ph.hy,
-      ph.k,
-      ph.kh,
-      ph.ky,
-      ph.p,
-      ph.ph,
-      ph.q,
-      ph.qh,
-      ph.s,
-      ph.sh,
-      ph.sj,
-      ph.sl,
-      ph.ss,
-      ph.ssl,
-      ph.sy,
-      ph.t,
-      ph.th,
-      ph.tt,
-      ph.x,
+      ph.c,  # pyrefly: ignore[missing-attribute]
+      ph.ch,  # pyrefly: ignore[missing-attribute]
+      ph.f,  # pyrefly: ignore[missing-attribute]
+      ph.h,  # pyrefly: ignore[missing-attribute]
+      ph.hho,  # pyrefly: ignore[missing-attribute]
+      ph.hw,  # pyrefly: ignore[missing-attribute]
+      ph.hy,  # pyrefly: ignore[missing-attribute]
+      ph.k,  # pyrefly: ignore[missing-attribute]
+      ph.kh,  # pyrefly: ignore[missing-attribute]
+      ph.ky,  # pyrefly: ignore[missing-attribute]
+      ph.p,  # pyrefly: ignore[missing-attribute]
+      ph.ph,  # pyrefly: ignore[missing-attribute]
+      ph.q,  # pyrefly: ignore[missing-attribute]
+      ph.qh,  # pyrefly: ignore[missing-attribute]
+      ph.s,  # pyrefly: ignore[missing-attribute]
+      ph.sh,  # pyrefly: ignore[missing-attribute]
+      ph.sj,  # pyrefly: ignore[missing-attribute]
+      ph.sl,  # pyrefly: ignore[missing-attribute]
+      ph.ss,  # pyrefly: ignore[missing-attribute]
+      ph.ssl,  # pyrefly: ignore[missing-attribute]
+      ph.sy,  # pyrefly: ignore[missing-attribute]
+      ph.t,  # pyrefly: ignore[missing-attribute]
+      ph.th,  # pyrefly: ignore[missing-attribute]
+      ph.tt,  # pyrefly: ignore[missing-attribute]
+      ph.x,  # pyrefly: ignore[missing-attribute]
   ]:
-    voiceless_consonant.update_descriptives(phf.voicing.voiceless)
+    voiceless_consonant.update_descriptives(phf.voicing.voiceless)  # pyrefly: ignore[missing-attribute]
   for voiced_consonant in [
-      ph.b,
-      ph.bh,
-      ph.cha,
-      ph.d,
-      ph.dd,
-      ph.dh,
-      ph.g,
-      ph.gh,
-      ph.gy,
-      ph.ha,
-      ph.j,
-      ph.jh,
-      ph.v,
-      ph.yy,
-      ph.z,
-      ph.zh,
-      ph.zl,
-      ph.zy,
-      ph.zz,
+      ph.b,  # pyrefly: ignore[missing-attribute]
+      ph.bh,  # pyrefly: ignore[missing-attribute]
+      ph.cha,  # pyrefly: ignore[missing-attribute]
+      ph.d,  # pyrefly: ignore[missing-attribute]
+      ph.dd,  # pyrefly: ignore[missing-attribute]
+      ph.dh,  # pyrefly: ignore[missing-attribute]
+      ph.g,  # pyrefly: ignore[missing-attribute]
+      ph.gh,  # pyrefly: ignore[missing-attribute]
+      ph.gy,  # pyrefly: ignore[missing-attribute]
+      ph.ha,  # pyrefly: ignore[missing-attribute]
+      ph.j,  # pyrefly: ignore[missing-attribute]
+      ph.jh,  # pyrefly: ignore[missing-attribute]
+      ph.v,  # pyrefly: ignore[missing-attribute]
+      ph.yy,  # pyrefly: ignore[missing-attribute]
+      ph.z,  # pyrefly: ignore[missing-attribute]
+      ph.zh,  # pyrefly: ignore[missing-attribute]
+      ph.zl,  # pyrefly: ignore[missing-attribute]
+      ph.zy,  # pyrefly: ignore[missing-attribute]
+      ph.zz,  # pyrefly: ignore[missing-attribute]
   ]:
-    voiced_consonant.update_descriptives(phf.voicing.voiced)
+    voiced_consonant.update_descriptives(phf.voicing.voiced)  # pyrefly: ignore[missing-attribute]
 
   # Add secondary articulations.
 
-  for labialized_consonant in [ph.hw, ph.lw, ph.w, ph.yw]:
-    labialized_consonant.update_descriptives(phf.labialization.labialized)
-  for palatalized_consonant in [ph.sj]:
-    palatalized_consonant.update_descriptives(phf.palatalization.heavy)
-  return ph.sync_atomics()
+  for labialized_consonant in [ph.hw, ph.lw, ph.w, ph.yw]:  # pyrefly: ignore[missing-attribute]
+    labialized_consonant.update_descriptives(phf.labialization.labialized)  # pyrefly: ignore[missing-attribute]
+  for palatalized_consonant in [ph.sj]:  # pyrefly: ignore[missing-attribute]
+    palatalized_consonant.update_descriptives(phf.palatalization.heavy)  # pyrefly: ignore[missing-attribute]
+  return ph.sync_atomics()  # pyrefly: ignore[bad-return]
 
 
 PHONEMES = _phoneme_inventory()

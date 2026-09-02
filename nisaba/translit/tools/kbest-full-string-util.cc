@@ -22,7 +22,6 @@
 #include <utility>
 #include <vector>
 
-#include "ngram/ngram-count.h"
 #include "absl/container/flat_hash_set.h"
 #include "absl/log/check.h"
 #include "absl/strings/str_cat.h"
@@ -41,6 +40,7 @@
 #include "fst/shortest-path.h"
 #include "fst/symbol-table.h"
 #include "fst/vector-fst.h"
+#include "third_party/opengrm/sfst/ngram-count.h"
 
 namespace nisaba {
 namespace translit {
@@ -98,14 +98,13 @@ int GetWordCount(const std::string &str) {
 
 // Counts position-specific word occurrences in weighted k-best list.
 StdVectorFst CountPosSyms(const StdVectorFst &fst) {
-  std::unique_ptr<ngram::NGramCounter<Log64Weight>> ngram_counter(
-      new ngram::NGramCounter<Log64Weight>(/*order=*/1, false));
+  sfst::NGramCounter<Log64Weight> ngram_counter(/*order=*/1, false);
   StdToLogMapper std2log_mapper;
   VectorFst<LogArc> log_fst;
   ArcMap(fst, &log_fst, std2log_mapper);
-  CHECK(ngram_counter->Count(log_fst));
+  CHECK(ngram_counter.Count(log_fst));
   StdVectorFst count_fst;
-  ngram_counter->GetFst(&count_fst);
+  ngram_counter.GetFst(&count_fst);
   ArcSort(&count_fst, ILabelCompare<StdArc>());
   return count_fst;
 }

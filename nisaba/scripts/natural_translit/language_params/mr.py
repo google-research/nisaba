@@ -26,20 +26,20 @@ from nisaba.scripts.natural_translit.utils import fst_list as fl
 ph = psa.PHONEME_INVENTORY
 
 _ONSET_CL = fl.FstList(
-    cc.concat_r(ph.K, ph.SH),
-    cc.concat_r(ph.S, (ph.T | ph.RT | ph.NI | ph.Y | ph.VU)),
-    cc.concat_r((ph.VU | ph.NI), ph.Y),
-    cc.concat_r((ph.K | ph.P | ph.G | ph.DI | ph.SH), ph.RT),
+    cc.concat_r(ph.K, ph.SH),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r(ph.S, (ph.T | ph.RT | ph.NI | ph.Y | ph.VU)),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r((ph.VU | ph.NI), ph.Y),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r((ph.K | ph.P | ph.G | ph.DI | ph.SH), ph.RT),  # pyrefly: ignore[missing-attribute]
 ).union_opt()
 
 
 _CODA_CL = fl.FstList(
-    cc.concat_r(ph.CONSONANT, ph.STOP),
-    cc.concat_r(ph.VOICED, ph.NASAL),
-    cc.concat_r((ph.FRICATIVE - ph.H), (ph.NASAL - ph.M)),
-    cc.concat_r(ph.SIBILANT, ph.M),
-    cc.concat_r((ph.LIQUID | ph.NASAL), ph.NASAL),
-    cc.concat_r(ph.RHOTIC, ph.RHOTIC),
+    cc.concat_r(ph.CONSONANT, ph.STOP),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r(ph.VOICED, ph.NASAL),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r((ph.FRICATIVE - ph.H), (ph.NASAL - ph.M)),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r(ph.SIBILANT, ph.M),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r((ph.LIQUID | ph.NASAL), ph.NASAL),  # pyrefly: ignore[missing-attribute]
+    cc.concat_r(ph.RHOTIC, ph.RHOTIC),  # pyrefly: ignore[missing-attribute]
 ).union_opt()
 
 _PROCESS_SCHWA = g2p.process_schwa(_ONSET_CL, _CODA_CL)

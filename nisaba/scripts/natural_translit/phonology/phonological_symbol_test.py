@@ -30,25 +30,25 @@ def _test_inventory() -> po.Phon.Inventory:
   ]
   ph_inv.add_phonemes(
       *(
-          po.Phon(alias=alias, ipa=ipa, name=name, features=phf.vowel)
+          po.Phon(alias=alias, ipa=ipa, name=name, features=phf.vowel)  # pyrefly: ignore[missing-attribute]
           for ipa, alias, name in vowels
       ),
       list_alias='vowel',
   )
   # Default heights from IPA vowel table.
-  ph_inv.a.update_descriptives(
-      phf.height.open, phf.backness.front, phf.labialization.unrounded
+  ph_inv.a.update_descriptives(  # pyrefly: ignore[missing-attribute]
+      phf.height.open, phf.backness.front, phf.labialization.unrounded  # pyrefly: ignore[missing-attribute]
   )
-  ph_inv.e.update_descriptives(
-      phf.height.close_mid, phf.backness.front, phf.labialization.unrounded
+  ph_inv.e.update_descriptives(  # pyrefly: ignore[missing-attribute]
+      phf.height.close_mid, phf.backness.front, phf.labialization.unrounded  # pyrefly: ignore[missing-attribute]
   )
-  ph_inv.i.update_descriptives(
-      phf.height.close, phf.backness.front, phf.labialization.unrounded
+  ph_inv.i.update_descriptives(  # pyrefly: ignore[missing-attribute]
+      phf.height.close, phf.backness.front, phf.labialization.unrounded  # pyrefly: ignore[missing-attribute]
   )
-  ph_inv.make_iterable_suppl('close_like', ph_inv.e)
-  ph_inv.or_from_suppl(ph_inv.close_like)
-  ph_inv.close_like.add(ph_inv.i)
-  return ph_inv.sync_atomics([ph_inv.vowel, ph_inv.close_like])
+  ph_inv.make_iterable_suppl('close_like', ph_inv.e)  # pyrefly: ignore[missing-attribute]
+  ph_inv.or_from_suppl(ph_inv.close_like)  # pyrefly: ignore[missing-attribute]
+  ph_inv.close_like.add(ph_inv.i)  # pyrefly: ignore[missing-attribute]
+  return ph_inv.sync_atomics([ph_inv.vowel, ph_inv.close_like])  # pyrefly: ignore[bad-return, missing-attribute]
 
 
 _TEST = _test_inventory()
@@ -59,28 +59,28 @@ class PhonologicalSymbolTest(test_op.TestCase):
   def test_phon_inventory(self):
     self.assertEqual(_TEST.alias, 'en')
     self.assertEqual(_TEST.language, _LANG.en)
-    self.assertEqual(_TEST.a.language, _LANG.en)
+    self.assertEqual(_TEST.a.language, _LANG.en)  # pyrefly: ignore[missing-attribute]
     self.assertEqual(
-        _TEST.a.index,
+        _TEST.a.index,  # pyrefly: ignore[missing-attribute]
         po.Phon.ReservedIndex.PHONEME_PREFIX
         + _LANG.en.index * po.Phon.LANG_PREFIX_MULTIPLIER
         + 1,
     )
-    self.assertIn(_TEST.a, _TEST.vowel)
+    self.assertIn(_TEST.a, _TEST.vowel)  # pyrefly: ignore[missing-attribute]
 
   def test_has_feature(self):
-    self.AssertHasFeature(_TEST.a, _LANG.en)
-    self.AssertHasFeature(_TEST.a, _LANG.germanic)
-    self.AssertHasFeature(_TEST.a, _LANG.indo_european)
-    self.AssertNotHasFeature(_TEST.a, _LANG.indo_aryan)
-    self.AssertNotHasFeature(_TEST.a, _LANG.x_uni)
+    self.AssertHasFeature(_TEST.a, _LANG.en)  # pyrefly: ignore[missing-attribute]
+    self.AssertHasFeature(_TEST.a, _LANG.germanic)  # pyrefly: ignore[missing-attribute]
+    self.AssertHasFeature(_TEST.a, _LANG.indo_european)  # pyrefly: ignore[missing-attribute]
+    self.AssertNotHasFeature(_TEST.a, _LANG.indo_aryan)  # pyrefly: ignore[missing-attribute]
+    self.AssertNotHasFeature(_TEST.a, _LANG.x_uni)  # pyrefly: ignore[missing-attribute]
     self.AssertHasFeature(
-        _TEST.i, po.Phon.DESCRIPTIVE_FEATURES.ph_class.vowel
+        _TEST.i, po.Phon.DESCRIPTIVE_FEATURES.ph_class.vowel  # pyrefly: ignore[missing-attribute]
     )
 
   def test_phon_description(self):
     self.assertEqual(
-        _TEST.a.description(show_features=True),
+        _TEST.a.description(show_features=True),  # pyrefly: ignore[missing-attribute]
         'alias: a\tipa: a\tname: open front unrounded vowel\n'
         '  a features:\n\n'
         '| aspects          | values         |\n'
@@ -108,7 +108,7 @@ class PhonologicalSymbolTest(test_op.TestCase):
 
   def test_phon_copy(self):
     self.assertEqual(
-        _TEST.a.copy(alias='a_copy').description(show_features=True),
+        _TEST.a.copy(alias='a_copy').description(show_features=True),  # pyrefly: ignore[missing-attribute]
         'alias: a_copy\tipa: a\tname: open front unrounded vowel\n'
         '  a_copy features:\n\n'
         '| aspects          | values         |\n'
@@ -136,8 +136,8 @@ class PhonologicalSymbolTest(test_op.TestCase):
 
   def test_phon_update_descriptives(self):
     self.assertEqual(
-        _TEST.e.copy(alias='ee', ipa='e̞')
-        .update_descriptives(po.Phon.DESCRIPTIVE_FEATURES.height.mid)
+        _TEST.e.copy(alias='ee', ipa='e̞')  # pyrefly: ignore[missing-attribute]
+        .update_descriptives(po.Phon.DESCRIPTIVE_FEATURES.height.mid)  # pyrefly: ignore[missing-attribute]
         .description(show_features=True),
         'alias: ee\tipa: e̞\tname: close_mid front unrounded vowel\n'
         '  ee features:\n\n'
@@ -165,9 +165,9 @@ class PhonologicalSymbolTest(test_op.TestCase):
     )
 
   def test_sync_atomics(self):
-    self.AssertStrEqual(_TEST.atomics.a.features, _TEST.a.features)
-    self.AssertStrEqual(_TEST.atomics.vowel, '(a | e | i)')
-    self.AssertStrEqual(_TEST.atomics.close_like, '(e | i)')
+    self.AssertStrEqual(_TEST.atomics.a.features, _TEST.a.features)  # pyrefly: ignore[missing-attribute]
+    self.AssertStrEqual(_TEST.atomics.vowel, '(a | e | i)')  # pyrefly: ignore[missing-attribute]
+    self.AssertStrEqual(_TEST.atomics.close_like, '(e | i)')  # pyrefly: ignore[missing-attribute]
 
 if __name__ == '__main__':
   absltest.main()

@@ -17,6 +17,7 @@
 import itertools
 
 import pynini
+
 from absl.testing import absltest
 from absl.testing import parameterized
 from nisaba.scripts.abjad_alphabet import util as u

@@ -95,11 +95,11 @@ class Lattice(ty.Thing):
     if error.fst is not self.fst:
       error.fst = self.fst
     if not self.error.has_state():
-      self.error.state = self.fst.add_state()
+      self.error.state = self.fst.add_state()  # pyrefly: ignore[bad-assignment]
     if populate:
       for row in self._nodes:
         for node in row:
-          node.state = self.fst.add_state()
+          node.state = self.fst.add_state()  # pyrefly: ignore[bad-assignment]
 
   def __str__(self):
     return self.text
@@ -139,7 +139,7 @@ class Lattice(ty.Thing):
     text = f'{self.text}({x},{y})'
     node = Node(alias, text, x, y, self.fst)
     if populate:
-      node.state = self.fst.add_state()
+      node.state = self.fst.add_state()  # pyrefly: ignore[bad-assignment]
     return node
 
   def node(self, x: int, y: int) -> Node:
@@ -173,7 +173,7 @@ class Lattice(ty.Thing):
     """
     node = self.node(x, y)
     if not node.has_state():
-      node.state = self.fst.add_state()
+      node.state = self.fst.add_state()  # pyrefly: ignore[bad-assignment]
     if isinstance(node.state, int):
       return log.dbg_return(node.state)
     else:

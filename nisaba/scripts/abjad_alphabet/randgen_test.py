@@ -31,19 +31,19 @@ class FstRandgenTest(parameterized.TestCase, test_util.FstRandgenTestCase):
     natv_to_latin = far['FROM_ARAB']
     latin_to_natv = far['TO_ARAB']
     self.AssertFstProbablyIdentity(
-        [natv_to_latin, latin_to_natv], token_type, nfc)
+        [natv_to_latin, latin_to_natv], token_type, nfc)  # pyrefly: ignore[bad-argument-type]
 
   @parameterized.parameters(itertools.product(
       ('visual_norm', 'reading_norm'), u.LANGS, ('byte', 'utf8')))
   def test_visual_or_reading_norm(self, far_name: str, lang: str,
                                   token_type: str):
     fst = u.open_fst_from_far(far_name, lang, token_type)
-    self.AssertFstProbablyFunctional(fst, token_type)
+    self.AssertFstProbablyFunctional(fst, token_type)  # pyrefly: ignore[bad-argument-type]
 
   @parameterized.parameters('byte', 'utf8')
   def test_nfc(self, token_type: str):
     fst = u.open_fst_from_far('nfc', 'ARAB', token_type)
-    self.AssertFstProbablyFunctional(fst, token_type)
+    self.AssertFstProbablyFunctional(fst, token_type)  # pyrefly: ignore[bad-argument-type]
 
 
 if __name__ == '__main__':
