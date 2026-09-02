@@ -28,68 +28,68 @@ drm = dm.DEROMANIZATION_INVENTORY
 class DeromInventoryTest(test_op.TestCase):
 
   def test_independent_vowel(self):
-    self.AssertEqualValue(dm._independent_vowel(iso.AA), iso.AA_I)
+    self.AssertEqualValue(dm._independent_vowel(iso.AA), iso.AA_I)  # pyrefly: ignore[missing-attribute]
 
   def test_long_vowel(self):
-    self.AssertEqualValue(dm._long_vowel(iso.I), iso.II)
+    self.AssertEqualValue(dm._long_vowel(iso.I), iso.II)  # pyrefly: ignore[missing-attribute]
 
   def test_long_independent_vwl(self):
     self.AssertEqualValue(
-        dm._independent_vowel(dm._long_vowel(iso.U)), iso.UU_I
+        dm._independent_vowel(dm._long_vowel(iso.U)), iso.UU_I  # pyrefly: ignore[bad-argument-type, missing-attribute]
     )
 
   def test_aspirated_consonant(self):
-    self.AssertEqualValue(dm._aspirated_consonant(iso.C), iso.CH)
+    self.AssertEqualValue(dm._aspirated_consonant(iso.C), iso.CH)  # pyrefly: ignore[missing-attribute]
 
   def test_get(self):
-    self.AssertEqualValue(drm.f.get('frg'), iso.F)
+    self.AssertEqualValue(drm.f.get('frg'), iso.F)  # pyrefly: ignore[missing-attribute]
 
   def test_as_list(self):
     self.assertEqual(
-        dm.DeromMapping.as_list(drm.a, [drm.b, drm.c]),
-        [drm.a, drm.b, drm.c],
+        dm.DeromMapping.as_list(drm.a, [drm.b, drm.c]),  # pyrefly: ignore[missing-attribute]
+        [drm.a, drm.b, drm.c],  # pyrefly: ignore[missing-attribute]
     )
 
   def test_as_list_nothing(self):
     self.assertEmpty(dm.DeromMapping.as_list(ty.UNSPECIFIED))
 
   def test_vowel_fields(self):
-    self.AssertEqualValue(drm.i.rom, ltn.I)
-    self.AssertEqualValue(drm.i.rom_l, ltn.I + ltn.I)
-    self.AssertEqualValue(drm.i.brh, iso.I)
-    self.AssertEqualValue(drm.i.brh_i, iso.I_I)
-    self.AssertEqualValue(drm.i.brh_l, iso.II)
-    self.AssertEqualValue(drm.i.brh_l_i, iso.II_I)
+    self.AssertEqualValue(drm.i.rom, ltn.I)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.i.rom_l, ltn.I + ltn.I)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.i.brh, iso.I)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.i.brh_i, iso.I_I)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.i.brh_l, iso.II)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.i.brh_l_i, iso.II_I)  # pyrefly: ignore[missing-attribute]
 
   def test_vowel_field_missing(self):
-    self.assertFalse(hasattr(drm.ai, 'brh_l'))
+    self.assertFalse(hasattr(drm.ai, 'brh_l'))  # pyrefly: ignore[missing-attribute]
 
   def test_cons_fields(self):
-    self.AssertEqualValue(drm.p.rom, ltn.P)
-    self.AssertEqualValue(drm.p.rom_l, ltn.P + ltn.P)
-    self.AssertEqualValue(drm.p.rom_l_h, ltn.P + ltn.P + ltn.H)
-    self.AssertEqualValue(drm.p.rom_h_l, ltn.P + ltn.H + ltn.P + ltn.H)
-    self.AssertEqualValue(drm.p.brh, iso.P)
-    self.AssertEqualValue(drm.p.brh_v, iso.P + iso.VIR)
-    self.AssertEqualValue(drm.p.brh_l, iso.P + iso.VIR + iso.P)
-    self.AssertEqualValue(drm.p.brh_l_v, iso.P + iso.VIR + iso.P + iso.VIR)
-    self.AssertEqualValue(drm.p.brh_asp, iso.PH)
-    self.AssertEqualValue(drm.p.brh_asp_v, iso.PH + iso.VIR)
-    self.AssertEqualValue(drm.p.brh_l_asp, iso.P + iso.VIR + iso.PH)
-    self.AssertEqualValue(drm.p.brh_l_asp_v, iso.P + iso.VIR + iso.PH + iso.VIR)
-    self.AssertEqualValue(drm.p.brh_asp_l, iso.PH + iso.VIR + iso.PH)
+    self.AssertEqualValue(drm.p.rom, ltn.P)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.p.rom_l, ltn.P + ltn.P)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.p.rom_l_h, ltn.P + ltn.P + ltn.H)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.p.rom_h_l, ltn.P + ltn.H + ltn.P + ltn.H)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.p.brh, iso.P)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.p.brh_v, iso.P + iso.VIR)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.p.brh_l, iso.P + iso.VIR + iso.P)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.p.brh_l_v, iso.P + iso.VIR + iso.P + iso.VIR)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.p.brh_asp, iso.PH)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.p.brh_asp_v, iso.PH + iso.VIR)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.p.brh_l_asp, iso.P + iso.VIR + iso.PH)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.p.brh_l_asp_v, iso.P + iso.VIR + iso.PH + iso.VIR)  # pyrefly: ignore[missing-attribute]
+    self.AssertEqualValue(drm.p.brh_asp_l, iso.PH + iso.VIR + iso.PH)  # pyrefly: ignore[missing-attribute]
     self.AssertEqualValue(
-        drm.p.brh_asp_l_v, iso.PH + iso.VIR + iso.PH + iso.VIR
+        drm.p.brh_asp_l_v, iso.PH + iso.VIR + iso.PH + iso.VIR  # pyrefly: ignore[missing-attribute]
     )
 
   def test_cons_field_missing(self):
-    self.assertFalse(hasattr(drm.sh, 'brh_asp'))
+    self.assertFalse(hasattr(drm.sh, 'brh_asp'))  # pyrefly: ignore[missing-attribute]
 
   def test_high_priority(self):
-    self.assertTrue(drm.zh_lr.high_priority())
+    self.assertTrue(drm.zh_lr.high_priority())  # pyrefly: ignore[missing-attribute]
 
   def test_high_priority_false(self):
-    self.assertFalse(drm.z.high_priority())
+    self.assertFalse(drm.z.high_priority())  # pyrefly: ignore[missing-attribute]
 
 
 if __name__ == '__main__':

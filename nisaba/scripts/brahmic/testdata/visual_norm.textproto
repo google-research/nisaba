@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# proto-file: third_party/nisaba/interim/testing/testdata.proto
+# proto-file: third_party/opengrm/testing/testdata.proto
 # proto-message: Rewrites
 
 # Tests with legacy Chillu encoding, using Zero Width Joiner(ZWJ)
@@ -297,8 +297,8 @@ rewrite { rule: "TAKR" input: "𑚓𑚀𑚵" output: "𑚓𑚉" }
 
 # Some point examples of a visually split vowel with an anusvara in the middle:
 # <LETTER AA, SIGN ANUSVARA, VOWEL SIGN E> → <LETTER O, SIGN ANUSVARA>
-rewrite { rule: "DEVA" input: "अधिकारियांे" output: "अधिकारियों"}
-rewrite { rule: "DEVA" input: "वालांे" output: "वालों"}
+rewrite { rule: "DEVA" input: "अधिकारियांे" output: "अधिकारियों" }
+rewrite { rule: "DEVA" input: "वालांे" output: "वालों" }
 # <LETTER A, SIGN ANUSVARA, VOWEL SIGN CANDRA E> → <LETTER A, SIGN CANDRABINDU>
 rewrite { rule: "DEVA" input: "अंॅडी" output: "अँडी" }
 # <SIGN ANUSVARA, VOWEL SIGN CANDRA E> → <SIGN CANDRABINDU>

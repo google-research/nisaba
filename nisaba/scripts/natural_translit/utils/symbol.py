@@ -163,9 +163,9 @@ class Item(ty.Thing):
         [ℰ]: True
         any other argument returns False
     """
-    if search_for == [Symbol.CTRL.eps]:
+    if search_for == [Symbol.CTRL.eps]:  # pyrefly: ignore[missing-attribute]
       return True
-    if search_for == [Symbol.CTRL.nor]:
+    if search_for == [Symbol.CTRL.nor]:  # pyrefly: ignore[missing-attribute]
       return False
     if self.is_expression_any():
       return True
@@ -274,8 +274,8 @@ def _symbol_features() -> ft.Feature.Inventory:
           )
       ),
   )
-  ftr.add_profile('abstract', ftr.type.abst)
-  ftr.add_profile('raw', ftr.type.raw)
+  ftr.add_profile('abstract', ftr.type.abst)  # pyrefly: ignore[missing-attribute]
+  ftr.add_profile('raw', ftr.type.raw)  # pyrefly: ignore[missing-attribute]
   return ftr
 
 
@@ -333,24 +333,24 @@ class Symbol(Item):
     self.name = name if name else self.alias
     self.features = ft.Feature.MultiProfile(self.alias)
     if self.raw:
-      self.features.new_profile(self.SYM_FEATURES.raw)
+      self.features.new_profile(self.SYM_FEATURES.raw)  # pyrefly: ignore[missing-attribute]
     else:
-      self.features.new_profile(self.SYM_FEATURES.abstract)
+      self.features.new_profile(self.SYM_FEATURES.abstract)  # pyrefly: ignore[missing-attribute]
     self.add_features(features)
-    self.inventory = Symbol.Inventory.EMPTY
+    self.inventory = Symbol.Inventory.EMPTY  # pyrefly: ignore[missing-attribute]
     self.symbol = self
 
   def symbols(self) -> list[list[Symbol]]:
     return [[self.symbol]]
 
   def is_control(self) -> bool:
-    return self in Symbol.CTRL
+    return self in Symbol.CTRL  # pyrefly: ignore[missing-attribute]
 
   def is_eps(self) -> bool:
-    return self is Symbol.CTRL.eps
+    return self is Symbol.CTRL.eps  # pyrefly: ignore[missing-attribute]
 
   def is_nor(self) -> bool:
-    return self is Symbol.CTRL.nor
+    return self is Symbol.CTRL.nor  # pyrefly: ignore[missing-attribute]
 
   def description(self, show_features: bool = False) -> str:
     """A string that describes the symbol."""
@@ -363,6 +363,7 @@ class Symbol(Item):
       text += f'  name: {self.name}'
     if show_features:
       text += (
+          # pyrefly: ignore[missing-attribute]
           '\n   '
           f' {ft.Feature.Set(self.features.sym_features.type, alias="features")}'
       )
@@ -421,8 +422,8 @@ class Symbol(Item):
     ).items():
       if self.features.has_profile(feature_inventory):
         for aspect, values in aspect_dict.items():
-          aspect_values = self.features.get(aspect.inventory).get(aspect)
-          aspect_values.replace(old=(aspect.any), new=(values))
+          aspect_values = self.features.get(aspect.inventory).get(aspect)  # pyrefly: ignore[bad-argument-type]
+          aspect_values.replace(old=(aspect.any), new=(values))  # pyrefly: ignore[bad-argument-type, missing-attribute]
 
   def set_attribute(
       self,
@@ -506,12 +507,12 @@ class Symbol(Item):
     symbol.set_attribute(to_feature.text, symbol)
     self.set_attribute(
         to_feature.text,
-        symbol if not symbol.is_control() else Symbol.CTRL.nos,
+        symbol if not symbol.is_control() else Symbol.CTRL.nos,  # pyrefly: ignore[missing-attribute]
         from_feature if add_features else ty.UNSPECIFIED,
     )
     symbol.set_attribute(
         from_feature.text,
-        self if not self.is_control() else Symbol.CTRL.nos,
+        self if not self.is_control() else Symbol.CTRL.nos,  # pyrefly: ignore[missing-attribute]
         to_feature if add_features else ty.UNSPECIFIED,
     )
     if add_aspect:
@@ -546,8 +547,8 @@ class Symbol(Item):
       self.text_dict = {}
       self.prefix = Symbol.ReservedIndex.UNDEFINED_PREFIX
       self.unknown_count = 0
-      self.add_suppl(Symbol.CTRL)
-      for c in self.CTRL:
+      self.add_suppl(Symbol.CTRL)  # pyrefly: ignore[missing-attribute]
+      for c in self.CTRL:  # pyrefly: ignore[missing-attribute]
         self._add_to_dicts(c)
       self.add_symbols(*symbols)
 
@@ -562,7 +563,7 @@ class Symbol(Item):
       text = f'{self.header()}\n\n'
       for i in sorted(self.index_dict):
         sym = self.index_lookup(i)
-        if not show_control and sym in self.CTRL:
+        if not show_control and sym in self.CTRL:  # pyrefly: ignore[missing-attribute]
           continue
         text += f'### {sym.description(show_features)}\n'
       return text
@@ -587,7 +588,7 @@ class Symbol(Item):
       """Adds a symbol to the inventory."""
       if not self.add_item(sym):
         return False
-      if sym.inventory == Symbol.Inventory.EMPTY and sym not in self.CTRL:
+      if sym.inventory == Symbol.Inventory.EMPTY and sym not in self.CTRL:  # pyrefly: ignore[missing-attribute]
         sym.inventory = self
       self._add_to_dicts(sym)
       return True
@@ -632,8 +633,8 @@ class Symbol(Item):
       """
       if isinstance(source_dict, str):
         source_dict = getattr(self, source_dict, {})
-      return log.dbg_return(
-          source_dict.get(key, ty.type_check(default, Symbol.CTRL.unk))
+      return log.dbg_return(  # pyrefly: ignore[bad-return]
+          source_dict.get(key, ty.type_check(default, Symbol.CTRL.unk))  # pyrefly: ignore[missing-attribute]
       )
 
     def index_lookup(self, index: int) -> Symbol:
@@ -730,11 +731,11 @@ def _control_symbols() -> inventory.Inventory:
   return inventory.Inventory.from_list(
       [
           Symbol(
-              alias=alias,
-              text=text,
-              name=name,
-              index=index + Symbol.ReservedIndex.CONTROL_PREFIX,
-              features=Symbol.SYM_FEATURES.type.ctrl,
+              alias=alias,  # pyrefly: ignore[bad-argument-type]
+              text=text,  # pyrefly: ignore[bad-argument-type]
+              name=name,  # pyrefly: ignore[bad-argument-type]
+              index=index + Symbol.ReservedIndex.CONTROL_PREFIX,  # pyrefly: ignore[unsupported-operation]
+              features=Symbol.SYM_FEATURES.type.ctrl,  # pyrefly: ignore[missing-attribute]
           )
           for alias, text, name, index in control_args
       ],

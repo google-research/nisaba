@@ -20,6 +20,7 @@ from typing import TypeVar, Union
 
 from google.protobuf import message
 from google.protobuf import text_format
+
 import nisaba.scripts.utils.file as uf
 
 _ParsableT = TypeVar(
@@ -33,7 +34,7 @@ def read_textproto(
 ) -> _ParsableT:
   logging.info('Parsing %s ...', proto_path)
   if not os.path.exists(proto_path):
-    proto_path = uf.AsResourcePath(proto_path)
+    proto_path = uf.AsResourcePath(proto_path)  # pyrefly: ignore[bad-argument-type]
   with open(proto_path, encoding='utf8') as f:
     text_format.Parse(f.read(), proto)
   return proto

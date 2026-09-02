@@ -140,7 +140,7 @@ class Grapheme(ps.PhonologicalSymbol):
         raw=character,
         index=index,
         name=name,
-        features=ft.Feature.Set(cls.SYM_FEATURES.type.raw, features),
+        features=ft.Feature.Set(cls.SYM_FEATURES.type.raw, features),  # pyrefly: ignore[missing-attribute]
     )
 
   def description(self, show_features: bool = False) -> str:
@@ -177,7 +177,7 @@ class Grapheme(ps.PhonologicalSymbol):
       alias_prefix = language.alias + '_' if language else ''
       super().__init__(alias_prefix + script.alias, language, Grapheme)
       self.script = script
-      self.prefix = self._prefix()
+      self.prefix = self._prefix()  # pyrefly: ignore[bad-assignment]
 
     def _prefix(self) -> int:
       return (
@@ -228,4 +228,4 @@ class Grapheme(ps.PhonologicalSymbol):
 
     def raw_from_unknown(self, raw: str = '') -> Grapheme:
       new = Grapheme.from_char(raw)
-      return new if self._add_symbol_and_atomic(new) else self.CTRL.nor
+      return new if self._add_symbol_and_atomic(new) else self.CTRL.nor  # pyrefly: ignore[missing-attribute]

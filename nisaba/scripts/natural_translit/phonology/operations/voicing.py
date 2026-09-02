@@ -23,13 +23,13 @@ ph = mul.PHONEME_INVENTORY
 
 # Voicing
 
-K_G = (ph.K, ph.G)
-P_B = (ph.P, ph.B)
-T_D = (ph.T, ph.D)
-TI_DI = (ph.TI, ph.DI)
-TT_DD = (ph.TT, ph.DD)
-TSH_DZH = (ph.T_SH, ph.D_ZH)
-TSH_S = (ph.T_SH, ph.S)
+K_G = (ph.K, ph.G)  # pyrefly: ignore[missing-attribute]
+P_B = (ph.P, ph.B)  # pyrefly: ignore[missing-attribute]
+T_D = (ph.T, ph.D)  # pyrefly: ignore[missing-attribute]
+TI_DI = (ph.TI, ph.DI)  # pyrefly: ignore[missing-attribute]
+TT_DD = (ph.TT, ph.DD)  # pyrefly: ignore[missing-attribute]
+TSH_DZH = (ph.T_SH, ph.D_ZH)  # pyrefly: ignore[missing-attribute]
+TSH_S = (ph.T_SH, ph.S)  # pyrefly: ignore[missing-attribute]
 
 
 def voicing(

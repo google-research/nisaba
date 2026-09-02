@@ -29,17 +29,17 @@ drm = derom.DEROMANIZATION_INVENTORY
 
 deromanize = deromanizer.Deromanizer.params(
     script='taml',
-    monophthong=(drm.a, drm.e, drm.i, drm.o, drm.u),
-    diphthong=(drm.ai, drm.au, drm.ae_ee, drm.oa_oo),
+    monophthong=(drm.a, drm.e, drm.i, drm.o, drm.u),  # pyrefly: ignore[missing-attribute]
+    diphthong=(drm.ai, drm.au, drm.ae_ee, drm.oa_oo),  # pyrefly: ignore[missing-attribute]
     drops_aspirated=(
-        drm.b_p, drm.ch, drm.d_t, drm.g_k, drm.j, drm.k, drm.p, drm.t
+        drm.b_p, drm.ch, drm.d_t, drm.g_k, drm.j, drm.k, drm.p, drm.t  # pyrefly: ignore[missing-attribute]
     ),
     no_aspirated=(
-        drm.c, drm.h, drm.l, drm.m, drm.n, drm.q, drm.r, drm.s,
-        drm.sh, drm.v, drm.w, drm.x, drm.y, drm.zh_lr
+        drm.c, drm.h, drm.l, drm.m, drm.n, drm.q, drm.r, drm.s,  # pyrefly: ignore[missing-attribute]
+        drm.sh, drm.v, drm.w, drm.x, drm.y, drm.zh_lr  # pyrefly: ignore[missing-attribute]
     ),
-    only_geminated=(drm.tr_rr),
-    foreign=(drm.f, drm.z),
+    only_geminated=(drm.tr_rr),  # pyrefly: ignore[missing-attribute]
+    foreign=(drm.f, drm.z),  # pyrefly: ignore[missing-attribute]
 )
 
 ph = psa.PHONEME_INVENTORY
@@ -53,7 +53,7 @@ _VOICING_OP = [
     voicing.TSH_S,
 ]
 _VOICING_CONTEXT = fl.FstList(
-    ph.VOWEL, ph.APPROXIMANT, ph.NASAL, ph.RHOTIC
+    ph.VOWEL, ph.APPROXIMANT, ph.NASAL, ph.RHOTIC  # pyrefly: ignore[missing-attribute]
 ).union_opt()
 _VOICING = voicing.voicing(
     _VOICING_OP,
@@ -67,7 +67,7 @@ _C_WI = voicing.voicing(
 )
 _NY_TSH = voicing.voicing(
     [voicing.TSH_DZH],
-    ph.NY,
+    ph.NY,  # pyrefly: ignore[missing-attribute]
     _VOICING_CONTEXT,
 )
 

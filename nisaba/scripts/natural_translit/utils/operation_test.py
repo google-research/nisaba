@@ -15,7 +15,7 @@
 from absl.testing import absltest
 from nisaba.scripts.natural_translit.utils import operation as op
 
-_OPS = op.Operation.COMMON
+_OPS = op.Operation.COMMON  # pyrefly: ignore[missing-attribute]
 
 
 class OperationTest(absltest.TestCase):

@@ -20,6 +20,7 @@ from collections.abc import Callable, Iterable
 from typing import Any
 
 import pynini as pyn
+
 from nisaba.scripts.natural_translit.utils import type_op as ty
 from nisaba.scripts.utils import rewrite
 
@@ -101,7 +102,7 @@ class FstList(ty.IterableThing):
     if not self:
       return pyn.Fst()
     if len(self) == 1:
-      return self.item(0)
+      return self.item(0)  # pyrefly: ignore[bad-return]
     else:
       return pyn.union(*self)
 

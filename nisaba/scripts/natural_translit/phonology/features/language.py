@@ -56,7 +56,7 @@ class Language(ft.Feature):
       # other so there is no need for distance tables. If the subgroup steps
       # are changed to reflect similarity of related languages, the distance
       # tables should be appended below.
-      return self.language.visualize()
+      return self.language.visualize()  # pyrefly: ignore[missing-attribute]
 
 
 def _features() -> Language.Inventory:

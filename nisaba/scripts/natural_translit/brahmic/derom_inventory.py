@@ -42,17 +42,17 @@ def _get_from_dict(
 
 
 _BRH_MONO_DICT_ARGS = [
-    [iso.A, iso.A_I, iso.AA, iso.AA_I],
-    [iso.E, iso.E_I, iso.EE, iso.EE_I],
-    [iso.I, iso.I_I, iso.II, iso.II_I],
-    [iso.O, iso.O_I, iso.OO, iso.OO_I],
-    [iso.U, iso.U_I, iso.UU, iso.UU_I],
+    [iso.A, iso.A_I, iso.AA, iso.AA_I],  # pyrefly: ignore[missing-attribute]
+    [iso.E, iso.E_I, iso.EE, iso.EE_I],  # pyrefly: ignore[missing-attribute]
+    [iso.I, iso.I_I, iso.II, iso.II_I],  # pyrefly: ignore[missing-attribute]
+    [iso.O, iso.O_I, iso.OO, iso.OO_I],  # pyrefly: ignore[missing-attribute]
+    [iso.U, iso.U_I, iso.UU, iso.UU_I],  # pyrefly: ignore[missing-attribute]
 ]
 _BRH_DIPH_DICT_ARGS = [
-    [iso.AI, iso.AI_I],
-    [iso.AU, iso.AU_I],
-    [iso.EE, iso.EE_I],
-    [iso.OO, iso.OO_I],
+    [iso.AI, iso.AI_I],  # pyrefly: ignore[missing-attribute]
+    [iso.AU, iso.AU_I],  # pyrefly: ignore[missing-attribute]
+    [iso.EE, iso.EE_I],  # pyrefly: ignore[missing-attribute]
+    [iso.OO, iso.OO_I],  # pyrefly: ignore[missing-attribute]
 ]
 
 
@@ -87,14 +87,14 @@ def _long_vowel(arg: pyn.FstLike) -> ty.FstIterable:
   return _get_from_dict(_SHORT_LONG_DICT, log.text_of(arg))
 
 _BRH_ASP_DICT_ARGS = [
-    [iso.B, iso.BH],
-    [iso.C, iso.CH],
-    [iso.D, iso.DH],
-    [iso.G, iso.GH],
-    [iso.J, iso.JH],
-    [iso.K, iso.KH],
-    [iso.P, iso.PH],
-    [iso.T, iso.TH],
+    [iso.B, iso.BH],  # pyrefly: ignore[missing-attribute]
+    [iso.C, iso.CH],  # pyrefly: ignore[missing-attribute]
+    [iso.D, iso.DH],  # pyrefly: ignore[missing-attribute]
+    [iso.G, iso.GH],  # pyrefly: ignore[missing-attribute]
+    [iso.J, iso.JH],  # pyrefly: ignore[missing-attribute]
+    [iso.K, iso.KH],  # pyrefly: ignore[missing-attribute]
+    [iso.P, iso.PH],  # pyrefly: ignore[missing-attribute]
+    [iso.T, iso.TH],  # pyrefly: ignore[missing-attribute]
 ]
 _UNASP_ASP_DICT = {log.text_of(arg[0]): arg[1] for arg in _BRH_ASP_DICT_ARGS}
 
@@ -171,11 +171,11 @@ class DeromMapping(ty.Thing):
       priority: int = 0,
   ) -> 'DeromMapping':
     new = cls(alias, rom_list, brh_list, priority)
-    new.add_fst_fields([
+    new.add_fst_fields([  # pyrefly: ignore[bad-argument-type]
         ['rom_l', new.rom + new.rom],  # eg. latin ii
         ['brh_i', _independent_vowel(new.brh)],  # eg. iso .i
         ['brh_l', _long_vowel(new.brh)],  # eg. iso ī
-        ['brh_l_i', _independent_vowel(_long_vowel(new.brh))],  # eg. iso .ī
+        ['brh_l_i', _independent_vowel(_long_vowel(new.brh))],  # eg. iso .ī  # pyrefly: ignore[bad-argument-type]
         ])
     return new
 
@@ -188,12 +188,12 @@ class DeromMapping(ty.Thing):
       priority: int = 0,
   ) -> 'DeromMapping':
     new = cls(alias, rom_list, brh_list, priority)
-    brh_v = new.brh + iso.VIR
+    brh_v = new.brh + iso.VIR  # pyrefly: ignore[missing-attribute]
     rom_l = new.rom + new.rom  # eg. shsh
     if len(new.rom_list) > 1:
-      rom_l = pyn.union(rom_l, new.rom_list.item(0) + new.rom)  # eg. ssh
+      rom_l = pyn.union(rom_l, new.rom_list.item(0) + new.rom)  # eg. ssh  # pyrefly: ignore[unsupported-operation]
     new.add_fst_fields([
-        ['rom_h', new.rom + ltn.H],  # eg. latin ph
+        ['rom_h', new.rom + ltn.H],  # eg. latin ph  # pyrefly: ignore[missing-attribute]
         ['rom_l', rom_l],  # eg. latin pp
         ['brh_v', brh_v],  # eg. iso p
         ['brh_l', brh_v + new.brh],  # eg. iso ppa
@@ -201,10 +201,10 @@ class DeromMapping(ty.Thing):
     ])
     asp = _aspirated_consonant(new.brh)
     if not isinstance(asp, ty.Nothing):
-      asp_v = asp + iso.VIR
-      new.add_fst_fields([
-          ['rom_l_h', new.rom_l + ltn.H],  # eg. latin pph
-          ['rom_h_l', new.rom_h + new.rom_h],  # eg. phph
+      asp_v = asp + iso.VIR  # pyrefly: ignore[missing-attribute]
+      new.add_fst_fields([  # pyrefly: ignore[bad-argument-type]
+          ['rom_l_h', new.rom_l + ltn.H],  # eg. latin pph  # pyrefly: ignore[missing-attribute]
+          ['rom_h_l', new.rom_h + new.rom_h],  # eg. phph  # pyrefly: ignore[missing-attribute]
           ['brh_asp', asp],  # eg. iso pʰa
           ['brh_asp_v', asp_v],  # eg. iso pʰ
           ['brh_l_asp', brh_v + asp],  # eg. iso ppʰa
@@ -224,7 +224,7 @@ class DeromMapping(ty.Thing):
       priority: int = 0,
   ) -> 'DeromMapping':
     new = cls.consonant(alias, rom_list, brh_list, priority)
-    frg_v = frg + iso.VIR
+    frg_v = frg + iso.VIR  # pyrefly: ignore[missing-attribute]
     new.add_fst_fields([
         ['frg', frg],  # eg. iso fa
         ['frg_v', frg_v],  # eg. iso f
@@ -251,7 +251,7 @@ class DeromMapping(ty.Thing):
 
   def add_fst_fields(self, args_list: list[list[pyn.FstLike]]) -> None:
     for args in args_list:
-      self.add_fst_field(*args)
+      self.add_fst_field(*args)  # pyrefly: ignore[bad-argument-type]
 
   def get(self, attr: str) -> pyn.FstLike:
     return getattr(self, attr)
@@ -275,47 +275,47 @@ class _DeromMappingInventory(i.Inventory):
 
   def make_inventory(self):
     self.make_maps(DeromMapping.vowel, [
-        ['a', ltn.A, iso.A],
-        ['e', ltn.E, iso.E],
-        ['i', ltn.I, iso.I],
-        ['o', ltn.O, iso.O],
-        ['u', ltn.U, iso.U],
-        ['ai', [ltn.A, ltn.I], iso.AI],
-        ['au', [ltn.A, ltn.U], iso.AU],
-        ['ae_ee', [ltn.A, ltn.E], iso.EE],
-        ['oa_oo', [ltn.O, ltn.A], iso.OO],
+        ['a', ltn.A, iso.A],  # pyrefly: ignore[missing-attribute]
+        ['e', ltn.E, iso.E],  # pyrefly: ignore[missing-attribute]
+        ['i', ltn.I, iso.I],  # pyrefly: ignore[missing-attribute]
+        ['o', ltn.O, iso.O],  # pyrefly: ignore[missing-attribute]
+        ['u', ltn.U, iso.U],  # pyrefly: ignore[missing-attribute]
+        ['ai', [ltn.A, ltn.I], iso.AI],  # pyrefly: ignore[missing-attribute]
+        ['au', [ltn.A, ltn.U], iso.AU],  # pyrefly: ignore[missing-attribute]
+        ['ae_ee', [ltn.A, ltn.E], iso.EE],  # pyrefly: ignore[missing-attribute]
+        ['oa_oo', [ltn.O, ltn.A], iso.OO],  # pyrefly: ignore[missing-attribute]
     ])
     self.make_maps(DeromMapping.consonant, [
-        ['b', ltn.B, iso.B],
-        ['b_p', ltn.B, iso.P],
-        ['ch', [ltn.C, ltn.H], iso.C],
-        ['d', ltn.D, iso.D],
-        ['d_t', ltn.D, iso.T],
-        ['g', ltn.G, iso.G],
-        ['g_k', ltn.G, iso.K],
-        ['j', ltn.J, iso.J],
-        ['k', ltn.K, iso.K],
-        ['p', ltn.P, iso.P],
-        ['t', ltn.T, iso.T],
-        ['c', ltn.C, iso.C],
-        ['h', ltn.H, iso.H],
-        ['l', ltn.L, iso.L],
-        ['m', ltn.M, iso.M],
-        ['n', ltn.N, iso.N],
-        ['q', ltn.Q, iso.K],
-        ['r', ltn.R, iso.R],
-        ['s', ltn.S, iso.S],
-        ['sh', [ltn.S, ltn.H], iso.SH],
-        ['v', ltn.V, iso.V],
-        ['w', ltn.W, iso.V],
-        ['x', ltn.X, [iso.K, iso.VIR, iso.S]],
-        ['y', ltn.Y, iso.Y],
-        ['tr_rr', [ltn.T, ltn.R], iso.RR],
-        ['zh_lr', [ltn.Z, ltn.H], iso.LR, 1],
+        ['b', ltn.B, iso.B],  # pyrefly: ignore[missing-attribute]
+        ['b_p', ltn.B, iso.P],  # pyrefly: ignore[missing-attribute]
+        ['ch', [ltn.C, ltn.H], iso.C],  # pyrefly: ignore[missing-attribute]
+        ['d', ltn.D, iso.D],  # pyrefly: ignore[missing-attribute]
+        ['d_t', ltn.D, iso.T],  # pyrefly: ignore[missing-attribute]
+        ['g', ltn.G, iso.G],  # pyrefly: ignore[missing-attribute]
+        ['g_k', ltn.G, iso.K],  # pyrefly: ignore[missing-attribute]
+        ['j', ltn.J, iso.J],  # pyrefly: ignore[missing-attribute]
+        ['k', ltn.K, iso.K],  # pyrefly: ignore[missing-attribute]
+        ['p', ltn.P, iso.P],  # pyrefly: ignore[missing-attribute]
+        ['t', ltn.T, iso.T],  # pyrefly: ignore[missing-attribute]
+        ['c', ltn.C, iso.C],  # pyrefly: ignore[missing-attribute]
+        ['h', ltn.H, iso.H],  # pyrefly: ignore[missing-attribute]
+        ['l', ltn.L, iso.L],  # pyrefly: ignore[missing-attribute]
+        ['m', ltn.M, iso.M],  # pyrefly: ignore[missing-attribute]
+        ['n', ltn.N, iso.N],  # pyrefly: ignore[missing-attribute]
+        ['q', ltn.Q, iso.K],  # pyrefly: ignore[missing-attribute]
+        ['r', ltn.R, iso.R],  # pyrefly: ignore[missing-attribute]
+        ['s', ltn.S, iso.S],  # pyrefly: ignore[missing-attribute]
+        ['sh', [ltn.S, ltn.H], iso.SH],  # pyrefly: ignore[missing-attribute]
+        ['v', ltn.V, iso.V],  # pyrefly: ignore[missing-attribute]
+        ['w', ltn.W, iso.V],  # pyrefly: ignore[missing-attribute]
+        ['x', ltn.X, [iso.K, iso.VIR, iso.S]],  # pyrefly: ignore[missing-attribute]
+        ['y', ltn.Y, iso.Y],  # pyrefly: ignore[missing-attribute]
+        ['tr_rr', [ltn.T, ltn.R], iso.RR],  # pyrefly: ignore[missing-attribute]
+        ['zh_lr', [ltn.Z, ltn.H], iso.LR, 1],  # pyrefly: ignore[missing-attribute]
     ])
     self.make_maps(DeromMapping.foreign_consonant, [
-        ['f', ltn.F, iso.PH, iso.F],
-        ['z', ltn.Z, iso.J, iso.Z],
+        ['f', ltn.F, iso.PH, iso.F],  # pyrefly: ignore[missing-attribute]
+        ['z', ltn.Z, iso.J, iso.Z],  # pyrefly: ignore[missing-attribute]
     ])
 
 DEROMANIZATION_INVENTORY = _DeromMappingInventory()
